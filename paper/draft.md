@@ -76,18 +76,18 @@ figures `results/fig_psd_usable_band.png`, `results/fig_channel_mi.png`).
 segmentation/windowing, feature-definition table, classifiers, and the four
 evaluation protocols with the leakage rationale; multi-seed statistics).
 
-## VI. Results (to finalize with Analysis D)
-- VI-A Optimism gap [Table C, Fig. optimism_gap, Fig. confusion].
-- VI-B Accuracy–resource trade-offs [Analysis D, Fig. tradeoffs_*].
-- VI-C Link budget & edge footprint [Table E].
+## VI. Results
+**Finalized in `paper/results.tex`** (report-focused; optimism-gap table,
+trade-off sweeps + frugal recipe, link budget + footprint; figures gap/confusion/
+tradeoffs/recipe). VI-A optimism table reconciling to 5-seed values.
 
-## VII. Discussion / Limitations
-Single 1.1 kW motor, laboratory-induced discrete faults, qualitative B1/B2
-severity; energy figures emulated not measured; results are a *lower-bound,
-honest* baseline rather than a field claim. Cross-dataset validation
-(downsampled industrial benchmark) is identified as the key generalization test.
+## VII. Discussion and Limitations
+**Finalized in `paper/discussion.tex`** (evaluation-methodology implication,
+ultra-low-bandwidth-as-asset, model complexity/edge feasibility, sensor guidance,
+scope; then limitations: single motor, 36 recordings/wide CIs, qualitative B1/B2,
+energy indirect, cross-machine generalization as future work).
 
 ## VIII. Conclusion
-Low-rate smartphone-MEMS CM is viable for coarse fault states and edge/IoT
-deployment, but only under leakage-free evaluation; we provide the methodology,
-the sensor characterization, and the trade-off map to do so reproducibly.
+*(TODO)* Low-rate smartphone-MEMS CM is viable for coarse fault states and
+edge/IoT deployment, but only under leakage-free evaluation; the paper provides
+the methodology, the sensor characterization, and the trade-off map reproducibly.
