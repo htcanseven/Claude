@@ -1,9 +1,8 @@
 # Paper outline — IEEE Transactions on Instrumentation and Measurement (TIM)
 
-**Working title:**
-*Deployment-Realistic Condition Monitoring of Induction Motors With a Low-Cost
-MEMS Accelerometer: An Accuracy–Resource Trade-off Characterization for Edge/IoT
-Sensing*
+**Title:**
+*Deployment-Realistic IoT-Based Condition Monitoring of Induction Motors Using
+Low-Cost MEMS Sensing*
 
 **One-line thesis:** Ultra-low-bandwidth (100 Hz) smartphone-grade MEMS vibration
 sensing can support reliable motor condition monitoring on constrained IoT/edge

@@ -5,8 +5,8 @@
 > analyses; the trade-off/results wording is finalized once Analysis D lands.
 
 ## Title
-Deployment-Realistic Condition Monitoring of Induction Motors With a Low-Cost
-MEMS Accelerometer: Accuracy–Resource Trade-offs for Edge/IoT Sensing
+Deployment-Realistic IoT-Based Condition Monitoring of Induction Motors Using
+Low-Cost MEMS Sensing
 
 ## Abstract (draft)
 Vibration-based condition monitoring (CM) of induction motors is increasingly

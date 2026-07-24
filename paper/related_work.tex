@@ -1,0 +1,133 @@
+% ============================================================================
+%  Section II — Related Work  (IEEE TIM, IEEEtran)
+%  Drop-in for Overleaf. Requires in the preamble:
+%     \usepackage{booktabs}   % nicer tables
+%     \usepackage{pifont}     % \ding checkmarks/crosses
+%     \usepackage{multirow}
+%  Citations resolve against refs.bib.
+%  Convenience macros (place once in preamble; repeated here for portability):
+\providecommand{\cmark}{\ding{51}}        % yes
+\providecommand{\xmark}{\ding{55}}        % no
+\providecommand{\pmark}{$\sim$}            % partial
+% ============================================================================
+
+\section{Related Work}
+\label{sec:related}
+
+\subsection{Vibration-Based Condition Monitoring of Induction Motors}
+Vibration analysis is a mature and widely adopted modality for detecting
+mechanical and electrical faults in induction motors, including bearing defects,
+rotor asymmetries, and supply imbalances~\cite{gangsar2020signal,
+hamani2025advancements}. Classical pipelines rely on industrial-grade
+piezoelectric accelerometers sampled at tens to hundreds of kilohertz, which
+resolve characteristic bearing defect frequencies (BPFO, BPFI, BSF) and their
+harmonics through spectral and envelope analysis. This paradigm underpins the
+public benchmarks that dominate the field: representative datasets are acquired
+at $8$--$16$~kHz~\cite{lee2024multidomain}, $42$~kHz~\cite{sehri2024ottawa},
+$51.2$~kHz~\cite{thuan2023hust}, and up to $200$~kHz~\cite{huang2018bearing}.
+More recently, deep learning has become the default classifier family for such
+signals~\cite{yang2021fault, zhang2020deep}. High-frequency acquisition,
+however, entails costly instrumentation, intrusive cabling, and limited
+portability, which restrict deployment to the comparatively small population of
+critical machines and leave the many low-value motors in a plant unmonitored.
+
+\subsection{Low-Cost MEMS and Smartphone-Based Vibration Sensing}
+Micro-electro-mechanical-systems (MEMS) inertial sensors have emerged as an
+inexpensive, compact alternative for vibration acquisition. Their metrological
+limits relative to reference-grade accelerometers---narrower bandwidth and
+higher noise floor---are well documented~\cite{grouios2022accelerometers}, and
+condition-monitoring practitioners have generally regarded consumer-grade MEMS
+bandwidth as insufficient for bearing diagnosis~\cite{pedotti2020lowcost}.
+Nonetheless, a growing body of work demonstrates fault detection from
+smartphone- or MEMS-acquired signals, using mobile applications and, more
+recently, deep networks~\cite{naha2017mobile, ertargin2023deep,
+ertargin2025automated}. In parallel, purpose-built low-cost MEMS sensor nodes
+combine on-node processing with short-range or long-range radios for machine
+diagnostics~\cite{pedotti2020lowcost, jakobsen2024lowcost}. The dataset employed
+in this study~\cite{ertargin2026smartphone, ertargin2026dataset} extends this
+line by providing long-duration, multi-condition smartphone-MEMS recordings at a
+software-capped $100$~Hz. Crucially, the accompanying baseline reports
+near-perfect classification accuracy under a random split of overlapping
+windows, a protocol we scrutinise in Section~\ref{subsec:leakage}.
+
+\subsection{IoT, Edge, and TinyML for Condition Monitoring}
+The Industrial Internet of Things reframes condition monitoring as a distributed
+sensing problem in which many inexpensive nodes stream---or locally
+distil---diagnostic information over constrained wireless
+links~\cite{yousuf2024iot}. Because raw high-rate vibration cannot be sustained
+over low-power wide-area radios, a large fraction of recent work pushes feature
+extraction or inference onto the node itself. TinyML implementations of
+lightweight classifiers on microcontrollers report bearing-fault accuracies with
+millisecond-scale latency and sub-millijoule energy per
+inference~\cite{gao2025edge, asutkar2023tinyml}, and low-cost MEMS nodes
+integrate on-board spectral analysis with LoRa or Bluetooth Low Energy
+telemetry~\cite{jakobsen2024lowcost}. These studies establish the feasibility of
+edge diagnosis but typically assume industrial-bandwidth sensing and rarely
+quantify the coupled trade-off between sampling/communication cost and diagnostic
+accuracy that governs an ultra-low-rate node.
+
+\subsection{Evaluation Methodology and Data Leakage}
+\label{subsec:leakage}
+A recurring threat to the credibility of learning-based fault diagnosis is data
+leakage---the inadvertent sharing of information between training and test
+partitions that inflates reported accuracy and does not transfer to
+deployment~\cite{kapoor2023leakage}. In vibration diagnosis specifically, two
+mechanisms dominate: (i) splitting \emph{overlapping} analysis windows drawn from
+the same continuous recording, so that near-duplicate segments populate both
+partitions; and (ii) condition- or recording-wise correlations that let a model
+recognise \emph{which recording} a window originates from rather than the fault
+itself. Recent studies show that enforcing component-wise (e.g., bearing-wise) or
+recording-wise separation causes headline accuracies to fall
+substantially~\cite{wheat2024impact, hendriks2022towards}. Despite these
+warnings, random-split evaluation remains prevalent in smartphone- and
+MEMS-based motor diagnosis, including the baseline accompanying the dataset used
+here~\cite{ertargin2026smartphone}. A rigorous, deployment-honest re-evaluation
+of low-rate MEMS condition monitoring is therefore still missing.
+
+\subsection{Positioning and Contributions}
+Table~\ref{tab:positioning} situates this work against representative prior art.
+Existing studies advance one axis at a time: high-rate benchmarks and deep models
+maximise accuracy but ignore cost and evaluation rigour; methodology papers expose
+leakage but on industrial-grade data; smartphone-based studies embrace low-cost
+sensing but retain optimistic random-split evaluation; and IoT/TinyML works
+demonstrate edge deployment yet assume industrial bandwidth. To our knowledge, no
+prior study jointly (i) evaluates ultra-low-rate smartphone-MEMS motor diagnosis
+under a leakage-free, cross-condition protocol, (ii) characterises the consumer
+MEMS channel as a measurement instrument, and (iii) maps the accuracy--resource
+trade-off into an IoT link budget and edge-model footprint. This paper closes that
+gap, providing a reproducible and deployment-realistic baseline for
+IoT-based condition monitoring of induction motors with low-cost MEMS sensing.
+
+% ---------------------------------------------------------------------------
+\begin{table*}[t]
+\centering
+\caption{Positioning of this work against representative prior studies.
+\cmark~= addressed, \pmark~= partially addressed, \xmark~= not addressed.}
+\label{tab:positioning}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}p{3.9cm}p{2.6cm}ccccc@{}}
+\toprule
+\textbf{Representative work(s)} & \textbf{Sensor / rate} &
+\textbf{Low} & \textbf{Leakage-free} & \textbf{Acc.--resource} &
+\textbf{IoT/edge} & \textbf{Sensor} \\
+ & & \textbf{cost} & \textbf{evaluation} & \textbf{trade-off} &
+\textbf{analysis} & \textbf{charact.} \\
+\midrule
+High-rate vibration FD \& deep models~\cite{lee2024multidomain,sehri2024ottawa,thuan2023hust,zhang2020deep}
+ & Industrial accel., $8$--$200$\,kHz & \xmark & \xmark & \xmark & \xmark & \xmark \\
+Evaluation / leakage studies~\cite{kapoor2023leakage,wheat2024impact,hendriks2022towards}
+ & Industrial accel., k\,Hz & \xmark & \cmark & \xmark & \xmark & \xmark \\
+Smartphone / mobile motor FD~\cite{naha2017mobile,ertargin2023deep,ertargin2025automated}
+ & Smartphone MEMS, $\leq$\,k\,Hz & \cmark & \xmark & \xmark & \pmark & \xmark \\
+Source-dataset baseline~\cite{ertargin2026smartphone}
+ & Smartphone MEMS, $100$\,Hz & \cmark & \xmark & \xmark & \xmark & \pmark \\
+Low-cost MEMS sensor nodes~\cite{pedotti2020lowcost,jakobsen2024lowcost}
+ & MEMS node, k\,Hz & \cmark & \xmark & \pmark & \cmark & \pmark \\
+TinyML edge fault diagnosis~\cite{gao2025edge,asutkar2023tinyml}
+ & (Lab) accel., k\,Hz & \cmark & \xmark & \pmark & \cmark & \xmark \\
+\midrule
+\textbf{This work} & \textbf{Smartphone-grade MEMS, $100$\,Hz}
+ & \cmark & \cmark & \cmark & \cmark & \cmark \\
+\bottomrule
+\end{tabular}
+\end{table*}
