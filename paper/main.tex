@@ -1,0 +1,84 @@
+% ============================================================================
+%  Main file — IEEE Transactions on Instrumentation and Measurement
+%  Assembles the section files. Compile with pdflatex + bibtex + pdflatex x2.
+%  Overleaf: set this as the main document; keep refs.bib and the figures
+%  (results/*.png) alongside, or adjust \graphicspath below.
+% ============================================================================
+\documentclass[journal]{IEEEtran}
+
+% --- packages required across the section files ---
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pifont}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage[hidelinks]{hyperref}
+\usepackage{cite}
+
+% checkmarks used in comparison / link-budget tables
+\providecommand{\cmark}{\ding{51}}
+\providecommand{\xmark}{\ding{55}}
+\providecommand{\pmark}{$\sim$}
+
+% figures live in ../results relative to paper/ ; edit for your Overleaf layout
+\graphicspath{{../results/}{results/}{./}}
+
+\begin{document}
+
+\title{Deployment-Realistic IoT-Based Condition Monitoring of Induction Motors
+Using Low-Cost MEMS Sensing}
+
+% TODO: complete author list and affiliations
+\author{H\"useyin Canseven%
+\thanks{Manuscript submitted \today. (Corresponding author: H. Canseven.)}%
+\thanks{The author is with LUT University, Finland
+(e-mail: huseyin.canseven@lut.fi).}}
+
+\maketitle
+
+% --- abstract (draft; passive voice) ---
+\begin{abstract}
+Vibration-based condition monitoring of induction motors is increasingly
+attractive on low-cost micro-electro-mechanical-systems (MEMS) sensors suitable
+for wireless Internet-of-Things nodes; however, the low sampling rates of such
+sensors and the evaluation practices common in the literature raise questions
+about real-world performance. In this work, a publicly available
+smartphone-acquired vibration dataset---six health states, three supply
+frequencies, two load conditions, sampled at $100$~Hz---is used to establish a
+deployment-realistic baseline for IoT-based motor condition monitoring. It is
+shown that the near-perfect accuracies obtained under random splitting of
+overlapping windows are largely a data-leakage artefact: under a leakage-free,
+recording-wise protocol the accuracy falls by approximately $40$ percentage
+points. The smartphone MEMS channel is characterised as a measurement instrument,
+revealing that the on-device gravity compensation discards diagnostically useful
+low-frequency content. An accuracy--resource trade-off analysis further shows
+that a resource-frugal configuration ($25$~Hz sampling, three raw channels, a
+$4$~s window) is not only sufficient but superior to the naive configuration
+under honest evaluation, and a communication link budget together with an
+edge-model footprint identifies deployable operating points for Bluetooth Low
+Energy, Zigbee, NB-IoT, and LoRaWAN nodes. The study provides a reproducible and
+deployment-honest reference for low-cost IoT-based condition monitoring of
+induction motors.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Condition monitoring, fault diagnosis, induction motors, MEMS accelerometer,
+Internet of Things, edge computing, data leakage, evaluation methodology,
+low-cost sensing.
+\end{IEEEkeywords}
+
+% \input{intro}          % TODO: Section I — Introduction
+\input{related_work}      % Section II
+\input{dataset}           % Section III
+\input{characterization}  % Section IV
+\input{methodology}       % Section V
+\input{results}           % Section VI
+% \input{conclusion}     % TODO: Section VII — Conclusion
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+
+\end{document}
