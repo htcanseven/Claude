@@ -1,0 +1,28 @@
+# --- Dataset (DO NOT COMMIT) ---
+# The smartphone-MEMS dataset is CC BY-NC and large; keep it local, do not redistribute.
+data/raw/*
+!data/raw/.gitkeep
+!data/raw/README.md
+data/processed/*
+!data/processed/.gitkeep
+data/external/*
+!data/external/.gitkeep
+
+# --- Generated results ---
+results/*
+!results/.gitkeep
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+*.egg-info/
+.pytest_cache/
+
+# --- OS / editor ---
+.DS_Store
+.vscode/
+.idea/
