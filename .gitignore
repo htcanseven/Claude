@@ -9,8 +9,8 @@ data/external/*
 !data/external/.gitkeep
 
 # --- Generated results ---
-results/*
-!results/.gitkeep
+# Reports (.md/.json) and figures (.png) ARE tracked — they are deliverables.
+# Only ignore heavyweight regenerable caches if any appear later.
 
 # --- Python ---
 __pycache__/

@@ -1,0 +1,36 @@
+{
+  "bitrates_bps": {
+    "raw(6ch int16)": 9600,
+    "features(84\u00b7f32/s)": 2688.0,
+    "features(min 6/s)": 192.0,
+    "decision(1/s)": 40.0
+  },
+  "links_bps": {
+    "BLE 4.2": 300000,
+    "Zigbee 15.4": 100000,
+    "NB-IoT": 30000,
+    "LoRaWAN(1%DC)": 55
+  },
+  "footprint": {
+    "RF-200": {
+      "acc": 46.43652561247216,
+      "acc_std": 10.902850785417682,
+      "size_bytes": 1086993
+    },
+    "RF-50-d8": {
+      "acc": 51.17545162088592,
+      "acc_std": 8.87359605098324,
+      "size_bytes": 219508
+    },
+    "DecisionTree-d8": {
+      "acc": 43.67730759712942,
+      "acc_std": 10.708530804951181,
+      "size_bytes": 4427
+    },
+    "LogReg": {
+      "acc": 52.186958673595655,
+      "acc_std": 14.770300103490028,
+      "size_bytes": 4798
+    }
+  }
+}
