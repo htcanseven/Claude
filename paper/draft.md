@@ -71,19 +71,10 @@ representative-signals figure `results/fig_example_signals.png`).
 resolution/noise floor, usable-band PSD, raw-vs-gravity-compensated channels;
 figures `results/fig_psd_usable_band.png`, `results/fig_channel_mi.png`).
 
-## V. Methodology (draft)
-**Windowing/features.** Each recording is split into 2 s windows at 50% overlap
-(32,328 windows total, matching the data article), and 14 time-domain features
-per channel (RMS, STD, variance, peak-to-peak, max-abs, skewness, kurtosis,
-crest/shape/impulse/clearance factors, zero-crossing rate, amplitude entropy).
-
-**Evaluation protocols.** We contrast four protocols on identical features:
-*RANDOM* (stratified split over all windows — the prevailing practice), *GROUP*
-(whole-recording holdout via StratifiedGroupKFold; leakage-free), *CROSS-SPEED*
-(leave-one-supply-frequency-out), and *CROSS-LOAD* (leave-one-load-out). We report
-accuracy and macro-F1 with dispersion across folds. Classifiers: Random Forest,
-KNN, and an RBF-approximate SVM; simple linear/tree models are added for the
-footprint study.
+## V. Methodology
+**Finalized in `paper/methodology.tex`** (passive voice; pipeline figure,
+segmentation/windowing, feature-definition table, classifiers, and the four
+evaluation protocols with the leakage rationale; multi-seed statistics).
 
 ## VI. Results (to finalize with Analysis D)
 - VI-A Optimism gap [Table C, Fig. optimism_gap, Fig. confusion].
