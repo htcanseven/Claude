@@ -51,9 +51,27 @@ figures in `results/*.png`. Seed 0 throughout.
   blur together** (B2 recall 0.16) and bearing/electrical faults confuse —
   consistent with the missing high-frequency bearing information.
 
-## D · Accuracy–resource trade-offs  (`analysis_D.md`)
+## D · Accuracy–resource trade-offs  (`analysis_D.md`, `analysis_harden.md`)
 
-*(running — table and `fig_tradeoffs_*.png` to be inserted)*
+Leakage-free GROUP protocol; single-seed sweeps (`fig_tradeoffs_*.png`) plus
+5-seed confirmation for the headline knobs.
+
+- **Sampling rate (multi-seed):** 100 Hz → 53.7%, **25 Hz → 64.9% (best)**, 10 Hz
+  → 59.7%. Every rate ≤ 25 Hz matches or beats 100 Hz — the anti-alias low-pass
+  removes high-frequency content the model overfits. *100 Hz confers no benefit.*
+- **Channels:** raw-3ch (56.7%) **beats** all-6ch (46.4%); the gravity-compensated
+  triad and single axes are worse. Fewer, better-chosen channels win.
+- **Window length:** 4 s (63.3%) > 2 s (46.4%) — longer windows generalize better
+  (cost: detection latency).
+- **Feature set:** the 6-feature "paper" subset (45.3%) ≈ full 14-feature set
+  (46.4%) — a minimal, edge-cheap feature set suffices.
+- **Quantization:** graceful — 8-bit 50%, 4-bit 45% (≈ float baseline).
+- **Packet loss:** essentially flat to 20% loss (~47%) — robust for lossy wireless.
+- **Mounting rotation:** degrades with orientation offset (30° → 31%), motivating
+  careful mounting or orientation-invariant features.
+- **Combined optimal (25 Hz + raw-3ch + 4 s), multi-seed:** **RF 74.2%** vs the
+  naive baseline **53.7%** (`fig_recipe_stacking.png`). *The frugal, IoT-friendly
+  choices stack into a ~20-point gain* while cutting raw data volume ~8×.
 
 ## E · Link budget & edge footprint  (`analysis_E.md`)
 
@@ -78,7 +96,8 @@ figures in `results/*.png`. Seed 0 throughout.
    smartphone-MEMS CM performance by **35–52 points**.
 2. **Feasibility bound:** at 100 Hz, coarse states (healthy / broken-rotor) are
    reliably separable; fine bearing-degradation staging is not (Nyquist-limited).
-3. **Trade-off characterization:** *(D)* quantifies how far sampling rate,
-   channels, window, quantization, loss and mounting can be pushed.
+3. **Trade-off characterization:** the resource-*optimal* IoT configuration
+   (25 Hz, raw-3ch, 4 s) **beats** the naive 100 Hz/6-channel baseline (74% vs
+   54%); robust to quantization and packet loss, sensitive to mounting.
 4. **Deployability:** tiny models + on-node decisions make LoRa-class IoT nodes
    viable, and small models *also generalize better* under honest evaluation.
