@@ -66,22 +66,10 @@ citations resolve against `paper/refs.bib`).
 and measured-speed tables, test-rig figure placeholder, and the original
 representative-signals figure `results/fig_example_signals.png`).
 
-## IV. Sensor and Signal Characterization (draft)
-Treating the phone as an instrument under test, we estimate an effective
-resolution (smallest quantization step) of ~0.015 mg on the raw channels and a
-noise-floor PSD of −70.8 dB (g²/Hz) above 30 Hz [analysis_B]. The usable band is
-hard-capped at 50 Hz (Nyquist); nonetheless diagnostic structure is present
-within it — the rotational fundamental (~24 Hz at 50 Hz supply) and low harmonics
-for R and V, and a broadband lift for bearing faults, against a healthy baseline
-~10× lower in power [Fig. psd]. High-frequency bearing tones (BPFO/BPFI/BSF) lie
-beyond the band, bounding what is recoverable.
-
-A measurement subtlety specific to smartphone acquisition: the raw and
-gravity-compensated triads are only moderately correlated (r ≈ 0.46–0.58), and
-the **raw channels carry more label information** (mean MI 0.65–0.75) than the
-compensated ones (0.46–0.57) [Fig. mi]. The on-device complementary filter that
-produces `userAcceleration` therefore removes diagnostically useful
-low-frequency content; raw channels are preferable for CM.
+## IV. Sensor and Signal Characterization
+**Finalized in `paper/characterization.tex`** (passive voice; effective
+resolution/noise floor, usable-band PSD, raw-vs-gravity-compensated channels;
+figures `results/fig_psd_usable_band.png`, `results/fig_channel_mi.png`).
 
 ## V. Methodology (draft)
 **Windowing/features.** Each recording is split into 2 s windows at 50% overlap
