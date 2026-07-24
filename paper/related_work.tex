@@ -48,7 +48,7 @@ in this study~\cite{ertargin2026smartphone, ertargin2026dataset} extends this
 line by providing long-duration, multi-condition smartphone-MEMS recordings at a
 software-capped $100$~Hz. Crucially, the accompanying baseline reports
 near-perfect classification accuracy under a random split of overlapping
-windows, a protocol we scrutinise in Section~\ref{subsec:leakage}.
+windows, a protocol that is scrutinised in Section~\ref{subsec:leakage}.
 
 \subsection{IoT, Edge, and TinyML for Condition Monitoring}
 The Industrial Internet of Things reframes condition monitoring as a distributed
@@ -86,12 +86,13 @@ of low-rate MEMS condition monitoring is therefore still missing.
 
 \subsection{Positioning and Contributions}
 Table~\ref{tab:positioning} situates this work against representative prior art.
-Existing studies advance one axis at a time: high-rate benchmarks and deep models
+Existing studies advance one axis at a time. High-rate benchmarks and deep models
 maximise accuracy but ignore cost and evaluation rigour; methodology papers expose
 leakage but on industrial-grade data; smartphone-based studies embrace low-cost
 sensing but retain optimistic random-split evaluation; and IoT/TinyML works
-demonstrate edge deployment yet assume industrial bandwidth. To our knowledge, no
-prior study jointly (i) evaluates ultra-low-rate smartphone-MEMS motor diagnosis
+demonstrate edge deployment yet assume industrial bandwidth. To the best of the
+authors' knowledge, no prior study jointly (i) evaluates ultra-low-rate
+smartphone-MEMS motor diagnosis
 under a leakage-free, cross-condition protocol, (ii) characterises the consumer
 MEMS channel as a measurement instrument, and (iii) maps the accuracy--resource
 trade-off into an IoT link budget and edge-model footprint. This paper closes that

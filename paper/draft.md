@@ -57,28 +57,14 @@ contributions are:
    link budget and edge-model footprint, yielding deployable operating points.
 All code and configurations are released for reproducibility.
 
-## II. Related Work (draft skeleton)
-- Signal-based CM of induction motors; bearing/rotor/electrical fault signatures
-  [1–3]. High-rate accelerometer datasets [4–8] (contrast in [Table 1] of the
-  data article: 8–200 kHz vs our 100 Hz).
-- Low-cost / MEMS / smartphone vibration sensing [9]; low-sampling-rate CM
-  feasibility [10–13].
-- ML for fault diagnosis and **evaluation pitfalls**: window overlap and
-  subject/recording leakage inflate accuracy; group-aware validation. *(position
-  our methodological contribution here.)*
-- Edge/IoT CM and TinyML; communication constraints (LoRaWAN duty cycle, etc.).
+## II. Related Work
+**Finalized in `paper/related_work.tex`** (five subsections + positioning table;
+citations resolve against `paper/refs.bib`).
 
-## III. Dataset and Measurement Setup (draft)
-We use the public smartphone-MEMS dataset of [data article] (Mendeley
-`10.17632/rs4vz8n3t5`). A 1.1 kW three-phase squirrel-cage motor, driven by a
-V/f inverter and loaded by a DC generator, was recorded with an iPhone 15 Pro Max
-(Sensor Play app) rigidly taped to the terminal box. Six channels are provided —
-raw triaxial acceleration (gX,gY,gZ) and gravity-compensated linear acceleration
-(gUserX,gUserY,gUserZ) — at 100 Hz for 15 min per condition. Six health states
-(healthy H; insufficient/severe-insufficient lubrication B1/B2; cracked outer
-ring B3; voltage imbalance V; broken rotor bar R) were recorded at 30/40/50 Hz
-supply under loaded/unloaded operation: 6×2×3 = 36 recordings. We verified all 36
-files contain exactly 89,999 samples with no missing values [validation.md].
+## III. Dataset and Measurement Setup
+**Finalized in `paper/dataset.tex`** (passive voice; specifications, fault-emulation
+and measured-speed tables, test-rig figure placeholder, and the original
+representative-signals figure `results/fig_example_signals.png`).
 
 ## IV. Sensor and Signal Characterization (draft)
 Treating the phone as an instrument under test, we estimate an effective

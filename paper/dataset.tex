@@ -1,0 +1,186 @@
+% ============================================================================
+%  Section III — Dataset and Measurement Setup  (IEEE TIM, IEEEtran)
+%  Passive voice / third person throughout. Requires: booktabs, graphicx, multirow.
+%  Details, and the reused measured-speed values, are taken from the source
+%  data article \cite{ertargin2026smartphone}; the dataset is on Mendeley Data
+%  \cite{ertargin2026dataset} (CC BY 4.0).
+% ============================================================================
+
+\section{Dataset and Measurement Setup}
+\label{sec:dataset}
+
+The present study is based on the publicly available smartphone-acquired
+vibration dataset introduced in~\cite{ertargin2026smartphone} and archived on
+Mendeley Data~\cite{ertargin2026dataset}. The dataset was selected because it
+embodies exactly the low-cost, low-bandwidth acquisition regime targeted in this
+work. This section summarises the test rig, the acquisition chain, the emulated
+fault conditions, and the organisation of the recordings; the reader is referred
+to the original data article for the complete experimental protocol. The
+acquisition and dataset parameters are consolidated in
+Table~\ref{tab:specs}.
+
+\subsection{Test Rig and Motor}
+The measurements were carried out on a $1.1$~kW three-phase squirrel-cage
+induction motor, a rating representative of the large population of small
+general-purpose drives found in industry. Variable-speed operation was obtained
+through a voltage/frequency ($V/f$)-controlled inverter, and a mechanical load
+was applied by a DC generator coupled directly to the motor shaft, enabling both
+loaded and unloaded operation. A consumer smartphone was affixed to the motor
+terminal box with double-sided adhesive tape, oriented approximately parallel to
+the shaft axis; the mounting location was marked so that the placement could be
+reproduced across successive installations. The complete arrangement of motor,
+inverter, and DC generator is shown in Fig.~\ref{fig:testrig}.
+
+\subsection{Acquisition Chain and Signal Channels}
+Vibration signals were acquired with an iPhone~15 Pro Max using its integrated
+tri-axial MEMS inertial sensor, accessed through the \textit{Sensor Play}
+application. Six channels were recorded for every operating condition: the three
+raw acceleration components ($g_x$, $g_y$, $g_z$) and the three
+gravity-compensated linear-acceleration components ($g_{userx}$, $g_{usery}$,
+$g_{userz}$) produced by the device's on-board sensor fusion. All channels were
+sampled at $100$~Hz, which corresponds to the maximum stable rate supported by
+the acquisition application, and each operating condition was recorded
+continuously for $15$~minutes. The resulting sampling rate is one to three
+orders of magnitude below that of the industrial-grade benchmarks discussed in
+Section~\ref{sec:related}, and constrains the analysable band to below
+$50$~Hz in accordance with the Nyquist criterion~\cite{nyquist1924certain,
+shannon1948mathematical}.
+
+\subsection{Health States and Fault Emulation}
+Six motor health states were considered: one healthy (fault-free) baseline and
+five fault conditions spanning mechanical and electrical origins, as summarised
+in Table~\ref{tab:faults}. The bearing faults were introduced by substituting a
+$6205$ZZ bearing that had been extracted from industrially operated motors, so
+that the degradation reflects realistic in-service mechanisms rather than
+artificial machining. Two lubrication-starvation severities were distinguished:
+insufficient lubrication~(B1) and severe insufficient lubrication~(B2), the
+severity being assigned qualitatively from the rotational behaviour observed
+during manual inspection; a bearing with a cracked outer ring~(B3) constituted a
+localised mechanical defect. The electrical fault, voltage imbalance~(V), was
+produced by inserting voltage-divider resistors in one supply phase, which
+yielded a pronounced phase-current asymmetry (for example, phase currents of
+$0.75$/$2.75$/$3.03$~A at $50$~Hz under load~\cite{ertargin2026smartphone}). The
+rotor fault, broken rotor bar~(R), was emulated by drilling four holes of
+$5$--$9$~mm diameter and $16$--$18$~mm depth into the rotor bars. Because
+fault-related vibration signatures are speed-dependent, the shaft speed was
+recorded for every condition; the measured values are reproduced in
+Table~\ref{tab:speeds}, where the reduced speed under voltage imbalance
+(e.g., $1326$~r/min versus $1434$~r/min for the healthy motor at $50$~Hz under
+load) is consistent with the torque disturbance introduced by that fault.
+
+\subsection{Operating Conditions and Dataset Organisation}
+Each of the six health states was recorded at three supply frequencies
+($30$, $40$, and $50$~Hz) and under two load conditions (loaded and unloaded),
+producing a fully crossed matrix of $6\times3\times2 = 36$ recordings. The files
+follow the naming convention \texttt{Class\_Load\_SpeedHz}, where the load
+indicator is~\texttt{1} for loaded and~\texttt{0} for unloaded operation; for
+instance, \texttt{B1\_1\_40Hz} denotes insufficient lubrication under load at
+$40$~Hz. Each recording is provided in both comma-separated (\texttt{.csv}) and
+MATLAB (\texttt{.mat}) formats. Representative gravity-compensated waveforms for
+the six health states, recorded under identical operating conditions, are shown
+in Fig.~\ref{fig:signals}; the healthy motor exhibits markedly lower vibration
+amplitude, whereas the fault conditions produce larger and morphologically
+distinct responses.
+
+\subsection{Data Integrity}
+Prior to analysis, an independent integrity check was performed on all $36$
+recordings. Each file was confirmed to contain exactly $89{,}999$ samples per
+channel, corresponding to $900$~s at $100$~Hz, with no missing values and no
+systematic sample-and-hold duplication (the maximum fraction of consecutive
+duplicated rows in any recording was below $0.01\%$). The channel set and
+recording length were therefore uniform across the entire dataset, and no
+imputation or resampling was required.
+
+% ---------------------------------------------------------------------------
+\begin{table}[t]
+\centering
+\caption{Acquisition and dataset specifications.}
+\label{tab:specs}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Parameter} & \textbf{Value} \\
+\midrule
+Motor & $1.1$~kW three-phase squirrel-cage IM \\
+Speed control & $V/f$-controlled inverter \\
+Loading & DC generator (shaft-coupled) \\
+Sensor & iPhone~15 Pro Max, tri-axial MEMS \\
+Acquisition app & Sensor Play \\
+Channels & $6$ ($g_x,g_y,g_z$; $g_{userx},g_{usery},g_{userz}$) \\
+Sampling rate & $100$~Hz \\
+Record length & $15$~min ($89{,}999$ samples/channel) \\
+Health states & $6$ (H, B1, B2, B3, V, R) \\
+Supply frequencies & $30$, $40$, $50$~Hz \\
+Load conditions & loaded, unloaded \\
+Recordings & $36$ ($6\times3\times2$) \\
+Formats & \texttt{.csv}, \texttt{.mat} \\
+Repository & Mendeley Data, CC BY 4.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------------
+\begin{table}[t]
+\centering
+\caption{Health states and fault-emulation summary.}
+\label{tab:faults}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}clp{4.2cm}@{}}
+\toprule
+\textbf{Code} & \textbf{Health state} & \textbf{Emulation} \\
+\midrule
+H  & Healthy & Fault-free baseline \\
+B1 & Insufficient lubrication & Reduced lubricant, $6205$ZZ bearing; severity set by manual inspection \\
+B2 & Severe insufficient lubrication & Advanced lubricant starvation; severity set by manual inspection \\
+B3 & Cracked outer ring & Bearing with cracked outer ring (ex-service degradation) \\
+V  & Voltage imbalance & Voltage-divider resistors in one supply phase; phase-current asymmetry \\
+R  & Broken rotor bar & Four holes drilled in rotor bars ($5$--$9$~mm diameter, $16$--$18$~mm depth) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------------
+\begin{table}[t]
+\centering
+\caption{Measured shaft speed (r/min) for each health state, supply frequency,
+and load condition (reproduced from~\cite{ertargin2026smartphone}).}
+\label{tab:speeds}
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}llcccccc@{}}
+\toprule
+\textbf{Supply} & \textbf{Load} & \textbf{H} & \textbf{B1} & \textbf{B2} &
+\textbf{B3} & \textbf{V} & \textbf{R} \\
+\midrule
+\multirow{2}{*}{$30$~Hz} & Loaded   & 833.9 & 829.4 & 833.0 & 833.8 & 787.0 & 815.8 \\
+                         & Unloaded & 892.7 & 888.3 & 892.7 & 896.3 & 893.0 & 894.9 \\
+\multirow{2}{*}{$40$~Hz} & Loaded   & 1136 & 1138 & 1138 & 1140 & 1076 & 1122 \\
+                         & Unloaded & 1190 & 1192 & 1193 & 1192 & 1192 & 1192 \\
+\multirow{2}{*}{$50$~Hz} & Loaded   & 1434 & 1436 & 1439 & 1436 & 1326 & 1425 \\
+                         & Unloaded & 1486 & 1490 & 1491 & 1489 & 1486 & 1486 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------------
+% Test-rig photograph: reused from the source data article (add the image file
+% and cite/attribute per its CC licence).
+\begin{figure}[t]
+\centering
+% \includegraphics[width=\columnwidth]{fig_testrig.png}
+\framebox[\columnwidth][c]{\rule{0pt}{3.2cm}\;test-rig photograph (Fig.~6 of \cite{ertargin2026smartphone})\;}
+\caption{Test rig: squirrel-cage induction motor, $V/f$ inverter, and shaft-coupled
+DC generator, with the smartphone mounted on the terminal box. Adapted
+from~\cite{ertargin2026smartphone}.}
+\label{fig:testrig}
+\end{figure}
+
+% ---------------------------------------------------------------------------
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_example_signals.png}
+\caption{Representative gravity-compensated vibration ($g_{userx}$, $3$~s excerpt)
+for the six health states under identical operating conditions (loaded,
+$50$~Hz supply). Amplitudes share a common scale.}
+\label{fig:signals}
+\end{figure}
