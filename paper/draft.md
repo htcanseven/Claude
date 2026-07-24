@@ -28,34 +28,10 @@ deployable operating points for BLE/Zigbee/NB-IoT/LoRaWAN nodes. [headline D
 number], [footprint number]. The study offers a reproducible, deployment-honest
 baseline for low-cost IoT-based motor CM.
 
-## I. Introduction (draft)
-Induction motors dominate industrial drives, and unplanned failures are costly,
-motivating continuous CM [1–3]. Classical vibration CM relies on industrial
-accelerometers sampled at tens of kHz to resolve bearing defect frequencies via
-spectral/envelope analysis. Such instrumentation is accurate but expensive,
-intrusive, and hard to scale to the many small motors in a plant — precisely the
-population that an inexpensive, wireless, MEMS-based node could cover.
-
-Consumer MEMS inertial sensors (as in smartphones) make ultra-low-cost
-acquisition possible, but at low, software-capped sampling rates (here 100 Hz)
-that violate the assumptions of classical high-frequency diagnosis. Two questions
-follow, both of measurement character: (i) *what fault information is actually
-recoverable* from such a constrained sensor, and (ii) *how should it be
-evaluated and deployed* so that reported performance transfers to the field.
-
-This paper addresses both. We deliberately separate genuine diagnostic capability
-from evaluation optimism, characterize the sensor as an instrument, and quantify
-the sensing/communication trade-offs that govern an edge deployment. Our
-contributions are:
-1. A **leakage-free evaluation methodology** (group-aware + cross-speed +
-   cross-load) for windowed low-rate vibration CM, and a quantification of the
-   optimism induced by the prevailing random-split practice.
-2. A **measurement characterization** of the smartphone MEMS CM channel:
-   effective resolution, noise floor, usable band, and raw vs
-   gravity-compensated content.
-3. An **accuracy–resource trade-off characterization** with a communication
-   link budget and edge-model footprint, yielding deployable operating points.
-All code and configurations are released for reproducibility.
+## I. Introduction
+**Finalized in `paper/intro.tex`** (passive voice, top-journal style: motivation →
+three-gap framing (recoverability, evaluation leakage, IoT trade-off) → four
+explicit contributions → paper organization). Uses `\IEEEPARstart`.
 
 ## II. Related Work
 **Finalized in `paper/related_work.tex`** (five subsections + positioning table;
