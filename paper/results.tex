@@ -20,7 +20,8 @@ visualises the same result. Under the RANDOM protocol every model attains
 essentially perfect accuracy, reproducing---and slightly exceeding---the $98\%$
 reported by the source data article's random-split baseline. Under the
 leakage-free GROUP protocol the accuracy of the same features and models falls to
-roughly one-half, an \emph{optimism gap} of the order of $40$ accuracy points.
+roughly one-half, an \emph{optimism gap} of approximately $40$ to $45$ accuracy
+points.
 The CROSS-SPEED and CROSS-LOAD protocols, which additionally impose an
 operating-condition shift, yield comparably reduced accuracy. The mechanism is
 the expected one: because overlapping windows share half of their samples and
@@ -78,7 +79,7 @@ transform.
 \begin{table}[t]
 \centering
 \caption{Accuracy (\%) by evaluation protocol and model
-(mean $\pm$ std.\ over cross-validation folds; $100$~Hz, six channels, $2$~s).}
+(mean $\pm$ std.\ over five seeds and folds; $100$~Hz, six channels, $2$~s).}
 \label{tab:optimism}
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{@{}lccc@{}}
@@ -86,9 +87,9 @@ transform.
 \textbf{Protocol} & \textbf{RF} & \textbf{KNN} & \textbf{SVM} \\
 \midrule
 RANDOM (leaky)            & $100.0$ & $100.0$ & $100.0$ \\
-GROUP (recording-holdout) & $47.6\pm7.9$ & $63.3\pm11.8$ & $53.2\pm12.2$ \\
-CROSS-SPEED               & $49.4\pm11.2$ & $48.2\pm9.1$ & $49.7\pm12.9$ \\
-CROSS-LOAD                & $50.1\pm4.8$ & $40.3\pm0.9$ & $40.1\pm2.0$ \\
+GROUP (recording-holdout) & $54.3\pm12.3$ & $61.1\pm11.7$ & $57.6\pm14.1$ \\
+CROSS-SPEED               & $50.0\pm11.3$ & $48.2\pm9.1$ & $50.1\pm12.6$ \\
+CROSS-LOAD                & $49.3\pm5.3$ & $40.3\pm0.9$ & $40.1\pm1.9$ \\
 \bottomrule
 \end{tabular}
 \end{table}
