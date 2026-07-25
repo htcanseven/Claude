@@ -39,27 +39,31 @@ Using Low-Cost MEMS Sensing}
 
 \maketitle
 
-% --- abstract (draft; passive voice) ---
+% --- abstract (passive voice) ---
 \begin{abstract}
 Vibration-based condition monitoring of induction motors is increasingly
 attractive on low-cost micro-electro-mechanical-systems (MEMS) sensors suitable
-for wireless Internet-of-Things nodes; however, the low sampling rates of such
-sensors and the evaluation practices common in the literature raise questions
-about real-world performance. In this work, a publicly available
-smartphone-acquired vibration dataset---six health states, three supply
-frequencies, two load conditions, sampled at $100$~Hz---is used to establish a
-deployment-realistic baseline for IoT-based motor condition monitoring. It is
-shown that the near-perfect accuracies obtained under random splitting of
-overlapping windows are largely a data-leakage artefact: under a leakage-free,
-recording-wise protocol the accuracy falls by approximately $40$ percentage
-points. The smartphone MEMS channel is characterised as a measurement instrument,
-revealing that the on-device gravity compensation discards diagnostically useful
-low-frequency content. An accuracy--resource trade-off analysis further shows
-that a resource-frugal configuration ($25$~Hz sampling, three raw channels, a
-$4$~s window) is not only sufficient but superior to the naive configuration
-under honest evaluation, and a communication link budget together with an
-edge-model footprint identifies deployable operating points for Bluetooth Low
-Energy, Zigbee, NB-IoT, and LoRaWAN nodes. The study provides a reproducible and
+for wireless Internet-of-Things (IoT) nodes; however, the low sampling rates of
+such sensors and the evaluation practices common in the literature cast doubt on
+reported performance. In this work, a publicly available smartphone-acquired
+vibration dataset---six health states, three supply frequencies, and two load
+conditions, sampled at $100$~Hz---is used to establish a deployment-realistic
+baseline for IoT-based motor condition monitoring. The near-perfect accuracies
+obtained under random splitting of overlapping windows are shown to be largely a
+data-leakage artefact: under a leakage-free, recording-wise protocol the accuracy
+of standard classifiers falls by approximately $40$ to $45$ percentage points,
+from essentially $100\%$ to $54$--$61\%$. The smartphone MEMS channel is
+characterised as a measurement instrument, establishing that its usable band is
+confined below $50$~Hz and that the on-device gravity compensation discards
+diagnostically useful low-frequency content, so that the raw acceleration
+channels are the more informative. An accuracy--resource trade-off analysis
+further shows that a resource-frugal configuration---$25$~Hz sampling, three raw
+channels, and a $4$~s window---raises leakage-free accuracy from $54\%$ to $74\%$
+while reducing the raw data volume roughly eight-fold, and a communication link
+budget together with an edge-model footprint identifies deployable operating
+points for Bluetooth Low Energy, Zigbee, NB-IoT, and LoRaWAN nodes. Under honest
+evaluation, therefore, ultra-low-bandwidth sensing is not merely tolerable but
+advantageous, and the reproducible pipeline released with this study provides a
 deployment-honest reference for low-cost IoT-based condition monitoring of
 induction motors.
 \end{abstract}
@@ -77,7 +81,7 @@ low-cost sensing.
 \input{methodology}       % Section V
 \input{results}           % Section VI
 \input{discussion}        % Section VII
-% \input{conclusion}     % TODO: Section VIII — Conclusion
+\input{conclusion}        % Section VIII
 
 \bibliographystyle{IEEEtran}
 \bibliography{refs}

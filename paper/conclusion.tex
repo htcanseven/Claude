@@ -1,0 +1,38 @@
+% ============================================================================
+%  Section VIII — Conclusion  (IEEE TIM, IEEEtran)
+%  Passive voice / third person throughout. Requires: none beyond base.
+% ============================================================================
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+This paper examined whether low-cost, low-rate smartphone-MEMS sensing can support
+condition monitoring of induction motors, and how such monitoring should be
+evaluated and deployed. Using a public $100$~Hz vibration dataset, the near-perfect
+accuracies reported under random-split evaluation were shown to be largely an
+artefact of data leakage: under a leakage-free, recording-wise protocol the
+accuracy of standard classifiers fell by approximately $40$ to $45$ percentage
+points, with comparable reductions under cross-speed and cross-load shifts. The
+residual accuracy nonetheless remained well above chance, confirming that coarse
+health states---notably a healthy motor and a broken rotor bar---are recoverable
+at $100$~Hz, whereas the fine staging of incipient bearing degradation, whose
+signatures lie beyond the $50$~Hz usable band, is not.
+
+Characterising the consumer sensor as a measurement instrument showed that its
+on-device gravity compensation discards diagnostically useful low-frequency
+content, so that the raw channels should be preferred. Most consequentially for
+deployment, the accuracy--resource analysis established that a resource-frugal
+configuration---$25$~Hz sampling, three raw channels, and a $4$~s window---not
+only suffices but outperforms the naive configuration under honest evaluation,
+raising accuracy to $74\%$ while reducing the raw data volume roughly eight-fold;
+combined with a communication link budget and a kilobyte-scale edge-model
+footprint, this yields concrete operating points for Bluetooth Low Energy,
+Zigbee, NB-IoT, and LoRaWAN nodes. Under honest evaluation, ultra-low-bandwidth
+sensing is therefore an asset rather than a liability for IoT-based motor
+monitoring.
+
+Future work will extend the evaluation across multiple machines of different
+ratings and manufacturers to establish cross-machine generalisation, and will
+complement the present analysis with direct, cycle-accurate measurement of
+on-device inference latency and energy. The reproducible pipeline released with
+this paper is intended to serve as a deployment-honest baseline for these efforts.

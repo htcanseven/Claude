@@ -1,8 +1,8 @@
 # DRAFT — IEEE TIM manuscript prose
 
-> Working draft to accelerate writing. Citations as `[n]`, floats as `[Fig. X]/
-> [Table Y]`. Numbers are from `results/`. Sections IV–VI depend on completed
-> analyses; the trade-off/results wording is finalized once Analysis D lands.
+> **Index of the finalized manuscript.** All sections are complete as passive-voice
+> LaTeX under `paper/`, assembled by `main.tex` (abstract + keywords live there).
+> This file now serves as a section map, not a draft.
 
 ## Title
 Deployment-Realistic IoT-Based Condition Monitoring of Induction Motors Using
