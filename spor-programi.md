@@ -96,7 +96,7 @@ bileşik hareketler (1 ve 2 numaralar) her zaman tek başına ve tam dinlenmeyle
 | # | Egzersiz | Set × Tekrar | Dinlenme | Not |
 |---|---|---|---|---|
 | 1 | Barbell Bench Press | 4×6-8 | 2.5 dk | Kürekleri sık ve sabitle, ayaklar yerde |
-| 2 | Barbell Row (veya Chest-Supported Row) | 4×8-10 | 2 dk | Masa başı duruşunun panzehiri — ihmal etme |
+| 2 | **Yatay çekiş** — Barbell Row / Chest-Supported Row / Machine Row / T-Bar Row | 4×8-10 | 2 dk | Masa başı duruşunun panzehiri — ihmal etme |
 | 3a | Seated Dumbbell Shoulder Press | 3×8-10 | — | Sırt desteği dik |
 | 3b | Lat Pulldown (geniş tutuş) | 3×10-12 | 90 sn | Dirsekleri aşağı-geriye çek |
 | 4a | Incline Dumbbell Press | 3×10-12 | — | Sehpa 30° |
@@ -146,6 +146,52 @@ bileşik hareketler (1 ve 2 numaralar) her zaman tek başına ve tam dinlenmeyle
 | 4a | Leg Extension | 3×15 | — | Son sette 2-3 yarım tekrar |
 | 4b | Seated Calf Raise | 3×15-20 | 60 sn | Soleus |
 | 5 | **Karın devresi** (2 tur) | Hanging Knee Raise 12 → Cable Crunch 15 → Side Plank 30 sn/yön | Tur arası 60 sn | Kas için — yağ için değil |
+
+---
+
+## Hareket Değiştirme Kuralları
+
+Salon doluysa, bir hareket rahatsızlık veriyorsa veya makine tercih ediyorsan değiştirebilirsin.
+Tek kural: **hareket paternini koru, ekipmanı değiştir.**
+
+Program ekipman listesi değil, hareket paterni dengesi üzerine kurulu. Her seansta itme ve
+çekişin, her paternin de yatay ve dikey versiyonunun karşılığı var. Bir hareketi aynı paternin
+başka bir versiyonuyla değiştirmek serbesttir; **farklı bir paternle değiştirmek dengeyi bozar.**
+
+| Patern | Değiştirilebilir alternatifler |
+|---|---|
+| **Yatay itme** | Barbell bench · Dumbbell press · Machine chest press · Şınav |
+| **Dikey itme** | Barbell OHP · Dumbbell shoulder press · Machine shoulder press |
+| **Yatay çekiş** | Barbell row · Chest-supported row · Machine/Hammer row · Seated cable row · T-bar row |
+| **Dikey çekiş** | Pull-up · Lat pulldown · Machine pulldown · Assisted pull-up |
+| **Squat paterni** | Back squat · Front squat · Hack squat · Leg press · Goblet squat |
+| **Kalça menteşesi** | Deadlift · Trap bar deadlift · Romanian deadlift · Hip thrust · Back extension |
+
+### En sık yapılan hata: row yerine pulldown
+
+Bunlar aynı kategoride değil. **Dikey çekiş** (pulldown/barfiks) lat ağırlıklıdır ve sırt
+genişliği verir. **Yatay çekiş** (row) lat + orta trapez + romboid çalıştırır ve kürek
+kemiğini geriye sıkar (skapular retraksiyon).
+
+Masa başı çalıştığın için yatay çekiş senin en kritik hareket kategorin: günde 8 saat oturmak
+omuzları öne yuvarlar ve orta sırt kaslarını zayıflatır. Pulldown bu sorunu çözmez — kürek
+kemiğini aşağı çeker, geriye sıkmaz.
+
+Programda haftada **2 yatay + 2 dikey** çekiş var (Gün 1: row + pulldown, Gün 3: cable row +
+pull-up). Bu dengeyi koru.
+
+**Gün 1'de makine tercih ediyorsan** — Machine Row veya Chest-Supported Row kullan, machine
+pulldown değil. Bu ayrıca **bel yükünü sıfırlar**: Pazartesi barbell row + Salı squat + Cuma
+deadlift, 1 yıl aradan sonra bel için yoğun bir haftalık toplam. Göğüs destekli/makine row bu
+yükü kaldırırken sırt çalışmasını korur.
+
+**Yine de pulldown'ı ana hareket yapmak istersen** Gün 1'i şöyle kur — denge korunur,
+sadece vurgu değişir:
+
+| Sıra | Hareket | Set × Tekrar |
+|---|---|---|
+| 2 | Machine / Lat Pulldown | 4×8-10 |
+| 3b | **Seated veya Machine Row** | 3×10-12 |
 
 ---
 
