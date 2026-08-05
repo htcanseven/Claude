@@ -1,118 +1,165 @@
-# 12 Haftalık Spor Programı
+# Kişisel Antrenman ve Beslenme Programı
 
-## Varsayımlar
+**Hazırlanma tarihi:** 5 Ağustos 2026
+**Süre:** 12 hafta (3 haftalık yeniden başlangıç + 9 hafta ana blok)
 
-Tercihlerini belirtmediğin için programı aşağıdaki varsayımlarla hazırladım. Durumun farklıysa
-[Program Uyarlamaları](#program-uyarlamalari) bölümündeki hazır alternatifleri kullanabilirsin.
+---
 
-| Parametre | Varsayım |
+## Profil
+
+| Veri | Değer |
 |---|---|
-| **Hedef** | Kas kütlesi kazanımı + genel kondisyon (dengeli) |
-| **Sıklık** | Haftada 4 gün antrenman |
-| **Bölünme** | Upper / Lower (Üst – Alt vücut) |
-| **Ekipman** | Tam donanımlı spor salonu |
-| **Seviye** | Orta seviye (yeni başlayanlar için ölçekleme notları eklendi) |
-| **Süre** | Seans başına 60–75 dakika |
-| **Sakatlık** | Bilinen bir sakatlık/kısıtlama yok |
+| Yaş | 31 |
+| Cinsiyet | Erkek |
+| Boy | 190 cm |
+| Kilo | 99 kg |
+| BMI | 27.4 |
+| Antrenman geçmişi | 4 yıl salon + 1 yıl ara |
+| Sakatlık / kronik rahatsızlık | Yok |
+| Uyku | 8 saat (güçlü yanın) |
+| İş | Masa başı |
+| Stres | Orta |
+| Seans süresi | 60 dakika |
+| Beslenme kısıtı | Yok — günde 2-3 öğün, yemek hazırlamaya vakit var |
 
-> **Sağlık uyarısı:** Bu program genel bilgilendirme amaçlıdır, tıbbi tavsiye değildir.
-> Kronik bir rahatsızlığın, sakatlık geçmişin veya uzun süredir hareketsiz bir dönemin varsa
-> başlamadan önce bir hekime veya spor hekimine danışman gerekir. Antrenman sırasında keskin
-> ağrı, baş dönmesi veya göğüs sıkışması hissedersen hemen dur.
+**Ana hedef:** Bel bölgesi yağının azaltılması, kas kütlesinin korunup artırılması
+("skinny fat" görünümünün düzeltilmesi).
 
----
+**Varsayımlar:** Haftada 4 gün antrenman ve tam donanımlı salon erişimi varsayıldı. Bunlar
+farklıysa söyle, programı yeniden kurarım.
 
-## Haftalık Takvim
-
-| Gün | Program |
-|---|---|
-| Pazartesi | **Gün 1** — Üst Vücut A (kuvvet odaklı) |
-| Salı | **Gün 2** — Alt Vücut A (kuvvet odaklı) |
-| Çarşamba | Dinlenme / hafif yürüyüş |
-| Perşembe | **Gün 3** — Üst Vücut B (hipertrofi odaklı) |
-| Cuma | **Gün 4** — Alt Vücut B (hipertrofi odaklı) |
-| Cumartesi | Kardiyo veya aktif dinlenme |
-| Pazar | Tam dinlenme |
-
-Günler kaymışsa sorun değil; tek kural **iki üst vücut veya iki alt vücut gününü art arda
-yapmamak**. Kaslar aynı bölgeyi tekrar çalıştırmadan önce ~48 saat toparlanma ister.
+> **Sağlık notu:** Bilinen bir rahatsızlığın olmadığını belirttin. Yine de 1 yıllık aradan
+> sonra ağır antrenmana dönüyorsun; başlamadan önce bir kez temel kan tahlili ve tansiyon
+> ölçümü yaptırman iyi olur. Antrenman sırasında göğüs ağrısı, baş dönmesi veya olağandışı
+> nefes darlığı olursa dur ve hekime başvur.
 
 ---
 
-## Terimler
+## Strateji: Neden Bu Program?
 
-- **Set × Tekrar** — `4×6-8` = 4 set, her sette 6 ila 8 tekrar.
-- **RIR (Reps in Reserve)** — Sette kaç tekrar daha yapabileceğin. `2 RIR` = 2 tekrar daha
-  yapabilecek durumdayken seti bitir. Yeni başlıyorsan 3 RIR, orta seviyedeysen 1–2 RIR hedefle.
-- **Tempo** — Hareketin iniş fazını 2–3 saniyede kontrollü yap, kalkışı hızlı ve patlayıcı yap.
-  Ağırlığı serbest bırakma; kasın gerildiği faz büyümenin ana tetikleyicisi.
-- **Dinlenme** — Setler arasındaki bekleme süresi. Ağır bileşik hareketlerde kısaltma; performans
-  düşer.
+### 1. Bölgesel yağ yakma mümkün değil
 
----
+Mekik, plank veya karın makinesi bel yağını yakmaz — karın **kasını** çalıştırır. Yağ, vücudun
+kendi belirlediği sırayla ve **toplam kalori açığı** oluştuğunda gider. Erkeklerde karın/bel
+bölgesi genellikle en son boşalan depodur; bu yüzden ilk 4-5 haftada kolların ve yüzün
+incelirken belin sabit durabilir. Bu programın başarısız olduğu anlamına gelmez, sırasının
+gelmediği anlamına gelir.
 
-## Gün 1 — Üst Vücut A (Kuvvet Odaklı)
+### 2. Sadece kilo vermek "skinny fat"i kötüleştirir
 
-| # | Egzersiz | Set × Tekrar | Dinlenme | Not |
-|---|---|---|---|---|
-| 1 | Barbell Bench Press | 4×5-6 | 3 dk | Kürek kemiklerini sıkıştır, ayaklar yerde sabit |
-| 2 | Barbell Row | 4×6-8 | 2-3 dk | Gövde ~45°, barı göbek altına çek |
-| 3 | Overhead Press (ayakta) | 3×6-8 | 2 dk | Kalçayı sık, bel çukurunu abartma |
-| 4 | Pull-up veya Lat Pulldown | 3×8-10 | 90 sn | Barfiks zorsa bantla destekle |
-| 5 | Incline Dumbbell Press | 3×8-10 | 90 sn | Sehpa 30°, dirsekler 45° açıda |
-| 6 | Face Pull | 3×12-15 | 60 sn | Omuz sağlığı için atlanmaması gereken hareket |
-| 7 | Barbell Curl | 3×10-12 | 60 sn | Dirsekleri gövdeye sabitle, sallanma |
-| 8 | Triceps Pushdown | 3×10-12 | 60 sn | Üst kolu sabit tut |
+Kalori açığında ağırlık antrenmanı yapmazsan kaybettiğinin önemli bir kısmı kas olur. 90 kiloya
+inersin ama görünüm daha da gevşek olur. Değiştirmen gereken şey kilo değil, **kas–yağ oranı.**
 
-## Gün 2 — Alt Vücut A (Kuvvet Odaklı)
+### 3. Senin durumun rekomposizyon için ideal
 
-| # | Egzersiz | Set × Tekrar | Dinlenme | Not |
-|---|---|---|---|---|
-| 1 | Barbell Back Squat | 4×5-6 | 3 dk | Kalça paralel veya altına insin, dizler dışa itilsin |
-| 2 | Romanian Deadlift | 3×8-10 | 2-3 dk | Bel nötr, hareket kalçadan gelsin, arka bacak gerilsin |
-| 3 | Leg Press | 3×10-12 | 90 sn | Alt pozisyonda kalçayı sehpadan kaldırma |
-| 4 | Lying / Seated Leg Curl | 3×10-12 | 90 sn | Tepe noktada 1 sn duraklat |
-| 5 | Walking Lunge | 3×10-12 (her bacak) | 90 sn | Adım uzunluğunu sabit tut |
-| 6 | Standing Calf Raise | 4×12-15 | 60 sn | Tam gerilme + tam kasılma |
-| 7 | Plank | 3×30-60 sn | 60 sn | Kalçayı düşürme, gövdeyi düz tut |
-| 8 | Hanging Leg Raise veya Dead Bug | 3×10-15 | 60 sn | Salınım yapmadan kontrollü |
+Aynı anda kas kazanıp yağ yakmak (rekomposizyon) çoğu insanda verimsizdir. Senin profilinde ise
+dört faktör aynı anda lehine çalışıyor:
 
-## Gün 3 — Üst Vücut B (Hipertrofi Odaklı)
+- **Kas hafızası** — 4 yıl antrenman geçmişin var. Daha önce kurduğun kas dokusunun kalıcı
+  çekirdek izleri (myonuclei) korunur; kas geri gelirken sıfırdan başlayan birinden çok daha
+  hızlı ilerlersin.
+- **Detrained durum** — 1 yıllık ara, vücudun antrenman uyaranına aşırı duyarlı olması demek.
+- **Yüksek yağ deposu** — Vücudun kas inşası için gereken enerjiyi yağ depolarından çekebilir.
+- **8 saat uyku** — Toparlanmanın en güçlü değişkeni ve sende zaten hazır.
 
-| # | Egzersiz | Set × Tekrar | Dinlenme | Not |
-|---|---|---|---|---|
-| 1 | Incline Barbell/Dumbbell Press | 4×8-10 | 2 dk | Üst göğüs vurgusu |
-| 2 | Pull-up veya Lat Pulldown (geniş tutuş) | 4×8-10 | 2 dk | Sırt genişliği için ana hareket |
-| 3 | Seated Dumbbell Shoulder Press | 3×10-12 | 90 sn | Sırt desteği dik |
-| 4 | Seated Cable Row | 3×10-12 | 90 sn | Kürekleri geriye sık, gövdeyi sallama |
-| 5 | Dumbbell Lateral Raise | 4×12-15 | 60 sn | Hafif ağırlık, kontrollü — omuz genişliğinin anahtarı |
-| 6 | Cable Fly veya Pec Deck | 3×12-15 | 60 sn | Göğüste gerilme hissi ara |
-| 7 | Hammer Curl | 3×10-12 | 60 sn | Ön kol ve brachialis vurgusu |
-| 8 | Overhead Triceps Extension | 3×10-12 | 60 sn | Triceps uzun başı için gerekli |
-
-## Gün 4 — Alt Vücut B (Hipertrofi Odaklı)
-
-| # | Egzersiz | Set × Tekrar | Dinlenme | Not |
-|---|---|---|---|---|
-| 1 | Deadlift (konvansiyonel veya trap bar) | 3×5 | 3 dk | Bel nötr — teknik bozulursa seti bitir |
-| 2 | Bulgarian Split Squat | 3×8-10 (her bacak) | 2 dk | Denge için önce ağırlıksız dene |
-| 3 | Hack Squat veya Goblet Squat | 3×10-12 | 90 sn | Quadriceps vurgusu |
-| 4 | Hip Thrust | 3×10-12 | 90 sn | Tepe noktada kalçayı 1 sn sık |
-| 5 | Leg Extension | 3×12-15 | 60 sn | Son sette 2-3 yarım tekrar ekle |
-| 6 | Seated Calf Raise | 4×15-20 | 60 sn | Soleus kası için oturarak varyasyon |
-| 7 | Pallof Press | 3×12 (her yön) | 60 sn | Gövde stabilitesi (anti-rotasyon) |
-| 8 | Ab Wheel veya Cable Crunch | 3×12-15 | 60 sn | Beli aşırı çukurlaştırma |
+Bu yüzden agresif diyet **yapmıyoruz**. Orta düzey bir açık (~%15) + yüksek protein + ağır
+ağırlık = yağ giderken kasın artması.
 
 ---
 
-## Isınma ve Soğuma
+## Bölüm 1 — Antrenman
 
-### Her seans öncesi (~10 dk)
+### Haftalık takvim
 
-1. **Genel ısınma (5 dk)** — Bisiklet, kürek veya tempolu yürüyüş. Hafif terleyene kadar.
-2. **Dinamik hareketlilik (3 dk)** — Kol çevirme, bacak savurma, kalça açıcı, kedi-deve.
-   Statik esnemeyi antrenman öncesine koyma; kuvvet çıktısını geçici olarak düşürür.
-3. **Harekete özel ısınma setleri (2 dk)** — Günün ilk ağır hareketi için:
+| Gün | Program | Süre |
+|---|---|---|
+| Pazartesi | **Gün 1** — Üst Vücut A (itme ağırlıklı) | 60 dk |
+| Salı | **Gün 2** — Alt Vücut A (squat ağırlıklı) | 60 dk |
+| Çarşamba | Zone 2 kardiyo + yürüyüş | 30 dk |
+| Perşembe | **Gün 3** — Üst Vücut B (çekme ağırlıklı) | 60 dk |
+| Cuma | **Gün 4** — Alt Vücut B (kalça menteşesi ağırlıklı) | 60 dk |
+| Cumartesi | Zone 2 kardiyo veya aktif dinlenme | 30-40 dk |
+| Pazar | Tam dinlenme |  |
+
+Günler kayabilir; tek kural iki üst veya iki alt vücut gününü art arda koymamak.
+
+### Süper set gösterimi
+
+60 dakikaya sığması için yardımcı hareketler süper set olarak yazıldı. **3a → 3b → dinlen →
+tekrar** şeklinde uygulanır; ikisi arasında dinlenme yoktur, dinlenme çiftin sonundadır. Ana
+bileşik hareketler (1 ve 2 numaralar) her zaman tek başına ve tam dinlenmeyle yapılır.
+
+---
+
+### GÜN 1 — Üst Vücut A (İtme Ağırlıklı)
+
+| # | Egzersiz | Set × Tekrar | Dinlenme | Not |
+|---|---|---|---|---|
+| 1 | Barbell Bench Press | 4×6-8 | 2.5 dk | Kürekleri sık ve sabitle, ayaklar yerde |
+| 2 | Barbell Row (veya Chest-Supported Row) | 4×8-10 | 2 dk | Masa başı duruşunun panzehiri — ihmal etme |
+| 3a | Seated Dumbbell Shoulder Press | 3×8-10 | — | Sırt desteği dik |
+| 3b | Lat Pulldown (geniş tutuş) | 3×10-12 | 90 sn | Dirsekleri aşağı-geriye çek |
+| 4a | Incline Dumbbell Press | 3×10-12 | — | Sehpa 30° |
+| 4b | Face Pull | 3×15 | 60 sn | Omuz sağlığı + duruş; en önemli yardımcı hareketin |
+| 5a | Dumbbell Curl | 3×12 | — | Dirsek sabit, sallanma yok |
+| 5b | Triceps Rope Pushdown | 3×12 | 45 sn | Üst kol gövdeye sabit |
+
+---
+
+### GÜN 2 — Alt Vücut A (Squat Ağırlıklı)
+
+| # | Egzersiz | Set × Tekrar | Dinlenme | Not |
+|---|---|---|---|---|
+| 1 | Barbell Back Squat | 4×6-8 | 3 dk | Kalça paralel veya altına, dizler dışa |
+| 2 | Romanian Deadlift | 3×8-10 | 2 dk | Bel nötr, hareket kalçadan; arka bacakta gerilme ara |
+| 3a | Leg Press | 3×12-15 | — | Alt pozisyonda kalçayı sehpadan kaldırma |
+| 3b | Lying Leg Curl | 3×12-15 | 90 sn | Tepede 1 sn duraklat |
+| 4a | Walking Lunge | 2×12 (her bacak) | — | Adım boyu sabit |
+| 4b | Standing Calf Raise | 3×15 | 60 sn | Tam gerilme + tam kasılma |
+| 5 | **Karın devresi** (2 tur) | Plank 45 sn → Dead Bug 12 → Pallof Press 12/yön | Tur arası 60 sn | Bel korumasının temeli |
+
+---
+
+### GÜN 3 — Üst Vücut B (Çekme Ağırlıklı)
+
+| # | Egzersiz | Set × Tekrar | Dinlenme | Not |
+|---|---|---|---|---|
+| 1 | Pull-up (destekli/negatif de olur) | 4×6-10 | 2.5 dk | 99 kiloda zorsa makine desteği veya bant kullan |
+| 2 | Incline Barbell Press | 4×8-10 | 2 dk | Üst göğüs vurgusu |
+| 3a | Seated Cable Row | 3×10-12 | — | Gövdeyi sallama, kürekleri sık |
+| 3b | Dumbbell Lateral Raise | 3×15 | 90 sn | Hafif ağırlık — omuz genişliği beli dar gösterir |
+| 4a | Cable Fly veya Pec Deck | 3×12-15 | — | Gerilme hissine odaklan |
+| 4b | Rear Delt Fly | 3×15 | 60 sn | Duruş için arka omuz kritik |
+| 5a | Hammer Curl | 3×12 | — | Ön kol ve brachialis |
+| 5b | Overhead Triceps Extension | 3×12 | 45 sn | Triceps uzun başı |
+
+---
+
+### GÜN 4 — Alt Vücut B (Kalça Menteşesi Ağırlıklı)
+
+| # | Egzersiz | Set × Tekrar | Dinlenme | Not |
+|---|---|---|---|---|
+| 1 | Trap Bar Deadlift (varsa) veya konvansiyonel | 3×5 | 3 dk | Trap bar bele daha az yük bindirir — dönüş dönemi için ideal |
+| 2 | Bulgarian Split Squat | 3×10 (her bacak) | 2 dk | Önce ağırlıksız dene, denge oturunca dumbbell ekle |
+| 3a | Hip Thrust | 3×12 | — | Tepede 1 sn sık — masa başı için kalça aktivasyonu şart |
+| 3b | Seated Leg Curl | 3×12-15 | 90 sn | Kontrollü negatif |
+| 4a | Leg Extension | 3×15 | — | Son sette 2-3 yarım tekrar |
+| 4b | Seated Calf Raise | 3×15-20 | 60 sn | Soleus |
+| 5 | **Karın devresi** (2 tur) | Hanging Knee Raise 12 → Cable Crunch 15 → Side Plank 30 sn/yön | Tur arası 60 sn | Kas için — yağ için değil |
+
+---
+
+## Isınma (Her Seans, 8-10 dk)
+
+Bu bölümü atlamamanı özellikle söylüyorum. 1 yıllık aradan sonra en yüksek sakatlanma riski
+"kas hazır ama tendon değil" penceresinde oluşur.
+
+1. **Genel (5 dk)** — Bisiklet, kürek veya eliptik. Hafif terleyene kadar.
+2. **Dinamik hareketlilik (3 dk)** — Masa başı çalıştığın için şu üçü zorunlu:
+   - Kalça fleksörü esnetme (her bacak 30 sn) — gün boyu oturmak bu kası kısaltır
+   - Göğüs açıcı / kapı esnetmesi (30 sn) — öne düşük omuz duruşunu açar
+   - Torasik rotasyon (her yön 8 tekrar) — üst sırt hareketliliği
+3. **Harekete özel ısınma setleri** — Günün ilk ağır hareketi için:
 
    | Set | Ağırlık | Tekrar |
    |---|---|---|
@@ -122,184 +169,248 @@ yapmamak**. Kaslar aynı bölgeyi tekrar çalıştırmadan önce ~48 saat toparl
    | 4 | %85 | 1 |
    | → | **Çalışma ağırlığı** | Programdaki tekrar |
 
-### Seans sonrası (~5 dk)
-
-Çalıştığın bölgeye statik esneme, her pozisyonda 30 saniye. Alt vücut günlerinde arka bacak,
-kalça fleksörü ve baldır; üst vücut günlerinde göğüs, latissimus ve omuz arkası.
+**Soğuma (5 dk):** Çalıştığın bölgeye statik esneme, pozisyon başına 30 sn.
 
 ---
 
-## Progresif Aşırı Yükleme
+## Bölüm 2 — Yeniden Başlangıç Protokolü (Hafta 1-3)
 
-Programın işe yaramasının tek sebebi budur: **zamanla kasa binen yükü artırmak.** Aynı ağırlıkla
-aynı tekrarı 12 hafta yaparsan 12. haftada 1. haftadaki vücudunda olursun.
+**Bu bölüm senin programının en önemli kısmı.** Kas hafızası sayesinde 2. haftada eskisinin
+yakınında ağırlık kaldırabileceksin — ama tendon, bağ dokusu ve eklem kıkırdağı kastan
+**çok daha yavaş** adapte olur. Dönen sporcuların sakatlanma sebebi neredeyse her zaman budur:
+kas kaldırabiliyor, bağ dokusu hazır değil.
 
-**Çift ilerleme (double progression) yöntemi — kullanacağın kural:**
-
-1. Verilen tekrar aralığının **alt sınırıyla** başla. `3×8-10` ise 8 tekrarla başla.
-2. Her hafta aynı ağırlıkla 1 tekrar daha eklemeye çalış.
-3. **Tüm setlerde** aralığın üst sınırına ulaştığında (3 set × 10 tekrar), ağırlığı artır:
-   - Üst vücut hareketleri: **+2.5 kg**
-   - Alt vücut hareketleri: **+5 kg**
-4. Ağırlık arttığında tekrar sayın alt sınıra düşecektir. Bu normal — döngü baştan başlar.
-
-**İlerleme durduğunda:** Aynı ağırlıkta 2 hafta üst üste takıldıysan panik yapma. Sırasıyla
-şunları kontrol et: uyku (7-9 saat), günlük protein, kalori alımı ve setler arası dinlenme süresi.
-Üçüncü haftada da ilerleme yoksa o hareket için deload uygula (ağırlığı %10 düşür ve tekrar tırman).
-
----
-
-## Deload (Boşaltma) Haftası
-
-**Her 6–8 haftada bir** deload haftası uygula. 12 haftalık döngüde: **7. hafta** ve **12. hafta sonrası**.
-
-Deload haftasında:
-- Set sayısını **yarıya indir** (4 set → 2 set)
-- Ağırlığı normalin **%60'ına** düşür
-- Tekrar aralığını koru, hiçbir seti başarısızlığa götürme
-
-Deload zayıflık değil, programın parçası. Merkezi sinir sistemi ve bağ dokuları kaslardan daha
-yavaş toparlanır; bu hafta atlandığında ilerleme 8-10. haftada tıkanır.
-
----
-
-## Kardiyo
-
-Kas kazanımı hedefiyle çelişmemesi için:
-
-| Tip | Sıklık | Süre | Ne zaman |
+| Hafta | RIR hedefi | Hacim | Amaç |
 |---|---|---|---|
-| **LISS** (Zone 2 — konuşabildiğin tempo) | Haftada 2-3 | 25-35 dk | Cumartesi veya ağırlık sonrası |
-| **HIIT** (opsiyonel) | Haftada 1 | 15-20 dk | Alt vücut gününden en az 24 saat sonra |
+| **1** | 4-5 RIR (rahat) | Set sayısının %60'ı | Ağırlıkları bul, hareket paternini hatırla |
+| **2** | 3-4 RIR | Set sayısının %80'i | Kademeli yükleme |
+| **3** | 2-3 RIR | Tam set sayısı | Ana bloğa hazırlık |
+| **4+** | 1-2 RIR | Tam set sayısı | Çift ilerleme başlar |
 
-**Kural:** Kardiyoyu ağırlık antrenmanından **önce** yapma; kuvvet çıktın düşer. Ayrı bir zaman
-diliminde (sabah/akşam) yapabiliyorsan en iyisi o. Ayrıca günlük 8.000–10.000 adım hedefi,
-yapılandırılmış kardiyodan daha sürdürülebilir bir taban oluşturur.
+**RIR (Reps in Reserve):** Sette kaç tekrar daha yapabileceğin. 4 RIR = "4 tekrar daha
+yapabilirdim" hissiyle seti bitir.
+
+> **1. hafta uyarısı:** Uzun aradan sonra ilk seansta kendini sonuna kadar zorlama. Aşırı kas
+> yıkımı nadiren de olsa rabdomiyoliz denen ciddi bir tabloya yol açar. Uyarı işaretleri:
+> kola/koyu renkli idrar, geçmeyen aşırı şişlik, hareket edememe derecesinde ağrı. Böyle bir
+> şey olursa acile başvur. Programdaki 4-5 RIR kuralına uyarsan bu risk pratikte ortadan kalkar.
+
+### 1. Hafta: Ağırlıklarını Bulma
+
+Bench press dışındaki sayılarını bilmiyorsun — sorun değil, ilk hafta zaten bunun için.
+**Maksimum deneme yapma.** Her ana hareket için:
+
+1. Isınma setlerini yap
+2. Tahmini bir ağırlıkla hedef tekrarı uygula
+3. Set sonunda 4-5 tekrar daha yapabilecek durumdaysan → 5-10 kg ekle, tekrar dene
+4. Zorlanmaya başladığında dur. **Bulduğun ağırlığı kaydet.** Başlangıç noktan bu.
+
+Bench press'te 20 kg × 10 verdin. Bu boş bar ağırlığı — 1 yıllık aradan sonra makul bir
+başlangıç, ama 4 yıllık geçmişinle 3-4 hafta içinde bunun belirgin şekilde üzerine
+çıkacağını beklemelisin. Eğer 20 kg'ı dumbbell başına kastettiysen (toplam 40 kg) başlangıç
+noktan zaten çok daha yüksek demektir. İlk hafta test bunu netleştirecek.
 
 ---
 
-## Beslenme Temelleri
+## Bölüm 3 — İlerleme (Hafta 4-12)
 
-Antrenman uyaranı verir; sonucu beslenme ve uyku belirler.
+### Çift ilerleme kuralı
 
-| Öğe | Hedef |
-|---|---|
-| **Protein** | Vücut ağırlığının kilogramı başına **1.6–2.2 g** (80 kg → 130-175 g/gün) |
-| **Kalori** | Kas kazanımı için bakım kalorisinin **%10 üzeri** (~+250-300 kcal) |
-| **Karbonhidrat** | Antrenman performansının yakıtı — kesme, seans öncesi/sonrasına yoğunlaştır |
-| **Yağ** | Toplam kalorinin en az %20'si (hormonal denge için) |
-| **Su** | Günde **2.5–3.5 L**, antrenman günlerinde üst sınıra yakın |
-| **Uyku** | **7–9 saat.** Toparlanmanın en güçlü ve en çok ihmal edilen değişkeni |
+1. Tekrar aralığının **alt sınırıyla** başla (`4×6-8` → 6 tekrar)
+2. Her hafta aynı ağırlıkla 1 tekrar eklemeye çalış
+3. **Tüm setlerde** üst sınıra ulaşınca ağırlığı artır:
+   - Üst vücut: **+2.5 kg**
+   - Alt vücut: **+5 kg**
+4. Ağırlık artınca tekrar sayın alt sınıra düşer — normal, döngü baştan başlar
 
-Yağ yakma hedefindeysen tek fark kaloridir: bakımın **%15-20 altı** (~-400 kcal), protein
-aynı hatta biraz daha yüksek kalır. Antrenman programı değişmez — kalori açığında ağırlıkları
-korumaya çalışmak, kas kaybını önleyen ana faktördür.
+### Kalori açığında ilerleme beklentisi
+
+Açıkta olduğun için ilerleme hızın kalori fazlasındaki kadar olmayacak. Bu bir sorun değil —
+hedef **ağırlıkları korumak ve mümkün olduğunca artırmak.** Kalori açığında ağırlıkların
+sabit kalması bile başarıdır: yağ giderken kas duruyor demektir. Ağırlıklar düşmeye başlarsa
+o zaman açık fazla demektir, kaloriyi 150-200 kcal yukarı çek.
+
+### Deload
+
+**7. haftada** ve **12. hafta sonunda** deload uygula:
+- Set sayısını yarıya indir
+- Ağırlığı normalin %60'ına düşür
+- Hiçbir seti zorlamaya götürme
+
+Deload zayıflık değil, programın parçası. Bağ dokusu ve sinir sistemi kastan yavaş toparlanır;
+atlanırsa ilerleme 8-10. haftada tıkanır.
 
 ---
 
-<a name="program-uyarlamalari"></a>
-## Program Uyarlamaları
+## Bölüm 4 — Kardiyo ve Günlük Hareket
 
-### Haftada 3 gün yapabiliyorsan
+Masa başı çalıştığın için **en yüksek getirili değişkenin burası.** Gün boyu oturmak günlük
+kalori harcamanı yapılandırılmış kardiyodan daha çok düşürür.
 
-Upper/Lower yerine **Full Body** uygula (Pzt / Çar / Cum). Her seansta şu şablonu kullan:
+### Öncelik sırası
 
-| Slot | Hareket | Set × Tekrar |
+| # | Ne | Hedef | Neden |
+|---|---|---|---|
+| 1 | **Günlük adım** | 8.000 → 10.000 (kademeli) | Masa başı için en büyük fark. ~250-300 kcal/gün değerinde ve yorgunluk yaratmaz |
+| 2 | **Zone 2 kardiyo** | Haftada 2 × 30 dk | Konuşabildiğin tempo. Çarşamba + Cumartesi |
+| 3 | **Saatlik kalkış** | Her saat 3-5 dk | Kalça fleksörü kısalmasını ve duruş bozulmasını engeller |
+
+**Önce mevcut adım sayını ölç.** Masa başı çalışanların çoğu günde 3.000-5.000 adımda kalır.
+Doğrudan 10.000'e sıçrama; her hafta 1.000 ekle.
+
+**Kural:** Kardiyoyu ağırlık antrenmanından **önce** yapma. Zone 2'yi ayrı gün veya ayrı
+zaman diliminde yap. HIIT'e bu blokta gerek yok — kalori açığı zaten var, HIIT toparlanma
+yükünü artırıp ağırlık performansını düşürür.
+
+---
+
+## Bölüm 5 — Beslenme
+
+Yağ kaybının **%80'i buradan** gelir. Antrenman uyaranı verir, kas kaybını önler; açığı mutfak
+oluşturur.
+
+### Kalori hesabın
+
+| Adım | Hesap | Sonuç |
 |---|---|---|
-| 1 | Bir bileşik bacak hareketi (Squat / Deadlift / Leg Press) | 4×6-8 |
-| 2 | Bir yatay itme (Bench Press / Dumbbell Press) | 3×8-10 |
-| 3 | Bir yatay çekme (Barbell Row / Cable Row) | 3×8-10 |
-| 4 | Bir dikey itme (Overhead Press) veya çekme (Pull-up) | 3×8-10 |
-| 5 | Bir izolasyon (Curl / Lateral Raise / Leg Curl — dönüşümlü) | 3×12-15 |
-| 6 | Karın (Plank / Leg Raise) | 3×12-15 |
+| Bazal metabolizma (Mifflin-St Jeor) | 10(99) + 6.25(190) − 5(31) + 5 | **2.030 kcal** |
+| Günlük harcama (masa başı + 4 gün antrenman, ×1.45) | 2.030 × 1.45 | **~2.950 kcal** |
+| Hedef (%15 açık) | 2.950 − 450 | **2.500 kcal/gün** |
 
-Her seansta 1. slottaki hareketi değiştir: Pazartesi Squat, Çarşamba Deadlift, Cuma Leg Press.
+Bu açık haftada **~0.4-0.5 kg** yağ kaybı verir. Daha agresif gitme — hızlı kilo kaybı kas
+kaybıdır ve senin sorunun zaten kas eksikliği.
 
-### Haftada 5-6 gün yapabiliyorsan
+### Makro dağılımı
 
-**Push / Pull / Legs** bölünmesine geç (5 günde 1 dönüşümlü, 6 günde 2 tam tur):
-- **Push:** Göğüs, omuz, triceps — Gün 1 ve Gün 3'ün itme hareketleri
-- **Pull:** Sırt, biceps, arka omuz — Gün 1 ve Gün 3'ün çekme hareketleri
-- **Legs:** Gün 2 ve Gün 4'ün birleşimi
+| Makro | Miktar | Kalori | Neden |
+|---|---|---|---|
+| **Protein** | **190 g** | 760 | Açıkta kas korumanın tek garantisi. Ayrıca en tok tutan makro |
+| **Karbonhidrat** | **250 g** | 1.000 | Antrenman performansının yakıtı. Kesme — ağırlıkların düşer |
+| **Yağ** | **80 g** | 720 | Hormonal denge için alt sınır (~0.8 g/kg) |
+| | | **2.480 kcal** | |
 
-### Evde dumbbell + direnç bandı ile
+### Öğün düzeni
 
-| Salon hareketi | Ev alternatifi |
-|---|---|
-| Barbell Bench Press | Dumbbell Floor Press / Bantlı şınav |
-| Barbell Row | Tek kol dumbbell row / Bantlı row |
-| Back Squat | Goblet squat / Bulgarian split squat |
-| Deadlift | Dumbbell Romanian deadlift / Tek bacak RDL |
-| Lat Pulldown | Bantlı lat pulldown (kapı üstü sabitleme) |
-| Leg Press | Yüksek tekrarlı split squat |
-| Overhead Press | Dumbbell shoulder press |
+Şu an 2-3 öğün yiyorsun. 190 g proteini 2 öğüne sığdırmak zor ve kas protein sentezi açısından
+verimsiz. **3 öğün + 1 protein ara öğünü** yapısına geç — öğün başına ~45-50 g protein, kas
+inşası için ideal dağılım.
 
-Ekipman ağırlığı sınırlıysa ilerlemeyi **tekrar sayısı, tempo (4 sn iniş) ve set sayısıyla**
-sağla; ayrıca tek-taraflı (tek bacak/tek kol) varyasyonlar aynı dumbbell ile yükü ikiye katlar.
+**Örnek gün (~2.500 kcal / ~190 g protein):**
 
-### Sadece vücut ağırlığıyla
-
-| Hareket | Set × Tekrar |
-|---|---|
-| Şınav (zorlaştıkça ayak yükseltmeli) | 4×maks-2 |
-| Ters row (masa altı) veya Barfiks | 4×maks-2 |
-| Bulgarian Split Squat | 4×12-15 (her bacak) |
-| Nordic Curl (negatif) veya Glute Bridge | 3×8-12 |
-| Pike Push-up | 3×8-12 |
-| Plank + Side Plank | 3×45 sn |
-
-Haftada 4 gün, aynı Upper/Lower takvimiyle. İlerleme kaldıraç zorluğundan gelir:
-diz üstü şınav → normal şınav → ayak yükseltmeli → tek kol negatif.
-
-### Yeni başlıyorsan (0-6 ay)
-
-- Set sayılarını **%25-30 azalt** (4 set → 3 set, 3 set → 2 set)
-- 3 RIR ile çalış, hiçbir seti başarısızlığa götürme
-- İlk 3-4 hafta ağırlık artırmaya odaklanma; **teknik** üzerine çalış. Bu dönemde ilerlemenin
-  büyük kısmı zaten sinirsel adaptasyondan gelir
-- Deadlift ve Back Squat'ı ilk haftalarda tecrübeli birine izlettir
-
----
-
-## Sık Yapılan Hatalar
-
-1. **Ego lifting** — Tekniği bozan ağırlık, kas yerine ekleme yük bindirir. Formu bozulan tekrar
-   sayılmaz.
-2. **Isınmayı atlamak** — Seansın en ucuz sakatlık sigortası.
-3. **Program hoppalığı** — Her 2 haftada program değiştirmek ilerlemeyi ölçmeyi imkânsız kılar.
-   En az 8-12 hafta aynı programda kal.
-4. **Sadece aynada ölçmek** — Değişim yavaş ve günlük dalgalanmalı. Ölçüt: kaydettiğin
-   ağırlık × tekrar sayısı.
-5. **Bacak gününü atlamak** — Alt vücut, vücuttaki kas kütlesinin yarısından fazlası.
-6. **Uykuyu kısıp takviyeye yatırım yapmak** — Hiçbir takviye 5 saatlik uykuyu telafi etmez.
-7. **Ağrıyı "kaslanma" sanmak** — Eklemde keskin ağrı normal değil. Kas ağrısı (DOMS) donuk,
-   yaygın ve 24-72 saatte geçer; eklem ağrısı keskin, noktasal ve hareketle artar.
-
----
-
-## İlerleme Takibi
-
-Her seansta kaldırdığın **ağırlık ve tekrar sayısını kaydet.** Bu program hafızaya değil,
-kayda dayanır — geçen hafta ne yaptığını bilmiyorsan üzerine ne koyacağını da bilemezsin.
-
-Hazır takip şablonu: [`takip-tablosu.md`](./takip-tablosu.md)
-
-**Ayrıca ayda bir ölçülecekler:**
-- Vücut ağırlığı (haftada 3-4 sabah, aç karnına — haftalık **ortalamayı** kullan, günlük değeri değil)
-- Çevre ölçümleri: göğüs, bel, kalça, kol, uyluk
-- Aynı ışık ve pozisyonda fotoğraf (ön / yan / arka)
-
----
-
-## 12 Haftalık Genel Plan
-
-| Hafta | Odak | Notlar |
+| Öğün | İçerik | Protein |
 |---|---|---|
-| 1-2 | **Adaptasyon** | Ağırlıkları muhafazakâr seç, tekniği oturt, 3 RIR |
-| 3-6 | **Birikim** | Çift ilerleme kuralını agresif uygula, 1-2 RIR |
-| 7 | **Deload** | Hacim yarıya, ağırlık %60 |
-| 8-11 | **Yoğunlaşma** | Kuvvet günlerinde ağırlığı, hipertrofi günlerinde hacmi artır |
-| 12 | **Test + Deload** | Ana hareketlerde 3-5 tekrar maksimumunu ölç, sonra boşalt |
+| Kahvaltı | 4 yumurta + 200 g süzme peynir + 80 g yulaf | ~56 g |
+| Öğle | 200 g tavuk göğsü + 100 g (kuru) pirinç/bulgur + bol salata | ~69 g |
+| Ara öğün | 1 ölçek whey **veya** 250 g Yunan yoğurdu + meyve | ~25 g |
+| Akşam | 200 g kırmızı et/balık + patates/bulgur + sebze | ~50 g |
+| | | **~200 g** |
 
-12. hafta sonunda: kayıtlarını başlangıçla karşılaştır, zayıf kalan bölgeye 1 ekstra hareket
-ekleyerek yeni döngüye başla.
+Bu bir zorunluluk listesi değil, referans şablon. Malzemeleri sevdiğin eşdeğerleriyle değiştir.
+
+### Protein referansları
+
+| Besin | Protein |
+|---|---|
+| 1 yumurta | ~6 g |
+| 100 g tavuk göğsü (pişmiş) | ~31 g |
+| 100 g dana kıyma %10 (pişmiş) | ~26 g |
+| 100 g ton balığı (suda, süzülmüş) | ~25 g |
+| 1 ölçek whey | ~24 g |
+| 100 g süzme peynir | ~11 g |
+| 100 g Yunan yoğurdu | ~10 g |
+| 100 g mercimek (pişmiş) | ~9 g |
+
+### Bel yağı için özellikle dikkat edilecekler
+
+Yemek hazırlamaya vaktin olduğunu söyledin — bu büyük avantaj, çünkü aşağıdakilerin çoğu
+dışarıda yemekten kaynaklanır.
+
+- **Sıvı kalori** — Meyve suyu, gazlı içecek, şekerli kahve. Doyurmaz, kalori yükler.
+  Günlük 300-500 kcal buradan sızabilir.
+- **Alkol** — Gramı 7 kcal, sıfır besin değeri. Ayrıca kas protein sentezini ve uykunun
+  derin fazını baskılar. Bel yağıyla ilişkisi kalori üzerinden ama etkisi bileşik.
+- **Su** — Günde **3-3.5 L**. Açıktayken tokluk hissi için önemli.
+- **Lif** — Günde 30-35 g (sebze, baklagil, tam tahıl). Tokluğun en ucuz kaynağı.
+- **Yemek tartısı** — İlk 2-3 hafta tart. Göz kararı porsiyon tahmini ortalama %30 yanılır
+  ve bu 450 kcal'lik açığını tamamen silecek büyüklükte bir hata.
+
+---
+
+## Bölüm 6 — Neyi Ölçeceksin
+
+**Tartıya bakma alışkanlığını bırak.** Rekomposizyon yaparken tartı seni yanıltır: yağ giderken
+kas geldiği için kilo neredeyse sabit kalabilir, ama görünüm belirgin şekilde değişir.
+
+### Birincil metrik: Bel çevresi
+
+Göbek deliği hizasından, sabah aç karnına, karnı içine çekmeden ölç. **Haftada 1 kez.**
+
+| Ölçüt | Hedef |
+|---|---|
+| Sağlıklı bel çevresi (boy ÷ 2) | **< 95 cm** |
+| 12 hafta sonunda beklenen değişim | **-5 ila -8 cm** |
+
+Bel/boy oranının 0.5'in altına inmesi, tartıdaki herhangi bir sayıdan daha anlamlı bir
+sağlık göstergesidir.
+
+### İkincil metrikler
+
+| Metrik | Sıklık | Beklenti |
+|---|---|---|
+| Kilo (haftalık **ortalama**) | Haftada 3-4 sabah | Haftada -0.4 kg. 12 hafta → **99 → ~94 kg** |
+| Antrenman ağırlıkları | Her seans | Artmalı veya en kötü sabit kalmalı |
+| Fotoğraf (ön/yan/arka) | Ayda 1 | Aynı ışık, aynı poz, aynı saat |
+| Kol / göğüs / uyluk çevresi | Ayda 1 | Sabit veya artış = kas korunuyor |
+
+### Başarı tanımı
+
+> **Bel inerken salondaki ağırlıklar artıyorsa program çalışıyor — tartı ne derse desin.**
+
+Bu tek cümle, önümüzdeki 12 hafta boyunca kafanın karıştığı her anın cevabı. Kilo 2 hafta
+sabit kalıp bel 1.5 cm indiyse, aynı anda yağ kaybedip kas kazanmışsın demektir. Bu, olabilecek
+en iyi sonuçtur.
+
+---
+
+## 12 Haftalık Yol Haritası
+
+| Hafta | Odak | Beklenti |
+|---|---|---|
+| **1-3** | Yeniden başlangıç | Kilo hızlı düşebilir (su + glikojen) — yanıltıcı, panik yapma. DOMS yoğun olacak |
+| **4-6** | Ana blok — çift ilerleme başlar | Haftada ~0.4 kg. Ağırlıklar hızlı artar (kas hafızası). Bel ilk kez belirgin iner |
+| **7** | **Deload** | Hacim yarıya, ağırlık %60. Kilo bu hafta duraklayabilir |
+| **8-11** | Ana blok devam | Ağırlık artışı yavaşlar, bel incelmeye devam eder. Görsel değişim burada belirginleşir |
+| **12** | Test + deload | Ana hareketlerde 5 tekrar maksimumunu ölç, ölçümleri al, sonra boşalt |
+
+**12. hafta sonu beklenen tablo:** ~94 kg, bel -5/-8 cm, ana hareketlerde belirgin ağırlık
+artışı, ölçülerde koruma veya artış. Tartıdaki 5 kiloluk düşüş kulağa mütevazı gelebilir ama
+aynı anda kas kazandığın için aynadaki fark çok daha büyük olacak.
+
+**12. hafta sonrası:** Bel hâlâ hedefin üstündeyse aynı yapıyla 12 hafta daha devam et.
+Hedefe ulaştıysan kaloriyi kademeli olarak bakıma (~2.950) çıkarıp kas kazanım bloğuna geç.
+
+---
+
+## Sana Özel 7 Uyarı
+
+1. **İlk 3 hafta ağırlığa değil tekniğe odaklan.** Kas hafızan seni hazır olmadığın ağırlığa
+   iter. Sakatlanırsan 12 haftalık plan sıfırlanır.
+2. **Karın hareketlerinden bel incelmesi bekleme.** Programda karın çalışması var ama amacı
+   gövde stabilitesi ve duruş — yağ yakmak değil.
+3. **Bel bölgesi en son gider.** 4-5. haftada yüzün ve kolların incelirken bel sabit durursa
+   bu normal seyirdir, program hatası değil.
+4. **Masa başı duruşu belini olduğundan kalın gösterir.** Öne eğilmiş pelvis (anterior tilt)
+   karnı öne çıkarır. Programdaki hip thrust, plank, dead bug ve kalça fleksörü esnetmesi bunu
+   düzeltir — bu hareketler estetik olarak yağ kaybı kadar fark yaratır.
+5. **8 saatlik uykunu koru.** En büyük avantajın bu. 6 saate düştüğün haftalarda hem açlık
+   hormonu (ghrelin) yükselir hem kas koruma kapasiten düşer.
+6. **Tartıyı haftalık ortalama olarak oku.** Günlük dalgalanma 1-2 kg olabilir; tuz, su ve
+   sindirim kaynaklıdır, yağ değildir.
+7. **Programı en az 12 hafta değiştirme.** 4 yıllık geçmişinle ne yaptığını biliyorsun; bu
+   dönemde en büyük risk sabırsızlık ve program değiştirme.
+
+---
+
+## İlgili Dosya
+
+Antrenman kayıtları ve ölçüm takibi için: [`takip-tablosu.md`](./takip-tablosu.md)
