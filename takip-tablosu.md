@@ -56,7 +56,7 @@ Bileşik hareketler ara dönemde kuvveti izolasyon hareketlerinden daha iyi koru
 
 | Hareket | Hafta 1 | Hedef | Ulaşıldı mı? |
 |---|---|---|---|
-| Barbell Bench Press | 40 kg × 8 | 60-70 kg × 6-8 | ☐ |
+| Barbell Bench Press | 50 kg × 10 | 70-80 kg × 6-8 | ☐ |
 | Barbell Back Squat | 40 kg × 8 | 80-100 kg × 6-8 | ☐ |
 | Deadlift | 60 kg × 5 | 100-120 kg × 5 | ☐ |
 | Pull-up | Destekli | 5-8 serbest tekrar | ☐ |
@@ -178,6 +178,9 @@ Hedef: **2.500 kcal · 190 g protein · 250 g karbonhidrat · 80 g yağ**
 İlk 2-3 hafta tart ve kaydet. Sonrasında porsiyonlar oturunca her gün tartmana gerek kalmaz.
 Aşağıdaki tablo haftalık özet içindir — günlük kaydı bir uygulamada tut.
 
+**Bisiklet günlerinde hedef 2.800-2.900 kcal** (yakılan ~500 kcal'in ~%70'i geri alınır).
+Bu telafiyi atlamak, enerji düşüklüğünün ve ağırlık kaybının bir numaralı sebebidir.
+
 | Hafta | Ort. kalori | Ort. protein | Hedefe uyum (1-5) | Not |
 |---|---|---|---|---|
 | 1 | | | | |
@@ -199,20 +202,20 @@ Aşağıdaki tablo haftalık özet içindir — günlük kaydı bir uygulamada t
 
 Performansın bir hafta boyunca düşüyorsa cevap genellikle bu tablodadır.
 
-| Hafta | Ort. uyku | Enerji (1-5) | Ağrı/rahatsızlık | Kaçırılan seans | Not |
-|---|---|---|---|---|---|
-| 1 | | | | | |
-| 2 | | | | | |
-| 3 | | | | | |
-| 4 | | | | | |
-| 5 | | | | | |
-| 6 | | | | | |
-| 7 | | | | | |
-| 8 | | | | | |
-| 9 | | | | | |
-| 10 | | | | | |
-| 11 | | | | | |
-| 12 | | | | | |
+| Hafta | Ort. uyku | Enerji (1-5) | Bisiklet (sürüş/km) | Ağrı/rahatsızlık | Kaçırılan seans | Not |
+|---|---|---|---|---|---|---|
+| 1 | | | | | | Enerji düşüklüğü bildirildi — 3. haftada hâlâ sürüyorsa kalori/karbonhidrat kontrolü |
+| 2 | | | | | | |
+| 3 | | | | | | |
+| 4 | | | | | | |
+| 5 | | | | | | |
+| 6 | | | | | | |
+| 7 | | | | | | |
+| 8 | | | | | | |
+| 9 | | | | | | |
+| 10 | | | | | | |
+| 11 | | | | | | |
+| 12 | | | | | | |
 
 Uyku 8 saatin altına düştüğü haftalarda hem açlığın artar hem kas koruma kapasiten düşer —
 bir sonraki haftanın kilo ve performans verisini bu sütunla birlikte oku.

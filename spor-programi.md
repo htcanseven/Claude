@@ -79,7 +79,7 @@ için geçerli; Pazartesi 10 Ağustos'tan itibaren normal takvime geçiyorsun.
 | Çarşamba | 5 Ağu | **Gün 1 — Üst Vücut A** ✓ tamamlandı |
 | Perşembe | 6 Ağu | **Gün 2 — Alt Vücut A** (squat, RDL) |
 | Cuma | 7 Ağu | **Gün 3 — Üst Vücut B** |
-| Cumartesi | 8 Ağu | Zone 2 kardiyo 30 dk + yürüyüş |
+| Cumartesi | 8 Ağu | Hafif bisiklet 30-40 dk veya yürüyüş (bu hafta tam sürüş yok) |
 | Pazar | 9 Ağu | Tam dinlenme |
 | **Pazartesi** | **10 Ağu** | **Gün 1 — normal takvim ve 2. hafta başlar** |
 
@@ -97,10 +97,10 @@ seansın 2. haftaya kayıyor ve belin bir hafta daha adaptasyon süresi kazanıy
 |---|---|---|
 | Pazartesi | **Gün 1** — Üst Vücut A (itme ağırlıklı) | 60 dk |
 | Salı | **Gün 2** — Alt Vücut A (squat ağırlıklı) | 60 dk |
-| Çarşamba | Zone 2 kardiyo + yürüyüş | 30 dk |
+| Çarşamba | **Bisiklet** (Zone 2) + yürüyüş | 60 dk |
 | Perşembe | **Gün 3** — Üst Vücut B (çekme ağırlıklı) | 60 dk |
 | Cuma | **Gün 4** — Alt Vücut B (kalça menteşesi ağırlıklı) | 60 dk |
-| Cumartesi | Zone 2 kardiyo veya aktif dinlenme | 30-40 dk |
+| Cumartesi | **Bisiklet** (Zone 2, hafta 4+) veya aktif dinlenme | 60 dk |
 | Pazar | Tam dinlenme |  |
 
 Günler kayabilir; tek kural iki üst veya iki alt vücut gününü art arda koymamak.
@@ -397,8 +397,80 @@ kalori harcamanı yapılandırılmış kardiyodan daha çok düşürür.
 | # | Ne | Hedef | Neden |
 |---|---|---|---|
 | 1 | **Günlük adım** | 8.000 → 10.000 (kademeli) | Masa başı için en büyük fark. ~250-300 kcal/gün değerinde ve yorgunluk yaratmaz |
-| 2 | **Zone 2 kardiyo** | Haftada 2 × 30 dk | Konuşabildiğin tempo. Çarşamba + Cumartesi |
+| 2 | **Bisiklet (Zone 2)** | Haftada 1-2 × 1 saat | Aşağıdaki bölüm |
 | 3 | **Saatlik kalkış** | Her saat 3-5 dk | Kalça fleksörü kısalmasını ve duruş bozulmasını engeller |
+
+---
+
+### Bisiklet
+
+Mevcut verin: **1 saat ≈ 15 km.** Bu tempo (15 km/h) senin için büyük olasılıkla zaten
+Zone 2 bandında — yani programın istediği şiddet. Ayrıca bisiklet, koşunun aksine eksantrik
+yüklenme içermediği için bacak toparlanmasını en az bozan kardiyo türü. Ağırlık antrenmanının
+yanına en uygun seçim.
+
+**Kalori karşılığı:** 99 kg, 15 km/h, 1 saat ≈ **~500 kcal** (net). Arazi ve rüzgâra göre
+450-550 bandında değişir.
+
+#### ⚠ En kritik kural: kardiyo kalorisini geri ye
+
+Kardiyo kalorisi mevcut açığının **üstüne biner.** Günlük 2.500 kcal zaten 450 kcal açık
+demek; üzerine 500 kcal'lik bir sürüş eklersen o günkü açığın **~950 kcal** olur.
+
+Bu seviyedeki açık yağ kaybını hızlandırmaz — **kası yakar.** Sonuçları: toparlanma çöker,
+ağırlıklar düşer, enerji kalıcı olarak düşer. Senin hedefin zaten kas korumak olduğu için
+bu, programın tersine çalışması demektir.
+
+| Gün tipi | Kalori |
+|---|---|
+| Normal gün | **2.500 kcal** |
+| **Bisiklet günü** | **2.800-2.900 kcal** (yaktığının ~%70'i geri) |
+
+Ek kaloriyi ağırlıklı olarak **karbonhidrattan** al ve sürüşten önce/sonra yerleştir.
+
+**Haftalık kontrol (2 sürüşlü hafta):** Toplam açık ~3.450 kcal = **0,44 kg/hafta.**
+Hedefin tam üstünde. Yani bisiklet yağ kaybını hızlandırmak için değil, kondisyon, kalp
+sağlığı ve dayanıklılık için ekleniyor — kayıp hızı mutfaktan geliyor.
+
+#### Kaç gün ve ne zaman
+
+Kademeli yükle. İki yeni stresörü (ağırlık dönüşü + kardiyo) aynı anda bindirme.
+
+| Dönem | Bisiklet |
+|---|---|
+| Hafta 1 | 30-40 dk hafif tempo veya yürüyüş |
+| Hafta 2-3 | **1 × 1 saat** — Çarşamba |
+| Hafta 4+ | **2 × 1 saat** — Çarşamba + Cumartesi |
+| Üst sınır | 3/hafta — sadece salondaki ağırlıklar artmaya devam ediyorsa |
+
+Takvimde değişiklik gerekmiyor: Çarşamba ve Cumartesi zaten Zone 2 günleri.
+
+**Aynı gün gym + bisiklet yapma.** Bu konudaki sezgin doğru. Zorunlu kaldığında en az 6 saat
+ara koy ve ağırlığı önce yap.
+
+#### Zone 2 kontrolü
+
+Sürüş boyunca **tam cümle konuşabiliyor olmalısın.** Nefes nefese kaldıysan Zone 2'nin
+üstündesin — o zaman Salı squat ve Cuma deadlift toparlanmanı bozmaya başlar. Nabız
+takip ediyorsan hedef bant: maksimum nabzının %60-70'i (senin yaşında ≈ **113-132 bpm**).
+
+Zone 2'de kalırsan bisiklet toparlanmayı **bozmaz, hızlandırır** — kan akışı artar, ağrı
+azalır.
+
+#### Enerji düşüklüğü — ne zaman normal, ne zaman değil
+
+**Normal:** 1 yıllık aradan sonraki ilk 1-2 hafta. Vücut yeniden adapte oluyor.
+
+**Normal değil** — 3. haftadan sonra da sürüyorsa sırasıyla şunları kontrol et:
+
+1. **Kalori** — Bisiklet günlerinde geri yemeyi atlıyor musun?
+2. **Karbonhidrat** — Günde 250 g hedefinin altında mısın? Performans yakıtı budur
+3. **Uyku** — 8 saatin altına düştü mü?
+4. **Kan değerleri** — Demir, B12, D vitamini ve tiroid. Başlangıçta önerdiğim tahlili
+   yaptırmadıysan bu iyi bir sebep
+
+Ağırlıkların iki hafta üst üste düşüyorsa cevap neredeyse her zaman 1 veya 2 numaradır:
+kaloriyi 200-300 kcal yukarı çek.
 
 **Önce mevcut adım sayını ölç.** Masa başı çalışanların çoğu günde 3.000-5.000 adımda kalır.
 Doğrudan 10.000'e sıçrama; her hafta 1.000 ekle.
