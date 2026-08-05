@@ -13,19 +13,37 @@ Hafta 4+ → 1-2 RIR · Hafta 7 → deload
 
 ## 1. Hafta — Başlangıç Ağırlıklarını Bulma
 
-Maksimum deneme yapma. Her hareket için hedef tekrarı 4-5 tekrar yedekte kalacak şekilde
-yapabildiğin ağırlığı bul ve buraya yaz. Tüm programın başlangıç noktası bu tablo.
+"Tahmini" sütunu dumbbell bench verinden (2 × 20 kg × 10) türetilmiş başlangıç noktasıdır.
+Maksimum deneme yapma: tahmini ağırlıkla başla, 4-5 tekrar yedekte kalıyorsa 5-10 kg ekle,
+4 RIR hissine ulaştığında dur ve durduğun yeri "Bulunan" sütununa yaz. Programın geri kalanı
+bu tablodaki gerçek sayılar üzerine kurulacak.
 
-| Hareket | Bulunan ağırlık | Tekrar | Not |
+| Hareket | Tahmini | Bulunan | Tekrar | Not |
+|---|---|---|---|---|
+| Barbell Bench Press | 40 kg | | | Bar + 10 kg/taraf |
+| Barbell Row | 40 kg | | | |
+| Incline Barbell Press | 30-35 kg | | | |
+| Seated DB Shoulder Press | 12 kg/el | | | |
+| Incline Dumbbell Press | 14 kg/el | | | |
+| Lat Pulldown | 45 kg | | | |
+| Pull-up | Destekli | | | Karşı ağırlık/bant değerini yaz |
+| Barbell Back Squat | 40 kg | | | İlk 2 seans teknik önceliği |
+| Romanian Deadlift | 50 kg | | | |
+| Trap Bar / Konvansiyonel Deadlift | 60 kg | | | Hangisini kullandığını yaz |
+| Leg Press | 80 kg | | | |
+| Hip Thrust | 40 kg | | | |
+| Bulgarian Split Squat | Vücut ağırlığı | | | Denge oturunca dumbbell ekle |
+| Lying / Seated Leg Curl | 25 kg | | | |
+| Leg Extension | 30 kg | | | |
+
+### 12. hafta kuvvet hedefleri
+
+| Hareket | Hafta 1 | Hedef | Ulaşıldı mı? |
 |---|---|---|---|
-| Barbell Bench Press | | | Verdiğin veri: 20 kg × 10 |
-| Barbell Row | | | |
-| Barbell Back Squat | | | |
-| Romanian Deadlift | | | |
-| Pull-up | | | Destekli/negatif ise not düş |
-| Incline Barbell Press | | | |
-| Trap Bar / Konvansiyonel Deadlift | | | Hangisini kullandığını yaz |
-| Bulgarian Split Squat | | | |
+| Barbell Bench Press | 40 kg × 8 | 60-70 kg × 6-8 | ☐ |
+| Barbell Back Squat | 40 kg × 8 | 80-100 kg × 6-8 | ☐ |
+| Deadlift | 60 kg × 5 | 100-120 kg × 5 | ☐ |
+| Pull-up | Destekli | 5-8 serbest tekrar | ☐ |
 
 ---
 

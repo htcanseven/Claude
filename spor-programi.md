@@ -21,12 +21,12 @@
 | Stres | Orta |
 | Seans süresi | 60 dakika |
 | Beslenme kısıtı | Yok — günde 2-3 öğün, yemek hazırlamaya vakit var |
+| Antrenman sıklığı | Haftada 4 gün |
+| Ekipman | Tam donanımlı salon |
+| Mevcut kuvvet | Dumbbell bench press 2 × 20 kg × 10 tekrar |
 
 **Ana hedef:** Bel bölgesi yağının azaltılması, kas kütlesinin korunup artırılması
 ("skinny fat" görünümünün düzeltilmesi).
-
-**Varsayımlar:** Haftada 4 gün antrenman ve tam donanımlı salon erişimi varsayıldı. Bunlar
-farklıysa söyle, programı yeniden kurarım.
 
 > **Sağlık notu:** Bilinen bir rahatsızlığın olmadığını belirttin. Yine de 1 yıllık aradan
 > sonra ağır antrenmana dönüyorsun; başlamadan önce bir kez temel kan tahlili ve tansiyon
@@ -195,20 +195,97 @@ yapabilirdim" hissiyle seti bitir.
 > kola/koyu renkli idrar, geçmeyen aşırı şişlik, hareket edememe derecesinde ağrı. Böyle bir
 > şey olursa acile başvur. Programdaki 4-5 RIR kuralına uyarsan bu risk pratikte ortadan kalkar.
 
-### 1. Hafta: Ağırlıklarını Bulma
+### Mevcut kuvvet seviyen
 
-Bench press dışındaki sayılarını bilmiyorsun — sorun değil, ilk hafta zaten bunun için.
-**Maksimum deneme yapma.** Her ana hareket için:
+Verdiğin tek veri: **dumbbell bench press, her elde 20 kg × 10 tekrar** (toplam 40 kg yük).
+
+| Hesap | Sonuç |
+|---|---|
+| Dumbbell toplam yük | 40 kg × 10 tekrar |
+| Barbell karşılığı (dumbbell ≈ barbell'in %85'i — stabilizasyon farkı) | **~47 kg × 10 tekrar** |
+| Tahmini bench press 1RM (Epley) | **~65-70 kg** |
+
+Bu, 1 yıllık aradan sonra makul ve üzerine inşa edilebilir bir taban. 4 yıllık geçmişinle
+zirve değerinin muhtemelen 90-100 kg bandında olduğunu varsayarsak, kas hafızası sayesinde
+o seviyeye sıfırdan başlayan birinden çok daha hızlı döneceksin.
+
+Diğer hareketlerin sayısını bilmiyorsun, ama bench verisi bir çapa noktası veriyor —
+kuvvet oranları üzerinden hepsini tahmin edebiliyorum. Aşağıdaki tablo **1. hafta başlangıç
+ağırlıkların.**
+
+### 1. Hafta başlangıç ağırlıkları (4-5 RIR)
+
+Bu sayılar tahmin, kural değil. **RIR kuralı her zaman tabloyu ezer:** ağırlık kolay geliyorsa
+artır, 4 RIR'a zorlanıyorsan azalt. 1. haftanın amacı zaten bu tabloyu senin gerçek
+sayılarınla değiştirmek.
+
+**Üst vücut** (bench verisinden türetildi — güvenilirliği yüksek)
+
+| Hareket | Başlangıç | Not |
+|---|---|---|
+| Barbell Bench Press | **40 kg** | Bar + 10 kg/taraf |
+| Incline Barbell Press | **30-35 kg** | Eğimli, düz bench'in ~%75'i |
+| Barbell Row | **40 kg** | |
+| Seated DB Shoulder Press | **12 kg** (her el) | |
+| Incline Dumbbell Press | **14 kg** (her el) | |
+| Lat Pulldown | **45 kg** | |
+| Pull-up | **Destekli veya negatif** | Aşağıdaki nota bak |
+| Face Pull | **15 kg** | |
+| Cable Fly / Pec Deck | **10 kg** (her taraf) | |
+| Dumbbell Curl | **8 kg** (her el) | |
+| Hammer Curl | **10 kg** (her el) | |
+| Lateral Raise | **6 kg** (her el) | Hafif kalması gereken hareket |
+| Rear Delt Fly | **6 kg** (her el) | |
+| Triceps Pushdown / Overhead Ext. | **15 kg** | |
+
+**Alt vücut** (veri yok — kademeli çıkış protokolü)
+
+Alt vücutta hiç sayın olmadığı ve 1 yıl ara verdiğin için **düşükten başlayıp çıkacağız.**
+Aşağıdaki değerler ilk sette kullanacağın ağırlık; her sette 4-5 RIR'a ulaşana kadar
+5-10 kg ekle ve durduğun yeri kaydet.
+
+| Hareket | 1. set başlangıcı | Not |
+|---|---|---|
+| Barbell Back Squat | **40 kg** | Bar + 10/taraf. İlk 2 seans teknik önceliği |
+| Romanian Deadlift | **50 kg** | Bel nötr kalmıyorsa ağırlığı düşür |
+| Trap Bar Deadlift | **60 kg** | Trap bar varsa tercih et — bele daha az yük |
+| Leg Press | **80 kg** | Makine değişken; RIR'a göre ayarla |
+| Lying / Seated Leg Curl | **25 kg** | |
+| Leg Extension | **30 kg** | |
+| Hip Thrust | **40 kg** | |
+| Bulgarian Split Squat | **Vücut ağırlığı** | Denge oturunca 2×8 kg dumbbell ekle |
+| Walking Lunge | **Vücut ağırlığı** | 2. haftadan itibaren dumbbell |
+| Calf Raise | **Orta** | Yüksek tekrar hareketi, ağırlık kritik değil |
+
+**Pull-up hakkında:** 99 kiloda ve 1 yıl aradan sonra serbest barfiks muhtemelen zorlanacaksın.
+Sıralama şu — destekli barfiks makinesi (karşı ağırlık ~35 kg) veya bant desteği → negatif
+tekrarlar (yukarı zıpla, 4 saniyede kontrollü in) → serbest barfiks. Serbest 5 tekrar
+yapabilene kadar destekli devam et; utanılacak bir şey değil, kilo başına gereken kuvvet
+190 cm boyda yüksektir.
+
+### 1. Hafta uygulama kuralı
+
+**Maksimum deneme yapma.** Her hareket için:
 
 1. Isınma setlerini yap
-2. Tahmini bir ağırlıkla hedef tekrarı uygula
+2. Tablodaki ağırlıkla hedef tekrarı uygula
 3. Set sonunda 4-5 tekrar daha yapabilecek durumdaysan → 5-10 kg ekle, tekrar dene
-4. Zorlanmaya başladığında dur. **Bulduğun ağırlığı kaydet.** Başlangıç noktan bu.
+4. 4 RIR hissine ulaştığında dur. **Bulduğun ağırlığı kaydet.** Gerçek başlangıç noktan bu.
 
-Bench press'te 20 kg × 10 verdin. Bu boş bar ağırlığı — 1 yıllık aradan sonra makul bir
-başlangıç, ama 4 yıllık geçmişinle 3-4 hafta içinde bunun belirgin şekilde üzerine
-çıkacağını beklemelisin. Eğer 20 kg'ı dumbbell başına kastettiysen (toplam 40 kg) başlangıç
-noktan zaten çok daha yüksek demektir. İlk hafta test bunu netleştirecek.
+### 12 hafta sonu kuvvet beklentisi
+
+Kalori açığında olduğun için ilerleme kalori fazlasındaki kadar hızlı olmayacak — ama kas
+hafızası bunu fazlasıyla telafi eder. Makul hedef:
+
+| Hareket | Hafta 1 | Hafta 12 hedefi |
+|---|---|---|
+| Barbell Bench Press | 40 kg × 8 | **60-70 kg × 6-8** |
+| Barbell Back Squat | 40 kg × 8 | **80-100 kg × 6-8** |
+| Deadlift | 60 kg × 5 | **100-120 kg × 5** |
+| Pull-up | Destekli | **5-8 serbest tekrar** |
+
+Bu tabloyu 12. haftada kontrol et. Yakalayamadıysan sebep neredeyse her zaman şu üçünden
+biridir: kalori açığı fazla, uyku düşmüş veya deload atlanmış.
 
 ---
 
