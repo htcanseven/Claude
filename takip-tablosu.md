@@ -18,23 +18,39 @@ Maksimum deneme yapma: tahmini ağırlıkla başla, 4-5 tekrar yedekte kalıyors
 4 RIR hissine ulaştığında dur ve durduğun yeri "Bulunan" sütununa yaz. Programın geri kalanı
 bu tablodaki gerçek sayılar üzerine kurulacak.
 
-| Hareket | Tahmini | Bulunan | Tekrar | Not |
+| Hareket | Tahmini | **Bulunan** | Tekrar | Not |
 |---|---|---|---|---|
-| Barbell Bench Press | 40 kg | | | Bar + 10 kg/taraf |
-| Barbell Row | 40 kg | | | |
-| Incline Barbell Press | 30-35 kg | | | |
-| Seated DB Shoulder Press | 12 kg/el | | | |
-| Incline Dumbbell Press | 14 kg/el | | | |
-| Lat Pulldown | 45 kg | | | |
-| Pull-up | Destekli | | | Karşı ağırlık/bant değerini yaz |
-| Barbell Back Squat | 40 kg | | | İlk 2 seans teknik önceliği |
-| Romanian Deadlift | 50 kg | | | |
-| Trap Bar / Konvansiyonel Deadlift | 60 kg | | | Hangisini kullandığını yaz |
-| Leg Press | 80 kg | | | |
-| Hip Thrust | 40 kg | | | |
-| Bulgarian Split Squat | Vücut ağırlığı | | | Denge oturunca dumbbell ekle |
+| Barbell Bench Press | 40 kg | **50 kg** | 4×10 | Tahminin %25 üstü |
+| Machine Pulldown | 45 kg | **55 kg** | 3×9 | Tahminin %22 üstü |
+| Seated DB Shoulder Press | 12 kg/el | **12 kg/el** | 3×8 | Tahmin birebir tuttu |
+| Seated Row | 40 kg | **40 kg** | 3×12 | Tahmin birebir tuttu |
+| Dumbbell Press | 14 kg/el | **15 kg/el** | 3×12 | Eğimli mi düz mü — netleştir |
+| Triceps Rope Pushdown | 15 kg | **15 kg** | 3×12 | Tahmin birebir tuttu |
+| Face Pull | 15 kg | — | — | 1. seansta atlandı |
+| Dumbbell Curl | 8 kg/el | — | — | 1. seansta atlandı |
+| Barbell Row | 40 kg | | | Pulldown lehine takas edildi |
+| Incline Barbell Press | 30-35 kg | | | Gün 3 |
+| Pull-up | Destekli | | | Gün 3 — karşı ağırlık/bant değerini yaz |
+| Barbell Back Squat | 40 kg | | | Gün 2 — ilk 2 seans teknik önceliği |
+| Romanian Deadlift | 50 kg | | | Gün 2 |
+| Trap Bar / Konvansiyonel Deadlift | 60 kg | | | Gün 4 — hangisini kullandığını yaz |
+| Leg Press | 80 kg | | | Gün 2 |
+| Hip Thrust | 40 kg | | | Gün 4 |
+| Bulgarian Split Squat | Vücut ağırlığı | | | Gün 4 — denge oturunca dumbbell ekle |
 | Lying / Seated Leg Curl | 25 kg | | | |
-| Leg Extension | 30 kg | | | |
+| Leg Extension | 30 kg | | | Gün 4 |
+
+### Revize kuvvet tahmini (1. seans sonrası)
+
+Bench verisi tahminin belirgin üstünde çıktı; dumbbell→barbell çevirimi muhafazakâr kalmış.
+Bileşik hareketler ara dönemde kuvveti izolasyon hareketlerinden daha iyi korumuş.
+
+| | İlk tahmin | 1. seans sonrası |
+|---|---|---|
+| Bench 10RM | ~47 kg | **~57-60 kg** |
+| Bench tahmini 1RM | 65-70 kg | **~75-80 kg** |
+
+12. hafta bench hedefi bu veriyle yukarı revize edilebilir: **70-80 kg × 6-8.**
 
 ### 12. hafta kuvvet hedefleri
 
@@ -49,16 +65,24 @@ bu tablodaki gerçek sayılar üzerine kurulacak.
 
 ## Gün 1 — Üst Vücut A
 
+Uygulanan yapı: pulldown ana hareket, seated row yardımcı (onaylanan alternatif kurulum).
+
 | Egzersiz | Hedef | H1 | H2 | H3 | H4 | H5 | H6 | H7* | H8 | H9 | H10 | H11 | H12 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Barbell Bench Press | 4×6-8 | | | | | | | | | | | | |
-| Barbell Row | 4×8-10 | | | | | | | | | | | | |
-| Seated DB Shoulder Press | 3×8-10 | | | | | | | | | | | | |
-| Lat Pulldown | 3×10-12 | | | | | | | | | | | | |
-| Incline Dumbbell Press | 3×10-12 | | | | | | | | | | | | |
-| Face Pull | 3×15 | | | | | | | | | | | | |
-| Dumbbell Curl | 3×12 | | | | | | | | | | | | |
-| Triceps Rope Pushdown | 3×12 | | | | | | | | | | | | |
+| Barbell Bench Press | 4×6-8 | 50×10 ×4 | | | | | | | | | | | |
+| Machine Pulldown | 4×8-10 | 55×9 ×3 | | | | | | | | | | | |
+| Seated DB Shoulder Press | 3×8-10 | 12×8 ×3 | | | | | | | | | | | |
+| Seated Row | 3×10-12 | 40×12 ×3 | | | | | | | | | | | |
+| Incline Dumbbell Press | 3×10-12 | 15×12 ×3 | | | | | | | | | | | |
+| Face Pull | 3×15 | **atlandı** | | | | | | | | | | | |
+| Dumbbell Curl | 3×12 | **atlandı** | | | | | | | | | | | |
+| Triceps Rope Pushdown | 3×12 | 15×12 ×3 | | | | | | | | | | | |
+
+**2. hafta hedefleri (3-4 RIR):** Bench 55×6-8 · Pulldown 60×8-10 · Omuz 14×8-10 ·
+Row 45×10-12 · Incline DB 16×10-12 · Face Pull 15×15 · Curl 10×12 · Triceps 17.5×12
+
+**Not:** Bench 6-8 aralığına 4. haftadan itibaren geç. İlk 3 haftada 10 tekrar daha hafif
+yükle daha çok teknik tekrarı sağladığı için dönüş döneminde tercih edilebilir.
 
 ## Gün 2 — Alt Vücut A
 
