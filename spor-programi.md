@@ -69,7 +69,29 @@ ağırlık = yağ giderken kasın artması.
 
 ## Bölüm 1 — Antrenman
 
-### Haftalık takvim
+### ⚠ Bu haftaya özel takvim (5-9 Ağustos 2026)
+
+Programa Çarşamba başladın, dolayısıyla 1. hafta kısa. Aşağıdaki düzen **sadece bu hafta**
+için geçerli; Pazartesi 10 Ağustos'tan itibaren normal takvime geçiyorsun.
+
+| Gün | Tarih | Program |
+|---|---|---|
+| Çarşamba | 5 Ağu | **Gün 1 — Üst Vücut A** ✓ tamamlandı |
+| Perşembe | 6 Ağu | **Gün 2 — Alt Vücut A** (squat, RDL) |
+| Cuma | 7 Ağu | **Gün 3 — Üst Vücut B** |
+| Cumartesi | 8 Ağu | Zone 2 kardiyo 30 dk + yürüyüş |
+| Pazar | 9 Ağu | Tam dinlenme |
+| **Pazartesi** | **10 Ağu** | **Gün 1 — normal takvim ve 2. hafta başlar** |
+
+**Gün 4 (Alt Vücut B) bu hafta atlanıyor.** Sebebi: Perşembe Romanian Deadlift, Cumartesi
+Deadlift yapmak 48 saat arayla iki ağır kalça menteşesi demek. Arka zincir ve bel, 1 yıllık
+aradan sonraki ilk haftada bunu kaldıracak durumda değil. Yan fayda olarak ilk deadlift
+seansın 2. haftaya kayıyor ve belin bir hafta daha adaptasyon süresi kazanıyor.
+
+1. hafta zaten kademeli yükleme haftası — bir seans eksik kalmasının programa maliyeti yok.
+2. haftadan itibaren dört günün tamamı uygulanacak.
+
+### Haftalık takvim (10 Ağustos'tan itibaren)
 
 | Gün | Program | Süre |
 |---|---|---|
