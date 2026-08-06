@@ -31,13 +31,16 @@ bu tablodaki gerçek sayılar üzerine kurulacak.
 | Barbell Row | 40 kg | | | Pulldown lehine takas edildi |
 | Incline Barbell Press | 30-35 kg | | | Gün 3 |
 | Pull-up | Destekli | | | Gün 3 — karşı ağırlık/bant değerini yaz |
-| Barbell Back Squat | 40 kg | | | Gün 2 — ilk 2 seans teknik önceliği |
-| Romanian Deadlift | 50 kg | | | Gün 2 |
+| Hack Squat | — | **kızak + 30 kg** | 3×12 | Back squat yerine tercih edildi |
+| Romanian Deadlift | 50 kg | **45 kg** | 3×15 | Hafif — 55 kg'a çık |
+| Leg Press | 80 kg | **65 kg** | 3×13 | |
+| Seated Leg Curl | 25 kg | **65 kg** | 3×12 | Makine kaldıracı farklı; tahmin geçersiz |
+| Walking Lunge | Vücut ağırlığı | **12 kg/el** | 2×12 | Tahminin üstünde |
+| Seated Calf Raise | — | **35 kg** | 3×12 | Gün 2'de **ayakta** olmalıydı |
+| Barbell Back Squat | 40 kg | | | Hack squat lehine takas edildi |
 | Trap Bar / Konvansiyonel Deadlift | 60 kg | | | Gün 4 — hangisini kullandığını yaz |
-| Leg Press | 80 kg | | | Gün 2 |
 | Hip Thrust | 40 kg | | | Gün 4 |
 | Bulgarian Split Squat | Vücut ağırlığı | | | Gün 4 — denge oturunca dumbbell ekle |
-| Lying / Seated Leg Curl | 25 kg | | | |
 | Leg Extension | 30 kg | | | Gün 4 |
 
 ### Revize kuvvet tahmini (1. seans sonrası)
@@ -86,15 +89,34 @@ yükle daha çok teknik tekrarı sağladığı için dönüş döneminde tercih 
 
 ## Gün 2 — Alt Vücut A
 
+Uygulanan yapı: Back Squat yerine **Hack Squat** (190 cm boyda bel yükünü sıfırlar — onaylı takas).
+
 | Egzersiz | Hedef | H1 | H2 | H3 | H4 | H5 | H6 | H7* | H8 | H9 | H10 | H11 | H12 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Barbell Back Squat | 4×6-8 | | | | | | | | | | | | |
-| Romanian Deadlift | 3×8-10 | | | | | | | | | | | | |
-| Leg Press | 3×12-15 | | | | | | | | | | | | |
-| Lying Leg Curl | 3×12-15 | | | | | | | | | | | | |
-| Walking Lunge | 2×12 | | | | | | | | | | | | |
-| Standing Calf Raise | 3×15 | | | | | | | | | | | | |
-| Karın devresi | 2 tur | | | | | | | | | | | | |
+| Hack Squat | 4×6-8 | kızak+30×12 ×3 | | | | | | | | | | | |
+| Romanian Deadlift | 3×8-10 | 45×15 ×3 | | | | | | | | | | | |
+| Leg Press | 3×12-15 | 65×13 ×3 | | | | | | | | | | | |
+| Seated Leg Curl | 3×12-15 | 65×12 ×3 | | | | | | | | | | | |
+| Walking Lunge | 2×12 | 12 kg/el ×12 ×2 | | | | | | | | | | | |
+| **Standing** Calf Raise | 3×15 | ⚠ seated yapıldı 35×12 | | | | | | | | | | | |
+| Karın devresi | 2 tur | Plank 45sn → Dead Bug 12 → **Leg Raise 8** (Pallof yerine) | | | | | | | | | | | |
+
+**2. hafta hedefleri (3-4 RIR):** Hack Squat kızak+40×8-10 · **RDL 55×8-10** · Leg Press 80×12-15 ·
+Leg Curl 70×12-15 · Lunge 14 kg×12 · **Standing** Calf Raise · Karın devresine **Pallof Press** geri
+
+### Bu seansın iki düzeltmesi
+
+1. **Baldır** — Gün 2'de **ayakta** (gastrocnemius, diz düz), Gün 4'te **oturarak**
+   (soleus, diz bükülü). İkisini de oturarak yaparsan gastrocnemius hiç çalışmaz.
+2. **Pallof Press** — Laying Leg Raise ile değiştirilmiş. Leg raise kalça fleksiyonu,
+   Pallof **anti-rotasyon**. Masa başı profilinde gövde stabilitesi için en değerli hareket;
+   devreye geri koy.
+
+### Not: makine ağırlıkları
+
+Hack squat ve leg press sayıları makineye göre değişir (kızak ağırlığı, kaldıraç oranı).
+Bu değerleri **sadece kendi önceki seansınla** karşılaştır — başka bir salonun veya başka
+birinin sayısıyla kıyaslamak anlamsızdır.
 
 ## Gün 3 — Üst Vücut B
 
