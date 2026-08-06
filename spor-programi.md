@@ -537,6 +537,62 @@ Bu bir zorunluluk listesi değil, referans şablon. Malzemeleri sevdiğin eşde�
 | 100 g Yunan yoğurdu | ~10 g |
 | 100 g mercimek (pişmiş) | ~9 g |
 
+### ⚠ Açık yapmak ile az yemek aynı şey değil
+
+**2.500 kcal az yemek değildir.** Bu rakam zaten 450 kcal açık içeriyor — doyurucu, normal
+bir yemek düzeni. Hedefin çok altına inmek yağ kaybını hızlandırmaz; toparlanmayı bitirir,
+enerjiyi düşürür ve korumaya çalıştığın kası eritir.
+
+**Gerçek örnek — 5 Ağustos (1. antrenman günü):**
+
+| Öğün | Yenen | Protein | Kalori |
+|---|---|---|---|
+| Sabah | 2 yumurta | 13 g | 155 |
+| Öğlen | 250 g meyveli protein yoğurdu (40 g protein) | 40 g | 260 |
+| Akşam | 250 g tavuk döner | 55 g | 530 |
+| **Toplam** | | **~108 g** | **~945 kcal** |
+| **Hedef** | | **190 g** | **2.500 kcal** |
+| **Açık** | | **−82 g** | **−1.555 kcal** |
+
+Protein hedefin %57'sinde, kalori hedefin %38'inde. Bu bir diyet değil, açlıktır — ve
+1. antrenman gününden sonra bildirilen enerji düşüklüğünün doğrudan sebebi.
+
+**Düzeltilmiş hali — öğünler aynı, porsiyonlar büyük:**
+
+| Öğün | Olması gereken | Protein | Kalori |
+|---|---|---|---|
+| Sabah | 4 yumurta + 80 g yulaf + 1 muz | ~40 g | ~650 |
+| Öğlen | Aynı yoğurt + 150 g tavuk/ton balığı + pilav veya bulgur | ~85 g | ~800 |
+| Akşam | 250 g tavuk döner + bulgur/patates + salata | ~60 g | ~800 |
+| Ara öğün | 1 ölçek whey veya 250 g yoğurt | ~25 g | ~200 |
+| **Toplam** | | **~210 g** | **~2.450 kcal** |
+
+Yediğin şeyleri değiştirmene gerek yok — **porsiyonu büyüt ve bir ara öğün ekle.**
+
+**Pratik kaldıraçlar:**
+- 250 g'lık protein yoğurdundan günde **iki tane** = 80 g protein, sadece 520 kcal.
+  Günündeki en yüksek protein yoğunluklu kalem, bunu kullan
+- Yumurtayı 2'den **4-5'e** çıkar — 20 g protein, 250 kcal
+- Her ana öğüne bir karbonhidrat kaynağı ekle (pilav, bulgur, patates, makarna).
+  Kalorinin ve antrenman performansının büyük kısmı buradan gelir
+
+### Kas ağrısı (DOMS) hakkında
+
+Antrenman sonrası kas ağrısının sebebi **protein eksikliği değildir.** Alışılmadık eksantrik
+yüklenmenin kas liflerinde yarattığı mikro hasar ve buna verilen inflamatuar yanıttır;
+24-72 saatte tepe yapar. Protein alımı ağrının **oluşmasını** değil, **onarım hızını** etkiler.
+
+1 yıllık aradan sonraki ilk seansta şiddetli ağrı beklenen bir tablodur. "Tekrarlanan seans
+etkisi" nedeniyle 3-4. seanstan itibaren belirgin şekilde azalır.
+
+**İşe yarayanlar:** hafif hareket (yürüyüş, kolay tempo bisiklet), uyku, yeterli kalori ve
+protein, zaman.
+**İşe yaramayanlar:** statik esneme, buz banyosu ve ağrı kesici — son ikisi antrenman
+adaptasyonunu köreltebilir.
+
+**Ağrılıyken antrenman:** Farklı kas grubu çalışıyorsan sorun yok — üst vücut ağrısı bacak
+gününü engellemez. Aynı kas grubu hâlâ belirgin ağrılıysa o seansı 24 saat ertele.
+
 ### Bel yağı için özellikle dikkat edilecekler
 
 Yemek hazırlamaya vaktin olduğunu söyledin — bu büyük avantaj, çünkü aşağıdakilerin çoğu
