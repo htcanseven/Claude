@@ -217,6 +217,161 @@ sadece vurgu değişir:
 
 ---
 
+## Bacak Hareketleri — Alternatif Tablosu
+
+### Önce: 190 cm boy ve back squat
+
+Uzun femur, barı ayak ortası hizasında tutabilmek için ya daha fazla öne eğilme ya da daha
+fazla ayak bileği esnekliği ister. Karşılığı şu olur: squat giderek "good morning"e dönüşür,
+yük quadriceps yerine bele biner. Aynı haftada RDL ve deadlift de olduğu için senin
+durumunda bu birikimli bir risk.
+
+**Çözüm sırası:**
+
+1. **Topuk yükselt** — Topukların altına 2,5 kg plaka koy veya halter ayakkabısı kullan.
+   Ayak bileği esneklik ihtiyacını düşürür, gövdeyi dikleştirir. Çoğu durumda tek başına yeterli
+2. **Duruşu genişlet ve ayakları hafif dışa çevir** — Kalça açısını rahatlatır
+3. Yetmezse **hareketi değiştir** (aşağıdaki tablo)
+
+---
+
+### GÜN 2 — Alt Vücut A
+
+#### 1. Barbell Back Squat (4×6-8)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Front Squat** | Gövde daha dik, bel yükü düşük, quadriceps vurgusu yüksek. Bilek/üst sırt esnekliği ister |
+| **Safety Squat Bar (SSB)** | En dik gövde pozisyonu. Uzun boylular için en iyi barbell seçeneği — salonda varsa dene |
+| **Hack Squat (makine)** | Sabit hareket yolu, **sıfır bel yükü**, maksimum quadriceps. "Bugün belimi yormak istemiyorum" günlerinin cevabı |
+| **Belt Squat** | Omurgaya hiç yük binmez. Salonda varsa mükemmel |
+| **Smith Machine Squat** | Denge gerektirmez, teknik oturana kadar geçici seçenek |
+| **Goblet Squat** | Ağır çalışamazsın ama duruşu doğal olarak dikleştirir. Isınma veya hafif gün için |
+
+#### 2. Romanian Deadlift (3×8-10)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Dumbbell RDL** | Yük daha düşük, öğrenmesi kolay. Dönüş döneminde barbell'den önce mantıklı |
+| **Cable Pull-through** | Aynı kalça menteşesi paterni, **bele neredeyse sıfır sıkıştırma**. Paterni öğretmek için en iyi hareket |
+| **45° Back Extension** | Hamstring + glute, çok daha az omurga yükü. Bel yorgunsa ilk tercih |
+| **Tek Bacak RDL** | Denge ve stabilite katar, yarı yükle aynı uyaran |
+| **Good Morning** | ⚠ Aynı patern ama bele **daha çok** yük biner. Senin haftalık bel yükünle önermiyorum |
+
+#### 3a. Leg Press (3×12-15)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Hack Squat** | En yakın karşılık, quadriceps vurgusu biraz daha yüksek |
+| **Goblet Squat** | Makine doluysa serbest ağırlık karşılığı |
+| **Tek Bacak Leg Press** | Simetri farkı varsa veya ağırlık yetmiyorsa |
+| **Smith Machine Squat** | |
+
+> **190 cm notu:** Leg press koltuğunu **geriye al.** Dizler göğse fazla yaklaşırsa kalça
+> minderden kalkar ve bel yuvarlanır — uzun bacaklarda en sık görülen hata.
+
+#### 3b. Lying Leg Curl (3×12-15)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Seated Leg Curl** | Kalça bükülü olduğu için hamstring daha uzun pozisyonda çalışır; hipertrofi için genelde **daha etkili**. Makine varsa tercih et |
+| **Nordic Curl** | Çok güçlü eksantrik uyaran ama zor. Hafta 4'ten önce deneme |
+| **Stability Ball Leg Curl** | Makine yoksa |
+| **Kablo / Bant Leg Curl** | |
+| **Glute-Ham Raise (GHR)** | Salonda varsa ileri seviye seçenek |
+
+#### 4a. Walking Lunge (2×12)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Reverse Lunge** | Kaval kemiği daha dik kaldığı için **dize daha az yük** biner. Dönüş döneminde ilk tercihin bu olsun |
+| **Static Split Squat** | Denge gereksinimi yok, sadece bacak çalışır |
+| **Step-up** | Kutu yüksekliğiyle zorluk ayarlanır. Uzun bacakta kutuyu yüksek seçme |
+| **Bulgarian Split Squat** | En zoru — ama Gün 4'te zaten var, tekrarlama |
+
+#### 4b. Standing Calf Raise (3×15)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Smith Machine Calf Raise** | Makine doluysa |
+| **Leg Press Calf Raise** | Kurulum derdi yok, leg press'ten hemen sonra yap |
+| **Tek Bacak Dumbbell Calf Raise** | Ekipman yoksa — tek elde dumbbell, basamak kenarında |
+
+> **Seated calf raise ile birbirinin yerine geçmez.** Ayakta (diz düz) **gastrocnemius**,
+> oturarak (diz bükülü) **soleus** çalışır. Bu yüzden ikisi ayrı günlerde. Takas edeceksen
+> aynı diz açısındaki bir alternatifi seç.
+
+---
+
+### GÜN 4 — Alt Vücut B
+
+#### 1. Deadlift (3×5)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Trap Bar Deadlift** | **Senin için birinci tercih.** Gövde daha dik, belde kesme kuvveti daha düşük. 1 yıllık aradan sonra en güvenli versiyon |
+| **Rack Pull (diz hizası)** | Hareket açıklığı kısa, bel yükü az. Alt pozisyonda bel yuvarlanıyorsa buradan başla |
+| **Sumo Deadlift** | Gövde daha dik, bel momenti daha düşük. Kalça esnekliği ister |
+| **45° Back Extension + Hip Thrust** | Bel tamamen yorgunsa deadlift'i atla, bu ikisiyle arka zinciri çalış |
+
+#### 2. Bulgarian Split Squat (3×10)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Static Split Squat** | Arka ayak yerde — denge sorunu ortadan kalkar. **Başlangıçta bunu yap** |
+| **Reverse Lunge** | Dinamik versiyon, dize nazik |
+| **Step-up** | Kontrol kolay, yükseklikle zorluk ayarlanır |
+| **Tek Bacak Leg Press** | Denge hiç istemez, sadece kas çalışır |
+
+#### 3a. Hip Thrust (3×12)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Machine Hip Thrust** | Varsa tercih et — barbell kurulumu zahmetlidir |
+| **Glute Bridge (yerde)** | Sehpa gerekmez, hareket açıklığı kısa ama kurulum kolay |
+| **Tek Bacak Hip Thrust** | Ağırlık yetmiyorsa veya simetri farkı varsa |
+| **Cable Pull-through** | Ayakta versiyon, kalça menteşesi paterni |
+| **45° Back Extension** | Glute odaklı yapmak için üst sırtı hafif yuvarla |
+
+#### 3b. Seated Leg Curl (3×12-15)
+
+Gün 2'deki Lying Leg Curl ile aynı alternatif listesi geçerli. **Aynı hafta içinde ikisini
+farklı versiyonlarda yapmaya çalış** — biri oturarak, biri yatarak; farklı kas boyunda
+uyaran verir.
+
+#### 4a. Leg Extension (3×15)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Sissy Squat** | Makine yoksa. Quadriceps'i uzun pozisyonda zorlar |
+| **Reverse Nordic** | Vücut ağırlığı, diz üstünde geriye yaslanma. Zor ama etkili |
+| **Cyclist Squat** (dar duruş, topuk yükseltilmiş) | Serbest ağırlıkla quadriceps izolasyonuna en yakın seçenek |
+
+#### 4b. Seated Calf Raise (3×15-20)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Smith Machine Seated Calf Raise** | |
+| **Dumbbell Seated Calf Raise** | Otur, dizlerin üstüne dumbbell koy, basamak kenarında çalış |
+
+---
+
+### Özet kural
+
+Bacakta dört patern var — **her seansta dördü de temsil edilsin, ekipman fark etmez:**
+
+| Patern | Gün 2 | Gün 4 |
+|---|---|---|
+| **Diz baskın (squat)** | Back Squat, Leg Press | Bulgarian Split Squat, Leg Extension |
+| **Kalça baskın (menteşe)** | Romanian Deadlift | Deadlift, Hip Thrust |
+| **Diz bükme (hamstring)** | Lying Leg Curl | Seated Leg Curl |
+| **Baldır** | Standing (gastrocnemius) | Seated (soleus) |
+
+Bir hareketi aynı satırdaki başka bir hareketle değiştirebilirsin. **Farklı satırdan seçmek
+dengeyi bozar** — örneğin squat yerine leg curl koymak, quadriceps çalışmasını tamamen siler.
+
+---
+
 ## Isınma (Her Seans, 8-10 dk)
 
 Bu bölümü atlamamanı özellikle söylüyorum. 1 yıllık aradan sonra en yüksek sakatlanma riski
