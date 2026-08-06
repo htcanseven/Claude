@@ -96,8 +96,8 @@ An 8–12 beneficiary **MSCA Doctoral Network** anchored by LUT + Durham (e.g., 
 - The main Finnish vehicle for postdoc research periods abroad: 6–24 months, all expenses, ~€49k average, €1.6M pot this round. A 12-month research period in Nur's group fits exactly. Check the pool's ties-to-Finland/residence criteria against Hüseyin's situation before writing.
 
 **Royal Society International Exchanges, Global Round 3** — **opens 30 Jul 2026, deadline 24 Sep 2026, 15:00 UK**
-- Up to £12,000 over 2 years for mutual visits; Durham applicant leads, LUT co-applicant needs PhD + contract covering the award (postdoc explicitly acceptable).
-- **Caveat:** the scheme funds **new collaborations only** — "not intended to support existing or recent collaborations", and your June 2026 joint paper is exactly that. Read the current scheme notes and, if in doubt, ask the Royal Society before spending effort; otherwise fold travel money into the RCF/EPSRC grants instead.
+- Up to £12,000 over 2 years for mutual visits; Durham applicant leads, LUT co-applicant needs PhD + a contract covering the **full award duration** (i.e. to ~March 2029 for a 2-year award).
+- **Two caveats, both examined in detail in the companion review [`royal-society-international-exchanges-review.md`](./royal-society-international-exchanges-review.md):** (1) durations are limited to 3 months, 1 year or 2 years — **there is no 36-month option**, though a 2-year award can take a one-year *no-cost* extension; (2) the scheme funds **new collaborations only** ("Applications must be new collaborations"), and your June 2026 joint paper is a recent collaboration. Email the Grants team for a ruling before investing effort.
 - Source: [scheme page](https://royalsociety.org/grants/international-exchanges/).
 
 **COST Actions — join two immediately** (lightweight: e-COST profile + working-group application; Management Committee membership via national COST coordinators)
@@ -228,6 +228,7 @@ Sep–Nov   | 8 Sep: MSCA PF 2027 (backup) | RCF winter call round 2 | 23 Nov: M
 ## 9. Key sources
 
 - MSCA PF/SE/DN: [MSCA Work Programme 2026–2027](https://ec.europa.eu/info/funding-tenders/opportunities/docs/2021-2027/horizon/wp-call/2026-2027/wp-2-marie-sklodowska-curie-actions_horizon-2026-2027_en.pdf) · [PF 2026 call](https://marie-sklodowska-curie-actions.ec.europa.eu/node/1575) · [DN 2026 call](https://marie-sklodowska-curie-actions.ec.europa.eu/node/1591) · [SE 2027](https://marie-sklodowska-curie-actions.ec.europa.eu/funding/msca-staff-exchanges-2027)
+- **Companion documents in this repo:** [`royal-society-international-exchanges-review.md`](./royal-society-international-exchanges-review.md) — review of the Global Round 3 scheme notes (AKB/07/2026) for this pair
 - **Companion analysis in this repo:** [`horizon-cluster5-wp2026-2027-analysis.md`](./horizon-cluster5-wp2026-2027-analysis.md) — full read of the Cluster 5 work programme (Decision C(2025) 8493), topic-by-topic
 - Cluster 5: [Work Programme 2026–2027 PDF](https://ec.europa.eu/info/funding-tenders/opportunities/docs/2021-2027/horizon/wp-call/2026-2027/wp-8-climate-energy-and-mobility_horizon-2026-2027_en.pdf) · [HORIZON-CL5-2026-09-D3-03 topic](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/horizon-cl5-2026-09-d3-03)
 - CETPartnership: [Joint Call 2026](https://cetpartnership.eu/calls/joint-call-2026/) · [call text (final)](https://cetpartnership.eu/wp-content/uploads/2026/06/CETP_Joint-Call-2026-CallText_v20260612_FINAL.pdf) · [Business Finland page](https://www.businessfinland.fi/en/services/funding/calls/2026/cetp-funding-call-2026/)
