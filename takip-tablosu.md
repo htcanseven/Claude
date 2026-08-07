@@ -23,7 +23,7 @@ bu tablodaki gerçek sayılar üzerine kurulacak.
 | Barbell Bench Press | 40 kg | **50 kg** | 4×10 | Tahminin %25 üstü |
 | Machine Pulldown | 45 kg | **55 kg** | 3×9 | Tahminin %22 üstü |
 | Seated DB Shoulder Press | 12 kg/el | **12 kg/el** | 3×8 | Tahmin birebir tuttu |
-| Seated Row | 40 kg | **40 kg** | 3×12 | Tahmin birebir tuttu |
+| Seated Cable Row | 40 kg | **40 kg** | 3×12 | Tahmin birebir tuttu |
 | Dumbbell Press | 14 kg/el | **15 kg/el** | 3×12 | Eğimli mi düz mü — netleştir |
 | Triceps Rope Pushdown | 15 kg | **15 kg** | 3×12 | Tahmin birebir tuttu |
 | Face Pull | 15 kg | — | — | 1. seansta atlandı |
@@ -68,14 +68,15 @@ Bileşik hareketler ara dönemde kuvveti izolasyon hareketlerinden daha iyi koru
 
 ## Gün 1 — Üst Vücut A
 
-Uygulanan yapı: pulldown ana hareket, seated row yardımcı (onaylanan alternatif kurulum).
+Uygulanan yapı: pulldown ana hareket, **Seated Cable Row** yardımcı (onaylanan alternatif
+kurulum). Yatay çekiş korunmuş — haftalık denge yerinde.
 
 | Egzersiz | Hedef | H1 | H2 | H3 | H4 | H5 | H6 | H7* | H8 | H9 | H10 | H11 | H12 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | Barbell Bench Press | 4×6-8 | 50×10 ×4 | | | | | | | | | | | |
 | Machine Pulldown | 4×8-10 | 55×9 ×3 | | | | | | | | | | | |
 | Seated DB Shoulder Press | 3×8-10 | 12×8 ×3 | | | | | | | | | | | |
-| Seated Row | 3×10-12 | 40×12 ×3 | | | | | | | | | | | |
+| Seated Cable Row | 3×10-12 | 40×12 ×3 | | | | | | | | | | | |
 | Incline Dumbbell Press | 3×10-12 | 15×12 ×3 | | | | | | | | | | | |
 | Face Pull | 3×15 | **atlandı** | | | | | | | | | | | |
 | Dumbbell Curl | 3×12 | **atlandı** | | | | | | | | | | | |

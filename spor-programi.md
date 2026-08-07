@@ -405,7 +405,7 @@ Bu, aşağıdaki tabloda dumbbell ve makine seçeneklerinin neden öne çıktı�
 | **Machine / Hammer Row** | Kurulum yok, sabit yol |
 | **Tek Kol Dumbbell Row** | Simetri farkı varsa, geniş hareket açıklığı |
 | **T-Bar Row (göğüs destekli)** | Ağır çalışmak istiyorsan |
-| **Seated Cable Row** | Gün 3'te var — aynı hafta tekrarlamamaya çalış |
+| **Seated Cable Row** | Gün 3'te de var — **aynı hafta iki kez yapmak sorun değil.** Masa başı profilinde haftada iki yatay çekiş zaten hedef. İstersen tutuşu farklılaştır (biri geniş/pronasyon, diğeri dar/nötr) |
 | **Inverted Row** | Vücut ağırlığı, ekipman yoksa |
 
 #### 3a. Seated Dumbbell Shoulder Press (3×8-10)
