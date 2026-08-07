@@ -372,6 +372,186 @@ dengeyi bozar** — örneğin squat yerine leg curl koymak, quadriceps çalışm
 
 ---
 
+## Üst Vücut Hareketleri — Alternatif Tablosu
+
+### Önce: spotçusuz çalışmak
+
+Tek başına çalışıyorsan **barbell bench press'i başarısızlığa yakın zorlama.** Barın üstünde
+kalma riski gerçek. İki güvenli çözüm: son seti güvenlik barları ayarlanmış power rack'te yap,
+veya ana itme hareketini **dumbbell ya da makineye** çevir. Dumbbell'ı istediğin an yana
+bırakabilirsin.
+
+Bu, aşağıdaki tabloda dumbbell ve makine seçeneklerinin neden öne çıktığının sebebi.
+
+---
+
+### GÜN 1 — Üst Vücut A
+
+#### 1. Barbell Bench Press (4×6-8)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Dumbbell Bench Press** | Daha geniş hareket açıklığı, iki taraf bağımsız çalışır, omuza daha nazik. **Spotçusuz en güvenli seçenek.** Zaten veri sahibi olduğun hareket |
+| **Machine Chest Press** | Sabit yol, başarısızlığa kadar zorlanabilir. Yorgun günlerde ideal |
+| **Smith Machine Bench** | Spotçu gerekmez, denge derdi yok |
+| **Weighted Dips** | Alt göğüs + triceps. Omuz önünde rahatsızlık yaratıyorsa yapma |
+| **Şınav (ayak yükseltmeli / ağırlıklı)** | Ekipman yoksa |
+
+#### 2. Yatay Çekiş — Barbell Row / Machine Row (4×8-10)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Chest-Supported Row** | Göğüs desteği bel yükünü sıfırlar. Salı squat ve Cuma deadlift olan bir haftada en akıllı seçim |
+| **Machine / Hammer Row** | Kurulum yok, sabit yol |
+| **Tek Kol Dumbbell Row** | Simetri farkı varsa, geniş hareket açıklığı |
+| **T-Bar Row (göğüs destekli)** | Ağır çalışmak istiyorsan |
+| **Seated Cable Row** | Gün 3'te var — aynı hafta tekrarlamamaya çalış |
+| **Inverted Row** | Vücut ağırlığı, ekipman yoksa |
+
+#### 3a. Seated Dumbbell Shoulder Press (3×8-10)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Barbell Overhead Press** | Daha fazla toplam yük ve gövde çalışması. Ayakta yaparsan bel de çalışır |
+| **Machine Shoulder Press** | Sabit yol, omuz rahatsızsa |
+| **Arnold Press** | Daha geniş hareket açıklığı, ön ve yan omuz birlikte |
+| **Landmine Press** | Baş üstü esnekliği kısıtlıysa — açı omuza çok daha nazik |
+
+#### 3b. Lat Pulldown (3×10-12)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Chin-up (ters tutuş)** | 99 kiloda serbest barfikse en kolay giriş — ters tutuş biceps'i devreye soktuğu için normal barfiksten kolaydır |
+| **Nötr Tutuş Pulldown** | Omuza en nazik versiyon |
+| **Destekli Barfiks Makinesi** | Serbest barfikse geçiş yolu |
+| **Straight-Arm Pulldown** | Sadece lat — biceps devre dışı. İzolasyon istediğinde |
+
+#### 4a. Incline Dumbbell Press (3×10-12)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Incline Machine Press** | |
+| **Incline Smith Press** | |
+| **Low-to-High Cable Fly** | Aynı üst göğüs açısı, izolasyon versiyonu |
+
+#### 4b. Face Pull (3×15)
+
+Senin profilinde **en değerli yardımcı hareket.** Alternatif seçerken dış rotasyon
+bileşenini koruyan bir seçenek al.
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Reverse Pec Deck** | Makine varsa en pratik |
+| **Band Pull-apart** | Ekipman gerektirmez — evde veya seyahatte de yapılabilir. Günde bile yapabilirsin |
+| **Bent-over Rear Delt Fly** | Dumbbell ile |
+| **Cable Rear Delt Fly** | Sabit gerilim |
+
+#### 5a. Dumbbell Curl (3×12)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **EZ-Bar Curl** | Bilek ağrısı varsa düz bardan daha rahat |
+| **Cable Curl** | Sabit gerilim, hareketin her noktasında yük var |
+| **Preacher Curl** | Sallanmayı tamamen engeller |
+| **Incline Dumbbell Curl** | Biceps uzun başını gerilmiş pozisyonda çalıştırır |
+
+#### 5b. Triceps Rope Pushdown (3×12)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Düz Bar Pushdown** | Halat yoksa |
+| **Skull Crusher (EZ bar)** | Daha fazla yük, uzun baş devrede |
+| **Close-Grip Bench Press** | Bileşik hareket, ağır çalışılır |
+| **Dips / Bench Dips** | Vücut ağırlığı |
+
+---
+
+### GÜN 3 — Üst Vücut B
+
+#### 1. Pull-up (4×6-10)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Chin-up (ters tutuş)** | En kolay serbest versiyon — buradan başla |
+| **Destekli Barfiks Makinesi** | Karşı ağırlığı kademeli azalt |
+| **Negatif Barfiks** | Yukarı zıpla, 4 saniyede kontrollü in. Kuvvet kazanmanın en hızlı yolu |
+| **Lat Pulldown / Machine Pulldown** | Gün 1'de de kullanıyorsan aynı hafta iki kez olur — tutuşu değiştir (biri geniş, biri nötr) |
+
+#### 2. Incline Barbell Press (4×8-10)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Incline Dumbbell Press** | Spotçusuzsan. Gün 1'de de varsa ağırlık/tekrar aralığını farklılaştır |
+| **Incline Machine Press** | |
+| **Incline Smith Press** | |
+| **Düz Bench Press** | Gün 1'de eğimli yaptıysan burada düz yap — açıyı dönüşümlü kullan |
+
+#### 3a. Seated Cable Row (3×10-12)
+
+Gün 1'deki yatay çekiş listesiyle aynı. **Bu haftanın yatay çekiş dengesi buna bağlı —
+Gün 1'de pulldown'ı ana hareket yaptıysan bunu atlama.**
+
+#### 3b. Dumbbell Lateral Raise (3×15)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Cable Lateral Raise** | Sabit gerilim — dumbbell'a göre daha iyi direnç eğrisi |
+| **Machine Lateral Raise** | Form bozulmasını engeller |
+| **Lean-away Cable Lateral** | Gerilmiş pozisyonda daha çok yük |
+
+> Hafif kalması gereken hareket. Ağırlaştırıp trapezle çekmeye başlarsan yan omuz çalışmaz.
+
+#### 4a. Cable Fly / Pec Deck (3×12-15)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Pec Deck (makine)** | En kolay kurulum |
+| **Dumbbell Fly (düz veya eğimli)** | Serbest ağırlık versiyonu |
+| **Cable Crossover** | Yüksek-alçak veya alçak-yüksek — açıyla vurguyu değiştirirsin |
+
+#### 4b. Rear Delt Fly (3×15)
+
+Face Pull ile aynı alternatif listesi geçerli (Gün 1, 4b).
+
+#### 5a. Hammer Curl (3×12)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Rope Cable Curl (nötr tutuş)** | Sabit gerilim |
+| **Reverse Curl** | Ön kolu daha çok zorlar |
+| **Zottman Curl** | Yukarı normal, aşağı ters — ön kol için verimli |
+
+#### 5b. Overhead Triceps Extension (3×12)
+
+| Alternatif | Ne zaman tercih et |
+|---|---|
+| **Cable Overhead Extension** | Sabit gerilim |
+| **Skull Crusher** | Yatarak versiyon |
+| **Tek Kol Dumbbell Overhead Ext.** | Simetri farkı varsa |
+
+> **Pushdown'la birbirinin yerine geçmez.** Baş üstü versiyon triceps **uzun başını gerilmiş
+> pozisyonda** çalıştırır; pushdown çalıştırmaz. Aynı mantık bacaktaki oturarak/yatarak leg
+> curl ayrımıyla aynı — kas hangi pozisyonda gerilirse orada büyür.
+
+---
+
+### Özet kural — üst vücut
+
+| Patern | Gün 1 | Gün 3 |
+|---|---|---|
+| **Yatay itme** | Bench Press, Incline DB Press | Incline Barbell Press, Cable Fly |
+| **Dikey itme** | Shoulder Press | — |
+| **Yatay çekiş** | Row | Seated Cable Row |
+| **Dikey çekiş** | Lat Pulldown | Pull-up |
+| **Omuz izolasyon** | Face Pull | Lateral Raise, Rear Delt Fly |
+| **Kol** | Curl, Triceps Pushdown | Hammer Curl, Overhead Ext. |
+
+Aynı satır içinde serbestçe takas yap. **Farklı satırdan seçme** — en sık yapılan hata
+yatay çekiş yerine dikey çekiş koymaktır ve masa başı duruşunda en çok ihtiyacın olan
+kategoriyi siler.
+
+---
+
 ## Isınma (Her Seans, 8-10 dk)
 
 Bu bölümü atlamamanı özellikle söylüyorum. 1 yıllık aradan sonra en yüksek sakatlanma riski
