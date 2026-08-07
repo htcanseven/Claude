@@ -123,14 +123,29 @@ birinin sayısıyla kıyaslamak anlamsızdır.
 
 | Egzersiz | Hedef | H1 | H2 | H3 | H4 | H5 | H6 | H7* | H8 | H9 | H10 | H11 | H12 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Pull-up | 4×6-10 | | | | | | | | | | | | |
-| Incline Barbell Press | 4×8-10 | | | | | | | | | | | | |
-| Seated Cable Row | 3×10-12 | | | | | | | | | | | | |
-| Lateral Raise | 3×15 | | | | | | | | | | | | |
-| Cable Fly / Pec Deck | 3×12-15 | | | | | | | | | | | | |
-| Rear Delt Fly | 3×15 | | | | | | | | | | | | |
-| Hammer Curl | 3×12 | | | | | | | | | | | | |
-| Overhead Triceps Ext. | 3×12 | | | | | | | | | | | | |
+| Pull-up | 4×6-10 | ⚠ pulldown 55×9 ×3 (nötr) | | | | | | | | | | | |
+| Incline Barbell Press | 4×8-10 | ⚠ **düz** bench 50×9 ×4 | | | | | | | | | | | |
+| Seated Cable Row | 3×10-12 | 45×10 ×3 | | | | | | | | | | | |
+| Lateral Raise | 3×15 | 7×10 ×3 | | | | | | | | | | | |
+| Cable Fly / Pec Deck | 3×12-15 | Pec Deck 40×12 ×3 | | | | | | | | | | | |
+| Rear Delt Fly | 3×15 | 7×10 ×3 | | | | | | | | | | | |
+| Hammer Curl | 3×12 | 12.5×12 ×3 | | | | | | | | | | | |
+| Overhead Triceps Ext. | 3×12 | Skull Crusher 7×12 ×3 | | | | | | | | | | | |
+
+**2. hafta hedefleri (3-4 RIR):** **Barfiks** (destekli/negatif) · **Incline** Barbell Press 35-40×8-10 ·
+Seated Cable Row 50×10-12 · Lateral Raise 7×**15** · Pec Deck 45×12-15 · Rear Delt Fly 7×**15** ·
+Hammer Curl 12.5-14×12 · Skull Crusher 8-9×12
+
+### Bu seansın üç notu
+
+1. **Eğimli pres hiç yapılmadı.** Hem Çarşamba hem Cuma düz bench yapıldı. Üst göğüs ve omuz
+   genişliği beli görsel olarak dar gösterdiği için bu, yağ kaybıyla aynı yönde çalışan bir
+   kalem — haftada en az bir eğimli pres girmeli.
+2. **Barfiks hiç çalışılmadı.** İki gün de pulldown yapıldı. Geçerli bir alternatif, ancak
+   12 hafta hedefi "5-8 serbest barfiks" ve barfiks çalışılmadan oraya ulaşılmaz. Haftada bir
+   kez negatif tekrar (zıpla, 4 saniyede in, 3-4 tekrar) yeterli başlangıç.
+3. **İzolasyonlarda tekrar düşük.** Lateral Raise ve Rear Delt Fly 10 tekrar yapıldı, hedef 15.
+   Küçük kaslar hafif yük + yüksek tekrar ister — ağırlığı değil tekrarı artır.
 
 ## Gün 4 — Alt Vücut B
 
@@ -159,7 +174,7 @@ Başlangıç: **99 kg** · Bel hedefi: **< 95 cm** (boy ÷ 2)
 | Hafta | Kilo (haftalık ort.) | Bel (cm) | Ort. adım/gün | Not |
 |---|---|---|---|---|
 | Başlangıç | 99 | | | |
-| 1 | | | | Ağırlık bulma haftası |
+| 1 | | | | Ağırlık bulma haftası — 3/3 seans tamamlandı (5-7 Ağu) |
 | 2 | | | | |
 | 3 | | | | |
 | 4 | | | | Çift ilerleme başlar |
