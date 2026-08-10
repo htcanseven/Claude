@@ -53,18 +53,18 @@ measurement instrument: its effective resolution ($\approx 0.015$~mg), a
 broadband signal floor ($-70.8$~dB re $1$~g$^2$/Hz that upper-bounds the sensor
 noise), and usable band---bounded by the $50$~Hz Nyquist limit---are established
 from the data, and an information-theoretic channel
-analysis shows that the on-device gravity compensation discards diagnostically
-useful low-frequency content, so that the raw acceleration channels are the more
-informative. A leakage-free, recording-wise protocol is then introduced to obtain
+analysis shows that the on-device gravity compensation preserves the vibration
+power but reshapes its low-frequency structure, leaving the raw acceleration
+channels measurably more informative. A leakage-free, recording-wise protocol is then introduced to obtain
 unbiased performance estimates; it reveals that the near-perfect accuracies
 reported under conventional random-split evaluation are a measurement artefact of
-window overlap and recording identity, overstating accuracy by $40$ to $45$
+window overlap and recording identity, overstating accuracy by $41$ to $47$
 percentage points. Reported with expanded uncertainty, an accuracy--resource
 characterisation shows that a resource-frugal configuration---$25$~Hz sampling,
-three raw channels, and a $4$~s window---measures machine health significantly
-more reliably than the full-rate configuration (a paired improvement of $23$
-percentage points, $p < 10^{-5}$) while reducing the data volume roughly
-eight-fold, which in turn defines low-bandwidth operating points for IoT nodes
+three raw channels, and a $4$~s window---classifies the health state more
+accurately than the full-rate configuration (a paired improvement of $23$
+percentage points; paired $t$-test $p=0.0001$) while reducing the data volume
+roughly eight-fold, which in turn defines low-bandwidth operating points for IoT nodes
 over Bluetooth Low Energy, Zigbee, NB-IoT, and LoRaWAN. The released pipeline
 provides a reproducible reference for the deployment-honest evaluation of
 low-cost vibration-sensing systems.

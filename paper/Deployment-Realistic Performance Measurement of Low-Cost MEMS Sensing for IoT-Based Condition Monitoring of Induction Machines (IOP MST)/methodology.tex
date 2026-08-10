@@ -1,5 +1,5 @@
 % ============================================================================
-%  Section V — Methodology  (IEEE TIM, IEEEtran)
+%  Section V — Methodology  (IOP MST)
 %  Passive voice / third person throughout.
 %  Requires: booktabs, amsmath, tikz + \usetikzlibrary{arrows.meta,positioning}.
 % ============================================================================
@@ -68,7 +68,7 @@ and unit variance using statistics estimated on the training partition only.
 \subsection{Classifiers}
 Three baseline classifiers were considered, chosen for their prevalence in the
 fault-diagnosis literature and their modest computational footprint: a Random
-Forest (RF) with $300$ trees; a $k$-nearest-neighbour classifier (KNN, $k=5$);
+Forest (RF) with $200$ trees; a $k$-nearest-neighbour classifier (KNN, $k=5$);
 and a support vector machine (SVM) with a radial-basis-function kernel. To keep
 the SVM tractable on the full window set, the kernel was approximated by a
 Nystr\"om feature map ($400$ components) followed by a linear SVM. For the
@@ -118,21 +118,27 @@ RANDOM protocol; the latter two additionally introduce a deliberate operating
 Classification performance was reported as accuracy and macro-averaged
 $F_1$-score, the latter being appropriate for the balanced six-class problem while
 remaining sensitive to per-class failures. To account for the limited number of
-recordings, the group-aware protocols were repeated over five random seeds, which
-reshuffle the fold composition. The mean accuracy is reported together with its
-Type~A expanded uncertainty~\cite{jcgm2008gum}, obtained by treating the five
-per-seed mean accuracies as repeated measurements and applying a coverage factor
-$k=t_{0.975,\,4}\approx2.78$; the fold-to-fold standard deviation is quoted
-separately as a reproducibility spread. For the headline configuration
-comparisons, a fixed recording-level fold partition was used so that
-configurations are evaluated on identical held-out recordings, enabling a paired
-comparison; significance was assessed with a paired $t$-test and a Wilcoxon
-signed-rank test on the per-fold differences. This expanded uncertainty reflects
-the reproducibility of the evaluation on the available data and does not capture
-the additional, unquantified uncertainty arising from the single-machine scope
-(Section~\ref{subsec:limits}). Confusion matrices were aggregated from the pooled
-out-of-fold predictions of the GROUP protocol. All experiments used fixed seeds
-and are reproducible from the released code.
+recordings, the group-aware protocols were repeated over five random seeds, each
+of which reshuffles the recording-level fold composition, so that the five runs
+constitute five independent re-partitionings of the same data. The mean accuracy
+across the five seeds is reported together with its Type~A expanded
+uncertainty~\cite{jcgm2008gum}, obtained by treating the five per-seed mean
+accuracies as repeated measurements and applying a coverage factor
+$k=t_{0.975,\,4}\approx2.78$. For the headline configuration comparisons, the
+same five seed-defined partitions were applied to every configuration, so that
+each configuration pair is evaluated on identical held-out recordings;
+significance was then assessed on the five per-seed paired differences with a
+paired $t$-test and a Wilcoxon signed-rank test. The seed---an independent
+re-partitioning---is thus the experimental unit ($n=5$); pooling the $5\times6$
+seed-by-fold accuracies as if independent would pseudoreplicate and overstate
+significance, and is avoided. This expanded uncertainty reflects only the
+reproducibility of the evaluation on the available data---the seed-to-seed
+re-partitioning variance---and does not capture the additional, unquantified
+uncertainty arising from the single-machine, single-specimen scope
+(Section~\ref{subsec:limits}); it should therefore be read as a reproducibility
+interval rather than a full measurement-uncertainty budget. Confusion matrices
+were aggregated from the pooled out-of-fold predictions of the GROUP protocol.
+All experiments used fixed seeds and are reproducible from the released code.
 
 % ---------------------------------------------------------------------------
 \begin{table}[t]

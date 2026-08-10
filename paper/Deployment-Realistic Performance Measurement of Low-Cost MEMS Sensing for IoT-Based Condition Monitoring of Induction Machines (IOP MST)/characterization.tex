@@ -1,5 +1,5 @@
 % ============================================================================
-%  Section IV — Sensor and Signal Characterization  (IEEE TIM, IEEEtran)
+%  Section IV — Sensor and Signal Characterization  (IOP MST)
 %  Passive voice / third person throughout. Requires: graphicx.
 %  Figures: fig_psd_usable_band.png, fig_channel_mi.png (in results/).
 %  Numbers from results/analysis_B.{md,json}.
@@ -8,18 +8,19 @@
 \section{Sensor and Signal Characterization}
 \label{sec:charact}
 
-Before any classifier is trained, it is instructive to treat the smartphone
-accelerometer as a measurement instrument and to establish what fault-related
-information its channels can, in principle, convey. The metrological
-characterisation of MEMS accelerometers---their resolution, noise, calibration,
-and traceability---has itself become an active subject in the measurement
-community~\cite{prato2021mems, schiavi2023mems, demilia2021mems}, and the same
-instrument-oriented perspective is adopted here for a consumer-grade device used
-in condition monitoring. This section characterises the effective resolution and
-noise floor of the device, delimits the usable frequency band imposed by the
-$100$~Hz sampling rate, and quantifies the relative diagnostic value of the raw
-and gravity-compensated channels. All quantities were computed directly from the
-recordings, without any model training.
+Before any classifier is trained, it is instructive to examine the smartphone
+accelerometer as the front end of the measurement chain and to establish what
+fault-related information its channels can, in principle, convey. The full
+metrological characterisation of MEMS accelerometers---calibration, traceability,
+and frequency response against a reference---has itself become an active subject
+in the measurement community~\cite{prato2021mems, schiavi2023mems, demilia2021mems};
+such bench measurements are outside the scope of this dataset study, so the
+characterisation here is deliberately \emph{data-derived}: the effective
+resolution, a broadband signal floor, the usable frequency band imposed by the
+$100$~Hz sampling rate, and the relative diagnostic value of the raw and
+gravity-compensated channels are all estimated directly from the acquired
+recordings, without bench calibration or model training. These estimates delimit
+what the channel can convey and motivate the sensing choices analysed later.
 
 \subsection{Effective Resolution and Noise Floor}
 The effective amplitude resolution was estimated as the smallest positive
@@ -27,13 +28,16 @@ difference between consecutive distinct sample values in a healthy, unloaded
 recording. A quantisation step of approximately $0.015$~mg was obtained for the
 raw acceleration channels and $0.001$~mg for the gravity-compensated channels,
 the finer step of the latter reflecting the additional numerical processing of
-the on-board sensor fusion. The broadband noise floor was assessed from the
+the on-board sensor fusion. A broadband signal floor was estimated from the
 power spectral density (PSD) of a healthy recording; the median PSD above
-$30$~Hz was $8.2\times10^{-8}$~g$^2$/Hz ($-70.8$~dB). Because the fault-induced
-vibration reaches amplitudes on the order of $0.1$--$0.2$~g
-(Fig.~\ref{fig:signals}), which exceeds this floor by several orders of
-magnitude, the resolution and noise characteristics of the consumer sensor are
-not the limiting factor for the coarse fault-discrimination task considered here.
+$30$~Hz was $8.2\times10^{-8}$~g$^2$/Hz ($-70.8$~dB re $1$~g$^2$/Hz). Because this
+value is obtained on a \emph{running} machine, it includes residual mechanical
+vibration and therefore upper-bounds, rather than isolates, the sensor's
+intrinsic noise floor; a stationary-sensor measurement was not available for this
+dataset. Even as an upper bound, however, it lies several orders of magnitude
+below the fault-induced vibration, which reaches amplitudes on the order of
+$0.1$--$0.2$~g (Fig.~\ref{fig:signals}); sensor resolution and noise are thus not
+the limiting factor for the coarse fault-discrimination task considered here.
 
 \subsection{Usable Frequency Band}
 At a sampling rate of $100$~Hz the analysable spectrum is bounded by the Nyquist
@@ -48,32 +52,45 @@ coincide with the shaft rotational frequency at $50$~Hz supply
 (Table~\ref{tab:speeds}, e.g.\ $1425$--$1486$~r/min $\approx 23.8$--$24.8$~Hz),
 confirming that the low-frequency band captures the rotational fundamental and
 its low-order harmonics. Second, the characteristic bearing defect frequencies
-(ball-pass and ball-spin frequencies and their harmonics), which for this bearing
-and speed range lie well above $50$~Hz, cannot be represented. The dataset is
-therefore suited to time-domain and low-frequency analysis rather than the
-high-frequency envelope analysis conventionally used for incipient bearing
-diagnosis, and a corresponding difficulty in separating the fine
+(ball-pass and ball-spin frequencies and their harmonics) lie largely above
+$50$~Hz at the higher supply frequencies---although some low-order components fall
+within the band at $30$~Hz supply---and are, for the most part, not represented.
+The dataset is therefore better suited to time-domain and low-frequency analysis
+than to the high-frequency envelope analysis conventionally used for incipient
+bearing diagnosis, and a corresponding difficulty in separating the fine
 lubrication-severity states is anticipated.
 
 \subsection{Raw versus Gravity-Compensated Channels}
 The dataset provides both the raw acceleration and the gravity-compensated
 (\textit{userAcceleration}) triads, and their relative diagnostic value is not
-self-evident. For each axis, the Pearson correlation between the mean-removed raw
-signal and the corresponding gravity-compensated signal was computed over every
-recording; the mean correlations were $0.58$, $0.46$, and $0.46$ for the $x$,
-$y$, and $z$ axes, respectively. This moderate correlation indicates that the
-on-device gravity compensation performs more than a simple removal of the static
-component: its complementary filter also attenuates low-frequency content that is
-shared by the two representations. To quantify diagnostic relevance, the mutual
-information between each channel's time-domain feature set and the fault label was
-estimated (Fig.~\ref{fig:mi}). The raw channels were consistently more informative
-(mean mutual information $0.65$--$0.75$) than the gravity-compensated channels
-($0.46$--$0.57$), indicating that the low-frequency content discarded by the
-compensation filter carries useful fault information. Two conclusions of practical
-importance for smartphone-based acquisition follow: the raw channels are
-preferable for condition monitoring, and the two triads are complementary rather
-than redundant. This informativeness ordering also motivates the channel-selection
-study reported in Section~\ref{sec:results}.
+self-evident. Two questions were separated: whether the on-device gravity
+compensation removes vibration \emph{power}, and whether it removes diagnostic
+\emph{information}. For the first, the alternating-current (AC) power of each raw
+channel was compared with that of its gravity-compensated counterpart over every
+recording; the mean raw-to-compensated power ratio was $1.00$ on all three axes
+($0.999$, $1.001$, $1.000$ for $x$, $y$, and $z$). The compensation therefore
+does not attenuate the vibration power. It does, however, \emph{reshape} it: the
+mean-removed raw signal and the compensated signal are only moderately correlated
+(Pearson $0.58$, $0.46$, and $0.46$ for $x$, $y$, and $z$), so the complementary
+filter redistributes the low-frequency content---altering its phase and
+correlation structure---rather than discarding it, and the two triads are
+complementary rather than redundant.
+
+For the second question, the mutual information between each channel's time-domain
+feature set and the fault label was estimated (Fig.~\ref{fig:mi}). The raw
+channels were consistently more informative (mean mutual information $0.69$) than
+the gravity-compensated channels ($0.50$), a ratio of $1.39$. Because the raw
+channels also retain a per-recording static offset that varies with condition, a
+legitimate concern is that this advantage merely encodes recording identity---the
+very leakage this work otherwise criticises. Two controls indicate that it does
+not: removing the offset-dependent \emph{mean} feature leaves the ratio essentially
+unchanged ($1.31$), and restricting the estimate to a DC-invariant feature subset
+(standard deviation, variance, skewness, kurtosis, zero-crossing rate, and
+amplitude entropy) yields a comparable ratio ($1.32$). The raw-channel advantage
+is thus robust to the removal of static offsets and reflects genuine dynamic
+content. The raw channels are therefore preferable for condition monitoring, and
+this informativeness ordering motivates the channel-selection study reported in
+Section~\ref{sec:results}.
 
 % ---------------------------------------------------------------------------
 \begin{figure}[t]

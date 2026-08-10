@@ -1,5 +1,5 @@
 % ============================================================================
-%  Section VI — Results  (IEEE TIM, IEEEtran)
+%  Section VI — Results  (IOP MST)
 %  Passive voice / third person throughout. Reporting only; interpretation and
 %  limitations are in Section VII (discussion.tex).
 %  Requires: booktabs, graphicx, pifont.
@@ -20,7 +20,7 @@ visualises the same result. Under the RANDOM protocol every model attains
 essentially perfect accuracy, reproducing---and slightly exceeding---the $98\%$
 reported by the source data article's random-split baseline. Under the
 leakage-free GROUP protocol the accuracy of the same features and models falls to
-roughly one-half, an \emph{optimism gap} of approximately $40$ to $45$ accuracy
+roughly one-half, an \emph{optimism gap} of approximately $41$ to $47$ accuracy
 points.
 The CROSS-SPEED and CROSS-LOAD protocols, which additionally impose an
 operating-condition shift, yield comparably reduced accuracy. The mechanism is
@@ -52,8 +52,8 @@ from $2$~s to $4$~s increased accuracy at the cost of detection latency.
 The combination of these frugal choices was then examined
 (Table~\ref{tab:recipe} and Fig.~\ref{fig:recipe}). The resource-optimal
 configuration---$25$~Hz sampling, the three raw channels, and a $4$~s
-window---raised the Random Forest accuracy from $53.7\%$ at the naive
-$100$~Hz/six-channel/$2$~s baseline to $74.2\%$, while reducing the raw data
+window---raised the Random Forest accuracy from $52.8\%$ at the naive
+$100$~Hz/six-channel/$2$~s baseline to $75.9\%$, while reducing the raw data
 volume by approximately eight-fold. Robustness to further deployment stresses was
 also measured: reducing the amplitude resolution to $4$~bits lowered accuracy by
 only a few points, injected packet loss of up to $20\%$ left accuracy essentially
@@ -62,21 +62,23 @@ noise of the full feature set. The largest sensitivity was to sensor mounting: a
 simulated $30^{\circ}$ change in orientation degraded accuracy substantially.
 
 To establish that these differences exceed the measurement uncertainty, the
-baseline, the $25$~Hz variant, and the resource-optimal configuration were each
-re-evaluated on a fixed recording-level fold partition repeated over five seeds,
-so that the configurations are compared on identical held-out recordings.
+baseline, the $25$~Hz variant, and the resource-optimal configuration were
+compared across five random recording-level partitions, one per seed, so that
+within each partition every configuration is evaluated on identical held-out
+recordings and the five per-partition differences form a paired sample.
 Table~\ref{tab:measured} reports the resulting accuracies with their Type~A
-expanded uncertainty (coverage factor $k=2$). Paired comparisons confirm the
-trade-off findings: the resource-optimal configuration measures machine health
-$23.1$ percentage points more accurately than the baseline (paired $t$-test
-$p<10^{-5}$; Wilcoxon $p<10^{-4}$), and reducing the sampling rate from $100$ to
-$25$~Hz alone accounts for $10.1$ of those points (paired $p\approx0.01$). The
-improvements are therefore statistically significant rather than artefacts of
-partition variance. The wider dispersions quoted in Tables~\ref{tab:sampling}
-and~\ref{tab:recipe} are the fold-to-fold reproducibility spread, which is large
-because each held-out fold contains only one recording per class; the expanded
-uncertainties in Table~\ref{tab:measured} instead quantify the uncertainty of the
-measured mean.
+expanded uncertainty (coverage factor $k\approx2.78$). The paired comparisons
+confirm the trade-off findings: the resource-optimal configuration classifies the
+health state $23.1$ percentage points more accurately than the baseline (paired
+$t$-test $p=0.0001$), and reducing the sampling rate from $100$ to $25$~Hz alone
+accounts for $10.1$ of those points ($p=0.003$). These tests use the seed---an
+independent re-partitioning of the data---as the experimental unit ($n=5$), rather
+than the $5\times6$ seed-by-fold pseudoreplicates that would spuriously inflate
+significance; at this honest unit the Wilcoxon signed-rank test attains its
+smallest attainable value for $n=5$ ($p=0.0625$) and is reported only for
+completeness, whereas the parametric test, which retains power at this sample
+size, supports the improvements. Consistent with this, the expanded-uncertainty
+intervals of the three configurations in Table~\ref{tab:measured} do not overlap.
 
 \subsection{Deployment Implications: Communication and Edge Footprint}
 \label{subsec:edge}
@@ -87,16 +89,16 @@ vector requires $2.69$~kbps; both are carried by Bluetooth Low Energy, Zigbee, o
 NB-IoT, but neither fits within the duty-cycle-limited throughput of a LoRaWAN
 uplink, which admits only the $40$~bps on-node decision stream.
 Table~\ref{tab:footprint} lists the leakage-free accuracy and serialised size of
-four candidate models: a $4.7$~kB logistic-regression classifier matched or
-exceeded the accuracy of a $1.09$~MB Random Forest, and the time-domain feature
-extraction requires only $\mathcal{O}(WC)$ operations per window with no spectral
-transform.
+four candidate models: a $4.7$~kB logistic-regression classifier exceeded the
+accuracy of a $1.09$~MB Random Forest, and the time-domain feature extraction
+requires only $\mathcal{O}(WC)$ operations per window with no spectral transform.
 
 % ---------------------------------------------------------------------------
 \begin{table}[t]
 \centering
-\caption{Accuracy (\%) by evaluation protocol and model
-(mean $\pm$ std.\ over five seeds and folds; $100$~Hz, six channels, $2$~s).}
+\caption{Accuracy (\%) by evaluation protocol and model (fixed recording-level
+partition, five seeds; mean $\pm$ Type~A expanded uncertainty, $k\approx2.78$;
+$100$~Hz, six channels, $2$~s).}
 \label{tab:optimism}
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{@{}lccc@{}}
@@ -104,9 +106,9 @@ transform.
 \textbf{Protocol} & \textbf{RF} & \textbf{KNN} & \textbf{SVM} \\
 \midrule
 RANDOM (leaky)            & $100.0$ & $100.0$ & $100.0$ \\
-GROUP (recording-holdout) & $54.3\pm12.3$ & $61.1\pm11.7$ & $57.6\pm14.1$ \\
-CROSS-SPEED               & $50.0\pm11.3$ & $48.2\pm9.1$ & $50.1\pm12.6$ \\
-CROSS-LOAD                & $49.3\pm5.3$ & $40.3\pm0.9$ & $40.1\pm1.9$ \\
+GROUP (recording-holdout) & $52.8\pm4.4$ & $59.0\pm1.4$ & $58.4\pm3.6$ \\
+CROSS-SPEED               & $49.9\pm1.3$ & $48.2\pm0.0$ & $50.1\pm1.0$ \\
+CROSS-LOAD                & $49.5\pm2.7$ & $40.3\pm0.0$ & $40.1\pm0.5$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -114,20 +116,21 @@ CROSS-LOAD                & $49.3\pm5.3$ & $40.3\pm0.9$ & $40.1\pm1.9$ \\
 % ---------------------------------------------------------------------------
 \begin{table}[t]
 \centering
-\caption{Sampling-rate sweep under the GROUP protocol (Random Forest,
-five-seed mean $\pm$ std). Lower rates match or exceed $100$~Hz.}
+\caption{Sampling-rate sweep under the GROUP protocol (Random Forest;
+fixed recording-level partition, five seeds; mean $\pm$ Type~A expanded
+uncertainty, $k\approx2.78$). Lower rates match or exceed $100$~Hz.}
 \label{tab:sampling}
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{@{}ccc@{}}
 \toprule
 \textbf{Rate (Hz)} & \textbf{Raw bitrate (kbps)} & \textbf{Accuracy (\%)} \\
 \midrule
-100  & 9.6 & 53.7 $\pm$ 13.4 \\
-50   & 4.8 & 42.0 $\pm$ 12.8 \\
-25   & 2.4 & \textbf{64.9 $\pm$ 15.7} \\
-20   & 1.9 & 61.6 $\pm$ 16.8 \\
-12.5 & 1.2 & 59.1 $\pm$ 14.9 \\
-10   & 1.0 & 59.7 $\pm$ 13.7 \\
+100  & 9.6 & $52.8 \pm 4.4$ \\
+50   & 4.8 & $39.2 \pm 3.5$ \\
+25   & 2.4 & $\mathbf{62.9 \pm 2.5}$ \\
+20   & 1.9 & $60.9 \pm 6.0$ \\
+12.5 & 1.2 & $60.9 \pm 3.2$ \\
+10   & 1.0 & $58.8 \pm 0.9$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -136,17 +139,19 @@ five-seed mean $\pm$ std). Lower rates match or exceed $100$~Hz.}
 \begin{table}[t]
 \centering
 \caption{Incremental frugal recipe under the GROUP protocol
-(five-seed mean $\pm$ std). The resource-optimal node beats the naive baseline.}
+(fixed recording-level partition, five seeds; mean $\pm$ Type~A expanded
+uncertainty, $k\approx2.78$). The resource-optimal node exceeds the naive
+baseline.}
 \label{tab:recipe}
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{@{}lccc@{}}
 \toprule
 \textbf{Configuration} & \textbf{RF} & \textbf{KNN} & \textbf{LogReg} \\
 \midrule
-Baseline ($100$~Hz, $6$ ch, $2$~s) & 53.7 $\pm$ 13.4 & 61.1 $\pm$ 11.7 & 57.0 $\pm$ 11.7 \\
-\;$+\,25$~Hz                        & 64.9 $\pm$ 15.7 & 46.7 $\pm$ 12.9 & 59.0 $\pm$ 13.9 \\
-\;$+\,$raw $3$ ch                   & 65.1 $\pm$ 15.2 & 52.8 $\pm$ 15.5 & 55.1 $\pm$ 14.8 \\
-\;$+\,4$~s window (optimal)         & \textbf{74.2 $\pm$ 16.6} & 55.0 $\pm$ 19.2 & 62.6 $\pm$ 16.4 \\
+Baseline ($100$~Hz, $6$ ch, $2$~s) & $52.8 \pm 4.4$ & $59.0 \pm 1.4$ & $59.6 \pm 2.8$ \\
+\;$+\,25$~Hz                        & $62.9 \pm 2.5$ & $46.5 \pm 2.0$ & $57.3 \pm 1.7$ \\
+\;$+\,$raw $3$ ch                   & $65.6 \pm 1.8$ & $51.4 \pm 1.7$ & $52.5 \pm 2.3$ \\
+\;$+\,4$~s window (optimal)         & $\mathbf{75.9 \pm 2.8}$ & $54.9 \pm 2.7$ & $60.3 \pm 3.9$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -155,9 +160,10 @@ Baseline ($100$~Hz, $6$ ch, $2$~s) & 53.7 $\pm$ 13.4 & 61.1 $\pm$ 11.7 & 57.0 $\
 \begin{table}[t]
 \centering
 \caption{Measured leakage-free (GROUP) accuracy of the Random Forest with Type~A
-expanded uncertainty ($k=2$, from five seed-level repeats on a fixed
-recording-level partition), and paired comparisons on identical held-out
-recordings.}
+expanded uncertainty ($k\approx2.78$, from five random recording-level
+partitions), and paired comparisons; within each partition all configurations
+are evaluated on identical held-out recordings, and significance is assessed on
+the five per-partition paired differences.}
 \label{tab:measured}
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{@{}lc@{}}
@@ -168,9 +174,9 @@ Baseline ($100$~Hz, $6$ ch, $2$~s)       & $52.8 \pm 4.4$ \\
 $\quad25$~Hz, $6$ ch, $2$~s              & $62.9 \pm 2.5$ \\
 Optimal ($25$~Hz, $3$ raw ch, $4$~s)     & $\mathbf{75.9 \pm 2.8}$ \\
 \midrule
-\multicolumn{2}{@{}l}{\textit{Paired comparison} (Δ, paired $t$-test)} \\
-Optimal $-$ Baseline & $+23.1$, $p<10^{-5}$ \\
-$25$~Hz $-$ $100$~Hz & $+10.1$, $p\approx0.01$ \\
+\multicolumn{2}{@{}l}{\textit{Paired comparison} (Δ, paired $t$-test, $n=5$)} \\
+Optimal $-$ Baseline & $+23.1$, $p=0.0001$ \\
+$25$~Hz $-$ $100$~Hz & $+10.1$, $p=0.003$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -199,17 +205,20 @@ On-node decision        & $40$~bps    & \cmark & \cmark & \cmark & \cmark \\
 % ---------------------------------------------------------------------------
 \begin{table}[t]
 \centering
-\caption{Edge-model footprint versus GROUP-protocol accuracy.}
+\caption{Edge-model footprint versus leakage-free (GROUP) accuracy at the
+baseline configuration ($100$~Hz, six channels, $2$~s; five-partition mean $\pm$
+Type~A expanded uncertainty, $k\approx2.78$). Serialised sizes are
+architecture-determined.}
 \label{tab:footprint}
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{@{}lcc@{}}
 \toprule
 \textbf{Model} & \textbf{GROUP accuracy (\%)} & \textbf{Serialised size} \\
 \midrule
-Random Forest ($200$ trees)     & 46.4 & $1.09$~MB \\
-Random Forest ($50$, depth $8$) & 51.2 & $214$~kB \\
-Decision tree (depth $8$)       & 43.7 & $4.3$~kB \\
-Logistic regression             & 52.2 & $4.7$~kB \\
+Random Forest ($200$ trees)     & $52.8\pm4.4$ & $1.09$~MB \\
+Random Forest ($50$, depth $8$) & $52.9\pm4.2$ & $214$~kB \\
+Decision tree (depth $8$)       & $44.3\pm2.4$ & $4.3$~kB \\
+Logistic regression             & $\mathbf{59.6\pm2.8}$ & $4.7$~kB \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -249,7 +258,7 @@ the $16.7\%$ chance level.}
 \centering
 \includegraphics[width=\columnwidth]{fig_recipe_stacking.png}
 \caption{Incremental frugal recipe under the GROUP protocol. Combining the
-resource-frugal choices raises Random Forest accuracy from $53.7\%$ to $74.2\%$
+resource-frugal choices raises Random Forest accuracy from $52.8\%$ to $75.9\%$
 while reducing the raw data volume roughly eight-fold.}
 \label{fig:recipe}
 \end{figure}

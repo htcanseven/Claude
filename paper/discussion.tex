@@ -1,5 +1,5 @@
 % ============================================================================
-%  Section VII — Discussion and Limitations  (IEEE TIM, IEEEtran)
+%  Section VII — Discussion and Limitations  (IOP MST)
 %  Passive voice / third person throughout. Interpretation of the Section VI
 %  results, practical guidance, and limitations. Requires: none beyond base.
 % ============================================================================
@@ -52,9 +52,12 @@ and those that generalise best is convenient for practical systems.
 \subsubsection{Sensor-level guidance}
 The channel analysis of Section~\ref{sec:charact} carries a concrete
 recommendation for smartphone-based acquisition: the raw acceleration channels
-should be preferred over the gravity-compensated channels, because the on-device
-gravity compensation---valuable for motion-tracking applications---attenuates
-low-frequency content that is diagnostically useful for condition monitoring.
+should be preferred over the gravity-compensated channels. The on-device gravity
+compensation---valuable for motion-tracking applications---preserves the vibration
+power but reshapes its low-frequency structure, and the raw channels carry
+measurably more fault information (a mutual-information ratio of about $1.4$ that
+survives the removal of static offsets), so they are the better choice for
+condition monitoring.
 
 \subsubsection{Scope of applicability}
 Taken together, the results delineate where low-cost, low-rate MEMS sensing is
