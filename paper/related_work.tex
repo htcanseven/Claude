@@ -37,7 +37,9 @@ inexpensive, compact alternative for vibration acquisition. Their metrological
 limits relative to reference-grade accelerometers---narrower bandwidth and
 higher noise floor---are well documented~\cite{grouios2022accelerometers}, and
 condition-monitoring practitioners have generally regarded consumer-grade MEMS
-bandwidth as insufficient for bearing diagnosis~\cite{pedotti2020lowcost}.
+bandwidth as insufficient for bearing diagnosis~\cite{pedotti2020lowcost}; the
+metrological variability of such low-cost sensors and its effect on diagnostic
+features has itself become a subject of measurement research~\cite{demilia2021mems}.
 Nonetheless, a growing body of work demonstrates fault detection from
 smartphone- or MEMS-acquired signals, using mobile applications and, more
 recently, deep networks~\cite{naha2017mobile, ertargin2023deep,
@@ -61,7 +63,9 @@ lightweight classifiers on microcontrollers report bearing-fault accuracies with
 millisecond-scale latency and sub-millijoule energy per
 inference~\cite{gao2025edge, asutkar2023tinyml}, and low-cost MEMS nodes
 integrate on-board spectral analysis with LoRa or Bluetooth Low Energy
-telemetry~\cite{jakobsen2024lowcost}. These studies establish the feasibility of
+telemetry~\cite{jakobsen2024lowcost}, and smart-sensor systems combine vibration
+measurement with on-board bearing diagnosis~\cite{shukla2020smartsensor}. These
+studies establish the feasibility of
 edge diagnosis but typically assume industrial-bandwidth sensing and rarely
 quantify the coupled trade-off between sampling/communication cost and diagnostic
 accuracy that governs an ultra-low-rate node.
