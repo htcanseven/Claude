@@ -16,31 +16,89 @@ and the principal methodological contribution of the paper, is the set of
 estimates.
 
 % ---------------------------------------------------------------------------
-\begin{figure*}[t]
+\begin{figure}[t]
 \centering
+\definecolor{pipeBlue}{HTML}{0072B2}
+\definecolor{pipeSky}{HTML}{56B4E9}
+\definecolor{pipeGreen}{HTML}{009E73}
+\definecolor{pipeAmber}{HTML}{E69F00}
+\definecolor{pipeRed}{HTML}{D55E00}
 \begin{tikzpicture}[
-  font=\footnotesize, >=Latex, node distance=0.9cm,
-  box/.style={draw,rounded corners,align=center,minimum height=1.05cm,
-              text width=2.5cm,fill=gray!8}]
-  \node[box] (sens) {Smartphone MEMS node\\ $100$~Hz, $6$ channels};
-  \node[box,right=of sens] (win) {Windowing\\ $2$~s, $50\%$ overlap};
-  \node[box,right=of win] (feat) {Time-domain features\\ $14$ per channel};
-  \node[box,right=of feat] (clf) {Classifier\\ RF / KNN / SVM};
-  \node[box,right=of clf] (out) {Health state\\ (one of six)};
-  \draw[->] (sens)--(win); \draw[->] (win)--(feat);
-  \draw[->] (feat)--(clf); \draw[->] (clf)--(out);
-  \node[draw,dashed,rounded corners,below=0.7cm of feat,text width=9.0cm,
-        align=center,fill=blue!4] (eval)
-     {\textbf{Evaluation protocols:}\quad RANDOM $\;\mid\;$ GROUP $\;\mid\;$
-      CROSS-SPEED $\;\mid\;$ CROSS-LOAD};
-  \draw[->,dashed] (clf.south) |- (eval.east);
-  \draw[->,dashed] (win.south) |- (eval.west);
+  font=\footnotesize,
+  >={Latex[length=1.7mm,width=1.3mm]},
+  stage/.style={draw=#1!80!black,fill=#1!6,line width=0.6pt,rounded corners=2.5pt,
+                align=center,inner sep=3pt,text width=2.50cm,minimum height=1.42cm},
+  stage/.default=black,
+  flow/.style={->,line width=0.7pt,draw=black!45},
+  chip/.style={draw=#1!80!black,fill=#1!7,line width=0.5pt,rounded corners=2.5pt,
+               align=center,inner sep=3pt,text width=3.00cm,minimum height=0.95cm},
+  chip/.default=black
+]
+
+% ---- processing chain ---------------------------------------------------
+\node[stage=pipeBlue] (sens)
+  {\textcolor{pipeBlue}{\bfseries Smartphone}\\[-1pt]
+   \textcolor{pipeBlue}{\bfseries MEMS node}\\[1.5pt]
+   {\scriptsize\color{black!58}$100$~Hz, $6$ channels}};
+\node[stage=pipeSky,right=0.26cm of sens] (win)
+  {\textcolor{pipeSky!75!black}{\bfseries Windowing}\\[1.5pt]
+   {\scriptsize\color{black!58}$2$~s windows}\\[-1pt]
+   {\scriptsize\color{black!58}$50\%$ overlap}};
+\node[stage=pipeSky,right=0.26cm of win] (feat)
+  {\textcolor{pipeSky!75!black}{\bfseries Time-domain}\\[-1pt]
+   \textcolor{pipeSky!75!black}{\bfseries features}\\[1.5pt]
+   {\scriptsize\color{black!58}$14$ per channel}};
+\node[stage=pipeGreen,right=0.26cm of feat] (clf)
+  {\textcolor{pipeGreen!80!black}{\bfseries Baseline}\\[-1pt]
+   \textcolor{pipeGreen!80!black}{\bfseries classifiers}\\[1.5pt]
+   {\scriptsize\color{black!58}RF / KNN / SVM}};
+\node[stage=pipeAmber,right=0.26cm of clf] (out)
+  {\textcolor{pipeAmber!70!black}{\bfseries Health state}\\[1.5pt]
+   {\scriptsize\color{black!58}one of six}\\[-1pt]
+   {\scriptsize\color{black!58}H, B1--B3, V, R}};
+
+\draw[flow] (sens)--(win);
+\draw[flow] (win)--(feat);
+\draw[flow] (feat)--(clf);
+\draw[flow] (clf)--(out);
+
+% ---- evaluation-protocol panel -----------------------------------------
+\node[draw=black!35,fill=black!3,rounded corners=3pt,line width=0.5pt,
+      minimum width=14.60cm,minimum height=1.98cm,below=0.70cm of feat] (panel) {};
+
+\node[anchor=north west,font=\scriptsize,color=black!70]
+  at ([xshift=0.32cm,yshift=-0.16cm]panel.north west)
+  {\textbf{Evaluation protocol}\,---\,how the windows are partitioned into
+   training and test sets};
+
+\node[chip=pipeRed,anchor=south west]
+  at ([xshift=0.34cm,yshift=0.20cm]panel.south west) (c1)
+  {\textcolor{pipeRed}{\bfseries RANDOM}\\[1pt]
+   {\scriptsize\color{black!58}random window split}\\[-1pt]
+   {\scriptsize\itshape\color{pipeRed}leaky reference}};
+\node[chip=pipeGreen,right=0.22cm of c1] (c2)
+  {\textcolor{pipeGreen!80!black}{\bfseries GROUP}\\[1pt]
+   {\scriptsize\color{black!58}recordings held out}\\[-1pt]
+   {\scriptsize\itshape\color{pipeGreen!80!black}leakage-free}};
+\node[chip=pipeGreen,right=0.22cm of c2] (c3)
+  {\textcolor{pipeGreen!80!black}{\bfseries CROSS-SPEED}\\[1pt]
+   {\scriptsize\color{black!58}unseen supply frequency}\\[-1pt]
+   {\scriptsize\itshape\color{pipeGreen!80!black}$+$ speed shift}};
+\node[chip=pipeGreen,right=0.22cm of c3] (c4)
+  {\textcolor{pipeGreen!80!black}{\bfseries CROSS-LOAD}\\[1pt]
+   {\scriptsize\color{black!58}unseen load condition}\\[-1pt]
+   {\scriptsize\itshape\color{pipeGreen!80!black}$+$ load shift}};
+
+\draw[dashed,line width=0.6pt,draw=black!45,->] (feat.south) -- (panel.north);
+
 \end{tikzpicture}
 \caption{Processing chain and evaluation protocols. Identical features are
-assessed under four data-partitioning protocols; the protocol, not the model,
-is the primary object of study.}
+assessed under four data-partitioning protocols: RANDOM is retained only as a
+leaky reference, whereas GROUP, CROSS-SPEED and CROSS-LOAD are leakage-free at
+the recording level, the latter two additionally imposing an operating-condition
+shift. The protocol, not the model, is the primary object of study.}
 \label{fig:pipeline}
-\end{figure*}
+\end{figure}
 
 \subsection{Segmentation and Windowing}
 Let the dataset comprise $R=36$ continuous recordings, each associated with a
