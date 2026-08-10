@@ -1,13 +1,11 @@
 % ============================================================================
-%  Section I — Introduction  (IEEE TIM, IEEEtran)
-%  Passive voice / third person throughout. Requires: none beyond base
-%  (uses \IEEEPARstart from IEEEtran, and \itemize).
+%  Section I — Introduction  (IOP MST; passive voice / third person)
 % ============================================================================
 
 \section{Introduction}
 \label{sec:intro}
 
-\IEEEPARstart{I}{nduction} motors account for a dominant share of the electrical
+Induction machines account for a dominant share of the electrical
 energy consumed by industry and form the mechanical backbone of countless
 processes; their unexpected failure causes costly downtime and, in critical
 applications, safety hazards. Continuous condition monitoring (CM) and early
@@ -82,29 +80,26 @@ developed for obtaining unbiased and uncertainty-quantified estimates of its
 diagnostic performance, and the accuracy--resource trade-off that governs an IoT
 deployment is mapped. Two measurement questions organise the work---how much
 fault information the sensor can convey, and how that performance must be measured
-if it is to transfer to deployment. The principal contributions are as follows.
-
-\begin{itemize}
-\item A \emph{performance-measurement methodology} for windowed low-rate vibration
-CM---leakage-free recording-wise and cross-condition (cross-speed and cross-load)
-protocols, with paired significance testing and expanded-uncertainty
-reporting---together with a quantification of the measurement bias introduced by
-the prevailing random-split practice, which is shown to overstate accuracy by
-approximately $40$ to $45$ percentage points.
-\item A \emph{measurement characterisation} of the smartphone MEMS channel that
-establishes, with uncertainty, its effective resolution, noise floor, and usable
-band, and reveals that the on-device gravity compensation discards diagnostically
-useful low-frequency content, so that the raw channels are preferable for
-condition monitoring.
-\item An \emph{accuracy--resource characterisation} that identifies a
-resource-frugal operating point which, under leakage-free evaluation, measures
-machine health significantly more reliably than the full-rate configuration,
-together with a communication link budget and an edge-model footprint that
-translate the trade-off into deployable operating points for Bluetooth Low Energy,
-Zigbee, NB-IoT, and LoRaWAN nodes.
-\item A \emph{reproducible and uncertainty-aware baseline} for low-cost IoT-based
-induction-machine condition monitoring, with all code and configurations released.
-\end{itemize}
+if it is to transfer to deployment. The principal contributions of this paper are
+fourfold. First, it introduces a \emph{performance-measurement methodology} for
+windowed low-rate vibration condition monitoring---comprising leakage-free
+recording-wise and cross-condition (cross-speed and cross-load) protocols with
+paired significance testing and expanded-uncertainty reporting---and applies it to
+quantify the measurement bias introduced by the prevailing random-split practice,
+which is shown to overstate accuracy by approximately $40$ to $45$ percentage
+points. Second, it provides a \emph{measurement characterisation} of the
+smartphone MEMS channel that establishes, with uncertainty, its effective
+resolution, noise floor, and usable band, and reveals that the on-device gravity
+compensation discards diagnostically useful low-frequency content, so that the raw
+channels are preferable for condition monitoring. Third, it develops an
+\emph{accuracy--resource characterisation} that identifies a resource-frugal
+operating point which, under leakage-free evaluation, measures machine health
+significantly more reliably than the full-rate configuration, and it translates
+this trade-off, through a communication link budget and an edge-model footprint,
+into deployable operating points for Bluetooth Low Energy, Zigbee, NB-IoT, and
+LoRaWAN nodes. Finally, it releases a \emph{reproducible and uncertainty-aware
+baseline} for low-cost IoT-based induction-machine condition monitoring, with all
+code and configurations made available.
 
 The remainder of this paper is organised as follows.
 Section~\ref{sec:related} reviews related work on vibration-based condition
