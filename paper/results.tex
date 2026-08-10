@@ -61,7 +61,24 @@ unchanged, and the six-feature subset of the source baseline performed within
 noise of the full feature set. The largest sensitivity was to sensor mounting: a
 simulated $30^{\circ}$ change in orientation degraded accuracy substantially.
 
-\subsection{Communication and Edge-Node Feasibility}
+To establish that these differences exceed the measurement uncertainty, the
+baseline, the $25$~Hz variant, and the resource-optimal configuration were each
+re-evaluated on a fixed recording-level fold partition repeated over five seeds,
+so that the configurations are compared on identical held-out recordings.
+Table~\ref{tab:measured} reports the resulting accuracies with their Type~A
+expanded uncertainty (coverage factor $k=2$). Paired comparisons confirm the
+trade-off findings: the resource-optimal configuration measures machine health
+$23.1$ percentage points more accurately than the baseline (paired $t$-test
+$p<10^{-5}$; Wilcoxon $p<10^{-4}$), and reducing the sampling rate from $100$ to
+$25$~Hz alone accounts for $10.1$ of those points (paired $p\approx0.01$). The
+improvements are therefore statistically significant rather than artefacts of
+partition variance. The wider dispersions quoted in Tables~\ref{tab:sampling}
+and~\ref{tab:recipe} are the fold-to-fold reproducibility spread, which is large
+because each held-out fold contains only one recording per class; the expanded
+uncertainties in Table~\ref{tab:measured} instead quantify the uncertainty of the
+measured mean.
+
+\subsection{Deployment Implications: Communication and Edge Footprint}
 \label{subsec:edge}
 Table~\ref{tab:linkbudget} compares the bitrate of three telemetry strategies
 with the sustainable throughput of common low-power radios. Streaming the raw
@@ -130,6 +147,30 @@ Baseline ($100$~Hz, $6$ ch, $2$~s) & 53.7 $\pm$ 13.4 & 61.1 $\pm$ 11.7 & 57.0 $\
 \;$+\,25$~Hz                        & 64.9 $\pm$ 15.7 & 46.7 $\pm$ 12.9 & 59.0 $\pm$ 13.9 \\
 \;$+\,$raw $3$ ch                   & 65.1 $\pm$ 15.2 & 52.8 $\pm$ 15.5 & 55.1 $\pm$ 14.8 \\
 \;$+\,4$~s window (optimal)         & \textbf{74.2 $\pm$ 16.6} & 55.0 $\pm$ 19.2 & 62.6 $\pm$ 16.4 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------------
+\begin{table}[t]
+\centering
+\caption{Measured leakage-free (GROUP) accuracy of the Random Forest with Type~A
+expanded uncertainty ($k=2$, from five seed-level repeats on a fixed
+recording-level partition), and paired comparisons on identical held-out
+recordings.}
+\label{tab:measured}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}lc@{}}
+\toprule
+\textbf{Configuration} & \textbf{Accuracy (\%)} \\
+\midrule
+Baseline ($100$~Hz, $6$ ch, $2$~s)       & $52.8 \pm 4.4$ \\
+$\quad25$~Hz, $6$ ch, $2$~s              & $62.9 \pm 2.5$ \\
+Optimal ($25$~Hz, $3$ raw ch, $4$~s)     & $\mathbf{75.9 \pm 2.8}$ \\
+\midrule
+\multicolumn{2}{@{}l}{\textit{Paired comparison} (Δ, paired $t$-test)} \\
+Optimal $-$ Baseline & $+23.1$, $p<10^{-5}$ \\
+$25$~Hz $-$ $100$~Hz & $+10.1$, $p\approx0.01$ \\
 \bottomrule
 \end{tabular}
 \end{table}

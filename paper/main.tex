@@ -28,8 +28,8 @@
 
 \begin{document}
 
-\title{Deployment-Realistic IoT-Based Condition Monitoring of Induction Motors
-Using Low-Cost MEMS Sensing}
+\title{Deployment-Realistic Performance Measurement of Low-Cost MEMS Sensing
+for IoT-Based Condition Monitoring of Induction Machines}
 
 % TODO: complete author list and affiliations
 \author{H\"useyin Canseven%
@@ -39,39 +39,40 @@ Using Low-Cost MEMS Sensing}
 
 \maketitle
 
-% --- abstract (passive voice) ---
+% --- abstract (passive voice; measurement-first) ---
 \begin{abstract}
-Vibration-based condition monitoring of induction motors is increasingly
-attractive on low-cost micro-electro-mechanical-systems (MEMS) sensors suitable
-for wireless Internet-of-Things (IoT) nodes; however, the low sampling rates of
-such sensors and the evaluation practices common in the literature cast doubt on
-reported performance. In this work, a publicly available smartphone-acquired
-vibration dataset---six health states, three supply frequencies, and two load
-conditions, sampled at $100$~Hz---is used to establish a deployment-realistic
-baseline for IoT-based motor condition monitoring. The near-perfect accuracies
-obtained under random splitting of overlapping windows are shown to be largely a
-data-leakage artefact: under a leakage-free, recording-wise protocol the accuracy
-of standard classifiers falls by approximately $40$ to $45$ percentage points,
-from essentially $100\%$ to $54$--$61\%$. The smartphone MEMS channel is
-characterised as a measurement instrument, establishing that its usable band is
-confined below $50$~Hz and that the on-device gravity compensation discards
-diagnostically useful low-frequency content, so that the raw acceleration
-channels are the more informative. An accuracy--resource trade-off analysis
-further shows that a resource-frugal configuration---$25$~Hz sampling, three raw
-channels, and a $4$~s window---raises leakage-free accuracy from $54\%$ to $74\%$
-while reducing the raw data volume roughly eight-fold, and a communication link
-budget together with an edge-model footprint identifies deployable operating
-points for Bluetooth Low Energy, Zigbee, NB-IoT, and LoRaWAN nodes. Under honest
-evaluation, therefore, ultra-low-bandwidth sensing is not merely tolerable but
-advantageous, and the reproducible pipeline released with this study provides a
-deployment-honest reference for low-cost IoT-based condition monitoring of
-induction motors.
+Vibration-based condition monitoring on low-cost sensors hinges on two
+measurement questions that are often conflated: how much fault-relevant
+information a consumer-grade micro-electro-mechanical-systems (MEMS)
+accelerometer can actually measure, and how the diagnostic performance of such a
+sensor should itself be measured. Both are addressed for a smartphone-class
+accelerometer applied to induction-machine condition monitoring, using a
+publicly available $100$~Hz vibration dataset of six health states, three supply
+frequencies, and two load conditions. The sensor is first characterised as a
+measurement instrument: its effective resolution ($\approx 0.015$~mg), broadband
+noise floor ($-70.8$~dB re $1$~g$^2$/Hz), and usable band---bounded by the
+$50$~Hz Nyquist limit---are established, and an information-theoretic channel
+analysis shows that the on-device gravity compensation discards diagnostically
+useful low-frequency content, so that the raw acceleration channels are the more
+informative. A leakage-free, recording-wise protocol is then introduced to obtain
+unbiased performance estimates; it reveals that the near-perfect accuracies
+reported under conventional random-split evaluation are a measurement artefact of
+window overlap and recording identity, overstating accuracy by $40$ to $45$
+percentage points. Reported with expanded uncertainty, an accuracy--resource
+characterisation shows that a resource-frugal configuration---$25$~Hz sampling,
+three raw channels, and a $4$~s window---measures machine health significantly
+more reliably than the full-rate configuration (a paired improvement of $23$
+percentage points, $p < 10^{-5}$) while reducing the data volume roughly
+eight-fold, which in turn defines low-bandwidth operating points for IoT nodes
+over Bluetooth Low Energy, Zigbee, NB-IoT, and LoRaWAN. The released,
+uncertainty-aware pipeline provides a reproducible reference for assessing
+low-cost vibration-sensing instruments.
 \end{abstract}
 
 \begin{IEEEkeywords}
-Condition monitoring, fault diagnosis, induction motors, MEMS accelerometer,
-Internet of Things, edge computing, data leakage, evaluation methodology,
-low-cost sensing.
+Condition monitoring, fault diagnosis, induction machines, MEMS accelerometer,
+sensor characterization, measurement uncertainty, performance measurement,
+Internet of Things, edge computing, data leakage, low-cost sensing.
 \end{IEEEkeywords}
 
 \input{intro}             % Section I

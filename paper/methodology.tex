@@ -114,13 +114,23 @@ recording level and therefore free of the window-overlap leakage that affects th
 RANDOM protocol; the latter two additionally introduce a deliberate operating
 -condition shift between training and test.
 
-\subsection{Statistical Evaluation}
+\subsection{Statistical Evaluation and Uncertainty}
 Classification performance was reported as accuracy and macro-averaged
 $F_1$-score, the latter being appropriate for the balanced six-class problem while
 remaining sensitive to per-class failures. To account for the limited number of
 recordings, the group-aware protocols were repeated over five random seeds, which
-reshuffle the fold composition, and the mean and standard deviation over
-seeds and folds are reported. Confusion matrices were aggregated from the pooled
+reshuffle the fold composition. The mean accuracy is reported together with its
+Type~A expanded uncertainty, obtained by treating the five per-seed mean
+accuracies as repeated measurements and applying a coverage factor
+$k=t_{0.975,\,4}\approx2.78$; the fold-to-fold standard deviation is quoted
+separately as a reproducibility spread. For the headline configuration
+comparisons, a fixed recording-level fold partition was used so that
+configurations are evaluated on identical held-out recordings, enabling a paired
+comparison; significance was assessed with a paired $t$-test and a Wilcoxon
+signed-rank test on the per-fold differences. This expanded uncertainty reflects
+the reproducibility of the evaluation on the available data and does not capture
+the additional, unquantified uncertainty arising from the single-machine scope
+(Section~\ref{subsec:limits}). Confusion matrices were aggregated from the pooled
 out-of-fold predictions of the GROUP protocol. All experiments used fixed seeds
 and are reproducible from the released code.
 

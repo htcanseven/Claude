@@ -14,9 +14,9 @@
 \section{Related Work}
 \label{sec:related}
 
-\subsection{Vibration-Based Condition Monitoring of Induction Motors}
+\subsection{Vibration-Based Condition Monitoring of Induction Machines}
 Vibration analysis is a mature and widely adopted modality for detecting
-mechanical and electrical faults in induction motors, including bearing defects,
+mechanical and electrical faults in induction machines, including bearing defects,
 rotor asymmetries, and supply imbalances~\cite{gangsar2020signal,
 hamani2025advancements}. Classical pipelines rely on industrial-grade
 piezoelectric accelerometers sampled at tens to hundreds of kilohertz, which
@@ -29,7 +29,7 @@ More recently, deep learning has become the default classifier family for such
 signals~\cite{yang2021fault, zhang2020deep}. High-frequency acquisition,
 however, entails costly instrumentation, intrusive cabling, and limited
 portability, which restrict deployment to the comparatively small population of
-critical machines and leave the many low-value motors in a plant unmonitored.
+critical machines and leave the many low-value machines in a plant unmonitored.
 
 \subsection{Low-Cost MEMS and Smartphone-Based Vibration Sensing}
 Micro-electro-mechanical-systems (MEMS) inertial sensors have emerged as an
@@ -92,12 +92,12 @@ leakage but on industrial-grade data; smartphone-based studies embrace low-cost
 sensing but retain optimistic random-split evaluation; and IoT/TinyML works
 demonstrate edge deployment yet assume industrial bandwidth. To the best of the
 authors' knowledge, no prior study jointly (i) evaluates ultra-low-rate
-smartphone-MEMS motor diagnosis
+smartphone-MEMS machine diagnosis
 under a leakage-free, cross-condition protocol, (ii) characterises the consumer
 MEMS channel as a measurement instrument, and (iii) maps the accuracy--resource
 trade-off into an IoT link budget and edge-model footprint. This paper closes that
 gap, providing a reproducible and deployment-realistic baseline for
-IoT-based condition monitoring of induction motors with low-cost MEMS sensing.
+IoT-based condition monitoring of induction machines with low-cost MEMS sensing.
 
 % ---------------------------------------------------------------------------
 \begin{table*}[t]
