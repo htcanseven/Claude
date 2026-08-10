@@ -60,8 +60,8 @@ three raw channels, and a $4$~s window---classifies the health state more
 accurately than the full-rate configuration (a paired improvement of $23$
 percentage points; paired $t$-test $p=0.0001$) while reducing the data volume
 roughly eight-fold, which in turn defines low-bandwidth operating points for IoT nodes
-over Bluetooth Low Energy, Zigbee, NB-IoT, and LoRaWAN. The released pipeline
-provides a reproducible reference for the deployment-honest evaluation of
+over Bluetooth Low Energy, Zigbee, NB-IoT, and LoRaWAN. The measurement protocol set out
+here provides a reproducible reference for the deployment-honest evaluation of
 low-cost vibration-sensing systems.
 \end{abstract}
 
@@ -76,18 +76,19 @@ low-cost vibration-sensing systems.
 
 % ---------------------------------------------------------------------------
 %  Data availability statement (mandatory for IOP journals; verified as a
-%  condition of publication).  NOTE: replace <CODE-REPOSITORY-URL> with the
-%  archived code location (e.g. a Zenodo DOI), or, for anonymous review, an
-%  anonymised mirror.
+%  condition of publication).  Placed after the Conclusion and before the
+%  bibliography, per IOP house style.
 % ---------------------------------------------------------------------------
 \section*{Data availability statement}
-No new data were created in this study. The vibration data analysed here are
-openly available in Mendeley Data at
-\url{https://doi.org/10.17632/rs4vz8n3t5.1}, released under a CC~BY~4.0 licence
-and described in the accompanying data article~\cite{ertargin2026smartphone,
-ertargin2026dataset}. The analysis code, feature-extraction pipeline,
-evaluation protocols, and configuration files that reproduce every result
-reported here are openly available at \url{<CODE-REPOSITORY-URL>}.
+No new data were created or analysed in this study that are not already publicly
+available. The vibration data supporting the findings reported here are openly
+available in Mendeley Data at \url{https://doi.org/10.17632/rs4vz8n3t5.1}, under
+a CC~BY~4.0 licence, and are described in the accompanying data
+article~\cite{ertargin2026smartphone, ertargin2026dataset}. All processing steps
+required to reproduce the reported results---the window segmentation, the
+time-domain feature set (Table~\ref{tab:features}), the classifier
+configurations, the partitioning rules of the four evaluation protocols, and the
+random seeds---are specified in Section~\ref{sec:method}.
 
 \bibliographystyle{iopart-num}
 \bibliography{refs}
