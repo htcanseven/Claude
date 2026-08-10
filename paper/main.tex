@@ -49,9 +49,10 @@ sensor should itself be measured. Both are addressed for a smartphone-class
 accelerometer applied to induction-machine condition monitoring, using a
 publicly available $100$~Hz vibration dataset of six health states, three supply
 frequencies, and two load conditions. The sensor is first characterised as a
-measurement instrument: its effective resolution ($\approx 0.015$~mg), broadband
-noise floor ($-70.8$~dB re $1$~g$^2$/Hz), and usable band---bounded by the
-$50$~Hz Nyquist limit---are established, and an information-theoretic channel
+measurement instrument: its effective resolution ($\approx 0.015$~mg), a
+broadband signal floor ($-70.8$~dB re $1$~g$^2$/Hz that upper-bounds the sensor
+noise), and usable band---bounded by the $50$~Hz Nyquist limit---are established
+from the data, and an information-theoretic channel
 analysis shows that the on-device gravity compensation discards diagnostically
 useful low-frequency content, so that the raw acceleration channels are the more
 informative. A leakage-free, recording-wise protocol is then introduced to obtain
@@ -64,9 +65,9 @@ three raw channels, and a $4$~s window---measures machine health significantly
 more reliably than the full-rate configuration (a paired improvement of $23$
 percentage points, $p < 10^{-5}$) while reducing the data volume roughly
 eight-fold, which in turn defines low-bandwidth operating points for IoT nodes
-over Bluetooth Low Energy, Zigbee, NB-IoT, and LoRaWAN. The released,
-uncertainty-aware pipeline provides a reproducible reference for assessing
-low-cost vibration-sensing instruments.
+over Bluetooth Low Energy, Zigbee, NB-IoT, and LoRaWAN. The released pipeline
+provides a reproducible reference for the deployment-honest evaluation of
+low-cost vibration-sensing systems.
 \end{abstract}
 
 \begin{IEEEkeywords}

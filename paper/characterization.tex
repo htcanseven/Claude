@@ -8,18 +8,19 @@
 \section{Sensor and Signal Characterization}
 \label{sec:charact}
 
-Before any classifier is trained, it is instructive to treat the smartphone
-accelerometer as a measurement instrument and to establish what fault-related
-information its channels can, in principle, convey. The metrological
-characterisation of MEMS accelerometers---their resolution, noise, calibration,
-and traceability---has itself become an active subject in the measurement
-community~\cite{prato2021mems, schiavi2023mems, demilia2021mems}, and the same
-instrument-oriented perspective is adopted here for a consumer-grade device used
-in condition monitoring. This section characterises the effective resolution and
-noise floor of the device, delimits the usable frequency band imposed by the
-$100$~Hz sampling rate, and quantifies the relative diagnostic value of the raw
-and gravity-compensated channels. All quantities were computed directly from the
-recordings, without any model training.
+Before any classifier is trained, it is instructive to examine the smartphone
+accelerometer as the front end of the measurement chain and to establish what
+fault-related information its channels can, in principle, convey. The full
+metrological characterisation of MEMS accelerometers---calibration, traceability,
+and frequency response against a reference---has itself become an active subject
+in the measurement community~\cite{prato2021mems, schiavi2023mems, demilia2021mems};
+such bench measurements are outside the scope of this dataset study, so the
+characterisation here is deliberately \emph{data-derived}: the effective
+resolution, a broadband signal floor, the usable frequency band imposed by the
+$100$~Hz sampling rate, and the relative diagnostic value of the raw and
+gravity-compensated channels are all estimated directly from the acquired
+recordings, without bench calibration or model training. These estimates delimit
+what the channel can convey and motivate the sensing choices analysed later.
 
 \subsection{Effective Resolution and Noise Floor}
 The effective amplitude resolution was estimated as the smallest positive
@@ -27,13 +28,16 @@ difference between consecutive distinct sample values in a healthy, unloaded
 recording. A quantisation step of approximately $0.015$~mg was obtained for the
 raw acceleration channels and $0.001$~mg for the gravity-compensated channels,
 the finer step of the latter reflecting the additional numerical processing of
-the on-board sensor fusion. The broadband noise floor was assessed from the
+the on-board sensor fusion. A broadband signal floor was estimated from the
 power spectral density (PSD) of a healthy recording; the median PSD above
-$30$~Hz was $8.2\times10^{-8}$~g$^2$/Hz ($-70.8$~dB). Because the fault-induced
-vibration reaches amplitudes on the order of $0.1$--$0.2$~g
-(Fig.~\ref{fig:signals}), which exceeds this floor by several orders of
-magnitude, the resolution and noise characteristics of the consumer sensor are
-not the limiting factor for the coarse fault-discrimination task considered here.
+$30$~Hz was $8.2\times10^{-8}$~g$^2$/Hz ($-70.8$~dB re $1$~g$^2$/Hz). Because this
+value is obtained on a \emph{running} machine, it includes residual mechanical
+vibration and therefore upper-bounds, rather than isolates, the sensor's
+intrinsic noise floor; a stationary-sensor measurement was not available for this
+dataset. Even as an upper bound, however, it lies several orders of magnitude
+below the fault-induced vibration, which reaches amplitudes on the order of
+$0.1$--$0.2$~g (Fig.~\ref{fig:signals}); sensor resolution and noise are thus not
+the limiting factor for the coarse fault-discrimination task considered here.
 
 \subsection{Usable Frequency Band}
 At a sampling rate of $100$~Hz the analysable spectrum is bounded by the Nyquist
@@ -48,11 +52,12 @@ coincide with the shaft rotational frequency at $50$~Hz supply
 (Table~\ref{tab:speeds}, e.g.\ $1425$--$1486$~r/min $\approx 23.8$--$24.8$~Hz),
 confirming that the low-frequency band captures the rotational fundamental and
 its low-order harmonics. Second, the characteristic bearing defect frequencies
-(ball-pass and ball-spin frequencies and their harmonics), which for this bearing
-and speed range lie well above $50$~Hz, cannot be represented. The dataset is
-therefore suited to time-domain and low-frequency analysis rather than the
-high-frequency envelope analysis conventionally used for incipient bearing
-diagnosis, and a corresponding difficulty in separating the fine
+(ball-pass and ball-spin frequencies and their harmonics) lie largely above
+$50$~Hz at the higher supply frequencies---although some low-order components fall
+within the band at $30$~Hz supply---and are, for the most part, not represented.
+The dataset is therefore better suited to time-domain and low-frequency analysis
+than to the high-frequency envelope analysis conventionally used for incipient
+bearing diagnosis, and a corresponding difficulty in separating the fine
 lubrication-severity states is anticipated.
 
 \subsection{Raw versus Gravity-Compensated Channels}

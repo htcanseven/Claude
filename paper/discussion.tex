@@ -22,18 +22,22 @@ frequently reported for this class of data should be interpreted with caution; t
 recording-wise and cross-condition figures obtained here provide a more
 deployment-honest reference against which future methods can be compared.
 
-\subsubsection{Ultra-low-bandwidth sensing as an asset}
-The observation that sampling rates at or below $25$~Hz match or exceed the
-accuracy obtained at $100$~Hz reframes the low sampling rate of consumer MEMS
-sensors from a limitation into an advantage. The information required to separate
-the coarse fault states resides in the low-frequency band identified in
-Section~\ref{sec:charact}, so aggressive decimation reduces the telemetry and, by
-extension, the energy of a wireless node without sacrificing accuracy; it can even
-improve generalisation by discarding high-frequency content that the classifier
-would otherwise overfit. The resource-optimal configuration established in
-Section~\ref{subsec:tradeoff}---$25$~Hz sampling, the three raw channels, and a
-$4$~s window---is therefore recommended as a default operating point for this
-class of node.
+\subsubsection{Low sampling rate is not a barrier}
+Decimation to $25$~Hz did not reduce accuracy and in several runs improved it, so
+the low sampling rate of consumer MEMS sensors is not a barrier to coarse-fault
+discrimination. This observation warrants care rather than celebration: the sweep
+is non-monotonic---the intermediate $50$~Hz rate performed worst---and, because
+decimation applies an anti-alias low-pass, the gain at $25$~Hz is entangled with
+the removal of high-frequency content that the classifier would otherwise overfit
+on the small training set, rather than with the sample rate as such. The
+defensible conclusion is the weaker but still useful one that the discriminative
+information for these faults resides in the low-frequency band identified in
+Section~\ref{sec:charact}, so that aggressive decimation reduces telemetry and, by
+extension, node energy without sacrificing accuracy. On this dataset the
+resource-frugal configuration established in Section~\ref{subsec:tradeoff}
+---$25$~Hz sampling, the three raw channels, and a $4$~s window---is a strong
+operating point; confirming it as a general default would require the
+multi-machine validation identified in Section~\ref{subsec:limits}.
 
 \subsubsection{Model complexity and edge feasibility}
 Under leakage-free evaluation the lower-capacity models generalised at least as
@@ -65,12 +69,22 @@ Several limitations bound the scope of these findings. The dataset comprises a
 single $1.1$~kW machine with laboratory-induced, discrete-severity faults, and the
 two lubrication states were graded qualitatively; the reported accuracies are
 therefore a deployment-honest baseline rather than a claim of field performance.
-The small number of recordings ($36$) produces wide confidence intervals under
-the recording-holdout protocols; although five-seed repetition stabilises the
-central estimates, larger multi-machine datasets are required to narrow them. The
-edge-node analysis quantifies communication load and model footprint but reports
-energy only indirectly, since direct on-device measurement was outside the present
-scope; a cycle-accurate estimation of inference latency and energy on a
-representative microcontroller is left as future work. Finally, generalisation
-across machines of different ratings and manufacturers was not assessed and
-constitutes the most important direction for future validation.
+Crucially, each fault class is represented by a \emph{single physical specimen}
+(one modified bearing, one drilled rotor, one imbalance configuration) recorded
+across speeds and loads. The recording-wise protocol therefore removes
+window-overlap and exact operating-point leakage, but not specimen identity: a
+model may still key on the idiosyncratic signature of that particular specimen and
+its mounting rather than on a fault signature that would transfer to a different
+specimen of the same class. The evaluation is thus leakage-free only in this
+restricted sense, and cross-specimen generalisation is not established here. The
+small number of recordings ($36$) also produces wide fold-to-fold variability;
+although five-seed repetition stabilises the central estimates and the reported
+expanded uncertainty quantifies their reproducibility, it captures only resampling
+variance and not the dominant specimen-, machine-, and mounting-to-mounting
+components, so it should not be read as a full measurement-uncertainty budget. The
+deployment quantities are likewise indicative rather than measured: the model
+footprint is a serialised (software) size, and energy and latency are inferred
+from data volume and window length rather than measured on hardware, with a
+cycle-accurate microcontroller characterisation left to future work. Finally,
+generalisation across machines of different ratings and manufacturers was not
+assessed and constitutes the most important direction for future validation.
