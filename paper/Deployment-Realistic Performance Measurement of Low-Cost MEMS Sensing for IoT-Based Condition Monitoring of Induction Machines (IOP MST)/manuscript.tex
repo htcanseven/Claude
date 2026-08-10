@@ -1,0 +1,79 @@
+% ============================================================================
+%  IOP Measurement Science and Technology (MST) submission
+%  Self-contained: compile with  pdflatex -> bibtex -> pdflatex x2
+%  Needs (same folder): iopjournal.cls, refs.bib, the \input section files,
+%  and Figures/ (put the test-rig photo there as fig_testrig.jpg).
+%  The [anonymous] option produces a double-anonymous PDF for review.
+% ============================================================================
+\documentclass[anonymous]{iopjournal}
+
+% --- packages used by the transferred sections ---
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{pifont}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\graphicspath{{Figures/}{./}}
+\providecommand{\cmark}{\ding{51}}
+\providecommand{\xmark}{\ding{55}}
+\providecommand{\pmark}{$\sim$}
+
+\begin{document}
+
+\articletype{Paper}
+
+\title{Deployment-Realistic Performance Measurement of Low-Cost MEMS Sensing
+for IoT-Based Condition Monitoring of Induction Machines}
+
+\author{H{\"u}seyin Tayyer Canseven\orcid{0000-0001-5703-6539}}
+\affil{Department of Electrical Engineering, LUT University, Lappeenranta, Finland}
+\email{huseyin.canseven@lut.fi}
+
+\keywords{condition monitoring, fault diagnosis, induction machines,
+MEMS accelerometer, sensor characterization, measurement uncertainty,
+performance measurement, Internet of Things, edge computing, low-cost sensing}
+
+\begin{abstract}
+Vibration-based condition monitoring on low-cost sensors hinges on two
+measurement questions that are often conflated: how much fault-relevant
+information a consumer-grade micro-electro-mechanical-systems (MEMS)
+accelerometer can actually measure, and how the diagnostic performance of such a
+sensor should itself be measured. Both are addressed for a smartphone-class
+accelerometer applied to induction-machine condition monitoring, using a
+publicly available $100$~Hz vibration dataset of six health states, three supply
+frequencies, and two load conditions. The sensor is first characterised as a
+measurement instrument: its effective resolution ($\approx 0.015$~mg), broadband
+noise floor ($-70.8$~dB re $1$~g$^2$/Hz), and usable band---bounded by the
+$50$~Hz Nyquist limit---are established, and an information-theoretic channel
+analysis shows that the on-device gravity compensation discards diagnostically
+useful low-frequency content, so that the raw acceleration channels are the more
+informative. A leakage-free, recording-wise protocol is then introduced to obtain
+unbiased performance estimates; it reveals that the near-perfect accuracies
+reported under conventional random-split evaluation are a measurement artefact of
+window overlap and recording identity, overstating accuracy by $40$ to $45$
+percentage points. Reported with expanded uncertainty, an accuracy--resource
+characterisation shows that a resource-frugal configuration---$25$~Hz sampling,
+three raw channels, and a $4$~s window---measures machine health significantly
+more reliably than the full-rate configuration (a paired improvement of $23$
+percentage points, $p < 10^{-5}$) while reducing the data volume roughly
+eight-fold, which in turn defines low-bandwidth operating points for IoT nodes
+over Bluetooth Low Energy, Zigbee, NB-IoT, and LoRaWAN. The released,
+uncertainty-aware pipeline provides a reproducible reference for assessing
+low-cost vibration-sensing instruments.
+\end{abstract}
+
+\input{intro}
+\input{related_work}
+\input{dataset}
+\input{characterization}
+\input{methodology}
+\input{results}
+\input{discussion}
+\input{conclusion}
+
+\bibliographystyle{unsrt}
+\bibliography{refs}
+
+\end{document}
