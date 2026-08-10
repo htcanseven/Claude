@@ -88,6 +88,12 @@ components, so it should not be read as a full measurement-uncertainty budget. T
 deployment quantities are likewise indicative rather than measured: the model
 footprint is a serialised (software) size, and energy and latency are inferred
 from data volume and window length rather than measured on hardware, with a
-cycle-accurate microcontroller characterisation left to future work. Finally,
+cycle-accurate microcontroller characterisation left to future work. A further limitation concerns
+reproducibility in practice: the implementation itself is not distributed, so the
+results must be reimplemented from the description rather than re-executed. The
+feature definitions, estimator settings, resampling and robustness transforms,
+and random seeds are therefore reported in full in Section~\ref{sec:method},
+but exact numerical agreement with an independent reimplementation cannot be
+guaranteed. Finally,
 generalisation across machines of different ratings and manufacturers was not
 assessed and constitutes the most important direction for future validation.

@@ -196,9 +196,65 @@ uncertainty arising from the single-machine, single-specimen scope
 (Section~\ref{subsec:limits}); it should therefore be read as a reproducibility
 interval rather than a full measurement-uncertainty budget. Confusion matrices
 were aggregated from the pooled out-of-fold predictions of the GROUP protocol.
-All experiments used fixed seeds, and the feature set, classifier settings, and
-partitioning rules are specified in full, so that the reported results can be
-independently reproduced.
+All experiments used the fixed seeds $0$--$4$, and the feature set
+(Table~\ref{tab:features}), estimator settings (Table~\ref{tab:impl}), and
+partitioning rules are reported in full, so that the results can be
+reimplemented independently.
+
+\subsection{Implementation Details}
+\label{subsec:impl}
+All estimators were taken from a single, standard machine-learning library, with
+the settings collected in Table~\ref{tab:impl}; any parameter not listed was left
+at its library default, and every stochastic component was seeded. Three further
+choices affect reproducibility and are therefore stated explicitly. First,
+decimation to a lower sampling rate was performed by polyphase resampling with
+the associated anti-alias FIR filter, so that the reduced-rate conditions of
+Section~\ref{subsec:tradeoff} combine a change of rate with the low-pass that
+necessarily accompanies it. Second, the mutual information of
+Section~\ref{sec:charact} was obtained with a $k$-nearest-neighbour estimator
+($k=3$) applied to the continuous features and reported in nats; the estimator is
+non-negative by construction, so values near zero indicate no detectable
+dependence rather than independence. Third, the power spectral densities were
+computed by Welch's method with a Hann window, $50\%$ segment overlap and
+density scaling, using $2048$-sample segments for the per-class spectra of
+Fig.~\ref{fig:psd} and $1024$-sample segments for the signal-floor estimate.
+
+% ---------------------------------------------------------------------------
+\begin{table}[t]
+\centering
+\caption{Estimator and feature-extraction settings. Parameters not listed were
+left at their library defaults; $d$ denotes the feature-vector dimension
+($14C$ for $C$ channels).}
+\label{tab:impl}
+\renewcommand{\arraystretch}{1.25}
+\small
+\begin{tabular}{@{}p{3.6cm}p{10.9cm}@{}}
+\toprule
+\textbf{Component} & \textbf{Setting} \\
+\midrule
+Random Forest (baseline)   & $200$ trees, unlimited depth, Gini split,
+                             $\sqrt{d}$ features per split \\
+Random Forest (edge)       & $50$ trees, maximum depth $8$ \\
+Decision tree (edge)       & maximum depth $8$ \\
+KNN                        & $k=5$, Euclidean metric, uniform weights \\
+SVM                        & RBF kernel approximated by a Nystr\"om map
+                             ($400$ components, $\gamma=1/d$), then a linear
+                             SVM ($C=10$, squared hinge, primal solver,
+                             $\leq5000$ iterations) \\
+Logistic regression        & multinomial, $L_2$ penalty, $C=1$, L-BFGS,
+                             $\leq2000$ iterations \\
+Standardisation            & zero mean, unit variance; fitted on the training
+                             partition only (KNN, SVM, logistic regression) \\
+Amplitude entropy          & $32$-bin normalised histogram per window \\
+Bit-depth reduction        & per-recording, per-channel min--max range
+                             uniformly quantised to $2^{b}-1$ levels \\
+Packet loss                & independent Bernoulli per sample, concealed by
+                             sample-and-hold \\
+Orientation change         & Rodrigues rotation of both triads by
+                             $30^{\circ}$ about the axis $(1,1,0)/\sqrt{2}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 % ---------------------------------------------------------------------------
 \begin{table}[t]

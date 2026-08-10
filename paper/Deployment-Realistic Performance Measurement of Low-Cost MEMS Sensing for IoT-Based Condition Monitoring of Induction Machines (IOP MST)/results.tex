@@ -192,7 +192,12 @@ $25$~Hz $-$ $100$~Hz & $+10.1$, $p=0.003$ \\
 \begin{table}[t]
 \centering
 \caption{Communication link budget: telemetry bitrate versus sustainable uplink
-capacity. \cmark~= sustainable, \xmark~= infeasible.}
+capacity. Bitrates assume a $1$~s reporting hop, \texttt{int16} raw samples and
+\texttt{float32} features; the assumed sustainable application-level uplinks are
+$300$~kbps (Bluetooth Low Energy $4.2$), $100$~kbps (Zigbee, IEEE~802.15.4),
+$30$~kbps (NB-IoT) and $55$~bps (LoRaWAN, a spreading-factor-$7$ physical rate of
+$5.47$~kbps throttled by a $1\%$ duty cycle). \cmark~= sustainable,
+\xmark~= infeasible.}
 \label{tab:linkbudget}
 \renewcommand{\arraystretch}{1.2}
 \setlength{\tabcolsep}{4pt}
