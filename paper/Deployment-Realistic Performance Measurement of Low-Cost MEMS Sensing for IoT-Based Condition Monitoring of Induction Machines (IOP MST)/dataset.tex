@@ -25,12 +25,15 @@ The measurements were carried out on a $1.1$~kW three-phase squirrel-cage
 induction machine, a rating representative of the large population of small
 general-purpose drives found in industry. Variable-speed operation was obtained
 through a voltage/frequency ($V/f$)-controlled inverter, and a mechanical load
-was applied by a DC generator coupled directly to the machine shaft, enabling both
-loaded and unloaded operation. A consumer smartphone was affixed to the machine
+was applied by a DC generator coupled directly to the machine shaft. The
+generator fed an adjustable resistive load bank, monitored with a digital
+multimeter, so that the load level could be set to give both loaded and unloaded
+operation. A consumer smartphone was affixed to the machine
 terminal box with double-sided adhesive tape, oriented approximately parallel to
 the shaft axis; the mounting location was marked so that the placement could be
-reproduced across successive installations. The complete arrangement of machine,
-inverter, and DC generator is shown in Fig.~\ref{fig:testrig}.
+reproduced across successive installations. The complete arrangement---induction
+machine, $V/f$ inverter, coupled DC generator, resistive load bank, and
+supply-monitoring instrumentation---is shown in Fig.~\ref{fig:testrig}.
 
 \subsection{Acquisition Chain and Signal Channels}
 Vibration signals were acquired with an iPhone~15 Pro Max using its integrated
@@ -165,25 +168,25 @@ and load condition (reproduced from~\cite{ertargin2026smartphone}).}
 
 % ---------------------------------------------------------------------------
 % Test-rig photograph with numbered TikZ callouts overlaid on the included image.
-% Save the photograph as fig_testrig.jpg next to this file. The callout
+% Save the photograph as testrig.png next to this file. The callout
 % coordinates are normalised to the image (x: 0=left..1=right, y: 0=bottom..1=top);
 % nudge the (x,y) pairs below if a marker does not sit on its component.
 \begin{figure}[t]
 \centering
 \begin{tikzpicture}
   \node[anchor=south west,inner sep=0] (img) at (0,0)
-      {\includegraphics[width=\columnwidth]{fig_testrig.jpg}};
+      {\includegraphics[width=\columnwidth]{testrig.png}};
   \begin{scope}[x={(img.south east)},y={(img.north west)}]
     \tikzset{callout/.style={circle,draw=black,line width=0.4pt,fill=white,
              font=\bfseries\footnotesize,inner sep=0.5pt,minimum size=1.35em}}
-    \node[callout] at (0.90,0.32) {1};   % induction machine
-    \node[callout] at (0.64,0.33) {2};   % DC generator (load)
-    \node[callout] at (0.77,0.28) {3};   % shaft coupling
-    \node[callout] at (0.80,0.54) {4};   % smartphone (MEMS sensor)
-    \node[callout] at (0.66,0.62) {5};   % V/f variable-frequency supply
-    \node[callout] at (0.85,0.90) {6};   % oscilloscope
-    \node[callout] at (0.30,0.45) {7};   % resistive load bank
-    \node[callout] at (0.52,0.30) {8};   % digital multimeter
+    \node[callout] at (0.87,0.30) {1};   % induction machine
+    \node[callout] at (0.65,0.34) {2};   % DC generator (load)
+    \node[callout] at (0.76,0.32) {3};   % shaft coupling
+    \node[callout] at (0.81,0.50) {4};   % smartphone (MEMS sensor)
+    \node[callout] at (0.86,0.66) {5};   % V/f variable-frequency supply
+    \node[callout] at (0.75,0.92) {6};   % oscilloscope
+    \node[callout] at (0.31,0.42) {7};   % resistive load bank
+    \node[callout] at (0.53,0.25) {8};   % digital multimeter
   \end{scope}
 \end{tikzpicture}
 \caption{Test-rig arrangement (photograph adapted from~\cite{ertargin2026smartphone}):
