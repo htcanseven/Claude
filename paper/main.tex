@@ -1,0 +1,91 @@
+% ============================================================================
+%  Main file — IEEE Transactions on Instrumentation and Measurement
+%  Assembles the section files. Compile with pdflatex + bibtex + pdflatex x2.
+%  Overleaf: set this as the main document; keep refs.bib and the figures
+%  (results/*.png) alongside, or adjust \graphicspath below.
+% ============================================================================
+\documentclass[journal]{IEEEtran}
+
+% --- packages required across the section files ---
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pifont}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage[hidelinks]{hyperref}
+\usepackage{cite}
+
+% checkmarks used in comparison / link-budget tables
+\providecommand{\cmark}{\ding{51}}
+\providecommand{\xmark}{\ding{55}}
+\providecommand{\pmark}{$\sim$}
+
+% figures live in ../results relative to paper/ ; edit for your Overleaf layout
+\graphicspath{{../results/}{results/}{./}}
+
+\begin{document}
+
+\title{Deployment-Realistic Performance Measurement of Low-Cost MEMS Sensing
+for IoT-Based Condition Monitoring of Induction Machines}
+
+% TODO: complete author list and affiliations
+\author{H\"useyin Canseven%
+\thanks{Manuscript submitted \today. (Corresponding author: H. Canseven.)}%
+\thanks{The author is with LUT University, Finland
+(e-mail: huseyin.canseven@lut.fi).}}
+
+\maketitle
+
+% --- abstract (passive voice; measurement-first) ---
+\begin{abstract}
+Vibration-based condition monitoring on low-cost sensors hinges on two
+measurement questions that are often conflated: how much fault-relevant
+information a consumer-grade micro-electro-mechanical-systems (MEMS)
+accelerometer can actually measure, and how the diagnostic performance of such a
+sensor should itself be measured. Both are addressed for a smartphone-class
+accelerometer applied to induction-machine condition monitoring, using a
+publicly available $100$~Hz vibration dataset of six health states, three supply
+frequencies, and two load conditions. The sensor is first characterised as a
+measurement instrument: its effective resolution ($\approx 0.015$~mg), a
+broadband signal floor ($-70.8$~dB re $1$~g$^2$/Hz that upper-bounds the sensor
+noise), and usable band---bounded by the $50$~Hz Nyquist limit---are established
+from the data, and an information-theoretic channel
+analysis shows that the on-device gravity compensation preserves the vibration
+power but reshapes its low-frequency structure, leaving the raw acceleration
+channels measurably more informative. A leakage-free, recording-wise protocol is then introduced to obtain
+unbiased performance estimates; it reveals that the near-perfect accuracies
+reported under conventional random-split evaluation are a measurement artefact of
+window overlap and recording identity, overstating accuracy by $41$ to $47$
+percentage points. Reported with expanded uncertainty, an accuracy--resource
+characterisation shows that a resource-frugal configuration---$25$~Hz sampling,
+three raw channels, and a $4$~s window---classifies the health state more
+accurately than the full-rate configuration (a paired improvement of $23$
+percentage points; paired $t$-test $p=0.0001$) while reducing the data volume
+roughly eight-fold, which in turn defines low-bandwidth operating points for IoT nodes
+over Bluetooth Low Energy, Zigbee, NB-IoT, and LoRaWAN. The released pipeline
+provides a reproducible reference for the deployment-honest evaluation of
+low-cost vibration-sensing systems.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Condition monitoring, fault diagnosis, induction machines, MEMS accelerometer,
+sensor characterization, measurement uncertainty, performance measurement,
+Internet of Things, edge computing, data leakage, low-cost sensing.
+\end{IEEEkeywords}
+
+\input{intro}             % Section I
+\input{related_work}      % Section II
+\input{dataset}           % Section III
+\input{characterization}  % Section IV
+\input{methodology}       % Section V
+\input{results}           % Section VI
+\input{discussion}        % Section VII
+\input{conclusion}        % Section VIII
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+
+\end{document}

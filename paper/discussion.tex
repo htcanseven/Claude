@@ -1,0 +1,93 @@
+% ============================================================================
+%  Section VII — Discussion and Limitations  (IOP MST)
+%  Passive voice / third person throughout. Interpretation of the Section VI
+%  results, practical guidance, and limitations. Requires: none beyond base.
+% ============================================================================
+
+\section{Discussion and Limitations}
+\label{sec:discussion}
+
+\subsection{Discussion}
+
+\subsubsection{Evaluation methodology}
+The optimism gap of Section~\ref{subsec:gap} is the central methodological
+finding: for low-rate smartphone-based machine diagnosis, accuracies obtained under
+random splitting of overlapping windows overstate deployable performance by tens
+of accuracy points. The effect mirrors that documented for industrial-grade
+vibration data~\cite{wheat2024impact, hendriks2022towards} and the broader
+machine-learning leakage literature~\cite{kapoor2023leakage}, but its magnitude
+here is large because each operating condition is represented by a single
+continuous recording. A practical consequence is that the near-perfect accuracies
+frequently reported for this class of data should be interpreted with caution; the
+recording-wise and cross-condition figures obtained here provide a more
+deployment-honest reference against which future methods can be compared.
+
+\subsubsection{Low sampling rate is not a barrier}
+Decimation to $25$~Hz did not reduce accuracy and in several runs improved it, so
+the low sampling rate of consumer MEMS sensors is not a barrier to coarse-fault
+discrimination. This observation warrants care rather than celebration: the sweep
+is non-monotonic---the intermediate $50$~Hz rate performed worst---and, because
+decimation applies an anti-alias low-pass, the gain at $25$~Hz is entangled with
+the removal of high-frequency content that the classifier would otherwise overfit
+on the small training set, rather than with the sample rate as such. The
+defensible conclusion is the weaker but still useful one that the discriminative
+information for these faults resides in the low-frequency band identified in
+Section~\ref{sec:charact}, so that aggressive decimation reduces telemetry and, by
+extension, node energy without sacrificing accuracy. On this dataset the
+resource-frugal configuration established in Section~\ref{subsec:tradeoff}
+---$25$~Hz sampling, the three raw channels, and a $4$~s window---is a strong
+operating point; confirming it as a general default would require the
+multi-machine validation identified in Section~\ref{subsec:limits}.
+
+\subsubsection{Model complexity and edge feasibility}
+Under leakage-free evaluation the lower-capacity models generalised at least as
+well as the Random Forest while occupying a kilobyte-scale footprint, so on-node
+inference is practical on inexpensive microcontrollers. Combined with the link
+budget, this yields per-link deployment guidance: Bluetooth Low Energy, Zigbee,
+and NB-IoT nodes can stream raw or feature data to a gateway, whereas LoRaWAN
+nodes, constrained by the duty cycle to the decision stream, must perform
+classification locally. The alignment between the models that deploy most easily
+and those that generalise best is convenient for practical systems.
+
+\subsubsection{Sensor-level guidance}
+The channel analysis of Section~\ref{sec:charact} carries a concrete
+recommendation for smartphone-based acquisition: the raw acceleration channels
+should be preferred over the gravity-compensated channels. The on-device gravity
+compensation---valuable for motion-tracking applications---preserves the vibration
+power but reshapes its low-frequency structure, and the raw channels carry
+measurably more fault information (a mutual-information ratio of about $1.4$ that
+survives the removal of static offsets), so they are the better choice for
+condition monitoring.
+
+\subsubsection{Scope of applicability}
+Taken together, the results delineate where low-cost, low-rate MEMS sensing is
+appropriate. Coarse health states, such as a healthy machine, a broken rotor bar,
+or a supply-voltage imbalance, are separable at $100$~Hz and below; the staging of
+incipient bearing degradation, whose signatures lie in the high-frequency band, is
+not, and remains the province of higher-rate, industrial-grade instrumentation.
+
+\subsection{Limitations}
+\label{subsec:limits}
+Several limitations bound the scope of these findings. The dataset comprises a
+single $1.1$~kW machine with laboratory-induced, discrete-severity faults, and the
+two lubrication states were graded qualitatively; the reported accuracies are
+therefore a deployment-honest baseline rather than a claim of field performance.
+Crucially, each fault class is represented by a \emph{single physical specimen}
+(one modified bearing, one drilled rotor, one imbalance configuration) recorded
+across speeds and loads. The recording-wise protocol therefore removes
+window-overlap and exact operating-point leakage, but not specimen identity: a
+model may still key on the idiosyncratic signature of that particular specimen and
+its mounting rather than on a fault signature that would transfer to a different
+specimen of the same class. The evaluation is thus leakage-free only in this
+restricted sense, and cross-specimen generalisation is not established here. The
+small number of recordings ($36$) also produces wide fold-to-fold variability;
+although five-seed repetition stabilises the central estimates and the reported
+expanded uncertainty quantifies their reproducibility, it captures only resampling
+variance and not the dominant specimen-, machine-, and mounting-to-mounting
+components, so it should not be read as a full measurement-uncertainty budget. The
+deployment quantities are likewise indicative rather than measured: the model
+footprint is a serialised (software) size, and energy and latency are inferred
+from data volume and window length rather than measured on hardware, with a
+cycle-accurate microcontroller characterisation left to future work. Finally,
+generalisation across machines of different ratings and manufacturers was not
+assessed and constitutes the most important direction for future validation.
