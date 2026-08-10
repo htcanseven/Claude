@@ -34,10 +34,17 @@ Forest.
 
 The seed-averaged confusion matrix of the GROUP protocol
 (Fig.~\ref{fig:confusion}) localises the residual difficulty. The healthy state
-and the broken-rotor-bar fault are the most reliably identified, whereas the two
-lubrication-severity states (B1 and B2) are frequently confused with each other
-and with the remaining bearing conditions, in agreement with the $50$~Hz
-band limit established in Section~\ref{sec:charact}.
+is the most reliably identified, followed by the supply-imbalance and
+broken-rotor-bar faults, whereas the two lubrication-severity states (B1 and B2)
+are frequently confused with each other and with the remaining bearing
+conditions, in agreement with the $50$~Hz band limit established in
+Section~\ref{sec:charact}. Because this per-class behaviour is markedly uneven,
+accuracy alone overstates how well the fine bearing states are resolved: the
+macro-averaged $F_1$-score of the same configuration is $51.1\%$, and per-class
+recall falls from $0.87$ for the healthy state and $0.66$ for the supply
+imbalance to $0.35$ for B3 and $0.16$ for B2. The lubrication-severity states
+therefore dominate the residual error, and the headline figures below should be
+read with that qualification.
 
 \subsection{Accuracy--Resource Trade-offs}
 \label{subsec:tradeoff}
@@ -238,8 +245,10 @@ operating-condition shift (CROSS-SPEED, CROSS-LOAD).}
 \centering
 \includegraphics[width=\columnwidth]{fig_confusion_group.png}
 \caption{Seed-averaged confusion matrix of the Random Forest under the GROUP
-protocol. Healthy (H) and broken-rotor-bar (R) states are the most separable;
-the lubrication-severity states (B1, B2) are the most confused.}
+protocol (row-normalised; baseline configuration, five recording-level
+partitions). The healthy state (H) is the most separable, followed by the
+supply-imbalance (V) and broken-rotor-bar (R) faults; the lubrication-severity
+states (B1, B2) are the most confused.}
 \label{fig:confusion}
 \end{figure}
 

@@ -11,7 +11,7 @@ PALETTE = ["#0072B2", "#D55E00", "#009E73", "#CC79A7", "#E69F00", "#56B4E9", "#0
 def set_style() -> None:
     plt.rcParams.update({
         "figure.dpi": 130,
-        "savefig.dpi": 200,
+        "savefig.dpi": 400,
         "savefig.bbox": "tight",
         "font.size": 10,
         "axes.titlesize": 11,

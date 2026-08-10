@@ -1,0 +1,7 @@
+  seed 0 done
+  seed 1 done
+  seed 2 done
+  seed 3 done
+  seed 4 done
+wrote /home/user/Claude/results/fig_confusion_group.png
+per-class recall: {'H': np.float64(0.866), 'B1': np.float64(0.541), 'B2': np.float64(0.163), 'B3': np.float64(0.348), 'V': np.float64(0.657), 'R': np.float64(0.591)}
