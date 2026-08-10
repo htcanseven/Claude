@@ -17,7 +17,16 @@ Dear Editors,
 Please consider the enclosed manuscript, **"Deployment-Realistic Performance
 Measurement of Low-Cost MEMS Sensing for IoT-Based Condition Monitoring of
 Induction Machines"**, for publication in *Measurement Science and Technology*
-as a **Paper**.
+as a **Paper**, for inclusion in the Focus Collection *Intelligent Measurement
+and Digitalization for Industrial Asset Health Management* (guest editors
+Z. Xu, K. Feng, H. Li and Y. Shi). The manuscript speaks directly to two of that
+collection's stated themes. It is an exercise in **uncertainty-aware sensing and
+measurement**: diagnostic performance is reported as a measured quantity with
+Type A expanded uncertainty and paired significance testing rather than as a
+bare accuracy figure. It also addresses **lifecycle health assessment under
+evolving data conditions**, in that the degradation of that performance under a
+change of operating context is measured directly, through leave-one-speed-out
+and leave-one-load-out protocols, instead of being assumed away.
 
 The manuscript treats the diagnostic performance of a low-cost sensor as a
 quantity that must itself be measured, rather than as a score to be maximised.
