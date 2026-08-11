@@ -11,15 +11,19 @@ Your two profiles are almost perfectly complementary — machine design, thermal
 
 A detailed topic-by-topic reading of the Horizon Europe Cluster 5 Work Programme 2026-2027 is in the companion document [`horizon-cluster5-wp2026-2027-analysis.md`](./horizon-cluster5-wp2026-2027-analysis.md).
 
-The five highest-value moves, in order of deadline:
+**Constraint that shapes the plan (stated by the co-applicant, August 2026):** no relocation from Finland — short visits only. This rules out the MSCA Postdoctoral Fellowship (12–24 months resident at the host) and the Foundations' Post Doc Pool (6–24 months abroad), and it promotes the instruments built around *short, repeated exchanges from a home post*. Separately, the RCF Academy Research Fellowship requires a PhD awarded 2–7 years before the call year, so it becomes available in a later round.
+
+The five highest-value moves under that constraint, in order of deadline:
 
 | # | Action | Deadline | Instrument | Money |
 |---|--------|----------|------------|-------|
-| 1 | Hüseyin applies for an **MSCA Postdoctoral Fellowship** hosted at Durham (supervisor: Nur) | **9 Sep 2026** | HORIZON-MSCA-2026-PF-01 | ~€230k, 12–24 months |
-| 2 | Parallel/backup: Hüseyin applies to the **Foundations' Post Doc Pool** (autumn call) for a Durham research period | **15 Aug – 15 Sep 2026** | Säätiöiden post doc -pooli | ~€30–60k, 6–24 months |
-| 3 | Both **join COST Action CA25138 "SAFEWIND"** (offshore wind, starts 18 Sep 2026) and CA23155 "OTC" WG4 (condition monitoring) | join anytime, from Sep 2026 | COST | funded travel, STSMs, training schools |
-| 4 | LUT-side 4-year grant: **Research Council of Finland winter call** — Academy Project (senior PI) and/or Academy Research Fellowship (Hüseyin, if PhD window fits), with Durham as international partner | **14 Oct – 11 Nov 2026** | RCF, funding starts Sep 2027 | €600k–700k / 4 yrs |
-| 5 | Durham-side grant: **EPSRC standard responsive-mode grant** led by Nur with LUT as project partner + funded researcher visits | anytime | EPSRC responsive mode | no limit, 80% FEC |
+| 1 | **Royal Society International Exchanges** — Nur lead, Hüseyin co-applicant; six short bilateral visits, two co-supervised MSc projects | **24 Sep 2026** | IE Global Round 3 | £12,000 / 2 yrs |
+| 2 | **Join COST Action CA25138 "SAFEWIND"** (launches 18 Sep 2026) and CA23155 "OTC" WG4 | anytime from Sep 2026 | COST | funded short missions, meetings, training schools — no relocation |
+| 3 | **RCF Academy Project** as a named team member under a senior LUT PI (not as PI), with Durham as international collaborator and UK mobility costed in | **14 Oct – 11 Nov 2026** | Research Council of Finland | €600k / 4 yrs to the LUT team |
+| 4 | **MSCA Staff Exchanges** — the flagship EU route for this pair: secondments from a retained home post, 1–12 months, splittable | **15 Apr 2027** | HORIZON-MSCA-2027-SE-01 | €5,170 per person-month |
+| 5 | Durham-side: **EPSRC standard responsive-mode grant**, LUT as project partner + funded visits | anytime | EPSRC responsive mode | no limit, 80% FEC |
+
+Deferred to later rounds: RCF Academy Research Fellowship (~€700k, once the PhD-age window opens); MSCA Postdoctoral Fellowship and Post Doc Pool (both require extended residence abroad).
 
 Structural finding that shapes everything: **no bilateral Finland–UK funding instrument exists** (no RCF–UKRI lead-agency or money-follows-cooperation agreement; EPSRC does not fund Finnish co-investigators; UKRI's ISPF excludes Finland; Innovate UK has no Eureka Network Projects budget). The proven model for a Finland–UK pair is therefore: **(a)** personal mobility funding to embed the collaboration, **(b)** *parallel* national grants written around a shared work plan, and **(c)** EU instruments — where the UK is a fully associated Horizon Europe country through the 2027 calls, so LUT+Durham can sit in the same consortium as equals.
 
@@ -171,15 +175,15 @@ An 8–12 beneficiary **MSCA Doctoral Network** anchored by LUT + Durham (e.g., 
 
 ```
 2026
-Jul–Aug   | Decide MSCA PF go/no-go (check mobility rule + PhD date) — start writing
-          | Post Doc Pool application drafted (window 15 Aug – 15 Sep)
+Aug       | Draft Royal Society IE application (Nur lead); confirm LUT contract end date
           | Email SAFEWIND proposers; apply to OTC WG4
+          | Approach The Switch / Yaskawa re: partnership for MSCA SE 2027
           | (Optional) Royal Society IE eligibility query re: existing collaboration
-Sep       | 9 Sep: MSCA PF submission | 15 Sep: Post Doc Pool closes
+Sep       | ~17 Sep: Flexi-Grant participants complete | 24 Sep: Royal Society IE submission
           | 18 Sep: SAFEWIND launches — attend kick-off if possible
           | RISEnergy call ~Sep: request Durham↔LUT-relevant test access
-Oct–Nov   | 14 Oct–11 Nov: RCF winter call — Academy Project (senior LUT PI)
-          |   ± Academy Research Fellowship (Hüseyin)
+Oct–Nov   | 14 Oct–11 Nov: RCF winter call — Academy Project led by a senior LUT PI,
+          |   Hüseyin as named team member, Durham as international collaborator
           | 28 Oct: COST own-Action deadline (only if SAFEWIND roles insufficient)
           | 24 Nov: MSCA DN 2026 (only if an experienced coordinator adopts the idea)
 Dec       | MSCA SE 2027 consortium assembly (LUT + Durham + The Switch/ORE Catapult + 3rd country)
@@ -191,8 +195,9 @@ Jan–Apr   | 15 Apr: MSCA SE 2027 submission
           | EPSRC standard grant (Nur) drafted with LUT project-partner letter
           | Watch: D3-03 cascade-funding (FSTP) first call; Clean Aviation Call 5;
           |   Supergen Flexible Fund Call 7; Eurostars Call 12; foundation calls (TES, Tutkijat maailmalle)
-Feb       | ~9 Feb: MSCA PF results → if funded, fellowship starts ~mid-2027
-Sep–Nov   | 8 Sep: MSCA PF 2027 (backup) | RCF winter call round 2 | 23 Nov: MSCA DN 2027 (main attempt)
+Mar       | Royal Society IE decision; project must start by 31 Mar 2027
+Sep–Nov   | RCF winter call round 2 — Academy Research Fellowship if PhD-age window now open
+          | 23 Nov: MSCA DN 2027 (main attempt)
 ```
 
 ---
