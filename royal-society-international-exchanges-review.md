@@ -1,20 +1,22 @@
 # Royal Society International Exchanges — Global Round 3 (2026/R3): Application Review
 
 **Documents reviewed:** `International_Exchanges_Global_Programme_Scheme_Notes.pdf` (ref **AKB/07/2026**, "International Exchanges Scheme 2026 – Global Round 3", 20 pp.), cross-checked against the [live scheme page](https://royalsociety.org/grants/international-exchanges/) on 27 July 2026.
-**Proposed application:** Nur Sarma (Durham, lead applicant) + Hüseyin T. Canseven (LUT, co-applicant), **36-month duration**.
+**Proposed application:** Nur Sarma (Durham, lead applicant) + Hüseyin T. Canseven (LUT, co-applicant), originally planned as **36 months**.
+**Update:** includes the Royal Society Grants team's written ruling on the novelty question (§3).
 
 ---
 
 ## 1. Verdict
 
-The scheme is a good match for what you want to do — bilateral UK–Finland visits, seed funding, engineering is in remit, and Finland is eligible. But **the plan as described has two problems, one of which is fatal as stated**:
+The scheme is a good match for what you want to do — bilateral UK–Finland visits, seed funding, engineering is in remit, and Finland is eligible. Three issues shape the application:
 
-| # | Issue | Severity |
+| # | Issue | Status |
 |---|---|---|
-| 1 | **36 months is not an option.** The scheme offers only 3 months, 1 year, or 2 years. | **Blocker** — must change to 2 years |
-| 2 | **The scheme funds new collaborations only**, and you published together in June 2026. | **Serious eligibility risk** — resolve before writing |
+| 1 | **36 months is not an option.** The scheme offers only 3 months, 1 year, or 2 years. | **Confirmed blocker** — apply for 2 years |
+| 2 | **The scheme funds new collaborations only**, and you published together in June 2026. | **Answered by the Royal Society (§3): eligible to apply, but you will not be regarded as a new collaboration and assessors may mark you down for it** |
+| 3 | Hüseyin's LUT contract must cover the full award duration (~to March 2029 for a 2-year award). | **Open — check this now** |
 
-Neither is a reason to abandon the application, but #2 needs a direct answer from the Royal Society before you invest effort, and #1 changes your project design.
+Issue 2 is no longer a question of eligibility; it is a question of whether the application is worth your one submission slot. Section 3 sets out the options.
 
 ---
 
@@ -46,31 +48,47 @@ Note also that "the start of the project" is defined generously — "any activit
 
 ---
 
-## 3. Serious risk: "new collaborations only" versus your joint paper
+## 3. The Royal Society's ruling on the novelty question — and what to do about it
 
-This is the issue that most needs your attention. The requirement appears twice, and in the second instance it is an **eligibility condition**, not merely an aim:
+Nur asked the Grants team directly. The reply, from Hannah Engelhardt, Grants Manager (Temp) – International Exchanges:
 
-> **§1.2 Aims** — "This scheme is **not intended to support continued research activities** between a UK applicant and a co-applicant who was a former colleague or PhD student or to support **other existing or recent collaborations between the applicant and co-applicant**. Rather, the scheme is intended to stimulate new collaborations."
+> "The fact that a publication exists citing you both as authors means that **assessors will not regard this as a new collaboration**. You are still free to submit an application and **although you will not be penalised eligibility-wise**, please be aware that **assessors may take your previous link into account when grading the application**.
+>
+> As per our guidance, *the applicant and co-applicant cannot be former colleagues or PhD student/supervisor. The scheme is intended to stimulate **new** collaborations between scientists in the UK and overseas.* **We define a new collaboration as when the applicant and co-applicant have never worked together previously on any project.**"
 
-> **§4.3 Eligible Activity** — "**Applications must be new collaborations.** This scheme is not intended to be used to extend an existing or recent project or collaboration."
+**Read this precisely — it says two different things:**
 
-Against this you have: *Canseven, Ercire, Cömert, Ünsal, **Sarma**, "Advanced Fault Detection of Permanent Magnet Faults in Offshore Wind Turbine Generators Using FEA and Deep Transfer Learning," Machines 2026, 14(6), 665* — published **June 2026**, three months before the deadline. That is, on the plain reading, a "recent collaboration between the applicant and co-applicant."
+1. **You are eligible.** The §4.3 "must be new collaborations" wording is *not* applied as a hard eligibility bar. Your application will be accepted and assessed. That removes the blocker.
+2. **You will be assessed as a non-new collaboration.** Their definition is about the relationship, not the topic — "never worked together previously on any project" — so no amount of reframing the science makes you new. And assessors "may take your previous link into account when grading".
 
-One clause does work in your favour — §4.1's hard bar is narrower than §4.3's:
+That second point matters more than it looks, because the entire purpose of the scheme is stimulating new partnerships, and two of the six assessment criteria are about the collaboration itself. You would be competing against a field of genuinely new pairings, with assessors explicitly permitted to weigh your prior link against you. Keep Hannah's email — it is your evidence of eligibility if anyone queries it.
 
-> "The applicant and co-applicant **cannot be former colleagues or PhD student/supervisor**."
+The prior paper is not purely a liability, though: it is hard evidence that the partnership *delivers*, which speaks directly to criterion 6, "the potential for long-term collaboration". The problem is not competence; it is fit with the scheme's purpose.
 
-You are not former colleagues and there is no supervisory relationship, so you clear the *hard* eligibility bar. The risk lives in the softer §4.3 wording, which a panel could apply either way.
+### Your three options
 
-**How to handle it — in order of preference:**
+**Option A — apply as planned (Nur lead, Hüseyin co-applicant), accepting the handicap.**
+Legitimate and permitted. Cost is modest: a 500-word proposal plus supporting fields, maybe one to two days of Nur's time. Declare the paper openly in the publications section, and use it affirmatively — "a pilot study we completed together demonstrates feasibility; this project moves from simulation to experiment". Downside: you spend Nur's **one application per round** on a bid that starts behind, in a high-volume scheme that publishes no success rates and gives no feedback.
 
-1. **Ask the Royal Society directly, now.** The notes explicitly invite this: "If there is any doubt about the eligibility of a project, contact the Grants team via international.exchanges@royalsociety.org" (also +44 20 7451 2666, Mon–Thu 10:00–16:00). Send a short, factual email: one co-authored paper published June 2026 arising from a specific piece of simulation work; the proposed project is X, which is new in question, method and data. Ask whether this is eligible. Get it in writing. This costs one email and protects weeks of effort — and their answer determines whether you proceed at all.
-2. **If they say yes, frame the project as a genuine departure.** The published work was FEA-generated fault signatures classified by deep transfer learning — computational, using a public reference generator model. A defensible "new collaboration" project is one that is *experimental* and uses capabilities neither of you has yet combined: for example, embedding fibre-optic (FBG) strain and thermal sensing into a physical machine and validating fault signatures on the Durham test rig against LUT-designed hardware. Different research question, different method, different data, new equipment. Be transparent about the prior paper in the career/publications section — concealing it would be far worse than declaring it.
-3. **If they say no,** you lose nothing but an email, and the alternatives in the main report (Post Doc Pool, MSCA, RCF/EPSRC parallel grants, COST STSMs) are unaffected. COST Action CA25138 SAFEWIND in particular funds precisely this kind of exchange with no novelty requirement.
+**Option B — change who the co-applicant is (recommended, if it is available to you).**
+The novelty test applies strictly to "the applicant and co-applicant". **Project participants are a separate category with no novelty test**, and postdocs are explicitly welcomed in it:
 
-My honest read: this is a real risk, perhaps the single biggest determinant of whether this application is worth writing. Resolve it first.
+> §4.3 — "Project participants can include the applicant and co-applicant and also **members of their teams**… The Royal Society would like to encourage the participation of junior scientists such as PhD students or **post-doctoral researchers**."
+> §11.2 — "List other project participants from both teams… Participants include PhD students, **post-doctoral researchers** and any other research staff members from both teams."
+> §4.3 — "Only participants based at the same institution and working within the applicant's or **co-applicant's research team** directly involved in the collaborative project are eligible to claim travel and subsistence against the award."
 
----
+So: if the co-applicant is a **LUT colleague who has genuinely never worked with Nur on any project** — a professor in the electrical machines and drives group, for example — then the applicant/co-applicant pairing *is* new by the Royal Society's own definition, and **Hüseyin joins as a named participant on the LUT team and can still travel on the grant**. You get the funded Durham↔Lappeenranta exchanges you wanted, Hüseyin included, without the scoring handicap, and the institutional LUT–Durham link that the wider plan depends on is actually strengthened by involving a third person.
+
+Two conditions for this to be honest rather than cosmetic: the co-applicant must be a real intellectual partner whose group and expertise the project genuinely needs (their career summary is assessed, and they must co-own the science), and they must truly have no prior joint work with Nur — check publication records before committing.
+
+**Option C — skip this round.**
+Put the effort into the MSCA Postdoctoral Fellowship instead (deadline 9 September, two weeks earlier, worth roughly €230k against £12k here), where your existing joint paper is an *asset* rather than a liability. Use COST Action CA25138 SAFEWIND, launching 18 September, to fund the exchange visits — it has no novelty test at all and pays for exactly this kind of travel and short scientific missions.
+
+### Recommendation
+
+**Option B if a suitable LUT co-applicant exists; otherwise Option A, but only after the MSCA fellowship is submitted.**
+
+The sequencing matters more than the choice. The MSCA deadline (9 Sep) falls two weeks before this one (24 Sep) and is worth roughly twenty times as much, so it takes priority for both of you; the Royal Society application is small enough to write in the fortnight between them. And before committing either way, answer one question: **does Nur have another potential overseas partner, anywhere in the world, with whom a collaboration would be genuinely new?** She may submit only one application per round, so choosing this pairing spends that slot on the weakest possible novelty case.
 
 ## 4. Eligibility checklist
 
@@ -205,11 +223,13 @@ Other mechanics: **ORCID is mandatory at submission** for both of you — regist
 
 ## 9. Recommendation
 
-1. **This week:** email `international.exchanges@royalsociety.org` about the June 2026 joint paper and whether a new project between you remains eligible. Everything else waits on that answer.
-2. **Also this week:** Hüseyin confirms his LUT contract end date. If it does not reach ~March 2029, decide between the 1-year/£6,000 option and deferring.
-3. **If both clear:** apply for **2 years / £12,000**, designing 24 months of activity, and keep the one-year no-cost extension in reserve as the route to your 36-month horizon.
-4. **Brief the four participants now** (Hüseyin, both Heads of Department, Durham's approver) with a target of ~17 September for their sections.
-5. **Write the lay summary first** and get someone outside electrical engineering to read it.
-6. **Regardless of the outcome:** the COST Actions in the main report (especially CA25138 SAFEWIND, launching 18 September 2026) fund the same kind of exchange visits with no novelty test, and are a robust fallback if the Royal Society route closes.
+1. **Decide the co-applicant question first (§3).** If a LUT professor with no prior joint work with Nur can genuinely co-own the project, run **Option B** — it clears the novelty bar cleanly and Hüseyin still travels on the grant as a named participant. Otherwise **Option A** remains permitted and worth a modest effort.
+2. **Check Hüseyin's LUT contract end date.** For a 2-year award starting by 31 March 2027, it must run to roughly March 2029. If it does not, either secure written confirmation of an extension, drop to the 1-year/£6,000 option, or defer. *(Not applicable if you take Option B and the co-applicant is a permanent LUT professor — but Hüseyin would then travel as a participant, which carries no contract-duration rule.)*
+3. **Sequence around the MSCA fellowship.** MSCA PF closes 9 September, this closes 24 September, and the fellowship is worth roughly twenty times as much. Write the fellowship first; this application fits in the fortnight after.
+4. **Apply for 2 years / £12,000**, designing 24 months of activity, with the one-year no-cost extension held in reserve for your 36-month horizon.
+5. **Brief the four Flexi-Grant participants now** (co-applicant, both Heads of Department, Durham's approver) with a target of ~17 September.
+6. **Write the lay summary first** and have a non-specialist read it.
+7. **Keep Hannah Engelhardt's email on file** as written evidence of eligibility.
+8. **Regardless of outcome:** COST Action CA25138 SAFEWIND (launching 18 September 2026) funds the same exchange visits with no novelty test — the robust fallback.
 
 **Sources:** scheme notes AKB/07/2026 (your uploaded PDF) · [Royal Society International Exchanges scheme page](https://royalsociety.org/grants/international-exchanges/) · [Global scheme notes on royalsociety.org](https://royalsociety.org/-/media/grants/international-exchanges/international-exchanges-global-scheme-notes.pdf) · success-rate non-publication per [Fundermental's enquiry to the Royal Society](http://fundermental.blogspot.com/2018/04/in-search-of-royal-society-success-rates.html)
