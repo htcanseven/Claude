@@ -4,3 +4,11 @@ __pycache__/
 *.npz
 *.zip
 results/*.pt
+
+# Bulk per-fold intermediates: one 24x24 matrix per protocol fold per seed
+# (~100 files for a full campaign). Regenerable by re-running the campaign;
+# the aggregate bench_*.csv files are the artifact the paper cites.
+results/cm_*.csv
+
+# Per-stage stdout copies; campaign.log in the data dir is the running record.
+logs/
