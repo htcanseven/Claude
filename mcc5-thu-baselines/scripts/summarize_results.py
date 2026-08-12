@@ -81,14 +81,16 @@ def main() -> int:
     leak = df[df.protocol_group == "leaky_random"]["acc"]
     if len(leak):
         base = leak.mean()
-        md += ["## Drop relative to the leaky random split", "",
-               f"Reference (leaky_random, all models): **{base:.3f}**", ""]
+        md += ["## Change relative to the leaky random split", "",
+               f"Reference (leaky_random, all models): **{base:.3f}**. "
+               "`delta` is signed, so a negative value is a loss of accuracy "
+               "relative to that optimistic reference.", ""]
         drops = []
         for grp, g in df.groupby("protocol_group"):
             if grp == "leaky_random":
                 continue
             drops.append(dict(protocol=grp, acc=f"{g.acc.mean():.3f}",
-                              drop=f"{base - g.acc.mean():+.3f}"))
+                              delta=f"{g.acc.mean() - base:+.3f}"))
         dd = pd.DataFrame(drops)
         dd["_o"] = dd["protocol"].apply(
             lambda p: ORDER.index(p) if p in ORDER else len(ORDER))
