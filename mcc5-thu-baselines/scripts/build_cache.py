@@ -24,6 +24,8 @@ def main() -> int:
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--no-signals", action="store_true",
                     help="skip caching raw windows (features only)")
+    ap.add_argument("--no-physics", action="store_true",
+                    help="skip order-domain and condition features")
     args = ap.parse_args()
 
     meta = pd.read_csv(args.data_dir / "metadata.csv")
@@ -35,6 +37,7 @@ def main() -> int:
     cache = build_cache(args.data_dir, meta, args.win, args.hop,
                         decimate=args.decimate,
                         want_signals=not args.no_signals,
+                        want_physics=not args.no_physics,
                         workers=args.workers)
     print(f"{len(cache['run'])} windows in {time.time() - t0:.0f}s")
     save_cache(cache, args.data_dir / "cache")

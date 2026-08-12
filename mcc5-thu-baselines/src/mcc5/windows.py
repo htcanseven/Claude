@@ -24,30 +24,32 @@ def window_starts(n_samples: int, win: int, hop: int) -> np.ndarray:
 
 
 def stationarity_mask(x: np.ndarray, win: int, starts: np.ndarray,
-                      rel_thresh: float = 0.15) -> np.ndarray:
-    """True where a window is quasi-stationary.
+                      rpm: np.ndarray | None = None,
+                      speed_thresh: float = 0.05,
+                      torque_thresh: float = 0.15,
+                      fs: float = FS) -> np.ndarray:
+    """True where a window is quasi-stationary in BOTH speed and load.
 
-    A window counts as stationary when both the torque channel and the
-    speed proxy (RMS of one current phase, tracking the electrical
-    fundamental amplitude/frequency changes) vary by less than
-    ``rel_thresh`` relative to their run-median absolute level.
+    Speed comes from the key-phase tachometer (1 pulse/rev), not from a current
+    proxy: current amplitude tracks load, so under a constant-torque speed ramp
+    a current-based proxy stays flat and would wrongly mark ramp windows as
+    steady. A window is stationary when the shaft speed varies by less than
+    ``speed_thresh`` and the torque by less than ``torque_thresh``, both
+    relative to their own level within the window.
     """
+    from .physics import speed_series
+
     flags = np.zeros(len(starts), dtype=bool)
     torque = x[CH_TORQUE]
-    cur = x[CH_CUR[0]]
+    if rpm is None:
+        rpm = speed_series(x[CH_KEYPHASE], fs)
     t_scale = np.median(np.abs(torque)) + 1e-9
 
-    def _win_rms(sig, s):
-        seg = sig[s:s + win]
-        k = max(win // 8, 1)
-        blocks = seg[: (len(seg) // k) * k].reshape(-1, k)
-        return np.sqrt((blocks ** 2).mean(axis=1))
-
-    c_scale = np.sqrt((cur ** 2).mean()) + 1e-9
     for i, s in enumerate(starts):
         t_seg = torque[s:s + win]
         t_var = (t_seg.max() - t_seg.min()) / t_scale
-        c_rms = _win_rms(cur, s)
-        c_var = (c_rms.max() - c_rms.min()) / c_scale
-        flags[i] = (t_var < rel_thresh) and (c_var < rel_thresh)
+        r_seg = rpm[s:s + win]
+        r_mean = r_seg.mean()
+        r_var = (r_seg.max() - r_seg.min()) / (abs(r_mean) + 1e-9)
+        flags[i] = (t_var < torque_thresh) and (r_var < speed_thresh)
     return flags
