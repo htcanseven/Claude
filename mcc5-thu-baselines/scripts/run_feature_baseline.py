@@ -22,6 +22,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from sklearn.ensemble import RandomForestClassifier            # noqa: E402
 from sklearn.svm import LinearSVC                              # noqa: E402
+from sklearn.linear_model import LogisticRegression             # noqa: E402
 from sklearn.preprocessing import StandardScaler               # noqa: E402
 from sklearn.pipeline import make_pipeline                     # noqa: E402
 from sklearn.multiclass import OneVsRestClassifier             # noqa: E402
@@ -33,20 +34,27 @@ from mcc5.splits import WindowIndex, component_matrix           # noqa: E402
 from mcc5 import splits as sp                                  # noqa: E402
 
 
-def make_models(seed: int):
-    return {
-        "rf": RandomForestClassifier(n_estimators=300, n_jobs=-1,
-                                     random_state=seed),
-        "svm": make_pipeline(StandardScaler(),
-                             LinearSVC(C=1.0, random_state=seed,
-                                       max_iter=5000)),
+def make_models(seed: int, which: list[str] | None = None):
+    # dual=False solves the primal problem, which is the faster formulation
+    # here because samples (~30k) greatly outnumber features (~108).
+    all_models = {
+        "rf": lambda: RandomForestClassifier(n_estimators=300, n_jobs=-1,
+                                             random_state=seed),
+        "svm": lambda: make_pipeline(
+            StandardScaler(),
+            LinearSVC(C=1.0, random_state=seed, dual=False, max_iter=2000)),
+        "logreg": lambda: make_pipeline(
+            StandardScaler(),
+            LogisticRegression(max_iter=1000, n_jobs=-1)),
     }
+    keys = which or ["rf", "svm"]
+    return {k: all_models[k]() for k in keys if k in all_models}
 
 
 def evaluate(name, Xtr, ytr, Xte, yte, classes, out_dir, rows, seeds,
-             save_cm=True, tag=""):
+             save_cm=True, tag="", models=None):
     for seed in seeds:
-        for mname, model in make_models(seed).items():
+        for mname, model in make_models(seed, models).items():
             t0 = time.time()
             model.fit(Xtr, ytr)
             pred = model.predict(Xte)
@@ -66,10 +74,10 @@ def evaluate(name, Xtr, ytr, Xte, yte, classes, out_dir, rows, seeds,
 
 
 def evaluate_multilabel(name, Xtr, Ytr, Xte, Yte, vocab, out_dir, rows, seeds,
-                        tag=""):
+                        tag="", models=None):
     """Zero-shot compound faults: predict independent fault components."""
     for seed in seeds:
-        for mname, base in make_models(seed).items():
+        for mname, base in make_models(seed, models).items():
             t0 = time.time()
             clf = OneVsRestClassifier(base, n_jobs=1)
             clf.fit(Xtr, Ytr)
@@ -110,6 +118,8 @@ def main() -> int:
                     choices=["plain", "order", "plain+order"],
                     help="plain = time/frequency features; order = "
                          "physics-guided envelope-order features")
+    ap.add_argument("--models", nargs="+", default=["rf", "svm"],
+                    choices=["rf", "svm", "logreg"])
     ap.add_argument("--tag", default="",
                     help="suffix for output filenames (e.g. _order)")
     args = ap.parse_args()
@@ -147,13 +157,13 @@ def main() -> int:
         tr, te = sp.leaky_random_split(idx)
         evaluate("leaky_random", X[tr], idx.label[tr], X[te], idx.label[te],
                  classes, args.out, rows, args.seeds, save_cm=False,
-                 tag=args.tag)
+                 tag=args.tag, models=args.models)
 
     if "in_condition" in args.protocols:
         tr, te = sp.in_condition_split(idx, cache["n_per_run"], win)
         evaluate("in_condition", X[tr], idx.label[tr], X[te], idx.label[te],
                  classes, args.out, rows, args.seeds,
-                 tag=args.tag)
+                 tag=args.tag, models=args.models)
 
     if "unknown_condition" in args.protocols:
         conds = sorted(pd.unique(idx.condition))[: args.n_held_out]
@@ -163,14 +173,15 @@ def main() -> int:
                 continue
             evaluate(f"unknown_condition[{cond}]", X[tr], idx.label[tr],
                      X[te], idx.label[te], classes, args.out, rows,
-                     args.seeds, save_cm=False, tag=args.tag)
+                     args.seeds, save_cm=False, tag=args.tag,
+                     models=args.models)
 
     if "steady_to_transitional" in args.protocols:
         tr, te = sp.steady_to_transitional_split(idx)
         if tr.sum() and te.sum():
             evaluate("steady_to_transitional", X[tr], idx.label[tr],
                      X[te], idx.label[te], classes, args.out, rows,
-                     args.seeds, tag=args.tag)
+                     args.seeds, tag=args.tag, models=args.models)
 
     if "compositional" in args.protocols:
         Yrun, vocab = component_matrix(meta)
@@ -180,7 +191,7 @@ def main() -> int:
         print(f"  components ({len(vocab)}): {vocab}")
         evaluate_multilabel("compositional_zeroshot", X[tr], Yw[tr],
                             X[te], Yw[te], vocab, args.out, rows,
-                            args.seeds, tag=args.tag)
+                            args.seeds, tag=args.tag, models=args.models)
 
     df = pd.DataFrame(rows)
     df.insert(0, "feature_set", args.feature_set)
