@@ -16,3 +16,6 @@
   unknown_condition[speed_circulation_20Nm_3000rpm] rf   s2 acc=0.9101 macroF1=0.8744
   unknown_condition[speed_circulation_40Nm_1000rpm] rf   s0 acc=0.9196 macroF1=0.9143
   unknown_condition[speed_circulation_40Nm_1000rpm] rf   s1 acc=0.9173 macroF1=0.9126
+  unknown_condition[speed_circulation_40Nm_1000rpm] rf   s2 acc=0.9220 macroF1=0.9163
+  unknown_condition[speed_circulation_40Nm_2000rpm] rf   s0 acc=0.9455 macroF1=0.9434
+  unknown_condition[speed_circulation_40Nm_2000rpm] rf   s1 acc=0.9449 macroF1=0.9425
