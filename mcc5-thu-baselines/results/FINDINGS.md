@@ -58,8 +58,11 @@ runs, predicting fault *components* (multi-label, 15 components):
 
 - exact match **0.000**
 - micro-F1 0.072
+- at least one of the two true components found on only **8.0 %** of windows
+- **76.0 % of windows receive an all-zero prediction** — the model declares the
+  machine healthy on a doubly-faulted motor
 - Hamming accuracy 0.861 — which is why Hamming must not be reported alone:
-  most components are absent, so predicting all-zeros already scores high
+  most components are absent, so all-zeros already scores high
 
 Per-component F1 on the compound test set shows *which* faults are lost:
 
@@ -87,7 +90,7 @@ ones:
 | Test set | Exact match | micro-F1 | ≥1 component found | all-zero predictions |
 |---|---|---|---|---|
 | held-out single faults (`compositional_control`) | **0.900** | 0.936 | 0.901 | 0.075 |
-| unseen compound faults (`compositional_zeroshot`) | **0.000** | 0.072 | see below | see below |
+| unseen compound faults (`compositional_zeroshot`) | **0.000** | 0.072 | 0.080 | 0.760 |
 
 A 90-point gap between recognizing a fault and recognizing that same fault in
 combination with another. The component detectors are individually competent and
