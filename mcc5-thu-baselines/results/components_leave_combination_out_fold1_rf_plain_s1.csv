@@ -1,0 +1,16 @@
+component,support_test,f1
+bearing_ball_h,0,0.0
+bearing_ball_l,0,0.0
+bearing_inner_h,3360,0.1830065359477124
+bearing_inner_l,0,0.0
+bearing_outer_h,1680,0.008321775312066574
+bearing_outer_l,0,0.0
+bend,0,0.0
+broken_bar,1680,0.3157894736842105
+dynamic_eccentricity,1680,0.4508990318118949
+health,0,0.0
+static_eccentricity_h,0,0.0
+static_eccentricity_l,0,0.0
+voltage_unbalance_l,0,0.0
+winding_h,1680,0.65114411882778
+winding_l,0,0.0

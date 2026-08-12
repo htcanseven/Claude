@@ -8,11 +8,14 @@ OUT="${2:-results}"
 cd "$(dirname "$0")/.."
 mkdir -p "$OUT" logs
 
+# Each stage passes --tag "_<name>" so stages that share a (model, features)
+# pair -- e.g. the multiclass and multi-label random-forest sweeps -- write
+# distinct CSVs instead of silently overwriting one another.
 stage() {
   local name="$1"; shift
   echo "=== STAGE $name  $(date -u +%H:%M:%S) ==="
-  python3 scripts/run_benchmark.py --data-dir "$DATA" --out "$OUT" "$@" \
-    2>&1 | tee "logs/$name.log"
+  python3 scripts/run_benchmark.py --data-dir "$DATA" --out "$OUT" \
+    --tag "_$name" "$@" 2>&1 | tee "logs/$name.log"
   echo "=== STAGE $name done  $(date -u +%H:%M:%S) ==="
 }
 

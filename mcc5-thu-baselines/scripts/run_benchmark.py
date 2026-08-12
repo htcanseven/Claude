@@ -211,6 +211,17 @@ def main() -> int:
         X, S = None, cache["signals"]
         print(f"signals {S.shape} | model=cnn")
 
+    csv_path = (args.out / f"bench_{args.model}_"
+                           f"{args.features.replace('+', '-')}{args.tag}.csv")
+    if csv_path.exists():
+        # Two invocations sharing a (model, features) pair land on the same
+        # filename, and the second would otherwise silently discard the first
+        # (how a whole multiclass sweep was once lost). Keep a copy.
+        backup = csv_path.with_suffix(".prev.csv")
+        backup.write_bytes(csv_path.read_bytes())
+        print(f"note: {csv_path.name} exists; previous contents saved to "
+              f"{backup.name}. Pass a distinct --tag to keep both.")
+
     rows = []
     for proto in iter_protocols(idx, meta, win, cache["n_per_run"],
                                 which=args.protocols,
@@ -248,13 +259,9 @@ def main() -> int:
                       + f" acc={m['acc']:.4f} macroF1={m['macro_f1']:.4f}"
                       + (f" microF1={m['micro_f1']:.4f}"
                          if "micro_f1" in m else ""), flush=True)
-            pd.DataFrame(rows).to_csv(
-                args.out / f"bench_{args.model}_"
-                           f"{args.features.replace('+', '-')}{args.tag}.csv",
-                index=False)
+            pd.DataFrame(rows).to_csv(csv_path, index=False)
 
-    print(f"\n{len(rows)} rows -> results/bench_{args.model}_"
-          f"{args.features.replace('+', '-')}{args.tag}.csv")
+    print(f"\n{len(rows)} rows -> {csv_path}")
     return 0
 
 
