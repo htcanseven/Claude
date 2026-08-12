@@ -6,3 +6,5 @@ in_condition,multiclass,rf,plain,0,24192,11808,21.8,0.9646849593495935,0.9641085
 in_condition,multiclass,rf,plain,1,24192,11808,22.6,0.9651084010840109,0.9646408764477981
 in_condition,multiclass,rf,plain,2,24192,11808,22.5,0.9641768292682927,0.9637476540438356
 unknown_condition[speed_circulation_20Nm_1000rpm],multiclass,rf,plain,0,36960,3360,35.0,0.9288690476190476,0.9298756008289223
+unknown_condition[speed_circulation_20Nm_1000rpm],multiclass,rf,plain,1,36960,3360,37.5,0.930952380952381,0.9315707925653448
+unknown_condition[speed_circulation_20Nm_1000rpm],multiclass,rf,plain,2,36960,3360,37.6,0.9282738095238096,0.9290486126593667
