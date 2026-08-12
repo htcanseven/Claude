@@ -64,26 +64,33 @@ model that knows two faults recognise them together".
 
 ### B. Contributions
 
-1. **Nine protocols, one dataset, one model** (Section IV), ordered by
-   difficulty from a deliberately leaky random-window split to strict
-   compositional generalisation, quantifying how much of a reported number is
-   attributable to the protocol.
-2. **A cross-model baseline suite** (Section VI): feature-space and deep models
-   under identical splits, multi-seed, with a shared protocol registry so that
+1. **Cross-modal compound faults as a distinct and much harder regime**
+   (Section VII). Published zero-shot compound-fault methods report 75–87 % where
+   both constituents are mechanical and visible in vibration. Where one
+   constituent is electrical, a standard multi-label pipeline scores **0.000**
+   exact match and reports no fault at all on 76 % of doubly-faulted windows,
+   with the electrical constituent annihilated (F1 = 0.000). We control the
+   result three ways: against held-out single faults (0.900, so the components
+   are learnable), against the dataset's one mechanical-only compound, and
+   against single-modality feature views that locate each fault's evidence.
+2. **Two findings that change how condition robustness should be measured**
+   (Section VI): leave-one-condition-out — near-universal in the
+   domain-generalisation literature — costs only ~3 points here because the
+   retained conditions bracket the held-out one, while its reversal costs over
+   60; and cross-profile transfer is asymmetric at equal training size, so
+   training-time excitation diversity, not data volume, governs generalisation.
+3. **Nine protocols with a cross-model baseline suite** (Sections IV–VI), from a
+   deliberately leaky reference to strict composition, evaluated by feature-space
+   and deep models under identical splits from a shared protocol registry, so
    comparability is structural rather than conventional.
-3. **A controlled diagnosis of compound-fault failure** (Section VII),
-   establishing that the collapse is a failure to compose rather than a failure
-   to learn, and localising it to the modality where the masked fault is
-   observable.
-4. **Two findings that change how robustness should be measured**: the
-   leave-one-condition-out protocol is nearly free, and cross-profile transfer is
-   asymmetric, so excitation diversity, not data volume, governs generalisation.
-5. **A first-step method and an open problem** (Section VIII): fault
-   superposition augmentation, and the honest statement of how far it falls
-   short.
-6. **A reproducibility artefact**: the released suite is, to our knowledge, the
-   first public benchmark code for this dataset; the official repository
-   distributes data only.
+4. **A reproducibility artefact**: the first public benchmark code for this
+   dataset, which is distributed without baselines, together with four documented
+   inconsistencies in the release that silently bias results if unhandled
+   (Section III-D).
+
+We do **not** claim novelty for leakage-aware evaluation, for the multi-label
+formulation of compound faults, or for the superposition principle; all three are
+established (Section II) and are cited as such.
 
 ### C. What this paper does not claim
 
@@ -93,28 +100,68 @@ experiment that rules out the mundane explanation.
 
 ---
 
-## II. Related Work
+## II. Related Work and Positioning
 
-*To be written against these threads, 10–20 references:*
+Two literatures bound this paper's claims, and both are active. We state up front
+what they already establish, because our contribution is defined by what they do
+*not* cover.
 
-- **Motor and bearing fault diagnosis benchmarks.** CWRU, Paderborn, and the
-  centrifugal-pump dataset of Bruinsma et al. [bruinsma2024]; the recurring
-  criticism that severities are unrealistically large and conditions stationary.
-- **Data leakage in condition monitoring.** Window-level random splits and
-  segment overlap; parallel critiques in EEG and audio, where trial-level
-  splitting is now standard practice.
+### A. Leakage-aware evaluation in condition monitoring
+
+Recent work formalises how splitting choices inflate reported accuracy in
+vibration-based diagnosis, distinguishing *segmentation-level* leakage (segments
+of one recording on both sides of the split) from *bearing-level* leakage (one
+physical specimen on both sides), and proposes leakage-safe protocols
+[wheat2024, gama2025, phme2025]. Our protocols #1–#2 are an application of that
+methodology, not a new insight; we cite it as prior art. What we add is its
+extension to a **multi-modal** dataset (vibration *and* current) and its
+combination with compositional protocols, and the observation in §VI-A that the
+condition-generalisation protocol the domain-generalisation literature almost
+universally adopts is itself far weaker than its reversal.
+
+### B. Zero-shot compound fault diagnosis
+
+Recognising compound faults from single-fault training data is an established
+problem with a decade of methods: semantic and attribute embeddings
+[eswa2022, eswa2023], generative approaches [zsl2021], simulation-driven
+semantics [kbs2025], semantic graph embeddings [neuro2025], and multi-task expert
+networks for decoupling [hemtan2024]. Reported accuracies on compound *bearing*
+faults cluster between **75 % and 87 %**. The superposition principle we use in
+§VIII — that a compound fault's signature is approximately the sum of its
+constituents' — is likewise standard in that literature and is not claimed as
+novel here.
+
+**This is precisely what makes our result interesting rather than merely
+negative.** In the published setting, both constituents of a compound fault are
+mechanical and both are observable in vibration; methods reach 75–87 %. Eight of
+the nine compound faults in this dataset instead pair a *mechanical* bearing
+defect with an *electrical or magnetic* fault (winding short, broken rotor bars,
+static or dynamic eccentricity), so the two constituents are observable in
+**different modalities**. In that regime a standard multi-label pipeline scores
+0.000 exact match and the electrical constituent is annihilated (§VII). The
+dataset contains exactly one mechanical-only compound
+(`bearing_outer_h_and_inner_h`), which serves as an internal control for that
+explanation (§VII-E).
+
+To our knowledge, cross-modal compound faults have not been evaluated in the
+zero-shot compound-fault literature, and no published method has been tested on
+this dataset at all. Our contribution is therefore to define the regime, show
+that it is qualitatively harder, localise why, and release the benchmark on which
+existing decoupling methods can be measured.
+
+### C. Other threads
+
+- **Benchmarks and their critiques.** CWRU, Paderborn, HUST, and the
+  centrifugal-pump dataset of Bruinsma et al. [bruinsma2024]; recurring
+  criticisms that severities are unrealistically large and operation stationary.
 - **Multi-condition and domain-generalisation diagnosis.** Surveys [han2025];
-  domain adaptation, test-time adaptation, disentanglement; the near-universal
-  use of leave-one-condition-out, which Section VI argues is too weak a test.
-- **Compound fault diagnosis.** Usually treated as extra flat classes; blind
-  source separation and sparse decomposition approaches; the scarcity of
-  zero-shot compositional evaluation.
+  domain adaptation, test-time adaptation, disentanglement.
 - **Order tracking and envelope analysis.** Computed order tracking under
-  variable speed; envelope demodulation for bearing defect frequencies — the
-  classical basis for the physics features in Section V-C.
-- **Datasets from the same group.** The MCC5-THU gearbox dataset and its uptake
-  [wang2024, phmap2025], establishing community interest and motivating a
-  benchmark for the motor release.
+  variable speed and envelope demodulation of bearing defect frequencies — the
+  classical basis for §V-C.
+- **The same group's gearbox release** and its uptake [wang2024, phmap2025],
+  which establishes community interest and motivates a benchmark for the motor
+  dataset.
 
 ---
 
@@ -370,17 +417,45 @@ Protocol #8 relaxes strict zero-shot to the operationally common case where some
 combinations are logged and others are not, giving a graded measure on which
 future methods can show progress.
 
+### E. Testing the cross-modal explanation `[T6]`
+
+If the failure is caused by a mechanical bearing signature masking evidence that
+lives in a different modality, three predictions follow, and the dataset lets us
+test all three:
+
+1. **The mechanical-only compound should fare better.** Eight of the nine
+   compounds are cross-modal; `bearing_outer_h_and_inner_h` pairs two mechanical
+   defects. Prediction: that combination is recognised markedly better than the
+   other eight, which would also reconcile our result with the 75–87 % reported
+   for bearing-only compounds in the literature.
+2. **The surviving constituent should be the mechanical one.** Per-combination,
+   per-component detection rates should show the bearing constituent detected far
+   more often than the electrical one.
+3. **Single-modality views should dissociate.** Repeating the analysis with
+   vibration-only and current-only features should show each fault family
+   detected from the modality carrying its evidence, and the masking should
+   weaken when the classifier can only see the modality in which the masked fault
+   is visible.
+
+`scripts/analyze_compound.py` reports all three. This turns a negative result
+into a mechanism with falsifiable predictions, which is the difference between
+reporting that a model failed and explaining what defeated it.
+
 ---
 
 ## VIII. Fault Superposition Augmentation: A First Step
 
-Independent excitations of a linear structure superpose to first order, so
-adding two single-fault windows recorded *at the same operating point*
-approximates a machine carrying both faults, with the union of their components
-as its label. This manufactures two-positive training examples without observing
-any compound data, leaving the zero-shot protocol intact. Partners are drawn
-only within an operating condition; mixing 1000 rpm with 3000 rpm would fabricate
-a machine running at two speeds at once.
+The superposition principle — a compound fault's signature is approximately the
+sum of its constituents' — is standard in the compound-fault literature
+(Section II-B). We use it as *augmentation* rather than as a modelling
+assumption: adding two single-fault windows recorded *at the same operating point*
+gives an approximate compound window whose label is the union of their
+components, which manufactures two-positive training examples without observing
+compound data, leaving the zero-shot protocol intact. Partners are drawn only
+within an operating condition; mixing 1000 rpm with 3000 rpm would fabricate a
+machine running at two speeds at once.
+
+We report it as a reference baseline for this benchmark, not as a novel method.
 
 | Configuration | Exact match | micro-F1 |
 |---|---|---|
