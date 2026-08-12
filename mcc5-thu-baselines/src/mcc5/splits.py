@@ -53,6 +53,24 @@ def in_condition_split(idx: WindowIndex, n_samples_per_run: dict[int, int],
     return train_mask, test_mask
 
 
+def leaky_random_split(idx: WindowIndex, test_frac: float = 0.3,
+                       seed: int = 0):
+    """Random window-level split — deliberately leaky, reported for contrast.
+
+    Windows from the same recording land on both sides of the split, so
+    neighbouring windows sharing an operating point and a machine state act as
+    near-duplicates. This is a common protocol in the literature and it is what
+    produces near-ceiling accuracies; including it lets the inflation over a
+    guard-gap split be measured rather than assumed. Never use it as the
+    headline result.
+    """
+    rng = np.random.default_rng(seed)
+    n = len(idx.run)
+    test = np.zeros(n, dtype=bool)
+    test[rng.choice(n, size=int(n * test_frac), replace=False)] = True
+    return ~test, test
+
+
 def unknown_condition_split(idx: WindowIndex, held_out_condition: str):
     test_mask = idx.condition == held_out_condition
     train_mask = ~test_mask

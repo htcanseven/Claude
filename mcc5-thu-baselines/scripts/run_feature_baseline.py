@@ -103,8 +103,9 @@ def main() -> int:
     ap.add_argument("--n-held-out", type=int, default=12,
                     help="number of leave-one-condition-out folds")
     ap.add_argument("--protocols", nargs="+",
-                    default=["in_condition", "unknown_condition",
-                             "steady_to_transitional", "compositional"])
+                    default=["leaky_random", "in_condition",
+                             "unknown_condition", "steady_to_transitional",
+                             "compositional"])
     ap.add_argument("--feature-set", default="plain",
                     choices=["plain", "order", "plain+order"],
                     help="plain = time/frequency features; order = "
@@ -141,6 +142,12 @@ def main() -> int:
         X = np.nan_to_num(X, nan=0.0, posinf=0.0, neginf=0.0)
 
     rows: list[dict] = []
+
+    if "leaky_random" in args.protocols:
+        tr, te = sp.leaky_random_split(idx)
+        evaluate("leaky_random", X[tr], idx.label[tr], X[te], idx.label[te],
+                 classes, args.out, rows, args.seeds, save_cm=False,
+                 tag=args.tag)
 
     if "in_condition" in args.protocols:
         tr, te = sp.in_condition_split(idx, cache["n_per_run"], win)
