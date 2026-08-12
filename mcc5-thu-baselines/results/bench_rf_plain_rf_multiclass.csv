@@ -2,3 +2,4 @@ protocol,kind,model,features,seed,n_train,n_test,fit_s,acc,macro_f1
 leaky_random,multiclass,rf,plain,0,28224,12096,27.0,0.9747850529100529,0.9753196811523551
 leaky_random,multiclass,rf,plain,1,28224,12096,25.4,0.9751157407407407,0.9757028688674926
 leaky_random,multiclass,rf,plain,2,28224,12096,25.7,0.9755291005291006,0.9760996837809746
+in_condition,multiclass,rf,plain,0,24192,11808,21.1,0.9646849593495935,0.9641085255266387
