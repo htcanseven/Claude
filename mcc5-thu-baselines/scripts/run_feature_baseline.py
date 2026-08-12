@@ -30,7 +30,8 @@ from sklearn.metrics import (accuracy_score, f1_score,         # noqa: E402
                              confusion_matrix)
 
 from mcc5.cache import load_cache                              # noqa: E402
-from mcc5.splits import WindowIndex, component_matrix           # noqa: E402
+from mcc5.splits import (WindowIndex, component_matrix,          # noqa: E402
+                         partial_credit)
 from mcc5 import splits as sp                                  # noqa: E402
 
 
@@ -86,13 +87,15 @@ def evaluate_multilabel(name, Xtr, Ytr, Xte, Yte, vocab, out_dir, rows, seeds,
             hamming = float((P == Yte).mean())
             micro = f1_score(Yte, P, average="micro", zero_division=0)
             macro = f1_score(Yte, P, average="macro", zero_division=0)
+            pc = partial_credit(P, Yte)
             rows.append(dict(protocol=name, model=mname, seed=seed,
                              acc=exact, macro_f1=macro, micro_f1=micro,
                              hamming=hamming, n_train=len(Ytr),
-                             n_test=len(Yte),
+                             n_test=len(Yte), **pc,
                              fit_s=round(time.time() - t0, 1)))
             print(f"  {name:34s} {mname:4s} s{seed} exact={exact:.4f} "
-                  f"microF1={micro:.4f} hamming={hamming:.4f}", flush=True)
+                  f"microF1={micro:.4f} anyFound={pc['any_component_found']:.3f} "
+                  f"allZero={pc['all_zero_prediction_rate']:.3f}", flush=True)
             if seed == seeds[0]:
                 per = pd.DataFrame({
                     "component": vocab,
@@ -114,7 +117,7 @@ def main() -> int:
                     default=["leaky_random", "in_condition",
                              "unknown_condition", "single_source",
                              "cross_profile", "steady_to_transitional",
-                             "compositional"])
+                             "compositional_control", "compositional"])
     ap.add_argument("--feature-set", default="plain",
                     choices=["plain", "order", "plain+order"],
                     help="plain = time/frequency features; order = "
@@ -202,6 +205,16 @@ def main() -> int:
             evaluate("steady_to_transitional", X[tr], idx.label[tr],
                      X[te], idx.label[te], classes, args.out, rows,
                      args.seeds, tag=args.tag, models=args.models)
+
+    if "compositional_control" in args.protocols:
+        Yrun, vocab = component_matrix(meta)
+        is_comp = meta["is_compound"].to_numpy().astype(bool)
+        tr, te = sp.compositional_control_split(idx, is_comp,
+                                                cache["n_per_run"], win)
+        Yw = Yrun[idx.run]
+        evaluate_multilabel("compositional_control", X[tr], Yw[tr], X[te],
+                            Yw[te], vocab, args.out, rows, args.seeds,
+                            tag=args.tag + "_control", models=args.models)
 
     if "compositional" in args.protocols:
         Yrun, vocab = component_matrix(meta)

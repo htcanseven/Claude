@@ -122,6 +122,44 @@ def compositional_split(idx: WindowIndex, is_compound_run: np.ndarray):
     return ~compound_win, compound_win
 
 
+def compositional_control_split(idx: WindowIndex, is_compound_run: np.ndarray,
+                                n_samples_per_run: dict[int, int], win: int,
+                                train_frac: float = 0.6,
+                                gap_frac: float = 0.1):
+    """Control for the zero-shot compound test: single faults on both sides.
+
+    Same multi-label model and features as ``compositional_split``, but tested
+    on held-out windows of *single*-fault runs instead of compound ones. It
+    separates two explanations for a low zero-shot score: a multi-label setup
+    that never learned anything, versus one that learned single faults fine and
+    fails specifically at composing them. Without this control the zero-shot
+    number is uninterpretable.
+    """
+    single = ~is_compound_run[idx.run]
+    tr, te = in_condition_split(idx, n_samples_per_run, win,
+                                train_frac=train_frac, gap_frac=gap_frac)
+    return tr & single, te & single
+
+
+def partial_credit(P: np.ndarray, Y: np.ndarray) -> dict:
+    """How much of each true label set was recovered.
+
+    Exact-match hides whether a model found none of a compound fault's parts or
+    most of them, and Hamming accuracy flatters sparse label vectors (predicting
+    all-zeros already scores high). These report recall over the true
+    components: how often at least one was found, and the mean fraction found.
+    """
+    true_counts = Y.sum(axis=1)
+    hits = (P & (Y == 1)).sum(axis=1)
+    with np.errstate(invalid="ignore", divide="ignore"):
+        frac = np.where(true_counts > 0, hits / np.maximum(true_counts, 1), 0.0)
+    return {
+        "any_component_found": float((hits > 0).mean()),
+        "mean_component_recall": float(frac.mean()),
+        "all_zero_prediction_rate": float((P.sum(axis=1) == 0).mean()),
+    }
+
+
 def component_matrix(meta, component_vocab: list[str] | None = None):
     """Multi-label component targets: (n_runs, n_components) 0/1 matrix."""
     comps = [str(c).split("+") if isinstance(c, str) and c else []
