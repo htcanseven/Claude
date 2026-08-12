@@ -160,6 +160,36 @@ def partial_credit(P: np.ndarray, Y: np.ndarray) -> dict:
     }
 
 
+def topk_metrics(scores: np.ndarray, Y: np.ndarray) -> dict:
+    """Rank-based scoring, which separates two very different failures.
+
+    A model trained only on single faults sees exactly one positive per window,
+    so its sigmoid outputs get pushed to "one high, the rest far negative".
+    Thresholding at zero then emits nothing on a compound fault even when both
+    true components rank at the very top. Ranking asks the separate question of
+    whether the *representation* carries the compound information, independent of
+    how the decision threshold happens to be calibrated.
+
+    ``scores`` are per-component logits or probabilities (higher = more likely).
+    For each window, k is that window's true number of active components.
+    """
+    order = np.argsort(-scores, axis=1)
+    k_true = Y.sum(axis=1).astype(int)
+    exact, recall, top1 = [], [], []
+    for i in range(len(Y)):
+        k = max(int(k_true[i]), 1)
+        picked = set(order[i, :k].tolist())
+        truth = set(np.flatnonzero(Y[i]).tolist())
+        exact.append(picked == truth)
+        recall.append(len(picked & truth) / max(len(truth), 1))
+        top1.append(order[i, 0] in truth)
+    return {
+        "topk_exact": float(np.mean(exact)),
+        "topk_recall": float(np.mean(recall)),
+        "top1_in_truth": float(np.mean(top1)),
+    }
+
+
 def component_matrix(meta, component_vocab: list[str] | None = None):
     """Multi-label component targets: (n_runs, n_components) 0/1 matrix."""
     comps = [str(c).split("+") if isinstance(c, str) and c else []
