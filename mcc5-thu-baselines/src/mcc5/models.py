@@ -103,12 +103,17 @@ class CompositionalNet(nn.Module):
 
     def __init__(self, n_vib: int, n_cur: int, n_components: int,
                  n_conditions: int, width: int = 16, emb_dim: int = 128,
-                 n_extra: int = 0):
+                 n_extra: int = 0, fusion: bool = True):
         super().__init__()
-        self.vib = _Encoder(n_vib, width, emb_dim)
-        self.cur = _Encoder(n_cur, width, emb_dim)
-        self.gate = nn.Sequential(
-            nn.Linear(2 * emb_dim, emb_dim), nn.Sigmoid())
+        self.fusion = fusion
+        if fusion:
+            self.vib = _Encoder(n_vib, width, emb_dim)
+            self.cur = _Encoder(n_cur, width, emb_dim)
+            self.gate = nn.Sequential(
+                nn.Linear(2 * emb_dim, emb_dim), nn.Sigmoid())
+        else:
+            # ablation: one encoder over all channels, no cross-modal gate
+            self.joint = _Encoder(n_vib + n_cur, width, emb_dim)
         fused_dim = emb_dim + n_extra
         self.trunk = nn.Sequential(
             nn.Linear(fused_dim, emb_dim), nn.ReLU(), nn.Dropout(0.3))
@@ -117,10 +122,14 @@ class CompositionalNet(nn.Module):
             nn.Linear(emb_dim, 64), nn.ReLU(), nn.Linear(64, n_conditions))
 
     def embed(self, x_vib, x_cur, extra=None):
-        hv, hc = self.vib(x_vib), self.cur(x_cur)
-        g = self.gate(torch.cat([hv, hc], dim=1))
-        fused = g * hv + (1.0 - g) * hc
-        if extra is not None:
+        if self.fusion:
+            hv, hc = self.vib(x_vib), self.cur(x_cur)
+            g = self.gate(torch.cat([hv, hc], dim=1))
+            fused = g * hv + (1.0 - g) * hc
+        else:
+            fused = self.joint(torch.cat([x_vib, x_cur], dim=1))
+            g = None
+        if extra is not None and extra.shape[1] > 0:
             fused = torch.cat([fused, extra], dim=1)
         return self.trunk(fused), g
 
