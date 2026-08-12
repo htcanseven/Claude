@@ -77,6 +77,32 @@ def unknown_condition_split(idx: WindowIndex, held_out_condition: str):
     return train_mask, test_mask
 
 
+def single_source_condition_split(idx: WindowIndex, source_condition: str):
+    """Train on ONE operating condition, test on all the others.
+
+    The complement of leave-one-condition-out, and the harder, more realistic
+    direction: leaving one condition out still lets a model interpolate from
+    the eleven it trained on (1000 and 3000 rpm bracket a held-out 2000 rpm),
+    whereas commissioning a machine gives you data at one operating point and
+    demands extrapolation to the rest.
+    """
+    train_mask = idx.condition == source_condition
+    return train_mask, ~train_mask
+
+
+def cross_profile_split(idx: WindowIndex, run_profile: np.ndarray,
+                        train_profile: str = "torque_circulation"):
+    """Train on one excitation profile, test on the other.
+
+    ``torque_circulation`` holds speed constant while load varies and
+    ``speed_circulation`` does the reverse, so this asks whether a model
+    trained on load variation alone survives speed variation (or vice versa).
+    ``run_profile`` is indexed by run id.
+    """
+    train_mask = run_profile[idx.run] == train_profile
+    return train_mask, ~train_mask
+
+
 def steady_to_transitional_split(idx: WindowIndex):
     if idx.stationary is None:
         raise ValueError("stationarity mask not computed")

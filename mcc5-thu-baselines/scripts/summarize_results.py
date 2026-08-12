@@ -9,7 +9,8 @@ import pandas as pd
 # Protocols in the order the paper presents them: optimistic first, then the
 # progressively harder honest ones.
 ORDER = ["leaky_random", "in_condition", "unknown_condition",
-         "steady_to_transitional", "compositional_zeroshot"]
+         "cross_profile", "single_source", "steady_to_transitional",
+         "compositional_zeroshot"]
 
 RESULT_FILES = ("feature_baseline*.csv", "cnn_baseline*.csv", "proposed*.csv")
 

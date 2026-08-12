@@ -112,7 +112,8 @@ def main() -> int:
                     help="number of leave-one-condition-out folds")
     ap.add_argument("--protocols", nargs="+",
                     default=["leaky_random", "in_condition",
-                             "unknown_condition", "steady_to_transitional",
+                             "unknown_condition", "single_source",
+                             "cross_profile", "steady_to_transitional",
                              "compositional"])
     ap.add_argument("--feature-set", default="plain",
                     choices=["plain", "order", "plain+order"],
@@ -175,6 +176,25 @@ def main() -> int:
                      X[te], idx.label[te], classes, args.out, rows,
                      args.seeds, save_cm=False, tag=args.tag,
                      models=args.models)
+
+    if "single_source" in args.protocols:
+        for cond in sorted(pd.unique(idx.condition))[: args.n_held_out]:
+            tr, te = sp.single_source_condition_split(idx, cond)
+            if tr.sum() and te.sum():
+                evaluate(f"single_source[{cond}]", X[tr], idx.label[tr],
+                         X[te], idx.label[te], classes, args.out, rows,
+                         args.seeds, save_cm=False, tag=args.tag,
+                         models=args.models)
+
+    if "cross_profile" in args.protocols:
+        prof = meta["profile"].to_numpy()
+        for train_prof in ("torque_circulation", "speed_circulation"):
+            tr, te = sp.cross_profile_split(idx, prof, train_prof)
+            if tr.sum() and te.sum():
+                evaluate(f"cross_profile[train={train_prof}]", X[tr],
+                         idx.label[tr], X[te], idx.label[te], classes,
+                         args.out, rows, args.seeds, save_cm=False,
+                         tag=args.tag, models=args.models)
 
     if "steady_to_transitional" in args.protocols:
         tr, te = sp.steady_to_transitional_split(idx)
