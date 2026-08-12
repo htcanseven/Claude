@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
-"""Feature-engineering baseline (RandomForest + linear SVM) on all protocols.
+"""Feature-engineering baselines on all four protocols, using the window cache.
 
-Outputs per-protocol accuracy / macro-F1 to results/feature_baseline.csv and
-confusion matrices to results/cm_<protocol>.csv.
+Protocols
+  in_condition            temporal split within runs (guard gap)
+  unknown_condition       leave-one-condition-out (all 12 folds)
+  steady_to_transitional  train on quasi-stationary, test on ramps
+  compositional           train on single faults, test zero-shot on compound
+                          faults via multi-label component prediction
+
+Writes results/feature_baseline.csv (+ confusion matrices).
 """
 import argparse
 import sys
@@ -18,85 +24,143 @@ from sklearn.ensemble import RandomForestClassifier            # noqa: E402
 from sklearn.svm import LinearSVC                              # noqa: E402
 from sklearn.preprocessing import StandardScaler               # noqa: E402
 from sklearn.pipeline import make_pipeline                     # noqa: E402
+from sklearn.multiclass import OneVsRestClassifier             # noqa: E402
 from sklearn.metrics import (accuracy_score, f1_score,         # noqa: E402
                              confusion_matrix)
 
-from mcc5.dataset import build_index, materialize_features     # noqa: E402
+from mcc5.cache import load_cache                              # noqa: E402
+from mcc5.splits import WindowIndex, component_matrix           # noqa: E402
 from mcc5 import splits as sp                                  # noqa: E402
 
-WIN = 8192   # 0.64 s
-HOP = 8192   # non-overlapping to keep the first pass light
 
-
-def evaluate(name, Xtr, ytr, Xte, yte, classes, out_dir, rows, seed=0):
-    models = {
+def make_models(seed: int):
+    return {
         "rf": RandomForestClassifier(n_estimators=300, n_jobs=-1,
                                      random_state=seed),
         "svm": make_pipeline(StandardScaler(),
-                             LinearSVC(C=1.0, random_state=seed)),
+                             LinearSVC(C=1.0, random_state=seed,
+                                       max_iter=5000)),
     }
-    for mname, model in models.items():
-        t0 = time.time()
-        model.fit(Xtr, ytr)
-        pred = model.predict(Xte)
-        acc = accuracy_score(yte, pred)
-        f1 = f1_score(yte, pred, average="macro")
-        rows.append(dict(protocol=name, model=mname, acc=acc, macro_f1=f1,
-                         n_train=len(ytr), n_test=len(yte),
-                         fit_s=round(time.time() - t0, 1)))
-        print(f"{name:28s} {mname:4s} acc={acc:.4f} macroF1={f1:.4f}")
-        cm = confusion_matrix(yte, pred, labels=np.arange(len(classes)))
-        pd.DataFrame(cm, index=classes, columns=classes).to_csv(
-            out_dir / f"cm_{name}_{mname}.csv")
+
+
+def evaluate(name, Xtr, ytr, Xte, yte, classes, out_dir, rows, seeds,
+             save_cm=True):
+    for seed in seeds:
+        for mname, model in make_models(seed).items():
+            t0 = time.time()
+            model.fit(Xtr, ytr)
+            pred = model.predict(Xte)
+            acc = accuracy_score(yte, pred)
+            f1 = f1_score(yte, pred, average="macro")
+            rows.append(dict(protocol=name, model=mname, seed=seed,
+                             acc=acc, macro_f1=f1, n_train=len(ytr),
+                             n_test=len(yte), fit_s=round(time.time() - t0, 1)))
+            print(f"  {name:34s} {mname:4s} s{seed} "
+                  f"acc={acc:.4f} macroF1={f1:.4f}", flush=True)
+            if save_cm and seed == seeds[0]:
+                cm = confusion_matrix(yte, pred,
+                                      labels=np.arange(len(classes)))
+                safe = name.replace("/", "_").replace("[", "_").replace("]", "")
+                pd.DataFrame(cm, index=classes, columns=classes).to_csv(
+                    out_dir / f"cm_{safe}_{mname}.csv")
+
+
+def evaluate_multilabel(name, Xtr, Ytr, Xte, Yte, vocab, out_dir, rows, seeds):
+    """Zero-shot compound faults: predict independent fault components."""
+    for seed in seeds:
+        for mname, base in make_models(seed).items():
+            t0 = time.time()
+            clf = OneVsRestClassifier(base, n_jobs=1)
+            clf.fit(Xtr, Ytr)
+            P = clf.predict(Xte)
+            exact = float((P == Yte).all(axis=1).mean())
+            hamming = float((P == Yte).mean())
+            micro = f1_score(Yte, P, average="micro", zero_division=0)
+            macro = f1_score(Yte, P, average="macro", zero_division=0)
+            rows.append(dict(protocol=name, model=mname, seed=seed,
+                             acc=exact, macro_f1=macro, micro_f1=micro,
+                             hamming=hamming, n_train=len(Ytr),
+                             n_test=len(Yte),
+                             fit_s=round(time.time() - t0, 1)))
+            print(f"  {name:34s} {mname:4s} s{seed} exact={exact:.4f} "
+                  f"microF1={micro:.4f} hamming={hamming:.4f}", flush=True)
+            if seed == seeds[0]:
+                per = pd.DataFrame({
+                    "component": vocab,
+                    "support_test": Yte.sum(axis=0),
+                    "f1": f1_score(Yte, P, average=None, zero_division=0),
+                })
+                per.to_csv(out_dir / f"components_{mname}.csv", index=False)
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--data-dir", type=Path, default=Path("./data"))
     ap.add_argument("--out", type=Path, default=Path("results"))
-    ap.add_argument("--n-held-out", type=int, default=3,
-                    help="number of leave-one-condition-out folds to run")
+    ap.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2, 3, 4])
+    ap.add_argument("--n-held-out", type=int, default=12,
+                    help="number of leave-one-condition-out folds")
+    ap.add_argument("--protocols", nargs="+",
+                    default=["in_condition", "unknown_condition",
+                             "steady_to_transitional", "compositional"])
     args = ap.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
 
     meta = pd.read_csv(args.data_dir / "metadata.csv")
     meta = meta[meta.fault_full != "UNPARSED"].reset_index(drop=True)
-    print(f"{len(meta)} runs, {meta.fault_full.nunique()} classes, "
-          f"{meta.condition.nunique()} conditions")
+    cache = load_cache(args.data_dir / "cache", mmap_signals=False)
+    X = cache["features"]
+    idx = WindowIndex(run=cache["run"], start=cache["start"],
+                      label=cache["label"], condition=cache["condition"],
+                      stationary=cache["stationary"])
+    classes = cache["classes"]
+    win = cache["win"]
+    print(f"{X.shape[0]} windows x {X.shape[1]} features | "
+          f"{len(classes)} classes")
 
-    idx, n_per_run, classes = build_index(args.data_dir, meta, WIN, HOP)
-    print(f"{len(idx.run)} windows")
+    # Guard against non-finite features poisoning the linear model
+    bad = ~np.isfinite(X).all(axis=1)
+    if bad.any():
+        print(f"warning: dropping {int(bad.sum())} windows with non-finite "
+              f"features")
+        X = np.nan_to_num(X, nan=0.0, posinf=0.0, neginf=0.0)
 
     rows: list[dict] = []
 
-    # Protocol 1: in-condition (temporal split with guard gap)
-    tr, te = sp.in_condition_split(idx, n_per_run, WIN)
-    Xtr = materialize_features(args.data_dir, meta, idx, tr, WIN)
-    Xte = materialize_features(args.data_dir, meta, idx, te, WIN)
-    evaluate("in_condition", Xtr, idx.label[tr], Xte, idx.label[te],
-             classes, args.out, rows)
+    if "in_condition" in args.protocols:
+        tr, te = sp.in_condition_split(idx, cache["n_per_run"], win)
+        evaluate("in_condition", X[tr], idx.label[tr], X[te], idx.label[te],
+                 classes, args.out, rows, args.seeds)
 
-    # Protocol 2: leave-one-condition-out (first n folds)
-    conditions = sorted(meta.condition.unique())
-    for cond in conditions[: args.n_held_out]:
-        tr, te = sp.unknown_condition_split(idx, cond)
-        if te.sum() == 0:
-            continue
-        Xtr = materialize_features(args.data_dir, meta, idx, tr, WIN)
-        Xte = materialize_features(args.data_dir, meta, idx, te, WIN)
-        evaluate(f"unknown_condition[{cond}]", Xtr, idx.label[tr],
-                 Xte, idx.label[te], classes, args.out, rows)
+    if "unknown_condition" in args.protocols:
+        conds = sorted(pd.unique(idx.condition))[: args.n_held_out]
+        for cond in conds:
+            tr, te = sp.unknown_condition_split(idx, cond)
+            if te.sum() == 0:
+                continue
+            evaluate(f"unknown_condition[{cond}]", X[tr], idx.label[tr],
+                     X[te], idx.label[te], classes, args.out, rows,
+                     args.seeds, save_cm=False)
 
-    # Protocol 3: steady -> transitional
-    tr, te = sp.steady_to_transitional_split(idx)
-    if te.sum() and tr.sum():
-        Xtr = materialize_features(args.data_dir, meta, idx, tr, WIN)
-        Xte = materialize_features(args.data_dir, meta, idx, te, WIN)
-        evaluate("steady_to_transitional", Xtr, idx.label[tr],
-                 Xte, idx.label[te], classes, args.out, rows)
+    if "steady_to_transitional" in args.protocols:
+        tr, te = sp.steady_to_transitional_split(idx)
+        if tr.sum() and te.sum():
+            evaluate("steady_to_transitional", X[tr], idx.label[tr],
+                     X[te], idx.label[te], classes, args.out, rows,
+                     args.seeds)
 
-    pd.DataFrame(rows).to_csv(args.out / "feature_baseline.csv", index=False)
-    print(f"results -> {args.out / 'feature_baseline.csv'}")
+    if "compositional" in args.protocols:
+        Yrun, vocab = component_matrix(meta)
+        is_comp = meta["is_compound"].to_numpy().astype(bool)
+        tr, te = sp.compositional_split(idx, is_comp)
+        Yw = Yrun[idx.run]
+        print(f"  components ({len(vocab)}): {vocab}")
+        evaluate_multilabel("compositional_zeroshot", X[tr], Yw[tr],
+                            X[te], Yw[te], vocab, args.out, rows, args.seeds)
+
+    df = pd.DataFrame(rows)
+    df.to_csv(args.out / "feature_baseline.csv", index=False)
+    print(f"\nresults -> {args.out / 'feature_baseline.csv'}")
     return 0
 
 

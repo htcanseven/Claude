@@ -65,3 +65,31 @@ def steady_to_transitional_split(idx: WindowIndex):
     train_mask = idx.stationary
     test_mask = ~idx.stationary
     return train_mask, test_mask
+
+
+def compositional_split(idx: WindowIndex, is_compound_run: np.ndarray):
+    """Train on single-fault runs, test on compound-fault runs (zero-shot).
+
+    ``is_compound_run`` is indexed by run id. Compound faults are never seen
+    during training, so a model can only succeed by composing the single-fault
+    signatures it learned — the flagship generalization test for this dataset.
+    """
+    compound_win = is_compound_run[idx.run]
+    return ~compound_win, compound_win
+
+
+def component_matrix(meta, component_vocab: list[str] | None = None):
+    """Multi-label component targets: (n_runs, n_components) 0/1 matrix."""
+    comps = [str(c).split("+") if isinstance(c, str) and c else []
+             for c in meta["components"]]
+    if component_vocab is None:
+        vocab = sorted({c for cs in comps for c in cs})
+    else:
+        vocab = component_vocab
+    col = {c: i for i, c in enumerate(vocab)}
+    Y = np.zeros((len(meta), len(vocab)), dtype=np.int8)
+    for r, cs in enumerate(comps):
+        for c in cs:
+            if c in col:
+                Y[r, col[c]] = 1
+    return Y, vocab

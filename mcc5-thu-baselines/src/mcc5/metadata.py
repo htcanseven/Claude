@@ -24,6 +24,24 @@ _PATTERN = re.compile(
     re.IGNORECASE,
 )
 
+# Families used to repair abbreviated compound components: in
+# ``bearing_outer_H_and_inner_H`` the second part is written as ``inner_H``
+# and must inherit the ``bearing`` family from the first part.
+_FAMILIES = ("bearing", "winding", "static_eccentricity",
+             "dynamic_eccentricity", "voltage_unbalance", "broken_bar")
+
+_BEARING_PARTS = ("inner", "outer", "ball")
+
+
+def _normalize_components(parts: list[str]) -> list[str]:
+    """Give every component its explicit family prefix."""
+    out: list[str] = []
+    for p in parts:
+        if not p.startswith(_FAMILIES) and p.startswith(_BEARING_PARTS):
+            p = f"bearing_{p}"
+        out.append(p)
+    return out
+
 
 @dataclass
 class RunInfo:
@@ -51,7 +69,8 @@ def parse_filename(path: str | Path) -> RunInfo:
     profile = f"{m.group('profile').lower()}_circulation"
     torque = float(m.group("torque"))
     speed = int(m.group("speed"))
-    components = [c.strip("_") for c in fault.split("_and_")]
+    components = _normalize_components(
+        [c.strip("_") for c in fault.split("_and_")])
     return RunInfo(
         file=str(path),
         fault_full=fault,
