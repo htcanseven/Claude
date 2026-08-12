@@ -44,7 +44,7 @@ def make_models(seed: int):
 
 
 def evaluate(name, Xtr, ytr, Xte, yte, classes, out_dir, rows, seeds,
-             save_cm=True):
+             save_cm=True, tag=""):
     for seed in seeds:
         for mname, model in make_models(seed).items():
             t0 = time.time()
@@ -62,10 +62,11 @@ def evaluate(name, Xtr, ytr, Xte, yte, classes, out_dir, rows, seeds,
                                       labels=np.arange(len(classes)))
                 safe = name.replace("/", "_").replace("[", "_").replace("]", "")
                 pd.DataFrame(cm, index=classes, columns=classes).to_csv(
-                    out_dir / f"cm_{safe}_{mname}.csv")
+                    out_dir / f"cm_{safe}_{mname}{tag}.csv")
 
 
-def evaluate_multilabel(name, Xtr, Ytr, Xte, Yte, vocab, out_dir, rows, seeds):
+def evaluate_multilabel(name, Xtr, Ytr, Xte, Yte, vocab, out_dir, rows, seeds,
+                        tag=""):
     """Zero-shot compound faults: predict independent fault components."""
     for seed in seeds:
         for mname, base in make_models(seed).items():
@@ -90,7 +91,8 @@ def evaluate_multilabel(name, Xtr, Ytr, Xte, Yte, vocab, out_dir, rows, seeds):
                     "support_test": Yte.sum(axis=0),
                     "f1": f1_score(Yte, P, average=None, zero_division=0),
                 })
-                per.to_csv(out_dir / f"components_{mname}.csv", index=False)
+                per.to_csv(out_dir / f"components_{mname}{tag}.csv",
+                           index=False)
 
 
 def main() -> int:
@@ -103,20 +105,33 @@ def main() -> int:
     ap.add_argument("--protocols", nargs="+",
                     default=["in_condition", "unknown_condition",
                              "steady_to_transitional", "compositional"])
+    ap.add_argument("--feature-set", default="plain",
+                    choices=["plain", "order", "plain+order"],
+                    help="plain = time/frequency features; order = "
+                         "physics-guided envelope-order features")
+    ap.add_argument("--tag", default="",
+                    help="suffix for output filenames (e.g. _order)")
     args = ap.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
 
     meta = pd.read_csv(args.data_dir / "metadata.csv")
     meta = meta[meta.fault_full != "UNPARSED"].reset_index(drop=True)
     cache = load_cache(args.data_dir / "cache", mmap_signals=False)
-    X = cache["features"]
+    blocks = {"plain": [cache["features"]],
+              "order": [cache["order_features"]],
+              "plain+order": [cache["features"], cache["order_features"]]}
+    if args.feature_set != "plain" and "order_features" not in cache:
+        print("error: cache has no order features; rebuild without "
+              "--no-physics")
+        return 1
+    X = np.concatenate(blocks[args.feature_set], axis=1)
     idx = WindowIndex(run=cache["run"], start=cache["start"],
                       label=cache["label"], condition=cache["condition"],
                       stationary=cache["stationary"])
     classes = cache["classes"]
     win = cache["win"]
-    print(f"{X.shape[0]} windows x {X.shape[1]} features | "
-          f"{len(classes)} classes")
+    print(f"{X.shape[0]} windows x {X.shape[1]} features "
+          f"[{args.feature_set}] | {len(classes)} classes")
 
     # Guard against non-finite features poisoning the linear model
     bad = ~np.isfinite(X).all(axis=1)
@@ -130,7 +145,8 @@ def main() -> int:
     if "in_condition" in args.protocols:
         tr, te = sp.in_condition_split(idx, cache["n_per_run"], win)
         evaluate("in_condition", X[tr], idx.label[tr], X[te], idx.label[te],
-                 classes, args.out, rows, args.seeds)
+                 classes, args.out, rows, args.seeds,
+                 tag=args.tag)
 
     if "unknown_condition" in args.protocols:
         conds = sorted(pd.unique(idx.condition))[: args.n_held_out]
@@ -140,14 +156,14 @@ def main() -> int:
                 continue
             evaluate(f"unknown_condition[{cond}]", X[tr], idx.label[tr],
                      X[te], idx.label[te], classes, args.out, rows,
-                     args.seeds, save_cm=False)
+                     args.seeds, save_cm=False, tag=args.tag)
 
     if "steady_to_transitional" in args.protocols:
         tr, te = sp.steady_to_transitional_split(idx)
         if tr.sum() and te.sum():
             evaluate("steady_to_transitional", X[tr], idx.label[tr],
                      X[te], idx.label[te], classes, args.out, rows,
-                     args.seeds)
+                     args.seeds, tag=args.tag)
 
     if "compositional" in args.protocols:
         Yrun, vocab = component_matrix(meta)
@@ -156,11 +172,14 @@ def main() -> int:
         Yw = Yrun[idx.run]
         print(f"  components ({len(vocab)}): {vocab}")
         evaluate_multilabel("compositional_zeroshot", X[tr], Yw[tr],
-                            X[te], Yw[te], vocab, args.out, rows, args.seeds)
+                            X[te], Yw[te], vocab, args.out, rows,
+                            args.seeds, tag=args.tag)
 
     df = pd.DataFrame(rows)
-    df.to_csv(args.out / "feature_baseline.csv", index=False)
-    print(f"\nresults -> {args.out / 'feature_baseline.csv'}")
+    df.insert(0, "feature_set", args.feature_set)
+    path = args.out / f"feature_baseline{args.tag}.csv"
+    df.to_csv(path, index=False)
+    print(f"\nresults -> {path}")
     return 0
 
 
