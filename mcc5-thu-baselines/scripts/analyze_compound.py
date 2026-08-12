@@ -30,7 +30,7 @@ from sklearn.metrics import f1_score                           # noqa: E402
 from mcc5.cache import load_cache                              # noqa: E402
 from mcc5.splits import (WindowIndex, component_matrix,         # noqa: E402
                          compositional_split, partial_credit,
-                         topk_metrics)
+                         topk_metrics, multilabel_scores)
 
 # Which modality carries each fault's primary evidence.
 ELECTRICAL = {"winding_h", "winding_l", "broken_bar", "voltage_unbalance_l",
@@ -83,7 +83,7 @@ def main() -> int:
                                    random_state=args.seed), n_jobs=1)
         clf.fit(X[tr], Yw[tr])
         P = clf.predict(X[te]).astype(np.int8)
-        scores = clf.decision_function(X[te])
+        scores = multilabel_scores(clf, X[te])
         Yte = Yw[te]
         faults_te = win_fault[te]
 

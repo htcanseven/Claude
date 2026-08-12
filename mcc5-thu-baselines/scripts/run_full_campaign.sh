@@ -10,12 +10,14 @@ mkdir -p "$OUT" logs
 
 # Each stage passes --tag "_<name>" so stages that share a (model, features)
 # pair -- e.g. the multiclass and multi-label random-forest sweeps -- write
-# distinct CSVs instead of silently overwriting one another.
+# distinct CSVs instead of silently overwriting one another, and --resume so
+# re-running the campaign after an interruption skips completed work instead of
+# repeating it. Safe to re-invoke as often as needed.
 stage() {
   local name="$1"; shift
   echo "=== STAGE $name  $(date -u +%H:%M:%S) ==="
   python3 scripts/run_benchmark.py --data-dir "$DATA" --out "$OUT" \
-    --tag "_$name" "$@" 2>&1 | tee "logs/$name.log"
+    --tag "_$name" --resume "$@" 2>&1 | tee -a "logs/$name.log"
   echo "=== STAGE $name done  $(date -u +%H:%M:%S) ==="
 }
 

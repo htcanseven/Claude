@@ -417,29 +417,68 @@ Protocol #8 relaxes strict zero-shot to the operationally common case where some
 combinations are logged and others are not, giving a graded measure on which
 future methods can show progress.
 
-### E. Testing the cross-modal explanation `[T6]`
+### E. The mechanism: feature-space dominance `[T6]`
 
-If the failure is caused by a mechanical bearing signature masking evidence that
-lives in a different modality, three predictions follow, and the dataset lets us
-test all three:
+We tested three predictions of the hypothesis that a mechanical bearing signature
+masks evidence living in another modality. One failed, and reporting it is what
+makes the surviving explanation credible.
 
-1. **The mechanical-only compound should fare better.** Eight of the nine
-   compounds are cross-modal; `bearing_outer_h_and_inner_h` pairs two mechanical
-   defects. Prediction: that combination is recognised markedly better than the
-   other eight, which would also reconcile our result with the 75–87 % reported
-   for bearing-only compounds in the literature.
-2. **The surviving constituent should be the mechanical one.** Per-combination,
-   per-component detection rates should show the bearing constituent detected far
-   more often than the electrical one.
-3. **Single-modality views should dissociate.** Repeating the analysis with
-   vibration-only and current-only features should show each fault family
-   detected from the modality carrying its evidence, and the masking should
-   weaken when the classifier can only see the modality in which the masked fault
-   is visible.
+**Prediction 1 (failed).** The dataset's single mechanical-only compound,
+`bearing_outer_h_and_inner_h`, should have fared better than the eight
+mechanical–electrical ones. It did not: micro-F1 0.018, among the lowest, and
+within it one bearing fault still suppresses the other (inner-race detected on
+2.7 % of windows, outer-race on 0.0 %). Masking is general to the weaker
+constituent, not a property of crossing modalities. With only one such compound
+this is weak evidence, but it does not support the hypothesis as stated.
 
-`scripts/analyze_compound.py` reports all three. This turns a negative result
-into a mechanism with falsifiable predictions, which is the difference between
-reporting that a model failed and explaining what defeated it.
+**Prediction 2 (confirmed).** Across the eight cross-modal compounds, mean
+detection rate is 0.0002 for the electrical constituent (max 0.0018) against
+0.072 for the mechanical one (max 0.239).
+
+**Prediction 3 (confirmed, and decisive).**
+
+| Feature view | electrical constituent | mechanical constituent |
+|---|---|---|
+| vibration only | **0.000** | 0.100 (max 0.356) |
+| current only | **0.108** (max 0.393) | 0.000 |
+| both concatenated | **0.0002** | 0.072 |
+
+The dissociation is exact — neither modality ever detects the other's family — and
+the third row locates the failure. `winding_h` is detected on **39.3 %** of
+windows from current features alone and on **0.2 %** once vibration features are
+concatenated: a roughly 200-fold collapse. The electrical evidence is present and
+learnable, and concatenation discards it because the mechanical features win the
+split criterion.
+
+The mechanism is therefore **feature-space dominance rather than an absent
+signature**, which is a stronger claim than the one we set out to test: it is
+measured, it is specific, and it predicts a remedy. It also explains the failed
+architecture sweep of Section VIII — a learned gate still funnels both families
+through one embedding, so it reproduces the problem it was meant to solve.
+
+### F. The prescription, and that it works `[T8]`
+
+If sharing a feature space is what destroys the weaker family, then do not share
+it. Training one multi-label model per modality and taking the union of their
+positive predictions lets each compete only against faults visible in its own
+channels (zero-shot compound protocol):
+
+| Model | Exact match | micro-F1 | ≥1 found | all-zero |
+|---|---|---|---|---|
+| shared (both) | 0.0000 | 0.072 | 0.080 | 0.760 |
+| vibration only | 0.0000 | 0.090 | 0.111 | 0.559 |
+| current only | 0.0000 | 0.087 | 0.096 | 0.794 |
+| **late fusion (union)** | **0.0078** | **0.155** | **0.200** | **0.415** |
+
+Exact match moves off zero, micro-F1 doubles, and the all-zero rate nearly halves
+— from a change derived from the diagnosis rather than found by search. The
+absolute numbers remain small, and we present this as the benchmark's reference
+point rather than a solution.
+
+The two interventions in this paper address different halves of the failure:
+superposition augmentation (Section VIII) teaches the model to emit two positives
+at all, while late fusion stops one modality from suppressing the other.
+Combining them is the natural next experiment and is left open.
 
 ---
 

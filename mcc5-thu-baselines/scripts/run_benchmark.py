@@ -32,7 +32,8 @@ from sklearn.metrics import (accuracy_score, f1_score,         # noqa: E402
 from mcc5.cache import load_cache                              # noqa: E402
 from mcc5.protocols import iter_protocols, ALL_PROTOCOLS        # noqa: E402
 from mcc5.splits import (WindowIndex, component_matrix,         # noqa: E402
-                         partial_credit, topk_metrics)
+                         partial_credit, topk_metrics,
+                         multilabel_scores)
 
 FEATURE_MODELS = ("rf", "svm", "logreg")
 
@@ -67,8 +68,7 @@ def eval_multilabel(est, Xtr, Ytr, Xte, Yte, vocab, out_dir, stem):
     clf = OneVsRestClassifier(est, n_jobs=1)
     clf.fit(Xtr, Ytr)
     P = clf.predict(Xte).astype(np.int8)
-    scores = (clf.decision_function(Xte)
-              if hasattr(clf, "decision_function") else P.astype(float))
+    scores = multilabel_scores(clf, Xte)
     pd.DataFrame({"component": vocab,
                   "support_test": Yte.sum(axis=0),
                   "f1": f1_score(Yte, P, average=None, zero_division=0)}
@@ -191,6 +191,9 @@ def main() -> int:
     ap.add_argument("--noise-snr", type=float, nargs="*", default=None,
                     help="extra test-time SNRs in dB (cnn only)")
     ap.add_argument("--tag", default="")
+    ap.add_argument("--resume", action="store_true",
+                    help="keep existing rows in the target CSV and skip the "
+                         "(protocol, seed) pairs already recorded")
     args = ap.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
 
@@ -221,7 +224,20 @@ def main() -> int:
 
     csv_path = (args.out / f"bench_{args.model}_"
                            f"{args.features.replace('+', '-')}{args.tag}.csv")
-    if csv_path.exists():
+
+    # Resume: keep whatever this CSV already holds and skip those
+    # (protocol, seed) pairs. Long sweeps outlive neither a container restart
+    # nor a lost shell, and re-running a 30-minute sweep from zero to recover
+    # its last fold is the expensive way to lose an afternoon.
+    done: set[tuple[str, int]] = set()
+    rows: list[dict] = []
+    if args.resume and csv_path.exists():
+        prev = pd.read_csv(csv_path)
+        rows = prev.to_dict("records")
+        done = {(str(r["protocol"]), int(r["seed"])) for _, r in prev.iterrows()}
+        print(f"resuming: {len(rows)} rows already in {csv_path.name}, "
+              f"{len(done)} (protocol, seed) pairs will be skipped")
+    elif csv_path.exists():
         # Two invocations sharing a (model, features) pair land on the same
         # filename, and the second would otherwise silently discard the first
         # (how a whole multiclass sweep was once lost). Keep a copy.
@@ -230,11 +246,13 @@ def main() -> int:
         print(f"note: {csv_path.name} exists; previous contents saved to "
               f"{backup.name}. Pass a distinct --tag to keep both.")
 
-    rows = []
     for proto in iter_protocols(idx, meta, win, cache["n_per_run"],
                                 which=args.protocols,
                                 max_condition_folds=args.max_condition_folds):
         for seed in args.seeds:
+            if (proto.name, seed) in done:
+                print(f"  {proto.name:44s} {args.model:4s} s{seed} cached")
+                continue
             stem = (f"{proto.name}_{args.model}_{args.features}_s{seed}"
                     f"{args.tag}").replace("[", "_").replace("]", "")
             t0 = time.time()

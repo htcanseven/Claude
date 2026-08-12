@@ -185,6 +185,27 @@ def partial_credit(P: np.ndarray, Y: np.ndarray) -> dict:
     }
 
 
+def multilabel_scores(clf, X) -> np.ndarray:
+    """Continuous per-component scores from a fitted one-vs-rest classifier.
+
+    Tree ensembles expose ``predict_proba`` and no ``decision_function``, margin
+    models the reverse. Falling back to the binary predictions instead would make
+    every rank-based metric meaningless, since a 0/1 matrix is almost entirely
+    ties and ``argsort`` would then rank components arbitrarily.
+    """
+    if hasattr(clf, "predict_proba"):
+        p = clf.predict_proba(X)
+        # OneVsRestClassifier returns (n_samples, n_labels) for multilabel y;
+        # a list of per-label (n_samples, 2) arrays is possible otherwise.
+        if isinstance(p, list):
+            return np.column_stack([col[:, 1] for col in p])
+        return np.asarray(p)
+    if hasattr(clf, "decision_function"):
+        return np.asarray(clf.decision_function(X))
+    raise TypeError(f"{type(clf).__name__} exposes neither predict_proba nor "
+                    "decision_function; rank metrics would be meaningless")
+
+
 def topk_metrics(scores: np.ndarray, Y: np.ndarray) -> dict:
     """Rank-based scoring, which separates two very different failures.
 

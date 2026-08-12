@@ -80,6 +80,68 @@ non-bearing fault is lost entirely. This is the paper's strongest motivating
 result: it is not a small accuracy gap, it is a categorical failure of a
 standard pipeline on the exact case the dataset was built to expose.
 
+### The mechanism: feature-space dominance, not absent signal
+
+Three predictions were tested (`scripts/analyze_compound.py`). One failed; the
+other two identify the cause.
+
+**Failed — masking is not specific to cross-modal pairs.** We expected the one
+mechanical-only compound (`bearing_outer_h_and_inner_h`) to fare better than the
+eight mechanical–electrical ones. It did not: its micro-F1 of 0.018 is among the
+lowest, and within it one bearing fault still suppresses the other (inner-race
+detected on 2.7 % of windows, outer-race on 0.0 %). Masking is general to the
+weaker constituent rather than a property of crossing modalities. Only one such
+compound exists, so this is weak evidence either way, but it does not support the
+hypothesis.
+
+**Confirmed — the electrical constituent is the one that dies.** Across the eight
+cross-modal compounds, mean detection rate is 0.0002 for the electrical
+constituent (max 0.0018) against 0.072 for the mechanical one (max 0.239).
+
+**Confirmed, and decisive — each modality sees only its own family, and sharing a
+feature space destroys one of them.**
+
+| Feature view | electrical constituent | mechanical constituent |
+|---|---|---|
+| vibration only | **0.000** | 0.100 (max 0.356) |
+| current only | **0.108** (max 0.393) | 0.000 |
+| both concatenated | **0.0002** | 0.072 |
+
+The dissociation is perfect: vibration features never detect an electrical fault,
+current features never detect a mechanical one. The third row is the finding —
+`winding_h` is detected on **39.3 %** of windows from current features alone and
+on **0.2 %** once vibration features are concatenated, a roughly 200-fold
+collapse. The electrical evidence is present and learnable; the mechanical
+features win the split criterion and it is discarded.
+
+The failure is therefore **feature-space dominance**, not a missing signature.
+That also explains why gated fusion failed (§8): a learned gate still funnels both
+families through one embedding, which is the problem rather than the fix.
+
+### The prescription, and that it works
+
+If sharing the feature space is what destroys the weaker family, do not share it:
+train one multi-label model per modality and union their positive predictions, so
+each competes only against faults visible in its own channels
+(`scripts/late_fusion.py`, zero-shot compound protocol):
+
+| Model | Exact match | micro-F1 | ≥1 found | all-zero |
+|---|---|---|---|---|
+| shared (both) | 0.0000 | 0.072 | 0.080 | 0.760 |
+| vibration only | 0.0000 | 0.090 | 0.111 | 0.559 |
+| current only | 0.0000 | 0.087 | 0.096 | 0.794 |
+| **late fusion (union)** | **0.0078** | **0.155** | **0.200** | **0.415** |
+
+Exact match moves off zero, micro-F1 doubles, and the all-zero rate nearly halves.
+Small in absolute terms, but it is the first intervention here that helps, and it
+was derived from the diagnosis rather than searched for — unlike the architecture
+sweep in §8, which searched and found nothing.
+
+Superposition augmentation (§8) and late fusion address different halves of the
+problem: the first teaches the model to emit two positives at all, the second
+stops one modality from suppressing the other. Combining them is the obvious next
+experiment.
+
 ### The control settles the interpretation
 
 A low zero-shot score could simply mean the multi-label setup never learned
