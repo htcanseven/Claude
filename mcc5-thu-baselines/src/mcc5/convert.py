@@ -69,6 +69,28 @@ def convert_zip(zip_path: Path, out_dir: Path) -> None:
             print(f"  [{i}/{len(names)}] {stem}: {x.shape}", flush=True)
 
 
+def _npz_array_shape(npz_path: Path, key: str = "x") -> tuple[int, ...]:
+    """Shape of one array in an .npz without decompressing it.
+
+    An .npz is a zip of .npy members, and every .npy starts with a header
+    describing dtype and shape — so the shape costs a few hundred bytes to
+    read. Touching ``z[key].shape`` instead would inflate the whole array
+    (~35 MB per run here) just to learn its length.
+    """
+    readers = {(1, 0): np.lib.format.read_array_header_1_0,
+               (2, 0): np.lib.format.read_array_header_2_0}
+    with zipfile.ZipFile(npz_path) as zf:
+        with zf.open(f"{key}.npy") as fh:
+            version = np.lib.format.read_magic(fh)
+            try:
+                read_header = readers[version]
+            except KeyError:
+                raise ValueError(f"unsupported .npy version {version} in "
+                                 f"{npz_path}") from None
+            shape, _fortran, _dtype = read_header(fh)
+    return shape
+
+
 def build_metadata(data_dir: Path) -> pd.DataFrame:
     """Scan converted/*.npz and (re)build metadata.csv from filenames."""
     out_dir = data_dir / "converted"
@@ -77,8 +99,7 @@ def build_metadata(data_dir: Path) -> pd.DataFrame:
         if npz.name.endswith(".tmp.npz"):  # skip in-progress temp files
             continue
         stem = npz.stem
-        with np.load(npz) as z:
-            n_ch, n_smp = z["x"].shape
+        n_ch, n_smp = _npz_array_shape(npz)
         try:
             row = parse_filename(stem).to_dict()
         except ValueError:
@@ -91,7 +112,36 @@ def build_metadata(data_dir: Path) -> pd.DataFrame:
     meta_path = data_dir / "metadata.csv"
     meta.to_csv(meta_path, index=False)
     print(f"metadata: {len(meta)} runs -> {meta_path}")
+    audit_coverage(meta)
     return meta
+
+
+def audit_coverage(meta: pd.DataFrame) -> pd.DataFrame:
+    """Report fault x condition cells that are duplicated or missing.
+
+    The release is expected to hold one run per (fault, condition) pair. Cells
+    with two runs or none indicate a naming or collection inconsistency that
+    would otherwise quietly skew a leave-one-condition-out split, so surface
+    them instead of averaging over them.
+    """
+    if meta.empty or "condition" not in meta:
+        return pd.DataFrame()
+    tab = meta.pivot_table(index="fault_full", columns="condition",
+                           values="npz", aggfunc="count").fillna(0)
+    dup = [(f, c, int(n)) for f, row in tab.iterrows()
+           for c, n in row.items() if n > 1]
+    missing = [(f, c) for f, row in tab.iterrows()
+               for c, n in row.items() if n == 0]
+    if dup or missing:
+        print(f"  coverage audit: {len(dup)} duplicated cell(s), "
+              f"{len(missing)} missing cell(s)")
+        for f, c, n in dup:
+            print(f"    duplicated: {f} @ {c} ({n} runs)")
+        for f, c in missing:
+            print(f"    missing:    {f} @ {c}")
+    else:
+        print("  coverage audit: one run per fault x condition, no gaps")
+    return tab
 
 
 def convert_all(data_dir: Path, keep_csv: bool = False) -> pd.DataFrame:

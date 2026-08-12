@@ -20,7 +20,8 @@ from pathlib import Path
 _PATTERN = re.compile(
     r"^(?P<fault>.+?)_(?P<profile>speed|torque)_?circulation"
     r"_(?P<torque>\d+(?:\.\d+)?)\s*Nm"
-    r"_(?P<speed>\d+)\s*rpm",
+    r"_(?P<speed>\d+)\s*rpm"
+    r"(?:_(?P<acq>\d{12}))?",
     re.IGNORECASE,
 )
 
@@ -53,6 +54,7 @@ class RunInfo:
     torque_nm: float = 0.0
     speed_rpm: int = 0
     condition: str = ""      # operating-condition group id
+    acq: str = ""            # acquisition stamp YYMMDDHHMMSS from the filename
 
     def to_dict(self) -> dict:
         d = asdict(self)
@@ -80,4 +82,5 @@ def parse_filename(path: str | Path) -> RunInfo:
         torque_nm=torque,
         speed_rpm=speed,
         condition=f"{profile}_{torque:g}Nm_{speed}rpm",
+        acq=m.group("acq") or "",
     )
