@@ -1,1 +1,8 @@
 40320 windows x 108 features [plain] | model=rf
+  leaky_random                                 rf   s0 acc=0.9748 macroF1=0.9753
+  leaky_random                                 rf   s1 acc=0.9751 macroF1=0.9757
+  leaky_random                                 rf   s2 acc=0.9755 macroF1=0.9761
+  in_condition                                 rf   s0 acc=0.9647 macroF1=0.9641
+  in_condition                                 rf   s1 acc=0.9651 macroF1=0.9646
+  in_condition                                 rf   s2 acc=0.9642 macroF1=0.9637
+  unknown_condition[speed_circulation_20Nm_1000rpm] rf   s0 acc=0.9289 macroF1=0.9299

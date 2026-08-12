@@ -1,0 +1,3 @@
+protocol,model,accuracy,macro_f1,folds,seeds
+leaky_random,rf,0.975 ± 0.000,0.976 ± 0.000,1,3
+in_condition,rf,0.965 ± 0.000,0.964 ± 0.000,1,3
