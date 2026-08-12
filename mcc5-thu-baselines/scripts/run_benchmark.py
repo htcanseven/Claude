@@ -122,24 +122,32 @@ def run_cnn(proto, S, Ylab, Ycomp, classes, vocab, args, seed, out_dir, stem):
             lossf(model(xb), yb).backward()
             opt.step()
 
-    def predict(X):
+    def predict(X, snr=None):
+        """Batched inference, adding test-time noise per batch.
+
+        Noise is generated per batch and in float32. Building a whole noisy copy
+        of the test set instead costs a float64 temporary the size of the split
+        (over 7 GB for the single-source protocol, whose test set is 36,960
+        windows) and gets the process killed.
+        """
         model.eval()
+        sigma = None if snr is None else 10 ** (-snr / 20.0)
         outs = []
         with torch.no_grad():
             for i in range(0, len(X), 256):
-                xb = torch.from_numpy(np.ascontiguousarray(X[i:i + 256]))
-                outs.append(model(xb.to(dev)).cpu().numpy())
+                xb_np = np.ascontiguousarray(X[i:i + 256])
+                if sigma is not None:
+                    # signals are standardized to unit variance per channel, so
+                    # the noise scale for a target SNR in dB is just 10^(-snr/20)
+                    xb_np = xb_np + rng.normal(
+                        0.0, sigma, xb_np.shape).astype(np.float32)
+                outs.append(model(torch.from_numpy(xb_np).to(dev))
+                            .cpu().numpy())
         return np.concatenate(outs)
 
     results = []
     for snr in [None] + list(args.noise_snr or []):
-        Xev = Xte
-        if snr is not None:
-            # signals are standardized, so unit variance per channel: the noise
-            # scale for a target SNR in dB is just 10^(-snr/20)
-            noise = rng.normal(0.0, 10 ** (-snr / 20.0), Xte.shape)
-            Xev = (Xte + noise).astype(np.float32)
-        logits = predict(Xev)
+        logits = predict(Xte, snr)
         if multilabel:
             P = (logits > 0).astype(np.int8)
             row = dict(acc=float((P == yte).all(axis=1).mean()),
