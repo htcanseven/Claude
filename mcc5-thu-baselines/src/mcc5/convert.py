@@ -74,6 +74,8 @@ def build_metadata(data_dir: Path) -> pd.DataFrame:
     out_dir = data_dir / "converted"
     rows: list[dict] = []
     for npz in sorted(out_dir.glob("*.npz")):
+        if npz.name.endswith(".tmp.npz"):  # skip in-progress temp files
+            continue
         stem = npz.stem
         with np.load(npz) as z:
             n_ch, n_smp = z["x"].shape
