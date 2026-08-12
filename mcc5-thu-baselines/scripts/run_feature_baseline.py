@@ -31,7 +31,7 @@ from sklearn.metrics import (accuracy_score, f1_score,         # noqa: E402
 
 from mcc5.cache import load_cache                              # noqa: E402
 from mcc5.splits import (WindowIndex, component_matrix,          # noqa: E402
-                         partial_credit)
+                         partial_credit, compound_combinations)
 from mcc5 import splits as sp                                  # noqa: E402
 
 
@@ -117,7 +117,8 @@ def main() -> int:
                     default=["leaky_random", "in_condition",
                              "unknown_condition", "single_source",
                              "cross_profile", "steady_to_transitional",
-                             "compositional_control", "compositional"])
+                             "compositional_control",
+                             "leave_combination_out", "compositional"])
     ap.add_argument("--feature-set", default="plain",
                     choices=["plain", "order", "plain+order"],
                     help="plain = time/frequency features; order = "
@@ -215,6 +216,22 @@ def main() -> int:
         evaluate_multilabel("compositional_control", X[tr], Yw[tr], X[te],
                             Yw[te], vocab, args.out, rows, args.seeds,
                             tag=args.tag + "_control", models=args.models)
+
+    if "leave_combination_out" in args.protocols:
+        Yrun, vocab = component_matrix(meta)
+        Yw = Yrun[idx.run]
+        combos = compound_combinations(meta)
+        run_fault = meta["fault_full"].to_numpy()
+        # three folds, each holding out a disjoint third of the 9 combinations
+        folds = [combos[i::3] for i in range(3)]
+        for fi, held in enumerate(folds):
+            tr, te = sp.leave_combination_out_split(idx, run_fault, held)
+            if not (tr.sum() and te.sum()):
+                continue
+            evaluate_multilabel(f"leave_combination_out[fold{fi}]", X[tr],
+                                Yw[tr], X[te], Yw[te], vocab, args.out, rows,
+                                args.seeds, tag=f"{args.tag}_lco{fi}",
+                                models=args.models)
 
     if "compositional" in args.protocols:
         Yrun, vocab = component_matrix(meta)

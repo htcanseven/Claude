@@ -122,6 +122,31 @@ def compositional_split(idx: WindowIndex, is_compound_run: np.ndarray):
     return ~compound_win, compound_win
 
 
+def leave_combination_out_split(idx: WindowIndex, run_fault: np.ndarray,
+                                held_out_combinations: list[str]):
+    """Train on singles plus some compound types, test on unseen combinations.
+
+    Strictly zero-shot composition (never seeing any compound fault) is the
+    hardest possible framing and, on this dataset, a standard pipeline scores
+    0.000 on it. This is the intermediate and more operationally realistic
+    setting: a fleet history usually contains *some* co-occurring faults, and
+    the open question is whether a model extrapolates to combinations it has not
+    logged. The claim stays a compositional-generalization claim, because the
+    held-out combinations never appear in training.
+
+    ``run_fault`` holds each run's full fault label, indexed by run id.
+    """
+    win_fault = run_fault[idx.run]
+    test_mask = np.isin(win_fault, held_out_combinations)
+    return ~test_mask, test_mask
+
+
+def compound_combinations(meta) -> list[str]:
+    """The distinct compound fault labels present, sorted for reproducibility."""
+    comp = meta["is_compound"].to_numpy().astype(bool)
+    return sorted(meta.loc[comp, "fault_full"].unique().tolist())
+
+
 def compositional_control_split(idx: WindowIndex, is_compound_run: np.ndarray,
                                 n_samples_per_run: dict[int, int], win: int,
                                 train_frac: float = 0.6,
