@@ -1,0 +1,165 @@
+\section{Related Work}
+\label{sec:related}
+
+Several research threads intersect in this study: compound-fault
+decoupling, zero-shot recognition of unseen fault combinations, the
+reliability of evaluation protocols in data-driven condition monitoring,
+generalization across operating conditions, multimodal motor diagnosis, and
+the benchmark datasets that underpin them. We review each and then position
+the present work (Table~\ref{tab:positioning}).
+
+Early data-driven treatments of compound faults assigned each observed
+combination its own class, which cannot express combinations absent from
+training. Decoupling formulations address this by predicting the elementary
+mechanisms instead. Huang \emph{et al.} proposed a deep decoupling
+convolutional network whose multi-label classifier recovers the
+constituents of gearbox compound faults from raw vibration signals
+\cite{huang2019ddcnn}, and a one-dimensional CNN variant with a multi-label
+output layer \cite{huang2019multilabel}. Subsequent work refined the
+decoupling head: capsule networks with dynamic routing and threshold-based
+label activation \cite{ltssbow2024}, attentional residual networks combined
+with active learning for measured (rather than injected) bearing compound
+faults \cite{decoupling_attn2020}, and mixture-of-experts architectures
+with task-adapted attention for decoupling compounds unseen as combinations
+\cite{hemtan2024}. Two properties are near-universal in this line: the
+constituents are \emph{mechanical} (bearing races, balls, gear teeth), so
+every constituent is observable in the same vibration channel; and
+evaluation is sample-level on steady-speed laboratory recordings, usually
+with segments of the same recording on both sides of the train/test split.
+
+A stricter setting withholds \emph{all} compound data and requires
+composing single-fault knowledge at test time. Xu \emph{et al.} introduced
+zero-shot compound-fault diagnosis with manually defined semantic
+attributes learned from single-fault data \cite{eswa2022}, later replacing
+hand-crafted attributes with autoencoder-learned fault semantics
+\cite{eswa2023}. Generative formulations synthesize pseudo-samples of
+unseen compounds from single-fault semantics \cite{zsl2021,kbs2025}; graph
+embeddings propagate relational structure among base faults
+\cite{neuro2025}; and physics-informed semantic spaces anchor the attribute
+vectors in characteristic-frequency knowledge \cite{song2025gzsl}. Reported
+accuracies on unseen compounds cluster between roughly 75\% and 87\%
+\cite{eswa2022,eswa2023,song2025gzsl,appac2025}.
+
+These results, however, concern compounds whose constituents are
+\emph{homogeneous}: bearing--bearing or bearing--gear combinations in which
+both mechanisms modulate the same vibration carrier. The compounds in the
+MCC5-THU motor dataset instead pair a mechanical bearing defect with an
+electrical or electromagnetic fault (winding short circuit, broken rotor
+bars, eccentricity), whose primary evidence lies in the stator currents
+rather than in vibration. To our knowledge, this \emph{cross-modal}
+compound regime has not been evaluated in the zero-shot compound-fault
+literature, and no published constituent-level results exist for this
+dataset.
+
+A parallel literature shows that evaluation-protocol choices, more than
+model choices, drive many reported near-ceiling accuracies. Wheat
+\emph{et al.} quantified the impact of intra-bearing data leakage in
+vibration diagnosis and advocated part-to-part splits \cite{wheat2024};
+recent work formalizes the distinction between segmentation-level and
+specimen-level leakage and proposes leakage-safe protocols
+\cite{gama2025,phme2025}; and open benchmark studies made similar
+observations for deep architectures across public datasets
+\cite{zhao2020benchmark}. This thread has concentrated on single-fault
+classification. Its intersection with compound-fault evaluation is, to our
+knowledge, unexplored---yet it is precisely where leakage is most subtle:
+in the dataset used here, severity variants of one physical combination can
+leak across a composition boundary, and compound recordings are acquired in
+different sessions from their single-fault references, which confounds
+naive ``compound versus single'' contrasts. Our protocol design (run-level,
+severity-aware splits; session-matched sensitivity controls;
+constituent-prevalence floors for every reported metric) extends
+leakage-aware evaluation to the compositional setting.
+
+Diagnosis under variable speed and load has produced a large
+domain-adaptation and domain-generalization literature, surveyed in
+\cite{han2025}. On the MCC5-THU family specifically, the dataset authors
+proposed evidential ensemble learning for real-time multimode diagnosis
+\cite{liu2024tii} and recently questioned how operating conditions should
+enter learning-based diagnosis at all \cite{rethinking2025}; other groups
+applied condition-robust architectures to the companion gearbox release
+\cite{wang2024,phmap2025}. The dominant protocol in this literature holds
+one condition out of many \cite{han2025,domainshift2025}. Our reference
+experiments on this dataset (Appendix~\ref{app:condition}) show that
+protocol to be nearly saturated---training on eleven of twelve conditions
+costs only ${\sim}3$ accuracy points, because the remaining conditions
+bracket the held-out one, whereas the operationally realistic reverse
+direction (training on a single condition) costs over 60---which motivates
+the crossed composition--context--condition design used here rather than
+leave-one-condition-out alone.
+
+That mechanical faults imprint on stator currents and electrical faults on
+vibration has long motivated multimodal motor diagnosis
+\cite{mcsa_review2017}. Deep multimodal fusion typically concatenates
+modalities into one representation or fuses learned features, e.g.\
+multilevel information fusion \cite{multilevel2019}, dynamic-routing
+multimodal networks \cite{drmnn2020}, adaptive CNN fusion of denoised
+vibration and current \cite{plos2025}, and comparative studies of the two
+modalities under deep and classical learners \cite{ayankoso2026}. These
+works report that fusion improves \emph{single-fault} accuracy. The
+compound setting reverses the picture: our diagnostic experiments on this
+dataset show that a shared feature space lets the dominant (mechanical)
+signature suppress the electrical one---a winding short detectable from
+currents alone on 39\% of windows falls to 0.2\% once vibration features
+are concatenated. The mechanism-specific feature families used here are a
+structural answer: each constituent detector sees only the physically
+appropriate modality, so cross-modal suppression cannot occur inside a
+detector.
+
+Public rotating-machinery datasets underpin this literature: CWRU
+\cite{smith2015cwru} and Paderborn \cite{lessmeier2016} for bearings, and
+more recent multi-fault motor and drivetrain releases such as a PMSM
+stator-fault dataset \cite{jung2023} and an industrial-scale motor--pump
+dataset \cite{bruinsma2024}. The MCC5-THU family---a gearbox release
+\cite{chen2024gearbox} and the motor release used here \cite{chen2026}---is
+distinctive in combining single \emph{and} compound faults, twelve
+speed/load profiles with transitional segments, and synchronized vibration,
+three-phase current, torque, and key-phase channels. The motor release is
+distributed without reference baselines; the present study provides, to our
+knowledge, its first systematic constituent-level evaluation, together with
+documentation of release-level inconsistencies that materially affect
+protocol design.
+
+Table~\ref{tab:positioning} contrasts this study with representative prior
+work along the axes developed above. The distinguishing combination is:
+compound faults whose constituents live in \emph{different} modalities;
+composition, compound-context, and operating-condition generalization
+varied \emph{jointly} in one crossed protocol; run-level, severity-aware,
+leakage-safe splits; metrics reported against constituent-prevalence floors
+so that prior-driven scores cannot masquerade as diagnostic skill; and
+run-clustered bootstrap inference with multiplicity control.
+
+\begin{table*}[!t]
+\caption{Positioning of this study against representative prior work.
+$\checkmark$~=~explicitly included; --~=~absent, not applicable, or not
+reported. ``Cross-modal'' means the compound's constituents are observable
+in different sensing modalities (mechanical $+$ electrical). ``Prior-aware
+floors'' means metrics are reported against label-prevalence (trivial
+constant-predictor) references.}
+\label{tab:positioning}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{l l l c c c c c c}
+\toprule
+Study & Task focus & Signals & \makecell{Compound\\faults} &
+\makecell{Cross-\\modal} & \makecell{Unseen\\combin.} &
+\makecell{Condition\\shift} & \makecell{Leakage-safe\\run-level splits} &
+\makecell{Prior-aware\\floors} \\
+\midrule
+Huang \emph{et al.} \cite{huang2019ddcnn} & multi-label decoupling & vib. & $\checkmark$ & -- & -- & -- & -- & -- \\
+LTSS-BoW-CapsNet \cite{ltssbow2024} & capsule decoupling & vib. & $\checkmark$ & -- & -- & -- & -- & -- \\
+HeMTAN \cite{hemtan2024} & unseen-compound decoupling & vib. & $\checkmark$ & -- & $\checkmark$ & -- & -- & -- \\
+Xu \emph{et al.} \cite{eswa2022} & zero-shot compounds & vib. & $\checkmark$ & -- & $\checkmark$ & -- & -- & -- \\
+Xu \emph{et al.} \cite{eswa2023} & learned fault semantics & vib. & $\checkmark$ & -- & $\checkmark$ & -- & -- & -- \\
+Song \emph{et al.} \cite{song2025gzsl} & GZSL, physics semantics & vib. & $\checkmark$ & -- & $\checkmark$ & -- & -- & -- \\
+Wheat \emph{et al.} \cite{wheat2024} & leakage in evaluation & vib. & -- & -- & -- & -- & $\checkmark$ & -- \\
+Han \emph{et al.} \cite{han2025} & multi-condition survey & multi & -- & -- & -- & $\checkmark$ & -- & -- \\
+Liu \emph{et al.} \cite{liu2024tii} & multimode diagnosis & multi & -- & -- & -- & $\checkmark$ & -- & -- \\
+DRMNN \cite{drmnn2020} & multimodal fusion & vib.+cur. & -- & -- & -- & -- & -- & -- \\
+\midrule
+\textbf{This work} & \makecell[l]{constituent-level\\generalization} &
+\makecell[l]{vib.+cur.\\(+key-phase)} & $\checkmark$ & $\checkmark$ &
+$\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+\bottomrule
+\end{tabular}
+\end{table*}

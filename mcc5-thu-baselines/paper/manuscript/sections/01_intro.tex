@@ -1,0 +1,107 @@
+\section{Introduction}
+\label{sec:intro}
+
+\IEEEPARstart{I}{nduction} motors underpin industrial drivetrains, and their
+unplanned failures propagate directly into downtime and safety risk.
+Data-driven condition monitoring has consequently produced a large
+literature whose reported accuracies now cluster near ceiling on standard
+laboratory benchmarks. Deployment experience is harder to reconcile with
+those numbers: a model commissioned at one operating point degrades at
+another, and faults in service rarely arrive one at a time. A bearing defect
+that develops alongside a winding short circuit, broken rotor bars, or
+eccentricity confronts the monitoring system with a \emph{compound} state
+whose exact combination was, in general, never present in the training
+history.
+
+Conventional closed-set formulations cannot even express this situation: a
+previously unseen combination $A{+}B$ constitutes an unseen class. The
+compound-fault literature therefore moved toward decoupling formulations
+that predict elementary mechanisms rather than combinations, and, more
+recently, toward zero-shot settings in which compound states must be
+recognized from single-fault training data alone. As
+Section~\ref{sec:related} reviews, however, that literature has evaluated
+almost exclusively \emph{homogeneous} compounds---bearing--bearing or
+bearing--gear pairings whose constituents are all observable in the same
+vibration channel---and its reported accuracies of roughly 75--87\% have
+been obtained under evaluation practices that a parallel line of work on
+data leakage has shown to be fragile: sample-level splits, steady operating
+conditions, and metrics reported without reference to what label prevalence
+alone would achieve.
+
+This paper asks a deliberately harder question on a public dataset that
+makes it answerable. The MCC5-THU motor dataset \cite{chen2026} provides 288
+recordings of a 2.2-kW three-phase induction motor across 24 diagnostic
+states under twelve speed/load conditions, with synchronized triaxial
+vibration, three-phase currents, torque, and a key-phase tachometer. Its
+nine compound faults pair a mechanical bearing defect with a second
+mechanism---inner or outer race, broken rotor bars, static or dynamic
+eccentricity, or a stator winding short circuit---so that, in eight of nine
+combinations, the two constituents deposit their primary evidence in
+\emph{different} sensing modalities. To our knowledge, neither this
+cross-modal compound regime nor this dataset has previously received a
+constituent-level evaluation.
+
+The study is designed so that every claim is bounded by an explicit control.
+The formulation is constituent-level: nine elementary mechanisms are
+detected independently by regularized linear probes operating on curated,
+mechanism-specific physical-signature families derived from angle-resampled
+order spectra, envelope-order descriptors, and phase-current sequence
+measures. A crossed protocol varies compound-context exposure over three
+regimes---recombination, one-sided, and two-sided compound-context
+zero-shot---and crosses each with seen and unseen operating conditions,
+under run-level, severity-aware splits with all preprocessing, calibration,
+and threshold selection confined to training data. Every reported metric is
+accompanied by input-independent constant-predictor references, so that
+prevalence-driven scores cannot masquerade as diagnostic skill; oracle
+detectability analyses are paired with recording-sensitivity and same-date
+controls, so that separability is not silently attributed to fault
+mechanisms; and paired run-clustered bootstrap inference with multiplicity
+correction distinguishes supported effects from noise.
+
+The contributions are as follows.
+\begin{enumerate}
+  \item \textbf{A constituent-level formulation and crossed
+  composition--context--condition protocol} for compound motor faults whose
+  constituents span mechanical and electrical modalities, separating novel
+  composition, compound-context deprivation, and operating-condition
+  novelty in one design
+  (Sections~\ref{sec:methods}--\ref{sec:results}).
+  \item \textbf{Prior-aware evaluation}: all constituent metrics are
+  reported against input-independent prevalence references, which expose
+  several apparently favorable partial-recovery metrics as at or below what
+  a constant predictor achieves, while establishing that constituent recall
+  and all-constituent recovery genuinely exceed those floors.
+  \item \textbf{A controlled analysis of constituent transfer}: within-pair
+  oracle detectability, cross-partner transfer, physical-signature
+  preservation, and a statistically supported score-orientation reversal,
+  each bounded by recording-sensitivity and same-date controls that keep
+  session effects from being read as physics.
+  \item \textbf{Sensitivity and robustness analyses} over the
+  decision-threshold objective, single-fault severity merging, and four
+  classifier families, showing that the qualitative generalization pattern
+  is stable while absolute exact-match decomposition is an operating-point
+  and model property, not an intrinsic bound of the protocol.
+  \item \textbf{Documentation of dataset-release properties that materially
+  affect protocol design}---recording-session separability,
+  severity-variant leakage paths, and label abbreviations---together with
+  reference operating-condition experiments
+  (Appendix~\ref{app:condition}) that motivate the crossed design.
+\end{enumerate}
+
+The principal findings are that closed-set discriminability (accuracy
+0.913) coexists with exact constituent-set recovery of 0.083--0.157 on
+unseen compounds for the locked probe; that recovery of at least one
+constituent is nearly universal while exact decomposition fails, so the
+practical failure mode is incomplete decomposition with over-diagnosis
+rather than silence; that compound-context deprivation becomes measurably
+harmful specifically under simultaneous operating-condition novelty; and
+that constituent evidence is often, but directionally and heterogeneously,
+transferable across compound partners.
+
+The remainder of the paper is organized as follows.
+Section~\ref{sec:related} reviews related work and positions the study.
+Section~\ref{sec:methods} details the constituent representation, feature
+construction, detection, protocol, metrics, and statistical analysis.
+Section~\ref{sec:results} reports results. Section~\ref{sec:conclusion}
+concludes. Appendix~\ref{app:condition} reports the operating-condition
+reference experiments.

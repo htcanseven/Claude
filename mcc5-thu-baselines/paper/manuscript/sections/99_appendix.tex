@@ -1,0 +1,76 @@
+\section{Operating-Condition Reference Experiments}
+\label{app:condition}
+
+Section~\ref{sec:related} states that the leave-one-condition-out protocol,
+the standard robustness test in the multi-condition literature, is nearly
+saturated on this dataset, whereas the reverse direction is not. This
+appendix reports the experiments behind that statement. They use a
+deliberately generic pipeline---distinct from, and simpler than, the
+constituent-level methodology of Section~\ref{sec:methods}---so that the
+measured gaps reflect protocol difficulty rather than modeling choices, and
+they are included with the released code.
+
+Windows of 0.64~s (8192 samples, non-overlapping) were described by 108
+time- and frequency-domain features (eight temporal statistics and ten
+spectral descriptors per channel over the three vibration and three current
+channels), classified into the original 24 diagnostic states by a 300-tree
+random forest, with three seeds per configuration. Six split protocols were
+compared. \emph{Random windows} splits windows irrespective of recording (a
+deliberately leakage-prone reference); \emph{in-condition} trains on the
+first 60\% of every recording and tests on the final 30\% with a 10\% guard
+gap; \emph{unknown condition} holds out each of the twelve operating
+conditions in turn; \emph{cross-profile} trains on one excitation profile
+(constant-torque variable-speed or constant-speed variable-torque) and
+tests on the other; \emph{steady~$\rightarrow$~transitional} trains on
+quasi-stationary segments and tests on speed/load ramps, with stationarity
+labeled from the key-phase-derived speed and the torque channel (the torque
+channel is used only for this protocol construction and never as a
+classifier input); and \emph{single source} inverts the unknown-condition
+protocol, training on one condition and testing on the remaining eleven.
+
+\begin{table}[!t]
+\caption{Reference protocols, 24-class accuracy (mean $\pm$ std over folds
+and three seeds). The same features and classifier are used throughout;
+only the split changes.}
+\label{tab:condref}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{l c c}
+\toprule
+Protocol & Folds & Accuracy \\
+\midrule
+Random windows (leakage-prone reference)   & 1  & $0.975 \pm 0.000$ \\
+In-condition (guard-gap temporal split)    & 1  & $0.965 \pm 0.000$ \\
+Unknown condition (leave-one-out)          & 12 & $0.939 \pm 0.024$ \\
+Cross-profile                              & 2  & $0.839 \pm 0.115$ \\
+Steady $\rightarrow$ transitional segments & 1  & $0.766 \pm 0.001$ \\
+Single source (train on one condition)     & 12 & $0.333 \pm 0.104$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:condref} summarizes the outcome. Holding one condition out
+of twelve costs only ${\sim}2.6$ accuracy points relative to the
+in-condition reference, because the eleven retained conditions bracket the
+held-out one in speed and load and the model interpolates. Training on a
+single condition and extrapolating to the other eleven costs over 60
+points; paired over the twelve condition folds, the difference between the
+two directions is 0.606 (paired $t$-test $p = 7.7\times10^{-10}$; Wilcoxon
+$p = 4.9\times10^{-4}$). Transfer between excitation profiles is likewise
+asymmetric at equal training size: training under variable speed
+generalizes to variable load (accuracy 0.944), whereas the reverse loses
+${\sim}21$ points (0.734; paired over seeds, $p = 3.3\times10^{-5}$).
+Finally, appending 36 speed-invariant envelope-order descriptors to the
+feature set leaves the interpolating protocols unchanged ($+0.001$ on
+unknown-condition, paired $p = 0.84$) but significantly improves the
+extrapolating one ($+0.047$ on single source, paired
+$p = 8.4\times10^{-4}$), consistent with their construction.
+
+Two implications carry into the main study. Methodologically, robustness to
+operating conditions should be claimed in the extrapolating direction,
+which motivates crossing the composition and context regimes with
+unseen-condition evaluation rather than relying on leave-one-condition-out
+alone. Practically, excitation diversity during commissioning matters more
+than data volume: a training condition in which speed varies transfers to
+load variation, but not conversely.

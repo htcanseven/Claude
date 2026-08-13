@@ -1,0 +1,62 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+This paper evaluated whether the elementary mechanisms of a compound motor
+fault can be recovered when their exact combination, their compound
+context, and the operating condition are varied independently of the
+training history. On a public multimodal induction-motor dataset whose
+compound faults span mechanical and electrical modalities, a locked linear
+constituent probe over mechanism-specific physical features showed that
+strong closed-set discriminability (24-class accuracy 0.913, 95\% CI
+$[0.885, 0.938]$) coexists with exact constituent-set recovery of only
+0.083--0.157 on unseen compounds. The two results are not in tension; they
+measure different abilities, and the gap between them is the paper's
+subject.
+
+Four conclusions follow from the controlled analyses. First, the failure
+mode is incomplete decomposition rather than loss of information: at least
+one true constituent was recovered in more than 92\% of compound runs, and
+constituent recall (0.630--0.694) and all-constituent recovery under
+recombination (up to 0.444) exceed input-independent prevalence references
+(0.556 and 0.111, respectively), while several other partial-recovery
+metrics do not---a distinction visible only because every metric was
+reported against its constant-predictor floor. Second, compound-context
+deprivation is measurably harmful chiefly when the operating condition is
+simultaneously unseen: the recombination-versus-two-sided penalty under
+condition shift was $+0.040$ micro-$F_1$ (95\% CI $[0.009, 0.073]$),
+$+0.051$ constituent recall, and $+0.083$ all-constituent recovery, whereas
+the corresponding seen-condition contrasts were not resolved. Third,
+constituent evidence transfers across compound partners often but
+directionally: within-pair detectability was near-perfect throughout, yet
+cross-partner transfer ranged from perfect to a statistically supported
+score-orientation reversal (Holm-adjusted $p \le 0.014$)---and the
+demonstrated separability of distinct recordings of the same fault state
+requires that reversal to be interpreted as context-dependent score
+transfer rather than as proven physical signature inversion. Fourth,
+absolute decomposition quality is an operating-point and model property:
+precision-weighted thresholding raised exact-match recovery to
+0.157--0.287 at reduced recall, and nonlinear classifier families reduced
+false additions from ${\sim}0.68$ to ${\sim}0.26$ per run while the
+qualitative generalization pattern persisted across all four families.
+
+For practice, these results caution against reading closed-set accuracy as
+deployment readiness, argue for calibrating constituent detectors with
+explicit precision--recall cost structure, and indicate that commissioning
+data should sample compound contexts and operating conditions jointly
+rather than relying on either alone. The reference experiments of
+Appendix~\ref{app:condition} reinforce the latter point: on this dataset
+the standard leave-one-condition-out test is nearly saturated, while
+single-condition training collapses accuracy, so robustness claims should
+be evaluated in the extrapolating direction.
+
+Several directions remain open. The dataset provides no replicated
+same-state recordings that would separate fault, assembly, sensor-mounting,
+and session effects, so the transfer analyses stop at carefully bounded
+attribution; replicated acquisitions would convert those bounds into causal
+statements. Representation or normalization strategies that promote
+constituent-score consistency across compound partners are identified as
+hypotheses, not established remedies. Finally, the constituent-level
+protocol, prevalence references, and controls used here are directly
+portable to the companion gearbox release and to other multimodal datasets,
+where cross-dataset replication of the context-by-condition interaction
+would test its generality.

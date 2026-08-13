@@ -1,0 +1,142 @@
+% =========================================================================
+% Beyond Closed-Set Accuracy: Constituent-Level Generalization in Compound
+% Motor Fault Diagnosis
+%
+% Reconstructed, complete manuscript. Compiled here with the IEEEtran
+% journal class as a stand-in for the IEEE Access template class
+% (ieeeaccess.cls); the section files are template-agnostic, so moving them
+% into the official template is mechanical: copy sections/, refs.bib and
+% figures/, and transplant the \author block into the template's own
+% front-matter macros.
+%
+% Build: pdflatex main && bibtex main && pdflatex main && pdflatex main
+% =========================================================================
+\documentclass[journal]{IEEEtran}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{makecell}
+\usepackage{booktabs}
+\usepackage{url}
+\graphicspath{{figures/}}
+
+% Notation used throughout
+\newcommand{\Fmicro}{F_{1,\mathrm{micro}}}
+\newcommand{\Factive}{F_{1,\mathrm{active}}}
+
+\begin{document}
+
+\title{Beyond Closed-Set Accuracy: Constituent-Level Generalization in
+Compound Motor Fault Diagnosis}
+
+\author{Evin~\c{S}ahin~Sad{\i}k,
+        H\"useyin~Tayyer~Canseven,~\IEEEmembership{Member,~IEEE}%
+\thanks{Evin \c{S}ahin Sad{\i}k is with the Department of Electrical and
+Electronics Engineering, K\"utahya Dumlup{\i}nar University, 43100
+K\"utahya, Turkey (e-mail: evin.sahin@dpu.edu.tr).}%
+\thanks{H\"useyin Tayyer Canseven is with the Department of Electrical
+Engineering, Lappeenranta-Lahti University of Technology (LUT University),
+53850 Lappeenranta, Finland (e-mail: huseyin.canseven@lut.fi).}%
+\thanks{Corresponding author: H\"useyin Tayyer Canseven.}%
+\thanks{This work was supported by the Academy of Finland under the Centre
+of Excellence Programme for the project High-Speed Electromechanical Energy
+Conversion Systems.}}
+
+\markboth{IEEE Access}%
+{\c{S}ahin Sad{\i}k \MakeLowercase{\textit{et al.}}: Beyond Closed-Set
+Accuracy: Constituent-Level Generalization in Compound Motor Fault
+Diagnosis}
+
+\maketitle
+
+\begin{abstract}
+Reported accuracies for data-driven motor fault diagnosis are frequently
+near ceiling, yet they rarely measure the ability that industrial deployment
+actually requires: recognizing the elementary fault mechanisms of a compound
+fault whose exact combination was never observed during model development.
+This paper evaluates that ability on a public multimodal dataset of a 2.2-kW
+three-phase induction motor containing 24 diagnostic states, including nine
+compound faults that pair a mechanical bearing defect with a second
+mechanical, electrical, or electromagnetic mechanism, under twelve
+speed/load conditions. The problem is formulated at the constituent level:
+nine elementary mechanisms are detected independently from physics-guided,
+mechanism-specific vibration- and current-domain features, so unseen
+combinations remain expressible. A crossed protocol separates three levels
+of compound-context exposure (recombination, one-sided, and two-sided
+context zero-shot) from operating-condition novelty, with run-level,
+severity-aware splits and all calibration confined to training data.
+Although closed-set 24-class accuracy reaches 0.913, exact recovery of
+unseen constituent sets remains between 0.083 and 0.157 for the locked
+linear probe, and every metric is reported against input-independent
+prevalence references that expose partial-recovery scores as otherwise
+misleading. Compound-context deprivation is measurably harmful chiefly when
+the operating condition is also unseen (micro-$F_1$ interaction $+0.040$,
+95\% CI $[0.009, 0.073]$), and cross-partner transfer is strongly
+directional, including one statistically supported score-orientation
+reversal whose physical attribution is deliberately left open given
+demonstrated recording-session separability. Threshold-objective and
+classifier-family analyses show that exact decomposition, not constituent
+recall, is the binding constraint.
+\end{abstract}
+
+\begin{IEEEkeywords}
+compound faults, condition monitoring, constituent-level diagnosis, data
+leakage, electrical machines, evaluation protocols, fault diagnosis,
+induction motors, multi-label classification, zero-shot learning
+\end{IEEEkeywords}
+
+\IEEEpeerreviewmaketitle
+
+\input{sections/01_intro}
+\input{sections/02_related}
+\input{sections/03_methods}
+\input{sections/04_results}
+\input{sections/05_conclusion}
+
+\appendices
+\input{sections/99_appendix}
+
+\section*{Data Availability}
+The dataset analyzed in this study is publicly available from Mendeley Data
+at \url{https://doi.org/10.17632/6s3dggj9mw.1} (CC~BY~4.0)
+\cite{mcc5motor_data}, with its accompanying descriptor article
+\cite{chen2026}. Acquisition-timestamp metadata used for the
+recording-sensitivity controls were recovered from the released file names
+and are included with the analysis code.
+
+\section*{Code Availability}
+The complete analysis code---including the constituent-level pipeline, the
+crossed evaluation protocol, the constant-predictor references, the
+recording-sensitivity controls, and the reference experiments of
+Appendix~\ref{app:condition}---is available from the corresponding author
+upon reasonable request.
+% Stronger alternative for a paper about evaluation reliability: deposit the
+% repository at Zenodo and cite its DOI here.
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{photo_a}}]{Evin \c{S}ahin Sad{\i}k}
+received the B.Sc. degree in Electrical and Electronics Engineering from
+Bilecik \c{S}eyh Edebali University, Bilecik, Turkey, in 2012, and the
+M.Sc. and Ph.D. degrees in Electrical and Electronics Engineering from
+K\"utahya Dumlup{\i}nar University, K\"utahya, Turkey, in 2016 and 2022,
+respectively. She is currently an Assistant Professor with the Department
+of Electrical and Electronics Engineering, K\"utahya Dumlup{\i}nar
+University. Her research interests include signal processing, machine
+learning, and deep learning.
+\end{IEEEbiography}
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{photo_b}}]{H\"useyin Tayyer Canseven}
+(Member, IEEE) received the B.Sc. and M.Sc. degrees in Electrical and
+Electronics Engineering from Ege University, Izmir, Turkey, in 2018 and
+2022, respectively, and the D.Sc. degree in Electrical Engineering from
+Lappeenranta-Lahti University of Technology (LUT), Lappeenranta, Finland,
+in 2025. He is currently a Post-Doctoral Researcher with the Department of
+Electrical Engineering, LUT University. His research interests focus on
+design and condition monitoring of electrical machines and motor drives.
+\end{IEEEbiography}
+
+\end{document}

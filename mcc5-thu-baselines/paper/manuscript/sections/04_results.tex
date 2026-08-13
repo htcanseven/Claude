@@ -1,0 +1,526 @@
+\section{Results}
+\label{sec:results}
+
+\subsection{Closed-Set Discrimination and the Generalization Gap}
+\label{sec:closedsetresults}
+
+Before evaluating compositional generalization, an auxiliary closed-set
+experiment was conducted to determine whether the dataset was intrinsically
+difficult to discriminate when all diagnostic classes were represented
+during training. The 24-class closed-set classifier achieved an accuracy of
+0.9132, a balanced accuracy of 0.9134, and a macro-$F_1$ score of 0.9119,
+as summarized in Table~\ref{tab:closedset}.
+
+\begin{table}[!t]
+\caption{Closed-set multiclass diagnostic performance with 95\% bootstrap
+confidence intervals.}
+\label{tab:closedset}
+\centering
+\begin{tabular}{l c c}
+\toprule
+Metric & Estimate & 95\% CI \\
+\midrule
+Accuracy          & 0.9132 & $[0.8854, 0.9375]$ \\
+Balanced accuracy & 0.9134 & $[0.8856, 0.9377]$ \\
+Macro-$F_1$       & 0.9119 & $[0.8826, 0.9366]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+These results demonstrate strong conventional closed-set discriminability
+when all diagnostic classes are represented during training. Consequently,
+the substantially lower constituent-level performance observed under the
+crossed protocols is unlikely to arise solely from poor baseline
+separability; rather, it emerges under the additional requirements of
+composition, compound-context, and operating-condition generalization.
+
+\subsection{Crossed Composition--Context--Condition Generalization}
+\label{sec:crossedresults}
+
+The proposed crossed evaluation protocol was applied to all 108 unique
+physical compound-fault runs. Each target compound was evaluated under
+recombination, one-sided compound-context zero-shot, and two-sided
+compound-context zero-shot regimes, with each regime further separated into
+seen- and unseen-operating-condition settings. In the one-sided regime,
+both directional removals were evaluated because either constituent could
+be the mechanism deprived of compound-context exposure.
+Table~\ref{tab:crossed} summarizes the principal constituent-level results.
+
+\begin{table*}[!t]
+\caption{Constituent-level generalization performance under crossed
+composition-context and operating-condition regimes. EM denotes exact
+constituent-set recovery, $R_{\mathrm{const}}$ denotes constituent recall,
+FA/run denotes the mean number of incorrectly added inactive constituents
+per compound prediction row, and $R_{\mathrm{any}}$ and $R_{\mathrm{all}}$
+denote recovery of at least one and all true constituents, respectively.}
+\label{tab:crossed}
+\centering
+\begin{tabular}{l l c c c c c c c}
+\toprule
+Condition & Context regime & Active Macro-$F_1$ & Micro-$F_1$ & EM &
+$R_{\mathrm{const}}$ & FA/run & $R_{\mathrm{any}}$ & $R_{\mathrm{all}}$ \\
+\midrule
+Seen   & One-sided     & 0.5890 & 0.6581 & 0.1204 & 0.6505 & 0.6528 & 0.9259 & 0.3750 \\
+Seen   & Recombination & 0.6177 & 0.6775 & 0.1389 & 0.6759 & 0.6389 & 0.9352 & 0.4167 \\
+Seen   & Two-sided     & 0.5994 & 0.6620 & 0.1111 & 0.6620 & 0.6759 & 0.9444 & 0.3796 \\
+Unseen & One-sided     & 0.5761 & 0.6452 & 0.1111 & 0.6481 & 0.7222 & 0.9398 & 0.3565 \\
+Unseen & Recombination & 0.6177 & 0.6865 & 0.1574 & 0.6944 & 0.6574 & 0.9444 & 0.4444 \\
+Unseen & Two-sided     & 0.5588 & 0.6311 & 0.0833 & 0.6296 & 0.7315 & 0.9352 & 0.3241 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[!t]
+\caption{Input-independent constant-predictor references on the 108
+compound runs. These references quantify performance obtainable from
+constituent prevalence alone.}
+\label{tab:trivial}
+\centering
+\begin{tabular}{l c c c c c c}
+\toprule
+Constant prediction & Micro-$F_1$ & EM & $R_{\mathrm{const}}$ & FA/run &
+$R_{\mathrm{any}}$ & $R_{\mathrm{all}}$ \\
+\midrule
+Inner $+$ outer                & 0.5556 & 0.1111 & 0.5556 & 0.8889 & 1.0000 & 0.1111 \\
+Inner $+$ outer $+$ broken bar & 0.5333 & 0.0000 & 0.6667 & 1.6667 & 1.0000 & 0.3333 \\
+Inner only                     & 0.3704 & 0.0000 & 0.2778 & 0.4444 & 0.5556 & 0.0000 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+When both constituents retained prior exposure to other compound contexts,
+previously unseen pairings remained partially recoverable. Under the
+recombination protocol, micro-$F_1$ was 0.6775 under seen operating
+conditions and 0.6865 when the operating condition was also unseen.
+Constituent recall showed a similar pattern, reaching 0.6759 and 0.6944,
+respectively.
+
+Exact constituent-set recovery remained limited, ranging from 0.0833 to
+0.1574 across the six crossed regimes. However, the trivial references in
+Table~\ref{tab:trivial} show that some apparently favorable
+partial-recovery metrics are strongly influenced by constituent prevalence.
+In particular, the constant inner-plus-outer predictor achieves
+$R_{\mathrm{any}} = 1.0$ without using the input signals. Consequently,
+$R_{\mathrm{any}}$ is retained only as a descriptive measure and is not
+interpreted as evidence of diagnostic skill.
+
+Constituent recall alone is not sufficient to establish diagnostic skill in
+this setting. The constant inner-plus-outer-plus-broken-bar predictor
+reaches $R_{\mathrm{const}} = 0.6667$ without using the input signals, but
+does so at the cost of 1.6667 false additions per run and zero exact
+matches. Accordingly, constituent recall is interpreted jointly with false
+additions, micro-$F_1$, and exact-set recovery throughout the remainder of
+the analysis.
+
+The locked logistic-regression detector achieved micro-$F_1$ values of
+0.631--0.686 across the six crossed regimes, exceeding the best
+constant-predictor micro-$F_1$ of 0.556. At the same time, FA/run remained
+between 0.639 and 0.732, substantially below the 1.667 false additions
+produced by the three-constituent constant reference and also below the
+0.889 value of the constant inner-plus-outer predictor. Under
+recombination, $R_{\mathrm{all}}$ reached 0.4167 and 0.4444 for seen and
+unseen conditions, respectively, compared with 0.1111 for the
+two-constituent constant reference. These results indicate nontrivial
+constituent discrimination beyond prevalence-driven constant prediction,
+while the low exact-match rates show that reliable exact decomposition of
+unseen compound faults remains unresolved.
+
+\subsection{Paired Effects of Compound-Context Deprivation}
+\label{sec:pairedeffects}
+
+Paired run-cluster bootstrap analysis was used to determine which
+differences between the context regimes were supported beyond variation
+across physical runs. Figure~\ref{fig:contrasts} summarizes the
+prespecified contrasts for constituent recall and micro-$F_1$.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\textwidth]{fig2_contrasts}
+\caption{Paired run-cluster bootstrap differences between
+composition-context regimes. Points denote paired differences in
+constituent recall and micro-$F_1$, and horizontal bars denote 95\%
+bootstrap confidence intervals. Positive values favor the first regime in
+each contrast.}
+\label{fig:contrasts}
+\end{figure*}
+
+Under seen operating conditions, the differences between recombination and
+the context-zero-shot regimes were limited. For constituent recall, the
+recombination--one-sided contrast was 0.0255 with a 95\% CI of
+$[0.0000, 0.0509]$, whereas the recombination--two-sided contrast was
+0.0139 with a 95\% CI of $[-0.0186, 0.0509]$. The corresponding
+micro-$F_1$ contrasts also included zero.
+
+A different pattern was observed when the target operating condition was
+withheld. Relative to one-sided context zero-shot, recombination improved
+constituent recall by 0.0463 (95\% CI: $[0.0231, 0.0694]$) and micro-$F_1$
+by 0.0413 (95\% CI: $[0.0223, 0.0636]$). Relative to two-sided context
+zero-shot, the recombination advantage was 0.0648 for constituent recall
+(95\% CI: $[0.0278, 0.1065]$) and 0.0554 for micro-$F_1$ (95\% CI:
+$[0.0232, 0.0895]$).
+
+The one-sided--two-sided differences remained unresolved for both metrics
+under unseen operating conditions. A formal difference-of-differences
+analysis further showed that the penalty associated with complete
+compound-context deprivation increased under operating-condition shift. For
+recombination versus two-sided context zero-shot, the interaction
+difference was 0.0400 for micro-$F_1$ (95\% CI: $[0.0088, 0.0731]$), 0.0509
+for constituent recall (95\% CI: $[0.0185, 0.0880]$), and 0.0833 for
+all-constituents recovery (95\% CI: $[0.0278, 0.1481]$). In contrast, the
+recombination-versus-one-sided interaction was not resolved for
+micro-$F_1$ or constituent recall, although the interaction for
+all-constituents recovery was positive at 0.0463 (95\% CI:
+$[0.0046, 0.1019]$). These findings indicate that operating-condition shift
+amplifies the penalty of complete compound-context deprivation rather than
+producing a uniform interaction across all context regimes.
+
+Directional decomposition of the one-sided regime revealed substantial
+mechanism dependence. When broken-bar compound context was withheld,
+constituent recall remained high at 0.979 under seen conditions and 0.896
+under unseen conditions. In contrast, withholding winding compound context
+reduced recall to 0.438 and 0.479, respectively, while withholding
+dynamic-eccentricity context yielded a recall of 0.500 under both condition
+settings. Each of the 108 physical compound runs contributed exactly two
+directional one-sided predictions, and all bootstrap uncertainty estimates
+remained clustered by physical run.
+
+\subsection{Sensitivity to Decision-Threshold Objective}
+\label{sec:thresholdsensitivity}
+
+The limited exact-match performance and non-negligible false-addition
+counts motivated a post-hoc sensitivity analysis of the inner-CV threshold
+objective. The original $F_1$-based thresholds were retained as the locked
+primary analysis. Alternative $F_{0.5}$ and balanced-accuracy objectives
+were evaluated only to characterize the precision--recall operating-point
+trade-off and were not used for post-hoc model selection.
+
+Precision-weighted $F_{0.5}$ calibration substantially reduced false
+additions. Across the six crossed regimes, FA/run decreased from
+0.639--0.731 under the locked $F_1$ thresholds to approximately
+0.222--0.389, while exact-match recovery increased from 0.083--0.157 to
+0.157--0.287. This gain was accompanied by lower constituent recall, which
+decreased to approximately 0.583--0.644. Conversely, balanced-accuracy
+thresholding increased constituent recall but also increased false
+additions.
+
+These results show that exact compound decomposition is strongly affected
+by the operating point of the constituent detectors. Precision-oriented
+thresholding suppresses over-diagnosis and improves exact-set recovery,
+whereas recall-oriented thresholding recovers more true constituents at the
+cost of additional constituent activations. As shown by the
+classifier-family robustness analysis below, absolute decomposition quality
+is also model-dependent. Consequently, the low exact-match performance of
+the locked linear probe should not be interpreted as an intrinsic upper
+bound imposed by the crossed protocol itself.
+
+\subsection{Sensitivity to Single-Fault Severity Merging}
+\label{sec:severityresults}
+
+Removing low-severity single-fault support did not produce a uniform change
+in constituent recall, exact-match recovery, or all-constituent recovery
+across the crossed regimes. Most paired differences for these metrics had
+95\% confidence intervals spanning zero, indicating that the principal
+generalization findings were not driven by pooling low- and high-severity
+single-fault examples.
+
+The clearest differences were observed in false additions. Under seen
+conditions, removing low-severity support increased FA/run from 0.653 to
+0.755 in the one-sided regime ($\Delta = +0.102$, 95\% CI:
+$[0.046, 0.162]$) and from 0.639 to 0.722 under recombination
+($\Delta = +0.083$, 95\% CI: $[0.019, 0.157]$). Under unseen conditions,
+the two-sided regime similarly increased from 0.731 to 0.843 FA/run
+($\Delta = +0.111$, 95\% CI: $[0.037, 0.185]$). For seen-condition
+recombination, micro-$F_1$ decreased from 0.677 to 0.651 when low-severity
+support was removed ($\Delta = -0.026$, 95\% CI: $[-0.052, -0.002]$).
+Other micro-$F_1$ differences were unresolved. Overall, the sensitivity
+analysis indicates that severity merging does not account for the principal
+crossed-generalization pattern and, in several regimes, the additional
+low-severity support reduced over-diagnosis rather than artificially
+inflating constituent recovery.
+
+\subsection{Robustness Across Classifier Families}
+\label{sec:familyresults}
+
+The complete crossed protocol was additionally evaluated with
+random-forest, RBF-SVM, and neural classifiers while retaining the same
+constituent representation, curated feature families, outer evaluation
+splits, and inner-CV threshold-calibration principles.
+Table~\ref{tab:families} summarizes descriptive performance averaged across
+the six crossed scenarios. The locked logistic-regression results remain
+the primary analysis; the alternative classifiers are reported only as
+robustness references.
+
+\begin{table}[!t]
+\caption{Descriptive classifier-family robustness averaged across the six
+crossed evaluation scenarios. LR denotes logistic regression and MLP
+denotes the three-hidden-layer feed-forward neural baseline.}
+\label{tab:families}
+\centering
+\begin{tabular}{l c c c c}
+\toprule
+Model & Micro-$F_1$ & EM & $R_{\mathrm{const}}$ & FA/run \\
+\midrule
+LR      & 0.660 & 0.120 & 0.660 & 0.680 \\
+RF      & 0.744 & 0.282 & 0.669 & 0.256 \\
+RBF-SVM & 0.692 & 0.157 & 0.664 & 0.509 \\
+MLP     & 0.737 & 0.310 & 0.659 & 0.256 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Absolute decomposition performance was classifier dependent. Random forest
+achieved the highest mean micro-$F_1$ (0.744), whereas the neural baseline
+achieved the highest mean exact-match rate (0.310). Both random forest and
+the neural baseline reduced mean FA/run to 0.256, compared with 0.680 for
+the locked logistic-regression probe. In contrast, mean constituent recall
+varied only from 0.659 to 0.669 across the four classifiers. Thus,
+classifier family primarily affected the precision of constituent-set
+formation and the number of additional activations rather than the overall
+fraction of true constituents recovered.
+
+The qualitative recombination advantage was nevertheless retained across
+all four classifier families. Under unseen operating conditions, the
+recombination--two-sided difference in micro-$F_1$ was 0.055 for logistic
+regression, 0.051 for random forest, 0.032 for RBF-SVM, and 0.023 for the
+neural baseline. The corresponding constituent-recall differences were
+0.065, 0.065, 0.069, and 0.032, respectively. These descriptive results
+indicate that the adverse effect of complete compound-context deprivation
+is not unique to the locked linear classifier.
+
+\subsection{Oracle Detectability and Cross-Partner Constituent Transfer}
+\label{sec:oracleresults}
+
+To determine whether unsuccessful constituent recovery resulted from the
+physical disappearance of a fault signature, a within-pair oracle analysis
+was first performed. For each directed compound relation $A|B$,
+measurements from the compound state $A{+}B$ were compared with the
+corresponding single-$B$ reference while retaining the same constituent of
+interest $A$.
+
+All 18 directed constituent--partner tests exhibited strong within-pair
+discriminability. The condition-held-out within-pair AUC ranged from 0.9167
+to 1.000, with a median of 1.000. Thus, the target compound and its
+corresponding partner-only reference remained strongly separable in the
+broader physics-feature space. However, the recording-sensitivity control
+showed that the two available recordings of the same bearing-outer fault
+under the same operating condition were themselves nearly perfectly
+separable ($\mathrm{AUC} = 0.998$). High within-pair AUC therefore cannot
+be attributed uniquely to the additional constituent and may partly reflect
+recording-specific nuisance variation.
+
+A complementary same-date control reduced recording-date mismatch. Eight
+pairs of compound states acquired on the same date shared one constituent
+and all 12 operating conditions, yielding 16 directed matched comparisons.
+Leave-one-condition-out AUCs ranged from 0.972 to 1.000. In particular,
+static eccentricity in the bearing-outer context remained perfectly
+separable when the alternative same-date compound contained either broken
+bar or winding with the same bearing-outer partner ($\mathrm{AUC} = 1.000$
+in both comparisons). Because these reference compounds contain a different
+non-target constituent, the controls do not causally isolate the target
+mechanism; nevertheless, they show that the observed compound-state
+discriminability cannot be explained solely by recording-date mismatch.
+
+Accordingly, within-pair detectability does not establish that the same
+evidence is transferable across compound partners. Cross-partner
+experiments were therefore performed by learning constituent $A$ from other
+compound contrasts, such as $A{+}C$ versus $C$, and evaluating the
+resulting detector on $A{+}B$ versus $B$.
+
+Under seen operating conditions, the primary cross-partner protocol
+achieved a median AUC of 0.905 across the 18 directed tests, with a mean
+AUC of 0.815. Thirteen of the 18 directed tests achieved an AUC of at least
+0.80, and 15 achieved an AUC of at least 0.70. When the target operating
+condition was also withheld, the median AUC remained high at 0.884 and the
+mean AUC was 0.803.
+
+These aggregate values indicate that constituent evidence is often
+transferable across partners. Nevertheless, the transfer behavior was
+highly heterogeneous. Selected examples are reported in
+Table~\ref{tab:transfer}. The complete pattern of directional cross-partner
+transfer is shown in Figure~\ref{fig:heatmap}.
+
+\begin{table*}[!t]
+\caption{Selected directed cross-partner transfer results. The within-pair
+AUC measures detectability of constituent $A$ in the target pair, whereas
+the cross-partner AUC measures transfer of evidence learned from other
+compound partners.}
+\label{tab:transfer}
+\centering
+\begin{tabular}{l l l c c c}
+\toprule
+Target composition & Constituent $A$ & Partner $B$ &
+\makecell{Within-pair\\AUC} & \makecell{Cross-partner\\AUC (seen)} &
+\makecell{Cross-partner\\AUC (unseen)} \\
+\midrule
+Bearing inner $+$ bearing outer        & Bearing outer        & Bearing inner        & 1.000 & 1.000 & 1.000 \\
+Bearing inner $+$ dynamic eccentricity & Bearing inner        & Dynamic eccentricity & 1.000 & 0.944 & 0.931 \\
+Bearing inner $+$ broken bar           & Broken bar           & Bearing inner        & 1.000 & 0.893 & 0.851 \\
+Bearing inner $+$ dynamic eccentricity & Dynamic eccentricity & Bearing inner        & 1.000 & 0.711 & 0.653 \\
+Bearing outer $+$ static eccentricity  & Static eccentricity  & Bearing outer        & 0.917 & 0.000 & 0.000 \\
+Bearing outer $+$ winding              & Winding              & Bearing outer        & 0.917 & 0.333 & 0.340 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\textwidth]{fig3_transfer_heatmap}
+\caption{Directional cross-partner transfer AUC for the primary
+other-partners transfer protocol. Rows denote the constituent $A$ to be
+recovered and columns denote partner $B$ in the target compound. Values
+below 0.5 indicate below-chance fixed-orientation ranking and do not by
+themselves establish statistically supported polarity reversal. $n_C$
+denotes the number of eligible compound training contexts available for the
+recovered constituent.}
+\label{fig:heatmap}
+\end{figure*}
+
+The contrast between within-pair and cross-partner performance was
+particularly pronounced for static eccentricity in the presence of the
+bearing-outer fault. Within the target pair, static eccentricity remained
+strongly detectable, with $\mathrm{AUC}^{\mathrm{within}} = 0.9167$.
+However, evidence learned from other eligible compound contexts produced a
+fixed-orientation directional AUC of
+\begin{equation}
+\mathrm{AUC}_{\mathrm{dir}} = 0.000
+\end{equation}
+under both seen and unseen operating conditions. The corresponding
+orientation-free separability was
+\begin{equation}
+\mathrm{AUC}_{\mathrm{sep}} = 1.000,
+\end{equation}
+indicating perfect rank separability in the opposite orientation. This was
+the only directed constituent--partner relation classified as a
+statistically supported score-orientation reversal after multiplicity
+correction, with Holm-adjusted $p = 0.0136$ under seen conditions and
+$p = 0.0108$ under unseen conditions. The statistical test establishes a
+reproducible reversal of the fixed-score ordering, but it does not
+establish that the reversal is caused exclusively by a physical inversion
+of the static-eccentricity signature. Given the strong recording-identity
+separability observed in the nuisance control, partner-dependent
+constituent reorientation and acquisition-related variation remain
+plausible, non-exclusive contributors to this result.
+
+Winding in the bearing-outer composition also produced below-chance
+directional AUCs of 0.3333 and 0.3403 under seen and unseen operating
+conditions, respectively. However, its orientation-free separability was
+only approximately 0.67 and the Holm-adjusted polarity tests were not
+significant. This relation was therefore classified as
+orientation-ambiguous rather than as a statistically supported
+score-orientation reversal.
+
+Taken together, the within-pair and recording-sensitivity controls show
+that compound states can remain strongly discriminable while the
+orientation of a score learned from other compound partners may fail to
+transfer. Because recording-specific structure is also detectable in the
+feature space, this phenomenon is interpreted as context-dependent score
+transfer rather than as causal proof of physical constituent-signature
+inversion. Figure~\ref{fig:withinvstransfer} directly contrasts within-pair
+detectability with directional cross-partner transfer across the evaluated
+constituent--partner relations.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\columnwidth]{fig4_withinpair_vs_transfer}
+\caption{Within-pair oracle detectability versus directional cross-partner
+transfer. The dashed horizontal line denotes chance-level directional
+ranking. The shaded lower region represents below-chance directional
+ranking; statistically supported polarity reversal requires the separate
+polarity analysis described in Section~\ref{sec:stats}.}
+\label{fig:withinvstransfer}
+\end{figure}
+
+\subsection{Physical-Signature Heterogeneity and Directional Failure
+Modes}
+\label{sec:heterogeneity}
+
+Cross-partner transfer was strongly directional. For example, in the
+bearing-outer plus static-eccentricity compound, evidence for bearing outer
+transferred with an AUC of 1.000, whereas evidence for static eccentricity
+in the opposite direction yielded a directional AUC of 0.000.
+Transferability was therefore not a symmetric property of the compound
+pair.
+
+The feature-level preservation analysis further showed that multivariate
+score-orientation reversal should not be equated with universal inversion
+of the underlying physical descriptors. For static eccentricity in the
+bearing-outer context, the median preservation ratio was 0.760, while
+approximately 18.5\% of the eligible curated feature-condition observations
+exhibited feature-level sign reversal and 31.4\% exhibited severe
+suppression. Thus, most individual physical descriptors did not reverse
+orientation even though the resulting multivariate cross-partner ranking
+was completely inverted.
+
+Conversely, strong feature suppression did not necessarily imply
+score-orientation reversal. Bearing-outer evidence in the bearing-inner
+compound showed a median preservation ratio of approximately 0.305 and a
+severe-suppression rate of approximately 58\%, yet its cross-partner
+directional AUC remained 1.000. Feature-level suppression and multivariate
+score-orientation reversal therefore represent distinct forms of
+partner-dependent behavior. Figure~\ref{fig:preservation} illustrates this
+feature-level heterogeneity for static eccentricity under the two
+bearing-partner contexts.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\columnwidth]{fig5_preservation}
+\caption{Feature-level preservation of selected static-eccentricity
+signatures under bearing-inner and bearing-outer partner contexts. Negative
+values indicate sign reversal, values near one preservation, and values
+above one amplification.}
+\label{fig:preservation}
+\end{figure}
+
+For the locked logistic-regression probe, the false-addition values in
+Table~\ref{tab:crossed} should not be interpreted as conventional
+false-alarm probabilities. The metric represents the mean number of
+inactive constituent labels incorrectly activated per compound prediction.
+Nevertheless, values of approximately 0.64--0.73 indicate a non-negligible
+tendency toward over-diagnosis. In a practical condition monitoring system,
+these additional constituent activations could increase inspection burden
+even when one or both true mechanisms are successfully identified.
+Deployment-oriented extensions should therefore consider cost-sensitive
+threshold calibration or asymmetric decision penalties that explicitly
+trade constituent recall against false additions. The classifier-family
+robustness analysis further showed that this over-diagnosis tendency is not
+fixed by the constituent representation itself: random forest and the
+neural baseline reduced mean FA/run to approximately 0.26 while retaining
+mean constituent recall near 0.66.
+
+The observed cross-partner score reorientation also suggests a potential
+role for representation or normalization strategies that explicitly promote
+constituent consistency across compound contexts. Possible directions
+include robust condition-aware normalization learned exclusively from
+training data, partner-insensitive spectral reference schemes, or
+representation constraints that align evidence for the same constituent
+across different compound partners. However, the present preservation
+analysis shows that the observed failure cannot be reduced to a uniform
+inversion of the underlying physical features. Such adaptation strategies
+should therefore be regarded as hypotheses for future investigation rather
+than as established remedies for score-orientation reversal.
+
+A further limitation is the recording structure of the public dataset.
+Acquisition timestamps recovered from the released file names showed that
+distinct recordings of the same fault state can be strongly separable in
+the physics-feature space. Although same-date shared-partner controls
+retained near-perfect discriminability, recording date is only a coarse
+proxy for experimental session, and the available release does not provide
+replicated same-state measurements sufficient to separate fault, assembly,
+sensor-mounting, thermal, and recording-session effects. The cross-partner
+results should therefore be interpreted as evidence of context-dependent
+score transfer rather than as causal proof of physical signature inversion.
+Absolute constituent-set reconstruction was additionally sensitive to the
+classifier family: nonlinear tree and neural baselines substantially
+reduced false additions and improved exact-match recovery, while the
+descriptive advantage of recombination over complete compound-context
+deprivation persisted across all four classifier families.
+
+Taken together, the experiments identify two distinct limitations of
+constituent-level compound-fault generalization. First, reduced
+compound-context exposure became measurably detrimental when evaluation
+also required generalization to an unseen operating condition. Second,
+cross-partner transfer could be strongly directional even when within-pair
+constituent evidence remained highly detectable. The latter included one
+statistically supported case of complete score-orientation reversal, while
+the available recording structure prevents attributing that reversal
+uniquely to a physical signature inversion.
