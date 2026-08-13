@@ -1,0 +1,11 @@
+protocol,kind,model,features,seed,n_train,n_test,fit_s,acc,macro_f1
+in_condition,multiclass,rf,plain+order,0,24192,11808,24.2,0.9676490514905149,0.9672732627176881
+in_condition,multiclass,rf,plain+order,1,24192,11808,24.1,0.966039972899729,0.9655404704540503
+in_condition,multiclass,rf,plain+order,2,24192,11808,24.3,0.9657859078590786,0.9653870336015804
+unknown_condition[speed_circulation_20Nm_1000rpm],multiclass,rf,plain+order,0,36960,3360,39.1,0.9166666666666666,0.9167171411360856
+unknown_condition[speed_circulation_20Nm_1000rpm],multiclass,rf,plain+order,1,36960,3360,38.4,0.9238095238095239,0.9239201193059566
+unknown_condition[speed_circulation_20Nm_1000rpm],multiclass,rf,plain+order,2,36960,3360,38.5,0.9258928571428572,0.9264592855048583
+unknown_condition[speed_circulation_20Nm_2000rpm],multiclass,rf,plain+order,0,36960,3360,38.6,0.9485119047619047,0.9474458806951634
+unknown_condition[speed_circulation_20Nm_2000rpm],multiclass,rf,plain+order,1,36960,3360,39.1,0.9494047619047619,0.9478861470815964
+unknown_condition[speed_circulation_20Nm_2000rpm],multiclass,rf,plain+order,2,36960,3360,39.5,0.9494047619047619,0.9486079837407398
+unknown_condition[speed_circulation_20Nm_3000rpm],multiclass,rf,plain+order,0,36960,3360,39.8,0.9068452380952381,0.9078081747212714

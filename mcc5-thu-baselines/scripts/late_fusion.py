@@ -72,6 +72,8 @@ def main() -> int:
     ap.add_argument("--seeds", type=int, nargs="+", default=[0])
     ap.add_argument("--protocols", nargs="+",
                     default=["compositional_zeroshot", "leave_combination_out"])
+    ap.add_argument("--resume", action="store_true",
+                    help="skip (protocol, seed) pairs already in the CSV")
     args = ap.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
 
@@ -85,13 +87,23 @@ def main() -> int:
     Yrun, vocab = component_matrix(meta)
     Yw = Yrun[idx.run]
 
-    rows = []
+    out = args.out / "late_fusion.csv"
+    rows, done = [], set()
+    if args.resume and out.exists():
+        prev = pd.read_csv(out)
+        rows = prev.to_dict("records")
+        done = {(str(r["protocol"]), int(r["seed"])) for _, r in prev.iterrows()}
+        print(f"resuming: {len(done)} (protocol, seed) pairs already done")
+
     for proto in iter_protocols(idx, meta, cache["win"], cache["n_per_run"],
                                 which=args.protocols):
         print(f"{proto.name}  (train={proto.train.sum()} "
               f"test={proto.test.sum()})")
         Yte = Yw[proto.test]
         for seed in args.seeds:
+            if (proto.name, seed) in done:
+                print(f"  seed {seed}: cached")
+                continue
             Pb, Sb = fit_predict(F, Yw[proto.train], proto.train, proto.test,
                                  seed)
             rows.append(metrics("shared (both)", Pb, Sb, Yte,
@@ -112,8 +124,8 @@ def main() -> int:
             Su = np.maximum(np.asarray(Sv), np.asarray(Sc))
             rows.append(metrics("late fusion (union)", Pu, Su, Yte,
                                 dict(protocol=proto.name, seed=seed)))
+            pd.DataFrame(rows).to_csv(out, index=False)
 
-    out = args.out / "late_fusion.csv"
     pd.DataFrame(rows).to_csv(out, index=False)
     print(f"\n-> {out}")
     return 0
