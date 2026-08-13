@@ -39,14 +39,33 @@ def load(out_dir: Path) -> pd.DataFrame:
     return df[df.noise_snr_db.isna()]
 
 
-def cohens_d(a, b) -> float:
+# Above this, a standardised effect size is not reporting an effect so much as
+# reporting that the within-group spread was tiny; seed-to-seed variance on a
+# fixed split can be ~1e-3, which inflates d without bound.
+D_IMPLAUSIBLE = 10.0
+
+
+def cohens_d(a, b) -> str:
+    """Cohen's d, or a marker when the sample cannot support one.
+
+    Returned as a string because an honest answer is sometimes "not estimable":
+    printing d = 84.6 from three folds whose within-group spread is 0.001 would
+    dress up a denominator artefact as a colossal effect.
+    """
     a, b = np.asarray(a, float), np.asarray(b, float)
     na, nb = len(a), len(b)
     if na < 2 or nb < 2:
-        return float("nan")
+        return "n/a (n<2)"
     s = np.sqrt(((na - 1) * a.var(ddof=1) + (nb - 1) * b.var(ddof=1))
                 / (na + nb - 2))
-    return float((a.mean() - b.mean()) / s) if s > 0 else float("nan")
+    if s <= 0:
+        return "n/a (no spread)"
+    d = float((a.mean() - b.mean()) / s)
+    if abs(d) > D_IMPLAUSIBLE:
+        return f">{D_IMPLAUSIBLE:g} (unstable, spread={s:.1e})"
+    if min(na, nb) < 5:
+        return f"{d:.2f} (n={min(na, nb)}, wide CI)"
+    return f"{d:.2f}"
 
 
 def fold_means(df, group, model, features, metric="acc") -> pd.Series:
@@ -82,7 +101,7 @@ def paired_test(a: pd.Series, b: pd.Series, name_a: str, name_b: str,
                     delta=round(float((x - y).mean()), 4),
                     t=round(float(t), 3), p_ttest=f"{p:.2e}",
                     p_wilcoxon=("" if np.isnan(pw) else f"{pw:.2e}"),
-                    cohens_d=round(cohens_d(x, y), 3))
+                    cohens_d=cohens_d(x, y))
     if len(a) and len(b):
         t, p = stats.ttest_ind(a.to_numpy(), b.to_numpy(), equal_var=False)
         return dict(contrast=f"{name_a} vs {name_b}", pairing="unpaired",
@@ -90,7 +109,7 @@ def paired_test(a: pd.Series, b: pd.Series, name_a: str, name_b: str,
                     mean_b=round(float(b.mean()), 4),
                     delta=round(float(a.mean() - b.mean()), 4),
                     t=round(float(t), 3), p_ttest=f"{p:.2e}", p_wilcoxon="",
-                    cohens_d=round(cohens_d(a, b), 3))
+                    cohens_d=cohens_d(a, b))
     return None
 
 

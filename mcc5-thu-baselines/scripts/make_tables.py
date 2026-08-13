@@ -86,6 +86,39 @@ def t1_protocol_by_model(df: pd.DataFrame) -> pd.DataFrame:
     return out.sort_values(["_o", "model"]).drop(columns="_o")
 
 
+def t1b_common_folds(df: pd.DataFrame) -> pd.DataFrame:
+    """Cross-model comparison restricted to folds every model actually ran.
+
+    Models were not all run over the same number of condition folds (the deep
+    baseline used a subset to fit the compute budget). Averaging each model over
+    whatever folds it happened to cover invites a false comparison, because the
+    folds differ in difficulty by up to 0.35 accuracy (see T5). This intersects
+    the fold sets first, so a difference between models is a difference in
+    models.
+    """
+    d = clean(df)
+    d = d[d.features == "plain"]
+    rows = []
+    for grp, g in d.groupby("group"):
+        models = sorted(g.model.unique())
+        if len(models) < 2:
+            continue
+        fold_sets = [set(g[g.model == m]["protocol"]) for m in models]
+        common = set.intersection(*fold_sets)
+        if not common:
+            continue
+        sub = g[g.protocol.isin(common)]
+        row = {"protocol": grp, "common_folds": len(common)}
+        for m in models:
+            row[m] = agg(sub[sub.model == m], "acc")
+        rows.append(row)
+    out = pd.DataFrame(rows)
+    if out.empty:
+        return out
+    out["_o"] = out["protocol"].map(order_key)
+    return out.sort_values("_o").drop(columns="_o")
+
+
 def t2_physics_ablation(df: pd.DataFrame) -> pd.DataFrame:
     d = clean(df)
     d = d[d.model.isin(["rf", "svm", "logreg"])]
@@ -169,6 +202,8 @@ def main() -> int:
     df = load(args.out)
     tables = [
         ("T1", "Protocol x model (plain features)", t1_protocol_by_model(df)),
+        ("T1b", "Cross-model comparison on common folds only",
+         t1b_common_folds(df)),
         ("T2", "Physics-feature ablation: plain vs plain+order",
          t2_physics_ablation(df)),
         ("T3", "Test-time noise robustness (CNN)", t3_noise(df)),
@@ -179,7 +214,11 @@ def main() -> int:
 
     md = ["# Generated tables", "",
           f"Source: {df['source'].nunique()} result file(s), "
-          f"{len(df)} rows.", ""]
+          f"{len(df)} rows.", "",
+          "In T1 the `folds` column matters: models were not all run over the "
+          "same number of condition folds, and folds differ in difficulty by up "
+          "to 0.35 accuracy (T5). Compare models using T1b, which intersects "
+          "the fold sets first.", ""]
     for tag, title, tab in tables:
         md += [f"## {tag}. {title}", ""]
         if tab is None or tab.empty:

@@ -1,0 +1,2 @@
+protocol,kind,model,features,seed,n_train,n_test,fit_s,acc,macro_f1,micro_f1,hamming,any_component_found,mean_component_recall,all_zero_prediction_rate,topk_exact,topk_recall,top1_in_truth,noise_snr_db
+compositional_control,multilabel,cnn,plain,0,15120,7380,82.4,0.8237127371273713,0.9098249009451697,0.9036976283234228,0.9872719060523939,0.8957994579945799,0.8957994579945799,0.08970189701897019,0.9025745257452574,0.9025745257452574,0.9025745257452574,

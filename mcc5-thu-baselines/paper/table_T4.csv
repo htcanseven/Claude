@@ -1,4 +1,5 @@
 protocol,model,features,exact_match,micro_f1,any_found,all_zero,topk_exact,topk_recall
+compositional_control,cnn,plain,0.824,0.904,0.896,0.090,0.903,0.903
 compositional_control,rf,plain,0.900 ± 0.000,0.936 ± 0.000,0.901 ± 0.001,0.076 ± 0.002,0.902 ± 0.001,0.902 ± 0.001
 compositional_control,rf,plain+order,0.903,0.938,0.904,0.074,0.906,0.906
 leave_combination_out,rf,plain,0.003 ± 0.004,0.222 ± 0.067,0.329 ± 0.098,0.246 ± 0.116,0.003 ± 0.004,0.166 ± 0.050

@@ -4,4 +4,13 @@ Paired by fold where both protocols share folds, unpaired otherwise. `delta` is 
 
 | contrast | pairing | n | mean_a | mean_b | delta | t | p_ttest | p_wilcoxon | cohens_d |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| in_condition vs unknown_condition | unpaired | 1/4 | 0.9647 | 0.9259 | 0.0387 |  | nan |  |  |
+| unknown_condition vs single_source | paired by fold | 12 | 0.939 | 0.3328 | 0.6062 | 19.321 | 7.74e-10 | 4.88e-04 | 7.82 |
+| in_condition vs unknown_condition | unpaired | 1/12 | 0.9647 | 0.939 | 0.0256 |  | nan |  | n/a (n<2) |
+| in_condition vs single_source | unpaired | 1/12 | 0.9647 | 0.3328 | 0.6319 |  | nan |  | n/a (n<2) |
+| in_condition vs steady_to_transitional | unpaired | 1/1 | 0.9647 | 0.7658 | 0.1988 |  | nan |  | n/a (n<2) |
+| in_condition vs cross_profile | unpaired | 1/2 | 0.9647 | 0.8391 | 0.1256 |  | nan |  | n/a (n<2) |
+| cross_profile[train=speed] vs cross_profile[train=torque] | paired by fold | 3 | 0.9438 | 0.7344 | 0.2095 | 174.619 | 3.28e-05 | 2.50e-01 | >10 (unstable, spread=2.5e-03) |
+| leave_combination_out[plain+order] vs leave_combination_out[plain] | paired by fold | 3 | 0.0052 | 0.0027 | 0.0024 | 0.357 | 7.55e-01 | 1.00e+00 | 0.35 (n=3, wide CI) |
+| single_source[plain+order] vs single_source[plain] | paired by fold | 12 | 0.3795 | 0.3328 | 0.0467 | 4.542 | 8.41e-04 | 4.88e-04 | 0.41 |
+| unknown_condition[plain+order] vs unknown_condition[plain] | paired by fold | 12 | 0.9395 | 0.939 | 0.0005 | 0.213 | 8.35e-01 | 9.10e-01 | 0.02 |
+| compositional_control vs compositional_zeroshot | unpaired | 1/1 | 0.8995 | 0.0 | 0.8995 |  | nan |  | n/a (n<2) |
