@@ -51,7 +51,39 @@ loses 21 points. Speed variation appears to be the harder invariance, and it
 must be present in training to be learned — a concrete, actionable finding for
 practitioners, and an argument for order-domain (speed-invariant) features.
 
-## 4. Compound faults are not recognized at all, and the failure is structured
+## 4. Compound faults: a real failure, but the metrics needed a floor
+
+> **Correction (added after the first pass).** The compound results in this
+> section were originally reported without a trivial-baseline reference, and that
+> omission changed their meaning. On the zero-shot compound test set a constant
+> predictor that ignores the input and always emits the two bearing constituents
+> scores **exact 0.111, micro-F1 0.556, at-least-one-found 1.000**, which beats
+> every model trained here — by 3.6× on micro-F1 and 14× on exact match:
+>
+> | Model | exact | micro-F1 | ≥1 found |
+> |---|---|---|---|
+> | **constant `{bearing_inner_h, bearing_outer_h}`** | **0.111** | **0.556** | **1.000** |
+> | constant `{bearing_inner_h}` | 0.000 | 0.370 | 0.556 |
+> | shared vibration + current features | 0.000 | 0.061 | 0.068 |
+> | vibration only | 0.000 | 0.093 | 0.117 |
+> | current only | 0.000 | 0.086 | 0.095 |
+> | late fusion by union | 0.008 | 0.156 | 0.203 |
+>
+> The cause is structural: every compound in this dataset pairs one bearing
+> constituent with one other mechanism, and inner- and outer-race each appear in
+> 60 of the 108 compound runs, so the constant predictor gets that prior for free
+> while a model trained on single-fault windows (exactly one positive of fifteen)
+> emits at most one positive.
+>
+> What this means for the claims below. The *measurements* stand — the control
+> contrast, the per-component pattern, the modality dissociation — but two
+> framings do not. "Categorical failure" described something real while
+> attributing it to composition alone, when miscalibration against the label prior
+> is a large part of it. And late fusion is **not** a solution: it improves a
+> badly calibrated model toward, but still far below, trivial. Reproduce with
+> `scripts/trivial_baselines.py`.
+
+
 
 Trained on the 180 single-fault runs, tested zero-shot on the 108 compound-fault
 runs, predicting fault *components* (multi-label, 15 components):
@@ -132,15 +164,24 @@ each competes only against faults visible in its own channels
 | current only | 0.0000 | 0.087 | 0.096 | 0.794 |
 | **late fusion (union)** | **0.0078** | **0.155** | **0.200** | **0.415** |
 
-Exact match moves off zero, micro-F1 doubles, and the all-zero rate nearly halves.
-Small in absolute terms, but it is the first intervention here that helps, and it
-was derived from the diagnosis rather than searched for — unlike the architecture
-sweep in §8, which searched and found nothing.
+Exact match moves off zero, micro-F1 doubles, and the all-zero rate nearly halves —
+consistently, across three seeds, and derived from the diagnosis rather than found
+by search, unlike the architecture sweep in §8.
+
+**But it clears none of the bars that matter.** At micro-F1 0.155 it remains 3.6×
+below the constant predictor's 0.556 (see the correction at the head of this
+section), and far below the 0.63 that a properly constructed constituent-level
+pipeline reaches on comparable protocols. Late fusion is therefore a diagnostic
+result — evidence that a shared feature space is actively harmful — and not a
+method. The right conclusion is that the remedy has to be built in from the start,
+by giving each mechanism its own feature family and calibrating its own threshold,
+rather than repaired afterwards by unioning two miscalibrated models.
 
 Superposition augmentation (§8) and late fusion address different halves of the
 problem: the first teaches the model to emit two positives at all, the second
-stops one modality from suppressing the other. Combining them is the obvious next
-experiment.
+stops one modality from suppressing the other. Neither addresses the label-prior
+miscalibration that the trivial baseline exposes, which is why both remain below
+it.
 
 ### The control settles the interpretation
 

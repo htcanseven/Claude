@@ -26,16 +26,19 @@ bracket the held-out one; the honest direction, training on one condition and
 testing on the rest, costs over 60. Second, transfer between excitation profiles
 is strongly asymmetric at equal training size: a model trained where speed varies
 transfers to load variation, while the reverse loses ~21 points, so training-time
-excitation diversity matters more than training-set size. Third, compound faults
-expose a categorical rather than gradual failure: a multi-label component model
-that identifies held-out single faults at 0.900 exact match scores 0.000 on
-unseen combinations of those same faults, predicting no fault at all on 76 % of
-doubly-faulted windows, with the non-bearing component annihilated (F1 = 0.000)
-whenever a bearing defect co-occurs. We show that this is partly a decision-rule
-artefact and partly a representation limit, and that augmenting training with
+excitation diversity matters more than training-set size. Third, compound faults break these
+pipelines below the level of a predictor that ignores the input: a multi-label
+component model that identifies held-out single faults at 0.900 exact match scores
+0.000 on unseen combinations of those same faults, predicting no fault at all on
+76 % of doubly-faulted windows, with the non-bearing component annihilated
+(F1 = 0.000) whenever a bearing defect co-occurs. We show that this is partly a
+decision-rule artefact, partly a representation limit, and partly a failure to
+encode the label prior, and that augmenting training with
 superposed same-condition fault pairs raises zero-shot exact match from 0.000 to
-0.029 — progress, not a solution. All protocols, baselines, and analysis code are
-released as the first public benchmark suite for this dataset.
+0.029, which is still four-fold below a constant predictor that always emits the
+two bearing constituents (0.111) -- a floor we report because omitting it makes an
+at-or-below-chance result read as a positive one. All protocols, baselines, and
+analysis code are released as the first public benchmark suite for this dataset.
 
 **Index Terms** — fault diagnosis, induction motors, benchmarking, data leakage,
 domain generalisation, compound faults, compositional generalisation, condition
@@ -69,10 +72,12 @@ model that knows two faults recognise them together".
    both constituents are mechanical and visible in vibration. Where one
    constituent is electrical, a standard multi-label pipeline scores **0.000**
    exact match and reports no fault at all on 76 % of doubly-faulted windows,
-   with the electrical constituent annihilated (F1 = 0.000). We control the
-   result three ways: against held-out single faults (0.900, so the components
-   are learnable), against the dataset's one mechanical-only compound, and
-   against single-modality feature views that locate each fault's evidence.
+   with the electrical constituent annihilated (F1 = 0.000) — below a constant
+   predictor that always emits the two bearing constituents (0.111 exact match,
+   0.556 micro-F1). We control the result four ways: against held-out single
+   faults (0.900, so the constituents are learnable), against that constant
+   floor, against the dataset's one mechanical-only compound, and against
+   single-modality feature views that locate each fault's evidence.
 2. **Two findings that change how condition robustness should be measured**
    (Section VI): leave-one-condition-out — near-universal in the
    domain-generalisation literature — costs only ~3 points here because the
@@ -498,15 +503,28 @@ We report it as a reference baseline for this benchmark, not as a novel method.
 
 | Configuration | Exact match | micro-F1 |
 |---|---|---|
+| **constant `{bearing_inner, bearing_outer}`** | **0.111** | **0.556** |
 | random forest, thresholded | 0.000 | 0.072 |
 | CNN, no augmentation | 0.0004 | 0.287 |
 | CNN, superposition, 8 epochs | 0.0138 | 0.335 |
-| CNN, superposition, 24 epochs | **0.0290** | 0.343 |
+| CNN, superposition, 24 epochs | 0.0290 | 0.343 |
 
-A 72× improvement in exact match, and still far from usable. We report it as a
-baseline to beat and state the open problem plainly: recognising an
-electromagnetic fault masked by a co-occurring bearing defect, from single-fault
-training data alone, is unsolved on this dataset.
+The first row is the finding. A predictor that ignores the signal entirely and
+always emits the two bearing constituents beats every trained model here, because
+every compound in this dataset pairs one bearing constituent with one other
+mechanism and inner- and outer-race each occur in 60 of the 108 compound runs. A
+model trained on single-fault windows sees exactly one positive of fifteen and so
+emits at most one positive, while the constant predictor encodes the two-positive
+prior for free.
+
+Superposition augmentation therefore improves exact match 72-fold over no
+augmentation and remains four-fold below trivial. We report the trivial row
+because omitting it makes an at-or-below-chance result read as a positive one —
+a trap this benchmark fell into on its first pass, and one that any compound-fault
+metric on this dataset should be checked against (`scripts/trivial_baselines.py`).
+The open problem stands: recognising an electromagnetic fault that co-occurs with
+a bearing defect, from single-fault training data alone, is unsolved here, and the
+bar to clear is the constant predictor rather than zero.
 
 Architectural variants we tried — cross-modal gated fusion, adversarial
 condition-invariance, appended order features — did **not** help, and the
