@@ -1,0 +1,322 @@
+% =========================================================================
+% Remaining sections for "Beyond Closed-Set Accuracy: Constituent-Level
+% Generalization in Compound Motor Fault Diagnosis"
+%
+% Contents, in template order:
+%   1. Abstract                  -> replace  \begin{abstract} abstract \end{abstract}
+%   2. Index terms               -> replace  \begin{IEEEkeywords} keywords \end{IEEEkeywords}
+%   3. Section I  Introduction   -> replace the placeholder Introduction
+%   4. Section V  Conclusion     -> replace the placeholder Conclusion
+%   5. Appendix A                -> \appendices after the Conclusion
+%   6. Data / Code availability  -> replace the current statements
+%
+% Every number quoted below is taken from the current manuscript body
+% (Tables 2-6 and Sections IV-A..IV-H) or, in Appendix A, from the released
+% benchmark suite's multi-seed campaign CSVs. Nothing is asserted that the
+% paper or the released artifacts do not contain.
+% =========================================================================
+
+% ------------------------------------------------------------------ 1. ABSTRACT
+\begin{abstract}
+Reported accuracies for data-driven motor fault diagnosis are frequently near
+ceiling, yet they rarely measure the ability that industrial deployment
+actually requires: recognizing the elementary fault mechanisms of a compound
+fault whose exact combination was never observed during model development.
+This paper evaluates that ability on a public multimodal dataset of a 2.2-kW
+three-phase induction motor containing 24 diagnostic states, including nine
+compound faults that pair a mechanical bearing defect with a second
+mechanical, electrical, or electromagnetic mechanism, under twelve speed/load
+conditions. The problem is formulated at the constituent level: nine
+elementary mechanisms are detected independently from physics-guided,
+mechanism-specific vibration- and current-domain features, so unseen
+combinations remain expressible. A crossed protocol separates three levels of
+compound-context exposure (recombination, one-sided, and two-sided
+context zero-shot) from operating-condition novelty, with run-level,
+severity-aware splits and all calibration confined to training data. Although
+closed-set 24-class accuracy reaches 0.913, exact recovery of unseen
+constituent sets remains between 0.083 and 0.157 for the locked linear probe,
+and every metric is reported against input-independent prevalence references
+that expose partial-recovery scores as otherwise misleading. Compound-context
+deprivation is measurably harmful chiefly when the operating condition is
+also unseen (micro-$F_1$ interaction $+0.040$, 95\% CI $[0.009, 0.073]$), and
+cross-partner transfer is strongly directional, including one statistically
+supported score-orientation reversal whose physical attribution is
+deliberately left open given demonstrated recording-session separability.
+Threshold-objective and classifier-family analyses show that exact
+decomposition, not constituent recall, is the binding constraint.
+\end{abstract}
+
+% ---------------------------------------------------------------- 2. KEYWORDS
+\begin{IEEEkeywords}
+compound faults, condition monitoring, constituent-level diagnosis, data
+leakage, electrical machines, evaluation protocols, fault diagnosis,
+induction motors, multi-label classification, zero-shot learning
+\end{IEEEkeywords}
+
+% ------------------------------------------------------------ 3. INTRODUCTION
+\section{Introduction}
+\label{sec:intro}
+
+\PARstart{I}{nduction} motors underpin industrial drivetrains, and their
+unplanned failures propagate directly into downtime and safety risk.
+Data-driven condition monitoring has consequently produced a large literature
+whose reported accuracies now cluster near ceiling on standard laboratory
+benchmarks. Deployment experience is harder to reconcile with those numbers:
+a model commissioned at one operating point degrades at another, and faults
+in service rarely arrive one at a time. A bearing defect that develops
+alongside a winding short circuit, broken rotor bars, or eccentricity
+confronts the monitoring system with a \emph{compound} state whose exact
+combination was, in general, never present in the training history.
+
+Conventional closed-set formulations cannot even express this situation: a
+previously unseen combination $A{+}B$ constitutes an unseen class. The
+compound-fault literature therefore moved toward decoupling formulations that
+predict elementary mechanisms rather than combinations, and, more recently,
+toward zero-shot settings in which compound states must be recognized from
+single-fault training data alone. As Section~\ref{sec:related} reviews,
+however, that literature has evaluated almost exclusively \emph{homogeneous}
+compounds---bearing--bearing or bearing--gear pairings whose constituents are
+all observable in the same vibration channel---and its reported accuracies of
+roughly 75--87\% have been obtained under evaluation practices that a
+parallel line of work on data leakage has shown to be fragile: sample-level
+splits, steady operating conditions, and metrics reported without reference
+to what label prevalence alone would achieve.
+
+This paper asks a deliberately harder question on a public dataset that makes
+it answerable. The MCC5-THU motor dataset \cite{chen2026} provides 288
+recordings of a 2.2-kW three-phase induction motor across 24 diagnostic
+states under twelve speed/load conditions, with synchronized triaxial
+vibration, three-phase currents, torque, and a key-phase tachometer. Its nine
+compound faults pair a mechanical bearing defect with a second
+mechanism---inner or outer race, broken rotor bars, static or dynamic
+eccentricity, or a stator winding short circuit---so that, in eight of nine
+combinations, the two constituents deposit their primary evidence in
+\emph{different} sensing modalities. To our knowledge, neither this
+cross-modal compound regime nor this dataset has previously received a
+constituent-level evaluation.
+
+The study is designed so that every claim is bounded by an explicit control.
+The formulation is constituent-level: nine elementary mechanisms are detected
+independently by regularized linear probes operating on curated,
+mechanism-specific physical-signature families derived from angle-resampled
+order spectra, envelope-order descriptors, and phase-current sequence
+measures. A crossed protocol varies compound-context exposure over three
+regimes---recombination, one-sided, and two-sided compound-context
+zero-shot---and crosses each with seen and unseen operating conditions, under
+run-level, severity-aware splits with all preprocessing, calibration, and
+threshold selection confined to training data. Every reported metric is
+accompanied by input-independent constant-predictor references, so that
+prevalence-driven scores cannot masquerade as diagnostic skill; oracle
+detectability analyses are paired with recording-sensitivity and same-date
+controls, so that separability is not silently attributed to fault
+mechanisms; and paired run-clustered bootstrap inference with multiplicity
+correction distinguishes supported effects from noise.
+
+The contributions are as follows.
+\begin{enumerate}
+  \item \textbf{A constituent-level formulation and crossed
+  composition--context--condition protocol} for compound motor faults whose
+  constituents span mechanical and electrical modalities, separating novel
+  composition, compound-context deprivation, and operating-condition novelty
+  in one design (Sections~\ref{sec:methods}--\ref{sec:results}).
+  \item \textbf{Prior-aware evaluation}: all constituent metrics are reported
+  against input-independent prevalence references, which expose several
+  apparently favorable partial-recovery metrics as at or below what a
+  constant predictor achieves, while establishing that constituent recall and
+  all-constituent recovery genuinely exceed those floors.
+  \item \textbf{A controlled analysis of constituent transfer}: within-pair
+  oracle detectability, cross-partner transfer, physical-signature
+  preservation, and a statistically supported score-orientation reversal,
+  each bounded by recording-sensitivity and same-date controls that keep
+  session effects from being read as physics.
+  \item \textbf{Sensitivity and robustness analyses} over the decision-threshold
+  objective, single-fault severity merging, and four classifier families,
+  showing that the qualitative generalization pattern is stable while
+  absolute exact-match decomposition is an operating-point and model
+  property, not an intrinsic bound of the protocol.
+  \item \textbf{Documentation of dataset-release properties that materially
+  affect protocol design}---recording-session separability, severity-variant
+  leakage paths, and label abbreviations---together with reference
+  operating-condition experiments (Appendix~\ref{app:condition}) that
+  motivate the crossed design.
+\end{enumerate}
+
+The principal findings are that closed-set discriminability (accuracy 0.913)
+coexists with exact constituent-set recovery of 0.083--0.157 on unseen
+compounds for the locked probe; that recovery of at least one constituent is
+nearly universal while exact decomposition fails, so the practical failure
+mode is incomplete decomposition with over-diagnosis rather than silence;
+that compound-context deprivation becomes measurably harmful specifically
+under simultaneous operating-condition novelty; and that constituent evidence
+is often, but directionally and heterogeneously, transferable across
+compound partners.
+
+The remainder of the paper is organized as follows.
+Section~\ref{sec:related} reviews related work and positions the study.
+Section~\ref{sec:methods} details the constituent representation, feature
+construction, detection, protocol, metrics, and statistical analysis.
+Section~\ref{sec:results} reports results. Section~\ref{sec:conclusion}
+concludes. Appendix~\ref{app:condition} reports the operating-condition
+reference experiments.
+
+% ------------------------------------------------------------- 4. CONCLUSION
+\section{Conclusion}
+\label{sec:conclusion}
+
+This paper evaluated whether the elementary mechanisms of a compound motor
+fault can be recovered when their exact combination, their compound context,
+and the operating condition are varied independently of the training history.
+On a public multimodal induction-motor dataset whose compound faults span
+mechanical and electrical modalities, a locked linear constituent probe over
+mechanism-specific physical features showed that strong closed-set
+discriminability (24-class accuracy 0.913, 95\% CI $[0.885, 0.938]$) coexists
+with exact constituent-set recovery of only 0.083--0.157 on unseen compounds.
+The two results are not in tension; they measure different abilities, and the
+gap between them is the paper's subject.
+
+Four conclusions follow from the controlled analyses. First, the failure
+mode is incomplete decomposition rather than loss of information: at least
+one true constituent was recovered in more than 92\% of compound runs, and
+constituent recall (0.630--0.694) and all-constituent recovery under
+recombination (up to 0.444) exceed input-independent prevalence references
+(0.556 and 0.111, respectively), while several other partial-recovery
+metrics do not---a distinction visible only because every metric was
+reported against its constant-predictor floor. Second, compound-context
+deprivation is measurably harmful chiefly when the operating condition is
+simultaneously unseen: the recombination-versus-two-sided penalty under
+condition shift was $+0.040$ micro-$F_1$ (95\% CI $[0.009, 0.073]$),
+$+0.051$ constituent recall, and $+0.083$ all-constituent recovery, whereas
+the corresponding seen-condition contrasts were not resolved. Third,
+constituent evidence transfers across compound partners often but
+directionally: within-pair detectability was near-perfect throughout, yet
+cross-partner transfer ranged from perfect to a statistically supported
+score-orientation reversal (Holm-adjusted $p \le 0.014$)---and the
+demonstrated separability of distinct recordings of the same fault state
+requires that reversal to be interpreted as context-dependent score
+transfer rather than as proven physical signature inversion. Fourth,
+absolute decomposition quality is an operating-point and model property:
+precision-weighted thresholding raised exact-match recovery to 0.157--0.287
+at reduced recall, and nonlinear classifier families reduced false additions
+from ${\sim}0.68$ to ${\sim}0.26$ per run while the qualitative
+generalization pattern persisted across all four families.
+
+For practice, these results caution against reading closed-set accuracy as
+deployment readiness, argue for calibrating constituent detectors with
+explicit precision--recall cost structure, and indicate that commissioning
+data should sample compound contexts and operating conditions jointly rather
+than relying on either alone. The reference experiments of
+Appendix~\ref{app:condition} reinforce the latter point: on this dataset the
+standard leave-one-condition-out test is nearly saturated, while
+single-condition training collapses accuracy, so robustness claims should be
+evaluated in the extrapolating direction.
+
+Several directions remain open. The dataset provides no replicated
+same-state recordings that would separate fault, assembly, sensor-mounting,
+and session effects, so the transfer analyses stop at carefully bounded
+attribution; replicated acquisitions would convert those bounds into causal
+statements. Representation or normalization strategies that promote
+constituent-score consistency across compound partners are identified as
+hypotheses, not established remedies. Finally, the constituent-level
+protocol, prevalence references, and controls used here are directly
+portable to the companion gearbox release and to other multimodal datasets,
+where cross-dataset replication of the context-by-condition interaction
+would test its generality.
+
+% ------------------------------------------------------------- 5. APPENDIX A
+\appendices
+\section{Operating-Condition Reference Experiments}
+\label{app:condition}
+
+Section~\ref{sec:related} states that the leave-one-condition-out protocol,
+the standard robustness test in the multi-condition literature, is nearly
+saturated on this dataset, whereas the reverse direction is not. This
+appendix reports the experiments behind that statement. They use a
+deliberately generic pipeline---distinct from, and simpler than, the
+constituent-level methodology of Section~\ref{sec:methods}---so that the
+measured gaps reflect protocol difficulty rather than modeling choices, and
+they are included with the released code.
+
+Windows of 0.64\,s (8192 samples, non-overlapping) were described by 108
+time- and frequency-domain features (eight temporal statistics and ten
+spectral descriptors per channel over the three vibration and three current
+channels), classified into the original 24 diagnostic states by a
+300-tree random forest, with three seeds per configuration. Five split
+protocols were compared. \emph{Random windows} splits windows irrespective
+of recording (a deliberately leakage-prone reference); \emph{in-condition}
+trains on the first 60\% of every recording and tests on the final 30\% with
+a 10\% guard gap; \emph{unknown condition} holds out each of the twelve
+operating conditions in turn; \emph{cross-profile} trains on one excitation
+profile (constant-torque variable-speed or constant-speed variable-torque)
+and tests on the other; and \emph{single source} inverts the unknown-condition
+protocol, training on one condition and testing on the remaining eleven. A
+sixth split trains on quasi-stationary segments and tests on speed/load
+ramps, with stationarity labeled from the key-phase-derived speed and the
+torque channel; the torque channel is used only for this protocol
+construction and never as a classifier input.
+
+\begin{table}[!t]
+\caption{Reference protocols, 24-class accuracy (mean $\pm$ std over folds
+and three seeds). The same features and classifier are used throughout; only
+the split changes.}
+\label{tab:condref}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{l c c}
+\hline
+Protocol & Folds & Accuracy \\
+\hline
+Random windows (leakage-prone reference) & 1 & $0.975 \pm 0.000$ \\
+In-condition (guard-gap temporal split)  & 1 & $0.965 \pm 0.000$ \\
+Unknown condition (leave-one-out)        & 12 & $0.939 \pm 0.024$ \\
+Cross-profile                            & 2 & $0.839 \pm 0.115$ \\
+Steady $\rightarrow$ transitional segments & 1 & $0.766 \pm 0.001$ \\
+Single source (train on one condition)   & 12 & $0.333 \pm 0.104$ \\
+\hline
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:condref} summarizes the outcome. Holding one condition out of
+twelve costs only ${\sim}2.6$ accuracy points relative to the in-condition
+reference, because the eleven retained conditions bracket the held-out one
+in speed and load and the model interpolates. Training on a single condition
+and extrapolating to the other eleven costs over 60 points; paired over the
+twelve condition folds, the difference between the two directions is 0.606
+(paired $t$-test $p = 7.7\times10^{-10}$; Wilcoxon $p = 4.9\times10^{-4}$).
+Transfer between excitation profiles is likewise asymmetric at equal
+training size: training under variable speed generalizes to variable load
+(accuracy 0.944), whereas the reverse loses ${\sim}21$ points (0.734; paired
+over seeds, $p = 3.3\times10^{-5}$). Finally, appending 36 speed-invariant
+envelope-order descriptors to the feature set leaves the interpolating
+protocols unchanged ($+0.001$ on unknown-condition, paired $p = 0.84$) but
+significantly improves the extrapolating one ($+0.047$ on single source,
+paired $p = 8.4\times10^{-4}$), consistent with their construction.
+
+Two implications carry into the main study. Methodologically, robustness to
+operating conditions should be claimed in the extrapolating direction, which
+motivates crossing the composition and context regimes with unseen-condition
+evaluation rather than relying on leave-one-condition-out alone.
+Practically, excitation diversity during commissioning matters more than
+data volume: a training condition in which speed varies transfers to load
+variation, but not conversely.
+
+% ------------------------------------------- 6. DATA AND CODE AVAILABILITY
+% Replace the current DATA AVAILABILITY / CODE AVAILABILITY statements with:
+
+\section*{Data Availability}
+The dataset analyzed in this study is publicly available from Mendeley Data
+at \mbox{https://doi.org/10.17632/6s3dggj9mw.1} (CC~BY~4.0)
+\cite{mcc5motor_data}, with its accompanying descriptor article
+\cite{chen2026}. Acquisition-timestamp metadata used for the
+recording-sensitivity controls were recovered from the released file names
+and are included with the analysis code.
+
+\section*{Code Availability}
+The complete analysis code---including the constituent-level pipeline, the
+crossed evaluation protocol, the constant-predictor references, the
+recording-sensitivity controls, and the reference experiments of
+Appendix~\ref{app:condition}---is available from the corresponding author
+upon reasonable request.
+% Recommended alternative (stronger for a paper whose subject is evaluation
+% reliability): deposit the repository at Zenodo and cite its DOI here, e.g.
+% "is openly available at https://doi.org/10.5281/zenodo.XXXXXXX".
