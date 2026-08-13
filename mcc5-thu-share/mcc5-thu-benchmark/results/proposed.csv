@@ -1,0 +1,2 @@
+protocol,model,seed,acc,macro_f1,micro_f1,hamming,any_component_found,mean_component_recall,all_zero_prediction_rate,topk_exact,topk_recall,top1_in_truth,n_train,n_test,fit_s
+compositional_zeroshot,proposed[full],0,0.029034391534391534,0.13960051298789705,0.342477140482128,0.8639814814814815,0.5001322751322751,0.2656746031746032,0.1312169312169312,0.10522486772486772,0.391765873015873,0.5177910052910053,25200,15120,441.8
