@@ -9,3 +9,4 @@ unknown_condition[speed_circulation_20Nm_2000rpm],multiclass,rf,plain+order,0,36
 unknown_condition[speed_circulation_20Nm_2000rpm],multiclass,rf,plain+order,1,36960,3360,39.1,0.9494047619047619,0.9478861470815964
 unknown_condition[speed_circulation_20Nm_2000rpm],multiclass,rf,plain+order,2,36960,3360,39.5,0.9494047619047619,0.9486079837407398
 unknown_condition[speed_circulation_20Nm_3000rpm],multiclass,rf,plain+order,0,36960,3360,39.8,0.9068452380952381,0.9078081747212714
+unknown_condition[speed_circulation_20Nm_3000rpm],multiclass,rf,plain+order,1,36960,3360,38.7,0.90625,0.9088202195534822
