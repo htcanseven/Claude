@@ -126,7 +126,7 @@ detectability analyses are paired with recording-sensitivity and same-date
 controls, so that separability is not silently attributed to fault
 mechanisms; and paired run-clustered bootstrap inference, supplemented by composition-level cluster sensitivity analysis for the context-by-condition interaction, distinguishes supported effects from sampling-unit sensitivity.
 
-This paper makes five contributions. First, it introduces a
+This paper makes four contributions. First, it introduces a
 constituent-level formulation and a crossed
 composition--context--condition protocol for compound motor faults whose
 constituents span mechanical and electrical modalities, separating novel
@@ -138,19 +138,12 @@ ranking and thresholded performance, isolated-fault learnability controls, and
 classifier-family sensitivity. This decomposition helps distinguish empirical patterns consistent with weak constituent specificity, classifier-capacity sensitivity, or degradation that
 emerges when an otherwise learnable constituent is evaluated in compound faults. Third, it presents a controlled analysis of constituent transfer, spanning within-pair oracle detectability, cross-partner transfer, physical-signature preservation, and a statistically supported score-orientation reversal, each bounded by recording-sensitivity and same-date controls that reduce the risk of reading recording-related
 variation as fault physics.
-Fourth, sensitivity and robustness analyses over the decision-threshold
+Finally, sensitivity and robustness analyses over the decision-threshold
 objective, single-fault severity merging, and four classifier families show
 that absolute decomposition quality is sensitive to operating point and
 classifier family, while the unseen-condition recombination advantage over
 two-sided withholding remains directionally positive across all four
-classifier families. Finally, it reports reference experiments
-(Appendix~\ref{app:reference}) that bound the study's design choices from
-outside the constituent-level pipeline: a protocol comparison establishing
-that operating-condition robustness must be claimed in the extrapolating
-direction, a measurement of what a shared multimodal feature space does to
-the weaker constituent, empirical support for two feature-construction
-parameters, and documentation of release-level properties that materially
-affect protocol design.
+classifier families.
 
 The principal findings are that closed-set discriminability (accuracy 0.913)
 coexists with exact constituent-set recovery of only 0.083--0.157 on unseen
@@ -175,8 +168,7 @@ Section~\ref{sec:related} reviews related work and positions the study.
 Section~\ref{sec:methods} details the constituent representation, feature
 construction, detection, protocol, metrics, and statistical analysis.
 Section~\ref{sec:results} reports results and Section~\ref{sec:conclusion}
-concludes the paper. Appendix~\ref{app:reference} reports the reference
-experiments on protocol difficulty, modality sharing, and feature physics.
+concludes the paper.
 
 
 \section{Related Work}
@@ -1731,251 +1723,6 @@ portable to the companion gearbox release and to other multimodal datasets,
 where cross-dataset replication of the context-by-condition interaction
 would test its generality.
 
-\appendices
-\section{Reference Experiments on Protocol Difficulty, Modality Sharing,
-and Feature Physics}
-\label{app:reference}
-
-This appendix reports supporting experiments that bound the design decisions
-of the main study. They deliberately use a generic window-level pipeline,
-simpler than and independent of the constituent-level methodology of
-Section~\ref{sec:methods}, so that the measured gaps reflect protocol
-difficulty and representation structure rather than modeling choices. All of
-them are released with the analysis code.
-
-\subsection{Test Rig and Release Structure}
-\label{app:rig}
-
-Table~\ref{tab:rig} summarizes the machine, instrumentation, and release
-organization underlying every experiment in this paper. Two properties drive
-the protocol design. First, each diagnostic state is recorded once per
-operating condition, so a run is the only sampling unit that is safely
-independent; window-level splitting would place segments of one physical
-recording on both sides of a split. Second, the twelve conditions are a
-crossed grid of two excitation profiles, two load levels, and three speeds,
-which makes it possible to hold out a condition either by interpolation or by
-extrapolation---a distinction quantified in
-Section~\ref{app:protocols}.
-
-\begin{table}[!t]
-\caption{Test rig, instrumentation, and release structure. Machine and sensor
-parameters are as documented in the dataset descriptor \cite{chen2026}; the
-release-structure rows are as observed in the distributed files.}
-\label{tab:rig}
-\centering
-\footnotesize
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{l l}
-\toprule
-Property & Value \\
-\midrule
-Machine & QABP-90L2, 2.2~kW three-phase induction motor \\
-Pole pairs & 2 \\
-Single-side air gap & 0.5~mm \\
-Bearings & SKF 6205-2Z-C3 (drive and non-drive end) \\
-Bearing geometry & 9 balls, 7.94~mm ball, 39.04~mm pitch \\
-Bearing orders & BPFO 3.585, BPFI 5.415, BSF 2.357 \\
-Drivetrain & torque sensor, two-stage parallel gearbox, \\
-           & magnetic powder brake \\
-\midrule
-Vibration & triaxial accelerometer, 100~mV/g \\
-Current & three current clamps, 100~mV/A \\
-Torque & S2001 sensor, 100~mV/Nm, $\pm$0.5\%~F.S. \\
-Key-phase & one pulse per revolution \\
-Sampling & 12.8~kHz, 8 synchronous channels, 90~s per run \\
-\midrule
-Diagnostic states & 24 (healthy, single, and compound) \\
-Operating conditions & 12 (2 profiles $\times$ \{20, 40\}~Nm \\
-                     & $\times$ \{1000, 2000, 3000\}~rpm) \\
-Excitation profiles & speed circulation (constant load), \\
-                    & torque circulation (constant speed) \\
-Runs in the release & 288 (one per state and condition) \\
-Compound runs & 108 over 9 compositions \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Three release-level properties were observed while preparing the data and are
-reported because they materially affect protocol construction. (i) The
-distributed archive contains 288 runs, whereas the descriptor article
-reports 282; the surplus is a second \texttt{bearing\_outer\_H} recording at
-the constant-torque 20~Nm, 3000~rpm condition, time-stamped roughly six weeks
-after the main acquisition campaign. (ii) Compound-fault directory names
-abbreviate the second constituent, so that a directory named
-\texttt{bearing\_outer\_H\_and\_inner\_H} denotes an outer-race and
-inner-race combination; parsing the labels naively splits one compound into
-inconsistent constituent sets. (iii) Recordings of the same fault state made
-on different dates are separable with near-perfect accuracy from the same
-features used for diagnosis (run-level AUC 0.998--0.999). Property~(iii) is
-the reason the transfer analyses in the main study are bounded by
-recording-sensitivity and same-date controls rather than being read directly
-as fault physics.
-
-\subsection{Protocol Difficulty Under Operating-Condition Shift}
-\label{app:protocols}
-
-Windows of 0.64~s (8192 samples, non-overlapping) were described by 108 time-
-and frequency-domain features (eight temporal statistics and ten spectral
-descriptors per channel over the three vibration and three current channels)
-and classified into the 24 diagnostic states by a 300-tree random forest, with
-three seeds per configuration. Only the split changes across the six
-protocols compared in Table~\ref{tab:condref}: \emph{random windows} splits
-windows irrespective of recording (a deliberately leakage-prone reference);
-\emph{in-condition} trains on the first 60\% of every recording and tests on
-the final 30\% with a 10\% guard gap; \emph{unknown condition} holds out each
-of the twelve operating conditions in turn; \emph{cross-profile} trains on one
-excitation profile and tests on the other; \emph{steady~$\rightarrow$
-transitional} trains on quasi-stationary segments and tests on speed and load
-ramps, with stationarity labeled from the key-phase-derived speed and the
-torque channel (used only for constructing this protocol, never as a
-classifier input); and \emph{single source} inverts the unknown-condition
-protocol, training on one condition and testing on the remaining eleven.
-
-\begin{table}[!t]
-\caption{Reference protocols, 24-class accuracy (mean $\pm$ standard deviation
-over folds and three seeds). Features and classifier are identical
-throughout; only the split changes.}
-\label{tab:condref}
-\centering
-\footnotesize
-\setlength{\tabcolsep}{5pt}
-\begin{tabular}{l c c}
-\toprule
-Protocol & Folds & Accuracy \\
-\midrule
-Random windows (leakage-prone reference)   & 1  & $0.975 \pm 0.000$ \\
-In-condition (guard-gap temporal split)    & 1  & $0.965 \pm 0.000$ \\
-Unknown condition (leave-one-out)          & 12 & $0.939 \pm 0.024$ \\
-Cross-profile                              & 2  & $0.839 \pm 0.115$ \\
-Steady $\rightarrow$ transitional segments & 1  & $0.766 \pm 0.001$ \\
-Single source (train on one condition)     & 12 & $0.333 \pm 0.104$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-The same features and classifier span 0.975 to 0.333 across protocols.
-Holding one condition out of twelve costs only ${\sim}2.6$ accuracy points
-relative to the in-condition reference, because the eleven retained
-conditions bracket the held-out one in speed and load and the model
-interpolates. Training on a single condition and extrapolating to the other
-eleven costs over 60 points; paired over the twelve condition folds, the
-difference between the two directions is 0.606 (paired $t$-test
-$p = 7.7\times10^{-10}$; Wilcoxon $p = 4.9\times10^{-4}$). Transfer between
-excitation profiles is likewise asymmetric \emph{at equal training-set size}
-(144 runs each): training under variable speed generalizes to variable load
-(accuracy 0.944), whereas the reverse loses ${\sim}21$ points (0.734; paired
-over seeds, $p = 3.3\times10^{-5}$). Because this contrast is size matched, it
-isolates excitation diversity rather than data volume, unlike the
-single-source contrast, which reduces both. Finally, appending 36
-speed-invariant envelope-order descriptors leaves the interpolating protocol
-unchanged ($+0.001$ on unknown condition, paired $p = 0.84$) but improves the
-extrapolating one ($+0.047$ on single source, paired
-$p = 8.4\times10^{-4}$), consistent with their construction.
-
-Two implications carry into the main study. Methodologically, robustness to
-operating conditions should be claimed in the extrapolating direction, which
-is why the crossed design of Section~\ref{subsec:crossed_protocol} evaluates
-composition and compound-context regimes jointly with unseen conditions rather
-than relying on leave-one-condition-out alone. Practically, excitation
-diversity during commissioning matters at least as much as data volume.
-
-\subsection{Why Constituent Detectors Use Mechanism-Specific Features}
-\label{app:modality}
-
-The main study restricts each constituent detector to a curated,
-mechanism-appropriate feature family (Section~\ref{subsec:physics_features})
-rather than exposing every detector to the full multimodal bank. The
-following experiment measures what a shared feature space does in this
-dataset. Multi-label one-vs-rest random-forest detectors were trained on
-single-fault windows and applied to all compound windows under three feature
-views: vibration only, current only, and the concatenation of both.
-
-The modality dissociation was complete: vibration features never detected an
-electrically expressed constituent (detection rate 0.000 across all eight
-cross-modal compounds) and current features never detected a mechanical one.
-Critically, concatenation did not combine the two abilities but destroyed one
-of them. The winding constituent was detected on 39.3\% of compound windows
-from current features alone and on 0.2\% once vibration features were
-concatenated---a roughly 200-fold collapse---while the mechanical constituent
-retained 0.072 detection in the shared view. The electrical evidence is
-therefore present and learnable in its own modality, and is lost to the
-dominant mechanical signature when both families compete inside one
-representation. Restricting each detector to physically appropriate
-descriptors, as the main study does, removes that competition by
-construction.
-
-\subsection{Empirical Checks on Two Feature-Construction Choices}
-\label{app:featurephysics}
-
-Two parameters of the order-domain descriptors deserve explicit empirical
-support rather than appeal to convention.
-
-\emph{Integration bandwidth.} Order-domain descriptors integrate spectral
-energy within $\pm0.12$ order of a target order. A fixed absolute window is a
-constant \emph{relative} window only at the fundamental: at the second
-harmonic it spans half the relative width, while the physical deviation of a
-bearing order---rolling-element slip makes the true defect order differ from
-its kinematic value---scales with the harmonic. To test whether this matters
-in practice, the normalized band ratio was recomputed at half-widths of 0.06,
-0.12, 0.25, and 0.50 order and scored by its ability to separate the
-corresponding single-fault runs from healthy runs (run-level AUROC, median
-over windows, 84 runs, order resolution 0.017).
-
-The measured peak offsets confirm the concern and bound it. The local maximum
-of the envelope-order spectrum lies a median 0.024 order from the kinematic
-BPFO and 0.036 order from BPFI at the fundamental, but 0.049 and 0.080 order
-at the second harmonic---the offset roughly doubles with harmonic number, as
-slip-induced deviation should. Consequently the $\pm0.12$ window contains the
-observed peak in 100\% and 96\% of runs for BPFO (first and second harmonic)
-but in only 96\% and 74\% of runs for BPFI. The second-harmonic BPFI
-descriptor is therefore the least reliable member of the bearing family.
-
-Widening the window, however, does not repair this and measurably harms
-discrimination. At the fundamental, BPFO separates faulty from healthy runs
-perfectly (AUROC 1.000) at every half-width, so the choice is immaterial
-there. At the second harmonic, AUROC for BPFO is 0.877 at $\pm0.12$ but falls
-to 0.573 at $\pm0.25$ and to chance (0.497) at $\pm0.50$. The reason is
-structural: $2\times$BPFO${}=7.17$ and $2\times$BPFI${}=10.83$ sit close to
-integer shaft orders, which carry rotational and imbalance energy in healthy
-and faulty machines alike, so a wider window admits common-mode energy faster
-than it recovers the displaced fault peak. The $\pm0.12$ choice is thus close
-to the best available compromise for this rig rather than an arbitrary one,
-with the caveat that second-harmonic descriptors---BPFI's in
-particular---carry less reliable evidence than their fundamentals. A
-harmonic-scaled window would be the principled alternative, and is left to
-future work because widening at fixed center is demonstrably not the fix.
-
-\emph{Broken-bar sideband placement.} The current-domain descriptors are
-evaluated at $o_e \pm 1$ and $o_e \pm 2$, that is, at offsets of one and two
-\emph{shaft} orders from the electrical carrier. The classical broken-bar
-signature instead lies at $(1 \pm 2s) f_e$, an offset of $2 s\, o_e$ shaft
-orders, where the slip $s$ follows from the measured carrier and the
-key-phase speed as $s = 1 - p/o_e$.
-
-The pole count was determined from the data rather than assumed: the detected
-carrier sits at $50.06$~Hz against a $49.69$~Hz shaft at the 3000~rpm setting
-(and at $16.63$~Hz against $16.32$~Hz at 1000~rpm), so the machine is
-two-pole, $p=1$, and the recovered slip is 3.0\%, 1.5\%, and 1.0\% at the
-1000, 2000, and 3000~rpm settings---a near-constant slip \emph{speed} of about
-$0.3$~Hz, as a roughly constant load torque implies.
-
-The consequence is quantitative. The broken-bar sidebands lie $2 s\, o_e =
-0.062$, $0.031$, and $0.020$ order from the carrier at the three speed
-settings (median $0.024$ over 245 analyzed windows), which is only about two
-spectral bins at the 2-s window length used here, and falls \emph{inside} the
-$\pm0.12$ carrier band in 92.7\% of windows. The classical broken-bar
-signature is therefore absorbed into the carrier descriptor itself rather
-than resolved as a separate feature. The $o_e \pm 1$ and $o_e \pm 2$
-descriptors, by contrast, sit one and two shaft orders from the carrier,
-which is 16 to 50 times further out than the true sideband offset and
-coincides instead with the $f_e \pm f_r$ spacing associated with
-eccentricity. These descriptors should accordingly be read as
-carrier-relative modulation proxies---which is how
-Section~\ref{subsec:physics_features} interprets them---and not as
-slip-parameterized broken-bar measurements. Resolving genuine broken-bar
-sidebands on this rig would require either substantially longer analysis
-windows or explicit slip-tracked demodulation, and remains open.
-
 \section*{Data Availability}
 The dataset analyzed in this study is publicly available from Mendeley Data
 at \url{https://doi.org/10.17632/6s3dggj9mw.1} under a CC~BY~4.0 license
@@ -1988,11 +1735,7 @@ file names and are distributed with the analysis code.
 The analysis code, the derived run-level feature tables, the split
 definitions for every protocol reported here, and the scripts that regenerate
 each table and figure are publicly available at
-\url{https://doi.org/10.5281/zenodo.XXXXXXX}. The release includes the
-reference experiments of Appendix~\ref{app:reference}, so that the protocol
-comparison, the modality-dissociation experiment, and the feature-physics
-checks can be reproduced from the public dataset without re-deriving the
-preprocessing chain.
+\url{https://doi.org/10.5281/zenodo.XXXXXXX}.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}

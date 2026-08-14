@@ -1,14 +1,24 @@
-\appendices
-\section{Reference Experiments on Protocol Difficulty, Modality Sharing,
-and Feature Physics}
-\label{app:reference}
+\documentclass[journal]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{url}
 
-This appendix reports supporting experiments that bound the design decisions
-of the main study. They deliberately use a generic window-level pipeline,
-simpler than and independent of the constituent-level methodology of
-Section~\ref{sec:methods}, so that the measured gaps reflect protocol
-difficulty and representation structure rather than modeling choices. All of
-them are released with the analysis code.
+\begin{document}
+
+\title{Reference Experiments on the MCC5-THU Motor Dataset:\\
+Protocol Difficulty, Modality Sharing, and Feature Physics}
+\author{H\"useyin Tayyer Canseven}
+\maketitle
+
+\section{Scope}
+
+This report collects reference experiments on the MCC5-THU motor dataset that
+stand on their own, independently of any particular diagnostic method. They
+use a generic window-level pipeline, so the measured gaps reflect protocol
+difficulty and representation structure rather than modeling choices. They
+are released with the analysis code.
 
 \subsection{Test Rig and Release Structure}
 \label{app:rig}
@@ -141,19 +151,17 @@ $p = 8.4\times10^{-4}$), consistent with their construction.
 
 Two implications carry into the main study. Methodologically, robustness to
 operating conditions should be claimed in the extrapolating direction, which
-is why the crossed design of Section~\ref{subsec:crossed_protocol} evaluates
-composition and compound-context regimes jointly with unseen conditions rather
-than relying on leave-one-condition-out alone. Practically, excitation
+is why a compositional evaluation should vary composition and compound-context
+regimes jointly with unseen operating conditions rather than relying on
+leave-one-condition-out alone. Practically, excitation
 diversity during commissioning matters at least as much as data volume.
 
 \subsection{Why Constituent Detectors Use Mechanism-Specific Features}
 \label{app:modality}
 
-The main study restricts each constituent detector to a curated,
-mechanism-appropriate feature family (Section~\ref{subsec:physics_features})
-rather than exposing every detector to the full multimodal bank. The
-following experiment measures what a shared feature space does in this
-dataset. Multi-label one-vs-rest random-forest detectors were trained on
+A constituent-level detector can either see the full multimodal feature bank
+or be restricted to a curated, mechanism-appropriate family. The following
+experiment measures what sharing one feature space does in this dataset. Multi-label one-vs-rest random-forest detectors were trained on
 single-fault windows and applied to all compound windows under three feature
 views: vibration only, current only, and the concatenation of both.
 
@@ -168,8 +176,7 @@ retained 0.072 detection in the shared view. The electrical evidence is
 therefore present and learnable in its own modality, and is lost to the
 dominant mechanical signature when both families compete inside one
 representation. Restricting each detector to physically appropriate
-descriptors, as the main study does, removes that competition by
-construction.
+descriptors removes that competition by construction.
 
 \subsection{Empirical Checks on Two Feature-Construction Choices}
 \label{app:featurephysics}
@@ -237,8 +244,12 @@ descriptors, by contrast, sit one and two shaft orders from the carrier,
 which is 16 to 50 times further out than the true sideband offset and
 coincides instead with the $f_e \pm f_r$ spacing associated with
 eccentricity. These descriptors should accordingly be read as
-carrier-relative modulation proxies---which is how
-Section~\ref{subsec:physics_features} interprets them---and not as
-slip-parameterized broken-bar measurements. Resolving genuine broken-bar
+carrier-relative modulation proxies and not as slip-parameterized broken-bar
+measurements. Resolving genuine broken-bar
 sidebands on this rig would require either substantially longer analysis
 windows or explicit slip-tracked demodulation, and remains open.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}
