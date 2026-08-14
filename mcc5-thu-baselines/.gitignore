@@ -12,3 +12,10 @@ results/cm_*.csv
 
 # Per-stage stdout copies; campaign.log in the data dir is the running record.
 logs/
+
+# LaTeX build intermediates (main.pdf is committed deliberately)
+paper/manuscript/main.aux
+paper/manuscript/main.bbl
+paper/manuscript/main.blg
+paper/manuscript/main.log
+paper/manuscript/main.out
