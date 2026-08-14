@@ -226,7 +226,7 @@ $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 \end{tabular}
 \end{table*}
 
-That mechanical faults imprint on stator currents and electrical faults on vibration has long motivated multimodal motor diagnosis \cite{mcsa_review2017}. Deep multimodal fusion typically concatenates modalities into one representation or fuses learned features, e.g.\ multilevel information fusion \cite{multilevel2019}, dynamic-routing multimodal networks \cite{drmnn2020}, adaptive CNN fusion of denoised vibration and current \cite{plos2025}, and comparative studies of the two modalities under deep and classical learners \cite{ayankoso2026}. These works report that multimodal fusion can improve conventional single-fault diagnosis. In the present study, constituent detectors instead use predefined mechanism-specific feature families, restricting each detector to physically relevant vibration- or current-domain descriptors and thereby reducing direct competition between unrelated modality features.
+That mechanical faults imprint on stator currents and electrical faults on vibration has long motivated multimodal motor diagnosis \cite{thomson2001mcsa,nandi2005review,bellini2008advances,mcsa_review2017}. Deep multimodal fusion typically concatenates modalities into one representation or fuses learned features, e.g.\ multilevel information fusion \cite{multilevel2019}, dynamic-routing multimodal networks \cite{drmnn2020}, adaptive CNN fusion of denoised vibration and current \cite{plos2025}, and comparative studies of the two modalities under deep and classical learners \cite{ayankoso2026}. These works report that multimodal fusion can improve conventional single-fault diagnosis. In the present study, constituent detectors instead use predefined mechanism-specific feature families, restricting each detector to physically relevant vibration- or current-domain descriptors and thereby reducing direct competition between unrelated modality features.
 
 Public rotating-machinery datasets underpin this literature: CWRU \cite{smith2015cwru} and Paderborn \cite{lessmeier2016} for bearings, and more recent multi-fault motor and drivetrain releases such as a PMSM stator-fault dataset \cite{jung2023} and an industrial-scale motor--pump dataset \cite{bruinsma2024}. The MCC5-THU family --- a gearbox release \cite{chen2024gearbox} and the motor release used here \cite{chen2026} --- is distinctive in combining single and compound faults, twelve speed/load profiles with transitional segments, and synchronized vibration, three-phase current, torque, and key-phase channels. The motor release is distributed without constituent-level reference
 baselines; the present study provides, to our knowledge, its first systematic constituent-level evaluation.
@@ -249,7 +249,56 @@ Rather than treating each compound state as a separate multiclass label, faults 
 \subsection{Dataset and Constituent-Level Problem Formulation}
 \label{subsec:problem_formulation}
 
-The study used the public MCC5-THU motor dataset \cite{chen2026}, comprising 288 physical recordings from a 2.2-kW three-phase induction motor across 24 diagnostic states and 12 speed/load operating conditions. The release contains healthy, single-fault, and nine compound-fault compositions, yielding 108 physical compound runs. Synchronized measurements include triaxial vibration, three-phase current, torque, and keyphase signals; the present constituent analysis used vibration, current, and keyphase measurements. Each experimental run $i$ was represented by a binary constituent vector
+The study used the public MCC5-THU motor dataset \cite{chen2026}, comprising 288 physical recordings from a 2.2-kW three-phase induction motor across 24 diagnostic states and 12 speed/load operating conditions. The release contains healthy, single-fault, and nine compound-fault compositions, yielding 108 physical compound runs. Synchronized measurements include triaxial vibration, three-phase current, torque, and keyphase signals; the present constituent analysis used vibration, current, and keyphase measurements. Table~\ref{tab:rig} summarizes the machine, instrumentation, and fault-seeding
+procedures; all faults are physically seeded rather than simulated, and the
+severity levels listed there are the basis of the severity-merging analysis
+of Section~\ref{subsec:constituent_detection}. Because the twelve operating
+conditions span 1000--3000~rpm, the machine is inverter fed, and the measured
+supply frequency accordingly varies with the speed setpoint (16.6, 33.2, and
+50.1~Hz at the three nominal speeds).
+
+\begin{table}[!t]
+\caption{Test rig, instrumentation, and fault seeding
+\cite{chen2026}. Severity levels in parentheses are the released variants.}
+\label{tab:rig}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{l l}
+\toprule
+Property & Value \\
+\midrule
+Machine & QABP-90L2, 2.2~kW three-phase induction \\
+Poles & 2 (one pole pair) \\
+Single-side air gap & 0.5~mm \\
+Bearings & SKF 6205-2Z-C3, 9 balls, 7.94~mm ball, \\
+         & 39.04~mm pitch \\
+Bearing orders & BPFO 3.585, BPFI 5.415, BSF 2.357 \\
+Drivetrain & torque sensor, two-stage parallel gearbox, \\
+           & magnetic powder brake \\
+\midrule
+Vibration & triaxial accelerometer, drive end, 100~mV/g \\
+Current & three current clamps, 100~mV/A \\
+Torque & S2001, 100~mV/Nm, $\pm$0.5\%~F.S. \\
+Key-phase & one pulse per revolution \\
+Sampling & 12.8~kHz, 8 channels, 90~s per run \\
+\midrule
+Bearing races & laser-cut raceway notches, $\pm$0.01~mm \\
+              & (mild, severe) \\
+Bearing ball & 360$^\circ$ circumferential pitting on one ball \\
+Winding short & shunt resistor across two winding taps, \\
+              & circulating current (5\%, 10\% of rated) \\
+Broken bar & three consecutive rotor bars removed \\
+Static eccentricity & end-shield adjustment screws \\
+                    & (0.125~mm, 0.250~mm radial offset) \\
+Shaft bending & four-point bending, 0.2~mm permanent bend \\
+Voltage unbalance & series resistance in one supply phase \\
+                  & (4\%, 8\%) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Each experimental run $i$ was represented by a binary constituent vector
 
 \begin{equation}
 \mathbf{y}_i =
@@ -370,8 +419,9 @@ o_{\mathrm{BSF}}=2.357,
 \label{eq:bearing_orders}
 \end{equation}
 
-together with their second harmonics. Bearing descriptors were extracted from
-the Hilbert-envelope vibration order spectrum. Importantly, the Hilbert
+together with their second harmonics \cite{randall2011tutorial}. Bearing
+descriptors were extracted from the Hilbert-envelope vibration order
+spectrum. Importantly, the Hilbert
 envelope was computed \emph{after} angle resampling; therefore, these
 descriptors characterize modulation retained in the 256-samples-per-revolution
 angle-domain representation rather than a separately band-pass-filtered
@@ -391,7 +441,8 @@ o_e,\qquad o_e\pm1,\qquad o_e\pm2,\qquad 2o_e.
 
 The $o_e\pm1$ and $o_e\pm2$ terms were treated as carrier-relative
 broken-bar-sensitive proxies rather than as a fully slip-parameterized
-broken-bar model. Because these sidebands may also vary with load, operating
+broken-bar model of the classical $(1\pm2s)f_e$ form
+\cite{thomson2001mcsa,bellini2008advances}. Because these sidebands may also vary with load, operating
 condition, and other electromagnetic modulation phenomena, they are not
 interpreted as mechanism-exclusive slip-frequency measurements.
 
@@ -1740,10 +1791,12 @@ from ${\sim}0.68$ to ${\sim}0.26$ per run while the unseen-condition recombinati
 remained directionally positive across all four classifier families.
 
 For practice, these results caution against reading closed-set accuracy as
-deployment readiness, argue for calibrating constituent detectors with
-explicit precision--recall cost structure, and indicate that commissioning
-data should sample compound contexts and operating conditions jointly rather
-than relying on either alone. Several directions remain open. The dataset provides insufficient replicated same-state recordings to
+deployment readiness and argue for calibrating constituent detectors with
+explicit precision--recall cost structure. They are also consistent with
+compound-context and operating-condition novelty being more demanding in
+combination than either alone, but---because that interaction did not survive
+training-cardinality matching---this is offered as a direction for
+commissioning practice to test rather than as an established requirement. Several directions remain open. The dataset provides insufficient replicated same-state recordings to
 separate fault, assembly, sensor-mounting, thermal, and recording-related
 effects. The transfer analyses therefore stop at carefully bounded
 attribution; systematically replicated acquisitions would enable stronger
