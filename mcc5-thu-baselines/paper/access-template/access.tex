@@ -343,6 +343,24 @@ R_x(o_0)
 Both local energy and
 $\log_{10}[\max(R_x(o_0),\epsilon)]$ were retained.
 
+The fixed $\pm0.12$ half-width was verified against the released signals
+rather than adopted by convention. Because a fixed absolute window spans a
+smaller relative width at higher harmonics while slip-induced deviation of a
+bearing order grows with harmonic number, the observed spectral peak departs
+from its kinematic order by a median of $0.024$ and $0.036$ order at the BPFO
+and BPFI fundamentals but $0.049$ and $0.080$ order at their second
+harmonics; the $\pm0.12$ window consequently contains the observed peak in
+96--100\% of single-fault runs at the fundamental and in 74\% at the BPFI
+second harmonic. Widening the window does not repair this and degrades
+discrimination, because $2 o_{\mathrm{BPFO}}$ and $2 o_{\mathrm{BPFI}}$ lie
+close to integer shaft orders that carry rotational energy in healthy and
+faulty machines alike: separation of faulty from healthy runs at
+$2 o_{\mathrm{BPFO}}$ falls from AUROC $0.877$ at $\pm0.12$ to $0.573$ at
+$\pm0.25$ and to chance at $\pm0.50$. The $\pm0.12$ choice is therefore
+retained as the better available compromise on this rig, with
+second-harmonic descriptors---BPFI's in particular---understood to carry
+less reliable evidence than their fundamentals.
+
 For the SKF~6205 bearing, the characteristic orders were
 
 \begin{equation}
@@ -376,6 +394,20 @@ broken-bar-sensitive proxies rather than as a fully slip-parameterized
 broken-bar model. Because these sidebands may also vary with load, operating
 condition, and other electromagnetic modulation phenomena, they are not
 interpreted as mechanism-exclusive slip-frequency measurements.
+
+The distinction is quantitative on this rig. The detected carrier lies at
+$50.06$~Hz against a $49.69$~Hz shaft at the 3000~rpm setting, identifying a
+two-pole machine, so that $s = 1 - 1/o_e$ yields slip of 3.0\%, 1.5\%, and
+1.0\% at the 1000, 2000, and 3000~rpm settings. The classical broken-bar
+sidebands at $(1\pm2s)f_e$ therefore sit $2 s\, o_e = 0.062$, $0.031$, and
+$0.020$ order from the carrier---about two spectral bins at the analysis
+window length used here, and within the $\pm0.12$ band centered on $o_e$
+itself in 92.7\% of analyzed windows. That signature is thus absorbed into
+the carrier descriptor rather than resolved separately, whereas $o_e\pm1$ and
+$o_e\pm2$ lie one and two shaft orders out, coinciding with the $f_e \pm f_r$
+spacing associated with eccentricity. Resolving genuine broken-bar sidebands
+on this rig would require substantially longer analysis windows or explicit
+slip-tracked demodulation.
 
 Current imbalance was characterized by the coefficient of variation of the
 three phase RMS values and a phase-order-invariant sequence ratio. For the two
