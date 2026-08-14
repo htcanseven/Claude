@@ -96,12 +96,16 @@ induction motors, multi-label classification, zero-shot learning
 \section{Introduction}
 \label{sec:introduction}
 \PARstart{I}{nduction} motors underpin industrial drivetrains, and their
-unplanned failures propagate directly into downtime and safety risk. Data
-driven condition monitoring has consequently produced a large literature
-whose reported accuracies now cluster near ceiling on standard laboratory
-benchmarks. Deployment experience is harder to reconcile with those numbers.
-A model commissioned at one operating point degrades at another, and faults
-in service rarely arrive one at a time. A bearing defect that develops
+unplanned failures propagate directly into downtime and safety risk, which
+has motivated decades of work on condition monitoring for electrical
+machines \cite{nandi2005review,bellini2008advances}. Data driven condition
+monitoring has consequently produced a large literature whose reported
+accuracies now cluster near ceiling on standard laboratory benchmarks
+\cite{zhao2020benchmark}. Deployment experience is harder to reconcile with
+those numbers. A model commissioned at one operating point degrades at
+another, which is the problem addressed by a large body of work on domain
+adaptation and domain generalization \cite{han2025,domainshift2025}, and
+faults in service rarely arrive one at a time. A bearing defect that develops
 alongside a winding short circuit, broken rotor bars, or eccentricity
 confronts the monitoring system with a \emph{compound} state whose exact
 combination was, in general, never present in the training history.
@@ -109,16 +113,20 @@ combination was, in general, never present in the training history.
 Conventional closed set formulations cannot even express this situation,
 because a previously unseen combination $A{+}B$ constitutes an unseen class.
 The compound fault literature therefore moved toward decoupling formulations
-that predict elementary mechanisms rather than combinations, and, more
-recently, toward zero shot settings in which compound states must be
-recognized from single fault training data alone. As
+that predict elementary mechanisms rather than combinations
+\cite{huang2019ddcnn,ltssbow2024,hemtan2024}, and, more recently, toward zero
+shot settings in which compound states must be recognized from single fault
+training data alone \cite{eswa2022,eswa2023,song2025gzsl}. As
 Section~\ref{sec:related} reviews, however, that literature has evaluated
 almost exclusively \emph{homogeneous} compounds, meaning bearing and gear
 pairings whose constituents are all observable in the same vibration channel.
-Its reported accuracies of roughly 75\% to 87\% are not directly comparable
+Its reported accuracies of roughly 75\% to 87\%
+\cite{eswa2022,eswa2023,song2025gzsl,appac2025} are not directly comparable
 with a leakage safe crossed evaluation at the run level, because many
 representative studies use steady operating conditions together with
-evaluation protocols defined at the sample or segment level.
+evaluation protocols defined at the sample or segment level, a practice that
+a parallel literature on data leakage has shown to inflate reported
+performance \cite{wheat2024,gama2025,phme2025}.
 
 This paper asks a deliberately harder question on a public dataset that makes
 it answerable. The MCC5-THU motor dataset \cite{chen2026} provides 288
@@ -137,8 +145,9 @@ The study is designed so that every claim is bounded by an explicit control.
 The formulation is at the constituent level, where nine elementary mechanisms
 are detected independently by regularized linear probes operating on curated
 families of physical signatures that are specific to each mechanism and
-derived from angle resampled order spectra, envelope order descriptors, and
-phase current sequence measures. A crossed protocol varies compound context
+derived from angle resampled order spectra, envelope order descriptors
+\cite{randall2011tutorial}, and phase current sequence measures
+\cite{thomson2001mcsa}. A crossed protocol varies compound context
 exposure over three regimes, namely recombination, one sided withholding, and
 two sided zero shot withholding, and crosses each with seen and unseen
 operating conditions, under run level and severity aware splits with all
