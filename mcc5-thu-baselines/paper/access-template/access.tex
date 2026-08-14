@@ -60,21 +60,10 @@ mechanical, electrical, or electromagnetic mechanism, under twelve speed/load
 conditions. The problem is formulated at the constituent level: nine
 elementary mechanisms are detected independently from physics-guided,
 mechanism-specific vibration- and current-domain features, so unseen
-combinations remain expressible. A crossed protocol separates three levels of
-compound-context exposure (recombination, one-sided, and two-sided
-context zero-shot) from operating-condition novelty, with run-level,
-severity-aware splits and all calibration confined to training data. Although
-closed-set 24-class accuracy reaches 0.913, exact recovery of unseen
-constituent sets remains between 0.083 and 0.157 for the locked linear probe,
-and every metric is reported against input-independent prevalence references
-that expose partial-recovery scores as otherwise misleading. Compound-context
-deprivation is measurably harmful chiefly when the operating condition is
-also unseen (micro-$F_1$ interaction $+0.040$, 95\% CI $[0.009, 0.073]$), and
-cross-partner transfer is strongly directional, including one statistically
-supported score-orientation reversal whose physical attribution is
-deliberately left open given demonstrated recording-session separability.
-Threshold-objective and classifier-family analyses show that exact
-decomposition, not constituent recall, is the binding constraint.
+combinations remain expressible. A crossed protocol separates three levels of compound-context exposure (recombination, one-sided, and two-sided context zero-shot) from operating-condition novelty, with run-level, severity-aware splits and all calibration confined to training data. Although closed-set 24-class accuracy reaches 0.913, exact recovery of unseen constituent sets remains between 0.083 and 0.157 for the locked linear probe.
+Mechanism-resolved controls show that these failures are strongly
+heterogeneous. Dynamic eccentricity is almost perfectly discriminable in isolation (AUROC 0.9995; $F_1=0.923$), yet its compound recall falls to 0.017 and its compound $F_1$ to 0.028. Static eccentricity retains substantial discriminative information but shows marked classifier-family sensitivity, whereas winding is already less specific in isolation and remains difficult across classifier families. The primary context-by-condition interaction is positive but becomes unresolved after matching total training-set cardinality.
+Cross-partner transfer is also heterogeneous and includes one statistically supported score-orientation reversal. These results show that constituent-level evaluation exposes mechanism-specific generalization failures that closed-set accuracy alone conceals.
 
 \end{abstract}
 
@@ -109,22 +98,15 @@ toward zero-shot settings in which compound states must be recognized from
 single-fault training data alone. As Section~\ref{sec:related} reviews,
 however, that literature has evaluated almost exclusively \emph{homogeneous}
 compounds---bearing--bearing or bearing--gear pairings whose constituents are
-all observable in the same vibration channel---and its reported accuracies of
-roughly 75--87\% have been obtained under evaluation practices that a
-parallel line of work on data leakage has shown to be fragile: sample-level
-splits, steady operating conditions, and metrics reported without reference
-to what label prevalence alone would achieve.
+all observable in the same vibration channel---and its reported accuracies of roughly 75--87\% are not directly comparable with
+a leakage-safe crossed run-level evaluation, because many representative studies use steady operating conditions and sample- or segment-level evaluation protocols.
 
 This paper asks a deliberately harder question on a public dataset that makes
 it answerable. The MCC5-THU motor dataset \cite{chen2026} provides 288
 recordings of a 2.2-kW three-phase induction motor across 24 diagnostic
 states under twelve speed/load conditions, with synchronized triaxial
-vibration, three-phase currents, torque, and a key-phase tachometer. Its nine
-compound faults pair a mechanical bearing defect with a second
-mechanism---inner or outer race, broken rotor bars, static or dynamic
-eccentricity, or a stator winding short circuit---so that, in eight of nine
-combinations, the two constituents deposit their primary evidence in
-\emph{different} sensing modalities. To our knowledge, neither this
+vibration, three-phase currents, torque, and a key-phase tachometer. Its nine compound faults include bearing--bearing and bearing-plus-non-bearing combinations involving broken rotor bars, static or dynamic eccentricity, and a stator winding short circuit. Their constituent signatures span vibration- and current-domain evidence, providing a heterogeneous multimodal setting for
+constituent-level generalization. To our knowledge, neither this
 cross-modal compound regime nor this dataset has previously received a
 constituent-level evaluation.
 
@@ -137,13 +119,12 @@ measures. A crossed protocol varies compound-context exposure over three
 regimes---recombination, one-sided, and two-sided compound-context
 zero-shot---and crosses each with seen and unseen operating conditions, under
 run-level, severity-aware splits with all preprocessing, calibration, and
-threshold selection confined to training data. Every reported metric is
-accompanied by input-independent constant-predictor references, so that
+threshold selection confined to training data. The principal constituent-level metrics are accompanied by
+input-independent constant-predictor references, so that
 prevalence-driven scores cannot masquerade as diagnostic skill; oracle
 detectability analyses are paired with recording-sensitivity and same-date
 controls, so that separability is not silently attributed to fault
-mechanisms; and paired run-clustered bootstrap inference with multiplicity
-correction distinguishes supported effects from noise.
+mechanisms; and paired run-clustered bootstrap inference, supplemented by composition-level cluster sensitivity analysis for the context-by-condition interaction, distinguishes supported effects from sampling-unit sensitivity.
 
 This paper makes five contributions. First, it introduces a
 constituent-level formulation and a crossed
@@ -151,67 +132,80 @@ composition--context--condition protocol for compound motor faults whose
 constituents span mechanical and electrical modalities, separating novel
 composition, compound-context deprivation, and operating-condition novelty
 within a single design (Sections~\ref{sec:methods}--\ref{sec:results}).
-Second, it develops a prior-aware evaluation in which every constituent
-metric is reported against input-independent prevalence references; these
-references expose several apparently favorable partial-recovery metrics as
-at or below what a constant predictor achieves and show that, against the
-best constant reference per metric, the locked probe's advantage is a joint
-operating point---higher micro-$F_1$ at comparable or lower false-addition
-cost, with all-constituent recovery exceeding its floor under
-recombination---rather than uniform per-metric superiority. Third, it
-presents a controlled analysis of constituent transfer, spanning
-within-pair oracle detectability, cross-partner transfer,
-physical-signature preservation, and a statistically supported
-score-orientation reversal, each bounded by recording-sensitivity and
-same-date controls that keep session effects from being read as physics.
+Second, it develops a prior-aware, mechanism-resolved diagnostic evaluation
+that combines input-independent prevalence references, constituent-level
+ranking and thresholded performance, isolated-fault learnability controls, and
+classifier-family sensitivity. This decomposition helps distinguish empirical patterns consistent with weak constituent specificity, classifier-capacity sensitivity, or degradation that
+emerges when an otherwise learnable constituent is evaluated in compound faults. Third, it presents a controlled analysis of constituent transfer, spanning within-pair oracle detectability, cross-partner transfer, physical-signature preservation, and a statistically supported score-orientation reversal, each bounded by recording-sensitivity and same-date controls that reduce the risk of reading recording-related
+variation as fault physics.
 Fourth, sensitivity and robustness analyses over the decision-threshold
 objective, single-fault severity merging, and four classifier families show
-that the qualitative generalization pattern is stable, while absolute
-exact-match decomposition is an operating-point and model property rather
-than an intrinsic bound of the protocol. Finally, the paper documents
-dataset-release properties that materially affect protocol
-design---recording-session separability and severity-variant leakage
-paths---together with reference operating-condition experiments
-(Appendix~\ref{app:condition}) that motivate the crossed design.
+that absolute decomposition quality is sensitive to operating point and
+classifier family, while the unseen-condition recombination advantage over
+two-sided withholding remains directionally positive across all four
+classifier families. Finally, it reports reference experiments
+(Appendix~\ref{app:reference}) that bound the study's design choices from
+outside the constituent-level pipeline: a protocol comparison establishing
+that operating-condition robustness must be claimed in the extrapolating
+direction, a measurement of what a shared multimodal feature space does to
+the weaker constituent, empirical support for two feature-construction
+parameters, and documentation of release-level properties that materially
+affect protocol design.
 
 The principal findings are that closed-set discriminability (accuracy 0.913)
-coexists with exact constituent-set recovery of 0.083--0.157 on unseen
-compounds for the locked probe; that recovery of at least one constituent is
-nearly universal while exact decomposition fails, so the practical failure
-mode is incomplete decomposition with over-diagnosis rather than silence;
-that compound-context deprivation becomes measurably harmful specifically
-under simultaneous operating-condition novelty; and that constituent evidence
-is often, but directionally and heterogeneously, transferable across
-compound partners.
+coexists with exact constituent-set recovery of only 0.083--0.157 on unseen
+compounds for the locked probe; and that the resulting failures are strongly
+mechanism specific rather than uniform. Bearing-inner, bearing-outer, and
+broken-bar constituents remain strongly discriminable, whereas dynamic
+eccentricity undergoes a particularly severe transition from near-perfect
+isolated-fault discrimination (AUROC 0.9995; $F_1=0.923$) to compound recall
+of 0.017 and $F_1$ of 0.028. Static eccentricity retains substantial
+discriminative information but is strongly classifier-family sensitive,
+whereas winding is already less constituent-specific in isolation and remains
+poor across nonlinear alternatives. Cross-partner evidence is often
+transferable but can additionally undergo severe context-dependent score
+reorientation. The primary crossed analysis suggested a larger penalty from
+complete compound-context deprivation when the operating condition was also
+unseen, but this interaction became unresolved after matching total
+training-set cardinality and is therefore treated as a sensitivity-dependent
+directional observation rather than a training-support-independent effect.
 
 The remainder of the paper is organized as follows.
 Section~\ref{sec:related} reviews related work and positions the study.
 Section~\ref{sec:methods} details the constituent representation, feature
 construction, detection, protocol, metrics, and statistical analysis.
-Section~\ref{sec:results} reports results. Section~\ref{sec:conclusion}
-concludes. Appendix~\ref{app:condition} reports the operating-condition
-reference experiments.
+Section~\ref{sec:results} reports results and Section~\ref{sec:conclusion}
+concludes the paper. Appendix~\ref{app:reference} reports the reference
+experiments on protocol difficulty, modality sharing, and feature physics.
+
 
 \section{Related Work}
 \label{sec:related}
 
 Four research threads intersect in this study: compound-fault decoupling, zero-shot recognition of unseen fault combinations, the reliability of evaluation protocols in data-driven condition monitoring, and generalization across operating conditions. We review each and then position the present work (Table~\ref{tab:positioning}).
 
-Early data-driven treatments of compound faults assigned each observed combination its own class, which cannot express combinations absent from training. Decoupling formulations address this by predicting the elementary mechanisms instead. Huang \emph{et al.} proposed a deep decoupling convolutional network whose multi-label classifier recovers the constituents of gearbox compound faults from raw vibration signals \cite{huang2019ddcnn}, and a one-dimensional CNN variant with a multi-label output layer \cite{huang2019multilabel}. Subsequent work refined the decoupling head: capsule networks with dynamic routing and threshold-based label activation \cite{ltssbow2024}, attentional residual networks combined with active learning for measured (rather than injected) bearing compound faults \cite{decoupling_attn2020}, and mixture-of-experts architectures with task-adapted attention for decoupling compounds unseen as combinations \cite{hemtan2024}. Two properties are near-universal in this line: the constituents are \emph{mechanical} (bearing races, balls, gear teeth), so every constituent is observable in the same vibration channel; and evaluation is sample-level on steady-speed laboratory recordings, usually with segments of the same recording on both sides of the train/test split.
+Early data-driven treatments of compound faults assigned each observed combination its own class, which cannot express combinations absent from training. Decoupling formulations address this by predicting the elementary mechanisms instead. Huang \emph{et al.} proposed a deep decoupling convolutional network whose multi-label classifier recovers the constituents of gearbox compound faults from raw vibration signals \cite{huang2019ddcnn}, and a one-dimensional CNN variant with a multi-label output layer \cite{huang2019multilabel}. Subsequent work refined the decoupling head: capsule networks with dynamic routing and threshold-based label activation \cite{ltssbow2024}, attentional residual networks combined with active learning for measured (rather than injected) bearing compound faults \cite{decoupling_attn2020}, and mixture-of-experts architectures with task-adapted attention for decoupling compounds unseen as combinations \cite{hemtan2024}. Two properties are common among the representative studies considered here: the constituents are \emph{mechanical} (bearing races, balls, gear teeth), so every constituent is observable in the same vibration channel; and several evaluations rely on steady-speed laboratory recordings and sample- or segment-level protocols that do not explicitly test independence across physical recordings.
 
 
 A stricter setting withholds all compound data and requires composing single-fault knowledge at test time. Xu \emph{et al.} introduced zero-shot compound-fault diagnosis with manually defined semantic attributes learned from single-fault data \cite{eswa2022}, later replacing hand-crafted attributes with autoencoder-learned fault semantics \cite{eswa2023}. Generative formulations synthesize pseudo-samples of unseen compounds from single-fault semantics \cite{zsl2021,kbs2025}; graph embeddings propagate relational structure among base faults \cite{neuro2025}; and physics-informed semantic spaces anchor the attribute vectors in characteristic-frequency knowledge \cite{song2025gzsl}. Reported accuracies on unseen compounds cluster between roughly 75\% and 87\% \cite{eswa2022,eswa2023,song2025gzsl,appac2025}.
 
-These results, however, concern compounds whose constituents are homogeneous: bearing gear combinations in which both mechanisms modulate the same vibration carrier. The compounds in the MCC5-THU motor dataset instead pair a mechanical bearing defect with an electrical or electromagnetic fault (winding short circuit, broken rotor bars, eccentricity), whose primary evidence lies in the stator currents rather than in vibration. To our knowledge, this cross-modal compound regime has not been evaluated in the zero-shot compound-fault literature, and no published constituent-level results exist for this dataset.
+These results, however, concern compounds whose constituents are homogeneous: bearing gear combinations in which both mechanisms modulate the same vibration carrier. The MCC5-THU motor dataset instead contains compound compositions that combine
+bearing defects with broken-bar, eccentricity, and winding mechanisms. Their
+curated signatures span current-domain carrier and imbalance descriptors as
+well as, for eccentricity, shaft-order vibration descriptors. The resulting
+setting therefore tests heterogeneous multimodal constituent transfer rather
+than a purely vibration-domain compound task. To our knowledge, this cross-modal compound regime has not been evaluated in the zero-shot compound-fault literature, and no published constituent-level results exist for this dataset.
 
 
-A parallel literature shows that evaluation-protocol choices, more than model choices, drive many reported near-ceiling accuracies. Wheat \emph{et al.} quantified the impact of intra-bearing data leakage in vibration diagnosis and advocated part-to-part splits \cite{wheat2024}; recent work formalizes the distinction between segmentation-level and specimen-level leakage and proposes leakage-safe protocols \cite{gama2025,phme2025}; and open benchmark studies made similar observations for deep architectures across public datasets \cite{zhao2020benchmark}. This thread has concentrated on single-fault classification. Its intersection with compound-fault evaluation is, to our knowledge, unexplored --- yet it is precisely where leakage is most subtle: in the dataset used here, severity variants of one physical combination can leak across a composition boundary, and compound recordings are acquired in different sessions from their single-fault references, which confounds naive ``compound versus single'' contrasts. Our protocol design (run-level, severity-aware splits; session-matched sensitivity controls; constituent-prevalence floors for every reported metric) extends leakage-aware evaluation to the compositional setting.
+A parallel literature shows that evaluation-protocol choices, more than model choices, drive many reported near-ceiling accuracies. Wheat \emph{et al.} quantified the impact of intra-bearing data leakage in vibration diagnosis and advocated part-to-part splits \cite{wheat2024}; recent work formalizes the distinction between segmentation-level and specimen-level leakage and proposes leakage-safe protocols \cite{gama2025,phme2025}; and open benchmark studies made similar observations for deep architectures across public datasets \cite{zhao2020benchmark}. This thread has concentrated on single-fault classification. Its intersection with compound-fault evaluation is, to our knowledge, unexplored --- yet it is precisely where leakage is most subtle: in the dataset used here, severity variants of one physical combination can leak across a composition
+boundary, while compound and single-fault recordings may also differ in recording-related conditions, which can confound naive ``compound versus single'' contrasts. Our protocol design (run-level, severity-aware splits; recording-sensitivity and same-date controls; and constant-predictor references for the principal constituent-level metrics) extends leakage-aware evaluation to the compositional setting.
 
 
-Diagnosis under variable speed and load has produced a large domain-adaptation and domain-generalization literature, surveyed in \cite{han2025}. On the MCC5-THU family specifically, the dataset authors proposed evidential ensemble learning for real-time multimode diagnosis \cite{liu2024tii} and recently questioned how operating conditions should enter learning-based diagnosis at all \cite{rethinking2025}; other groups applied condition-robust architectures to the companion gearbox release \cite{wang2024,phmap2025}. The dominant protocol in this literature holds one condition out of many \cite{han2025,domainshift2025}. Our companion benchmark experiments on this dataset show that protocol to be nearly saturated --- training on eleven of twelve conditions costs only ${\sim}3$ accuracy points, because the remaining conditions bracket the held-out one, whereas the operationally realistic reverse direction (training on a single condition) costs over 60 --- which motivates the crossed composition--context--condition design used here rather than leave-one-condition-out alone.
+Diagnosis under variable speed and load has produced a large domain-adaptation and domain-generalization literature, surveyed in \cite{han2025}. On the MCC5-THU family specifically, the dataset authors proposed evidential ensemble learning for real-time multimode diagnosis \cite{liu2024tii} and recently questioned how operating conditions should enter learning-based diagnosis at all \cite{rethinking2025}; other groups applied condition-robust architectures to the companion gearbox release \cite{wang2024,phmap2025}. The dominant protocol in this literature holds one condition out of many \cite{han2025,domainshift2025}. The present study instead evaluates
+operating-condition novelty jointly with compound-context exposure through the crossed composition--context--condition design.
 
 \begin{table*}[!t]
-\caption{Positioning of this study against representative prior work. $\checkmark$~=~explicitly included; --~=~absent, not applicable, or not reported. ``Cross-modal'' means the compound's constituents are observable in different sensing modalities (mechanical $+$ electrical). ``Prior-aware floors'' means metrics are reported against label-prevalence (trivial constant-predictor) references.}
+\caption{Positioning of this study against representative prior work. $\checkmark$~=~explicitly included; --~=~absent, not applicable, or not reported. ``Cross-modal'' means the compound's constituents are observable in different sensing modalities (mechanical $+$ electrical). ``Prior-aware references'' means metrics are reported against label-prevalence (trivial constant-predictor) references.}
 \label{tab:positioning}
 \centering
 \footnotesize
@@ -221,7 +215,7 @@ Diagnosis under variable speed and load has produced a large domain-adaptation a
 Study & Task focus & Signals & \makecell{Compound\\faults} &
 \makecell{Cross-\\modal} & \makecell{Unseen\\combin.} &
 \makecell{Condition\\shift} & \makecell{Leakage-safe\\run-level splits} &
-\makecell{Prior-aware\\floors} \\
+\makecell{Prior-aware\\references} \\
 \hline
 Huang \emph{et al.} \cite{huang2019ddcnn} & multi-label decoupling & vib. & $\checkmark$ & -- & -- & -- & -- & -- \\
 LTSS-BoW-CapsNet \cite{ltssbow2024} & capsule decoupling & vib. & $\checkmark$ & -- & -- & -- & -- & -- \\
@@ -240,12 +234,13 @@ $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 \end{tabular}
 \end{table*}
 
-That mechanical faults imprint on stator currents and electrical faults on vibration has long motivated multimodal motor diagnosis \cite{mcsa_review2017}. Deep multimodal fusion typically concatenates modalities into one representation or fuses learned features, e.g.\ multilevel information fusion \cite{multilevel2019}, dynamic-routing multimodal networks \cite{drmnn2020}, adaptive CNN fusion of denoised vibration and current \cite{plos2025}, and comparative studies of the two modalities under deep and classical learners \cite{ayankoso2026}. These works report that fusion improves single-fault accuracy. The compound setting reverses the picture: our diagnostic experiments on this dataset show that a shared feature space lets the dominant (mechanical) signature suppress the electrical one --- a winding short detectable from currents alone on 39\% of windows falls to 0.2\% once vibration features are concatenated. The mechanism-specific feature families used here are a structural answer: each constituent detector sees only the physically appropriate modality, so cross-modal suppression cannot occur inside a detector.
+That mechanical faults imprint on stator currents and electrical faults on vibration has long motivated multimodal motor diagnosis \cite{mcsa_review2017}. Deep multimodal fusion typically concatenates modalities into one representation or fuses learned features, e.g.\ multilevel information fusion \cite{multilevel2019}, dynamic-routing multimodal networks \cite{drmnn2020}, adaptive CNN fusion of denoised vibration and current \cite{plos2025}, and comparative studies of the two modalities under deep and classical learners \cite{ayankoso2026}. These works report that multimodal fusion can improve conventional single-fault diagnosis. In the present study, constituent detectors instead use predefined mechanism-specific feature families, restricting each detector to physically relevant vibration- or current-domain descriptors and thereby reducing direct competition between unrelated modality features.
 
-Public rotating-machinery datasets underpin this literature: CWRU \cite{smith2015cwru} and Paderborn \cite{lessmeier2016} for bearings, and more recent multi-fault motor and drivetrain releases such as a PMSM stator-fault dataset \cite{jung2023} and an industrial-scale motor--pump dataset \cite{bruinsma2024}. The MCC5-THU family --- a gearbox release \cite{chen2024gearbox} and the motor release used here \cite{chen2026} --- is distinctive in combining single and compound faults, twelve speed/load profiles with transitional segments, and synchronized vibration, three-phase current, torque, and key-phase channels. The motor release is distributed without reference baselines; the present study provides, to our knowledge, its first systematic constituent-level evaluation, together with documentation of release-level inconsistencies that materially affect protocol design.
+Public rotating-machinery datasets underpin this literature: CWRU \cite{smith2015cwru} and Paderborn \cite{lessmeier2016} for bearings, and more recent multi-fault motor and drivetrain releases such as a PMSM stator-fault dataset \cite{jung2023} and an industrial-scale motor--pump dataset \cite{bruinsma2024}. The MCC5-THU family --- a gearbox release \cite{chen2024gearbox} and the motor release used here \cite{chen2026} --- is distinctive in combining single and compound faults, twelve speed/load profiles with transitional segments, and synchronized vibration, three-phase current, torque, and key-phase channels. The motor release is distributed without constituent-level reference
+baselines; the present study provides, to our knowledge, its first systematic constituent-level evaluation.
 
 
-Table~\ref{tab:positioning} contrasts this study with representative prior work along the axes developed above. The distinguishing combination is: compound faults whose constituents live in different modalities; composition, compound-context, and operating-condition generalization varied jointly in one crossed protocol; run-level, severity-aware, leakage-safe splits; metrics reported against constituent-prevalence floors so that prior-driven scores cannot masquerade as diagnostic skill; and run-clustered bootstrap inference with multiplicity control.
+Table~\ref{tab:positioning} contrasts this study with representative prior work along the axes developed above. The distinguishing combination is: compound faults whose constituents live in different modalities; composition, compound-context, and operating-condition generalization varied jointly in one crossed protocol; run-level, severity-aware, leakage-safe splits; the principal constituent-level metrics interpreted against constituent-specific constant-predictor references so that prior-driven scores cannot masquerade as diagnostic skill; and run-clustered bootstrap inference with multiplicity control.
 
 
 
@@ -255,30 +250,19 @@ Table~\ref{tab:positioning} contrasts this study with representative prior work 
 \section{Materials and Methods}
 \label{sec:methods}
 
-The proposed study was designed to evaluate whether the elementary fault
-mechanisms forming a compound motor fault can be recovered when their exact
-combination has not been observed during model development. Rather than
-treating each compound condition as an independent multiclass label, the
-problem was formulated at the constituent-mechanism level. The methodology consisted of a primary crossed constituent-generalization
-experiment together with complementary analyses designed to distinguish
-diagnostic failure from absence, suppression, or context-dependent
-reorientation of constituent evidence. The analysis pipeline included
-constituent-level fault representation, physics-guided multimodal feature construction, independent constituent detection, crossed evaluation of composition, compound-context, and operating-condition generalization, within-pair and cross-partner transferability analysis, physical-signature preservation analysis, and paired statistical evaluation. All preprocessing, feature normalization, classifier fitting, and decision-threshold calibration
-were performed exclusively within the corresponding training data to prevent information leakage.
+The study evaluated constituent-level recovery of compound motor faults under novel composition, compound-context, and operating-condition settings.
+Rather than treating each compound state as a separate multiclass label, faults were represented by their elementary mechanisms. The analysis combined physics-guided multimodal features, independent constituent detectors, a crossed generalization protocol, transfer and signature-preservation analyses, and statistical evaluation. All preprocessing, normalization, classifier fitting, and threshold calibration were confined to the corresponding training data to prevent information leakage.
 
 
-\subsection{Constituent-Level Fault Representation and Problem Formulation}
+\subsection{Dataset and Constituent-Level Problem Formulation}
 \label{subsec:problem_formulation}
 
-Let the dataset contain $N$ independent experimental runs. Instead of assigning
-each run to one of the original fault-condition classes, every run was
-represented by a binary constituent vector
+The study used the public MCC5-THU motor dataset \cite{chen2026}, comprising 288 physical recordings from a 2.2-kW three-phase induction motor across 24 diagnostic states and 12 speed/load operating conditions. The release contains healthy, single-fault, and nine compound-fault compositions, yielding 108 physical compound runs. Synchronized measurements include triaxial vibration, three-phase current, torque, and keyphase signals; the present constituent analysis used vibration, current, and keyphase measurements. Each experimental run $i$ was represented by a binary constituent vector
 
 \begin{equation}
 \mathbf{y}_i =
 \left[
 y_{i,1},
-y_{i,2},
 \ldots,
 y_{i,K}
 \right]^{\mathrm{T}},
@@ -287,96 +271,55 @@ y_{i,K}
 \label{eq:multilabel_vector}
 \end{equation}
 
-where $i$ denotes the experimental run and $K=9$ denotes the number of
-elementary fault mechanisms considered in this study. The constituent set was
+with $K=9$ elementary mechanisms: bearing ball, bearing inner race, bearing
+outer race, shaft bending, broken bar, dynamic eccentricity, static
+eccentricity, voltage unbalance, and winding fault.
+
+The label cardinality distinguished healthy, single-fault, and compound runs,
 
 \begin{equation}
-\mathcal{F} =
-\{
-f_{\mathrm{ball}},
-f_{\mathrm{inner}},
-f_{\mathrm{outer}},
-f_{\mathrm{bend}},
-f_{\mathrm{bar}},
-f_{\mathrm{dyn}},
-f_{\mathrm{stat}},
-f_{\mathrm{vu}},
-f_{\mathrm{wind}}
-\},
-\label{eq:fault_set}
-\end{equation}
-
-corresponding to bearing-ball, bearing-inner-race, bearing-outer-race,
-shaft-bending, broken-bar, dynamic-eccentricity, static-eccentricity,
-voltage-unbalance, and winding-related fault mechanisms, respectively.
-
-For a healthy run,
-
-\begin{equation}
-\|\mathbf{y}_i\|_0 = 0,
-\end{equation}
-
-whereas a single-fault run satisfies
-
-\begin{equation}
-\|\mathbf{y}_i\|_0 = 1.
-\end{equation}
-
-A compound fault is represented by the simultaneous activation of two or more
-constituents,
-
-\begin{equation}
-\|\mathbf{y}_i\|_0 \geq 2.
+\|\mathbf{y}_i\|_0 =
+\begin{cases}
+0, & \text{healthy},\\
+1, & \text{single fault},\\
+\geq 2, & \text{compound fault}.
+\end{cases}
 \label{eq:compound_definition}
 \end{equation}
 
-The composition associated with the $i$th run was therefore defined as
+The constituent composition of run $i$ was defined as
 
 \begin{equation}
 \mathcal{C}_i =
 \left\{
-f_k \in \mathcal{F}
-\,:\,
-y_{i,k}=1
+f_k : y_{i,k}=1
 \right\}.
 \label{eq:composition_set}
 \end{equation}
 
-For example, a simultaneous inner-bearing and winding fault was encoded as
-
-\begin{equation}
-y_{i,\mathrm{inner}}=1,
-\qquad
-y_{i,\mathrm{wind}}=1,
-\end{equation}
-
-while all remaining constituent entries were zero.
-
-This formulation differs fundamentally from conventional closed-set
-multiclass diagnosis. In a multiclass formulation, a previously unseen
-compound such as $A+B$ constitutes an unseen class. In the proposed
-constituent formulation, the diagnostic objective is instead to recover the
-known elementary mechanisms $A$ and $B$ independently. Consequently, the
-primary research question becomes whether constituent knowledge learned from
-single faults and other compound contexts can be transferred to a novel
-composition.
+Unlike closed-set multiclass diagnosis, where an unseen combination $A+B$
+forms an unseen class, the constituent formulation seeks to recover $A$ and
+$B$ independently. The resulting generalization problem is therefore whether
+constituent knowledge learned from single faults and other compound contexts
+transfers to a novel composition.
 
 
 \subsection{Physics-Guided Multimodal Feature Representation}
 \label{subsec:physics_features}
 
-The diagnostic representation was derived from three vibration channels and
-three phase-current channels sampled at $12{,}800$~Hz. Each 2-s analysis
-window was angle resampled using the measured keyphase pulses at 256 samples
-per shaft revolution before order-domain feature extraction. Window-level
-descriptors were subsequently aggregated to one run-level representation using
-the median across valid windows. Interquartile-range descriptors were also
-generated during feature extraction, but the curated mechanism-specific
-signatures used in the final constituent detectors excluded the corresponding
-\texttt{\_\_iqr} features. Thus, all classifiers operated on one
-physics-guided feature vector per experimental run.
+Features were derived from three vibration and three phase-current channels
+sampled at $12{,}800$~Hz. Signals were segmented into 2-s analysis windows
+using a 1-s stride, corresponding to 50\% overlap. Each window was angle
+resampled from the measured keyphase pulses at 256 samples per shaft
+revolution before order-domain analysis. For physics-feature extraction, at
+most 12 windows were retained per recording; when more were available,
+approximately evenly spaced windows spanning the recording were selected.
+Window-level descriptors were aggregated to one run-level representation by
+their median. Although interquartile-range descriptors were
+also generated, the curated constituent detectors used only the median
+features and excluded the corresponding \texttt{\_\_iqr} terms.
 
-The resulting multimodal representation was written as
+The run-level multimodal representation was
 
 \begin{equation}
 \mathbf{x}_i =
@@ -388,67 +331,63 @@ The resulting multimodal representation was written as
 \end{equation}
 
 where $\mathbf{x}^{(v)}_i$ and $\mathbf{x}^{(c)}_i$ denote vibration- and
-current-derived descriptors, respectively.
+current-derived descriptors.
 
-For an angle-domain signal $x[n]$, the order spectrum $P_x(o)$ was estimated
-using a Hann-window periodogram. Around a target shaft order $o_0$, local
-spectral energy was accumulated within a $\pm0.12$ order band and normalized
-by the total spectral energy between 0.25 and 60 shaft orders,
+For an angle-domain signal $x[n]$, a Hann-window periodogram $P_x(o)$ was
+computed. Energy around a target shaft order $o_0$ was accumulated within
+$\pm0.12$ order and normalized by the total energy over 0.25--60 orders,
 
 \begin{equation}
 R_x(o_0)
 =
 \frac{
-\displaystyle
-\sum_{|o-o_0|\leq0.12} P_x(o)
+\displaystyle\sum_{|o-o_0|\leq0.12} P_x(o)
 }{
-\displaystyle
-\sum_{0.25\leq o\leq60} P_x(o)
-+\epsilon
+\displaystyle\sum_{0.25\leq o\leq60} P_x(o)+\epsilon
 }.
 \label{eq:implemented_bandratio}
 \end{equation}
 
-Both the local band energy and its logarithmic normalized ratio,
-$\log_{10}[\max(R_x(o_0),\epsilon)]$, were retained in the feature bank.
+Both local energy and
+$\log_{10}[\max(R_x(o_0),\epsilon)]$ were retained.
 
-For the SKF~6205 bearing, the characteristic shaft orders were
+For the SKF~6205 bearing, the characteristic orders were
 
 \begin{equation}
-o_{\mathrm{BPFO}}=3.585,
-\qquad
-o_{\mathrm{BPFI}}=5.415,
-\qquad
+o_{\mathrm{BPFO}}=3.585,\qquad
+o_{\mathrm{BPFI}}=5.415,\qquad
 o_{\mathrm{BSF}}=2.357,
 \label{eq:bearing_orders}
 \end{equation}
 
-together with their second harmonics. Bearing-fault descriptors were extracted
-from the Hilbert-envelope vibration order spectrum.
+together with their second harmonics. Bearing descriptors were extracted from
+the Hilbert-envelope vibration order spectrum. Importantly, the Hilbert
+envelope was computed \emph{after} angle resampling; therefore, these
+descriptors characterize modulation retained in the 256-samples-per-revolution
+angle-domain representation rather than a separately band-pass-filtered
+broadband demodulation signal. The angle-domain Nyquist limit is 128 shaft
+orders, while the normalized spectral ratios used here were restricted to
+0.25--60 orders.
 
-Current-domain descriptors were obtained from the individual phase-current
-order spectra and the magnitude of the Clarke space vector. The dominant
-electrical order was identified from the maximum summed three-phase spectral
-energy over 0.5--30 orders. Relative to this data-derived carrier $o_e$,
-features were evaluated at
+Current descriptors were obtained from the individual phase-current spectra
+and the Clarke-space-vector magnitude. The dominant electrical carrier
+$o_e$ was identified from the maximum summed three-phase spectral energy over
+0.5--30 orders, and descriptors were evaluated at
 
 \begin{equation}
-o_e,\qquad
-o_e\pm1,\qquad
-o_e\pm2,\qquad
-2o_e.
+o_e,\qquad o_e\pm1,\qquad o_e\pm2,\qquad 2o_e.
 \label{eq:current_targets}
 \end{equation}
 
-The $o_e\pm1$ and $o_e\pm2$ components were used as electrical-carrier
-sideband proxies and were not interpreted as a fully slip-parameterized
-broken-bar model.
+The $o_e\pm1$ and $o_e\pm2$ terms were treated as carrier-relative
+broken-bar-sensitive proxies rather than as a fully slip-parameterized
+broken-bar model. Because these sidebands may also vary with load, operating
+condition, and other electromagnetic modulation phenomena, they are not
+interpreted as mechanism-exclusive slip-frequency measurements.
 
-Current imbalance was characterized using the coefficient of variation of the
-three phase RMS values and a phase-order-invariant sequence ratio. Let $S_1$
-and $S_2$ denote the two sequence candidates obtained from the three complex
-phase-current coefficients at $o_e$. Because the dataset channel phase order
-was not assumed a priori, the implemented sequence descriptor was
+Current imbalance was characterized by the coefficient of variation of the
+three phase RMS values and a phase-order-invariant sequence ratio. For the two
+sequence candidates $S_1$ and $S_2$ at $o_e$,
 
 \begin{equation}
 r_{\mathrm{seq}}
@@ -457,58 +396,49 @@ r_{\mathrm{seq}}
 \min\left(|S_1|,|S_2|\right)
 }{
 \max\left(|S_1|,|S_2|\right)+\epsilon
-}.
+},
 \label{eq:sequence_ratio}
 \end{equation}
 
-Accordingly, this descriptor represents a phase-order-invariant sequence
-imbalance rather than the magnitude of a prespecified negative-sequence
-phasor.
+which avoids assuming a predefined phase order and therefore represents
+sequence imbalance rather than a prespecified negative-sequence magnitude.
 
-Rather than exposing every constituent detector to the complete feature bank,
-a fixed mechanism-specific mapping was used. Bearing-inner, bearing-outer,
-and bearing-ball detectors used BPFI/2BPFI, BPFO/2BPFO, and BSF/2BSF
-envelope-order descriptors, respectively. Shaft bending used raw
-shaft-$1\times$ and shaft-$2\times$ vibration features. Broken-bar detection
-used electrical-carrier sideband proxies; dynamic and static eccentricity
-used combined shaft-order and carrier-sideband descriptors; voltage unbalance
-used sequence-ratio and phase-RMS imbalance features; and winding faults used
-sequence-ratio, phase-RMS imbalance, and electrical second-harmonic
-descriptors.
-
-For constituent $k$,
+Each constituent detector received a fixed mechanism-specific subset of this
+feature bank. Bearing-inner, bearing-outer, and bearing-ball detectors used
+BPFI/2BPFI, BPFO/2BPFO, and BSF/2BSF envelope-order features, respectively;
+shaft bending used shaft-$1\times$ and shaft-$2\times$ vibration features;
+broken bar used carrier-sideband proxies; dynamic and static eccentricity used
+shaft-order and carrier-sideband features; voltage unbalance used
+sequence-ratio and phase-RMS imbalance; and winding used sequence-ratio,
+phase-RMS imbalance, and electrical second-harmonic features. Formally,
 
 \begin{equation}
-\mathbf{x}^{(k)}_i
-=
-\mathbf{M}_k\mathbf{x}_i,
+\mathbf{x}^{(k)}_i = \mathbf{M}_k\mathbf{x}_i,
 \label{eq:mechanism_feature_map}
 \end{equation}
 
-where $\mathbf{M}_k$ denotes the predefined mechanism-specific feature
-selector. The selected sets contained 16 descriptors for each bearing
-mechanism and shaft bending, 40 for broken bar, 56 for each eccentricity
-mechanism, 2 for voltage unbalance, and 12 for winding. The unequal selector
-sizes reflect the number of physically distinct channel--order combinations
-represented by each predefined signature family rather than post-hoc
-optimization of feature-set dimensionality. No outer-test performance was used
-to modify the feature definitions or selector sizes.
-\subsection{Independent Constituent Detection}
+where $\mathbf{M}_k$ is the predefined selector for constituent $k$. The
+resulting subsets contained 16 descriptors for each bearing mechanism and
+shaft bending, 40 for broken bar, 56 for each eccentricity mechanism, 2 for
+voltage unbalance, and 12 for winding. These dimensions arose from the
+predefined channel--order combinations rather than post-hoc optimization, and
+no outer-test performance was used to alter the feature definitions or
+selector sizes.
+
+
+\subsection{Constituent Detection and Sensitivity Analyses}
 \label{subsec:constituent_detection}
 
-A separate binary detector was trained for each constituent mechanism,
-allowing multiple fault mechanisms to be activated simultaneously without a
-softmax constraint. For the locked primary analysis, each detector used
-$L_2$-regularized logistic regression with $C=1$ and class balancing applied
-within the corresponding training data. The predefined
-mechanism-specific feature subset $\mathbf{x}^{(k)}_i$ described in
-Section~\ref{subsec:physics_features} was used independently for constituent
-$k$.
+A separate binary detector was trained for each constituent mechanism, allowing
+multiple faults to be activated simultaneously without a softmax constraint.
+The locked primary model used $L_2$-regularized logistic regression
+($C=1$) with class balancing and the predefined mechanism-specific feature
+subset $\mathbf{x}^{(k)}_i$ for constituent $k$.
 
-All preprocessing was fitted strictly within each outer-training fold.
-Missing values were replaced using training-set medians, after which features
-were standardized using training-set statistics. The resulting probability
-$p_{i,k}$ was converted to a binary decision according to
+All preprocessing was fitted within the outer-training fold: missing values
+were imputed using training-set medians and features were standardized using
+training-set statistics. Constituent probabilities were converted to binary
+decisions as
 
 \begin{equation}
 \hat{y}_{i,k}
@@ -519,237 +449,292 @@ $p_{i,k}$ was converted to a binary decision according to
 
 where $\tau_k$ is a constituent-specific threshold.
 
-Thresholds were calibrated exclusively within the outer-training data using grouped inner cross-validation over operating conditions. All runs sharing the same operating-condition identifier were assigned to the same inner-validation group so that an operating condition was not split between the corresponding inner-training and inner-validation partitions. Candidate thresholds from 0.05 to 0.95 were evaluated using constituent-level $F_1$ as the primary objective, with balanced accuracy and proximity to 0.5 used as deterministic
-tie breakers. The selected threshold was then fixed for the corresponding outer-test fold. No outer-test sample was used for imputation, normalization, classifier fitting, or threshold selection. As a post-hoc operating-point sensitivity analysis, the threshold-calibration procedure was repeated using precision-weighted $F_{0.5}$ and balanced accuracy as alternative inner-validation objectives. The candidate threshold grid, grouped inner-validation predictions, outer splits, preprocessing, and fitted constituent detectors were otherwise unchanged. These alternative objectives were used only to characterize the precision–recall trade-off and were not used to select or redefine the locked primary F1-based analysis.
+Thresholds were selected exclusively from outer-training data using
+\texttt{GroupKFold} grouped by \texttt{condition\_key}, with four inner folds
+whenever the available operating-condition groups permitted and fewer folds
+only when necessary. Each operating condition was confined to a single inner
+fold. Out-of-fold probabilities from the valid inner splits were pooled for
+each constituent, and candidate thresholds from 0.05 to 0.95 in increments of
+0.01 were ranked primarily by constituent-level $F_1$, with balanced accuracy
+and proximity to 0.5 used as deterministic tie breakers. After threshold
+selection, the constituent detector was refitted on the complete outer-training
+partition, and the selected threshold was fixed for outer-test evaluation.
+No outer-test sample contributed to imputation, standardization, classifier
+fitting, or threshold selection.
 
-A deliberately simple linear classifier was retained as the locked primary
-diagnostic probe because the objective was to characterize constituent
-transferability rather than to optimize model architecture. This choice
-limits architecture-induced confounding when comparing compound-context
-regimes. Alternative classifier families were evaluated separately as
-post-hoc robustness analyses.
+As post-hoc operating-point sensitivity analyses, threshold calibration was
+repeated using $F_{0.5}$ and balanced accuracy as alternative objectives while
+keeping the outer splits, preprocessing, fitted detectors, grouped inner
+validation, and threshold grid unchanged. These alternatives were used only
+to characterize the precision--recall trade-off.
 
-\subsection{Severity-Merging Sensitivity Analysis}
-\label{subsec:severity_sensitivity}
+Logistic regression was retained as the locked primary probe to emphasize
+constituent transferability rather than architecture optimization. Alternative
+classifier families and single-fault severity definitions were evaluated
+separately as sensitivity analyses.
 
-The locked mechanism-level formulation merges high- and low-severity
-single-fault examples belonging to the same constituent. Because the released
-compound states predominantly contain the high-severity variants of the
-severity-coded mechanisms, a post-hoc sensitivity analysis was performed to
-determine whether low-severity single-fault support materially affected the
-crossed generalization results.
+Because the primary formulation merges high- and low-severity single-fault
+examples, a post-hoc analysis tested whether low-severity support affected the
+crossed generalization results. Low-severity single-fault runs for bearing
+inner, bearing outer, static eccentricity, and winding were removed (48 runs),
+reducing the analysis set to 240 runs while leaving all 108 compound
+evaluation runs unchanged. The constituent representation, curated features,
+logistic-regression model, crossed outer splits, and grouped inner-CV
+threshold calibration were otherwise unchanged. Differences from the locked
+H/L-merged analysis were assessed with 5000 paired physical-run
+cluster-bootstrap resamples.
 
-The analysis removed the low-severity single-fault runs for bearing inner,
-bearing outer, static eccentricity, and winding, corresponding to 48 runs in
-total. The 108 compound test runs were left unchanged. The same constituent
-representation, curated feature sets, logistic-regression classifier, crossed
-outer splits, and grouped inner-CV threshold-calibration procedure were then repeated on the reduced 240-run analysis dataset, while all 108 compound evaluation runs remained unchanged. Differences from the
-locked H/L-merged primary analysis were evaluated using 5000 paired
-physical-run cluster-bootstrap resamples. This experiment was treated only as
-a sensitivity analysis and was not used to redefine the locked primary
-method.
-
-\subsection{Classifier-Family Robustness Analysis}
-\label{subsec:classifier_robustness}
-
-To determine whether the observed constituent-generalization patterns were
-specific to the locked linear diagnostic probe, the complete crossed protocol
-was repeated with three additional classifier families: a random forest, an
-RBF-kernel support-vector machine, and a three-hidden-layer feed-forward neural
-network (MLP). These analyses were performed as post-hoc robustness
-experiments and were not used to replace or select the locked
-logistic-regression primary model.
-
+The crossed protocol was additionally repeated with a random forest, an
+RBF-SVM, and a three-hidden-layer MLP as post-hoc robustness references.
 The random forest used 100 trees, square-root feature subsampling, a minimum
 leaf size of two, and balanced-subsample class weighting. The RBF-SVM used
-$C=1$, gamma set to \texttt{scale}, and balanced class weighting. The neural
-baseline used hidden-layer sizes of 64, 32, and 16 units with ReLU activation,
-Adam optimization, $L_2$ regularization of $10^{-4}$, an initial learning rate
-of $10^{-3}$, and a maximum of 400 iterations. Class balancing for the neural
-baseline was implemented using balanced sample weights when supported and
-deterministic balanced oversampling otherwise.
+$C=1$, \texttt{gamma=scale}, and balanced class weighting. The MLP used 64--32--16 hidden units with ReLU activation, Adam optimization,
+$L_2=10^{-4}$, an initial learning rate of $10^{-3}$, and a maximum of 400 iterations; class imbalance was handled using balanced sample weights computed from the outer-training labels.
 
-Across classifier families, the constituent labels, curated
-mechanism-specific feature sets, crossed outer splits, training-only median
-imputation and standardization, grouped inner cross-validation, threshold
-search grid, threshold-selection objective, and evaluation metrics were held
-fixed. No alternative classifier or hyperparameter configuration was selected
-on the basis of outer-test performance.
+Across classifier families, constituent labels, curated feature sets, outer
+splits, training-only preprocessing, grouped inner cross-validation,
+threshold selection, and evaluation metrics were held fixed. No alternative
+model or hyperparameter configuration was selected using outer-test
+performance.
 
+To determine whether poor compound recovery reflected constituent prevalence,
+limited classifier capacity, weak isolated-fault detectability, or degradation
+specific to compound contexts, two post-hoc diagnostic analyses were
+performed. First, constituent-level performance was summarized with equal
+weight across the six crossed evaluation scenarios. For the locked logistic regression, the thresholded constituent metrics were
+complemented by AUROC computed from the continuous outer-test scores and by
+an input-independent always-positive $F_1$ reference for each constituent.
+Corresponding $F_1$ values from RF, RBF-SVM, and MLP were used only as
+descriptive classifier-capacity sensitivities and not for post-hoc model
+selection.
+
+Second, isolated-fault learnability was evaluated using
+leave-one-operating-condition-out testing with the same curated feature sets,
+logistic-regression specification, training-only preprocessing, and grouped
+inner threshold calibration as the locked pipeline. For each constituent,
+isolated single-fault runs were contrasted both with healthy runs and with all
+other non-compound states. All runs from the held-out operating condition were
+removed before preprocessing, model fitting, and threshold calibration.
+Compound runs were excluded entirely from this control. The
+single-fault-versus-other-non-compound contrast was used for the primary
+isolated-learnability comparison because it tests constituent specificity
+rather than separation from health alone.
 \subsection{Closed-Set Control Experiment}
 \label{subsec:closed_set_control}
 
-An auxiliary closed-set experiment was conducted to establish the conventional
-diagnostic separability of the dataset before imposing compositional
-generalization constraints. The original diagnostic states were treated as
-24 mutually exclusive classes and evaluated using five-fold cross-validation
-at the experimental-run level. All windows or derived descriptors belonging
-to the same physical run were assigned to the same fold.
+An auxiliary 24-class closed-set experiment was used to quantify conventional
+in-distribution separability before compositional constraints were imposed.
+The reference model was a raw-signal multimodal 1-D CNN with separate
+three-channel vibration and current encoders. Each encoder contained four
+convolutional blocks (32, 64, 128, and 192 channels), adaptive average pooling,
+and a 128-dimensional embedding. The two embeddings were concatenated and
+passed through a 256-unit fusion layer and a 24-class softmax output.
 
-Preprocessing parameters were estimated exclusively from the training runs of
-each fold, and performance was calculated from out-of-fold predictions so that
-each physical run contributed to the test set exactly once. This experiment
-was used only as a closed-set reference and was not used for model selection
-in the constituent-generalization experiments.
+The network used 2-s windows sampled at $12{,}800$~Hz and five-fold stratified
+cross-validation at the physical-run level, so all windows from a run remained
+within the same outer fold. Within each outer-training partition, 20\% of the
+training runs were reserved for stratified validation. Channel normalization
+parameters were estimated from training data only and applied unchanged to
+validation and test windows.
+
+Training used cross-entropy loss and AdamW
+($\mathrm{lr}=10^{-3}$, weight decay $10^{-4}$, dropout 0.25), with a maximum
+of 25 epochs and early-stopping patience of five. The retained checkpoint
+maximized validation run-level macro-$F_1$, with validation loss as the tie
+breaker. At inference, window-level softmax probabilities were averaged within
+each run and the highest mean probability defined the run-level class.
+
+Final performance was computed from pooled out-of-fold predictions so that
+each of the 288 runs was tested exactly once. This experiment served only as
+an auxiliary closed-set reference and did not influence model or feature
+selection in the constituent-generalization analyses.
 
 \subsection{Crossed Composition--Context--Condition Generalization Protocol}
 \label{subsec:crossed_protocol}
 
-To separate the effects of novel fault combinations, compound-context
-exposure, and operating-condition shift, a crossed outer evaluation protocol was constructed over all available compound runs. The compound structure can equivalently be represented as an undirected graph
+A crossed outer protocol separated novel composition, compound-context
+exposure, and operating-condition shift. Compound structure was represented
+as an undirected graph $G=(V,E)$, where
+$V=\{f_1,\ldots,f_K\}$ contains the constituent mechanisms and an edge
+$(A,B)\in E$ denotes an observed compound. For a target composition
+$\mathcal{C}^{*}=\{A,B\}$, the three context regimes correspond to
+increasingly restrictive graph withholding (Fig.~\ref{fig:composition_graph}).
+
+Let $d_{\mathrm{cmp}}(f)$ denote the number of distinct compound contexts
+containing constituent $f$ in the outer-training set. The regimes were
 
 \begin{equation}
-G=(V,E),
+\begin{aligned}
+\text{Recombination:}\quad
+&d_{\mathrm{cmp}}(A)>0,\;
+d_{\mathrm{cmp}}(B)>0,\\
+\text{One-sided:}\quad
+&d_{\mathrm{cmp}}(A)=0,\;
+d_{\mathrm{cmp}}(B)>0,\\
+\text{Two-sided:}\quad
+&d_{\mathrm{cmp}}(A)=0,\;
+d_{\mathrm{cmp}}(B)=0.
+\end{aligned}
+\label{eq:context_regimes}
 \end{equation}
 
-where the vertex set $V=\mathcal{F}$ contains the elementary fault mechanisms
-and an edge $(A,B)\in E$ indicates that constituents $A$ and $B$ occur together
-in an observed compound composition. The three context regimes can therefore
-be interpreted as different graph-withholding operations: recombination
-removes only the target edge $(A,B)$, one-sided context zero-shot removes all
-training edges incident to one target constituent, and two-sided context
-zero-shot removes all training edges incident to either target constituent.
-Figure~\ref{fig:composition_graph} illustrates these operations on the
-compound-composition subgraph.
+Recombination withheld only the target pair $A+B$ while retaining both
+constituents in other compounds. One-sided context zero-shot removed all
+compound exposure for one target constituent while retaining its eligible
+single-fault examples; both directions were evaluated. Two-sided context
+zero-shot removed compound exposure for both target constituents while
+retaining their eligible single-fault examples.
 
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{Fig1_composition_graph.png}
-\caption{Graph interpretation of the three compound-context evaluation
-regimes. Nodes denote fault mechanisms participating in the compound
-subgraph, edges denote observed compound compositions, and the red edge
-denotes the target test composition. Recombination withholds only the target
-edge; one-sided context zero-shot removes all compound-context exposure for
-one target constituent; and two-sided context zero-shot removes compound
-exposure for both target constituents.}
+\caption{Graph interpretation of compound-context withholding. Nodes denote
+constituent mechanisms and edges observed compound compositions. Recombination
+removes only the target edge, one-sided zero-shot removes compound exposure
+for one target constituent, and two-sided zero-shot removes it for both.}
 \label{fig:composition_graph}
 \end{figure*}
 
-Let the target test composition be
+Each context regime was crossed with operating-condition exposure. Let
+$\mathcal{O}_{\mathrm{train}}$ denote the set of operating conditions
+represented in the outer-training data,
 
 \begin{equation}
-\mathcal{C}^{*}=\{A,B\}.
+c_{\mathrm{test}}\in\mathcal{O}_{\mathrm{train}}
+\quad\text{(seen)},\qquad
+c_{\mathrm{test}}\notin\mathcal{O}_{\mathrm{train}}
+\quad\text{(unseen)}.
+\label{eq:condition_regimes}
 \end{equation}
 
-Three levels of compound-context exposure were considered.
+For unseen-condition evaluation, all runs acquired under
+$c_{\mathrm{test}}$ were removed from the outer-training set before
+preprocessing, classifier fitting, and threshold calibration. Eligible runs
+from the target condition remained available in the seen-condition setting.
+The resulting design comprised three context regimes crossed with two
+condition regimes, yielding six principal scenarios.
 
-\paragraph{Recombination.}
-The exact pair $A+B$ was excluded from training, while both $A$ and $B$
-remained observable in other compound compositions. If
-$d_{\mathrm{cmp}}(f)$ denotes the number of distinct compound contexts
-containing constituent $f$ in the outer training set, the recombination regime
-satisfies
+All splits were defined at the physical-run level before model fitting.
+Composition identity was derived from the constituent vector rather than
+severity-specific class names, preventing severity variants of the same
+composition from crossing the withholding boundary. The directional
+one-sided evaluation produced 216 prediction rows from 108 physical compound
+runs; recombination and two-sided evaluation each produced 108 rows. The two
+one-sided predictions from the same run were kept within the same run-level
+bootstrap cluster. The recombination-versus-two-sided context-by-condition
+interaction was additionally evaluated using composition-level clustering
+(Section~\ref{subsec:statistical_analysis}).
 
-\begin{equation}
-d_{\mathrm{cmp}}(A)>0,
-\qquad
-d_{\mathrm{cmp}}(B)>0.
-\label{eq:recombination}
-\end{equation}
+For reproducibility, Algorithm~1 summarizes the outer-split construction.
+Context and condition withholding always preceded preprocessing and model
+fitting.
 
-Thus, the constituent mechanisms were familiar in compound operation, but
-their particular edge or pairing was novel.
+\noindent\textbf{Algorithm 1. Outer-split construction for the crossed protocol.}
+\begin{algorithmic}[1]
+\For{each target compound composition $\mathcal{C}^{*}=\{A,B\}$}
+    \For{each compound-context regime}
+        \If{recombination}
+            \State remove the target compound $A+B$ from the training pool
+        \ElsIf{one-sided context zero-shot for $A$}
+            \State remove all compound runs containing $A$
+            \State retain eligible single-fault runs containing $A$
+        \ElsIf{one-sided context zero-shot for $B$}
+            \State remove all compound runs containing $B$
+            \State retain eligible single-fault runs containing $B$
+        \ElsIf{two-sided context zero-shot}
+            \State remove all compound runs containing either $A$ or $B$
+            \State retain eligible single-fault runs containing $A$ or $B$
+        \EndIf
+        \For{each operating-condition regime}
+            \If{unseen condition}
+                \State remove all outer-training runs acquired under
+                $c_{\mathrm{test}}$
+            \EndIf
+            \State fit preprocessing using outer-training data
+            \State fit constituent detectors
+            \State select thresholds by grouped inner cross-validation
+            \State evaluate the held-out target compound run(s)
+        \EndFor
+    \EndFor
+\EndFor
+\end{algorithmic}
 
-\paragraph{One-sided compound-context zero-shot.}
-In this regime, one constituent was completely removed from all compound
-contexts while remaining available as a single fault. Without loss of
-generality,
+\begin{table*}[t]
+\caption{Outer-split cardinalities under the crossed evaluation protocol.
+Training-set sizes are reported as minimum/median/maximum numbers of physical
+runs across the corresponding outer folds. The one-sided regime is evaluated
+in both directional forms, producing two prediction rows per physical compound
+run.}
+\label{tab:protocol_cardinality}
+\centering
+\footnotesize
+\begin{tabular}{llcccc}
+\toprule
+Condition &
+Context regime &
+Outer folds &
+Train runs (min/med/max) &
+Test runs/fold &
+Prediction rows \\
+\midrule
 
-\begin{equation}
-d_{\mathrm{cmp}}(A)=0,
-\qquad
-d_{\mathrm{cmp}}(B)>0.
-\label{eq:one_sided}
-\end{equation}
+Seen & One-sided      & 18  & 228 / 228 / 264 & 12 & 216 \\
+Seen & Recombination  & 9   & 276 / 276 / 276 & 12 & 108 \\
+Seen & Two-sided      & 9   & 180 / 216 / 216 & 12 & 108 \\
 
-Both directional cases, $A$-unseen and $B$-unseen, were evaluated separately.
+\midrule
 
-\paragraph{Two-sided compound-context zero-shot.}
-The most restrictive context regime removed all compound examples containing
-either constituent,
+Unseen & One-sided      & 216 & 209 / 209 / 242 & 1 & 216 \\
+Unseen & Recombination  & 108 & 253 / 253 / 253 & 1 & 108 \\
+Unseen & Two-sided      & 108 & 165 / 198 / 198 & 1 & 108 \\
 
-\begin{equation}
-d_{\mathrm{cmp}}(A)=0,
-\qquad
-d_{\mathrm{cmp}}(B)=0,
-\label{eq:two_sided}
-\end{equation}
+\bottomrule
+\end{tabular}
+\end{table*}
 
-while preserving their eligible single-fault examples. Consequently, neither
-constituent had been observed in any compound context before testing on
-$A+B$.
+The withholding regimes also produced different amounts of training support.
+Recombination used 276 and 253 training runs per seen- and unseen-condition
+fold, respectively, whereas the corresponding median two-sided sizes were
+216 and 198. Median positive support for the target constituents decreased
+from 71 to 23.5 under seen conditions and from 65 to 22 under unseen
+conditions. Thus, context withholding also induces a training-support
+difference, which is examined separately in a size-matched sensitivity analysis.
 
-Each composition-context regime was further crossed with operating-condition
-exposure. Let $c_i$ denote the operating-condition identifier of run $i$.
+To assess whether the recombination advantage could be explained by total
+training-set cardinality alone, recombination training sets were repeatedly
+downsampled within operating-condition groups to match the corresponding
+two-sided training-set sizes. The original test sets, constituent
+representation, curated features, preprocessing, logistic-regression model,
+and grouped inner-CV threshold calibration were retained unchanged.
 
-For the seen-condition setting,
-
-\begin{equation}
-c_{\mathrm{test}}
-\in
-\mathcal{C}_{\mathrm{train}},
-\label{eq:seen_condition}
-\end{equation}
-
-whereas for the unseen-condition setting,
-
-\begin{equation}
-c_{\mathrm{test}}
-\notin
-\mathcal{C}_{\mathrm{train}}.
-\label{eq:unseen_condition}
-\end{equation}
-For the unseen-condition setting, the target operating-condition identifier
-was excluded from the outer-training data before preprocessing, classifier
-fitting, and threshold calibration. Thus, no run acquired under the target
-operating condition contributed to model development. In the seen-condition
-setting, eligible training runs acquired under the target operating condition
-remained available, while the composition- and compound-context-withholding
-constraints defined above were still enforced.
-
-The complete experimental design therefore consisted of
-
-\begin{equation}
-3
-\;\text{compound-context regimes}
-\times
-2
-\;\text{condition regimes},
-\label{eq:crossed_design}
-\end{equation}
-
-resulting in six principal evaluation scenarios.
-
-All splitting was performed at the experimental-run level before any
-classifier fitting. Composition identities were defined from the constituent vector rather than severity-specific class names, thereby preventing severity variants of the same constituent combination from unintentionally leaking across the composition boundary. Because either member of a target compound could be deprived of prior
-compound-context exposure, the one-sided regime was evaluated in both
-directions. Consequently, this regime produced 216 prediction rows from
-108 unique physical compound runs, whereas the recombination and two-sided regimes each produced 108 prediction rows from 108 unique runs. The two directional predictions associated with the same physical run were never treated as independent experimental units in uncertainty estimation; all bootstrap analyses were clustered by physical run.
+Downsampling was constrained to preserve at least one non-target compound
+context for each target constituent, so that the defining recombination
+exposure was maintained. Thirty repeated size-matched subsamples were
+evaluated. Uncertainty due to both composition sampling and training-set
+subsampling was summarized using 5000 composition-level bootstrap resamples
+over the nine target compositions, with a size-matched repeat sampled within
+each bootstrap replicate. This analysis controls total training-set
+cardinality and operating-condition distribution, but does not equate
+target-positive support, which is part of the compound-context exposure
+difference by design.
 
 \subsection{Evaluation Metrics}
 \label{subsec:evaluation_metrics}
 
-Performance was evaluated using metrics that directly quantify recovery of the
-constituent set rather than only conventional sample-level classification.
-
-The overall constituent recall was defined as
+Performance was evaluated at the constituent-set level. Constituent recall was
 
 \begin{equation}
 R_{\mathrm{const}}
 =
 \frac{
-\sum_{i=1}^{N}
-\sum_{k=1}^{K}
-y_{i,k}\hat{y}_{i,k}
+\sum_{i=1}^{N}\sum_{k=1}^{K} y_{i,k}\hat{y}_{i,k}
 }{
-\sum_{i=1}^{N}
-\sum_{k=1}^{K}
-y_{i,k}
-}.
+\sum_{i=1}^{N}\sum_{k=1}^{K} y_{i,k}
+},
 \label{eq:constituent_recall}
 \end{equation}
 
-Exact constituent-set recovery was computed as
+and exact-match recovery was
 
 \begin{equation}
 \mathrm{EM}
@@ -758,62 +743,46 @@ Exact constituent-set recovery was computed as
 \sum_{i=1}^{N}
 \mathbb{I}
 \left(
-\hat{\mathbf{y}}_i
-=
-\mathbf{y}_i
+\hat{\mathbf{y}}_i=\mathbf{y}_i
 \right).
 \label{eq:exact_match}
 \end{equation}
 
-The average number of incorrectly added mechanisms per prediction row was
+False additions per prediction row were quantified as
 
 \begin{equation}
-FA
+\mathrm{FA/run}
 =
 \frac{1}{N}
-\sum_{i=1}^{N}
-\sum_{k=1}^{K}
-(1-y_{i,k})
-\hat{y}_{i,k}.
+\sum_{i=1}^{N}\sum_{k=1}^{K}
+(1-y_{i,k})\hat{y}_{i,k}.
 \label{eq:false_additions}
 \end{equation}
 
-The fraction of compound predictions for which at least one true constituent
-was recovered was
+Recovery of at least one and all true constituents was defined as
 
-\begin{equation}
+\begin{align}
 R_{\mathrm{any}}
-=
-\frac{1}{N}
-\sum_{i=1}^{N}
+&=
+\frac{1}{N}\sum_{i=1}^{N}
 \mathbb{I}
 \left(
-\sum_{k=1}^{K}
-y_{i,k}\hat{y}_{i,k}>0
+\sum_{k=1}^{K} y_{i,k}\hat{y}_{i,k}>0
 \right),
-\label{eq:any_recovered}
-\end{equation}
-
-whereas recovery of all true constituents, irrespective of additional false
-activations, was defined as
-
-\begin{equation}
+\label{eq:any_recovered}\\
 R_{\mathrm{all}}
-=
-\frac{1}{N}
-\sum_{i=1}^{N}
+&=
+\frac{1}{N}\sum_{i=1}^{N}
 \mathbb{I}
 \left(
-\sum_{k=1}^{K}
-y_{i,k}\hat{y}_{i,k}
+\sum_{k=1}^{K} y_{i,k}\hat{y}_{i,k}
 =
-\sum_{k=1}^{K}
-y_{i,k}
+\sum_{k=1}^{K} y_{i,k}
 \right).
 \label{eq:all_recovered}
-\end{equation}
+\end{align}
 
-Micro-averaged $F_1$ was calculated over all constituent decisions as
+Micro-$F_1$ was computed over all constituent decisions,
 
 \begin{equation}
 F_{1,\mathrm{micro}}
@@ -822,207 +791,245 @@ F_{1,\mathrm{micro}}
 \label{eq:micro_f1}
 \end{equation}
 
-Because some evaluation subsets contained only a subset of the nine
-constituents, macro-$F_1$ was additionally calculated over active constituents,
+Macro-$F_1$ was additionally reported over only the constituents represented
+positively in the corresponding evaluation subset,
 
 \begin{equation}
 F_{1,\mathrm{active}}
 =
 \frac{1}{|\mathcal{K}_{+}|}
-\sum_{k\in\mathcal{K}_{+}}
-F_{1,k},
+\sum_{k\in\mathcal{K}_{+}} F_{1,k},
 \label{eq:active_macro_f1}
 \end{equation}
 
-where $\mathcal{K}_{+}$ denotes the constituents having at least one positive
-test instance.
+where $\mathcal{K}_{+}$ contains constituents with at least one positive test
+instance.
 
-
-\subsection{Within-Pair Detectability and Cross-Partner Transfer}
+\subsection{Within-Pair Detectability, Cross-Partner Transfer, and Signature Preservation}
 \label{subsec:transferability}
 
-To determine whether poor constituent recovery reflected an absence of
-measurable evidence, an oracle detectability analysis was performed. For
-constituent $A$ in target compound $A+B$, the compound state was compared
-directly with the corresponding single-$B$ state,
+To distinguish failed constituent recovery from absence of measurable
+evidence, constituent $A$ in a target compound $A+B$ was first evaluated by
+the within-pair contrast
 
 \begin{equation}
-A+B
-\quad \mathrm{vs.} \quad
-B.
+A+B \quad \mathrm{vs.} \quad B,
 \label{eq:oracle_contrast}
 \end{equation}
 
-The resulting within-pair discriminability was quantified using ROC AUC and
-denoted
+with discriminability quantified as
+$\mathrm{AUC}^{\mathrm{within}}_{A|B}$.
+
+Cross-partner transfer then tested whether evidence for $A$ learned from
+eligible compound contexts other than $A+B$ generalized to the same target
+contrast. The target pair was excluded from training, and the resulting
+fixed-orientation score was summarized by
+$\mathrm{AUC}^{A|B}_{\mathrm{dir}}$.
+
+Because directional AUC below 0.5 may indicate reversed ranking rather than
+loss of separability, an orientation-free diagnostic quantity was also
+reported,
 
 \begin{equation}
-\mathrm{AUC}^{\mathrm{within}}_{A|B}.
-\label{eq:within_auc}
-\end{equation}
-
-A stronger transfer analysis evaluated whether evidence for $A$ learned from
-eligible compound contexts other than the target composition remained useful
-when $A$ occurred with partner $B$. The target pair $A+B$ was excluded from
-training and the resulting fixed-orientation score was evaluated on
-
-\begin{equation}
-A+B
-\quad \mathrm{vs.} \quad
-B.
-\end{equation}
-
-The conventional directional cross-partner AUC was denoted
-
-\begin{equation}
-\mathrm{AUC}^{A|B}_{\mathrm{dir}}.
-\label{eq:directional_auc}
-\end{equation}
-
-Because an AUC below $0.5$ can reflect reversed ranking rather than absence of
-separability, an orientation-free diagnostic measure was additionally defined
-as
-
-\begin{equation}
+\begin{aligned}
 \mathrm{AUC}_{\mathrm{sep}}
-=
-\max
-\left(
+&=
+\max\left(
 \mathrm{AUC}_{\mathrm{dir}},
 1-\mathrm{AUC}_{\mathrm{dir}}
-\right)
-=
+\right)\\
+&=
 0.5+
 \left|
 \mathrm{AUC}_{\mathrm{dir}}-0.5
 \right|.
+\end{aligned}
 \label{eq:separability_auc}
 \end{equation}
 
-$\mathrm{AUC}_{\mathrm{sep}}$ was used only to characterize rank separability
-and was not interpreted as deployable classification performance, because
-post-hoc inversion of an unknown target score would require target-label
-information.
-
-The fixed-orientation transfer gap was defined as
+$\mathrm{AUC}_{\mathrm{sep}}$ characterizes rank separability only and is not
+deployable performance, because post-hoc score inversion would require
+target-label information. The fixed-orientation transfer gap was
 
 \begin{equation}
 \Delta_{\mathrm{transfer}}
 =
 \mathrm{AUC}^{\mathrm{within}}_{A|B}
 -
-\mathrm{AUC}^{A|B}_{\mathrm{dir}}.
+\mathrm{AUC}^{A|B}_{\mathrm{dir}},
 \label{eq:transfer_gap}
 \end{equation}
 
-This quantity therefore characterizes degradation of the learned score
-orientation and should not be interpreted directly as loss of
-orientation-free separability. Because the released recordings were acquired across multiple recording
-dates, an additional recording-sensitivity analysis was performed. Acquisition
-timestamps were recovered from the original file names for 287 of the 288
-runs, spanning seven recording dates. The only duplicated fault--condition
-state available in two distinct recordings was used as a nuisance-control
-experiment. In addition, compound pairs acquired on the same date and sharing
-one constituent were compared under matched operating conditions to reduce
-recording-date mismatch in the interpretation of within-pair separability.
-These analyses were treated as sensitivity controls rather than as causal
-estimates of acquisition-session effects.
+and therefore reflects degradation of learned score orientation rather than
+loss of orientation-free separability.
 
+Recording-related nuisance variation was assessed separately. Acquisition
+timestamps were recovered for 287 of 288 runs across seven recording dates.
+The only duplicated fault--condition state recorded twice was used as a
+nuisance control, and same-date compound pairs sharing one constituent were
+compared under matched operating conditions. These analyses reduced
+recording-date mismatch but were treated as sensitivity controls rather than
+causal estimates of acquisition-session effects.
 
-\subsection{Physical-Signature Preservation Analysis}
-\label{subsec:signature_preservation}
-
-A complementary feature-level analysis characterized how predefined physical
-signatures changed when a constituent was embedded in a compound fault. Only
-the mechanism-specific curated feature families defined independently of the
+A complementary feature-level analysis examined how predefined physical
+signatures changed when constituent $A$ was embedded in a compound fault.
+Only mechanism-specific curated features defined independently of the
 cross-partner results were used.
 
-For feature $j$ associated with constituent $A$, let $\delta_j^{A}$ denote its
-signed standardized evidence under the single-fault reference and
-$\delta_j^{A|B}$ denote the evidence for the same feature when $A$ occurred
-together with partner $B$. Feature preservation was summarized as
+For each curated feature $j$ of constituent $A$, the reference direction was
+estimated exclusively from matched healthy and single-fault runs:
 
 \begin{equation}
-\rho_j^{A|B}
+d_j^{A}
+=
+\operatorname{sign}^{+}
+\left[
+\operatorname{median}_{c}
+\left(
+x_{j,c}^{A}-x_{j,c}^{H}
+\right)
+\right],
+\label{eq:signature_direction}
+\end{equation}
+
+where $c$ indexes matched operating conditions, $x_{j,c}^{H}$ and
+$x_{j,c}^{A}$ denote the healthy and single-fault feature values,
+respectively, and $\operatorname{sign}^{+}(0)=+1$. A robust
+healthy-reference scale $s_j^{A}$ was estimated from
+$\{x_{j,c}^{H}\}_c$ using $1.4826$ times the median absolute deviation.
+If this estimate was degenerate, the interquartile range divided by $1.349$
+and then the standard deviation were used sequentially; if all remained
+degenerate, the deterministic fallback
+$\max(10^{-3}\operatorname{median}_{c}|x_{j,c}^{H}|,10^{-9})$
+was used. No compound observation was used to determine $d_j^{A}$ or
+$s_j^{A}$. When multiple recordings shared the same original fault label and operating
+condition, their numeric physics features were median-aggregated before forming the matched reference.
+
+The directed standardized evidence at operating condition $c$ was
+
+\begin{equation}
+\delta_{j,c}^{A}
+=
+d_j^{A}
+\frac{
+x_{j,c}^{A}-x_{j,c}^{H}
+}{
+s_j^{A}
+},
+\qquad
+\delta_{j,c}^{A|B}
+=
+d_j^{A}
+\frac{
+x_{j,c}^{A|B}-x_{j,c}^{H}
+}{
+s_j^{A}
+},
+\label{eq:directed_standardized_evidence}
+\end{equation}
+
+where $x_{j,c}^{A|B}$ denotes the corresponding feature value when
+constituent $A$ occurs with partner $B$. Feature preservation was then
+defined as
+
+\begin{equation}
+\rho_{j,c}^{A|B}
 =
 \frac{
-\delta_j^{A|B}
+\delta_{j,c}^{A|B}
 }{
-\delta_j^{A}
+\delta_{j,c}^{A}
 }.
 \label{eq:preservation_ratio}
 \end{equation}
 
-Negative values indicate feature-level sign reversal, values between zero and
-one indicate suppression, values around one indicate approximate preservation,
-and values greater than one indicate amplification. This analysis was used to
-characterize heterogeneity of predefined physical signatures and was not
-interpreted as a causal decomposition of the multivariate classifier score.
-
-
+Preservation ratios were evaluated only when
+$|\delta_{j,c}^{A}|\geq0.10$ to avoid unstable ratios for negligible
+single-fault evidence. For the reported sign-reversal and
+severe-suppression rates, the analysis was further restricted to
+feature--condition observations with positive single-fault evidence
+($\delta_{j,c}^{A}>0$). Negative preservation values indicate feature-level
+sign reversal, values between zero and one suppression, values near one
+preservation, and values above one amplification. Severe suppression was
+defined as $\rho_{j,c}^{A|B}<0.5$. The analysis characterizes feature-level
+heterogeneity and is not interpreted as a causal decomposition of the
+multivariate classifier score.
 \subsection{Statistical Analysis}
 \label{subsec:statistical_analysis}
 
-Uncertainty of the principal constituent-level metrics was estimated using
-nonparametric cluster bootstrap resampling at the physical-run level. In the
-one-sided regime, both directional predictions associated with a physical run
-were retained within the same bootstrap cluster.
+Uncertainty of the principal constituent-level metrics was estimated by
+nonparametric cluster bootstrap at the physical-run level. In the one-sided
+regime, both directional predictions from the same run were retained within
+the same bootstrap cluster. Micro-$F_1$ was treated as the principal aggregate
+metric, and the recombination-versus-two-sided difference-of-differences as
+the principal context-by-condition contrast. Constituent recall and $R_{\mathrm{all}}$ were supportive secondary outcomes.
+Because $R_{\mathrm{all}}$ does not penalize false additions, it was interpreted
+jointly with exact match and FA/run rather than as a stand-alone measure.
+$R_{\mathrm{any}}$ was retained only descriptively because an input-independent
+predictor can attain one. Other mechanism-specific, isolated-fault-learnability, threshold,
+classifier-family, and transfer analyses were interpreted as descriptive,
+sensitivity, or mechanistic analyses and were not used for post-hoc selection
+of the primary model or operating point.
 
-In addition to protocol-specific confidence intervals, paired bootstrap
-contrasts were computed because the same physical compound runs contributed to
-the compared context regimes. Three prespecified contrasts were evaluated
-separately under seen and unseen operating conditions:
+Because the same physical compound runs contributed to the compared context
+regimes, paired bootstrap contrasts were evaluated separately under seen and
+unseen operating conditions:
 
 \begin{align}
-\Delta_{\mathrm{R-O}}
-&=
-M_{\mathrm{recomb}}
--
-M_{\mathrm{one}},\\
-\Delta_{\mathrm{R-T}}
-&=
-M_{\mathrm{recomb}}
--
-M_{\mathrm{two}},\\
-\Delta_{\mathrm{O-T}}
-&=
-M_{\mathrm{one}}
--
-M_{\mathrm{two}},
+\Delta_{\mathrm{R-O}} &= M_{\mathrm{recomb}}-M_{\mathrm{one}},\\
+\Delta_{\mathrm{R-T}} &= M_{\mathrm{recomb}}-M_{\mathrm{two}},\\
+\Delta_{\mathrm{O-T}} &= M_{\mathrm{one}}-M_{\mathrm{two}},
 \end{align}
 
-where $M$ denotes the metric of interest. The 95\% confidence interval was
-obtained from the 2.5th and 97.5th percentiles of the paired bootstrap
-distribution. A contrast was considered resolved when this interval excluded zero. To formally test whether the effect of compound-context deprivation changed
-under operating-condition shift, a difference-of-differences statistic was
-also evaluated,
+where $M$ denotes the metric of interest. Context-by-condition interaction was
+quantified as
 
 \begin{equation}
 \Delta_{\mathrm{int}}
 =
 \Delta_{\mathrm{unseen}}
 -
-\Delta_{\mathrm{seen}},
+\Delta_{\mathrm{seen}}.
 \end{equation}
 
-where $\Delta$ denotes the paired difference between recombination and the corresponding context-zero-shot regime. Confidence intervals were estimated using 5000 paired cluster-bootstrap resamples at the physical-run level.
+Run-level confidence intervals used 5000 paired cluster-bootstrap resamples
+and the 2.5th and 97.5th percentiles; an effect was considered resolved when
+the interval excluded zero.
 
-For the auxiliary closed-set experiment, 95\% confidence intervals were
-estimated using 5000 stratified run-level bootstrap resamples within the original 24 diagnostic classes.
+Because the 108 compound runs represent only nine distinct compositions, the
+recombination-versus-two-sided interaction was additionally subjected to a
+composition-level cluster-bootstrap sensitivity analysis. Each of 10,000
+replicates sampled the nine compositions with replacement while retaining all
+12 operating-condition runs of each sampled composition and applying identical
+composition multiplicities to the seen and unseen cells. Sensitivity to
+individual compositions was also examined by leave-one-composition-out
+analysis.
 
-For cross-partner transfer, evidence for reversed score orientation was tested using
+Closed-set confidence intervals used 5000 stratified run-level bootstrap
+resamples within the 24 diagnostic classes.
+
+For cross-partner transfer, score-orientation reversal was tested using
 
 \begin{equation}
-T
-=
+T=
 \left|
 \mathrm{AUC}_{\mathrm{dir}}-0.5
 \right|.
 \label{eq:polarity_statistic}
 \end{equation}
 
-Positive and negative scores were exchanged within matched operating
-conditions under permutation, thereby preserving the paired experimental structure. Family-wise multiplicity across the 18 directed constituent--partner relations was controlled using the Holm procedure. A relation was described as a statistically supported score-orientation reversal only when its directional AUC was below $0.5$, its bootstrap interval remained below $0.5$, and the Holm-adjusted permutation analysis supported departure from chance orientation.
+Directional-AUC confidence intervals used 2000 bootstrap resamples clustered
+by operating condition. For the orientation test, positive and negative scores
+were swapped within matched operating conditions over 5000 permutation
+replicates using
+$|\mathrm{AUC}_{\mathrm{dir}}-0.5|$ as the test statistic.
+Family-wise multiplicity across the 18 directed constituent--partner
+relations was controlled by the Holm procedure separately within each
+condition-mode family. A
+relation was classified as a statistically supported score-orientation
+reversal only when its directional AUC and bootstrap interval were below
+0.5 and the Holm-adjusted permutation test supported departure from chance
+orientation.
 
 \section{Results}
 \label{sec:results}
@@ -1030,12 +1037,10 @@ conditions under permutation, thereby preserving the paired experimental structu
 \subsection{Closed-Set Discrimination and the Generalization Gap}
 \label{subsec:closed_set_results}
 
-Before evaluating compositional generalization, an auxiliary closed-set
-experiment was conducted to determine whether the dataset was intrinsically
-difficult to discriminate when all diagnostic classes were represented during
-training. The 24-class closed-set classifier achieved an accuracy of 0.9132,
-a balanced accuracy of 0.9134, and a macro-$F_1$ score of 0.9119, as summarized
-in Table~\ref{tab:closed_set_results}.
+The auxiliary 24-class closed-set classifier achieved an accuracy of 0.9132,
+balanced accuracy of 0.9134, and macro-$F_1$ of 0.9119
+(Table~\ref{tab:closed_set_results}), indicating strong conventional
+in-distribution separability.
 
 \begin{table}[t]
 \caption{Closed-set multiclass diagnostic performance with 95\% bootstrap
@@ -1053,31 +1058,30 @@ Macro-$F_1$ & 0.9119 & [0.8826, 0.9366] \\
 \end{tabular}
 \end{table}
 
-These results demonstrate strong conventional closed-set discriminability when all diagnostic classes are represented during training. Consequently, the substantially lower constituent-level performance observed under the crossed protocols is unlikely to arise solely from poor baseline separability; rather, it emerges under the additional requirements of composition, compound-context, and operating-condition generalization. 
+The substantially lower constituent-level performance under the crossed
+protocols is therefore consistent with the additional demands of composition,
+compound-context, and operating-condition generalization rather than poor
+baseline separability alone. Because the closed-set reference uses a different
+model architecture from the locked constituent probe, this comparison is
+descriptive rather than a model-controlled estimate of task difficulty;
+classifier-family robustness analyses below separately assess the contribution
+of constituent-model choice.
 
 
 \subsection{Crossed Composition--Context--Condition Generalization}
 \label{subsec:crossed_results}
 
-The proposed crossed evaluation protocol was applied to all 108 unique
-physical compound-fault runs. Each target compound was evaluated under
-recombination, one-sided compound-context zero-shot, and two-sided
-compound-context zero-shot regimes, with each regime further separated into
-seen- and unseen-operating-condition settings. In the one-sided regime, both
-directional removals were evaluated because either constituent could be the
-mechanism deprived of compound-context exposure.
-
-Table~\ref{tab:crossed_results} summarizes the principal constituent-level
-results.
+The crossed protocol was evaluated on all 108 physical compound-fault runs
+under recombination, one-sided, and two-sided context regimes, each with seen
+and unseen operating conditions. Both directional removals were evaluated in
+the one-sided regime. Table~\ref{tab:crossed_results} summarizes the principal
+constituent-level results.
 
 \begin{table*}[t]
-\caption{Constituent-level generalization performance under crossed
-composition-context and operating-condition regimes. EM denotes exact
-constituent-set recovery, $R_{\mathrm{const}}$ denotes constituent recall,
-$\mathrm{FA/run}$ denotes the mean number of incorrectly added inactive
-constituents per compound prediction row, and $R_{\mathrm{any}}$ and
-$R_{\mathrm{all}}$ denote recovery of at least one and all true constituents,
-respectively.}
+\caption{Constituent-level performance across context and operating-condition
+regimes. EM denotes exact constituent-set recovery, $R_{\mathrm{const}}$
+constituent recall, FA/run false additions per prediction row, and
+$R_{\mathrm{any}}$ and $R_{\mathrm{all}}$ recovery of at least one and all true constituents, respectively. Boldface denotes the descriptively best value within each operating-condition block and does not imply a statistically resolved difference.}
 \label{tab:crossed_results}
 \centering
 \footnotesize
@@ -1162,8 +1166,7 @@ Unseen
 
 \begin{table*}[t]
 \caption{Input-independent constant-predictor references on the 108 compound
-runs. These references quantify performance obtainable from constituent
-prevalence alone.}
+runs, quantifying performance obtainable from constituent prevalence alone.}
 \label{tab:trivial_baselines}
 \centering
 \footnotesize
@@ -1189,115 +1192,223 @@ Inner only
 \end{tabular}
 \end{table*}
 
-When both constituents retained prior exposure to other compound contexts,
-previously unseen pairings remained partially recoverable. Under the
-recombination protocol, micro-$F_1$ was 0.6775 under seen operating conditions
-and 0.6865 when the operating condition was also unseen. Constituent recall
-showed a similar pattern, reaching 0.6759 and 0.6944, respectively.
+Recombination yielded the strongest overall performance, with micro-$F_1$ of
+0.6775 and 0.6865 and constituent recall of 0.6759 and 0.6944 under seen and
+unseen conditions, respectively. Exact constituent-set recovery nevertheless
+remained low across all six regimes (0.0833--0.1574), indicating that partial
+recovery was substantially easier than exact decomposition.
 
-Exact constituent-set recovery remained limited, ranging from 0.0833 to
-0.1574 across the six crossed regimes. However, the trivial references in
-Table~\ref{tab:trivial_baselines} show that some apparently favorable
-partial-recovery metrics are strongly influenced by constituent prevalence.
-In particular, the constant inner-plus-outer predictor achieves
-$R_{\mathrm{any}}=1.0$ without using the input signals. Consequently,
-$R_{\mathrm{any}}$ is retained only as a descriptive measure and is not interpreted as evidence of diagnostic skill.
+The prevalence references in Table~\ref{tab:trivial_baselines} show why
+partial-recovery metrics cannot be interpreted in isolation. A constant
+inner-plus-outer predictor achieves $R_{\mathrm{any}}=1$, while adding broken
+bar raises constituent recall to 0.6667 but produces 1.6667 false additions
+per run and no exact matches. By comparison, the locked detector achieved micro-$F_1$ of 0.631--0.686 with
+FA/run of 0.639--0.732. Under recombination, $R_{\mathrm{all}}$ reached
+0.4167 and 0.4444, compared with 0.3333 for the constant
+inner-plus-outer-plus-broken-bar reference. That reference, however, incurred
+1.6667 false additions per run, compared with 0.6389 and 0.6574 for the
+learned detector. Thus, the advantage of the learned detector is a more
+favorable joint recovery--overdiagnosis trade-off rather than uniform
+superiority on every individual metric. 
+\subsection{Mechanism-Specific Failure Modes: Isolated Learnability,
+Compound Degradation, and Model Capacity}
+\label{subsec:mechanism_failure_modes}
+\begin{table*}[t]
+\caption{Mechanism-specific diagnostic decomposition. Single-fault AUROC and
+$F_1$ are from leave-one-operating-condition-out discrimination of the target
+single fault against all other non-compound states. Compound AUROC, recall,
+and LR $F_1$ are averaged equally across the six crossed scenarios.
+Const.-$F_1$ is the constituent-specific input-independent always-positive
+reference. RF, RBF-SVM, and MLP results are descriptive classifier-family
+sensitivities and were not used for model selection.}
+\label{tab:constituent_failure_modes}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lccccccccc}
+\toprule
+Constituent &
+\makecell{Single\\AUROC} &
+\makecell{Single\\$F_1$} &
+\makecell{Compound\\AUROC} &
+\makecell{Compound\\Recall} &
+\makecell{LR\\$F_1$} &
+\makecell{Const.\\$F_1$} &
+\makecell{RF\\$F_1$} &
+\makecell{RBF-SVM\\$F_1$} &
+\makecell{MLP\\$F_1$} \\
+\midrule
 
-Constituent recall alone is not sufficient to establish diagnostic skill in this setting. The constant inner-plus-outer-plus-broken-bar predictor reaches $R_{\mathrm{const}}=0.6667$ without using the input signals, but does so at the cost of 1.6667 false additions per run and zero exact matches. Accordingly, constituent recall is interpreted jointly with false additions, micro-$F_1$, and exact-set recovery throughout the remainder of the analysis.
+Bearing inner
+& 0.999 & 0.957 & 0.965 & 0.896 & 0.940 & 0.714 & 0.947 & 0.839 & 0.936 \\
 
-The locked logistic-regression detector achieved micro-$F_1$ values of
-0.631--0.686 across the six crossed regimes, exceeding the best constant-predictor micro-$F_1$ of 0.556. At the same time, FA/run remained between 0.639 and 0.732, substantially below the 1.667 false additions produced by the three-constituent constant reference and also below the 0.889 value of the constant inner-plus-outer predictor. Under recombination,
-$R_{\mathrm{all}}$ reached 0.4167 and 0.4444 for seen and unseen conditions, respectively, compared with 0.1111 for the two-constituent constant reference.
-These results indicate nontrivial constituent discrimination beyond
-prevalence-driven constant prediction, while the low exact-match rates show that reliable exact decomposition of unseen compound faults remains unresolved.
+Bearing outer
+& 1.000 & 1.000 & 0.988 & 0.796 & 0.886 & 0.714 & 0.898 & 0.900 & 0.874 \\
 
+Broken bar
+& 1.000 & 1.000 & 0.993 & 0.927 & 0.923 & 0.364 & 0.919 & 0.883 & 0.906 \\
+
+Dynamic eccentricity
+& 1.000 & 0.923 & 0.590 & 0.017 & 0.028 & 0.364 & 0.385 & 0.054 & 0.085 \\
+
+Static eccentricity
+& 0.992 & 0.920 & 0.867 & 0.538 & 0.577 & 0.364 & 0.658 & 0.866 & 0.814 \\
+
+Winding
+& 0.823 & 0.400 & 0.398 & 0.229 & 0.205 & 0.364 & 0.019 & 0.163 & 0.115 \\
+
+\bottomrule
+\end{tabular}
+\end{table*}
+Table~\ref{tab:constituent_failure_modes} reveals that poor compound
+decomposition does not arise from a single common failure mechanism.
+Bearing-inner, bearing-outer, and broken-bar constituents were highly
+discriminable both in isolation and in compound evaluation. Their compound
+AUROCs remained between 0.965 and 0.993, and their locked $F_1$ values
+substantially exceeded the corresponding input-independent references.
+Thus, their strong thresholded performance reflects genuine constituent
+discrimination rather than prevalence alone.
+
+Dynamic eccentricity showed the clearest compound-context degradation.
+It was almost perfectly discriminable from other non-compound states under
+leave-one-condition-out evaluation (AUROC=0.9995; $F_1=0.923$), yet its
+compound recall fell to 0.017 and its locked compound $F_1$ to 0.028.
+Random forest increased compound $F_1$ to 0.385, indicating additional
+classifier-capacity sensitivity, but recovery remained modest. The combination
+of strong isolated learnability and severe compound degradation is consistent
+with a pronounced loss of decision consistency in the compound setting and
+shows that the poor compound result cannot be explained by weak
+isolated-fault detectability alone.
+
+Static eccentricity exhibited a different failure mode. It was also strongly learnable in isolation (AUROC=0.992; $F_1=0.920$) and retained substantial
+ranking information in compound evaluation (AUROC=0.867), despite only
+moderate locked $F_1$ (0.577). The RBF-SVM increased descriptive compound
+$F_1$ to 0.866 under the same crossed protocol, indicating pronounced
+classifier-family sensitivity rather than absence of discriminative
+information in the curated representation.
+
+Winding differed from both eccentricity mechanisms. Its isolated-fault specificity was already weaker (AUROC=0.823; $F_1=0.400$), and compound performance deteriorated further ($F_1=0.205$). None of the nonlinear alternatives improved on the locked linear probe, while
+its mean compound AUROC was below chance (0.398). This aggregate
+constituent-level AUROC is distinct from the directed cross-partner transfer
+analysis below and is therefore not interpreted as evidence of a statistically
+supported score-orientation reversal. Rather, it indicates poor fixed-score
+ranking on average across the crossed scenarios. Together, these results
+reveal three distinct empirical failure patterns: severe compound degradation
+for dynamic eccentricity, strong classifier-family sensitivity for static
+eccentricity, and weaker constituent specificity with persistent compound
+difficulty for winding.
 
 \subsection{Paired Effects of Compound-Context Deprivation}
 \label{subsec:context_condition_results}
 
-Paired run-cluster bootstrap analysis was used to determine which differences
-between the context regimes were supported beyond variation across physical
-runs. Figure~\ref{fig:paired_protocol_differences} summarizes the prespecified
-contrasts for constituent recall and micro-$F_1$.
+The principal comparison was the recombination-versus-two-sided
+context-by-condition interaction in micro-$F_1$, with constituent recall and
+$R_{\mathrm{all}}$ as supportive recovery outcomes. Paired run-cluster
+bootstrap contrasts are summarized in
+Fig.~\ref{fig:paired_protocol_differences}.
 
-Under seen operating conditions, the differences between recombination and
-the context-zero-shot regimes were limited. For constituent recall, the
-recombination--one-sided contrast was 0.0255 with a 95\% CI of
-$[0.0000,\,0.0509]$, whereas the recombination--two-sided contrast was
-0.0139 with a 95\% CI of $[-0.0186,\,0.0509]$. The corresponding micro-$F_1$
-contrasts also included zero.
+Under seen operating conditions, recombination showed only limited advantages.
+For constituent recall, the recombination--one-sided difference was 0.0255
+(95\% CI: $[0.0000,\,0.0509]$), whereas the recombination--two-sided
+difference was 0.0139 (95\% CI: $[-0.0186,\,0.0509]$); the corresponding
+micro-$F_1$ intervals also included zero.
 
-A different pattern was observed when the target operating condition was
-withheld. Relative to one-sided context zero-shot, recombination improved
-constituent recall by 0.0463 (95\% CI: $[0.0231,\,0.0694]$) and micro-$F_1$
-by 0.0413 (95\% CI: $[0.0223,\,0.0636]$). Relative to two-sided context
-zero-shot, the recombination advantage was 0.0648 for constituent recall
-(95\% CI: $[0.0278,\,0.1065]$) and 0.0554 for micro-$F_1$
-(95\% CI: $[0.0232,\,0.0895]$).
+Under unseen conditions, the recombination advantage increased. Relative to
+one-sided context zero-shot, recall improved by 0.0463
+(95\% CI: $[0.0231,\,0.0694]$) and micro-$F_1$ by 0.0413
+(95\% CI: $[0.0223,\,0.0636]$). Relative to two-sided zero-shot, the
+corresponding improvements were 0.0648
+($[0.0278,\,0.1065]$) and 0.0554
+($[0.0232,\,0.0895]$), respectively. One-sided--two-sided differences
+remained unresolved for both metrics.
 
-The one-sided--two-sided differences remained unresolved for both metrics
-under unseen operating conditions. A formal difference-of-differences analysis
-further showed that the penalty associated with complete compound-context
-deprivation increased under operating-condition shift. For recombination
-versus two-sided context zero-shot, the interaction difference was 0.0400 for
-micro-$F_1$ (95\% CI: [0.0088, 0.0731]), 0.0509 for constituent recall
-(95\% CI: [0.0185, 0.0880]), and 0.0833 for all-constituents recovery
-(95\% CI: [0.0278, 0.1481]).
+At the physical-run level, the recombination-versus-two-sided
+difference-of-differences was 0.0400 for micro-$F_1$
+(95\% CI: $[0.0088,\,0.0731]$), 0.0509 for constituent recall
+($[0.0185,\,0.0880]$), and 0.0833 for $R_{\mathrm{all}}$
+($[0.0278,\,0.1481]$).
 
-In contrast, the recombination-versus-one-sided interaction was not resolved
-for micro-$F_1$ or constituent recall, although the interaction for
-all-constituents recovery was positive at 0.0463
-(95\% CI: [0.0046, 0.1019]). These findings indicate that operating-condition
-shift amplifies the penalty of complete compound-context deprivation rather
-than producing a uniform interaction across all context regimes.
+Because the 108 compound runs represent only nine distinct compositions, the
+interaction was also evaluated by composition-level cluster bootstrap. Under
+this stricter analysis, the micro-$F_1$ interaction remained positive but
+unresolved
+($\Delta_{\mathrm{int}}=0.0400$, 95\% CI:
+$[-0.0035,\,0.0861]$), whereas constituent recall
+($0.0509$, $[0.0093,\,0.0926]$) and $R_{\mathrm{all}}$
+($0.0833$, $[0.0093,\,0.1574]$) remained resolved. The micro-$F_1$
+interaction was positive in all nine leave-one-composition-out analyses
+(0.0236--0.0527), indicating stable direction but composition-level
+uncertainty in its magnitude. 
 
-Directional decomposition of the one-sided regime revealed substantial
-mechanism dependence. When broken-bar compound context was withheld,
-constituent recall remained high at 0.979 under seen conditions and 0.896
-under unseen conditions. In contrast, withholding winding compound context
-reduced recall to 0.438 and 0.479, respectively, while withholding
-dynamic-eccentricity context yielded a recall of 0.500 under both condition
-settings. Each of the 108 physical compound runs contributed exactly two
-directional one-sided predictions, and all bootstrap uncertainty estimates
-remained clustered by physical run.
+Because recombination retained more training runs than two-sided withholding,
+the recombination training sets were repeatedly downsampled to match the
+corresponding two-sided training-set cardinalities. Matching was exact in both
+condition regimes. Across 30 repeated subsamples, the unseen-condition
+recombination advantage remained positive on average for micro-$F_1$
+($+0.0335$), constituent recall ($+0.0438$), and
+$R_{\mathrm{all}}$ ($+0.0778$). However, composition-level bootstrap
+intervals included zero for micro-$F_1$
+($[-0.0151,\,0.0813]$), constituent recall
+($[-0.0046,\,0.0880]$), and $R_{\mathrm{all}}$
+($[-0.0185,\,0.1667]$).
+
+The corresponding context-by-condition interactions also remained positive
+on average but unresolved: $+0.0105$ for micro-$F_1$
+(95\% CI $[-0.0401,\,0.0606]$), $+0.0205$ for constituent recall
+($[-0.0370,\,0.0880]$), and $+0.0312$ for $R_{\mathrm{all}}$
+($[-0.0741,\,0.1574]$). Thus, the directional pattern of the primary
+analysis was retained after matching total training-set cardinality, but the
+interaction was not statistically resolved under this sensitivity analysis.
+Accordingly, the primary context effect should not be interpreted as
+independent of available training support.
+
+The recombination-versus-one-sided interaction was unresolved at the
+run-cluster level for micro-$F_1$ and recall, although $R_{\mathrm{all}}$
+showed a positive interaction of 0.0463
+(95\% CI: $[0.0046,\,0.1019]$). In the primary analysis, complete
+compound-context deprivation had a larger adverse effect under
+operating-condition shift. However, after matching total training-set
+cardinality, the recombination-versus-two-sided interaction remained
+directionally positive but unresolved for all three principal recovery
+outcomes.
+
+One-sided directional results were also heterogeneous across the directional
+withholding subsets. When broken-bar compound context was withheld, aggregate
+constituent recall within the corresponding test subset was 0.979 and 0.896
+under seen and unseen conditions, respectively. The corresponding subset-level
+values were 0.438 and 0.479 when winding context was withheld and 0.500 under
+both condition settings when dynamic-eccentricity context was withheld. These
+values are aggregate recall over all true constituents in the affected
+compound runs and should not be interpreted as recall of the withheld
+constituent itself. In particular, the mechanism-specific analysis in
+Table~\ref{tab:constituent_failure_modes} shows that mean
+dynamic-eccentricity recall was only 0.017 across the crossed scenarios,
+despite near-perfect isolated-fault discrimination.
+Both directional predictions from each physical run remained within the same
+bootstrap cluster.
 
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{Fig5_paired_protocol_differences.png}
-\caption{Paired run-cluster bootstrap differences between
-composition-context regimes. Points denote paired differences in constituent
-recall and micro-$F_1$, and horizontal bars denote 95\% bootstrap confidence
-intervals. Positive values favor the first regime in each contrast.}
+\caption{Paired run-cluster bootstrap differences between context regimes.
+Points denote differences in constituent recall and micro-$F_1$; horizontal
+bars denote 95\% bootstrap confidence intervals. Positive values favor the
+first regime in each contrast.}
 \label{fig:paired_protocol_differences}
 \end{figure*}
 
 \subsection{Sensitivity to Decision-Threshold Objective}
 \label{subsec:threshold_sensitivity}
 
-The limited exact-match performance and non-negligible false-addition counts
-motivated a post-hoc sensitivity analysis of the inner-CV threshold objective.
-The original $F_1$-based thresholds were retained as the locked primary
-analysis. Alternative $F_{0.5}$ and balanced-accuracy objectives were evaluated
-only to characterize the precision--recall operating-point trade-off and were
-not used for post-hoc model selection.
-
-Precision-weighted $F_{0.5}$ calibration substantially reduced false
-additions. Across the six crossed regimes, FA/run decreased from
-0.639--0.731 under the locked $F_1$ thresholds to approximately
-0.222--0.389, while exact-match recovery increased from 0.083--0.157 to
-0.157--0.287. This gain was accompanied by lower constituent recall, which
-decreased to approximately 0.583--0.644. Conversely, balanced-accuracy
-thresholding increased constituent recall but also increased false additions.
-
-These results show that exact compound decomposition is strongly affected by
-the operating point of the constituent detectors. Precision-oriented
-thresholding suppresses over-diagnosis and improves exact-set recovery,
-whereas recall-oriented thresholding recovers more true constituents at the
-cost of additional constituent activations. As shown by the classifier-family
-robustness analysis below, absolute decomposition quality is also
-model-dependent. Consequently, the low exact-match performance of the locked
-linear probe should not be interpreted as an intrinsic upper bound imposed by
-the crossed protocol itself.
+Post-hoc threshold calibration with $F_{0.5}$ and balanced accuracy was used
+to assess operating-point sensitivity. Relative to the locked $F_1$
+objective, $F_{0.5}$ reduced FA/run from 0.639--0.732 to 0.222--0.389 and
+increased exact-match recovery from 0.083--0.157 to 0.157--0.287, while
+reducing constituent recall to 0.583--0.644. Balanced-accuracy calibration
+shifted the trade-off toward higher recall and more false additions. Thus,
+exact-set recovery was substantially more operating-point sensitive than
+aggregate recall, and the locked $F_1$ operating point should not be viewed
+as an upper bound on achievable decomposition performance.
 
 \subsection{Sensitivity to Single-Fault Severity Merging}
 \label{subsec:severity_results}
@@ -1330,13 +1441,10 @@ over-diagnosis rather than artificially inflating constituent recovery.
 \subsection{Robustness Across Classifier Families}
 \label{subsec:classifier_robustness_results}
 
-The complete crossed protocol was additionally evaluated with random-forest,
-RBF-SVM, and neural classifiers while retaining the same constituent
-representation, curated feature families, outer evaluation splits, and
-inner-CV threshold-calibration principles. Table~\ref{tab:model_robustness}
-summarizes descriptive performance averaged across the six crossed scenarios.
-The locked logistic-regression results remain the primary analysis; the
-alternative classifiers are reported only as robustness references.
+The crossed protocol was repeated with random forest, RBF-SVM, and MLP
+classifiers as post-hoc robustness analyses. Table~\ref{tab:model_robustness}
+summarizes descriptive performance averaged across the six crossed scenarios;
+logistic regression remained the locked primary model.
 
 \begin{table}[t]
 \caption{Descriptive classifier-family robustness averaged across the six
@@ -1361,78 +1469,53 @@ MLP     & 0.737 & 0.310 & 0.659 & 0.256 \\
 \end{tabular}
 \end{table}
 
-Absolute decomposition performance was classifier dependent. Random forest
-achieved the highest mean micro-$F_1$ (0.744), whereas the neural baseline
-achieved the highest mean exact-match rate (0.310). Both random forest and the
-neural baseline reduced mean FA/run to 0.256, compared with 0.680 for the
-locked logistic-regression probe. In contrast, mean constituent recall varied
-only from 0.659 to 0.669 across the four classifiers. Thus, classifier family
-primarily affected the precision of constituent-set formation and the number
-of additional activations rather than the overall fraction of true
-constituents recovered.
-
-The qualitative recombination advantage was nevertheless retained across all
-four classifier families. Under unseen operating conditions, the
-recombination--two-sided difference in micro-$F_1$ was 0.055 for logistic
-regression, 0.051 for random forest, 0.032 for RBF-SVM, and 0.023 for the
-neural baseline. The corresponding constituent-recall differences were
-0.065, 0.065, 0.069, and 0.032, respectively. These descriptive results
-indicate that the adverse effect of complete compound-context deprivation is
-not unique to the locked linear classifier.
+Absolute decomposition performance varied substantially by classifier family:
+RF achieved the highest mean micro-$F_1$ (0.744), MLP the highest exact-match
+rate (0.310), and both reduced mean FA/run to 0.256, while constituent recall
+remained similar across models (0.659--0.669). Nevertheless, the
+unseen-condition recombination advantage over two-sided context zero-shot
+remained positive for all four classifiers
+(micro-$F_1$: 0.023--0.055; constituent recall: 0.032--0.069), indicating
+that the qualitative context effect was not specific to the locked linear probe.
 
 \subsection{Oracle Detectability and Cross-Partner Constituent Transfer}
 \label{subsec:oracle_transfer_results}
 
-To determine whether unsuccessful constituent recovery resulted from the
-physical disappearance of a fault signature, a within-pair oracle analysis
-was first performed. For each directed compound relation $A|B$, measurements
-from the compound state $A+B$ were compared with the corresponding
-single-$B$ reference while retaining the same constituent of interest $A$.
+Within-pair analysis first tested whether constituent evidence remained
+measurable in the target compound. Across all 18 directed relations $A|B$,
+condition-held-out AUC for the contrast $A+B$ versus $B$ ranged from 0.9167
+to 1.000, with a median of 1.000. Thus, target compounds remained strongly
+separable from their partner-only references.
 
-All 18 directed constituent--partner tests exhibited strong within-pair
-discriminability. The condition-held-out within-pair AUC ranged from 0.9167 to
-1.000, with a median of 1.000. Thus, the target compound and its corresponding
-partner-only reference remained strongly separable in the broader
-physics-feature space. However, the recording-sensitivity control showed that
-the two available recordings of the same bearing-outer fault under the same
-operating condition were themselves nearly perfectly separable
-($\mathrm{AUC}=0.998$). High within-pair AUC therefore cannot be attributed
-uniquely to the additional constituent and may partly reflect
-recording-specific nuisance variation.
+However, recording-related nuisance variation was also detectable. The two
+available recordings of the same bearing-outer fault under the same operating
+condition were nearly perfectly separable ($\mathrm{AUC}=0.998$), indicating
+that high within-pair AUC cannot be attributed uniquely to the added
+constituent.
 
-A complementary same-date control reduced recording-date mismatch. Eight
-pairs of compound states acquired on the same date shared one constituent and
-all 12 operating conditions, yielding 16 directed matched comparisons.
-Leave-one-condition-out AUCs ranged from 0.972 to 1.000. In particular, static
-eccentricity in the bearing-outer context remained perfectly separable when
-the alternative same-date compound contained either broken bar or winding
-with the same bearing-outer partner ($\mathrm{AUC}=1.000$ in both
-comparisons). Because these reference compounds contain a different
-non-target constituent, the controls do not causally isolate the target
-mechanism; nevertheless, they show that the observed compound-state
-discriminability cannot be explained solely by recording-date mismatch.
+A same-date sensitivity control reduced recording-date mismatch. Eight
+same-date compound pairs sharing one constituent and all 12 operating
+conditions yielded 16 directed comparisons, with leave-one-condition-out AUCs
+of 0.972--1.000. Static eccentricity in the bearing-outer context remained
+perfectly separable from same-date alternatives containing either broken bar
+or winding ($\mathrm{AUC}=1.000$). These controls do not causally isolate the
+target mechanism, but they show that compound-state separability cannot be
+explained solely by recording-date mismatch.
 
-Accordingly, within-pair detectability does not establish that the same evidence
-is transferable across compound partners. Cross-partner experiments were
-therefore performed by learning constituent $A$ from other compound contrasts,
-such as $A+C$ versus $C$, and evaluating the resulting detector on $A+B$
-versus $B$.
-
-Under seen operating conditions, the primary cross-partner protocol achieved a
-median AUC of 0.905 across the 18 directed tests, with a mean AUC of 0.815.
-Thirteen of the 18 directed tests achieved an AUC of at least 0.80, and 15
-achieved an AUC of at least 0.70. When the target operating condition was also
-withheld, the median AUC remained high at 0.884 and the mean AUC was 0.803.
-
-These aggregate values indicate that constituent evidence is often
-transferable across partners. Nevertheless, the transfer behavior was highly heterogeneous. Selected examples are reported in
-Table~\ref{tab:transfer_examples}.The complete pattern of directional cross-partner transfer is shown in
-Figure~\ref{fig:cross_partner_matrix}.
+Cross-partner transfer therefore tested a stricter question: whether evidence
+for constituent $A$ learned from other compound contexts, such as $A+C$
+versus $C$, generalized to the target contrast $A+B$ versus $B$. Under seen
+conditions, directional cross-partner AUC across the 18 relations had a median
+of 0.905 and a mean of 0.815; 13 relations achieved AUC $\geq0.80$ and 15
+achieved AUC $\geq0.70$. Under unseen conditions, the median and mean remained
+0.884 and 0.803, respectively. Selected results are shown in
+Table~\ref{tab:transfer_examples}, and the full directional pattern in
+Fig.~\ref{fig:cross_partner_matrix}.
 
 \begin{table*}[t]
-\caption{Selected directed cross-partner transfer results. The within-pair AUC
-measures detectability of constituent $A$ in the target pair, whereas the
-cross-partner AUC measures transfer of evidence learned from other compound
+\caption{Selected directed cross-partner transfer results. Within-pair AUC
+quantifies detectability of constituent $A$ in the target pair, whereas
+cross-partner AUC quantifies transfer of evidence learned from other compound
 partners.}
 \label{tab:transfer_examples}
 \centering
@@ -1442,11 +1525,9 @@ partners.}
 Target composition &
 Constituent $A$ &
 Partner $B$ &
-Within-pair AUC &
-Cross-partner AUC
-(seen) &
-Cross-partner AUC
-(unseen) \\
+\makecell{Within-pair\\AUC} &
+\makecell{Cross-partner\\AUC (seen)} &
+\makecell{Cross-partner\\AUC (unseen)} \\
 \midrule
 
 Bearing inner + bearing outer
@@ -1495,142 +1576,79 @@ Bearing outer + winding
 \end{tabular}
 \end{table*}
 
-The contrast between within-pair and cross-partner performance was
-particularly pronounced for static eccentricity in the presence of the
-bearing-outer fault. Within the target pair, static eccentricity remained
-strongly detectable, with
-$\mathrm{AUC}^{\mathrm{within}}=0.9167$. However, evidence learned from other
-eligible compound contexts produced a fixed-orientation directional AUC of
+Transfer was nevertheless strongly heterogeneous. For static eccentricity with bearing outer, within-pair AUC was 0.9167, whereas directional cross-partner AUC was 0.000 under both seen and unseen conditions. Because $\mathrm{AUC}_{\mathrm{sep}}=1.000$, the target remained perfectly rank separable but in the opposite orientation. This was the only relation with a statistically supported score-orientation reversal after multiplicity correction (Holm-adjusted $p=0.0136$ seen; $p=0.0108$ unseen). Given the recording separability observed above, this result is interpreted as reproducible context-dependent score reorientation rather than causal proof of physical signature inversion.
 
-\begin{equation}
-\mathrm{AUC}_{\mathrm{dir}}=0.000
-\end{equation}
-
-under both seen and unseen operating conditions. The corresponding
-orientation-free separability was
-
-\begin{equation}
-\mathrm{AUC}_{\mathrm{sep}}=1.000,
-\end{equation}
-
-indicating perfect rank separability in the opposite orientation. This was the
-only directed constituent--partner relation classified as a statistically
-supported score-orientation reversal after multiplicity correction, with
-Holm-adjusted $p=0.0136$ under seen conditions and $p=0.0108$ under unseen
-conditions. The statistical test establishes a reproducible reversal of the
-fixed-score ordering, but it does not establish that the reversal is caused
-exclusively by a physical inversion of the static-eccentricity signature.
-Given the strong recording-identity separability observed in the nuisance
-control, partner-dependent constituent reorientation and acquisition-related
-variation remain plausible, non-exclusive contributors to this result.
-
-Winding in the bearing-outer composition also produced below-chance
-directional AUCs of 0.3333 and 0.3403 under seen and unseen operating
-conditions, respectively. However, its orientation-free separability was only approximately 0.67 and the Holm-adjusted score-orientation tests were not significant.
-This relation was therefore classified as orientation-ambiguous rather than as a statistically supported score-orientation reversal.
+Winding with bearing outer also produced below-chance directional AUCs (0.3333 seen; 0.3403 unseen), but orientation-free separability was only approximately 0.67 and the Holm-adjusted tests were not significant.
+Accordingly, this relation was classified as orientation-ambiguous rather than as a supported reversal.
 
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{Fig2_cross_partner_matrix.png}
-\caption{Directional cross-partner transfer AUC for the primary
-other-partners transfer protocol. Rows denote the constituent $A$ to be
-recovered and columns denote partner $B$ in the target compound. Values below 0.5 indicate below-chance fixed-orientation ranking and do not by themselves establish a statistically supported score-orientation reversal. $n_C$ denotes the number of eligible compound training contexts available for the recovered
-constituent.}
+\caption{Directional cross-partner transfer AUC. Rows denote constituent $A$
+and columns partner $B$. Values below 0.5 indicate below-chance
+fixed-orientation ranking but do not alone establish a statistically supported
+score-orientation reversal. $n_C$ denotes the number of eligible compound
+training contexts for the recovered constituent.}
 \label{fig:cross_partner_matrix}
 \end{figure*}
 
-Taken together, the within-pair and recording-sensitivity controls show that compound states can remain strongly discriminable while the orientation of a score learned from other compound partners may fail to transfer. Because recording-specific structure is also detectable in the feature space, this phenomenon is interpreted as context-dependent score transfer rather than as causal proof of physical constituent-signature inversion. Figure~\ref{fig:within_cross_transfer} directly contrasts within-pair
-detectability with directional cross-partner transfer across the evaluated
-constituent--partner relations.
+Overall, compound states remained strongly discriminable while score
+orientation learned from other compound partners could fail to transfer.
+Because recording-specific structure was also detectable, the result is
+interpreted as context-dependent score transfer rather than causal evidence
+of physical constituent-signature inversion. Figure~\ref{fig:within_cross_transfer}
+contrasts within-pair detectability with directional cross-partner transfer.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\columnwidth]{Fig3_within_vs_cross.png}
 \vspace{-1mm}
-\caption{Within-pair oracle detectability versus directional cross-partner
-transfer. The dashed horizontal line denotes chance-level directional ranking.
-The shaded lower region represents below-chance directional ranking;
-a statistically supported score-orientation reversal requires the separate score-orientation analysis described in Section~\ref{subsec:statistical_analysis}.}
+\caption{Within-pair detectability versus directional cross-partner transfer.
+The dashed line denotes chance-level ranking. Below-chance values require the
+separate score-orientation analysis in
+Section~\ref{subsec:statistical_analysis} before being classified as supported
+reversals.}
 \label{fig:within_cross_transfer}
 \end{figure}
 
-
 \subsection{Physical-Signature Heterogeneity and Directional Failure Modes}
 \label{subsec:failure_modes}
-
-Cross-partner transfer was strongly directional. For example, in the
-bearing-outer plus static-eccentricity compound, evidence for bearing outer
-transferred with an AUC of 1.000, whereas evidence for static eccentricity in
-the opposite direction yielded a directional AUC of 0.000. Transferability
-was therefore not a symmetric property of the compound pair.
-
-The feature-level preservation analysis further showed that multivariate score-orientation reversal should not be equated with universal inversion of the underlying physical descriptors. For static eccentricity in the bearing-outer context, the median preservation ratio was 0.760, while approximately 18.5\% of the eligible curated feature-condition observations exhibited feature-level
-sign reversal and 31.4\% exhibited severe suppression. Thus, most individual physical descriptors did not reverse orientation even though the resulting multivariate cross-partner ranking was completely inverted.
-
-Conversely, strong feature suppression did not necessarily imply
-score-orientation reversal. Bearing-outer evidence in the bearing-inner compound showed a median
-preservation ratio of approximately 0.305 and a severe-suppression rate of
-approximately 58\%, yet its cross-partner directional AUC remained 1.000.
-Feature-level suppression and multivariate score-orientation reversal
-therefore represent distinct forms of partner-dependent behavior. Figure~\ref{fig:signature_preservation} illustrates this feature-level
-heterogeneity for static eccentricity under the two bearing-partner contexts.
+Feature-level preservation showed that score reorientation was not equivalent to uniform inversion of the underlying physical descriptors. For static eccentricity with bearing outer, the median preservation ratio was 0.760 over the full ratio-eligible set; among ratio-eligible observations with positive single-fault evidence, 17.8\% showed sign reversal and 34.6\% severe suppression. Conversely, bearing-outer evidence in the bearing-inner compound
+had a lower median preservation ratio ($\rho=0.305$); within the corresponding positive-single-evidence subset, 18.4\% of observations showed sign reversal and 58.4\% severe suppression, despite a cross-partner AUC of 1.000. Thus, feature suppression and multivariate score reorientation represent distinct partner-dependent phenomena (Fig.~\ref{fig:signature_preservation}).
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=\columnwidth]{Fig4_preservation_polarity.png}
-\caption{Feature-level preservation of selected static-eccentricity signatures under bearing-inner and bearing-outer partner contexts. Displayed features
-were selected by prioritizing sign-reversed features and then ranking by partner-dependent preservation spread. Aggregate preservation statistics
-reported in the text were calculated over the full eligible curated feature set rather than only the displayed subset. Negative values indicate feature-level sign reversal, values near one indicate preservation, and values
-above one indicate amplification.}
+\caption{Feature-level preservation of selected static-eccentricity
+signatures under bearing-inner and bearing-outer partner contexts. Features
+were selected by prioritizing sign reversals and then partner-dependent
+preservation differences; aggregate preservation ratios were calculated over the full ratio-eligible
+feature--condition set, whereas sign-reversal and severe-suppression rates were
+calculated only over ratio-eligible observations with positive single-fault
+evidence. Negative values indicate sign reversal, values
+near one preservation, and values above one amplification.}
 \label{fig:signature_preservation}
 \end{figure}
-For the locked logistic-regression probe, the false-addition values in
-Table~\ref{tab:crossed_results} should not be interpreted as conventional
-false-alarm probabilities. The metric represents
-the mean number of inactive constituent labels incorrectly activated per
-compound prediction. Nevertheless, values of approximately 0.64--0.73 indicate
-a non-negligible tendency toward over-diagnosis. In a practical condition
-monitoring system, these additional constituent activations could increase
-inspection burden even when one or both true mechanisms are successfully
-identified. Deployment-oriented extensions should therefore consider
-cost-sensitive threshold calibration or asymmetric decision penalties that
-explicitly trade constituent recall against false additions.The classifier-family robustness analysis further showed that this
-over-diagnosis tendency is not fixed by the constituent representation itself:
-random forest and the neural baseline reduced mean FA/run to approximately
-0.26 while retaining mean constituent recall near 0.66.
 
-The observed cross-partner score reorientation also suggests a potential role
-for representation or normalization strategies that explicitly promote
-constituent consistency across compound contexts. Possible directions include
-robust condition-aware normalization learned exclusively from training data,
-partner-insensitive spectral reference schemes, or representation constraints
-that align evidence for the same constituent across different compound
-partners. However, the present preservation analysis shows that the observed
-failure cannot be reduced to a uniform inversion of the underlying physical
-features. Such adaptation strategies should therefore be regarded as
-hypotheses for future investigation rather than as established remedies for score-orientation reversal. A further limitation is the recording structure of the public dataset.
-Acquisition timestamps recovered from the released file names showed that
-distinct recordings of the same fault state can be strongly separable in the
-physics-feature space. Although same-date shared-partner controls retained
-near-perfect discriminability, recording date is only a coarse proxy for
-experimental session, and the available release does not provide replicated
-same-state measurements sufficient to separate fault, assembly,
-sensor-mounting, thermal, and recording-session effects. The cross-partner
-results should therefore be interpreted as evidence of context-dependent score
-transfer rather than as causal proof of physical signature inversion.
-Absolute constituent-set reconstruction was additionally sensitive to the
-classifier family: nonlinear tree and neural baselines substantially reduced
-false additions and improved exact-match recovery, while the descriptive
-advantage of recombination over complete compound-context deprivation
-persisted across all four classifier families.
+The locked probe also produced 0.64--0.73 false additions per prediction row,
+indicating a material over-diagnosis burden despite partial constituent
+recovery. Recording-related nuisance variation further limits physical
+attribution: distinct recordings of the same fault state were strongly
+separable, while recording date provides only a coarse proxy for experimental
+session. Accordingly, the cross-partner results support context-dependent
+score transfer but not causal attribution to physical signature inversion.
 
-Taken together, the experiments identify two distinct limitations of
-constituent-level compound-fault generalization. First, reduced
-compound-context exposure became measurably detrimental when evaluation also
-required generalization to an unseen operating condition. Second,
-cross-partner transfer could be strongly directional even when within-pair
-constituent evidence remained highly detectable. The latter included one statistically supported case of complete score-orientation reversal, while the available recording structure prevents attributing that reversal uniquely to a physical signature inversion.
-
+Overall, the experiments reveal complementary forms of generalization
+failure. Mechanism-specific analysis shows that otherwise learnable
+constituents can degrade sharply in compound evaluation, with substantially
+different patterns across mechanisms. The crossed protocol additionally
+suggests that complete compound-context deprivation is more detrimental when
+the operating condition is also unseen in the primary analysis, although this
+interaction becomes unresolved after matching total training-set cardinality.
+Finally, cross-partner analysis shows that constituent scores can remain
+strongly separable yet fail to preserve their learned orientation across
+partners. These observations describe related but distinct limitations of
+constituent generalization rather than a single uniform failure mode.
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -1646,19 +1664,44 @@ with exact constituent-set recovery of only 0.083--0.157 on unseen compounds.
 The two results are not in tension; they measure different abilities, and the
 gap between them is the paper's subject.
 
-Four conclusions follow from the controlled analyses. First, the failure
-mode is incomplete decomposition rather than loss of information: at least
-one true constituent was recovered in more than 92\% of compound runs, and
-constituent recall (0.630--0.694) and all-constituent recovery under
-recombination (up to 0.444) exceed input-independent prevalence references
-(0.556 and 0.111, respectively), while several other partial-recovery
-metrics do not---a distinction visible only because every metric was
-reported against its constant-predictor floor. Second, compound-context
-deprivation is measurably harmful chiefly when the operating condition is
-simultaneously unseen: the recombination-versus-two-sided penalty under
-condition shift was $+0.040$ micro-$F_1$ (95\% CI $[0.009, 0.073]$),
-$+0.051$ constituent recall, and $+0.083$ all-constituent recovery, whereas
-the corresponding seen-condition contrasts were not resolved. Third,
+Four conclusions follow from the controlled analyses. First, at the aggregate level, the dominant failure mode is incomplete
+decomposition rather than complete diagnostic silence. Constituent recall remained between
+0.630 and 0.694, but a prevalence-only constant predictor could itself reach
+0.667 recall at the cost of 1.667 false additions per run and zero exact
+matches. Under recombination, all-constituent recovery reached 0.417--0.444, compared with 0.333 for the reported three-constituent prevalence reference; however,
+that reference incurred 1.667 false additions per run compared with
+approximately 0.64--0.66 for the learned detector. These results show why constituent recall must be
+interpreted jointly with false additions, micro-$F_1$, and exact-set recovery
+rather than as a stand-alone measure of diagnostic skill. The constituent-resolved controls further showed that these failures do not
+share a common origin. Dynamic eccentricity was almost perfectly learnable as
+an isolated fault (AUROC 0.9995; $F_1=0.923$) but collapsed to compound
+recall of 0.017 and $F_1$ of 0.028, providing the clearest evidence that poor
+compound recovery cannot be explained by weak isolated detectability alone.
+Static eccentricity was likewise highly learnable in isolation and retained
+substantial compound ranking information, while its $F_1$ increased from
+0.577 with the locked linear probe to 0.866 with RBF-SVM, consistent with
+pronounced classifier-family sensitivity. Winding showed a third pattern: isolated-fault
+specificity was already weaker and none of the nonlinear alternatives rescued
+its poor compound performance. In contrast, bearing-inner, bearing-outer, and
+broken-bar evidence remained strongly discriminative across both isolated and
+compound settings. Thus, constituent-level failure in this dataset exhibits distinct empirical
+patterns consistent with compound degradation, classifier-capacity
+sensitivity, and limited constituent specificity rather than a uniform cross-modal deficit. Second, the adverse effect of compound-context deprivation was larger when
+the operating condition was simultaneously unseen in the primary analysis.
+For the recombination-versus-two-sided interaction, composition-level
+clustering yielded $+0.040$ for micro-$F_1$
+(95\% CI $[-0.004,\,0.086]$), $+0.051$ for constituent recall
+(95\% CI $[0.009,\,0.093]$), and $+0.083$ for all-constituent recovery
+(95\% CI $[0.009,\,0.157]$). Thus, the primary composition-level analysis
+supported the interaction for constituent recall and all-constituent recovery,
+while the micro-$F_1$ interaction remained unresolved. After matching
+recombination training-set cardinality to the two-sided regime, the
+interactions remained positive on average but were unresolved for micro-$F_1$
+($+0.010$, 95\% CI $[-0.040,\,0.061]$), constituent recall
+($+0.021$, $[-0.037,\,0.088]$), and all-constituent recovery
+($+0.031$, $[-0.074,\,0.157]$). The observed context effect is therefore
+sensitive to available training support and should not be interpreted as a
+training-cardinality-independent effect of compound-context exposure. Third,
 constituent evidence transfers across compound partners often but
 directionally: within-pair detectability was near-perfect throughout, yet
 cross-partner transfer ranged from perfect to a statistically supported
@@ -1669,24 +1712,18 @@ transfer rather than as proven physical signature inversion. Fourth,
 absolute decomposition quality is an operating-point and model property:
 precision-weighted thresholding raised exact-match recovery to 0.157--0.287
 at reduced recall, and nonlinear classifier families reduced false additions
-from ${\sim}0.68$ to ${\sim}0.26$ per run while the qualitative
-generalization pattern persisted across all four families.
+from ${\sim}0.68$ to ${\sim}0.26$ per run while the unseen-condition recombination advantage over two-sided withholding
+remained directionally positive across all four classifier families.
 
 For practice, these results caution against reading closed-set accuracy as
 deployment readiness, argue for calibrating constituent detectors with
 explicit precision--recall cost structure, and indicate that commissioning
 data should sample compound contexts and operating conditions jointly rather
-than relying on either alone. The reference experiments of
-Appendix~\ref{app:condition} reinforce the latter point: on this dataset the
-standard leave-one-condition-out test is nearly saturated, while
-single-condition training collapses accuracy, so robustness claims should be
-evaluated in the extrapolating direction.
-
-Several directions remain open. The dataset provides no replicated
-same-state recordings that would separate fault, assembly, sensor-mounting,
-and session effects, so the transfer analyses stop at carefully bounded
-attribution; replicated acquisitions would convert those bounds into causal
-statements. Representation or normalization strategies that promote
+than relying on either alone. Several directions remain open. The dataset provides insufficient replicated same-state recordings to
+separate fault, assembly, sensor-mounting, thermal, and recording-related
+effects. The transfer analyses therefore stop at carefully bounded
+attribution; systematically replicated acquisitions would enable stronger
+separation of these potential sources of variation. Representation or normalization strategies that promote
 constituent-score consistency across compound partners are identified as
 hypotheses, not established remedies. Finally, the constituent-level
 protocol, prevalence references, and controls used here are directly
@@ -1695,40 +1732,109 @@ where cross-dataset replication of the context-by-condition interaction
 would test its generality.
 
 \appendices
-\section{Operating-Condition Reference Experiments}
-\label{app:condition}
+\section{Reference Experiments on Protocol Difficulty, Modality Sharing,
+and Feature Physics}
+\label{app:reference}
 
-Section~\ref{sec:related} states that the leave-one-condition-out protocol,
-the standard robustness test in the multi-condition literature, is nearly
-saturated on this dataset, whereas the reverse direction is not. This
-appendix reports the experiments behind that statement. They use a
-deliberately generic pipeline---distinct from, and simpler than, the
-constituent-level methodology of Section~\ref{sec:methods}---so that the
-measured gaps reflect protocol difficulty rather than modeling choices, and
-they are included with the released code.
+This appendix reports supporting experiments that bound the design decisions
+of the main study. They deliberately use a generic window-level pipeline,
+simpler than and independent of the constituent-level methodology of
+Section~\ref{sec:methods}, so that the measured gaps reflect protocol
+difficulty and representation structure rather than modeling choices. All of
+them are released with the analysis code.
 
-Windows of 0.64~s (8192 samples, non-overlapping) were described by 108
-time- and frequency-domain features (eight temporal statistics and ten
-spectral descriptors per channel over the three vibration and three current
-channels), classified into the original 24 diagnostic states by a 300-tree
-random forest, with three seeds per configuration. Six split protocols were
-compared. \emph{Random windows} splits windows irrespective of recording (a
-deliberately leakage-prone reference); \emph{in-condition} trains on the
-first 60\% of every recording and tests on the final 30\% with a 10\% guard
-gap; \emph{unknown condition} holds out each of the twelve operating
-conditions in turn; \emph{cross-profile} trains on one excitation profile
-(constant-torque variable-speed or constant-speed variable-torque) and
-tests on the other; \emph{steady~$\rightarrow$~transitional} trains on
-quasi-stationary segments and tests on speed/load ramps, with stationarity
-labeled from the key-phase-derived speed and the torque channel (the torque
-channel is used only for this protocol construction and never as a
+\subsection{Test Rig and Release Structure}
+\label{app:rig}
+
+Table~\ref{tab:rig} summarizes the machine, instrumentation, and release
+organization underlying every experiment in this paper. Two properties drive
+the protocol design. First, each diagnostic state is recorded once per
+operating condition, so a run is the only sampling unit that is safely
+independent; window-level splitting would place segments of one physical
+recording on both sides of a split. Second, the twelve conditions are a
+crossed grid of two excitation profiles, two load levels, and three speeds,
+which makes it possible to hold out a condition either by interpolation or by
+extrapolation---a distinction quantified in
+Section~\ref{app:protocols}.
+
+\begin{table}[!t]
+\caption{Test rig, instrumentation, and release structure. Machine and sensor
+parameters are as documented in the dataset descriptor \cite{chen2026}; the
+release-structure rows are as observed in the distributed files.}
+\label{tab:rig}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{l l}
+\toprule
+Property & Value \\
+\midrule
+Machine & QABP-90L2, 2.2~kW three-phase induction motor \\
+Pole pairs & 2 \\
+Single-side air gap & 0.5~mm \\
+Bearings & SKF 6205-2Z-C3 (drive and non-drive end) \\
+Bearing geometry & 9 balls, 7.94~mm ball, 39.04~mm pitch \\
+Bearing orders & BPFO 3.585, BPFI 5.415, BSF 2.357 \\
+Drivetrain & torque sensor, two-stage parallel gearbox, \\
+           & magnetic powder brake \\
+\midrule
+Vibration & triaxial accelerometer, 100~mV/g \\
+Current & three current clamps, 100~mV/A \\
+Torque & S2001 sensor, 100~mV/Nm, $\pm$0.5\%~F.S. \\
+Key-phase & one pulse per revolution \\
+Sampling & 12.8~kHz, 8 synchronous channels, 90~s per run \\
+\midrule
+Diagnostic states & 24 (healthy, single, and compound) \\
+Operating conditions & 12 (2 profiles $\times$ \{20, 40\}~Nm \\
+                     & $\times$ \{1000, 2000, 3000\}~rpm) \\
+Excitation profiles & speed circulation (constant load), \\
+                    & torque circulation (constant speed) \\
+Runs in the release & 288 (one per state and condition) \\
+Compound runs & 108 over 9 compositions \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Three release-level properties were observed while preparing the data and are
+reported because they materially affect protocol construction. (i) The
+distributed archive contains 288 runs, whereas the descriptor article
+reports 282; the surplus is a second \texttt{bearing\_outer\_H} recording at
+the constant-torque 20~Nm, 3000~rpm condition, time-stamped roughly six weeks
+after the main acquisition campaign. (ii) Compound-fault directory names
+abbreviate the second constituent, so that a directory named
+\texttt{bearing\_outer\_H\_and\_inner\_H} denotes an outer-race and
+inner-race combination; parsing the labels naively splits one compound into
+inconsistent constituent sets. (iii) Recordings of the same fault state made
+on different dates are separable with near-perfect accuracy from the same
+features used for diagnosis (run-level AUC 0.998--0.999). Property~(iii) is
+the reason the transfer analyses in the main study are bounded by
+recording-sensitivity and same-date controls rather than being read directly
+as fault physics.
+
+\subsection{Protocol Difficulty Under Operating-Condition Shift}
+\label{app:protocols}
+
+Windows of 0.64~s (8192 samples, non-overlapping) were described by 108 time-
+and frequency-domain features (eight temporal statistics and ten spectral
+descriptors per channel over the three vibration and three current channels)
+and classified into the 24 diagnostic states by a 300-tree random forest, with
+three seeds per configuration. Only the split changes across the six
+protocols compared in Table~\ref{tab:condref}: \emph{random windows} splits
+windows irrespective of recording (a deliberately leakage-prone reference);
+\emph{in-condition} trains on the first 60\% of every recording and tests on
+the final 30\% with a 10\% guard gap; \emph{unknown condition} holds out each
+of the twelve operating conditions in turn; \emph{cross-profile} trains on one
+excitation profile and tests on the other; \emph{steady~$\rightarrow$
+transitional} trains on quasi-stationary segments and tests on speed and load
+ramps, with stationarity labeled from the key-phase-derived speed and the
+torque channel (used only for constructing this protocol, never as a
 classifier input); and \emph{single source} inverts the unknown-condition
 protocol, training on one condition and testing on the remaining eleven.
 
 \begin{table}[!t]
-\caption{Reference protocols, 24-class accuracy (mean $\pm$ std over folds
-and three seeds). The same features and classifier are used throughout;
-only the split changes.}
+\caption{Reference protocols, 24-class accuracy (mean $\pm$ standard deviation
+over folds and three seeds). Features and classifier are identical
+throughout; only the split changes.}
 \label{tab:condref}
 \centering
 \footnotesize
@@ -1747,66 +1853,146 @@ Single source (train on one condition)     & 12 & $0.333 \pm 0.104$ \\
 \end{tabular}
 \end{table}
 
-Table~\ref{tab:condref} summarizes the outcome. Holding one condition out
-of twelve costs only ${\sim}2.6$ accuracy points relative to the
-in-condition reference, because the eleven retained conditions bracket the
-held-out one in speed and load and the model interpolates. Training on a
-single condition and extrapolating to the other eleven costs over 60
-points; paired over the twelve condition folds, the difference between the
-two directions is 0.606 (paired $t$-test $p = 7.7\times10^{-10}$; Wilcoxon
-$p = 4.9\times10^{-4}$). Transfer between excitation profiles is likewise
-asymmetric at equal training size: training under variable speed
-generalizes to variable load (accuracy 0.944), whereas the reverse loses
-${\sim}21$ points (0.734; paired over seeds, $p = 3.3\times10^{-5}$).
-Finally, appending 36 speed-invariant envelope-order descriptors to the
-feature set leaves the interpolating protocols unchanged ($+0.001$ on
-unknown-condition, paired $p = 0.84$) but significantly improves the
+The same features and classifier span 0.975 to 0.333 across protocols.
+Holding one condition out of twelve costs only ${\sim}2.6$ accuracy points
+relative to the in-condition reference, because the eleven retained
+conditions bracket the held-out one in speed and load and the model
+interpolates. Training on a single condition and extrapolating to the other
+eleven costs over 60 points; paired over the twelve condition folds, the
+difference between the two directions is 0.606 (paired $t$-test
+$p = 7.7\times10^{-10}$; Wilcoxon $p = 4.9\times10^{-4}$). Transfer between
+excitation profiles is likewise asymmetric \emph{at equal training-set size}
+(144 runs each): training under variable speed generalizes to variable load
+(accuracy 0.944), whereas the reverse loses ${\sim}21$ points (0.734; paired
+over seeds, $p = 3.3\times10^{-5}$). Because this contrast is size matched, it
+isolates excitation diversity rather than data volume, unlike the
+single-source contrast, which reduces both. Finally, appending 36
+speed-invariant envelope-order descriptors leaves the interpolating protocol
+unchanged ($+0.001$ on unknown condition, paired $p = 0.84$) but improves the
 extrapolating one ($+0.047$ on single source, paired
 $p = 8.4\times10^{-4}$), consistent with their construction.
 
-The same generic pipeline was used for a modality-dissociation experiment
-that motivates the mechanism-specific selectors of
-Section~\ref{subsec:physics_features}. Multi-label one-vs-rest
-random-forest detectors over severity-split components were trained on the
-single-fault windows and applied to all compound windows using three
-feature views: vibration-only, current-only, and the concatenation of both.
-The dissociation was complete: vibration features never detected an
-electrically expressed constituent (detection rate 0.000 across all eight
-cross-modal compounds) and current features never detected a mechanical
-one. Critically, concatenation destroyed rather than combined the two
-abilities---the winding constituent was detected on 39.3\% of compound
-windows from current features alone and on 0.2\% once vibration features
-were concatenated, the mechanical signature dominating the shared
-representation. This is the cross-modal suppression referred to in
-Section~\ref{sec:related}.
-
-Note that the 24-class figures in this appendix come from the generic
-window-level pipeline described above and are not comparable to the
-run-level closed-set control of Section~\ref{subsec:closed_set_results};
-the proximity of the appendix's leave-one-condition-out accuracy (0.939) to
-the main closed-set figure (0.913) is coincidental, as the two experiments
-differ in features, classifier, evaluation unit, and split.
-
 Two implications carry into the main study. Methodologically, robustness to
-operating conditions should be claimed in the extrapolating direction,
-which motivates crossing the composition and context regimes with
-unseen-condition evaluation rather than relying on leave-one-condition-out
-alone. Practically, excitation diversity during commissioning matters more
-than data volume in these comparisons---although the single-source contrast
-also reduces training-set size, so only the size-matched cross-profile
-asymmetry isolates diversity itself: a training condition in which speed
-varies transfers to load variation, but not conversely.
+operating conditions should be claimed in the extrapolating direction, which
+is why the crossed design of Section~\ref{subsec:crossed_protocol} evaluates
+composition and compound-context regimes jointly with unseen conditions rather
+than relying on leave-one-condition-out alone. Practically, excitation
+diversity during commissioning matters at least as much as data volume.
+
+\subsection{Why Constituent Detectors Use Mechanism-Specific Features}
+\label{app:modality}
+
+The main study restricts each constituent detector to a curated,
+mechanism-appropriate feature family (Section~\ref{subsec:physics_features})
+rather than exposing every detector to the full multimodal bank. The
+following experiment measures what a shared feature space does in this
+dataset. Multi-label one-vs-rest random-forest detectors were trained on
+single-fault windows and applied to all compound windows under three feature
+views: vibration only, current only, and the concatenation of both.
+
+The modality dissociation was complete: vibration features never detected an
+electrically expressed constituent (detection rate 0.000 across all eight
+cross-modal compounds) and current features never detected a mechanical one.
+Critically, concatenation did not combine the two abilities but destroyed one
+of them. The winding constituent was detected on 39.3\% of compound windows
+from current features alone and on 0.2\% once vibration features were
+concatenated---a roughly 200-fold collapse---while the mechanical constituent
+retained 0.072 detection in the shared view. The electrical evidence is
+therefore present and learnable in its own modality, and is lost to the
+dominant mechanical signature when both families compete inside one
+representation. Restricting each detector to physically appropriate
+descriptors, as the main study does, removes that competition by
+construction.
+
+\subsection{Empirical Checks on Two Feature-Construction Choices}
+\label{app:featurephysics}
+
+Two parameters of the order-domain descriptors deserve explicit empirical
+support rather than appeal to convention.
+
+\emph{Integration bandwidth.} Order-domain descriptors integrate spectral
+energy within $\pm0.12$ order of a target order. A fixed absolute window is a
+constant \emph{relative} window only at the fundamental: at the second
+harmonic it spans half the relative width, while the physical deviation of a
+bearing order---rolling-element slip makes the true defect order differ from
+its kinematic value---scales with the harmonic. To test whether this matters
+in practice, the normalized band ratio was recomputed at half-widths of 0.06,
+0.12, 0.25, and 0.50 order and scored by its ability to separate the
+corresponding single-fault runs from healthy runs (run-level AUROC, median
+over windows, 84 runs, order resolution 0.017).
+
+The measured peak offsets confirm the concern and bound it. The local maximum
+of the envelope-order spectrum lies a median 0.024 order from the kinematic
+BPFO and 0.036 order from BPFI at the fundamental, but 0.049 and 0.080 order
+at the second harmonic---the offset roughly doubles with harmonic number, as
+slip-induced deviation should. Consequently the $\pm0.12$ window contains the
+observed peak in 100\% and 96\% of runs for BPFO (first and second harmonic)
+but in only 96\% and 74\% of runs for BPFI. The second-harmonic BPFI
+descriptor is therefore the least reliable member of the bearing family.
+
+Widening the window, however, does not repair this and measurably harms
+discrimination. At the fundamental, BPFO separates faulty from healthy runs
+perfectly (AUROC 1.000) at every half-width, so the choice is immaterial
+there. At the second harmonic, AUROC for BPFO is 0.877 at $\pm0.12$ but falls
+to 0.573 at $\pm0.25$ and to chance (0.497) at $\pm0.50$. The reason is
+structural: $2\times$BPFO${}=7.17$ and $2\times$BPFI${}=10.83$ sit close to
+integer shaft orders, which carry rotational and imbalance energy in healthy
+and faulty machines alike, so a wider window admits common-mode energy faster
+than it recovers the displaced fault peak. The $\pm0.12$ choice is thus close
+to the best available compromise for this rig rather than an arbitrary one,
+with the caveat that second-harmonic descriptors---BPFI's in
+particular---carry less reliable evidence than their fundamentals. A
+harmonic-scaled window would be the principled alternative, and is left to
+future work because widening at fixed center is demonstrably not the fix.
+
+\emph{Broken-bar sideband placement.} The current-domain descriptors are
+evaluated at $o_e \pm 1$ and $o_e \pm 2$, that is, at offsets of one and two
+\emph{shaft} orders from the electrical carrier. The classical broken-bar
+signature instead lies at $(1 \pm 2s) f_e$, an offset of $2 s\, o_e$ shaft
+orders, where the slip $s$ follows from the measured carrier and the
+key-phase speed as $s = 1 - p/o_e$.
+
+The pole count was determined from the data rather than assumed: the detected
+carrier sits at $50.06$~Hz against a $49.69$~Hz shaft at the 3000~rpm setting
+(and at $16.63$~Hz against $16.32$~Hz at 1000~rpm), so the machine is
+two-pole, $p=1$, and the recovered slip is 3.0\%, 1.5\%, and 1.0\% at the
+1000, 2000, and 3000~rpm settings---a near-constant slip \emph{speed} of about
+$0.3$~Hz, as a roughly constant load torque implies.
+
+The consequence is quantitative. The broken-bar sidebands lie $2 s\, o_e =
+0.062$, $0.031$, and $0.020$ order from the carrier at the three speed
+settings (median $0.024$ over 245 analyzed windows), which is only about two
+spectral bins at the 2-s window length used here, and falls \emph{inside} the
+$\pm0.12$ carrier band in 92.7\% of windows. The classical broken-bar
+signature is therefore absorbed into the carrier descriptor itself rather
+than resolved as a separate feature. The $o_e \pm 1$ and $o_e \pm 2$
+descriptors, by contrast, sit one and two shaft orders from the carrier,
+which is 16 to 50 times further out than the true sideband offset and
+coincides instead with the $f_e \pm f_r$ spacing associated with
+eccentricity. These descriptors should accordingly be read as
+carrier-relative modulation proxies---which is how
+Section~\ref{subsec:physics_features} interprets them---and not as
+slip-parameterized broken-bar measurements. Resolving genuine broken-bar
+sidebands on this rig would require either substantially longer analysis
+windows or explicit slip-tracked demodulation, and remains open.
 
 \section*{Data Availability}
 The dataset analyzed in this study is publicly available from Mendeley Data
-at \url{https://doi.org/10.17632/6s3dggj9mw.1} (CC~BY~4.0)
+at \url{https://doi.org/10.17632/6s3dggj9mw.1} under a CC~BY~4.0 license
 \cite{mcc5motor_data}, with its accompanying descriptor article
-\cite{chen2026}. Acquisition-timestamp metadata used for the
-recording-sensitivity controls were recovered from the released file names
-and are included with the analysis code.
+\cite{chen2026}. The acquisition-timestamp metadata used for the
+recording-sensitivity and same-date controls were recovered from the released
+file names and are distributed with the analysis code.
 
 \section*{Code Availability}
-The code developed and used during the current study is available from the corresponding author upon reasonable request.
+The analysis code, the derived run-level feature tables, the split
+definitions for every protocol reported here, and the scripts that regenerate
+each table and figure are publicly available at
+\url{https://doi.org/10.5281/zenodo.XXXXXXX}. The release includes the
+reference experiments of Appendix~\ref{app:reference}, so that the protocol
+comparison, the modality-dissociation experiment, and the feature-physics
+checks can be reproduced from the public dataset without re-deriving the
+preprocessing chain.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}

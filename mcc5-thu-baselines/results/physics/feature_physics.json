@@ -1,0 +1,83 @@
+{
+  "samples_per_rev": 256,
+  "window_sec": 2.0,
+  "band_width": {
+    "n_runs": 84,
+    "n_healthy_runs": 12,
+    "median_order_resolution": 0.01658222729651301,
+    "min_revs_per_window": 30,
+    "auroc": {
+      "BPFO_h1_w0.06": 1.0,
+      "BPFO_h1_w0.12": 1.0,
+      "BPFO_h1_w0.25": 1.0,
+      "BPFO_h1_w0.5": 1.0,
+      "BPFO_h2_w0.06": 0.8633,
+      "BPFO_h2_w0.12": 0.8767,
+      "BPFO_h2_w0.25": 0.5733,
+      "BPFO_h2_w0.5": 0.4967,
+      "BPFI_h1_w0.06": 0.6522,
+      "BPFI_h1_w0.12": 0.6486,
+      "BPFI_h1_w0.25": 0.6486,
+      "BPFI_h1_w0.5": 0.6196,
+      "BPFI_h2_w0.06": 0.2174,
+      "BPFI_h2_w0.12": 0.413,
+      "BPFI_h2_w0.25": 0.3877,
+      "BPFI_h2_w0.5": 0.3333,
+      "BSF_h1_w0.06": 0.691,
+      "BSF_h1_w0.12": 0.75,
+      "BSF_h1_w0.25": 0.7674,
+      "BSF_h1_w0.5": 0.6389,
+      "BSF_h2_w0.06": 0.7188,
+      "BSF_h2_w0.12": 0.6354,
+      "BSF_h2_w0.25": 0.625,
+      "BSF_h2_w0.5": 0.5347
+    },
+    "BPFO_h1_median_peak_offset": 0.02415275200989475,
+    "BPFO_h1_frac_offset_within_0.12": 1.0,
+    "BPFO_h2_median_peak_offset": 0.04875000000000007,
+    "BPFO_h2_frac_offset_within_0.12": 0.96,
+    "BPFI_h1_median_peak_offset": 0.03621212121212114,
+    "BPFI_h1_frac_offset_within_0.12": 0.9565217391304348,
+    "BPFI_h2_median_peak_offset": 0.08000000000000007,
+    "BPFI_h2_frac_offset_within_0.12": 0.7391304347826086
+  },
+  "slip": {
+    "n": 245,
+    "pole_pairs_used": 1,
+    "by_speed": {
+      "1000rpm": {
+        "median_shaft_hz": 16.318,
+        "median_supply_hz": 16.629,
+        "median_slip": 0.0303,
+        "median_bb_offset_orders": 0.0625
+      },
+      "2000rpm": {
+        "median_shaft_hz": 32.944,
+        "median_supply_hz": 33.25,
+        "median_slip": 0.01504,
+        "median_bb_offset_orders": 0.03054
+      },
+      "3000rpm": {
+        "median_shaft_hz": 49.691,
+        "median_supply_hz": 50.058,
+        "median_slip": 0.01,
+        "median_bb_offset_orders": 0.0202
+      }
+    },
+    "median_carrier_order": 1.0121951219512195,
+    "median_slip": 0.012048192771084376,
+    "slip_iqr": [
+      0.0,
+      0.020408163265306034
+    ],
+    "median_supply_hz": 33.2257081616823,
+    "median_bb_offset_orders": 0.0243902439024391,
+    "bb_offset_iqr": [
+      0.0,
+      0.048780487804878106
+    ],
+    "frac_bb_offset_within_0.12": 0.926530612244898,
+    "median_slip_broken_bar_runs": 0.013486782952706333,
+    "median_bb_offset_broken_bar_runs": 0.030303030303030165
+  }
+}
