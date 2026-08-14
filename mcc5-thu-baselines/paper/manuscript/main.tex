@@ -69,12 +69,16 @@ context zero-shot) from operating-condition novelty, with run-level,
 severity-aware splits and all calibration confined to training data.
 Although closed-set 24-class accuracy reaches 0.913, exact recovery of
 unseen constituent sets remains between 0.083 and 0.157 for the locked
-linear probe, and every metric is reported against input-independent
-prevalence references that expose partial-recovery scores as otherwise
-misleading. Compound-context deprivation is measurably harmful chiefly when
-the operating condition is also unseen (micro-$F_1$ interaction $+0.040$,
-95\% CI $[0.009, 0.073]$), and cross-partner transfer is strongly
-directional, including one statistically supported score-orientation
+linear probe---not clearly above the 0.111 achieved by the strongest
+input-independent constant predictor---and the constituent metrics are
+reported against such prevalence references throughout, which expose
+several partial-recovery scores as prevalence-driven; the probe's genuine
+advantage is a joint operating point of higher micro-$F_1$ (0.631--0.686
+versus a best-constant 0.556) at comparable or lower false-addition cost.
+Compound-context deprivation is measurably harmful chiefly when the
+operating condition is also unseen (recombination versus two-sided context
+zero-shot: micro-$F_1$ interaction $+0.040$, 95\% CI $[0.009, 0.073]$), and
+cross-partner transfer is strongly directional, including one statistically supported score-orientation
 reversal whose physical attribution is deliberately left open given
 demonstrated recording-session separability. Threshold-objective and
 classifier-family analyses show that exact decomposition, not constituent

@@ -67,10 +67,34 @@ unknown-condition, paired $p = 0.84$) but significantly improves the
 extrapolating one ($+0.047$ on single source, paired
 $p = 8.4\times10^{-4}$), consistent with their construction.
 
+The same generic pipeline was used for a modality-dissociation experiment
+that motivates the mechanism-specific selectors of
+Section~\ref{sec:features}. Multi-label one-vs-rest random-forest detectors
+over severity-split components were trained on the single-fault windows and
+applied to all compound windows using three feature views: vibration-only,
+current-only, and the concatenation of both. The dissociation was complete:
+vibration features never detected an electrically expressed constituent
+(detection rate 0.000 across all eight cross-modal compounds) and current
+features never detected a mechanical one. Critically, concatenation
+destroyed rather than combined the two abilities---the winding constituent
+was detected on 39.3\% of compound windows from current features alone and
+on 0.2\% once vibration features were concatenated, the mechanical
+signature dominating the shared representation. This is the cross-modal
+suppression referred to in Section~\ref{sec:related}.
+
+Note that the 24-class figures in this appendix come from the generic
+window-level pipeline described above and are not comparable to the
+run-level closed-set control of Section~\ref{sec:closedsetresults}; the
+proximity of the appendix's leave-one-condition-out accuracy (0.939) to the
+main closed-set figure (0.913) is coincidental, as the two experiments
+differ in features, classifier, evaluation unit, and split.
+
 Two implications carry into the main study. Methodologically, robustness to
 operating conditions should be claimed in the extrapolating direction,
 which motivates crossing the composition and context regimes with
 unseen-condition evaluation rather than relying on leave-one-condition-out
 alone. Practically, excitation diversity during commissioning matters more
-than data volume: a training condition in which speed varies transfers to
-load variation, but not conversely.
+than data volume in these comparisons---although the single-source contrast
+also reduces training-set size, so only the size-matched cross-profile
+asymmetry isolates diversity itself: a training condition in which speed
+varies transfers to load variation, but not conversely.

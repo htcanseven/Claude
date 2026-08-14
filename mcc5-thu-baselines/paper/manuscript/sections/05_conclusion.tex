@@ -14,13 +14,20 @@ measure different abilities, and the gap between them is the paper's
 subject.
 
 Four conclusions follow from the controlled analyses. First, the failure
-mode is incomplete decomposition rather than loss of information: at least
-one true constituent was recovered in more than 92\% of compound runs, and
-constituent recall (0.630--0.694) and all-constituent recovery under
-recombination (up to 0.444) exceed input-independent prevalence references
-(0.556 and 0.111, respectively), while several other partial-recovery
-metrics do not---a distinction visible only because every metric was
-reported against its constant-predictor floor. Second, compound-context
+mode is incomplete decomposition rather than loss of information---but this
+claim survives only when each metric is read against the \emph{best}
+input-independent constant predictor. At least one true constituent was
+recovered in more than 92\% of compound runs, yet a constant predictor
+reaches 100\% on that metric, so it carries no evidential weight on its
+own. Against the per-metric floors of Table~\ref{tab:trivial}, the locked
+probe exceeds the recall floor of 0.667 only under recombination
+(0.676--0.694), exceeds the all-constituent floor of 0.333 under
+recombination (0.417--0.444) but not in every regime, and does not clearly
+exceed the exact-match floor of 0.111. Its genuine advantage is the joint
+operating point---micro-$F_1$ of 0.631--0.686 against a best-constant
+0.556, at comparable or lower false-addition cost---a distinction visible
+only because every metric was reported against its constant-predictor
+floor. Second, compound-context
 deprivation is measurably harmful chiefly when the operating condition is
 simultaneously unseen: the recombination-versus-two-sided penalty under
 condition shift was $+0.040$ micro-$F_1$ (95\% CI $[0.009, 0.073]$),

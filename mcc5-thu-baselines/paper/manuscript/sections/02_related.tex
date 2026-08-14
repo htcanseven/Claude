@@ -96,11 +96,11 @@ multimodal networks \cite{drmnn2020}, adaptive CNN fusion of denoised
 vibration and current \cite{plos2025}, and comparative studies of the two
 modalities under deep and classical learners \cite{ayankoso2026}. These
 works report that fusion improves \emph{single-fault} accuracy. The
-compound setting reverses the picture: our diagnostic experiments on this
-dataset show that a shared feature space lets the dominant (mechanical)
-signature suppress the electrical one---a winding short detectable from
-currents alone on 39\% of windows falls to 0.2\% once vibration features
-are concatenated. The mechanism-specific feature families used here are a
+compound setting reverses the picture: the reference experiments of
+Appendix~\ref{app:condition} show that a shared feature space lets the
+dominant (mechanical) signature suppress the electrical one---a winding
+short detectable from currents alone on 39.3\% of compound windows falls to
+0.2\% once vibration features are concatenated. The mechanism-specific feature families used here are a
 structural answer: each constituent detector sees only the physically
 appropriate modality, so cross-modal suppression cannot occur inside a
 detector.

@@ -35,9 +35,10 @@ states under twelve speed/load conditions, with synchronized triaxial
 vibration, three-phase currents, torque, and a key-phase tachometer. Its
 nine compound faults pair a mechanical bearing defect with a second
 mechanism---inner or outer race, broken rotor bars, static or dynamic
-eccentricity, or a stator winding short circuit---so that, in eight of nine
-combinations, the two constituents deposit their primary evidence in
-\emph{different} sensing modalities. To our knowledge, neither this
+eccentricity, or a stator winding short circuit---so that, in eight of the
+nine combinations, the second constituent is electromagnetic in origin, and
+for the winding and rotor-bar constituents its primary evidence resides in
+the stator currents rather than in vibration. To our knowledge, neither this
 cross-modal compound regime nor this dataset has previously received a
 constituent-level evaluation.
 
@@ -69,8 +70,11 @@ The contributions are as follows.
   \item \textbf{Prior-aware evaluation}: all constituent metrics are
   reported against input-independent prevalence references, which expose
   several apparently favorable partial-recovery metrics as at or below what
-  a constant predictor achieves, while establishing that constituent recall
-  and all-constituent recovery genuinely exceed those floors.
+  a constant predictor achieves. Against the best constant reference per
+  metric, the locked probe's advantage is a joint operating point---higher
+  micro-$F_1$ at comparable or lower false-addition cost, with
+  all-constituent recovery exceeding its floor under recombination---rather
+  than uniform per-metric superiority.
   \item \textbf{A controlled analysis of constituent transfer}: within-pair
   oracle detectability, cross-partner transfer, physical-signature
   preservation, and a statistically supported score-orientation reversal,
@@ -82,8 +86,8 @@ The contributions are as follows.
   is stable while absolute exact-match decomposition is an operating-point
   and model property, not an intrinsic bound of the protocol.
   \item \textbf{Documentation of dataset-release properties that materially
-  affect protocol design}---recording-session separability,
-  severity-variant leakage paths, and label abbreviations---together with
+  affect protocol design}---recording-session separability and
+  severity-variant leakage paths---together with
   reference operating-condition experiments
   (Appendix~\ref{app:condition}) that motivate the crossed design.
 \end{enumerate}
