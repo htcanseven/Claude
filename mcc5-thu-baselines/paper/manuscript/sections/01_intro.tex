@@ -59,38 +59,34 @@ controls, so that separability is not silently attributed to fault
 mechanisms; and paired run-clustered bootstrap inference with multiplicity
 correction distinguishes supported effects from noise.
 
-The contributions are as follows.
-\begin{enumerate}
-  \item \textbf{A constituent-level formulation and crossed
-  composition--context--condition protocol} for compound motor faults whose
-  constituents span mechanical and electrical modalities, separating novel
-  composition, compound-context deprivation, and operating-condition
-  novelty in one design
-  (Sections~\ref{sec:methods}--\ref{sec:results}).
-  \item \textbf{Prior-aware evaluation}: all constituent metrics are
-  reported against input-independent prevalence references, which expose
-  several apparently favorable partial-recovery metrics as at or below what
-  a constant predictor achieves. Against the best constant reference per
-  metric, the locked probe's advantage is a joint operating point---higher
-  micro-$F_1$ at comparable or lower false-addition cost, with
-  all-constituent recovery exceeding its floor under recombination---rather
-  than uniform per-metric superiority.
-  \item \textbf{A controlled analysis of constituent transfer}: within-pair
-  oracle detectability, cross-partner transfer, physical-signature
-  preservation, and a statistically supported score-orientation reversal,
-  each bounded by recording-sensitivity and same-date controls that keep
-  session effects from being read as physics.
-  \item \textbf{Sensitivity and robustness analyses} over the
-  decision-threshold objective, single-fault severity merging, and four
-  classifier families, showing that the qualitative generalization pattern
-  is stable while absolute exact-match decomposition is an operating-point
-  and model property, not an intrinsic bound of the protocol.
-  \item \textbf{Documentation of dataset-release properties that materially
-  affect protocol design}---recording-session separability and
-  severity-variant leakage paths---together with
-  reference operating-condition experiments
-  (Appendix~\ref{app:condition}) that motivate the crossed design.
-\end{enumerate}
+This paper makes five contributions. First, it introduces a
+constituent-level formulation and a crossed
+composition--context--condition protocol for compound motor faults whose
+constituents span mechanical and electrical modalities, separating novel
+composition, compound-context deprivation, and operating-condition novelty
+within a single design (Sections~\ref{sec:methods}--\ref{sec:results}).
+Second, it develops a prior-aware evaluation in which every constituent
+metric is reported against input-independent prevalence references; these
+references expose several apparently favorable partial-recovery metrics as
+at or below what a constant predictor achieves and show that, against the
+best constant reference per metric, the locked probe's advantage is a joint
+operating point---higher micro-$F_1$ at comparable or lower false-addition
+cost, with all-constituent recovery exceeding its floor under
+recombination---rather than uniform per-metric superiority. Third, it
+presents a controlled analysis of constituent transfer, spanning
+within-pair oracle detectability, cross-partner transfer,
+physical-signature preservation, and a statistically supported
+score-orientation reversal, each bounded by recording-sensitivity and
+same-date controls that keep session effects from being read as physics.
+Fourth, sensitivity and robustness analyses over the decision-threshold
+objective, single-fault severity merging, and four classifier families show
+that the qualitative generalization pattern is stable, while absolute
+exact-match decomposition is an operating-point and model property rather
+than an intrinsic bound of the protocol. Finally, the paper documents
+dataset-release properties that materially affect protocol
+design---recording-session separability and severity-variant leakage
+paths---together with reference operating-condition experiments
+(Appendix~\ref{app:condition}) that motivate the crossed design.
 
 The principal findings are that closed-set discriminability (accuracy
 0.913) coexists with exact constituent-set recovery of 0.083--0.157 on
