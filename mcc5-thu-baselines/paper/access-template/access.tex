@@ -1866,93 +1866,71 @@ span mechanical and electrical modalities, a locked linear constituent probe
 over physical features specific to each mechanism showed that strong closed
 set discriminability (accuracy 0.913 over the 24 diagnostic states, 95\% CI
 $[0.885, 0.938]$) coexists with exact constituent set recovery of only 0.083
-to 0.157 on unseen compounds. The two results are not in tension. They
-measure different abilities, and the gap between them is the subject of this
-paper.
+to 0.157 on unseen compounds. The two results measure different abilities,
+and the gap between them is the subject of this paper.
 
 Four conclusions follow from the controlled analyses. First, at the aggregate
 level, the dominant failure mode is incomplete decomposition rather than
 complete diagnostic silence. Constituent recall remained between 0.630 and
 0.694, but a constant predictor driven by prevalence alone could itself reach
 0.667 recall at the cost of 1.667 false additions per run and zero exact
-matches. Under recombination, recovery of all constituents reached 0.417 to
-0.444, compared with 0.333 for the reported prevalence reference over three
-constituents. That reference, however, incurred 1.667 false additions per run
-compared with approximately 0.64 to 0.66 for the learned detector. These
-results show why constituent recall must be interpreted jointly with false
-additions, micro averaged $F_1$, and exact set recovery rather than as a
-stand alone measure of diagnostic skill. The constituent resolved controls
+matches, so constituent recall must be read jointly with false additions,
+micro averaged $F_1$, and exact set recovery rather than on its own. The constituent resolved controls
 further showed that these failures do not share a common origin. Dynamic
 eccentricity was almost perfectly learnable as an isolated fault (AUROC
-0.9995 and $F_1=0.923$) but collapsed to compound recall of 0.017 and $F_1$
-of 0.028, providing the clearest evidence that poor compound recovery cannot
-be explained by weak detectability in isolation alone. Static eccentricity
-was likewise highly learnable in isolation and retained substantial compound
-ranking information, while its $F_1$ increased from 0.577 with the locked
-linear probe to 0.866 with the RBF SVM, consistent with pronounced
-sensitivity to classifier family. Winding showed a third pattern, in which
-specificity as an isolated fault was already weaker and none of the nonlinear
-alternatives rescued its poor compound performance. In contrast, the bearing
-inner, bearing outer, and broken bar evidence remained strongly
-discriminative across both isolated and compound settings. Constituent level
-failure in this dataset therefore exhibits distinct empirical patterns
-consistent with compound degradation, with sensitivity to classifier
-capacity, and with limited constituent specificity rather than a uniform
-cross modal deficit.
+0.9995 and $F_1 = 0.923$) but collapsed to compound recall of 0.017, which is
+the clearest evidence that poor compound recovery cannot be explained by weak
+detectability in isolation alone. Static eccentricity remained highly
+learnable in isolation and rose from 0.577 to 0.866 in $F_1$ under the RBF
+SVM, indicating pronounced sensitivity to classifier family, whereas winding
+was already less specific in isolation and was rescued by none of the
+nonlinear alternatives. Bearing inner, bearing outer, and broken bar evidence
+remained strongly discriminative throughout. Constituent level failure in
+this dataset therefore exhibits distinct empirical patterns rather than a
+uniform cross modal deficit.
 
 Second, the adverse effect of compound context deprivation was larger when
 the operating condition was simultaneously unseen in the primary analysis.
-For the interaction between recombination and two sided withholding,
-clustering at the composition level yielded $+0.040$ for micro averaged $F_1$
-(95\% CI $[-0.004,\,0.086]$), $+0.051$ for constituent recall
-(95\% CI $[0.009,\,0.093]$), and $+0.083$ for recovery of all constituents
-(95\% CI $[0.009,\,0.157]$). The primary analysis at the composition level
-therefore supported the interaction for constituent recall and for recovery
-of all constituents, while the interaction in micro averaged $F_1$ remained
-unresolved. After matching the recombination training set cardinality to the
-two sided regime, the interactions remained positive on average but were
-unresolved for micro averaged $F_1$ ($+0.010$, 95\% CI
-$[-0.040,\,0.061]$), for constituent recall ($+0.021$,
-$[-0.037,\,0.088]$), and for recovery of all constituents ($+0.031$,
-$[-0.074,\,0.157]$). The observed context effect is therefore sensitive to
-the available training support and should not be interpreted as an effect of
-compound context exposure that is independent of training cardinality.
+Clustering at the composition level supported the interaction for constituent
+recall ($+0.051$, 95\% CI $[0.009, 0.093]$) and for recovery of all
+constituents ($+0.083$, $[0.009, 0.157]$), while the interaction in micro
+averaged $F_1$ remained unresolved ($+0.040$, $[-0.004, 0.086]$). After
+matching the recombination training set cardinality to the two sided regime,
+all three interactions remained positive on average but none was resolved.
+The observed context effect is therefore sensitive to the available training
+support and should not be interpreted as an effect of compound context
+exposure that is independent of training cardinality.
 
 Third, constituent evidence transfers across compound partners often but
 directionally. Detectability within a pair was near perfect throughout, yet
 transfer across partners ranged from perfect to a statistically supported
 reversal of score orientation (Holm adjusted $p \le 0.014$), and the
-demonstrated separability of distinct recordings of the same fault state
-requires that reversal to be interpreted as score transfer that depends on
-context rather than as proven inversion of a physical signature.
-
-Fourth, absolute decomposition quality is a property of the operating point
-and of the model. Thresholding weighted toward precision raised exact match
-recovery into the range 0.157 to 0.287 at reduced recall, and nonlinear
-classifier families reduced false additions from approximately 0.68 to
-approximately 0.26 per run, while the recombination advantage over two sided
-withholding under unseen conditions remained directionally positive across
-all four classifier families.
+separability of distinct recordings of the same fault state requires that
+reversal to be read as context dependent score transfer rather than proven
+inversion of a physical signature. Fourth, absolute
+decomposition quality is a property of the operating point and of the model.
+Thresholding weighted toward precision raised exact match recovery to 0.157
+to 0.287 at reduced recall, and nonlinear classifier families
+reduced false additions from approximately 0.68 to approximately 0.26 per
+run, while the recombination advantage over two sided withholding under
+unseen conditions remained directionally positive across all four classifier
+families.
 
 For practice, these results caution against reading closed set accuracy as
 deployment readiness and argue for calibrating constituent detectors with an
 explicit cost structure over precision and recall. They are also consistent
 with compound context novelty and operating condition novelty being more
-demanding in combination than either alone. Because that interaction did not
-survive matching of training cardinality, however, this is offered as a
-direction for commissioning practice to test rather than as an established
-requirement. Several directions remain open. The dataset provides
-insufficient replicated recordings of the same state to separate fault,
-assembly, sensor mounting, thermal, and recording related effects. The
-transfer analyses therefore stop at carefully bounded attribution, and
-systematically replicated acquisitions would enable stronger separation of
-these potential sources of variation. Representation or normalization
-strategies that promote consistency of constituent scores across compound
-partners are identified as hypotheses rather than established remedies.
-Finally, the constituent level protocol, the prevalence references, and the
-controls used here are directly portable to the companion gearbox release and
-to other multimodal datasets, where replication across datasets of the
-interaction between context and condition would test its generality.
+demanding in combination than either alone, but because that interaction did
+not survive matching of training cardinality, this is offered as a direction
+for commissioning practice to test rather than as an established requirement.
+Finally, the dataset provides insufficient replicated recordings of the same
+state to separate fault, assembly, sensor mounting, thermal, and recording
+related effects, so the transfer analyses stop at carefully bounded
+attribution. Representation strategies that promote consistency of
+constituent scores across partners remain hypotheses rather than established
+remedies. The protocol, the prevalence references, and the controls used here
+are directly portable to the companion gearbox release and to other
+multimodal datasets.
 
 \section*{Data Availability}
 The dataset analyzed in this study is publicly available from Mendeley Data
