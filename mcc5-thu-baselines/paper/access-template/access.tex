@@ -54,26 +54,25 @@ ceiling, yet they rarely measure the ability that industrial deployment
 actually requires, namely recognizing the elementary fault mechanisms of a
 compound fault whose exact combination was never observed during model
 development. This paper evaluates that ability on a public multimodal dataset
-of a 2.2 kW three phase induction motor containing 24 diagnostic states,
-including nine compound faults that pair a mechanical bearing defect with a
-second mechanical, electrical, or electromagnetic mechanism, under twelve
-speed and load conditions. The problem is formulated at the constituent
-level, where nine elementary mechanisms are detected independently from
-curated features that are specific to each mechanism and drawn from the
-vibration and current domains, so that unseen combinations remain
+of a 2.2 kW induction motor with 24 diagnostic states, including nine
+compound faults that pair a bearing defect with a second mechanical or
+electrical mechanism, under twelve speed and load conditions. The problem is
+formulated at the constituent level, where nine elementary mechanisms are
+detected independently from curated mechanism specific features drawn from
+the vibration and current domains, so that unseen combinations remain
 expressible. A crossed protocol separates three levels of compound context
-exposure, namely recombination, one sided withholding, and two sided zero
-shot withholding, from operating condition novelty, using run level and
-severity aware splits with all calibration confined to training data.
-Although closed set accuracy over the 24 diagnostic states reaches 0.913,
-exact recovery of unseen constituent sets remains between 0.083 and 0.157 for
-the locked linear probe. Mechanism resolved controls show that these failures
-are strongly heterogeneous. Dynamic eccentricity is almost perfectly
-discriminable in isolation (AUROC 0.9995 and $F_1=0.923$), yet its compound
-recall falls to 0.017 and its compound $F_1$ to 0.028. Static eccentricity
-retains substantial discriminative information but shows marked sensitivity
-to classifier family, whereas winding is already less specific in isolation
-and remains difficult across classifier families. The primary interaction
+exposure, namely recombination, one sided, and two sided zero shot
+withholding, from operating condition novelty, using run level and severity
+aware splits with all calibration confined to training data. Although closed
+set accuracy over those states reaches 0.913, exact recovery of unseen
+constituent sets remains between 0.083 and 0.157 for the locked linear probe.
+Mechanism resolved controls show these failures are strongly heterogeneous.
+Dynamic eccentricity is almost perfectly discriminable in isolation (AUROC
+0.9995 and $F_1=0.923$), yet its compound recall falls to 0.017 and its
+compound $F_1$ to 0.028. Static eccentricity retains substantial
+discriminative information but shows marked sensitivity to classifier family,
+whereas winding is already less specific in isolation and remains difficult
+throughout. The primary interaction
 between context and condition is positive but becomes unresolved after
 matching total training set cardinality. Cross partner transfer is also
 heterogeneous and includes one statistically supported reversal of score
