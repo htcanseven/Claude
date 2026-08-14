@@ -19,3 +19,6 @@ paper/manuscript/main.bbl
 paper/manuscript/main.blg
 paper/manuscript/main.log
 paper/manuscript/main.out
+
+# Stdout copy of verify_feature_physics.py; feature_physics.json is the record.
+results/physics/run.log
