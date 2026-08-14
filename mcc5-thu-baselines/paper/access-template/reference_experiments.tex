@@ -7,18 +7,38 @@
 
 \begin{document}
 
-\title{Reference Experiments on the MCC5-THU Motor Dataset:\\
-Protocol Difficulty, Modality Sharing, and Feature Physics}
-\author{H\"useyin Tayyer Canseven}
+\title{Supplementary Material:\\
+Reference Experiments on the MCC5-THU Motor Dataset---Protocol Difficulty,
+Modality Sharing, and Feature Physics}
+\author{Evin~\c{S}ahin~Sad{\i}k and H\"useyin~Tayyer~Canseven%
+\thanks{E. \c{S}ahin Sad{\i}k is with the Department of Electrical and
+Electronics Engineering, K\"utahya Dumlup{\i}nar University, 43100 K\"utahya,
+Turkey (e-mail: evin.sahin@dpu.edu.tr).}%
+\thanks{H. T. Canseven is with the Department of Electrical Engineering,
+Lappeenranta-Lahti University of Technology (LUT University), 53850
+Lappeenranta, Finland (e-mail: huseyin.canseven@lut.fi).}}
 \maketitle
+
+\begin{abstract}
+This document is supplementary material to ``Beyond Closed-Set Accuracy:
+Constituent-Level Generalization in Compound Motor Fault Diagnosis.'' It
+reports reference experiments on the MCC5-THU motor dataset that stand on
+their own, independently of the constituent-level method developed in the
+main paper: a comparison of six evaluation protocols under
+operating-condition shift, a measurement of what a shared multimodal feature
+space does to the weaker constituent of a compound fault, empirical checks on
+two order-domain feature-construction parameters, and documentation of
+release-level properties that affect protocol design.
+\end{abstract}
 
 \section{Scope}
 
-This report collects reference experiments on the MCC5-THU motor dataset that
-stand on their own, independently of any particular diagnostic method. They
-use a generic window-level pipeline, so the measured gaps reflect protocol
-difficulty and representation structure rather than modeling choices. They
-are released with the analysis code.
+The experiments collected here use a generic window-level pipeline, so the
+measured gaps reflect protocol difficulty and representation structure rather
+than modeling choices. They are reported separately from the main paper
+because they characterize the dataset and its evaluation protocols rather
+than the constituent-level method, and because they may be useful to other
+groups working with this release.
 
 \subsection{Test Rig and Release Structure}
 \label{app:rig}
