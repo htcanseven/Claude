@@ -21,3 +21,18 @@ and increase the font size of what remains."
 Column edges were normalized (left column x=2.23", right column x=17.24",
 both ending at the title's right edge) and every section re-flowed with even
 vertical spacing so no gaps opened up after the text was cut.
+
+## Figures added (second pass)
+
+| figure | source | placement |
+|---|---|---|
+| Current-density map | ICEM Fig. 3 | beside the AC-loss chart, half column each |
+| Temperature fields at the three optima | ECCE Fig. 9 | under the optimal-design table |
+
+Space came from dropping the "18 x" tile, whose numbers were already in the
+table directly above it, and trimming the Pareto plot to 5.5 in.
+
+The AC-loss chart was adapted for its narrower frame: series names shortened
+to Solid / Round / Rectangular so the legend fits one row, fonts set to 22 pt,
+and the rotated y-axis title removed (it collided with the tick labels) with
+the unit moved into the caption.
