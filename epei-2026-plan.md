@@ -52,21 +52,79 @@ line of work.
 
 ### Datasets
 
-| Dataset | Role |
+Selected after sweeping IEEE DataPort, Zenodo, Mendeley Data, Kaggle, PMC / Data in
+Brief, the OpenWindSCADA index (26 datasets), awesome-industrial-datasets, and the
+university repositories (Paderborn KAt, CWRU, NASA/FEMTO, XJTU-SY).
+
+### Primary — PMSG condition-monitoring benchmark
+
+Zenodo 10.5281/zenodo.15741561 · https://github.com/InnovaPower/MitDev-Eletrica
+CC BY · ~1.2 GB · 225 `.mat` files
+
+| Property | Value |
 |---|---|
-| Three-phase PMSM ITSC, IEEE DataPort — 12 torque-speed points × 9 shorted-turn levels × 3 SC resistances | **Primary.** The severity axis is what makes the two-paper split possible. |
-| Paderborn KAt bearing (PMSM drivetrain, current + vibration, real + artificial damage) | Cross-dataset generalization in the journal paper |
-| Paderborn electric motor temperature (~185 h) | Optional bridge to the cooling work |
-| CWRU bearing | Legacy baseline only — CWRU-only validation is penalized by reviewers |
+| Machine | PMSG, Equacional, 2.5 kVA, 230 V, 4-pole, three-phase double-star (YY), 24 winding derivations |
+| Faults | Inter-turn and inter-winding short circuits, 2.6 Ω, 24 fault cases + healthy |
+| Operating points | 3 speeds (1200/1500/1800 rpm) × 3 torques (5.2/6.4/8.0 Nm) |
+| Signals | 32 variables — abc currents/voltages, dq components, converter signals, DC-link voltage, controller outputs, torque, speed, encoder position, fault relay status |
+| Sampling | 20 kHz; 3 s per record |
+
+Chosen because:
+
+1. It is a **generator**, and its operating points were scaled to reflect typical points
+   of a 15 MW offshore wind turbine (the machine itself is a 2.5 kVA lab unit).
+   Directly in the PMSG / offshore WECS line.
+2. The **double-star YY** winding connects to the IECON 2021 dual three-phase PMSM
+   ITSC fault-tolerant control work — an existing theoretical companion.
+3. It captures **fault inception**, not only steady faulted state: each record covers
+   pre-fault → 400 ms insertion → steady faulted → removal. Nearly all published ITSC
+   diagnosis uses steady-state data. This enables a **detection-latency** contribution,
+   where FEA explains the transient signature — the physics-informed edge a pure-ML
+   group cannot replicate.
+4. Converter and controller signals make it a **drive-systems** paper, reaching TIA's
+   Industrial Drives Committee as well as RSECS.
+
+### Secondary — three-PMSM stator fault dataset
+
+Mendeley 10.17632/rgn5brrgrn.5 · https://data.mendeley.com/datasets/rgn5brrgrn/5 · CC BY
+
+Three PMSMs (1.0 / 1.5 / 3.0 kW, 4-pole, 3000 rpm, Higen). Inter-turn and inter-coil
+short circuits, 8 severity levels each (to 21.69% and 37.66% fault ratio). Current at
+100 kHz, vibration at 25.6 kHz. Single operating condition (3000 rpm, 1.5 Nm).
+
+**The two are complementary:** PMSG gives cross-*condition* generalization (9 operating
+points, one machine); Mendeley gives cross-*machine* generalization (three ratings, one
+condition). Both CC BY, no subscription — fully reproducible.
+
+### Optional
+
+| Dataset | Role | Caveat |
+|---|---|---|
+| PMSM ITSC, IEEE DataPort (12 torque-speed × 9 severities × 3 SC resistances) | Richest grid | 67 GB; **requires a DataPort subscription** — check LUT access. Paywalled data weakens reproducibility with reviewers. |
+| Paderborn KAt (425 W PMSM, 64 kHz current + vibration, 32 states) | Cross-fault-type check | **CC BY-NC** — academic use only |
+
+### Rejected
+
+- **All wind SCADA datasets** (Kelmarsh, Penmanshiel, Ørsted Anholt and Westermost
+  Rough, CARE to Compare, EDP, Hill of Towie): 10-minute averaged data cannot resolve
+  electrical fault signatures. They support system-level anomaly detection — a pure
+  data-science problem where machine-design expertise gives no edge.
+- **Zenodo 13974503** (inverter-driven PMSM): 10 Hz sampling, 1.4 MB, derived features
+  rather than raw signals. Unusable for fault physics.
+- **CWRU / NASA / FEMTO / XJTU-SY**: bearing vibration only, no electrical content,
+  heavily saturated in the literature.
 
 ## 4. Work split
 
+Structure the TIA paper first, then carve the conference paper out of it.
+
 | | EPEi (6 pp) | TIA extension |
 |---|---|---|
-| Task | Fault **detection** — binary / few-class | Severity **estimation** — regression on shorted-turn % |
-| Conditions | 1–2 operating points | All 12 torque-speed points; unseen-condition generalization |
-| Data | FEA-generated training + one public dataset | + cross-machine domain adaptation + **own-rig measurement** |
-| Baselines | 2 classical (MCSA/FFT features + shallow classifier) | Full ablation, repeated runs, significance testing |
+| Data | PMSG benchmark, subset of operating points | + all 9 operating points, + Mendeley cross-machine, + **own-rig measurement** |
+| Task | Fault **detection** — ITSC vs. healthy | Severity **estimation** and fault-type discrimination (inter-turn vs. inter-winding) |
+| Regime | Steady-state faulted operation | **Fault inception transient** — detection latency in electrical periods |
+| FEA role | Signature explanation for one case | Full physics-informed feature justification across conditions |
+| Baselines | 2 classical (MCSA/FFT + shallow classifier) | Full ablation, repeated runs, significance testing |
 | Extra axis | — | Real-time / embedded inference cost and latency |
 
 Estimated new content in the journal version: 60%+, well clear of the 20% floor.
