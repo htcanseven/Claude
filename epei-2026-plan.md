@@ -43,20 +43,80 @@ Target a strong 6 pages that visibly reads as the seed of a Transactions paper.
 
 ## 3. Topic
 
-Fault detection and diagnosis for PMSM drives, trained on FEA-generated data and
-validated against publicly available measurement datasets.
+> **Constraint added.** The MitDev-Eletrica PMSG dataset (Zenodo 15741561) is already
+> used in another TIA paper currently under review and is therefore unavailable.
+>
+> **The conflict may be wider than the dataset.** MitDev-Eletrica is an inter-turn /
+> inter-winding short-circuit dataset. If the under-review paper is ITSC diagnosis,
+> swapping datasets does not clear the overlap: a second ITSC paper reaches the same
+> TIA committee, likely draws overlapping reviewers, and can be read by an editor as
+> one contribution split across two submissions. **Open question — what does the
+> under-review paper cover?** If it is ITSC diagnosis, move off the fault mode
+> entirely, not just the data.
 
-Chosen because it is the only candidate that (a) supports public-dataset validation,
-(b) has a clean severity axis to split across two papers, and (c) sits in an active
-line of work.
+### Recommended: pivot to thermal
 
-### Datasets
+Equally supported by existing work (*Applied Thermal Engineering* 2025, direct liquid
+cooling; *IEEE Access* 2025, hairpin cooling arrangements) and clear of all three fault
+papers — *Machines* 2026, IET Power Electronics 2026, and the TIA paper under review.
+
+**Dataset — Electric Motor Temperature (Paderborn LEA)**
+https://www.kaggle.com/datasets/wkirgsn/electric-motor-temperature
+
+185 h, 69 measurement profiles, ~1.33 M samples, 13 columns: ambient, coolant, u_d,
+u_q, motor_speed, torque, i_d, i_q, and targets `pm` (rotor magnet), `stator_yoke`,
+`stator_tooth`, `stator_winding`. German OEM prototype PMSM, mildly anonymized.
+
+2 Hz sampling is adequate here — thermal time constants are seconds to minutes. The
+resolution objection that rules out SCADA data does not apply to a thermal problem.
+
+**Warning: this dataset is crowded.** Kirchgässner's benchmark (IEEE TEC 2021),
+Thermal Neural Networks (LPTN in recurrent state-space form), LPTN-informed neural
+networks, OLTEM 2025, and assorted LSTM/BiLSTM work. Plain "physics-informed thermal
+estimation on the Paderborn set" is already done and will be rejected.
+
+**The open angle — cross-cooling-topology transfer.** Every published model on this
+dataset trains and tests on the same machine with the same cooling arrangement. Whether
+a thermal model learned on one cooling topology survives transfer to another is
+unstudied.
+
+It should not survive, for a statable reason: direct liquid cooling bypasses the
+winding → tooth → yoke → housing path that a conventionally-cooled model has
+internalized as its dominant thermal resistance. Failure is physically predictable.
+
+This gives:
+- **Public data as source domain**, with TNN et al. as benchmarks to beat on their turf
+- **Own rig + FEA as target domain**, forcing the hardware anchor TIA expects rather
+  than bolting it on afterwards
+- A contribution requiring knowledge of the cooling physics, not only the time series
+
+### Alternative, if staying in fault diagnosis
+
+**Mendeley 10.17632/rgn5brrgrn.5** — https://data.mendeley.com/datasets/rgn5brrgrn/5
+CC BY. Three PMSMs (1.0 / 1.5 / 3.0 kW, 4-pole, 3000 rpm, Higen), inter-turn and
+inter-coil short circuits, 8 severity levels each (to 21.69% and 37.66% fault ratio),
+current at 100 kHz, vibration at 25.6 kHz.
+
+Weakness: **a single operating condition** (3000 rpm, 1.5 Nm). No load/speed robustness
+story, which is the first thing a TIA reviewer asks for. Own-rig data would be needed
+to fill that gap.
+
+Viable only if the under-review TIA paper is *not* about ITSC.
+
+### Ruled out
+
+- **WT ITSC benchmark**, Zenodo 11511321 — **simulated** (MATLAB/Simulink wind turbine
+  example), 75 scenarios, fault ratios {0.05, 0.1, 0.2, 0.3, 0.5}, 4 kHz. Simulation-only
+  data invites the "no experimental validation" rejection at TIA.
+- **MitDev-Eletrica PMSG**, Zenodo 15741561 — in use by the paper under review.
+
+### Earlier sweep (retained for reference)
 
 Selected after sweeping IEEE DataPort, Zenodo, Mendeley Data, Kaggle, PMC / Data in
 Brief, the OpenWindSCADA index (26 datasets), awesome-industrial-datasets, and the
 university repositories (Paderborn KAt, CWRU, NASA/FEMTO, XJTU-SY).
 
-### Primary — PMSG condition-monitoring benchmark
+#### PMSG condition-monitoring benchmark — UNAVAILABLE (in use by paper under review)
 
 Zenodo 10.5281/zenodo.15741561 · https://github.com/InnovaPower/MitDev-Eletrica
 CC BY · ~1.2 GB · 225 `.mat` files
@@ -84,7 +144,7 @@ Chosen because:
 4. Converter and controller signals make it a **drive-systems** paper, reaching TIA's
    Industrial Drives Committee as well as RSECS.
 
-### Secondary — three-PMSM stator fault dataset
+#### Three-PMSM stator fault dataset (see Alternative above)
 
 Mendeley 10.17632/rgn5brrgrn.5 · https://data.mendeley.com/datasets/rgn5brrgrn/5 · CC BY
 
