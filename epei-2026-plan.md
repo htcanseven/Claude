@@ -169,6 +169,48 @@ Open questions that FEA can answer and their open data can validate:
 **Check before committing:** 21717722 was published 31 July 2026 and its companion
 mitigation paper is not clearly indexed. Establish what it claims before building on it.
 
+### Final ranked assessment (all repositories, TIA-odds criterion)
+
+Constraint updated: **ITSC as a topic is fine** — only dataset reuse across independent
+papers is excluded. MitDev-Eletrica remains out; everything else is back in play.
+Extended sweep covered induction machines, SynRM and DFIG/wound-rotor in addition to PM
+machines. Note: a conference→journal extension properly reuses its own dataset; the
+no-reuse rule applies to independent papers only.
+
+| Rank | Dataset | Machine | Assessment |
+|---|---|---|---|
+| **1** | **Brno pair** — Zenodo 15233529 + 21717722 | 253 W IPMSM, concentrated winding | Only severity × R_sc grid available; transients; TIE-published baselines; FEA angle orthogonal to incumbents; 21717722 adds mitigation on/off axis |
+| **2** | **Korean industrial fleet** — Mendeley 10.17632/9r82jppsn7.1 (2025) | 4 induction motors, 1/3/5/7.5 HP (Hyundai Electric) | ITSC 10/40/60% + winding, misalignment, bearing faults; VFD with randomized ±4%/±16% speed; loads 0–90%; current @ 100 kHz, vibration/torque @ 25.6 kHz; CC BY. Fresh, unsaturated; cross-power-rating transfer is an open axis |
+| **3** | **BRB database** — IEEE DataPort (open access) | 1 hp IM, 34-bar cage | 1–4 broken bars × 8 load levels × 10 reps; 3V + 3I + 5 vibration; elec. 50 kHz, vib. 7.6 kHz. Classic IAS lineage but heavily mined; line-fed; drilled bars |
+| 4 | Mendeley 3-PMSM (rgn5brrgrn) | 1.0/1.5/3.0 kW PMSM | Single operating point — support role only |
+
+**Closed after search:** SynRM — no public experimental dataset exists (2.2 kW rig work
+published, data not released); DFIG/wound-rotor — no public dataset; 0.2 kW SciData
+2025 set (figshare 27216219) — trivial faults (phase removal, misalignment), not TIA
+material.
+
+### Decision: Brno pair primary, FEA methodology
+
+The winning combination on the data + methodology test:
+
+- **Physics, not ML.** FEA-based interrogation of the lumped ITSC model: does
+  x_f = shorted/total turns hold when slot leakage varies with turn position; how does
+  local saturation around the shorted coil move Ld, Lq across 1–3 Nm; does the severity
+  indicator survive np > 1 (the gap Zezula et al. explicitly left open).
+- **Their measurements are the validation set** — experimental anchor without rig
+  dependency; dataset authors tend to review favorably work that builds on their data
+  rather than competing with their algorithms.
+- **Risk to state openly:** full lamination geometry unpublished. Build a
+  representative FEA model matched to the published structure (6 segments × 25 turns,
+  21 pole pairs) and calibrate to the measured parameter table (Rs 727 mΩ, Ld 3.29 mH,
+  Lq 3.12 mH, λpm,1 18.4 mWb, λpm,3 200 µWb).
+
+**Strategic alternative (#2)** if the methodology is to stay ML: cross-rating ITSC
+transfer (train 1 HP → test 7.5 HP) under randomized VFD speeds. Open question, fresh
+data, induction machines (continuity with the 2021 eccentricity paper, clear of all
+three PMSM papers). On the Brno data an ML method would be a downgrade against the
+3 ms embedded model-based baseline; on the Korean fleet ML is the natural tool.
+
 ### Ruled out
 
 - **WT ITSC benchmark**, Zenodo 11511321 — **simulated** (MATLAB/Simulink wind turbine
