@@ -146,8 +146,28 @@ Table IV is the paper's memorable artifact — reviewers and readers cite scorec
 
 ## 8. Verification checklist (before writing)
 
-1. Download both zips; inspect .mat structure; confirm signals and conditions match the
-   record descriptions.
+1. ~~Download 15233529; inspect contents.~~ **Done 18 Aug 2026:**
+   - Models (MATLAB R2024b, all native blocks, no S-functions, no protection):
+     `models_comparison.slx` (continuous + derived DTM + forward Euler side by side,
+     fault subsystems cleanly isolated: Fault inductances Lf1/Lf2, Fault resistance,
+     Fault PM flux, ISC in phase a, mechanics on/off; 2 359 blocks / 110 subsystems);
+     `codegen_mod_new.slx` and `codegen_mod_eul.slx` (single-precision, for codegen).
+   - Data: 7 recordings (~24 MB each). `Data_diverse_FI/`: Rsc sweeps
+     {442, 47.0, 5.62, 1.74} mΩ at 1900 rad/s for {3,6} turns × {1,3} Nm.
+     `Data_diverse_OC/`: steady state (1400 rad/s, 1 Nm), velocity transient
+     (1200→1600 rad/s), load transient (1→3 Nm), all at 10/25 turns.
+   - **Key finding:** every .mat contains measured signals AND both DTM predictions
+     time-aligned (idq/if/Te × meas/new/eul + udq, we, SinCos, Rsc, sgm). Residuals
+     i_f,meas − i_f,new are computable immediately — the conference paper's evidence
+     base exists before any FEA runs. Conference logic: (1) quantify residuals over the
+     2×2×4 grid; (2) explain with FEA (effective severity); (3) inject corrected
+     parameters into their own model and show the residual shrink.
+   - Caveats: MATLAB ≥ R2024b to open models; .mat are MATLAB timeseries objects
+     (MCOS) — one ~10-line MATLAB export script to plain arrays enables all further
+     processing in Python; FI sweeps are single-speed (1900 rad/s) — speed dependence
+     only via the three OC files at 10/25 turns, so no broad speed-robustness claims
+     in the conference paper.
+   - Still to do: download and inspect 21717722 (601 MB, mitigation datasets).
 2. Read the PDF reports in 21717722; establish the mitigation paper's claims.
 3. Confirm FE tooling and license at LUT (2-D transient with external circuit coupling
    is sufficient; turn-level winding needs circuit-coupled conductors).
