@@ -180,7 +180,7 @@ no-reuse rule applies to independent papers only.
 | Rank | Dataset | Machine | Assessment |
 |---|---|---|---|
 | **1** | **Brno pair** — Zenodo 15233529 + 21717722 | 253 W IPMSM, concentrated winding | Only severity × R_sc grid available; transients; TIE-published baselines; FEA angle orthogonal to incumbents; 21717722 adds mitigation on/off axis |
-| **2** | **Korean industrial fleet** — Mendeley 10.17632/9r82jppsn7.1 (2025) | 4 induction motors, 1/3/5/7.5 HP (Hyundai Electric) | ITSC 10/40/60% + winding, misalignment, bearing faults; VFD with randomized ±4%/±16% speed; loads 0–90%; current @ 100 kHz, vibration/torque @ 25.6 kHz; CC BY. Fresh, unsaturated; cross-power-rating transfer is an open axis |
+| ~~2~~ | ~~Korean industrial fleet — Mendeley 10.17632/9r82jppsn7.1~~ **ELIMINATED** | 4 induction motors, 1/3/5/7.5 HP | **Data removed from Mendeley** (verified by H.C.). |
 | **3** | **BRB database** — IEEE DataPort (open access) | 1 hp IM, 34-bar cage | 1–4 broken bars × 8 load levels × 10 reps; 3V + 3I + 5 vibration; elec. 50 kHz, vib. 7.6 kHz. Classic IAS lineage but heavily mined; line-fed; drilled bars |
 | 4 | Mendeley 3-PMSM (rgn5brrgrn) | 1.0/1.5/3.0 kW PMSM | Single operating point — support role only |
 
@@ -189,7 +189,11 @@ published, data not released); DFIG/wound-rotor — no public dataset; 0.2 kW Sc
 2025 set (figshare 27216219) — trivial faults (phase removal, misalignment), not TIA
 material.
 
-### Decision: Brno pair primary, FEA methodology
+### Decision (final): Brno pair, FEA methodology
+
+Both Zenodo records verified live via API on 18 Aug 2026 — open access, files present
+(144.6 MB and 601.0 MB zips). Paper structure: see `tia-paper-structure.md`.
+
 
 The winning combination on the data + methodology test:
 
