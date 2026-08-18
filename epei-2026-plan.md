@@ -103,6 +103,72 @@ to fill that gap.
 
 Viable only if the under-review TIA paper is *not* about ITSC.
 
+### Evaluated: the Brno (CEITEC BUT) ISC datasets
+
+Both are companion datasets to papers by Zezula, Kozovský, Buchta and Blaha at CEITEC,
+Brno University of Technology. Both CC BY.
+
+| | Zenodo 15233529 (Apr 2025) | Zenodo 21717722 (Jul 2026) |
+|---|---|---|
+| Companion paper | *Discrete-Time Modeling of ISCs in Interior PMSMs*, IEEE TIE 73(1), Jan 2026 | Mitigation paper — not clearly indexed yet |
+| Machine | Interior PMSM, concentrated winding, 21 pole pairs, 253 W nom, 3.78 Nm, 638 rpm | Three-phase PMSM drive |
+| Severities | 3/25, 6/25, 10/25 turns | 3/25, 6/25, 9/25 turns |
+| SC resistance | 4 levels: R_FIU {442, 47.0, 5.62, 1.74} mΩ + R_wire 14.4 mΩ | Progressive levels |
+| Conditions | 1200–1900 rad/s, 1–3 Nm | 1400 and 2000 rad/s, 0.5/1.0/1.5 Nm |
+| Regimes | Steady, velocity transient (10 000 rad/s²), load transient (50 Nm/s) | With and without mitigation |
+| Signals | dq currents/voltages, fault current, torque, sin/cos θe, ωe | + electrical power in/out, resistive losses, severity estimates |
+| Extras | Simulink models (.slx), continuous + discrete-time, forward Euler | .mlx live scripts, PDF reports |
+| Size | 144.6 MB (6.2 GB total) | 601 MB (4.8 GB total) |
+
+Machine parameters (15233529): Rs 727 mΩ, Rc 362 mΩ, Ld 3.29 mH, Lq 3.12 mH,
+L0 2.74 mH, λpm,1 18.4 mWb, λpm,3 200 µWb, np 1, ns 6, 6 segments × 25 turns per phase.
+
+**Strengths.** The severity × short-circuit-resistance grid in 15233529 is unique —
+fault current depends on the combination of x_f and R_f, so their separate
+identifiability is a genuine open question and this is the only dataset found that is
+built to interrogate it. Transients present in a drive-controlled context. Signals are
+control-structure only, no extra hardware — the industrial framing TIA prefers.
+Shipping the Simulink models allows matched synthetic data and direct model-vs-measurement
+comparison.
+
+**Problems.**
+
+1. **Still ITSC.** Does not resolve the overlap with the TIA paper under review.
+2. **The incumbents own this ground and will likely review any submission.** Zezula
+   et al. have TIE 2024 (diagnostics), TIE Jan 2026 (IPMSM discrete-time modeling),
+   IECON 2024 (online SC current monitoring), plus the mitigation work — detection,
+   location, severity estimation, transient operation, embedded implementation and
+   mitigation are all done.
+3. **An ML approach would be a downgrade.** Their model-based method detects in 3 ms
+   and resolves location and severity within 6 ms of detection, on one AURIX TC277 core
+   at 55–88% load in single precision. A learned classifier needing windowed transforms
+   and a network forward pass would be slower, heavier and no more accurate.
+4. **Known rig artifacts.** Segment-linking resistance reaches 11.8 mΩ (9.7% of segment
+   resistance), which the paper states is unlike industrial motors; the fault insertion
+   unit adds L_wire = 3.81 µH, disproportionately distorting low shorted-turn counts.
+   Not clean ground truth.
+
+**The opening — machine-side physics, not estimation.** The Brno group is a control and
+estimation group; their model is a lumped circuit model parameterised by winding-topology
+constants (np, ns, x_f, λpm,1, λpm,3) with no link back to the electromagnetic design.
+Open questions that FEA can answer and their open data can validate:
+
+- **Does x_f actually equal shorted-turns / total-turns?** The model assumes so, but
+  flux linked by shorted turns depends on radial position in the slot, where leakage
+  varies strongly.
+- **Saturation under fault.** Ld and Lq are estimated by locked-rotor test averaged
+  across current levels. Local saturation around the shorted coil changes effective
+  inductances non-uniformly — invisible to the lumped model, visible in FEA. The
+  1–3 Nm range and 4 R_sc levels give the operating spread to test it.
+- **The np > 1 edge they flagged themselves.** The motor has 6 individually accessible
+  coil segments allowing various series-parallel configurations, but validation used only
+  np = 1, ns = 6 — and the paper states that non-negligible segment-linking resistance
+  violates the model assumption when np > 1. An acknowledged open gap, and parallel-branch
+  machines are in scope for LUT.
+
+**Check before committing:** 21717722 was published 31 July 2026 and its companion
+mitigation paper is not clearly indexed. Establish what it claims before building on it.
+
 ### Ruled out
 
 - **WT ITSC benchmark**, Zenodo 11511321 — **simulated** (MATLAB/Simulink wind turbine
