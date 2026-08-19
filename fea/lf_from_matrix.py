@@ -113,3 +113,43 @@ def random_wound_spread(L, r, n_draws=20000, seed=0):
         S = rng.choice(N, size=r, replace=False)
         out[d] = L[np.ix_(S, S)].sum() / L_coil
     return out
+
+
+# ---------------------------------------------------------------------------
+# Two regimes: diagnosis vs fault-tolerant remedial action
+# ---------------------------------------------------------------------------
+
+def sc_inductance(L, start, r):
+    """Effective short-circuit inductance of the fault loop when the healthy
+    portion is shorted (remedial action, Arumugam et al. IEEE TEC 2012):
+
+        L_sc = L_s - L_m^2 / L_h = L_s (1 - k^2)
+
+    The common (shared tooth flux) term cancels identically here, so unlike
+    L_f this quantity is a pure measure of the leakage differential between
+    shorted and healthy turns. A turn-ratio lumped model gives L_sc == 0.
+    """
+    N = L.shape[0]
+    idx = np.arange(N)
+    S = idx[start:start + r]
+    H = np.setdiff1d(idx, S)
+    Ls = L[np.ix_(S, S)].sum()
+    Lh = L[np.ix_(H, H)].sum()
+    Lm = L[np.ix_(S, H)].sum()
+    return Ls - Lm ** 2 / Lh
+
+
+def calibrated_matrix(N=25, self_bottom=0.81, self_opening=0.64):
+    """Turn matrix as common term + slot-leakage differential, calibrated to the
+    per-turn self inductances reported for the benchmark machine (uH).
+
+        L_ij = c + a * (1 - max(u_i, u_j)),  u = normalised depth, 0 = bottom
+
+    Consistency check: the resulting whole-coil inductance should reproduce the
+    ~438 uH implied by the published L_f values at r = 3, 6, 10.
+    """
+    u = (np.arange(N) + 0.5) / N
+    g = 1.0 - np.maximum.outer(u, u)
+    a = (self_bottom - self_opening) / (g[0, 0] - g[-1, -1])
+    c = self_opening - a * g[-1, -1]
+    return c + a * g, c, a
