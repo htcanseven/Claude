@@ -1,0 +1,685 @@
+<title>Lazer Epilasyon Karar Dosyası</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+:root{
+  --ground:#FAF6F4;
+  --surface:#FFFFFF;
+  --surface-2:#F3ECE9;
+  --ink:#221A1C;
+  --ink-2:#4A3B3E;
+  --muted:#7C6A6E;
+  --line:#E2D6D2;
+  --line-strong:#CBB9B4;
+  --accent:#A31840;
+  --accent-soft:#F7E6EB;
+  --fi:#1F5F5B;
+  --fi-soft:#E3F0EE;
+  --ok:#2C6A4B;
+  --ok-soft:#E4F0E9;
+  --warn:#8A5B0B;
+  --warn-soft:#F7EEDC;
+  --stop:#A33A1A;
+  --stop-soft:#F9E7DF;
+  --shadow:0 1px 2px rgba(34,26,28,.05), 0 8px 24px -16px rgba(34,26,28,.28);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#161113;
+    --surface:#1E1719;
+    --surface-2:#261D20;
+    --ink:#F3E9E7;
+    --ink-2:#D3C2C0;
+    --muted:#A28E92;
+    --line:#33272A;
+    --line-strong:#4A3A3D;
+    --accent:#F0798F;
+    --accent-soft:#33191F;
+    --fi:#68C4B8;
+    --fi-soft:#142B29;
+    --ok:#7FC49B;
+    --ok-soft:#17271F;
+    --warn:#D9A94B;
+    --warn-soft:#2B2114;
+    --stop:#E38A63;
+    --stop-soft:#2E1B13;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#161113;
+  --surface:#1E1719;
+  --surface-2:#261D20;
+  --ink:#F3E9E7;
+  --ink-2:#D3C2C0;
+  --muted:#A28E92;
+  --line:#33272A;
+  --line-strong:#4A3A3D;
+  --accent:#F0798F;
+  --accent-soft:#33191F;
+  --fi:#68C4B8;
+  --fi-soft:#142B29;
+  --ok:#7FC49B;
+  --ok-soft:#17271F;
+  --warn:#D9A94B;
+  --warn-soft:#2B2114;
+  --stop:#E38A63;
+  --stop-soft:#2E1B13;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:17px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px 96px}
+.col{max-width:70ch}
+
+h1,h2,h3,h4{font-family:Newsreader,Georgia,"Times New Roman",serif;font-weight:500;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.4rem,6vw,3.9rem);line-height:1.04;letter-spacing:-.015em}
+h2{font-size:clamp(1.7rem,3.4vw,2.35rem);line-height:1.14;letter-spacing:-.01em}
+h3{font-size:1.24rem;line-height:1.3;font-weight:600}
+h4{font-size:1.02rem;line-height:1.35;font-weight:600;font-family:"IBM Plex Sans",sans-serif;letter-spacing:.005em}
+p{margin:0}
+a{color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1px}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;font-size:.7rem;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--accent);
+}
+.muted{color:var(--muted)}
+.lead{font-size:1.16rem;line-height:1.55;color:var(--ink-2)}
+small{font-size:.83rem;line-height:1.5;color:var(--muted);display:block}
+
+/* ---------- masthead ---------- */
+.masthead{padding:72px 0 48px;display:flex;flex-direction:column;gap:26px}
+.masthead .col{display:flex;flex-direction:column;gap:18px}
+.meta-strip{
+  display:flex;flex-wrap:wrap;gap:8px 28px;padding-top:22px;border-top:1px solid var(--line);
+  font-family:"IBM Plex Mono",monospace;font-size:.76rem;color:var(--muted);
+  letter-spacing:.02em;font-variant-numeric:tabular-nums;
+}
+.meta-strip b{color:var(--ink-2);font-weight:500}
+
+/* ---------- sections ---------- */
+section{padding-top:64px;display:flex;flex-direction:column;gap:22px}
+.sec-head{display:flex;flex-direction:column;gap:10px;padding-bottom:4px}
+.rule{height:1px;background:var(--line);border:0;margin:0}
+
+/* ---------- verdict ---------- */
+.verdict{
+  background:var(--surface);border:1px solid var(--line-strong);border-radius:4px;
+  box-shadow:var(--shadow);overflow:hidden;
+}
+.verdict-top{padding:28px 30px;display:flex;flex-direction:column;gap:12px;border-bottom:1px solid var(--line)}
+.verdict-top h2{font-size:1.9rem}
+.verdict-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr))}
+.vcell{padding:24px 30px;border-right:1px solid var(--line);border-top:1px solid var(--line);display:flex;flex-direction:column;gap:9px}
+.vcell:last-child{border-right:0}
+.vcell .label{font-family:"IBM Plex Mono",monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.vcell .pick{font-family:Newsreader,serif;font-size:1.3rem;line-height:1.22;font-weight:600}
+.vcell .price{font-family:"IBM Plex Mono",monospace;font-size:.88rem;color:var(--accent);font-variant-numeric:tabular-nums}
+.vcell p{font-size:.93rem;line-height:1.5;color:var(--ink-2)}
+
+/* ---------- chips ---------- */
+.chip{
+  display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:3px;
+  font-family:"IBM Plex Mono",monospace;font-size:.7rem;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;
+}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.chip.stop{background:var(--stop-soft);color:var(--stop)}
+.chip.tr{background:var(--accent-soft);color:var(--accent)}
+.chip.fi{background:var(--fi-soft);color:var(--fi)}
+
+/* ---------- spectrum ---------- */
+.spectrum{
+  background:var(--surface);border:1px solid var(--line);border-radius:4px;
+  padding:30px 30px 22px;display:flex;flex-direction:column;gap:0;
+}
+.spec-bar{
+  height:46px;border-radius:2px;position:relative;
+  background:linear-gradient(90deg,#6A00B8 0%,#2B00FF 6.25%,#00B7C8 11.25%,#14D000 16.25%,#F2E000 22.5%,#FF8A00 26.25%,#F5093B 32.5%,#A80A1E 37.5%,#4A0710 47.5%,#2A1418 62.5%,#17181C 100%);
+}
+.band{
+  position:absolute;top:-1px;bottom:-1px;border:1.5px solid #FFF;border-radius:2px;
+  box-shadow:0 0 0 1px rgba(0,0,0,.35) inset;
+}
+.tick{position:absolute;top:-9px;bottom:-9px;width:2px;background:#FFF;box-shadow:0 0 0 1px rgba(0,0,0,.4)}
+.spec-axis{position:relative;height:52px;margin-top:12px}
+.spec-axis span{
+  position:absolute;top:0;transform:translateX(-50%);text-align:center;
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;line-height:1.35;color:var(--ink-2);
+  font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+.spec-axis span b{display:block;color:var(--ink);font-weight:500}
+.spec-legend{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:6px;padding-top:16px;border-top:1px solid var(--line);font-size:.87rem;color:var(--ink-2)}
+.spec-legend div{display:flex;align-items:center;gap:8px}
+.swatch{width:26px;height:10px;border-radius:2px;flex:none}
+
+/* ---------- tables ---------- */
+.tscroll{overflow-x:auto;border:1px solid var(--line);border-radius:4px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:.9rem}
+caption{text-align:left;padding:16px 18px 0;font-size:.86rem;color:var(--muted);caption-side:bottom}
+th,td{padding:11px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;font-weight:500;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);background:var(--surface-2);white-space:nowrap;
+  border-bottom:1px solid var(--line-strong);
+}
+tbody tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.model{font-weight:500;color:var(--ink)}
+td.model span{display:block;font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--muted);font-weight:400;letter-spacing:.02em}
+tr.hi td{background:var(--accent-soft)}
+tr.hi td.model{color:var(--ink)}
+
+/* ---------- gate cards ---------- */
+.gates{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:16px}
+.gate{
+  background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:3px;padding:22px 24px;display:flex;flex-direction:column;gap:11px;
+}
+.gate .q{font-family:Newsreader,serif;font-size:1.2rem;font-weight:600;line-height:1.28}
+.gate p{font-size:.93rem;line-height:1.55;color:var(--ink-2)}
+
+/* ---------- fitzpatrick ---------- */
+.fitz{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.fcell{border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);display:flex;flex-direction:column}
+.fswatch{height:56px}
+.fbody{padding:10px 11px;display:flex;flex-direction:column;gap:6px;flex:1}
+.fbody .ft{font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--muted);letter-spacing:.06em}
+.fbody .fd{font-size:.79rem;line-height:1.4;color:var(--ink-2)}
+@media(max-width:720px){.fitz{grid-template-columns:repeat(3,1fr)}}
+
+/* ---------- protocol ---------- */
+.steps{display:flex;flex-direction:column;gap:0;counter-reset:s}
+.step{
+  display:grid;grid-template-columns:64px 1fr;gap:20px;padding:20px 0;border-top:1px solid var(--line);
+}
+.step:last-child{border-bottom:1px solid var(--line)}
+.step .when{
+  font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.06em;color:var(--accent);
+  padding-top:3px;font-variant-numeric:tabular-nums;
+}
+.step .body{display:flex;flex-direction:column;gap:6px}
+.step .body p{font-size:.94rem;color:var(--ink-2)}
+
+/* ---------- callouts ---------- */
+.call{
+  border-radius:3px;padding:20px 24px;display:flex;flex-direction:column;gap:9px;
+  border:1px solid var(--line);border-left:3px solid var(--muted);background:var(--surface);
+}
+.call.stop{border-left-color:var(--stop);background:var(--stop-soft)}
+.call.ok{border-left-color:var(--ok);background:var(--ok-soft)}
+.call.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.call h4{font-size:.98rem}
+.call p,.call li{font-size:.94rem;line-height:1.55;color:var(--ink-2)}
+.call ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:5px}
+
+ul.plain{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+ul.plain li{color:var(--ink-2)}
+ul.plain li b{color:var(--ink);font-weight:600}
+
+/* ---------- sources ---------- */
+.sources{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:6px 32px;font-size:.85rem}
+.sources a{display:block;padding:5px 0;border-bottom:1px solid var(--line);color:var(--ink-2);text-decoration:none}
+.sources a:hover{color:var(--accent)}
+
+footer{margin-top:72px;padding-top:24px;border-top:1px solid var(--line-strong);font-size:.85rem;color:var(--muted)}
+
+@media(max-width:640px){
+  body{font-size:16px}
+  .wrap{padding:0 18px 64px}
+  .vcell,.verdict-top{padding:20px 22px}
+  .spectrum{padding:22px 18px 16px}
+  .step{grid-template-columns:1fr;gap:6px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="masthead">
+  <div class="col">
+    <span class="eyebrow">Satın alma analizi &middot; Ağustos 2026</span>
+    <h1>Evde lazer epilasyon: almalı mısın, hangisini almalısın?</h1>
+    <p class="lead">Türkiye ve Finlandiya fiyatları ayrı ayrı taranmış, klinik kanıtlarla birlikte değerlendirilmiş bir karar dosyası. Kısa cevap: <b>evet, ama koşullu</b> &mdash; ve muhtemelen düşündüğünden daha ucuza.</p>
+  </div>
+  <div class="meta-strip">
+    <span>Fiyat kontrolü: <b>19 Ağustos 2026</b></span>
+    <span>Kur: <b>1 EUR ≈ 53,26 TL</b></span>
+    <span>İncelenen model: <b>18</b></span>
+    <span>Pazar: <b>TR + FI</b></span>
+  </div>
+</header>
+
+<section id="karar">
+  <div class="verdict">
+    <div class="verdict-top">
+      <span class="eyebrow">Kısa cevap</span>
+      <h2>Koyu kılın ve açık–orta tenin varsa al. Üç senaryoda üç farklı cihaz kazanıyor.</h2>
+      <p class="lead" style="font-size:1.02rem">Tek bir “en iyi” yok, çünkü fiyat farkı ülkeye göre %50'ye kadar açılıyor. Aynı cihaz Türkiye'de yarı fiyatına satılıyorsa, “en iyi cihaz” sorusunun cevabı nerede satın aldığına bağlı hale geliyor.</p>
+    </div>
+    <div class="verdict-grid">
+      <div class="vcell">
+        <span class="label">Genel öneri</span>
+        <span class="pick">Braun Silk-expert Pro 5</span>
+        <span class="price">TR ≈ 17.100–18.500 TL &middot; FI ≈ 443–447 €</span>
+        <p>SensoAdapt sensörü her atımda ten tonunu okur, 10 kademe verir, prizden çalıştığı için seans boyunca güç düşmez. Ev tipi IPL'de en olgun paket.</p>
+      </div>
+      <div class="vcell">
+        <span class="label">Fiyat / performans</span>
+        <span class="pick">Philips Lumea 7000 <span style="font-family:'IBM Plex Mono',monospace;font-size:.8rem;font-weight:400">BRI921/00</span></span>
+        <span class="price">TR ≈ 7.480–9.800 TL (140–184 €)</span>
+        <p>Türkiye'den alınırsa listedeki en iyi avro/performans oranı. Finlandiya'da aynı cihaz 298,90 € &mdash; yani TR fiyatının iki katı.</p>
+      </div>
+      <div class="vcell">
+        <span class="label">Bütçe</span>
+        <span class="pick">Braun Silk-expert Pro 3</span>
+        <span class="price">TR ≈ 11.450 TL (215 €) &middot; FI ≈ 217–235 €</span>
+        <p>Aynı SensoAdapt sensörü, daha az başlık ve kademe. İki ülkede de neredeyse aynı fiyat &mdash; nadir bir başabaş.</p>
+      </div>
+      <div class="vcell">
+        <span class="label">Almadan önce</span>
+        <span class="pick">Türkiye'deki klinik seçeneğini hesapla</span>
+        <span class="price">Tüm vücut paket ≈ 4.000–15.000 TL</span>
+        <p>Türkiye'de profesyonel diyot/aleksandrit kürü, iyi bir ev cihazıyla aynı paraya geliyor ve daha iyi sonuç veriyor. Şartı: 6–8 seansı 4–6 hafta arayla orada tamamlayabilmek.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="uygunluk">
+  <div class="sec-head col">
+    <span class="eyebrow">Karar kapısı</span>
+    <h2>Önce üç soru &mdash; ikisine “hayır” diyorsan cihaz alma</h2>
+    <p class="lead">Bu cihazların çalışma prensibi, ışığın <i>kıldaki</i> melanin tarafından soğurulup kök hücreye ısı olarak inmesi. Yani hem kılın koyu, hem de çevresindeki tenin görece açık olması gerekiyor. Kontrast yoksa fizik çalışmıyor.</p>
+  </div>
+
+  <div class="gates">
+    <div class="gate">
+      <span class="chip stop">Kesin şart</span>
+      <span class="q">Kılların koyu mu?</span>
+      <p>Siyah ve koyu kahve kılda çalışır. <b>Beyaz, gri, sarı ve kızıl kılda hiç çalışmaz</b> &mdash; melanin yoksa ışık soğurulmaz. Bu bir ayar meselesi değil, cihazın fiziksel sınırı. Ak düşmüş bölgeye para vermeye değmez.</p>
+    </div>
+    <div class="gate">
+      <span class="chip warn">Dikkat</span>
+      <span class="q">Ten tonun ne?</span>
+      <p>Fitzpatrick I–III rahat, <b>IV sınırda</b>, V–VI için ev tipi IPL önerilmiyor. Türkiye kökenli çoğu kullanıcı III–IV aralığında; bu, sensörlü bir cihazla düşük kademeden başlayarak yürünebilir ama pigment lekesi riski I–III'e göre üç kat yüksek.</p>
+    </div>
+    <div class="gate">
+      <span class="chip warn">Süreklilik</span>
+      <span class="q">4–12 hafta düzenli kalabilir misin?</span>
+      <p>İlk kür: 2 haftada bir, 4–12 seans. Sonrası: yılda birkaç bakım seansı, süresiz. Yarıda bırakılan bir IPL kürü, harcanan paranın tamamının boşa gitmesi demek. Cihazın en büyük rakibi tembelliktir.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:18px">Fitzpatrick ten tipi &mdash; kendini nereye koyuyorsun?</h3>
+  <div class="fitz">
+    <div class="fcell"><div class="fswatch" style="background:#F5D6C6"></div><div class="fbody"><span class="ft">TİP I</span><span class="fd">Hep yanar, hiç bronzlaşmaz</span><span class="chip ok">Uygun</span></div></div>
+    <div class="fcell"><div class="fswatch" style="background:#EFC4A8"></div><div class="fbody"><span class="ft">TİP II</span><span class="fd">Kolay yanar, zor bronzlaşır</span><span class="chip ok">Uygun</span></div></div>
+    <div class="fcell"><div class="fswatch" style="background:#D9A57C"></div><div class="fbody"><span class="ft">TİP III</span><span class="fd">Bazen yanar, kademeli bronzlaşır</span><span class="chip ok">Uygun</span></div></div>
+    <div class="fcell"><div class="fswatch" style="background:#B87B4E"></div><div class="fbody"><span class="ft">TİP IV</span><span class="fd">Az yanar, kolay bronzlaşır</span><span class="chip warn">Sınırda</span></div></div>
+    <div class="fcell"><div class="fswatch" style="background:#8C5227"></div><div class="fbody"><span class="ft">TİP V</span><span class="fd">Nadiren yanar, koyu bronzlaşır</span><span class="chip stop">Önerilmez</span></div></div>
+    <div class="fcell"><div class="fswatch" style="background:#4A2B17"></div><div class="fbody"><span class="ft">TİP VI</span><span class="fd">Hiç yanmaz, çok koyu ten</span><span class="chip stop">Kullanma</span></div></div>
+  </div>
+  <small>Tip IV'te ikinci derece yanık vakası literatüre girmiş durumda; sensörlü cihaz + en düşük kademede test atımı + 24 saat bekleme zorunlu. Tip V–VI'da ev tipi IPL yerine klinikte Nd:YAG (1064 nm) doğru adres.</small>
+
+  <div class="call stop">
+    <h4>Erkeksen ve hedefin sakal/boyun bölgesiyse: hayır</h4>
+    <p>Üreticiler IPL'i erkeklerde <b>omuz altı</b> için tarifliyor &mdash; sırt, göğüs, kollar, koltuk altı, bacak. Yüz, boyun ve genital bölge dışarıda. Sebep sadece ihtiyat değil: yüz, IPL'in en can sıkıcı komplikasyonu olan <b>paradoksal kıllanma</b>nın (tedavi edilen bölgenin çevresinde kılların artması) en sık bildirildiği bölge. Ayrıca erkek sakalı üzerinde yayımlanmış tek bir ev tipi IPL denemesi yok &mdash; yani veri de yok, garanti de.</p>
+  </div>
+</section>
+
+<section id="teknoloji">
+  <div class="sec-head col">
+    <span class="eyebrow">Teknoloji</span>
+    <h2>“Lazer epilasyon cihazı” diye satılanların neredeyse hepsi lazer değil</h2>
+    <p class="lead">Piyasadaki ev tipi cihazların ezici çoğunluğu &mdash; Philips, Braun, Ulike, Beurer, yerli markalar &mdash; IPL, yani yoğunlaştırılmış atımlı ışık kullanıyor. Lazer tek dalga boyu gönderir; IPL 500–1200 nm arasında geniş bir bant yayar. Aradaki fark, sonuçlara doğrudan yansıyor.</p>
+  </div>
+
+  <div class="spectrum">
+    <div class="spec-bar">
+      <div class="band" style="left:12.5%;right:0"></div>
+      <div class="tick" style="left:44.4%"></div>
+      <div class="tick" style="left:51.25%"></div>
+      <div class="tick" style="left:83%"></div>
+    </div>
+    <div class="spec-axis">
+      <span style="left:12.5%"><b>500 nm</b>IPL bandı başlangıcı</span>
+      <span style="left:44.4%"><b>755</b>Aleksandrit</span>
+      <span style="left:56%"><b>810</b>Diyot lazer</span>
+      <span style="left:83%"><b>1064</b>Nd:YAG</span>
+      <span style="left:97%"><b>1200</b>IPL sonu</span>
+    </div>
+    <div class="spec-legend">
+      <div><span class="swatch" style="background:linear-gradient(90deg,#14D000,#F2E000,#F5093B,#2A1418);border:1px solid var(--line-strong)"></span> <span><b>IPL</b> &mdash; 500–1200 nm geniş bant, dağınık enerji, ev cihazlarının %95'i</span></div>
+      <div><span class="swatch" style="background:var(--ink)"></span> <span><b>Lazer</b> &mdash; tek dalga boyu, yoğun ve hedefli; kliniklerin ve tek bir ev cihazının kullandığı</span></div>
+    </div>
+  </div>
+  <small>Kliniklerde kullanılan üç dalga boyu da IPL bandının içinde ya da ucunda kalıyor &mdash; fark dalga boyunda değil, enerjinin tek noktaya toplanmasında. Nd:YAG'ın 1064 nm'si melanine en az takıldığı için koyu tenlerde tercih ediliyor.</small>
+
+  <div class="tscroll">
+    <table>
+      <thead>
+        <tr><th>Ölçüt</th><th>IPL (ev cihazlarının tamamına yakını)</th><th>Diyot lazer (klinik + Tria 4X)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="model">3. ayda kıl azalması</td><td class="num">%42,4</td><td class="num">%59,7</td></tr>
+        <tr><td class="model">12. ayda kıl azalması</td><td class="num">%52,7</td><td class="num">%69,2</td></tr>
+        <tr><td class="model">Gereken seans</td><td>Daha fazla</td><td>Daha az</td></tr>
+        <tr><td class="model">Ağrı</td><td>Daha az</td><td>Belirgin şekilde daha fazla</td></tr>
+        <tr><td class="model">Uygulama hızı</td><td>Geniş başlık, hızlı</td><td>Küçük başlık, yavaş</td></tr>
+        <tr><td class="model">Koyu tende güvenlik</td><td>Zayıf &mdash; melanini ayırt edemez</td><td>Daha iyi, yine de sınırlı</td></tr>
+      </tbody>
+      <caption>Kaynak: randomize, hasta içi sol–sağ karşılaştırmalı çalışma (Br J Dermatol). Sayılar klinik cihazlara ait; ev cihazlarının enerji yoğunluğu daha düşük olduğu için gerçekçi beklenti bu değerlerin altında.</caption>
+    </table>
+  </div>
+
+  <div class="call warn">
+    <h4>“Kalıcı epilasyon” değil, “kalıcı azaltma”</h4>
+    <p>Sektörün resmî terimi bile bu. Tam kür sonrası tipik sonuç <b>%70–90 azalma</b> ve <b>6–12 ay tüysüz dönem</b>. Kalan kıl daha ince ve daha açık renkte çıkıyor. Uykudaki kıl kökleri hormonal değişimle (ergenlik, gebelik, PCOS, ilaçlar, stres) her zaman uyanabildiği için bakım seansları süresiz devam ediyor: ilk yıl 6–8 haftada bir, ikinci yıldan sonra 2–3 ayda bir. Cihazı “bir kere alıp bitirdim” diye düşünme.</p>
+  </div>
+</section>
+
+<section id="modeller">
+  <div class="sec-head col">
+    <span class="eyebrow">Model incelemesi</span>
+    <h2>Piyasadaki ana modeller ve gerçekte ne aldığın</h2>
+    <p class="lead">Atım sayısı reklamlarda öne çıkarılıyor ama en az önemli özellik: 300.000 atım da bir ömür yeter. Asıl belirleyiciler ten tonu sensörü, enerji yoğunluğu, başlık genişliği ve kablosuz mu olduğu.</p>
+  </div>
+
+  <div class="tscroll">
+    <table>
+      <thead>
+        <tr><th>Model</th><th>Teknoloji</th><th class="num">Atım</th><th>Sensör</th><th>Öne çıkan</th><th>Değerlendirme</th></tr>
+      </thead>
+      <tbody>
+        <tr class="hi">
+          <td class="model">Braun Silk-expert Pro 5<span>PL5243 / PL5251 / PL5347</span></td>
+          <td>IPL</td><td class="num">400.000</td><td>SensoAdapt</td>
+          <td>10 kademe, 0,5 sn/atım, kablolu</td>
+          <td><b>En dengeli seçim.</b> Kablolu olması dezavantaj gibi görünse de seans boyunca güç düşmemesi avantaj.</td>
+        </tr>
+        <tr>
+          <td class="model">Braun Skin i-expert Pro 7<span>PL7249 / PL7253</span></td>
+          <td>IPL</td><td class="num">400.000</td><td>SensoAdapt, 80 okuma/sn</td>
+          <td>Bluetooth uygulama, kapsama takibi</td>
+          <td><b>Parasını hak etmiyor.</b> Pro 5 ile donanım ve sonuç aynı; fark yalnızca uygulama rehberi. FI'de Gigantti 739 €.</td>
+        </tr>
+        <tr>
+          <td class="model">Braun Silk-expert Pro 3<span>PL3132 / PL3011 / PL3221</span></td>
+          <td>IPL</td><td class="num">300.000</td><td>SensoAdapt</td>
+          <td>3 kademe, kayan mod</td>
+          <td><b>Bütçe seçimi.</b> Aynı güvenlik sensörü, daha az konfor. Bacak için yeterli.</td>
+        </tr>
+        <tr class="hi">
+          <td class="model">Philips Lumea 7000<span>BRI921/00</span></td>
+          <td>IPL</td><td class="num">250.000+</td><td>Ten tonu sensörü</td>
+          <td>2 başlık, yüz + vücut</td>
+          <td><b>TR'de fiyat/performans şampiyonu.</b> 140–184 €'ya bu iş görülüyorsa üstüne para koymak zor savunulur.</td>
+        </tr>
+        <tr>
+          <td class="model">Philips Lumea 8000<span>BRI940/00 · BRI946/00</span></td>
+          <td>IPL</td><td class="num">450.000</td><td>SenseIQ</td>
+          <td>Akıllı başlık, kablosuz</td>
+          <td>Orta segment. 9000'e göre daha az başlık, aynı temel performans.</td>
+        </tr>
+        <tr>
+          <td class="model">Philips Lumea 9900<span>BRI950–953 · BRI977</span></td>
+          <td>IPL</td><td class="num">450.000</td><td>SenseIQ + SmartSkin</td>
+          <td>4 başlık, kablosuz, uygulama; bacaklar 8,5 dk</td>
+          <td>Philips'in tepe modeli. Kablosuz kullanım gerçek bir konfor farkı yaratıyor.</td>
+        </tr>
+        <tr>
+          <td class="model">Ulike Air 10<span>DualLight</span></td>
+          <td>IPL</td><td class="num">1.000.000+</td><td>Ten sensörü</td>
+          <td>26 J/cm², safir buz soğutma, SHR modu</td>
+          <td>Konforda en iyi. Ancak Philips/Braun kadar bağımsız uzun vadeli veri yok, TR'de servis ağı zayıf.</td>
+        </tr>
+        <tr>
+          <td class="model">Ulike Air 3<span>Sapphire</span></td>
+          <td>IPL</td><td class="num">700.000</td><td>Ten sensörü</td>
+          <td>21 J/cm², safir soğutma</td>
+          <td>Konforlu ama <b>TR'de fiyatı şişkin</b> &mdash; Braun Pro 5'ten pahalıya satılıyor.</td>
+        </tr>
+        <tr>
+          <td class="model">Tria Beauty 4X<span>810 nm diyot</span></td>
+          <td>Gerçek lazer</td><td class="num">&mdash;</td><td>Ten kilidi</td>
+          <td>Klinikle aynı dalga boyu, IPL'in ~3 katı enerji yoğunluğu</td>
+          <td><b>Tek gerçek ev lazeri.</b> En güçlü sonuç, en küçük başlık, en çok ağrı. Sadece küçük bölgeler için mantıklı; ~599 $.</td>
+        </tr>
+        <tr>
+          <td class="model">Beurer IPL 7800<span></span></td>
+          <td>IPL</td><td class="num">250.000</td><td>Ten sensörü</td>
+          <td>FI'de 199 €</td>
+          <td>Finlandiya'nın en ucuz markalı girişi. Temel iş görür, konfor özellikleri yok.</td>
+        </tr>
+        <tr>
+          <td class="model">Braun Silk-expert Mini<span>IPL1100</span></td>
+          <td>IPL</td><td class="num">&mdash;</td><td>Var</td>
+          <td>Seyahat boyu</td>
+          <td>Tüm vücuda kalkışma. Küçük bölge rötuşu için.</td>
+        </tr>
+        <tr>
+          <td class="model">Fakir Satinskin Pro · Arzum<span>Yerli markalar</span></td>
+          <td>IPL</td><td class="num">200.000+</td><td>Model bazlı</td>
+          <td>TR'de ucuz, servis kolay</td>
+          <td>Fiyat cazip ama sensör kalitesi ve bağımsız test verisi zayıf. Tip IV tende risk alma.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="fiyat">
+  <div class="sec-head col">
+    <span class="eyebrow">Fiyat karşılaştırması</span>
+    <h2>Aynı cihaz, iki ülke, %50'ye varan fark</h2>
+    <p class="lead">Aşağıdaki tabloda TL fiyatlar 1 EUR = 53,26 TL üzerinden avroya çevrildi. Sonuç tek cümleyle: <b>Philips Türkiye'de dramatik ucuz, Braun Pro 3 başabaş, Ulike ise Finlandiya'da daha ucuz.</b></p>
+  </div>
+
+  <div class="tscroll">
+    <table>
+      <thead>
+        <tr><th>Model</th><th class="num">Türkiye</th><th class="num">TR → EUR</th><th class="num">Finlandiya</th><th>Nerede almalı</th></tr>
+      </thead>
+      <tbody>
+        <tr class="hi">
+          <td class="model">Philips Lumea 7000<span>BRI921/00</span></td>
+          <td class="num">7.480 – 9.796 TL</td><td class="num">140 – 184 €</td><td class="num">298,90 €</td>
+          <td><span class="chip tr">Türkiye</span> ~%50 ucuz</td>
+        </tr>
+        <tr class="hi">
+          <td class="model">Philips Lumea 8000<span>BRI940/00 · FI: BRI946/00</span></td>
+          <td class="num">10.217 TL</td><td class="num">192 €</td><td class="num">399 €</td>
+          <td><span class="chip tr">Türkiye</span> ~%52 ucuz</td>
+        </tr>
+        <tr class="hi">
+          <td class="model">Philips Lumea 9900<span>TR: BRI950/02 · FI: BRI951/01</span></td>
+          <td class="num">9.247 – 14.620 TL</td><td class="num">174 – 274 €</td><td class="num">439 – 679,99 €</td>
+          <td><span class="chip tr">Türkiye</span> %40–60 ucuz</td>
+        </tr>
+        <tr>
+          <td class="model">Philips Lumea Prestige<span>BRI947</span></td>
+          <td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">405,92 €</td>
+          <td>Eski seri, atlanabilir</td>
+        </tr>
+        <tr>
+          <td class="model">Braun Silk-expert Pro 5<span>TR: PL5251 · FI: PL5243 / PL5152</span></td>
+          <td class="num">17.099 – 18.500 TL</td><td class="num">321 – 347 €</td><td class="num">443 – 447 €</td>
+          <td><span class="chip tr">Türkiye</span> ~%25 ucuz</td>
+        </tr>
+        <tr>
+          <td class="model">Braun Silk-expert Pro 3<span>PL3011 / PL3132</span></td>
+          <td class="num">11.449 – 12.641 TL</td><td class="num">215 – 237 €</td><td class="num">217 – 339 €</td>
+          <td>Başabaş &mdash; hangisi eldeyse</td>
+        </tr>
+        <tr>
+          <td class="model">Braun Skin i-expert Pro 7<span>PL7249</span></td>
+          <td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">439 – 739 €</td>
+          <td>İkisinde de alma</td>
+        </tr>
+        <tr>
+          <td class="model">Ulike Air 3<span></span></td>
+          <td class="num">19.599 – 23.999 TL</td><td class="num">368 – 451 €</td><td class="num">~329 € <small style="display:inline">(AB mağazası)</small></td>
+          <td><span class="chip fi">Finlandiya / AB</span></td>
+        </tr>
+        <tr>
+          <td class="model">Ulike Air 10<span>DualLight</span></td>
+          <td class="num">TR'de yaygın değil</td><td class="num">&mdash;</td><td class="num">399 – 499,99 €</td>
+          <td><span class="chip fi">AB mağazası</span></td>
+        </tr>
+        <tr>
+          <td class="model">Beurer IPL 7800<span></span></td>
+          <td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">199 €</td>
+          <td><span class="chip fi">Finlandiya</span> en ucuz giriş</td>
+        </tr>
+      </tbody>
+      <caption>Türkiye: Akakçe / Cimri / MediaMarkt TR / Vatan / Trendyol taraması. Finlandiya: Gigantti, Power, Prisma, Hintaseuranta, Hinta.fi. Fiyatlar 19 Ağustos 2026 itibarıyla; TL tarafında haftalık dalgalanma normaldir, alım öncesi tekrar kontrol et.</caption>
+    </table>
+  </div>
+
+  <div class="call warn">
+    <h4>Fiyat tararken düşülen üç tuzak</h4>
+    <ul>
+      <li><b>Uçuk ucuz ilanlar.</b> Akakçe'de Braun Pro 5 için 8.499 TL gibi listeler çıkabiliyor; bunlar genelde eski/farklı varyant, kutu açık veya paralel ithal ürünler. Türkiye distribütör garantisi olmadan alma.</li>
+      <li><b>Atım sayısı pazarlaması.</b> 1.000.000 atım, 300.000 atımdan pratikte daha iyi değil &mdash; ikisi de cihazın ömrünü aşar.</li>
+      <li><b>Model kodu karmaşası.</b> Braun ve Philips her perakendeciye farklı kutu içeriğiyle ayrı kod veriyor (PL5243 / PL5251 / PL5347 aynı Pro 5). Karşılaştırırken başlık sayısına bak, koda değil.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="klinik">
+  <div class="sec-head col">
+    <span class="eyebrow">Asıl karşılaştırma</span>
+    <h2>Cihaz mı, klinik mi? Cevap hangi ülkede olduğuna göre tersine dönüyor</h2>
+    <p class="lead">Bu, analizin en önemli bulgusu. Ev cihazlarını birbiriyle kıyaslamadan önce, gerçek alternatifle kıyaslamak gerekiyor &mdash; ve iki ülkede sonuç taban tabana zıt çıkıyor.</p>
+  </div>
+
+  <div class="tscroll">
+    <table>
+      <thead>
+        <tr><th></th><th>Türkiye</th><th>Finlandiya</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="model">Klinik &mdash; tüm vücut kür</td><td class="num">4.000 – 15.000 TL<br><span style="font-weight:400;color:var(--muted)">≈ 75 – 282 €</span></td><td class="num">800 € (kadın)<br>900 – 1.000 € (erkek)</td></tr>
+        <tr><td class="model">Klinik &mdash; tek seans / bölge</td><td class="num">300 – 4.000 TL<br><span style="font-weight:400;color:var(--muted)">≈ 6 – 75 €</span></td><td class="num">50 – 89 €'dan başlıyor</td></tr>
+        <tr><td class="model">İyi bir ev cihazı</td><td class="num">≈ 140 – 350 €</td><td class="num">≈ 200 – 450 €</td></tr>
+        <tr><td class="model">Teknoloji</td><td colspan="2">Klinik: aleksandrit / diyot / Nd:YAG &mdash; daha güçlü, daha az seans, koyu tende de uygulanabilir. Ev: IPL &mdash; daha zayıf, daha çok tekrar.</td></tr>
+        <tr class="hi"><td class="model">Hüküm</td><td><b>Klinik kazanıyor.</b> Aynı paraya profesyonel kür alınıyor.</td><td><b>Cihaz kazanıyor.</b> Klinik kürü, cihazın 2–4 katı.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="call ok">
+    <h4>Finlandiya'da yaşayıp Türkiye'ye ara sıra gidiyorsan</h4>
+    <p>Kağıt üzerinde Türkiye'deki klinik kazanıyor, ama <b>uygulanabilirlik şartı ağır</b>: 6–8 seansın 4–6 hafta arayla yapılması gerekiyor, yani kür 6–10 aya yayılıyor. Yılda bir–iki kez Türkiye'ye gidiyorsan bu takvim tutmaz; aralar açıldıkça kıl döngüsü kaçar ve verim düşer.</p>
+    <p>Bu durumda en akılcı kurgu şu: <b>cihazı Türkiye'den al, kürü Finlandiya'da evde yürüt.</b> Philips Lumea 7000'i Türkiye'den 140–184 €'ya almak, Finlandiya'da 298,90 € vermeye göre 115–160 € tasarruf demek &mdash; ve düzenli seans takvimini hiç bozmuyorsun. Elektrik şebekesi (220–240 V) ve priz tipi (Tip F) iki ülkede aynı, yani adaptör derdi yok.</p>
+  </div>
+</section>
+
+<section id="protokol">
+  <div class="sec-head col">
+    <span class="eyebrow">Uygulama</span>
+    <h2>Aldıktan sonraki takvim</h2>
+    <p class="lead">Kıl büyüme döngüsü nedeniyle her seansta sadece aktif fazdaki kıllar etkileniyor. Sıra ve aralık, cihaz seçiminden daha çok sonucu belirliyor.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <span class="when">GÜN 0</span>
+      <div class="body"><h4>Yama testi</h4><p>Küçük bir alanda en düşük kademeden tek atım, 24 saat bekle. Kızarıklık, kabarcık, koyulaşma varsa kademeyi düşür ya da o bölgeden vazgeç. Tip IV tendeysen bu adım pazarlık konusu değil.</p></div>
+    </div>
+    <div class="step">
+      <span class="when">HAFTA 1–8</span>
+      <div class="body"><h4>Yükleme kürü &mdash; 2 haftada bir</h4><p>Seanstan önce bölgeyi tıraş et (ağda/cımbız <b>yasak</b> &mdash; kökü aldığın için ışığın hedefi kalmaz). İlk gözle görülür incelme 3–4 hafta içinde başlıyor.</p></div>
+    </div>
+    <div class="step">
+      <span class="when">HAFTA 8–12</span>
+      <div class="body"><h4>Kürün tamamlanması</h4><p>Toplam 4–12 seans. Bu noktada beklenen tipik sonuç %70–90 azalma. Kalan kıl daha ince ve daha açık renkte çıkar.</p></div>
+    </div>
+    <div class="step">
+      <span class="when">AY 4–12</span>
+      <div class="body"><h4>Bakım &mdash; 6–8 haftada bir</h4><p>Sadece kıl gördüğün bölgeye. Tüm vücudu baştan taramaya gerek yok.</p></div>
+    </div>
+    <div class="step">
+      <span class="when">YIL 2+</span>
+      <div class="body"><h4>Seyrek bakım &mdash; 2–3 ayda bir</h4><p>Süresiz devam eder. Bu, cihazın kusuru değil, teknolojinin doğası.</p></div>
+    </div>
+  </div>
+
+  <div class="call stop">
+    <h4>Kırmızı çizgiler</h4>
+    <ul>
+      <li>Bronzlaşmış tene, solaryum veya yoğun güneş sonrası <b>2 hafta</b> uygulama yapma; seans sonrası bölgeyi güneşten koru.</li>
+      <li>Dövme, ben, koyu leke, kalıcı makyaj üzerinden geçme.</li>
+      <li>Işığa duyarlılık yapan ilaç kullanıyorsan (bazı antibiyotikler, izotretinoin, St. John's wort) önce hekime sor.</li>
+      <li>Göz çevresi, göz kapağı, kaş altı ve mukoza kesinlikle dışarıda. Gözlük varsa kullan.</li>
+      <li>Hamilelik ve emzirme döneminde veri yok &mdash; ertele.</li>
+      <li>Beyaz/gri/sarı/kızıl kılda hiçbir kademe işe yaramaz; deneme bile.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="hukum">
+  <div class="sec-head col">
+    <span class="eyebrow">Sonuç</span>
+    <h2>Ne yapmalısın</h2>
+  </div>
+  <div class="col">
+    <ul class="plain">
+      <li><b>Kılın koyu, tenin Fitzpatrick I–III ise:</b> al. Cihazı Türkiye'den temin edebiliyorsan <b>Philips Lumea 7000 (BRI921/00)</b> &mdash; 140–184 €'ya bu işi görüyor ve listedeki en iyi fiyat/performans. Konfor ve hız senin için önemliyse üstüne koyup <b>Braun Silk-expert Pro 5</b> (TR ≈ 321–347 €).</li>
+      <li><b>Sadece Finlandiya'dan alabiliyorsan:</b> <b>Braun Silk-expert Pro 3</b> (217–235 €) fiyat/performansta öne çıkıyor, çünkü Braun'un ucuz serisi iki ülkede de aynı fiyatta. Bütçe daha genişse Braun Pro 5 (443–447 €). <b>Skin i-expert Pro 7'ye (739 €) para verme</b> &mdash; Pro 5 ile donanım aynı, fark sadece telefon uygulaması.</li>
+      <li><b>Tenin Fitzpatrick IV ise:</b> sensörlü bir Braun ya da Philips al, en düşük kademeden başla, yama testini atlama. Pigment lekesi riskini kabul ediyorsan devam et; etmiyorsan klinikte Nd:YAG daha doğru yol.</li>
+      <li><b>Tenin V–VI ise ya da kılların açık renkse:</b> alma. Para kaybı, en iyi ihtimalle; yanık ve kalıcı leke, en kötü ihtimalle.</li>
+      <li><b>Erkeksen ve hedefin sakal/boyun ise:</b> alma. Omuz altı (göğüs, sırt, kol, bacak) için sorun yok.</li>
+      <li><b>Türkiye'de uzun süre kalabiliyorsan:</b> cihaz yerine kliniği hesapla. 4.000–15.000 TL'ye profesyonel diyot/aleksandrit kürü, ev cihazının veremeyeceği sonucu veriyor ve maliyeti aynı bandda.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="kaynaklar">
+  <div class="sec-head col">
+    <span class="eyebrow">Kaynaklar</span>
+    <h2>Bu analiz neye dayanıyor</h2>
+  </div>
+  <div class="sources">
+    <a href="https://pubmed.ncbi.nlm.nih.gov/23278132/">Diyot lazer &amp; IPL randomize karşılaştırma &mdash; PubMed</a>
+    <a href="https://pubmed.ncbi.nlm.nih.gov/25229781/">Koltuk altı: diyot lazer vs IPL &mdash; PubMed</a>
+    <a href="https://link.springer.com/article/10.1007/s00403-021-02231-0">Ev tipi cihazlar sistematik derleme &mdash; Arch Dermatol Res</a>
+    <a href="https://pubmed.ncbi.nlm.nih.gov/30681170/">Ev tipi ışık cihazları: neden ve ne kadar işe yarıyor</a>
+    <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12433457/">Fitzpatrick IV'te IPL sonrası 2. derece yanık vakası</a>
+    <a href="https://www.gigantti.fi/terveys-ja-hyvinvointi/ihokarvojen-poisto-ja-parranajo/ipl-karvanpoistolaitteet">Gigantti &mdash; IPL fiyatları (FI)</a>
+    <a href="https://www.prisma.fi/kategoriat/2621/ipl-karvanpostolaitteet">Prisma &mdash; IPL fiyatları (FI)</a>
+    <a href="https://www.power.fi/kauneus-ja-terveys/naisten-ihokarvojen-hoito/ipl-karvanpoistolaitteet/">Power.fi &mdash; IPL fiyatları</a>
+    <a href="https://hintaseuranta.fi/epilaattorit-trimmerit-yms/braun-skin-iexpert-pro-7-pl7249-ipl-valoepilaattori-plus-5-lisaosaa/14381913">Hintaseuranta &mdash; Braun Pro 7 fiyat takibi</a>
+    <a href="https://www.akakce.com/epilasyon-aleti/philips-lumea.html">Akakçe &mdash; Philips Lumea fiyatları (TR)</a>
+    <a href="https://www.cimri.com/philips-lumea-en-ucuz">Cimri &mdash; Philips Lumea fiyat geçmişi</a>
+    <a href="https://www.akakce.com/epilasyon-aleti/braun.html">Akakçe &mdash; Braun epilasyon fiyatları</a>
+    <a href="https://www.akakce.com/epilasyon-aleti/en-ucuz-ulike-air-3-ipl-lazer-fiyati,1037560893.html">Akakçe &mdash; Ulike Air 3 (TR)</a>
+    <a href="https://eu.ulike.com/collections/ulike-a-10">Ulike AB mağazası &mdash; Air 10 / Air 3</a>
+    <a href="https://www.wearebodybeautiful.com/braun-pro-7-vs-pro-5-ipl/">Braun Pro 7 vs Pro 5 &mdash; bağımsız test</a>
+    <a href="https://celliara.com/tria-laser-4x-review/">Tria 4X &mdash; diyot lazer incelemesi</a>
+    <a href="https://us.braun.com/en-us/female-hair-removal/ipls">Braun &mdash; resmî kullanım alanı kılavuzu</a>
+    <a href="https://aesthetics.fi/toimenpide/karvanpoisto-laserilla/">Aesthetics.fi &mdash; klinik fiyatları (FI)</a>
+    <a href="https://www.buzlazer.com/lazer-epilasyon-seans-fiyatlari.html">Türkiye klinik seans fiyatları 2026</a>
+    <a href="https://www.philips.fi/c-m-pe/lumea-ipl/9900">Philips Lumea 9900 &mdash; teknik veriler</a>
+  </div>
+</section>
+
+<footer>
+  Fiyatlar 19 Ağustos 2026 tarihli tarama sonucudur ve TL tarafında hızlı değişir; alım öncesi Akakçe/Cimri (TR) ve Hintaseuranta/Hinta.fi (FI) üzerinden tekrar doğrula. Bu doküman tıbbi tavsiye değildir &mdash; cilt hastalığı, ilaç kullanımı veya hormonal durum söz konusuysa dermatoloğa danış.
+</footer>
+
+</div>
