@@ -102,6 +102,13 @@ baseline, $75.9$ against $75.0$ for the frugal configuration---follow from the
 larger number of partitions and are an order of magnitude smaller than the
 dispersion reported below.
 
+Table~\ref{tab:measured} re-estimates the endpoints of that recipe over ten
+partitions rather than five and scores them per held-out recording. The small
+shifts relative to Table~\ref{tab:recipe}---$52.8$ against $53.9$ for the
+baseline and $75.9$ against $75.0$ for the frugal configuration---follow from the
+larger number of partitions and are an order of magnitude smaller than the
+dispersion reported below.
+
 The dispersion of these figures deserves care. Estimates were repeated over ten
 random recording-level partitions and scored separately on each held-out
 recording, so that the reported interval reflects recording-to-recording
@@ -165,6 +172,35 @@ consequence for a node is unchanged---$25$~Hz remains the better operating
 point---but the reason is not that the fault information lies below $12.5$~Hz, and
 any study that sweeps sampling rate with a fixed time-domain feature set measures
 these two effects together rather than the effect of rate alone.
+
+\subsection{Separating configuration selection from estimation}
+\label{subsec:nested}
+The frugal configuration was arrived at by inspecting cross-validation scores
+across the sweeps of Section~\ref{subsec:tradeoff}, and its performance was then
+quoted from those same scores. That is optimistically biased: the configuration
+was chosen partly because it happened to suit the particular recordings on which
+it was scored~\cite{qi2019cv}. The size of the bias is itself worth measuring.
+
+The selection was therefore repeated inside a nested recording-wise loop. An
+inner loop, confined to the training recordings of each outer fold, chose among
+twelve configurations spanning three sampling rates, two channel sets and two
+window lengths; the outer held-out recordings, never seen by the selector,
+provided the estimate. Over eighteen outer folds the nested estimate is
+$\mathbf{71.0\%}$, against $76.9\%$ for the same configuration when it is both
+chosen and scored on the outer folds. The selection bias is thus
+$\mathbf{6.0}$ percentage points---smaller than the effect being claimed, but not
+negligible, and of the order of the differences that separate neighbouring
+configurations in Table~\ref{tab:recipe}.
+
+Two further observations follow. The inner selector, given no sight of the
+evaluation recordings, chose the $25$~Hz three-raw-channel $4$~s configuration in
+$13$ of the $18$ folds, with the remaining folds split between a full-rate and a
+$12.5$~Hz variant, all of which also use the longer window. The recommendation is
+therefore reproduced by an independent selection procedure rather than resting on
+a single inspection of the results, which is the stronger claim. At the same time
+the honest figure to attach to the recommendation---the performance expected when
+the configuration is selected and then deployed---is $71.0\%$ rather than the
+$75$ to $77\%$ obtained when selection and estimation share the same data.
 
 \subsection{Deployment Implications: Communication and Edge Footprint}
 \label{subsec:edge}

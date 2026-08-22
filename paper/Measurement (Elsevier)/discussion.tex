@@ -110,11 +110,18 @@ model may still key on the idiosyncratic signature of that particular specimen a
 its mounting rather than on a fault signature that would transfer to a different
 specimen of the same class. The evaluation is thus leakage-free only in this
 restricted sense, and cross-specimen generalisation is not established here. The
-small number of recordings ($36$) also produces wide fold-to-fold variability;
-although five-seed repetition stabilises the central estimates and the reported
-expanded uncertainty quantifies their reproducibility, it captures only resampling
-variance and not the dominant specimen-, machine-, and mounting-to-mounting
-components, so it should not be read as a full measurement-uncertainty budget. The
+small number of recordings ($36$) also produces wide variation from one recording
+to the next. Scores are therefore reported per held-out recording and summarised
+with intervals clustered on that unit, giving intervals of roughly $\pm12$ points;
+summarising instead over repeated re-partitionings of the same recordings would
+have produced intervals about three times narrower without supplying any
+additional evidence about the machine. Those intervals capture
+recording-to-recording variation only. The influence quantities that would
+dominate a real deployment---a different machine, a different physical specimen of
+the same fault, a re-installation of the sensor~\cite{staszewski2025mems}, a
+different handset~\cite{capuano2023smartphone}---do not vary anywhere in this
+dataset, so none is represented, and the interval must not be read as a
+measurement-uncertainty budget in the sense of the GUM. The
 deployment quantities are likewise indicative rather than measured: the model
 footprint is a serialised (software) size, and energy and latency are inferred
 from data volume and window length rather than measured on hardware, with a

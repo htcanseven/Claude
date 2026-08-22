@@ -36,7 +36,11 @@ and a $4$~s window reaches $75.0\pm11.4\%$ against $53.9\pm12.5\%$ for the
 full-rate baseline, a paired improvement of $21.1$ points ($p=0.020$), while
 cutting data volume roughly eight-fold---but the explanation for it changes, and
 the intermediate step of rate reduction alone is not significant at the recording
-level.
+level. Repeating the selection inside a nested recording-wise loop, so that the
+recordings used for estimation are never seen by the selector, returns the same
+configuration in $13$ of $18$ folds but lowers its estimated performance to
+$71.0\%$, a selection bias of $6.0$ points that is smaller than the effect claimed
+yet comparable to the spacing between neighbouring configurations.
 
 Reporting practice matters as much as the protocol. Scores were computed per
 held-out recording and summarised with intervals clustered on that unit, giving

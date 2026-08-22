@@ -14,6 +14,8 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning}
 \usepackage{url}
+\usepackage{lineno}
+\linenumbers
 
 \providecommand{\cmark}{\ding{51}}
 \providecommand{\xmark}{\ding{55}}
@@ -56,8 +58,10 @@ confounds the observable band with the sample-count sensitivity of the features.
 Reported per held-out recording, a resource-frugal configuration---$25$~Hz, three
 raw channels and a $4$~s window---reaches $75.0\pm11.4\%$ against $53.9\pm12.5\%$
 for the full-rate baseline, a paired improvement of $21.1$ points
-($p=0.020$, $n=36$), while reducing data volume roughly eight-fold. All estimates
-come from a single machine with one physical specimen per fault, and are reported
+($p=0.020$, $n=36$), while reducing data volume roughly eight-fold. Repeating the
+choice of that configuration inside a nested recording-wise loop, so that
+selection and estimation do not share data, lowers the estimate to $71.0\%$ and
+quantifies a $6.0$-point selection bias. All estimates come from a single machine with one physical specimen per fault, and are reported
 with intervals clustered on the recording rather than on repeated re-partitionings
 of the same data.
 \end{abstract}

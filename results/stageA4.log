@@ -23,3 +23,17 @@ building 12 feature matrices...
   seed 1 fold 2: selected fs25_raw3_w4 (inner 70.7) -> outer 64.7%  [14 min]
   seed 1 fold 3: selected fs25_raw3_w4 (inner 67.1) -> outer 64.7%  [16 min]
   seed 1 fold 4: selected fs25_raw3_w4 (inner 77.8) -> outer 62.9%  [17 min]
+  seed 1 fold 5: selected fs25_raw3_w4 (inner 60.6) -> outer 86.4%  [19 min]
+  seed 2 fold 0: selected fs12.5_raw3_w4 (inner 61.5) -> outer 66.0%  [20 min]
+  seed 2 fold 1: selected fs25_raw3_w4 (inner 68.8) -> outer 64.0%  [21 min]
+  seed 2 fold 2: selected fs25_raw3_w4 (inner 65.4) -> outer 75.0%  [23 min]
+  seed 2 fold 3: selected fs12.5_raw3_w4 (inner 63.0) -> outer 71.3%  [24 min]
+  seed 2 fold 4: selected fs25_raw3_w4 (inner 76.7) -> outer 61.2%  [26 min]
+  seed 2 fold 5: selected fs100_all6_w4 (inner 65.8) -> outer 52.8%  [27 min]
+# A4 - nested recording-wise cross-validation
+
+- nested (unbiased) estimate: **71.0%** over 18 outer folds
+- best configuration judged on the outer folds themselves: fs25_raw3_w4 at 76.9%
+- selection bias: **+6.0 points**
+
+=== A4 DONE 10:50 ===
