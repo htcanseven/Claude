@@ -1,0 +1,107 @@
+% ============================================================================
+%  Measurement (Elsevier) submission
+%  Compile: tectonic -X compile manuscript.tex   (or pdflatex + bibtex x2)
+%  Needs alongside: refs.bib, the \input section files, figures/
+% ============================================================================
+\documentclass[preprint,review,3p,number]{elsarticle}
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pifont}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage{url}
+
+\providecommand{\cmark}{\ding{51}}
+\providecommand{\xmark}{\ding{55}}
+\providecommand{\pmark}{$\sim$}
+\graphicspath{{figures/}{./}}
+
+\journal{Measurement}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Leakage-Free Performance Evaluation of Low-Rate MEMS Sensing for
+IoT-Based Condition Monitoring of Induction Machines}
+
+\author[lut]{H\"useyin Tayyer Canseven}
+\ead{huseyin.canseven@lut.fi}
+\affiliation[lut]{organization={Department of Electrical Engineering, LUT University},
+            city={Lappeenranta},
+            country={Finland}}
+
+\begin{abstract}
+Vibration-based condition monitoring on low-cost sensors raises a measurement
+question that is usually skipped: how should the diagnostic performance of such a
+sensing chain itself be measured. The question is addressed for a
+smartphone-class micro-electro-mechanical-systems (MEMS) accelerometer applied to
+induction-machine monitoring, using a public $100$~Hz vibration dataset of six
+health states, three supply frequencies and two load conditions. Conventional
+random-split evaluation is shown to overstate accuracy by $41$ to $47$ percentage
+points, and a ladder of partitionings then attributes that optimism: window
+overlap, the mechanism most often blamed and most often guarded against,
+contributes nothing, as does temporal proximity, while recording identity accounts
+for all $46.7$ points. Enforcing non-overlapping windows would therefore offer no
+protection on data of this kind. A controlled comparison further shows that the
+apparent benefit of reducing the sampling rate to $25$~Hz is not what it seems:
+band-limiting to the same frequency range is mildly harmful, the gain follows from
+the reduced number of samples per analysis window, and omitting the anti-alias
+filter costs $24.9$ points, so a rate sweep with a fixed time-domain feature set
+confounds the observable band with the sample-count sensitivity of the features.
+Reported per held-out recording, a resource-frugal configuration---$25$~Hz, three
+raw channels and a $4$~s window---reaches $75.0\pm11.4\%$ against $53.9\pm12.5\%$
+for the full-rate baseline, a paired improvement of $21.1$ points
+($p=0.020$, $n=36$), while reducing data volume roughly eight-fold. All estimates
+come from a single machine with one physical specimen per fault, and are reported
+with intervals clustered on the recording rather than on repeated re-partitionings
+of the same data.
+\end{abstract}
+
+\begin{keyword}
+condition monitoring \sep fault diagnosis \sep induction machines \sep
+MEMS accelerometer \sep evaluation protocol \sep data leakage \sep
+measurement uncertainty \sep Internet of Things \sep low-cost sensing
+\end{keyword}
+
+\end{frontmatter}
+
+\input{intro}
+\input{related_work}
+\input{dataset}
+\input{characterization}
+\input{methodology}
+\input{results}
+\input{discussion}
+\input{conclusion}
+
+% ---------------------------------------------------------------------------
+\section*{CRediT authorship contribution statement}
+\textbf{H\"useyin Tayyer Canseven:} Conceptualization, Methodology, Software,
+Formal analysis, Investigation, Data curation, Writing -- original draft,
+Writing -- review \& editing, Visualization.
+
+\section*{Declaration of competing interest}
+The author declares that he has no known competing financial interests or
+personal relationships that could have appeared to influence the work reported
+in this paper.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+No generative AI tools were used to produce the scientific content, analysis or
+conclusions of this work.
+
+\section*{Data availability}
+The data that support the findings of this study are openly available in
+Mendeley Data at \url{https://doi.org/10.17632/rs4vz8n3t5.1}, under a CC~BY~4.0
+licence, and are described in the accompanying data
+article~\cite{ertargin2026smartphone, ertargin2026dataset}. No new data were
+created in this study.
+
+\bibliographystyle{elsarticle-num}
+\bibliography{refs}
+
+\end{document}

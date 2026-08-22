@@ -1,0 +1,313 @@
+% ============================================================================
+%  Section V — Methodology  (IOP MST)
+%  Passive voice / third person throughout.
+%  Requires: booktabs, amsmath, tikz + \usetikzlibrary{arrows.meta,positioning}.
+% ============================================================================
+
+\section{Methodology}
+\label{sec:method}
+
+The processing chain evaluated in this work is deliberately lightweight, so that
+it is representative of what an inexpensive sensor node can execute: fixed-length
+windowing, a compact set of time-domain features, and a conventional classifier.
+The chain is illustrated in Fig.~\ref{fig:pipeline}. The emphasis of this section,
+and the principal methodological contribution of the paper, is the set of
+\emph{evaluation protocols} used to obtain deployment-realistic performance
+estimates.
+
+% ---------------------------------------------------------------------------
+\begin{figure}[t]
+\centering
+\definecolor{pipeBlue}{HTML}{0072B2}
+\definecolor{pipeSky}{HTML}{56B4E9}
+\definecolor{pipeGreen}{HTML}{009E73}
+\definecolor{pipeAmber}{HTML}{E69F00}
+\definecolor{pipeRed}{HTML}{D55E00}
+\begin{tikzpicture}[
+  font=\footnotesize,
+  >={Latex[length=1.7mm,width=1.3mm]},
+  stage/.style={draw=#1!80!black,fill=#1!6,line width=0.6pt,rounded corners=2.5pt,
+                align=center,inner sep=3pt,text width=2.50cm,minimum height=1.42cm},
+  stage/.default=black,
+  flow/.style={->,line width=0.7pt,draw=black!45},
+  chip/.style={draw=#1!80!black,fill=#1!7,line width=0.5pt,rounded corners=2.5pt,
+               align=center,inner sep=3pt,text width=3.00cm,minimum height=0.95cm},
+  chip/.default=black
+]
+
+% ---- processing chain ---------------------------------------------------
+\node[stage=pipeBlue] (sens)
+  {\textcolor{pipeBlue}{\bfseries Smartphone}\\[-1pt]
+   \textcolor{pipeBlue}{\bfseries MEMS node}\\[1.5pt]
+   {\scriptsize\color{black!58}$100$~Hz, $6$ channels}};
+\node[stage=pipeSky,right=0.26cm of sens] (win)
+  {\textcolor{pipeSky!75!black}{\bfseries Windowing}\\[1.5pt]
+   {\scriptsize\color{black!58}$2$~s windows}\\[-1pt]
+   {\scriptsize\color{black!58}$50\%$ overlap}};
+\node[stage=pipeSky,right=0.26cm of win] (feat)
+  {\textcolor{pipeSky!75!black}{\bfseries Time-domain}\\[-1pt]
+   \textcolor{pipeSky!75!black}{\bfseries features}\\[1.5pt]
+   {\scriptsize\color{black!58}$14$ per channel}};
+\node[stage=pipeGreen,right=0.26cm of feat] (clf)
+  {\textcolor{pipeGreen!80!black}{\bfseries Baseline}\\[-1pt]
+   \textcolor{pipeGreen!80!black}{\bfseries classifiers}\\[1.5pt]
+   {\scriptsize\color{black!58}RF / KNN / SVM}};
+\node[stage=pipeAmber,right=0.26cm of clf] (out)
+  {\textcolor{pipeAmber!70!black}{\bfseries Health state}\\[1.5pt]
+   {\scriptsize\color{black!58}one of six}\\[-1pt]
+   {\scriptsize\color{black!58}H, B1--B3, V, R}};
+
+\draw[flow] (sens)--(win);
+\draw[flow] (win)--(feat);
+\draw[flow] (feat)--(clf);
+\draw[flow] (clf)--(out);
+
+% ---- evaluation-protocol panel -----------------------------------------
+\node[draw=black!35,fill=black!3,rounded corners=3pt,line width=0.5pt,
+      minimum width=14.60cm,minimum height=1.98cm,below=0.70cm of feat] (panel) {};
+
+\node[anchor=north west,font=\scriptsize,color=black!70]
+  at ([xshift=0.32cm,yshift=-0.16cm]panel.north west)
+  {\textbf{Evaluation protocol}\,---\,how the windows are partitioned into
+   training and test sets};
+
+\node[chip=pipeRed,anchor=south west]
+  at ([xshift=0.34cm,yshift=0.20cm]panel.south west) (c1)
+  {\textcolor{pipeRed}{\bfseries RANDOM}\\[1pt]
+   {\scriptsize\color{black!58}random window split}\\[-1pt]
+   {\scriptsize\itshape\color{pipeRed}leaky reference}};
+\node[chip=pipeGreen,right=0.22cm of c1] (c2)
+  {\textcolor{pipeGreen!80!black}{\bfseries GROUP}\\[1pt]
+   {\scriptsize\color{black!58}recordings held out}\\[-1pt]
+   {\scriptsize\itshape\color{pipeGreen!80!black}leakage-free}};
+\node[chip=pipeGreen,right=0.22cm of c2] (c3)
+  {\textcolor{pipeGreen!80!black}{\bfseries CROSS-SPEED}\\[1pt]
+   {\scriptsize\color{black!58}unseen supply frequency}\\[-1pt]
+   {\scriptsize\itshape\color{pipeGreen!80!black}$+$ speed shift}};
+\node[chip=pipeGreen,right=0.22cm of c3] (c4)
+  {\textcolor{pipeGreen!80!black}{\bfseries CROSS-LOAD}\\[1pt]
+   {\scriptsize\color{black!58}unseen load condition}\\[-1pt]
+   {\scriptsize\itshape\color{pipeGreen!80!black}$+$ load shift}};
+
+\draw[dashed,line width=0.6pt,draw=black!45,->] (feat.south) -- (panel.north);
+
+\end{tikzpicture}
+\caption{Processing chain and evaluation protocols. Identical features are
+assessed under four data-partitioning protocols: RANDOM is retained only as a
+leaky reference, whereas GROUP, CROSS-SPEED and CROSS-LOAD are leakage-free at
+the recording level, the latter two additionally imposing an operating-condition
+shift. The protocol, not the model, is the primary object of study.}
+\label{fig:pipeline}
+\end{figure}
+
+\subsection{Segmentation and Windowing}
+Let the dataset comprise $R=36$ continuous recordings, each associated with a
+health label and an operating condition (supply frequency and load). Every
+recording was divided into fixed-length windows of $2$~s with $50\%$ overlap,
+matching the segmentation of the source data article. At $100$~Hz this yields
+windows of $200$~samples and a total of $32{,}328$ windows, distributed equally
+across the six classes ($5{,}388$ per class). The window length and overlap were
+treated as configurable parameters and were varied in the trade-off study of
+Section~\ref{sec:results}.
+
+\subsection{Feature Extraction}
+Each window was reduced to a set of $14$ time-domain features per channel,
+summarised in Table~\ref{tab:features}. These comprise standard statistical and
+shape descriptors widely used in vibration-based diagnosis, and require no
+spectral transform, which keeps the extraction cost compatible with a
+microcontroller. For a window of $C$ channels, the per-channel feature vectors
+were concatenated into a single descriptor of length $14C$ (for example, $84$ for
+the full six-channel set). The six-feature subset marked in
+Table~\ref{tab:features}, corresponding to the descriptors used by the source
+data article's baseline, was retained for a feature-set ablation. For the
+distance- and margin-based classifiers, features were standardised to zero mean
+and unit variance using statistics estimated on the training partition only.
+
+\subsection{Classifiers}
+Three baseline classifiers were considered, chosen for their prevalence in the
+fault-diagnosis literature and their modest computational footprint: a Random
+Forest (RF) with $200$ trees; a $k$-nearest-neighbour classifier (KNN, $k=5$);
+and a support vector machine (SVM) with a radial-basis-function kernel. To keep
+the SVM tractable on the full window set, the kernel was approximated by a
+Nystr\"om feature map ($400$ components) followed by a linear SVM. For the
+edge-footprint analysis of Section~\ref{sec:results}, two additional
+lightweight models---a depth-limited decision tree and a multinomial logistic
+regression---were included. All models map a feature descriptor to one of the six
+health states.
+
+\subsection{Evaluation Protocols}
+\label{subsec:protocols}
+The central methodological question is how the labelled windows are partitioned
+into training and test sets. Four protocols were defined and applied to identical
+features so that differences in reported accuracy are attributable solely to the
+partitioning strategy.
+
+\subsubsection{RANDOM}
+A stratified random split over all windows, as commonly used in the literature
+and by the source baseline. This protocol is retained as a reference precisely
+because it is susceptible to leakage: adjacent windows share $50\%$ of their
+samples, and all windows of a recording share the same operating point and sensor
+coupling, so a model may recognise the originating recording rather than the
+fault.
+
+\subsubsection{GROUP}
+A leakage-free protocol in which entire recordings are held out. Stratified
+group $k$-fold cross-validation ($k=6$) was used, with the recording identifier as
+the grouping variable, so that no window from a test recording appears in
+training. With six recordings per class, each fold holds out one recording per
+class.
+
+\subsubsection{RANDOM without overlap and BLOCKED}
+Two further partitionings are defined to identify which property of the RANDOM
+protocol is responsible for its optimism. The first repeats the stratified random
+split on windows extracted with zero overlap, so that no sample can appear in both
+partitions. The second holds out a contiguous temporal block from within every
+recording, taking successive sixths of each recording in turn, so that training
+and test windows are additionally separated in time while every recording still
+contributes to training. Comparing these against RANDOM and GROUP attributes the
+gap to shared samples, to temporal proximity, or to recording identity.
+
+\subsubsection{CROSS-SPEED}
+A leave-one-supply-frequency-out protocol: the model is trained on two supply
+frequencies and tested on the third, and results are averaged over the three
+folds. This quantifies generalisation to an unseen operating speed.
+
+\subsubsection{CROSS-LOAD}
+A leave-one-load-out protocol: the model is trained on one load condition
+(loaded or unloaded) and tested on the other. This quantifies generalisation to
+an unseen load.
+
+The GROUP, CROSS-SPEED, and CROSS-LOAD partitions are all group-disjoint at the
+recording level and therefore free of the window-overlap leakage that affects the
+RANDOM protocol; the latter two additionally introduce a deliberate operating
+-condition shift between training and test.
+
+\subsection{Reporting performance and its dispersion}
+\label{subsec:stats}
+Classification performance is reported as accuracy and macro-averaged
+$F_1$-score, the latter being sensitive to the per-class failures that a balanced
+accuracy can hide. Two questions then arise: over what unit is performance
+replicated, and how is that dispersion to be described.
+
+The unit adopted here is the \emph{held-out recording}. A score is computed
+separately for each recording while it is held out, so the reported mean is an
+average over $36$ recordings and its dispersion is the recording-to-recording
+variation, which is the variation a new installation would actually encounter.
+Intervals are $95\%$ intervals for that mean, clustered on recording. Ten random
+seeds are used, each reshuffling the recording-level fold composition, but the
+seeds serve only to stabilise the per-recording means; they are not treated as
+independent observations, because re-partitioning the same $36$ recordings
+supplies no new information about the machine and an interval computed over seeds
+understates the true dispersion by a large factor. In the present data the
+recording-clustered interval is roughly three times the seed-level interval, which
+is the size of the error that the more convenient choice would introduce.
+
+For the same reason no claim of a Type~A evaluation of measurement uncertainty in
+the sense of the GUM~\cite{jcgm2008gum} is made for these figures, although that
+framework is the natural destination for such work~\cite{angrisani2025uncertainty,
+dorozhovets2020uncertainty}. A GUM-conformant budget would require the dominant
+influence quantities---machine, fault specimen, mounting, session---to be varied
+and their contributions evaluated~\cite{staszewski2025mems}; none of them varies
+within this dataset. What is reported is therefore a reproducibility interval over
+the available recordings, and the influence quantities that remain unquantified
+are set out qualitatively in Section~\ref{subsec:limits}.
+
+Configurations are compared on their per-recording differences with a two-sided
+paired permutation test over the $2^{n}$ sign changes, approximated by $20\,000$
+random sign assignments. The test is exact in construction, assumes neither
+normality nor equal variances, and---unlike a signed-rank test over five
+seeds---does not exhaust its resolution before reaching conventional significance
+levels. Confusion matrices are aggregated from the pooled out-of-fold predictions
+of the GROUP protocol.
+
+Finally, where a configuration is selected rather than fixed in advance, selection
+and estimation are separated. Choosing an operating point by inspecting
+cross-validation scores and then quoting those same scores is optimistically
+biased~\cite{qi2019cv}; Section~\ref{subsec:nested} therefore repeats the
+selection inside a nested recording-wise loop, so that the recordings used to
+estimate performance are never seen by the selector.
+
+\subsection{Implementation Details}
+\label{subsec:impl}
+All estimators were taken from a single, standard machine-learning library, with
+the settings collected in Table~\ref{tab:impl}; any parameter not listed was left
+at its library default, and every stochastic component was seeded. Three further
+choices affect reproducibility and are therefore stated explicitly. First,
+decimation to a lower sampling rate was performed by polyphase resampling with
+the associated anti-alias FIR filter, so that the reduced-rate conditions of
+Section~\ref{subsec:tradeoff} combine a change of rate with the low-pass that
+necessarily accompanies it. Second, the mutual information of
+Section~\ref{sec:charact} was obtained with a $k$-nearest-neighbour estimator
+($k=3$) applied to the continuous features and reported in nats; the estimator is
+non-negative by construction, so values near zero indicate no detectable
+dependence rather than independence. Third, the power spectral densities were
+computed by Welch's method with a Hann window, $50\%$ segment overlap and
+density scaling, using $2048$-sample segments for the per-class spectra of
+Fig.~\ref{fig:psd} and $1024$-sample segments for the signal-floor estimate.
+
+% ---------------------------------------------------------------------------
+\begin{table}[t]
+\centering
+\caption{Estimator and feature-extraction settings. Parameters not listed were
+left at their library defaults; $d$ denotes the feature-vector dimension
+($14C$ for $C$ channels).}
+\label{tab:impl}
+\renewcommand{\arraystretch}{1.25}
+\small
+\begin{tabular}{@{}p{3.6cm}p{10.9cm}@{}}
+\toprule
+\textbf{Component} & \textbf{Setting} \\
+\midrule
+Random Forest (baseline)   & $200$ trees, unlimited depth, Gini split,
+                             $\sqrt{d}$ features per split \\
+Random Forest (edge)       & $50$ trees, maximum depth $8$ \\
+Decision tree (edge)       & maximum depth $8$ \\
+KNN                        & $k=5$, Euclidean metric, uniform weights \\
+SVM                        & RBF kernel approximated by a Nystr\"om map
+                             ($400$ components, $\gamma=1/d$), then a linear
+                             SVM ($C=10$, squared hinge, primal solver,
+                             $\leq5000$ iterations) \\
+Logistic regression        & multinomial, $L_2$ penalty, $C=1$, L-BFGS,
+                             $\leq2000$ iterations \\
+Standardisation            & zero mean, unit variance; fitted on the training
+                             partition only (KNN, SVM, logistic regression) \\
+Amplitude entropy          & $32$-bin normalised histogram per window \\
+Bit-depth reduction        & per-recording, per-channel min--max range
+                             uniformly quantised to $2^{b}-1$ levels \\
+Packet loss                & independent Bernoulli per sample, concealed by
+                             sample-and-hold \\
+Orientation change         & Rodrigues rotation of both triads by
+                             $30^{\circ}$ about the axis $(1,1,0)/\sqrt{2}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------------
+\begin{table}[t]
+\centering
+\caption{Per-channel time-domain features. For a window
+$x=\{x_i\}_{i=1}^{W}$ with mean $\mu$ and standard deviation $\sigma$.
+Features marked $\dagger$ form the six-feature ablation subset.}
+\label{tab:features}
+\renewcommand{\arraystretch}{1.45}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Feature} & \textbf{Definition} \\
+\midrule
+Mean & $\mu=\frac{1}{W}\sum_i x_i$ \\
+Std.\ dev.$^\dagger$ & $\sigma=\sqrt{\frac{1}{W}\sum_i (x_i-\mu)^2}$ \\
+Variance & $\sigma^2$ \\
+RMS$^\dagger$ & $x_{\mathrm{rms}}=\sqrt{\frac{1}{W}\sum_i x_i^2}$ \\
+Peak-to-peak$^\dagger$ & $\max_i x_i-\min_i x_i$ \\
+Max.\ absolute & $x_{\max}=\max_i |x_i|$ \\
+Skewness$^\dagger$ & $\frac{1}{W}\sum_i (x_i-\mu)^3/\sigma^3$ \\
+Kurtosis$^\dagger$ & $\frac{1}{W}\sum_i (x_i-\mu)^4/\sigma^4-3$ \\
+Crest factor$^\dagger$ & $x_{\max}/x_{\mathrm{rms}}$ \\
+Shape factor & $x_{\mathrm{rms}}/\big(\frac{1}{W}\sum_i |x_i|\big)$ \\
+Impulse factor & $x_{\max}/\big(\frac{1}{W}\sum_i |x_i|\big)$ \\
+Clearance factor & $x_{\max}/\big(\frac{1}{W}\sum_i \sqrt{|x_i|}\big)^2$ \\
+Zero-crossing rate & rate of sign changes of $x_i-\mu$ \\
+Amplitude entropy & $-\sum_k p_k\log_2 p_k$ (32-bin histogram) \\
+\bottomrule
+\end{tabular}
+\end{table}

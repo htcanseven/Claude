@@ -1,0 +1,330 @@
+[
+  {
+    "key": "xu2021mems",
+    "doi": "10.1109/tim.2020.3026024",
+    "tag": "mems_metrology",
+    "title": "A Novel Calibration Method Using Six Positions for MEMS Triaxial Accelerometer",
+    "journal": "IEEE Transactions on Instrumentation and Measurement",
+    "year": 2021
+  },
+  {
+    "key": "khankalantary2021mems",
+    "doi": "10.1088/1361-6501/abd0bf",
+    "tag": "mems_metrology",
+    "title": "Simplification of calibration of low-cost MEMS accelerometer and its temperature compensation without accurate laboratory equipment",
+    "journal": "Measurement Science and Technology",
+    "year": 2021
+  },
+  {
+    "key": "xu2021mems2",
+    "doi": "10.1109/tim.2021.3096290",
+    "tag": "mems_metrology",
+    "title": "Low-Cost and Efficient Thermal Calibration Scheme for MEMS Triaxial Accelerometer",
+    "journal": "IEEE Transactions on Instrumentation and Measurement",
+    "year": 2021
+  },
+  {
+    "key": "wang2025mems",
+    "doi": "10.1109/jsen.2025.3557731",
+    "tag": "mems_metrology",
+    "title": "In-Field MEMS Accelerometer Calibration Considering Cross-Axis Sensitivities Without External Equipment",
+    "journal": "IEEE Sensors Journal",
+    "year": 2025
+  },
+  {
+    "key": "kim2025mems",
+    "doi": "10.3390/s25196131",
+    "tag": "mems_metrology",
+    "title": "Temperature Hysteresis Calibration Method of MEMS Accelerometer",
+    "journal": "Sensors",
+    "year": 2025
+  },
+  {
+    "key": "li2020mems",
+    "doi": "10.3390/s20247207",
+    "tag": "mems_metrology",
+    "title": "Nonlinear Vibration Study Based on Uncertainty Analysis in MEMS Resonant Accelerometer",
+    "journal": "Sensors",
+    "year": 2020
+  },
+  {
+    "key": "staszewski2025mems",
+    "doi": "10.24425/mms.2025.155798",
+    "tag": "mems_lowcost",
+    "title": "Analysis of impact of MEMS accelerometer positioning on vibration sensor performance",
+    "journal": "Metrology and Measurement Systems",
+    "year": 2025
+  },
+  {
+    "key": "srokosz2024mems",
+    "doi": "10.3390/s24216877",
+    "tag": "mems_lowcost",
+    "title": "In-Depth Analysis of Low-Cost Micro Electromechanical System (MEMS) Accelerometers in the Context of Low Frequencies and Vibration Amplitudes",
+    "journal": "Sensors",
+    "year": 2024
+  },
+  {
+    "key": "najafabadi2024mems",
+    "doi": "10.1016/j.measurement.2023.114092",
+    "tag": "mems_lowcost",
+    "title": "Designing MEMS accelerometer for enhanced sensitivity and reduced cross-sensitivity in landslide monitoring",
+    "journal": "Measurement",
+    "year": 2024
+  },
+  {
+    "key": "lee2026mems",
+    "doi": "10.1016/j.measurement.2026.120848",
+    "tag": "mems_lowcost",
+    "title": "Improved structural acceleration estimation using low-cost MEMS accelerometer and FMCW millimeter-wave radar",
+    "journal": "Measurement",
+    "year": 2026
+  },
+  {
+    "key": "capuano2023smartphone",
+    "doi": "10.3390/s23177609",
+    "tag": "smartphone",
+    "title": "Smartphone MEMS Accelerometer and Gyroscope Measurement Errors: Laboratory Testing and Analysis of the Effects on Positioning Performance",
+    "journal": "Sensors",
+    "year": 2023
+  },
+  {
+    "key": "periyasamy2026smartphone",
+    "doi": "10.1016/j.measurement.2026.121610",
+    "tag": "smartphone",
+    "title": "A time-synchronized multi-smartphone data acquisition system for structural vibration monitoring",
+    "journal": "Measurement",
+    "year": 2026
+  },
+  {
+    "key": "zhao2019smartphone",
+    "doi": "10.1016/j.jsv.2019.05.015",
+    "tag": "smartphone",
+    "title": "Road profile estimation, and its numerical and experimental validation, by smartphone measurement of the dynamic responses of an ordinary vehicle",
+    "journal": "Journal of Sound and Vibration",
+    "year": 2019
+  },
+  {
+    "key": "yang2025smartphone",
+    "doi": "10.1109/tim.2025.3552861",
+    "tag": "smartphone",
+    "title": "Submillimeter Acoustic Vibration Measurement and Monitoring Using a Single Smartphone",
+    "journal": "IEEE Transactions on Instrumentation and Measurement",
+    "year": 2025
+  },
+  {
+    "key": "sayghe2026smartphone",
+    "doi": "10.1016/j.measurement.2026.122345",
+    "tag": "smartphone",
+    "title": "Reliability-aware vibration measurement framework for predictive maintenance of rotating machinery: Probability of detection, uncertainty-quantified remaining useful life, and simulator-based hardware-in-the-loop reliability evaluation",
+    "journal": "Measurement",
+    "year": 2026
+  },
+  {
+    "key": "ayankoso2024cm",
+    "doi": "10.1177/14759217241289874",
+    "tag": "cm_induction",
+    "title": "Performance of vibration and current signals in the fault diagnosis of induction motors using deep learning and machine learning techniques",
+    "journal": "Structural Health Monitoring",
+    "year": 2024
+  },
+  {
+    "key": "sun2022cm",
+    "doi": "10.1177/14759217221104217",
+    "tag": "cm_induction",
+    "title": "Comparative study of stator current-based and vibration-based methods for railway traction motor bearing cage fault diagnosis at high-speed condition",
+    "journal": "Structural Health Monitoring",
+    "year": 2022
+  },
+  {
+    "key": "guo2024cm",
+    "doi": "10.1109/tii.2024.3369239",
+    "tag": "cm_induction",
+    "title": "DNOCNet: A Novel End-to-End Network for Induction Motor Drive Systems Fault Diagnosis Under Speed Fluctuation Condition",
+    "journal": "IEEE Transactions on Industrial Informatics",
+    "year": 2024
+  },
+  {
+    "key": "chen2026cm",
+    "doi": "10.1109/tii.2025.3626126",
+    "tag": "cm_induction",
+    "title": "Discriminative Condition-Guided Generative Model for Induction Motor Fault Diagnosis With Limited Data",
+    "journal": "IEEE Transactions on Industrial Informatics",
+    "year": 2026
+  },
+  {
+    "key": "liu2026cm",
+    "doi": "10.1016/j.measurement.2026.120303",
+    "tag": "cm_bearing",
+    "title": "Vibration signal models for fault diagnosis of rolling element bearing",
+    "journal": "Measurement",
+    "year": 2026
+  },
+  {
+    "key": "li2024cm",
+    "doi": "10.1088/1361-6501/ad4eff",
+    "tag": "cm_bearing",
+    "title": "Review of research on signal decomposition and fault diagnosis of rolling bearing based on vibration signal",
+    "journal": "Measurement Science and Technology",
+    "year": 2024
+  },
+  {
+    "key": "lones2024leakage",
+    "doi": "10.1016/j.patter.2024.101046",
+    "tag": "leakage",
+    "title": "Avoiding common machine learning pitfalls",
+    "journal": "Patterns",
+    "year": 2024
+  },
+  {
+    "key": "ursu2025leakage",
+    "doi": "10.1038/s42256-025-01089-5",
+    "tag": "leakage",
+    "title": "Training data composition determines machine learning generalization and biological rule discovery",
+    "journal": "Nature Machine Intelligence",
+    "year": 2025
+  },
+  {
+    "key": "gholamiangonabadi2020cv",
+    "doi": "10.1109/access.2020.3010715",
+    "tag": "cv_eval",
+    "title": "Deep Neural Networks for Human Activity Recognition With Wearable Sensors: Leave-One-Subject-Out Cross-Validation for Model Selection",
+    "journal": "IEEE Access",
+    "year": 2020
+  },
+  {
+    "key": "qi2019cv",
+    "doi": "10.1109/access.2019.2892062",
+    "tag": "cv_eval",
+    "title": "On Estimating Model in Feature Selection With Cross-Validation",
+    "journal": "IEEE Access",
+    "year": 2019
+  },
+  {
+    "key": "wang2026benchmark",
+    "doi": "10.1088/1361-6501/ae9438",
+    "tag": "benchmark",
+    "title": "Silent collapse to a dataset-dependent attractor class in deep bearing fault diagnosis: a cross-dataset study of failure modes masked by evaluation practice",
+    "journal": "Measurement Science and Technology",
+    "year": 2026
+  },
+  {
+    "key": "kaya2026domain",
+    "doi": "10.3390/s26123829",
+    "tag": "domain_shift",
+    "title": "IoT-Driven Robust Bearing Fault Diagnosis for Induction Motors Under Operating-Condition Shift",
+    "journal": "Sensors",
+    "year": 2026
+  },
+  {
+    "key": "qin2021domain",
+    "doi": "10.1016/j.measurement.2020.108900",
+    "tag": "domain_shift",
+    "title": "Cross-domain fault diagnosis of rolling bearing using similar features-based transfer approach",
+    "journal": "Measurement",
+    "year": 2021
+  },
+  {
+    "key": "zou2021domain",
+    "doi": "10.1016/j.measurement.2020.108767",
+    "tag": "domain_shift",
+    "title": "A novel transfer learning method for bearing fault diagnosis under different working conditions",
+    "journal": "Measurement",
+    "year": 2021
+  },
+  {
+    "key": "huang2025domain",
+    "doi": "10.1016/j.ress.2024.110641",
+    "tag": "domain_shift",
+    "title": "A three-stage bearing transfer fault diagnosis method for large domain shift scenarios",
+    "journal": "Reliability Engineering &amp; System Safety",
+    "year": 2025
+  },
+  {
+    "key": "halenar2024iot",
+    "doi": "10.3390/s25010180",
+    "tag": "iot_edge",
+    "title": "Machine Condition Monitoring System Based on Edge Computing Technology",
+    "journal": "Sensors",
+    "year": 2024
+  },
+  {
+    "key": "zaidi2022tinyml",
+    "doi": "10.1109/access.2022.3207200",
+    "tag": "tinyml",
+    "title": "Unlocking Edge Intelligence Through Tiny Machine Learning (TinyML)",
+    "journal": "IEEE Access",
+    "year": 2022
+  },
+  {
+    "key": "chaoraingern2025tinyml",
+    "doi": "10.3390/s25123810",
+    "tag": "tinyml",
+    "title": "Embedded Sensor Data Fusion and TinyML for Real-Time Remaining Useful Life Estimation of UAV Li Polymer Batteries",
+    "journal": "Sensors",
+    "year": 2025
+  },
+  {
+    "key": "rubes2021wireless",
+    "doi": "10.1016/j.ymssp.2021.107890",
+    "tag": "wireless",
+    "title": "Development and experimental validation of self-powered wireless vibration sensor node using vibration energy harvester",
+    "journal": "Mechanical Systems and Signal Processing",
+    "year": 2021
+  },
+  {
+    "key": "qiao2024wireless",
+    "doi": "10.1007/s13349-024-00864-z",
+    "tag": "wireless",
+    "title": "Synchronous LoRa sensor nodes for modal identification in footbridge vibration monitoring",
+    "journal": "Journal of Civil Structural Health Monitoring",
+    "year": 2024
+  },
+  {
+    "key": "angrisani2025uncertainty",
+    "doi": "10.1109/tim.2025.3643048",
+    "tag": "uncertainty",
+    "title": "Machine Learning-Based Measurement Models: A Novel Methodology for GUM-Based Uncertainty Evaluation",
+    "journal": "IEEE Transactions on Instrumentation and Measurement",
+    "year": 2025
+  },
+  {
+    "key": "morello2020uncertainty",
+    "doi": "10.1109/tim.2019.2963581",
+    "tag": "uncertainty",
+    "title": "GUM-Based Decisional Criteria to Make Decisions in Presence of Measurement Uncertainty",
+    "journal": "IEEE Transactions on Instrumentation and Measurement",
+    "year": 2020
+  },
+  {
+    "key": "dorozhovets2020uncertainty",
+    "doi": "10.1016/j.measurement.2020.108072",
+    "tag": "uncertainty",
+    "title": "Forward and inverse problems of Type A uncertainty evaluation",
+    "journal": "Measurement",
+    "year": 2020
+  },
+  {
+    "key": "ou2024uncertainty",
+    "doi": "10.1088/1361-6501/ad30ba",
+    "tag": "uncertainty",
+    "title": "Type A standard uncertainty evaluation in one measurement through uncertainty propagation from voxel values\u2019 distribution for computed tomography metrology",
+    "journal": "Measurement Science and Technology",
+    "year": 2024
+  },
+  {
+    "key": "dorozhovets2025uncertainty",
+    "doi": "10.24425/mms.2025.154340",
+    "tag": "uncertainty",
+    "title": "Evaluation of the type a uncertainty caused by simultaneous influence of random noise and power line interference",
+    "journal": "Metrology and Measurement Systems",
+    "year": 2025
+  },
+  {
+    "key": "he2021sampling",
+    "doi": "10.1016/j.jsv.2021.115938",
+    "tag": "sampling",
+    "title": "Downsampling-based synchrosqueezing transform and its applications on large-scale vibration data",
+    "journal": "Journal of Sound and Vibration",
+    "year": 2021
+  }
+]

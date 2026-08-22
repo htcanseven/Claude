@@ -1,0 +1,5 @@
+Random-split evaluation overstates smartphone-MEMS fault accuracy by 41-47 points
+Recording identity causes all of the optimism; window overlap contributes none
+Enforcing non-overlapping windows gives no protection against this leakage
+Lower sampling rate helps through sample count, not through the observable band
+Frugal 25 Hz node reaches 75.0% versus 53.9%, cutting data volume eight-fold

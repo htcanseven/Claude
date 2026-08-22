@@ -1,0 +1,54 @@
+% ============================================================================
+%  Section VIII — Conclusion  (Measurement, Elsevier)
+% ============================================================================
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+This paper asked how the diagnostic performance of a low-cost, low-rate
+smartphone-MEMS sensing chain should be measured, and what that measurement then
+says about deploying such a chain on an induction machine. Using a public
+$100$~Hz dataset, the near-perfect accuracies reported under random-split
+evaluation were shown to be an artefact of the evaluation protocol: under a
+recording-wise protocol the accuracy of standard classifiers falls by
+approximately $41$ to $47$ percentage points, with comparable reductions under
+cross-speed and cross-load shifts.
+
+The more useful result is the attribution of that gap. Removing window overlap
+changes nothing, and removing temporal proximity between windows changes nothing
+either; the entire $46.7$-point collapse occurs only when whole recordings are
+held out. Sharing samples across the partition boundary is therefore not the
+operative mechanism, and the precaution most commonly taken against leakage in
+this literature---non-overlapping windows---would have provided no protection
+whatever. Where each operating condition is captured in one continuous
+acquisition, the recording is the unit that must be separated.
+
+A second finding concerns what a sampling-rate sweep measures. Decimation to
+$25$~Hz improves leakage-free accuracy even though it removes every shaft
+rotational frequency present in the dataset. Band-limiting to the same range at
+the original rate is in fact mildly harmful, the improvement follows from the
+smaller number of samples per analysis window, and omitting the anti-alias filter
+costs $24.9$ points. The time-domain feature set is not invariant to the sampling
+rate, so a rate sweep conducted with a fixed feature set measures the observable
+band and the sample-count sensitivity of the features at once. The practical
+guidance survives---a resource-frugal configuration of $25$~Hz, three raw channels
+and a $4$~s window reaches $75.0\pm11.4\%$ against $53.9\pm12.5\%$ for the
+full-rate baseline, a paired improvement of $21.1$ points ($p=0.020$), while
+cutting data volume roughly eight-fold---but the explanation for it changes, and
+the intermediate step of rate reduction alone is not significant at the recording
+level.
+
+Reporting practice matters as much as the protocol. Scores were computed per
+held-out recording and summarised with intervals clustered on that unit, giving
+intervals of roughly $\pm12$ points; the same data summarised over repeated
+re-partitionings would have produced intervals about three times narrower and
+significance far stronger than the evidence supports. For a single-machine study
+in which each fault class is one physical specimen, that is the honest width.
+
+Future work should extend the evaluation across machines of different ratings and
+manufacturers, and across repeated installations of the same fault, since
+mounting is known to be a first-order influence quantity and is the confound this
+design cannot address. Complementing the analysis with direct measurement of
+on-node inference latency and energy would replace the calculated deployment
+quantities with measured ones. The evaluation protocol set out here is intended
+to serve as a deployment-honest baseline for those efforts.

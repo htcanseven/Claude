@@ -1,0 +1,25 @@
+=== A4 nested CV 10:10 ===
+building 12 feature matrices...
+  fs100_all6_w2: (32328, 84)
+  fs100_all6_w4: (16128, 84)
+  fs100_raw3_w2: (32328, 42)
+  fs100_raw3_w4: (16128, 42)
+  fs25_all6_w2: (32364, 84)
+  fs25_all6_w4: (16164, 84)
+  fs25_raw3_w2: (32364, 42)
+  fs25_raw3_w4: (16164, 42)
+  fs12.5_all6_w2: (33696, 84)
+  fs12.5_all6_w4: (16164, 84)
+  fs12.5_raw3_w2: (33696, 42)
+  fs12.5_raw3_w4: (16164, 42)
+  seed 0 fold 0: selected fs25_raw3_w4 (inner 67.3) -> outer 79.2%  [3 min]
+  seed 0 fold 1: selected fs12.5_all6_w2 (inner 66.7) -> outer 36.3%  [4 min]
+  seed 0 fold 2: selected fs25_raw3_w4 (inner 76.1) -> outer 54.5%  [5 min]
+  seed 0 fold 3: selected fs25_raw3_w4 (inner 68.6) -> outer 89.9%  [7 min]
+  seed 0 fold 4: selected fs25_raw3_w4 (inner 67.5) -> outer 98.2%  [8 min]
+  seed 0 fold 5: selected fs25_raw3_w4 (inner 65.0) -> outer 84.8%  [10 min]
+  seed 1 fold 0: selected fs25_raw3_w4 (inner 58.8) -> outer 94.2%  [11 min]
+  seed 1 fold 1: selected fs100_all6_w4 (inner 63.1) -> outer 71.3%  [13 min]
+  seed 1 fold 2: selected fs25_raw3_w4 (inner 70.7) -> outer 64.7%  [14 min]
+  seed 1 fold 3: selected fs25_raw3_w4 (inner 67.1) -> outer 64.7%  [16 min]
+  seed 1 fold 4: selected fs25_raw3_w4 (inner 77.8) -> outer 62.9%  [17 min]

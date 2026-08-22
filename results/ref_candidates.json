@@ -1,0 +1,2142 @@
+{
+  "cm_induction": [
+    {
+      "doi": "10.1177/14759217221104217",
+      "title": "Comparative study of stator current-based and vibration-based methods for railway traction motor bearing cage fault diagnosis at high-speed condition",
+      "journal": "Structural Health Monitoring",
+      "year": 2022,
+      "volume": "22",
+      "page": "978-992",
+      "authors": [
+        "Sun, Qi",
+        "Chen, Chunjun",
+        "Liu, Xinchang"
+      ]
+    },
+    {
+      "doi": "10.1109/tii.2025.3626126",
+      "title": "Discriminative Condition-Guided Generative Model for Induction Motor Fault Diagnosis With Limited Data",
+      "journal": "IEEE Transactions on Industrial Informatics",
+      "year": 2026,
+      "volume": "22",
+      "page": "1359-1370",
+      "authors": [
+        "Chen, Xin",
+        "Chen, Zaigang",
+        "Xin, Junsheng",
+        "Guo, Liang",
+        "Zhai, Wanming"
+      ]
+    },
+    {
+      "doi": "10.1109/tii.2024.3369239",
+      "title": "DNOCNet: A Novel End-to-End Network for Induction Motor Drive Systems Fault Diagnosis Under Speed Fluctuation Condition",
+      "journal": "IEEE Transactions on Industrial Informatics",
+      "year": 2024,
+      "volume": "20",
+      "page": "8284-8293",
+      "authors": [
+        "Guo, Junchao",
+        "He, Qingbo",
+        "Gu, Fengshou"
+      ]
+    },
+    {
+      "doi": "10.1177/14759217251326258",
+      "title": "A feature fused anti-noise intelligent fault diagnosis method of induction motor under variable conditions",
+      "journal": "Structural Health Monitoring",
+      "year": 2025,
+      "volume": "25",
+      "page": "2791-2808",
+      "authors": [
+        "HongWei, Fan",
+        "Jin, Meng",
+        "JieWen, Gao",
+        "KaiWei, Wang",
+        "Jie, Li",
+        "ShengLin, Liu",
+        "XianGang, Cao",
+        "XuHui, Zhang"
+      ]
+    },
+    {
+      "doi": "10.1177/14759217241289874",
+      "title": "Performance of vibration and current signals in the fault diagnosis of induction motors using deep learning and machine learning techniques",
+      "journal": "Structural Health Monitoring",
+      "year": 2024,
+      "volume": "25",
+      "page": "196-212",
+      "authors": [
+        "Ayankoso, Samuel",
+        "Dutta, Ananta",
+        "He, Yinghang",
+        "Gu, Fengshou",
+        "Ball, Andrew",
+        "Pal, Surjya K."
+      ]
+    },
+    {
+      "doi": "10.3390/s26041314",
+      "title": "Condition-Adaptive CNN with Spatiotemporal Fusion for Enhanced Motor Fault Diagnosis",
+      "journal": "Sensors",
+      "year": 2026,
+      "volume": "26",
+      "page": "1314",
+      "authors": [
+        "Lv, Jin",
+        "Wei, Lixin",
+        "Feng, Yu"
+      ]
+    }
+  ],
+  "cm_bearing": [
+    {
+      "doi": "10.1016/j.measurement.2026.120303",
+      "title": "Vibration signal models for fault diagnosis of rolling element bearing",
+      "journal": "Measurement",
+      "year": 2026,
+      "volume": "264",
+      "page": "120303",
+      "authors": [
+        "Liu, Yuwei",
+        "Cheng, Yuqiang",
+        "Yang, Shuming",
+        "Wu, Jianjun"
+      ]
+    },
+    {
+      "doi": "10.1016/j.ymssp.2023.110800",
+      "title": "IESMGCFFOgram: A new method for multicomponent vibration signal demodulation and rolling bearing fault diagnosis",
+      "journal": "Mechanical Systems and Signal Processing",
+      "year": 2023,
+      "volume": "204",
+      "page": "110800",
+      "authors": [
+        "Chen, Tao",
+        "Guo, Liang",
+        "Feng, Tingting",
+        "Gao, Hongli",
+        "Yu, Yaoxiang"
+      ]
+    },
+    {
+      "doi": "10.1088/1361-6501/ad4eff",
+      "title": "Review of research on signal decomposition and fault diagnosis of rolling bearing based on vibration signal",
+      "journal": "Measurement Science and Technology",
+      "year": 2024,
+      "volume": "35",
+      "page": "092001",
+      "authors": [
+        "Li, Junning",
+        "Luo, Wenguang",
+        "Bai, Mengsha"
+      ]
+    },
+    {
+      "doi": "10.1016/j.ymssp.2026.114769",
+      "title": "Fault transient extraction for rolling bearing fault diagnosis based on coefficient-orthogonal nonnegative matrix factorization",
+      "journal": "Mechanical Systems and Signal Processing",
+      "year": 2026,
+      "volume": "258",
+      "page": "114769",
+      "authors": [
+        "Zheng, Feng",
+        "Wang, Yanxue",
+        "Wang, Chengming",
+        "Zhao, Yihong",
+        "Xia, Ruichen"
+      ]
+    }
+  ],
+  "mems_metrology": [
+    {
+      "doi": "10.3390/s25196131",
+      "title": "Temperature Hysteresis Calibration Method of MEMS Accelerometer",
+      "journal": "Sensors",
+      "year": 2025,
+      "volume": "25",
+      "page": "6131",
+      "authors": [
+        "Kim, Hak Ju",
+        "Jung, Hyoung Kyoon"
+      ]
+    },
+    {
+      "doi": "10.3390/s20020452",
+      "title": "An Improved Calibration Technique for MEMS Accelerometer-Based Inclinometers",
+      "journal": "Sensors",
+      "year": 2020,
+      "volume": "20",
+      "page": "452",
+      "authors": [
+        "Zhu, Jiaxin",
+        "Wang, Weifeng",
+        "Huang, Shiping",
+        "Ding, Wei"
+      ]
+    },
+    {
+      "doi": "10.3390/s20247207",
+      "title": "Nonlinear Vibration Study Based on Uncertainty Analysis in MEMS Resonant Accelerometer",
+      "journal": "Sensors",
+      "year": 2020,
+      "volume": "20",
+      "page": "7207",
+      "authors": [
+        "Li, Yan",
+        "Song, Linke",
+        "Liang, Shuai",
+        "Xiao, Yifeng",
+        "Yang, Fuling"
+      ]
+    },
+    {
+      "doi": "10.3390/s21041231",
+      "title": "Calibration Analysis of High-G MEMS Accelerometer Sensor Based on Wavelet and Wavelet Packet Denoising",
+      "journal": "Sensors",
+      "year": 2021,
+      "volume": "21",
+      "page": "1231",
+      "authors": [
+        "Shi, Yunbo",
+        "Zhang, Juanjuan",
+        "Jiao, Jingjing",
+        "Zhao, Rui",
+        "Cao, Huiliang"
+      ]
+    },
+    {
+      "doi": "10.1109/tim.2020.3026024",
+      "title": "A Novel Calibration Method Using Six Positions for MEMS Triaxial Accelerometer",
+      "journal": "IEEE Transactions on Instrumentation and Measurement",
+      "year": 2021,
+      "volume": "70",
+      "page": "1-11",
+      "authors": [
+        "Xu, Tongxu",
+        "Xu, Xiang",
+        "Xu, Dacheng",
+        "Zhao, Heming"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measen.2024.101355",
+      "title": "Calibration of high-capacity scales using hydraulics instead of weights: Metrological traceability and measurement uncertainty",
+      "journal": "Measurement: Sensors",
+      "year": 2025,
+      "volume": "38",
+      "page": "101355",
+      "authors": [
+        "Eisenbarth, Daniel",
+        "Schunn, Helmut",
+        "M\u00fcller-Sch\u00f6ll, Christian",
+        "Fritsch, Klaus",
+        "Mur\u00e1nyi, Ferenc"
+      ]
+    },
+    {
+      "doi": "10.1088/1361-6501/abd0bf",
+      "title": "Simplification of calibration of low-cost MEMS accelerometer and its temperature compensation without accurate laboratory equipment",
+      "journal": "Measurement Science and Technology",
+      "year": 2021,
+      "volume": "32",
+      "page": "045102",
+      "authors": [
+        "Khankalantary, Saeed",
+        "Ranjbaran, Saeed",
+        "Ebadollahi, Saeed"
+      ]
+    },
+    {
+      "doi": "10.1109/tim.2021.3096290",
+      "title": "Low-Cost and Efficient Thermal Calibration Scheme for MEMS Triaxial Accelerometer",
+      "journal": "IEEE Transactions on Instrumentation and Measurement",
+      "year": 2021,
+      "volume": "70",
+      "page": "1-9",
+      "authors": [
+        "Xu, Tongxu",
+        "Xu, Xiang",
+        "Xu, Dacheng",
+        "Zou, Zelan",
+        "Zhao, Heming"
+      ]
+    },
+    {
+      "doi": "10.1109/jsen.2025.3557731",
+      "title": "In-Field MEMS Accelerometer Calibration Considering Cross-Axis Sensitivities Without External Equipment",
+      "journal": "IEEE Sensors Journal",
+      "year": 2025,
+      "volume": "25",
+      "page": "16981-16990",
+      "authors": [
+        "Wang, Deming",
+        "Li, Fei",
+        "Zhang, Nan",
+        "Xu, Long",
+        "Lyu, Fangxing"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2026.121560",
+      "title": "Metrological characterization and uncertainty minimization in \u03a6-OTDR multi-event recognition via dual-stream fusion",
+      "journal": "Measurement",
+      "year": 2026,
+      "volume": "277",
+      "page": "121560",
+      "authors": [
+        "Li, Jun",
+        "Yao, Ruixu",
+        "Re, Meiying"
+      ]
+    },
+    {
+      "doi": "10.1109/access.2019.2935129",
+      "title": "MEMS Accelerometer Calibration Denoising Method for Hopkinson Bar System Based on LMD-SE-TFPF",
+      "journal": "IEEE Access",
+      "year": 2019,
+      "volume": "7",
+      "page": "113901-113915",
+      "authors": [
+        "Yan, Zeyu",
+        "Hou, Boyang",
+        "Zhang, Jingchun",
+        "Shen, Chong",
+        "Shi, Yunbo",
+        "Tang, Jun",
+        "Cao, Huiliang",
+        "Liu, Jun"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2020.108377",
+      "title": "Design, modelling and characterization of comb drive MEMS gap-changeable differential capacitive accelerometer",
+      "journal": "Measurement",
+      "year": 2021,
+      "volume": "169",
+      "page": "108377",
+      "authors": [
+        "Li, Ru",
+        "Mohammed, Zakriya",
+        "Rasras, Mahmoud",
+        "Elfadel, Ibrahim (Abe) M.",
+        "Choi, Daniel"
+      ]
+    },
+    {
+      "doi": "10.3390/s26051588",
+      "title": "Design, Calibration and Characterization of a Fiber Optic Triaxial Accelerometer Based on Fiber Bragg Gratings",
+      "journal": "Sensors",
+      "year": 2026,
+      "volume": "26",
+      "page": "1588",
+      "authors": [
+        "Silva, Roney Duarte da",
+        "Sakamoto, Jo\u00e3o Marcos Salvi"
+      ]
+    },
+    {
+      "doi": "10.1088/1361-6501/ae90d2",
+      "title": "Image-based angular measurement system for solar positioning: metrological characterization and gum-compliant uncertainty analysis",
+      "journal": "Measurement Science and Technology",
+      "year": 2026,
+      "volume": "37",
+      "page": "325404",
+      "authors": [
+        "Kacan, Erkan"
+      ]
+    }
+  ],
+  "mems_lowcost": [
+    {
+      "doi": "10.1016/j.measurement.2024.115798",
+      "title": "Integrating low-cost GNSS and MEMS accelerometer for precise dynamic displacement monitoring",
+      "journal": "Measurement",
+      "year": 2025,
+      "volume": "242",
+      "page": "115798",
+      "authors": [
+        "Paziewski, Jacek",
+        "Sieradzki, Rafal",
+        "Rapinski, Jacek",
+        "Tomaszewski, Dariusz",
+        "Stepniak, Katarzyna",
+        "Geng, Jianghui",
+        "Li, Guangcai"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2025.118694",
+      "title": "Calibration-free low-drift MEMS piezoelectric accelerometer for high-temperature vibration monitoring",
+      "journal": "Measurement",
+      "year": 2026,
+      "volume": "257",
+      "page": "118694",
+      "authors": [
+        "Zhang, Cheng",
+        "Li, Anna",
+        "Huang, Jiaqi",
+        "Zhang, Jiachang",
+        "Huang, Hao",
+        "Su, Yongquan",
+        "Wang, Lihao",
+        "Liu, Yichen"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2026.120848",
+      "title": "Improved structural acceleration estimation using low-cost MEMS accelerometer and FMCW millimeter-wave radar",
+      "journal": "Measurement",
+      "year": 2026,
+      "volume": "270",
+      "page": "120848",
+      "authors": [
+        "Lee, Jigu",
+        "Kim, Kiyoung",
+        "Kim, Daurl",
+        "Ma, Zhanxiong",
+        "Sohn, Hoon"
+      ]
+    },
+    {
+      "doi": "10.24425/mms.2025.155798",
+      "title": "Analysis of impact of MEMS accelerometer positioning on vibration sensor performance",
+      "journal": "Metrology and Measurement Systems",
+      "year": 2025,
+      "volume": null,
+      "page": "1-15",
+      "authors": [
+        "Staszewski, Wojciech",
+        "Jablonski, Adam"
+      ]
+    },
+    {
+      "doi": "10.1088/1361-6501/adcef5",
+      "title": "A low cost flame-retardant 4 material accelerometer for low-frequency vibration detection",
+      "journal": "Measurement Science and Technology",
+      "year": 2025,
+      "volume": "36",
+      "page": "065104",
+      "authors": [
+        "Xiao, Peng",
+        "Yin, Chunyan",
+        "Cui, Haoxuan",
+        "Dou, Guangbin"
+      ]
+    },
+    {
+      "doi": "10.1109/jsen.2026.3723370",
+      "title": "A ZnO:Li (LZO) Thin-Film MEMS Piezoelectric Accelerometer Employing Sub-Resonance Mechanical Amplification for Low-Frequency Vibration Monitoring",
+      "journal": "IEEE Sensors Journal",
+      "year": 2026,
+      "volume": null,
+      "page": "1-1",
+      "authors": [
+        "Feng, Guang-Huan",
+        "Tsai, Cheng-Che",
+        "Chu, Sheng-Yuan"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2023.114092",
+      "title": "Designing MEMS accelerometer for enhanced sensitivity and reduced cross-sensitivity in landslide monitoring",
+      "journal": "Measurement",
+      "year": 2024,
+      "volume": "226",
+      "page": "114092",
+      "authors": [
+        "Najafabadi, Hossein R.",
+        "Goto, Tiago G.",
+        "Martins, Thiago C.",
+        "Tsuzuki, Marcos S.G.",
+        "Barari, Ahmad"
+      ]
+    },
+    {
+      "doi": "10.1088/1361-6501/ace78f",
+      "title": "Development of IOT-based low-cost MEMS pressure sensor for groundwater level monitoring",
+      "journal": "Measurement Science and Technology",
+      "year": 2023,
+      "volume": "34",
+      "page": "115103",
+      "authors": [
+        "Barzegar, Milad",
+        "Blanks, Stan",
+        "Gharehdash, Saba",
+        "Timms, Wendy"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2025.119890",
+      "title": "Low transverse-sensitivity AlScN piezoelectric MEMS accelerometers with perforated diaphragm-island for high-precision vibration monitoring",
+      "journal": "Measurement",
+      "year": 2026,
+      "volume": "261",
+      "page": "119890",
+      "authors": [
+        "Li, Anna",
+        "Su, Yongquan",
+        "Zhang, Cheng",
+        "Zhang, Jiachang",
+        "Huang, Hao",
+        "Chen, Dalong",
+        "Xue, Wenli",
+        "Wang, Lihao"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2025.119824",
+      "title": "Deep learning-aided Kalman filter for low-cost attitude estimation via angular accelerometer and gyroscope fusion",
+      "journal": "Measurement",
+      "year": 2026,
+      "volume": "260",
+      "page": "119824",
+      "authors": [
+        "Zhai, Chaoyang",
+        "Wang, Meiling",
+        "Xiao, Zhiheng",
+        "Xiong, Zitian",
+        "Li, Renjie"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2025.116947",
+      "title": "Ultra-low frequency three-axis FBG accelerometer for seismic monitoring based on multiple flexible beams",
+      "journal": "Measurement",
+      "year": 2025,
+      "volume": "248",
+      "page": "116947",
+      "authors": [
+        "Qiu, Zhongchao",
+        "Zhang, Yufeng",
+        "Fan, Xiaoyong",
+        "Li, Caihua",
+        "Teng, Yuntian"
+      ]
+    },
+    {
+      "doi": "10.1109/tim.2022.3193202",
+      "title": "Correlated Double Amplifying Readout Technique for Low-Noise Power-Efficient MEMS Capacitive Accelerometer",
+      "journal": "IEEE Transactions on Instrumentation and Measurement",
+      "year": 2022,
+      "volume": "71",
+      "page": "1-11",
+      "authors": [
+        "Zhong, Longjie",
+        "Liu, Shubin",
+        "Xu, Donglai"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2026.120992",
+      "title": "On-Device tilt and symmetry sensing with a MEMS Accelerometer: An Integration-Free embedded approach",
+      "journal": "Measurement",
+      "year": 2026,
+      "volume": "271",
+      "page": "120992",
+      "authors": [
+        "Ghaderiaram, Aliakbar",
+        "Eschlangen, Erik",
+        "Fotouhi, Mohammad"
+      ]
+    },
+    {
+      "doi": "10.3390/s24216877",
+      "title": "In-Depth Analysis of Low-Cost Micro Electromechanical System (MEMS) Accelerometers in the Context of Low Frequencies and Vibration Amplitudes",
+      "journal": "Sensors",
+      "year": 2024,
+      "volume": "24",
+      "page": "6877",
+      "authors": [
+        "Srokosz, Piotr Emanuel",
+        "Daniszewska, Ewa",
+        "Banach, Jakub",
+        "\u015amieja, Micha\u0142"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2026.121013",
+      "title": "A fiber optic Fabry-P\u00e9rot accelerometer for low-frequency and weak vibration detection",
+      "journal": "Measurement",
+      "year": 2026,
+      "volume": "272",
+      "page": "121013",
+      "authors": [
+        "Zhao, Minghui",
+        "Xie, Zongxiang",
+        "Qi, Yonghong",
+        "Ou, Yatong",
+        "Wang, Shiqiu",
+        "Zhu, Yunfei",
+        "Liu, Chuang",
+        "Niu, Shichao"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measen.2024.101081",
+      "title": "A versatile, low-cost monitoring device suitable for non-intrusive load monitoring research purposes",
+      "journal": "Measurement: Sensors",
+      "year": 2024,
+      "volume": "32",
+      "page": "101081",
+      "authors": [
+        "Kotsilitis, Sarantis",
+        "Marcoulaki, Eftychia C.",
+        "Kalligeros, Emmanouil"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2025.117108",
+      "title": "Low-Cost MEMS-Based AHRS Using an Adaptive Robust Error-State Kalman Filter for Motion Capture",
+      "journal": "Measurement",
+      "year": 2025,
+      "volume": "251",
+      "page": "117108",
+      "authors": [
+        "Wang, Xueyun",
+        "Yan, Jingheng",
+        "Dai, Ruoli",
+        "Liu, Wuda",
+        "Zhang, Jingjuan"
+      ]
+    },
+    {
+      "doi": "10.5194/amt-17-181-2024",
+      "title": "Research of low-cost air quality monitoring models with different machine learning algorithms",
+      "journal": "Atmospheric Measurement Techniques",
+      "year": 2024,
+      "volume": "17",
+      "page": "181-196",
+      "authors": [
+        "Wang, Gang",
+        "Yu, Chunlai",
+        "Guo, Kai",
+        "Guo, Haisong",
+        "Wang, Yibo"
+      ]
+    },
+    {
+      "doi": "10.1109/access.2026.3696695",
+      "title": "A Low-Cost MEMS-Based Vertical Inertial Navigation and Condition Monitoring System for Mine Shafts",
+      "journal": "IEEE Access",
+      "year": 2026,
+      "volume": "14",
+      "page": "86944-86955",
+      "authors": [
+        "M\u00f6lle, Alexander",
+        "Sobczyk, Martin"
+      ]
+    },
+    {
+      "doi": "10.1109/tim.2026.3712881",
+      "title": "Compact Force-Rebalanced Optical MEMS Accelerometer With Extended Closed-Loop Range and Low-Frequency Stability",
+      "journal": "IEEE Transactions on Instrumentation and Measurement",
+      "year": 2026,
+      "volume": "75",
+      "page": "9532011-9532011",
+      "authors": [
+        "Sun, Zhenyu",
+        "Zhou, Wei",
+        "Chen, Yongsheng",
+        "Yang, Bo"
+      ]
+    }
+  ],
+  "smartphone": [
+    {
+      "doi": "10.1016/j.measurement.2022.111493",
+      "title": "A photogrammetric solution for measurement of power lines sag via integration of image and accelerometer data of a smartphone",
+      "journal": "Measurement",
+      "year": 2022,
+      "volume": "199",
+      "page": "111493",
+      "authors": [
+        "Safdarinezhad, Alireza",
+        "Abdollahifard, Mohammad Javad",
+        "Ganjali, Atiyeh"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2026.121610",
+      "title": "A time-synchronized multi-smartphone data acquisition system for structural vibration monitoring",
+      "journal": "Measurement",
+      "year": 2026,
+      "volume": "279",
+      "page": "121610",
+      "authors": [
+        "Periyasamy, D. Kesavan",
+        "Sivasubramanian, Madappa V.R.",
+        "Surendiran, B."
+      ]
+    },
+    {
+      "doi": "10.3390/s23177609",
+      "title": "Smartphone MEMS Accelerometer and Gyroscope Measurement Errors: Laboratory Testing and Analysis of the Effects on Positioning Performance",
+      "journal": "Sensors",
+      "year": 2023,
+      "volume": "23",
+      "page": "7609",
+      "authors": [
+        "Capuano, Vincenzo",
+        "Xu, Liangchun",
+        "Estrada Benavides, Jose"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2026.122631",
+      "title": "Monocular three-directional vibration measurement of rotating machinery via Parametric Motion-Blur Gradient Fitting",
+      "journal": "Measurement",
+      "year": 2026,
+      "volume": "289",
+      "page": "122631",
+      "authors": [
+        "Zhu, Mengge",
+        "Zhang, Ji",
+        "Sun, Yongchao",
+        "Nie, Sen",
+        "Mei, Ning",
+        "Bai, Yu"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2019.05.059",
+      "title": "Intelligent vibration detection and control system of agricultural machinery engine",
+      "journal": "Measurement",
+      "year": 2019,
+      "volume": "145",
+      "page": "503-510",
+      "authors": [
+        "Jin, Xin",
+        "Chen, Kaikang",
+        "Ji, Jiangtao",
+        "Zhao, Kaixuan",
+        "Du, Xinwu",
+        "Ma, Hao"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2026.122345",
+      "title": "Reliability-aware vibration measurement framework for predictive maintenance of rotating machinery: Probability of detection, uncertainty-quantified remaining useful life, and simulator-based hardware-in-the-loop reliability evaluation",
+      "journal": "Measurement",
+      "year": 2026,
+      "volume": "286",
+      "page": "122345",
+      "authors": [
+        "Sayghe, Ali"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2026.120641",
+      "title": "A novel denoising method for bearing vibration signals in rotating machinery based on CEEMDAN-PSO-TV combined AWR and DRC",
+      "journal": "Measurement",
+      "year": 2026,
+      "volume": "268",
+      "page": "120641",
+      "authors": [
+        "Yong, Wenkai",
+        "Li, Yulong",
+        "Yu, Lijun",
+        "Zhang, Xiaogang"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2019.03.053",
+      "title": "Fast vibration characteristics analysis of an underwater shield tunnel using the accelerometer network enhanced by edge computing",
+      "journal": "Measurement",
+      "year": 2019,
+      "volume": "141",
+      "page": "52-61",
+      "authors": [
+        "Li, Chen-dong",
+        "Zhang, Wei",
+        "Zhu, Hong-Hu",
+        "Wang, Peng",
+        "Ren, Jia-Tao",
+        "Spencer, Billie F."
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2019.06.047",
+      "title": "Change detection in rotational speed of industrial machinery using Bag-of-Words based feature extraction from vibration signals",
+      "journal": "Measurement",
+      "year": 2019,
+      "volume": "146",
+      "page": "467-478",
+      "authors": [
+        "Yang, Shaohua",
+        "Lu, Guoliang",
+        "Wang, Aiqun",
+        "Liu, Jie",
+        "Yan, Peng"
+      ]
+    },
+    {
+      "doi": "10.1088/1361-6501/ae5d60",
+      "title": "Three-Dimensional vibration measurement of rotating machinery based on binocular vision and 3D bounding box",
+      "journal": "Measurement Science and Technology",
+      "year": 2026,
+      "volume": "37",
+      "page": "156008",
+      "authors": [
+        "Yang, Fameng",
+        "Wang, Sen",
+        "Zeng, Xiangjun"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2026.120939",
+      "title": "A novel vibration sensors optimization layout strategy for rotating machinery based on the balance of measuring point information and quantity",
+      "journal": "Measurement",
+      "year": 2026,
+      "volume": "271",
+      "page": "120939",
+      "authors": [
+        "Zhou, Han",
+        "Xia, Yangqiu",
+        "Du, Kun",
+        "Jiang, Zhong",
+        "Chen, Peng"
+      ]
+    },
+    {
+      "doi": "10.1016/j.jsv.2019.05.015",
+      "title": "Road profile estimation, and its numerical and experimental validation, by smartphone measurement of the dynamic responses of an ordinary vehicle",
+      "journal": "Journal of Sound and Vibration",
+      "year": 2019,
+      "volume": "457",
+      "page": "92-117",
+      "authors": [
+        "Zhao, Boyu",
+        "Nagayama, Tomonori",
+        "Xue, Kai"
+      ]
+    },
+    {
+      "doi": "10.1049/iet-smt.2019.0229",
+      "title": "Calibrated non\u2010contact vibrational harmonics measurement based on self\u2010vibration compensated 2D\u2010PSD with MEMS accelerometer using FFT analysis",
+      "journal": "IET Science, Measurement &amp; Technology",
+      "year": 2020,
+      "volume": "14",
+      "page": "877-882",
+      "authors": [
+        "Das, Sampa",
+        "Saha, Ardhendu",
+        "Sujith Kumar, Chanda"
+      ]
+    },
+    {
+      "doi": "10.1109/tim.2025.3552861",
+      "title": "Submillimeter Acoustic Vibration Measurement and Monitoring Using a Single Smartphone",
+      "journal": "IEEE Transactions on Instrumentation and Measurement",
+      "year": 2025,
+      "volume": "74",
+      "page": "1-15",
+      "authors": [
+        "Yang, Liu",
+        "Li, Xiaofei",
+        "Wang, Wenwu",
+        "Wang, Xinheng",
+        "Li, Peisong",
+        "Liu, Guangyao",
+        "Wang, Zhi"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2025.118183",
+      "title": "A metamaterial beam with multi-piezoelectric patches (MB-MPP) for weak vibration enhancement in rotating machinery fault diagnostics",
+      "journal": "Measurement",
+      "year": 2025,
+      "volume": "256",
+      "page": "118183",
+      "authors": [
+        "Mo, Weiqiang",
+        "Lin, Yubin",
+        "Huang, Shiqing",
+        "Shi, Dawei",
+        "Deng, Rongfeng",
+        "Huang, Baoshan",
+        "Gu, Fengshou",
+        "Ball, Andrew D."
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2025.116881",
+      "title": "VibrMamba: A lightweight Mamba based fault diagnosis of rotating machinery using vibration signal",
+      "journal": "Measurement",
+      "year": 2025,
+      "volume": "249",
+      "page": "116881",
+      "authors": [
+        "Yi, Haiming",
+        "Li, Danyu",
+        "Lu, Zhenyong",
+        "Jin, Yuhong",
+        "Duan, Hao",
+        "Hou, Lei",
+        "Duraihem, Faisal Z.",
+        "Awwad, Emad Mahrous"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2023.113218",
+      "title": "Data-driven denoising of stationary accelerometer signals",
+      "journal": "Measurement",
+      "year": 2023,
+      "volume": "218",
+      "page": "113218",
+      "authors": [
+        "Engelsman, Daniel",
+        "Klein, Itzik"
+      ]
+    },
+    {
+      "doi": "10.3390/s19143143",
+      "title": "Extraction of Bridge Fundamental Frequencies Utilizing a Smartphone MEMS Accelerometer",
+      "journal": "Sensors",
+      "year": 2019,
+      "volume": "19",
+      "page": "3143",
+      "authors": [
+        "Elhattab, Ahmed",
+        "Uddin, Nasim",
+        "OBrien, Eugene"
+      ]
+    }
+  ],
+  "leakage": [
+    {
+      "doi": "10.1109/access.2026.3722584",
+      "title": "Machine Learning for Electric Submersible Pump Fault Diagnosis: Physical Interpretability, Cross-Unit Generalization, and Evaluation Pitfalls",
+      "journal": "IEEE Access",
+      "year": 2026,
+      "volume": "14",
+      "page": "125989-126013",
+      "authors": [
+        "Michalski, Miguel A. De C.",
+        "Valentim, Felipe L.",
+        "Souza, Gilberto F. M. De"
+      ]
+    },
+    {
+      "doi": "10.1016/j.patter.2024.101046",
+      "title": "Avoiding common machine learning pitfalls",
+      "journal": "Patterns",
+      "year": 2024,
+      "volume": "5",
+      "page": "101046",
+      "authors": [
+        "Lones, Michael A."
+      ]
+    },
+    {
+      "doi": "10.1038/s42256-025-01089-5",
+      "title": "Training data composition determines machine learning generalization and biological rule discovery",
+      "journal": "Nature Machine Intelligence",
+      "year": 2025,
+      "volume": "7",
+      "page": "1206-1219",
+      "authors": [
+        "Ursu, Eugen",
+        "Minnegalieva, Aygul",
+        "Rawat, Puneet",
+        "Chernigovskaya, Maria",
+        "Tacutu, Robi",
+        "Sandve, Geir Kjetil",
+        "Robert, Philippe A.",
+        "Greiff, Victor"
+      ]
+    }
+  ],
+  "cv_eval": [
+    {
+      "doi": "10.1109/access.2019.2892062",
+      "title": "On Estimating Model in Feature Selection With Cross-Validation",
+      "journal": "IEEE Access",
+      "year": 2019,
+      "volume": "7",
+      "page": "33454-33463",
+      "authors": [
+        "Qi, Chunxia",
+        "Diao, Jiandong",
+        "Qiu, Like"
+      ]
+    },
+    {
+      "doi": "10.1109/access.2026.3691717",
+      "title": "Effects of Gyroscope Bias Augmentation on Recurrent Neural Network Model Performance for Attitude Estimation",
+      "journal": "IEEE Access",
+      "year": 2026,
+      "volume": "14",
+      "page": "71836-71844",
+      "authors": [
+        "Park, Ji Hoon",
+        "Lee, Chang June",
+        "Lee, Jung Keun"
+      ]
+    },
+    {
+      "doi": "10.1109/access.2020.3010715",
+      "title": "Deep Neural Networks for Human Activity Recognition With Wearable Sensors: Leave-One-Subject-Out Cross-Validation for Model Selection",
+      "journal": "IEEE Access",
+      "year": 2020,
+      "volume": "8",
+      "page": "133982-133994",
+      "authors": [
+        "Gholamiangonabadi, Davoud",
+        "Kiselov, Nikita",
+        "Grolinger, Katarina"
+      ]
+    }
+  ],
+  "domain_shift": [
+    {
+      "doi": "10.1109/access.2026.3697848",
+      "title": "Reformulating Multi-Source Domain Adaptation as Single-Source Transfer for Cross-Condition Bearing Fault Diagnosis",
+      "journal": "IEEE Access",
+      "year": 2026,
+      "volume": "14",
+      "page": "82676-82691",
+      "authors": [
+        "Gu, Gaoquan",
+        "Yu, Xiang",
+        "Zhao, Cunsheng"
+      ]
+    },
+    {
+      "doi": "10.3390/s26123829",
+      "title": "IoT-Driven Robust Bearing Fault Diagnosis for Induction Motors Under Operating-Condition Shift",
+      "journal": "Sensors",
+      "year": 2026,
+      "volume": "26",
+      "page": "3829",
+      "authors": [
+        "Kaya, \u015e\u00fckr\u00fc Mustafa",
+        "Jobani, Alireza Esmaeili"
+      ]
+    },
+    {
+      "doi": "10.3390/s26154693",
+      "title": "Working-Condition-Indexed Generative Domain Generalization for Intelligent Fault Diagnosis Under Unseen Conditions",
+      "journal": "Sensors",
+      "year": 2026,
+      "volume": "26",
+      "page": "4693",
+      "authors": [
+        "Zhao, Duo",
+        "Yang, Fan"
+      ]
+    },
+    {
+      "doi": "10.1109/jsen.2024.3455099",
+      "title": "Time-Shift Denoising Combined With DWT-Enhanced Condition Domain Adaptation for Motor Bearing Fault Diagnosis via Current Signals",
+      "journal": "IEEE Sensors Journal",
+      "year": 2024,
+      "volume": "24",
+      "page": "35019-35035",
+      "authors": [
+        "Wang, Xindan",
+        "Liu, Zhiliang",
+        "Dai, Menghang",
+        "Li, Wenru",
+        "Tang, Jinlong"
+      ]
+    },
+    {
+      "doi": "10.1016/j.ress.2024.110641",
+      "title": "A three-stage bearing transfer fault diagnosis method for large domain shift scenarios",
+      "journal": "Reliability Engineering &amp; System Safety",
+      "year": 2025,
+      "volume": "254",
+      "page": "110641",
+      "authors": [
+        "Huang, Kai",
+        "Ren, Zhijun",
+        "Zhu, Linbo",
+        "Lin, Tantao",
+        "Zhu, Yongsheng",
+        "Zeng, Li",
+        "Wan, Jin"
+      ]
+    },
+    {
+      "doi": "10.1109/access.2022.3192441",
+      "title": "A Cross Working Condition Multiscale Recursive Feature Fusion Method for Fault Diagnosis of Rolling Bearing in Multiple Working Conditions",
+      "journal": "IEEE Access",
+      "year": 2022,
+      "volume": "10",
+      "page": "78502-78518",
+      "authors": [
+        "Zhang, Zhiqiang",
+        "Zhou, Funa",
+        "Li, Sijie"
+      ]
+    },
+    {
+      "doi": "10.3390/s23115134",
+      "title": "Fault Diagnosis Method of Roadheader Bearing Based on VMD and Domain Adaptive Transfer Learning",
+      "journal": "Sensors",
+      "year": 2023,
+      "volume": "23",
+      "page": "5134",
+      "authors": [
+        "Qu, Xiaofei",
+        "Zhang, Yongkang"
+      ]
+    },
+    {
+      "doi": "10.1088/1361-6501/ad36d9",
+      "title": "Interpretable multi-domain meta-transfer learning for few-shot fault diagnosis of rolling bearing under variable working conditions",
+      "journal": "Measurement Science and Technology",
+      "year": 2024,
+      "volume": "35",
+      "page": "076103",
+      "authors": [
+        "Che, Changchang",
+        "Zhang, Yuli",
+        "Wang, Huawei",
+        "Xiong, Minglan"
+      ]
+    },
+    {
+      "doi": "10.3390/s25061851",
+      "title": "Domain Adversarial Transfer Learning Bearing Fault Diagnosis Model Incorporating Structural Adjustment Modules",
+      "journal": "Sensors",
+      "year": 2025,
+      "volume": "25",
+      "page": "1851",
+      "authors": [
+        "Zhong, Zhidan",
+        "Xie, Hao",
+        "Wang, Zhenxin",
+        "Zhang, Zhihui"
+      ]
+    },
+    {
+      "doi": "10.1177/14759217251396498",
+      "title": "An intelligent fault diagnosis method of rolling bearing based on expansion and transfer of single working condition data under small samples",
+      "journal": "Structural Health Monitoring",
+      "year": 2025,
+      "volume": null,
+      "page": null,
+      "authors": [
+        "Hong-wei, Fan",
+        "Bu-ran, Chen",
+        "Xin-shan, Yan",
+        "Xian-gang, Cao",
+        "Xu-hui, Zhang"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2020.108900",
+      "title": "Cross-domain fault diagnosis of rolling bearing using similar features-based transfer approach",
+      "journal": "Measurement",
+      "year": 2021,
+      "volume": "172",
+      "page": "108900",
+      "authors": [
+        "Qin, Ai-Song",
+        "Mao, Han-Ling",
+        "Hu, Qin"
+      ]
+    },
+    {
+      "doi": "10.1109/access.2023.3330094",
+      "title": "A New Weight-Based Dual Domain Adaptation Transfer Model for Bearing Fault Diagnosis Under Noisy and Cross-Domain Conditions",
+      "journal": "IEEE Access",
+      "year": 2023,
+      "volume": "11",
+      "page": "123766-123783",
+      "authors": [
+        "Wang, Mingyuan",
+        "Li, Jishun",
+        "Xue, Yujun"
+      ]
+    },
+    {
+      "doi": "10.1177/00202940261478417",
+      "title": "Multimodal gated fusion and domain adaptation for cross-condition high-speed train bearing fault diagnosis",
+      "journal": "Measurement and Control",
+      "year": 2026,
+      "volume": null,
+      "page": null,
+      "authors": [
+        "Zhao, Zhihao",
+        "Xu, Li",
+        "Cai, Jingjing",
+        "Zhu, Xiaojing",
+        "Bian, Xiaoyan"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2020.108767",
+      "title": "A novel transfer learning method for bearing fault diagnosis under different working conditions",
+      "journal": "Measurement",
+      "year": 2021,
+      "volume": "171",
+      "page": "108767",
+      "authors": [
+        "Zou, Yisheng",
+        "Liu, Yongzhi",
+        "Deng, Jialin",
+        "Jiang, Yuliang",
+        "Zhang, Weihua"
+      ]
+    },
+    {
+      "doi": "10.1016/j.aei.2022.101795",
+      "title": "A bearing fault diagnosis method without fault data in new working condition combined dynamic model with deep learning",
+      "journal": "Advanced Engineering Informatics",
+      "year": 2022,
+      "volume": "54",
+      "page": "101795",
+      "authors": [
+        "Xu, Kun",
+        "Kong, Xianguang",
+        "Wang, Qibin",
+        "Yang, Shengkang",
+        "Huang, Naining",
+        "Wang, Junji"
+      ]
+    },
+    {
+      "doi": "10.3390/s22041624",
+      "title": "A Transfer Learning Framework with a One-Dimensional Deep Subdomain Adaptation Network for Bearing Fault Diagnosis under Different Working Conditions",
+      "journal": "Sensors",
+      "year": 2022,
+      "volume": "22",
+      "page": "1624",
+      "authors": [
+        "Zhang, Ruixin",
+        "Gu, Yu"
+      ]
+    },
+    {
+      "doi": "10.1016/j.ress.2026.113041",
+      "title": "On simple baselines for domain shift in condition monitoring: A case study in bearing fault identification",
+      "journal": "Reliability Engineering &amp; System Safety",
+      "year": 2027,
+      "volume": "277",
+      "page": "113041",
+      "authors": [
+        "Pani\u0107, Branislav",
+        "Pa\u0161i\u0107, Mirza",
+        "Nagode, Marko",
+        "Oman, Simon"
+      ]
+    },
+    {
+      "doi": "10.1109/access.2025.3548549",
+      "title": "Parameter-Based Transfer Learning for Bearing Fault Diagnosis Using Small Samples Under Variable Working Conditions",
+      "journal": "IEEE Access",
+      "year": 2025,
+      "volume": "13",
+      "page": "44214-44230",
+      "authors": [
+        "Aduwenye, Presley",
+        "Nutakor, Charles",
+        "Roininen, Lassi",
+        "Sopanen, Jussi"
+      ]
+    },
+    {
+      "doi": "10.1177/14759217261472738",
+      "title": "Discriminative fine-grained domain confusion framework for bearing fault diagnosis under varying working conditions",
+      "journal": "Structural Health Monitoring",
+      "year": 2026,
+      "volume": null,
+      "page": null,
+      "authors": [
+        "Jiang, Zheng",
+        "Huang, Zuguang",
+        "Wang, Guangjian",
+        "Qian, Quan",
+        "Qin, Yi"
+      ]
+    },
+    {
+      "doi": "10.1088/1361-6501/adfb99",
+      "title": "MADAN: a multi-angle domain adversarial network for robust cross-condition rolling bearing fault diagnosis",
+      "journal": "Measurement Science and Technology",
+      "year": 2025,
+      "volume": "36",
+      "page": "096101",
+      "authors": [
+        "Xu, Yonghui",
+        "Zhang, Yusheng",
+        "Lu, Xiang"
+      ]
+    },
+    {
+      "doi": "10.3390/s22249759",
+      "title": "Numerical Model Driving Multi-Domain Information Transfer Method for Bearing Fault Diagnosis",
+      "journal": "Sensors",
+      "year": 2022,
+      "volume": "22",
+      "page": "9759",
+      "authors": [
+        "Zhang, Long",
+        "Zhang, Hao",
+        "Xiao, Qian",
+        "Zhao, Lijuan",
+        "Hu, Yanqing",
+        "Liu, Haoyang",
+        "Qiao, Yu"
+      ]
+    }
+  ],
+  "iot_edge": [
+    {
+      "doi": "10.3390/s25010180",
+      "title": "Machine Condition Monitoring System Based on Edge Computing Technology",
+      "journal": "Sensors",
+      "year": 2024,
+      "volume": "25",
+      "page": "180",
+      "authors": [
+        "Halenar, Igor",
+        "Halenarova, Lenka",
+        "Tanuska, Pavol",
+        "Vazan, Pavel"
+      ]
+    },
+    {
+      "doi": "10.3390/s23177470",
+      "title": "A Survey on Industrial Internet of Things Security: Requirements, Attacks, AI-Based Solutions, and Edge Computing Opportunities",
+      "journal": "Sensors",
+      "year": 2023,
+      "volume": "23",
+      "page": "7470",
+      "authors": [
+        "Alotaibi, Bandar"
+      ]
+    }
+  ],
+  "tinyml": [
+    {
+      "doi": "10.3390/s26020703",
+      "title": "Low-Power Embedded Sensor Node for Real-Time Environmental Monitoring with On-Board Machine-Learning Inference",
+      "journal": "Sensors",
+      "year": 2026,
+      "volume": "26",
+      "page": "703",
+      "authors": [
+        "Reis, Manuel J. C. S."
+      ]
+    },
+    {
+      "doi": "10.3390/s25123810",
+      "title": "Embedded Sensor Data Fusion and TinyML for Real-Time Remaining Useful Life Estimation of UAV Li Polymer Batteries",
+      "journal": "Sensors",
+      "year": 2025,
+      "volume": "25",
+      "page": "3810",
+      "authors": [
+        "Chaoraingern, Jutarut",
+        "Numsomran, Arjin"
+      ]
+    },
+    {
+      "doi": "10.3390/s25216601",
+      "title": "Atrial Fibrillation Detection on the Embedded Edge: Energy-Efficient Inference on a Low-Power Microcontroller",
+      "journal": "Sensors",
+      "year": 2025,
+      "volume": "25",
+      "page": "6601",
+      "authors": [
+        "Akbari, Yash",
+        "Lei, Ningrong",
+        "Patel, Nilesh",
+        "Peng, Yonghong",
+        "Faust, Oliver"
+      ]
+    },
+    {
+      "doi": "10.3390/s25206444",
+      "title": "Machine Learning-Based Position Detection Using Hall-Effect Sensor Arrays on Resource-Constrained Microcontroller",
+      "journal": "Sensors",
+      "year": 2025,
+      "volume": "25",
+      "page": "6444",
+      "authors": [
+        "N\u00e9meth, Zal\u00e1n",
+        "See, Chan Hwang",
+        "Goh, Keng",
+        "Ghani, Arfan",
+        "Keates, Simeon",
+        "A. Abd-Alhameed, Raed"
+      ]
+    },
+    {
+      "doi": "10.3390/s22218441",
+      "title": "Gait Trajectory Prediction on an Embedded Microcontroller Using Deep Learning",
+      "journal": "Sensors",
+      "year": 2022,
+      "volume": "22",
+      "page": "8441",
+      "authors": [
+        "Karakish, Mohamed",
+        "Fouz, Moustafa A.",
+        "ELsawaf, Ahmed"
+      ]
+    },
+    {
+      "doi": "10.3390/s24020560",
+      "title": "Evaluation of a Machine Learning Algorithm to Classify Ultrasonic Transducer Misalignment and Deployment Using TinyML",
+      "journal": "Sensors",
+      "year": 2024,
+      "volume": "24",
+      "page": "560",
+      "authors": [
+        "Brennan, Des",
+        "Galvin, Paul"
+      ]
+    },
+    {
+      "doi": "10.1109/access.2021.3101496",
+      "title": "An Energy-Autonomous Chemical Oxygen Demand Sensor Using a Microbial Fuel Cell and Embedded Machine Learning",
+      "journal": "IEEE Access",
+      "year": 2021,
+      "volume": "9",
+      "page": "108689-108701",
+      "authors": [
+        "Shabani, Farhad",
+        "Philamore, Hemma",
+        "Matsuno, Fumitoshi"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2022.112204",
+      "title": "Machine learning-based monitoring and predicting the compressive strength of different blended cementitious systems using embedded piezo-sensor data",
+      "journal": "Measurement",
+      "year": 2022,
+      "volume": "205",
+      "page": "112204",
+      "authors": [
+        "Bansal, Tushar",
+        "Talakokula, Visalakshi",
+        "Sathujoda, Prabhakar"
+      ]
+    },
+    {
+      "doi": "10.3390/s21134291",
+      "title": "Machine Learning Based Object Classification and Identification Scheme Using an Embedded Millimeter-Wave Radar Sensor",
+      "journal": "Sensors",
+      "year": 2021,
+      "volume": "21",
+      "page": "4291",
+      "authors": [
+        "Arab, Homa",
+        "Ghaffari, Iman",
+        "Chioukh, Lydia",
+        "Tatu, Serioja",
+        "Dufour, Steven"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2026.120911",
+      "title": "Estimation of finger joint angles based on polymer-embedded fiber Bragg grating sensor using machine learning",
+      "journal": "Measurement",
+      "year": 2026,
+      "volume": "270",
+      "page": "120911",
+      "authors": [
+        "Huang, Canyang",
+        "Wu, Yansheng",
+        "Liu, Qiang",
+        "Zhu, Dan",
+        "Wang, Yiping"
+      ]
+    },
+    {
+      "doi": "10.1109/access.2022.3207200",
+      "title": "Unlocking Edge Intelligence Through Tiny Machine Learning (TinyML)",
+      "journal": "IEEE Access",
+      "year": 2022,
+      "volume": "10",
+      "page": "100867-100877",
+      "authors": [
+        "Zaidi, Syed Ali Raza",
+        "Hayajneh, Ali M.",
+        "Hafeez, Maryam",
+        "Ahmed, Q. Z."
+      ]
+    }
+  ],
+  "uncertainty": [
+    {
+      "doi": "10.1016/j.flowmeasinst.2024.102607",
+      "title": "Uncertainty evaluation for wind speed measurement part (1): \u201cGUM method and Monte Carlo method\u201d",
+      "journal": "Flow Measurement and Instrumentation",
+      "year": 2024,
+      "volume": "97",
+      "page": "102607",
+      "authors": [
+        "Wei, Mingming",
+        "Chong, Wei",
+        "Cao, Jie",
+        "Zhou, Taocheng",
+        "Zheng, Debin"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2020.108072",
+      "title": "Forward and inverse problems of Type A uncertainty evaluation",
+      "journal": "Measurement",
+      "year": 2020,
+      "volume": "165",
+      "page": "108072",
+      "authors": [
+        "Dorozhovets, Mykhaylo"
+      ]
+    },
+    {
+      "doi": "10.1016/j.flowmeasinst.2020.101877",
+      "title": "Validation of the GUM using the Monte Carlo method when applied in the calculation of the measurement uncertainty of a compact prover calibration",
+      "journal": "Flow Measurement and Instrumentation",
+      "year": 2021,
+      "volume": "77",
+      "page": "101877",
+      "authors": [
+        "Castro, H.F.F."
+      ]
+    },
+    {
+      "doi": "10.1109/tim.2025.3643048",
+      "title": "Machine Learning-Based Measurement Models: A Novel Methodology for GUM-Based Uncertainty Evaluation",
+      "journal": "IEEE Transactions on Instrumentation and Measurement",
+      "year": 2025,
+      "volume": "74",
+      "page": "1-11",
+      "authors": [
+        "Angrisani, Leopoldo",
+        "Arpaia, Pasquale",
+        "Criscuolo, Sabatina",
+        "D\u2019Arco, Mauro",
+        "De Benedetto, Egidio",
+        "Duraccio, Luigi",
+        "Tedesco, Annarita"
+      ]
+    },
+    {
+      "doi": "10.1109/tim.2019.2963581",
+      "title": "GUM-Based Decisional Criteria to Make Decisions in Presence of Measurement Uncertainty",
+      "journal": "IEEE Transactions on Instrumentation and Measurement",
+      "year": 2020,
+      "volume": "69",
+      "page": "5511-5522",
+      "authors": [
+        "Morello, Rosario"
+      ]
+    },
+    {
+      "doi": "10.1016/j.flowmeasinst.2024.102547",
+      "title": "Mathematical modeling applied to the uncertainty analysis of a tank prover calibration: Understanding the influence of calibration conditions on the GUM validation using the Monte Carlo method",
+      "journal": "Flow Measurement and Instrumentation",
+      "year": 2024,
+      "volume": "96",
+      "page": "102547",
+      "authors": [
+        "Castro, H.F.F."
+      ]
+    },
+    {
+      "doi": "10.1016/j.flowmeasinst.2025.102826",
+      "title": "Evaluation of measurement uncertainty for handheld differential pressure anemometer",
+      "journal": "Flow Measurement and Instrumentation",
+      "year": 2025,
+      "volume": "102",
+      "page": "102826",
+      "authors": [
+        "Wei, Mingming",
+        "Qi, Yan",
+        "Pu, Xiushu",
+        "Yao, Shun",
+        "Hong, Ling"
+      ]
+    },
+    {
+      "doi": "10.1016/j.flowmeasinst.2024.102608",
+      "title": "Uncertainty evaluation for wind speed measurement part (2): \u201cInput quantity correlation\u201d",
+      "journal": "Flow Measurement and Instrumentation",
+      "year": 2024,
+      "volume": "97",
+      "page": "102608",
+      "authors": [
+        "Wei, Mingming",
+        "Liu, Xin",
+        "Zou, Li",
+        "Zhou, Taocheng",
+        "Zheng, Debin"
+      ]
+    },
+    {
+      "doi": "10.1088/1361-6501/ad30ba",
+      "title": "Type A standard uncertainty evaluation in one measurement through uncertainty propagation from voxel values\u2019 distribution for computed tomography metrology",
+      "journal": "Measurement Science and Technology",
+      "year": 2024,
+      "volume": "35",
+      "page": "065015",
+      "authors": [
+        "Ou, Dongsheng",
+        "Xiao, Yongshun",
+        "Lan, Dini",
+        "Wang, Yingxin"
+      ]
+    },
+    {
+      "doi": "10.1016/j.flowmeasinst.2019.01.009",
+      "title": "Evaluation of uncertainty in flow and performance parameters in Francis turbine test rig",
+      "journal": "Flow Measurement and Instrumentation",
+      "year": 2019,
+      "volume": "65",
+      "page": "297-308",
+      "authors": [
+        "Abbas, Ali",
+        "Kumar, Arun"
+      ]
+    },
+    {
+      "doi": "10.24425/mms.2025.154340",
+      "title": "Evaluation of the type a uncertainty caused by simultaneous influence of random noise and power line interference",
+      "journal": "Metrology and Measurement Systems",
+      "year": 2025,
+      "volume": null,
+      "page": "1-15",
+      "authors": [
+        "Dorozhovets, Mykhaylo"
+      ]
+    },
+    {
+      "doi": "10.1016/j.flowmeasinst.2025.102986",
+      "title": "Experimental analysis of discharge capacity of ogee type side weirs",
+      "journal": "Flow Measurement and Instrumentation",
+      "year": 2025,
+      "volume": "106",
+      "page": "102986",
+      "authors": [
+        "Kula, Halil",
+        "Yarar, Alpaslan"
+      ]
+    },
+    {
+      "doi": "10.1109/mim.2024.10622085",
+      "title": "Calibration Method of Clinical Type Infrared Thermometers and Estimation Uncertainty in Different Blackbody Cavities",
+      "journal": "IEEE Instrumentation &amp; Measurement Magazine",
+      "year": 2024,
+      "volume": "27",
+      "page": "3-10",
+      "authors": [
+        "Alper, F. Melda Patan"
+      ]
+    },
+    {
+      "doi": "10.1016/j.flowmeasinst.2021.102109",
+      "title": "Energy dissipation of flow over the type-B Piano Key Weir",
+      "journal": "Flow Measurement and Instrumentation",
+      "year": 2022,
+      "volume": "83",
+      "page": "102109",
+      "authors": [
+        "Singh, Deepak",
+        "Kumar, Munendra"
+      ]
+    },
+    {
+      "doi": "10.1016/j.flowmeasinst.2026.103478",
+      "title": "Effect of position and type of domestic water flow meters on reading error",
+      "journal": "Flow Measurement and Instrumentation",
+      "year": 2026,
+      "volume": "112",
+      "page": "103478",
+      "authors": [
+        "Kassem, Fatma A.-M."
+      ]
+    },
+    {
+      "doi": "10.1016/j.flowmeasinst.2025.102842",
+      "title": "Improvement and uncertainty evaluation of a static gravimetric facility for natural gas",
+      "journal": "Flow Measurement and Instrumentation",
+      "year": 2025,
+      "volume": "104",
+      "page": "102842",
+      "authors": [
+        "Ren, Jia",
+        "Dong, Yang",
+        "Min, Huang",
+        "Fang, Zhou",
+        "Zhang, Manzheng"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2021.110459",
+      "title": "GUM method for evaluation of measurement uncertainty: BPL long wave time service monitoring",
+      "journal": "Measurement",
+      "year": 2022,
+      "volume": "189",
+      "page": "110459",
+      "authors": [
+        "Chen, Yingming",
+        "Li, Xiaohui",
+        "Huang, Luxi",
+        "Wang, Xin",
+        "Liu, Changhong",
+        "Zhao, Fan",
+        "Hua, Yu",
+        "Feng, Ping"
+      ]
+    },
+    {
+      "doi": "10.1088/1361-6501/abe2bd",
+      "title": "GUI for Bayesian sample size planning in type A uncertainty evaluation",
+      "journal": "Measurement Science and Technology",
+      "year": 2021,
+      "volume": "32",
+      "page": "075005",
+      "authors": [
+        "Martin, J\u00f6rg",
+        "Elster, Clemens"
+      ]
+    },
+    {
+      "doi": "10.1016/j.flowmeasinst.2021.101893",
+      "title": "Rectangle-gap-type laminar flow meter with inward pressure taps",
+      "journal": "Flow Measurement and Instrumentation",
+      "year": 2021,
+      "volume": "79",
+      "page": "101893",
+      "authors": [
+        "Wang, Xiaolu",
+        "Chen, Yuchun",
+        "Jiang, Yuxiang",
+        "Zhang, Kai"
+      ]
+    },
+    {
+      "doi": "10.1109/tim.2024.3382746",
+      "title": "Parametric Evaluation to Determine Type and Severity of Mechanical Fault in Transformer Winding Using Frequency Response Measurement",
+      "journal": "IEEE Transactions on Instrumentation and Measurement",
+      "year": 2024,
+      "volume": "73",
+      "page": "1-13",
+      "authors": [
+        "Mitra, Sourav",
+        "Pramanik, Saurav"
+      ]
+    },
+    {
+      "doi": "10.1016/j.flowmeasinst.2019.05.001",
+      "title": "A new mass &amp; time primary standard for natural gas in China and the uncertainty evaluation",
+      "journal": "Flow Measurement and Instrumentation",
+      "year": 2019,
+      "volume": "68",
+      "page": "101567",
+      "authors": [
+        "Ren, Jia",
+        "Duan, Jiqin",
+        "Huang, Min",
+        "He, Min"
+      ]
+    },
+    {
+      "doi": "10.1016/j.flowmeasinst.2025.102837",
+      "title": "Assessing the stage-discharge relationship of streamlined-type weirs",
+      "journal": "Flow Measurement and Instrumentation",
+      "year": 2025,
+      "volume": "102",
+      "page": "102837",
+      "authors": [
+        "Nicosia, Alessio",
+        "Di Stefano, Costanza",
+        "Serio, Maria Angela",
+        "Ferro, Vito"
+      ]
+    },
+    {
+      "doi": "10.1109/tim.2018.2815433",
+      "title": "Evaluating the Uncertainty of Digitizing Waveform Recorders Coherently With the GUM",
+      "journal": "IEEE Transactions on Instrumentation and Measurement",
+      "year": 2018,
+      "volume": "67",
+      "page": "2294-2302",
+      "authors": [
+        "Baccigalupi, Aldo",
+        "D'Arco, Mauro",
+        "Liccardo, Annalisa"
+      ]
+    },
+    {
+      "doi": "10.1016/j.flowmeasinst.2020.101806",
+      "title": "Double S-type Pitot Tube for velocity field study of fire whirls",
+      "journal": "Flow Measurement and Instrumentation",
+      "year": 2020,
+      "volume": "76",
+      "page": "101806",
+      "authors": [
+        "Pinto, Cl\u00e1udia",
+        "Andr\u00e9, Jorge",
+        "Viegas, Domingos Xavier"
+      ]
+    },
+    {
+      "doi": "10.1016/j.flowmeasinst.2023.102426",
+      "title": "Hydraulic characteristics of flow at grid drop-type dissipators with the upstream supercritical approach flow",
+      "journal": "Flow Measurement and Instrumentation",
+      "year": 2023,
+      "volume": "93",
+      "page": "102426",
+      "authors": [
+        "Raeisi, Fariba",
+        "Kabiri-Samani, Abdorreza"
+      ]
+    },
+    {
+      "doi": "10.1016/j.flowmeasinst.2026.103416",
+      "title": "Characterization of magnetic levitation claw machine type flow control valves",
+      "journal": "Flow Measurement and Instrumentation",
+      "year": 2026,
+      "volume": "111",
+      "page": "103416",
+      "authors": [
+        "Li, Haitao",
+        "Luo, Wei",
+        "Song, Zhankai",
+        "Xie, Shulin",
+        "Ruan, Jian"
+      ]
+    },
+    {
+      "doi": "10.1016/j.flowmeasinst.2023.102434",
+      "title": "Characterization of two-dimensional cartridge type bidirectional proportional throttle valve",
+      "journal": "Flow Measurement and Instrumentation",
+      "year": 2023,
+      "volume": "93",
+      "page": "102434",
+      "authors": [
+        "Xie, Shulin",
+        "Song, Zhankai",
+        "Huang, Jiahui",
+        "zhao, Jiantao",
+        "Ruan, Jian"
+      ]
+    },
+    {
+      "doi": "10.1016/j.flowmeasinst.2026.103247",
+      "title": "Numerical research of erosion on high-pressure cage-type throttle valve",
+      "journal": "Flow Measurement and Instrumentation",
+      "year": 2026,
+      "volume": "109",
+      "page": "103247",
+      "authors": [
+        "Lv, Xiaofei",
+        "Xiao, Peng",
+        "Xia, Zhian",
+        "Li, Haoran",
+        "Zhang, Xiuxia"
+      ]
+    },
+    {
+      "doi": "10.1016/j.flowmeasinst.2024.102687",
+      "title": "Application of machine learning models in predicting discharge coefficient of side B-type piano key weir",
+      "journal": "Flow Measurement and Instrumentation",
+      "year": 2024,
+      "volume": "100",
+      "page": "102687",
+      "authors": [
+        "Mehri, Yaser",
+        "Mehri, Milad",
+        "Nasrabadi, Mohsen"
+      ]
+    },
+    {
+      "doi": "10.1016/j.flowmeasinst.2021.102046",
+      "title": "Study on the parallel pressure differential type gas laminar flow sensing technique",
+      "journal": "Flow Measurement and Instrumentation",
+      "year": 2021,
+      "volume": "81",
+      "page": "102046",
+      "authors": [
+        "Qingqing, Wang",
+        "Guozhan, Li",
+        "Dongfei, Zhang",
+        "Caolang, Chen",
+        "Hongjun, Zhang"
+      ]
+    },
+    {
+      "doi": "10.21608/jmsa.2023.288132",
+      "title": "Uncertainty Evaluation in calibration of Engineer\u2019s Steel Rulers and Measuring Tapes; GUM and Monte Carlo Methods",
+      "journal": "Journal of Measurement Science and Applications (JMSA)",
+      "year": 2023,
+      "volume": "3",
+      "page": "64-79",
+      "authors": []
+    },
+    {
+      "doi": "10.1016/j.flowmeasinst.2025.102924",
+      "title": "Innovative modeling of discharge coefficients for rectangular C-type piano key side weirs using GPR-POA and LSTM techniques",
+      "journal": "Flow Measurement and Instrumentation",
+      "year": 2025,
+      "volume": "105",
+      "page": "102924",
+      "authors": [
+        "Mehri, Yaser",
+        "Nasrabadi, Mohsen"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2018.05.105",
+      "title": "Measurement uncertainty and its connection with true value in the GUM versus JCGM documents",
+      "journal": "Measurement",
+      "year": 2018,
+      "volume": "127",
+      "page": "525-532",
+      "authors": [
+        "Kacker, Raghu N."
+      ]
+    }
+  ],
+  "wireless": [
+    {
+      "doi": "10.3390/s23146332",
+      "title": "An Advanced Energy-Efficient Environmental Monitoring in Precision Agriculture Using LoRa-Based Wireless Sensor Networks",
+      "journal": "Sensors",
+      "year": 2023,
+      "volume": "23",
+      "page": "6332",
+      "authors": [
+        "Kri\u017eanovi\u0107, Vi\u0161nja",
+        "Grgi\u0107, Kre\u0161imir",
+        "Spi\u0161i\u0107, Josip",
+        "\u017dagar, Drago"
+      ]
+    },
+    {
+      "doi": "10.1016/j.ymssp.2021.107890",
+      "title": "Development and experimental validation of self-powered wireless vibration sensor node using vibration energy harvester",
+      "journal": "Mechanical Systems and Signal Processing",
+      "year": 2021,
+      "volume": "160",
+      "page": "107890",
+      "authors": [
+        "Rubes, Ondrej",
+        "Chalupa, Jan",
+        "Ksica, Filip",
+        "Hadas, Zdenek"
+      ]
+    },
+    {
+      "doi": "10.1109/access.2024.3365511",
+      "title": "Wireless Sensor Network (WSN) Model Targeting Energy Efficient Wireless Sensor Networks Node Coverage",
+      "journal": "IEEE Access",
+      "year": 2024,
+      "volume": "12",
+      "page": "27596-27610",
+      "authors": [
+        "Jia, Runliang",
+        "Zhang, Haiyu"
+      ]
+    },
+    {
+      "doi": "10.1109/jsen.2020.3001870",
+      "title": "A Public Blockchain-Enabled Wireless LoRa Sensor Node for Easy Continuous Unattended Health Monitoring of Bolted Joints: Implementation and Evaluation",
+      "journal": "IEEE Sensors Journal",
+      "year": 2020,
+      "volume": "20",
+      "page": "13057-13065",
+      "authors": [
+        "Sidorov, Michail",
+        "Khor, Jing Huey",
+        "Nhut, Phan Viet",
+        "Matsumoto, Yukihiro",
+        "Ohmura, Ren"
+      ]
+    },
+    {
+      "doi": "10.3390/s21227613",
+      "title": "An Open-Source Wireless Sensor Node Platform with Active Node-Level Reliability for Monitoring Applications",
+      "journal": "Sensors",
+      "year": 2021,
+      "volume": "21",
+      "page": "7613",
+      "authors": [
+        "Widhalm, Dominik",
+        "Goeschka, Karl M.",
+        "Kastner, Wolfgang"
+      ]
+    },
+    {
+      "doi": "10.1007/s13349-024-00864-z",
+      "title": "Synchronous LoRa sensor nodes for modal identification in footbridge vibration monitoring",
+      "journal": "Journal of Civil Structural Health Monitoring",
+      "year": 2024,
+      "volume": "15",
+      "page": "697-716",
+      "authors": [
+        "Qiao, Huiyue",
+        "Guan, Hong",
+        "Jabbour, Andrei",
+        "Zhu, Yong"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2020.107960",
+      "title": "FPGA implementation of a wireless sensor node with a built-in ADALINE neural network coprocessor for vibration analysis and fault diagnosis in machine condition monitoring",
+      "journal": "Measurement",
+      "year": 2020,
+      "volume": "163",
+      "page": "107960",
+      "authors": [
+        "Bengherbia, Billel",
+        "Kara, Reda",
+        "Toubal, Abdelmoughni",
+        "Zmirli, Mohamed Ould",
+        "Chadli, Samir",
+        "Wira, Patrice"
+      ]
+    }
+  ],
+  "benchmark": [
+    {
+      "doi": "10.1088/1361-6501/ae9438",
+      "title": "Silent collapse to a dataset-dependent attractor class in deep bearing fault diagnosis: a cross-dataset study of failure modes masked by evaluation practice",
+      "journal": "Measurement Science and Technology",
+      "year": 2026,
+      "volume": "37",
+      "page": "335009",
+      "authors": [
+        "Wang, Yi",
+        "Tang, Yongqing"
+      ]
+    },
+    {
+      "doi": "10.3390/s23063157",
+      "title": "Lite and Efficient Deep Learning Model for Bearing Fault Diagnosis Using the CWRU Dataset",
+      "journal": "Sensors",
+      "year": 2023,
+      "volume": "23",
+      "page": "3157",
+      "authors": [
+        "Yoo, Yubin",
+        "Jo, Hangyeol",
+        "Ban, Sang-Woo"
+      ]
+    },
+    {
+      "doi": "10.1109/access.2026.3667206",
+      "title": "Digital Twin Synthetic Dataset for Bearing Fault Diagnosis in Industrial Spindles",
+      "journal": "IEEE Access",
+      "year": 2026,
+      "volume": "14",
+      "page": "29369-29386",
+      "authors": [
+        "Zeynivand, Mohsen",
+        "Kermansaravi, Azadeh",
+        "Vahedi, Hani",
+        "Gruosso, Giambattista"
+      ]
+    },
+    {
+      "doi": "10.1109/access.2024.3390234",
+      "title": "A Novel Framework for Robust Bearing Fault Diagnosis: Preprocessing, Model Selection, and Performance Evaluation",
+      "journal": "IEEE Access",
+      "year": 2024,
+      "volume": "12",
+      "page": "59018-59036",
+      "authors": [
+        "Althobiani, Faisal"
+      ]
+    },
+    {
+      "doi": "10.1109/access.2021.3072927",
+      "title": "Compressor Fault Diagnosis Knowledge: A Benchmark Dataset for Knowledge Extraction From Maintenance Log Sheets Based on Sequence Labeling",
+      "journal": "IEEE Access",
+      "year": 2021,
+      "volume": "9",
+      "page": "59394-59405",
+      "authors": [
+        "Chen, Tao",
+        "Zhu, Jiang",
+        "Zeng, Zhiqiang",
+        "Jia, Xudong"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2026.122449",
+      "title": "Instantaneous modulation signal bispectrum for frequency modulation evaluation in bearing fault diagnosis",
+      "journal": "Measurement",
+      "year": 2026,
+      "volume": "287",
+      "page": "122449",
+      "authors": [
+        "Guo, Junchao",
+        "He, Qingbo",
+        "Zhen, Dong",
+        "Gu, Fengshou"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2021.109285",
+      "title": "Research on rolling bearing fault diagnosis of small dataset based on a new optimal transfer learning network",
+      "journal": "Measurement",
+      "year": 2021,
+      "volume": "177",
+      "page": "109285",
+      "authors": [
+        "Zheng, Zhi",
+        "Fu, Jiuman",
+        "Lu, Chuanqi",
+        "Zhu, Yong"
+      ]
+    },
+    {
+      "doi": "10.3390/s23021021",
+      "title": "Bearing Fault Diagnosis Using a Hybrid Fuzzy V-Structure Fault Estimator Scheme",
+      "journal": "Sensors",
+      "year": 2023,
+      "volume": "23",
+      "page": "1021",
+      "authors": [
+        "Piltan, Farzin",
+        "Kim, Jong-Myon"
+      ]
+    }
+  ],
+  "sampling": [
+    {
+      "doi": "10.1016/j.jsv.2021.115938",
+      "title": "Downsampling-based synchrosqueezing transform and its applications on large-scale vibration data",
+      "journal": "Journal of Sound and Vibration",
+      "year": 2021,
+      "volume": "496",
+      "page": "115938",
+      "authors": [
+        "He, Dong",
+        "Cao, Hongrui"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2024.116085",
+      "title": "A vibration transducer framework for the measurement and reconstruction of vibration signals via low-rate sampling",
+      "journal": "Measurement",
+      "year": 2025,
+      "volume": "242",
+      "page": "116085",
+      "authors": [
+        "Erdo\u011fan, Y\u0131ld\u0131r\u0131m Serhat"
+      ]
+    },
+    {
+      "doi": "10.1016/j.measurement.2021.109962",
+      "title": "Effective feature selection with fuzzy entropy and similarity classifier for chatter vibration diagnosis",
+      "journal": "Measurement",
+      "year": 2021,
+      "volume": "184",
+      "page": "109962",
+      "authors": [
+        "Tran, Minh-Quang",
+        "Elsisi, Mahmoud",
+        "Liu, Meng-Kun"
+      ]
+    }
+  ]
+}

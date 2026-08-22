@@ -1,0 +1,85 @@
+=== A2 antialias 09:34 ===
+  a_100hz_full seed 0: 56.1%
+  a_100hz_full seed 1: 54.2%
+  a_100hz_full seed 2: 55.3%
+  a_100hz_full seed 3: 50.5%
+  a_100hz_full seed 4: 47.8%
+a_100hz_full         100 Hz, unmodified               -> 52.8 +/- 13.2 (macro-F1 48.4, 32328 windows)
+  b_100hz_lp12.5 seed 0: 52.7%
+  b_100hz_lp12.5 seed 1: 46.7%
+  b_100hz_lp12.5 seed 2: 50.8%
+  b_100hz_lp12.5 seed 3: 47.3%
+  b_100hz_lp12.5 seed 4: 52.7%
+b_100hz_lp12.5       100 Hz, low-pass 12.5 Hz         -> 50.1 +/- 13.5 (macro-F1 45.1, 32328 windows)
+  c_25hz_decimated seed 0: 64.1%
+  c_25hz_decimated seed 1: 63.3%
+  c_25hz_decimated seed 2: 63.7%
+  c_25hz_decimated seed 3: 59.3%
+  c_25hz_decimated seed 4: 64.0%
+c_25hz_decimated     25 Hz, anti-alias decimation     -> 62.9 +/- 12.3 (macro-F1 58.6, 32364 windows)
+  d_25hz_aliased seed 0: 37.3%
+  d_25hz_aliased seed 1: 37.4%
+  d_25hz_aliased seed 2: 40.7%
+  d_25hz_aliased seed 3: 37.7%
+  d_25hz_aliased seed 4: 36.9%
+d_25hz_aliased       25 Hz, no anti-alias filter      -> 38.0 +/- 13.1 (macro-F1 32.2, 32364 windows)
+## Decomposition
+
+- band-limiting alone (a->b): -2.7 points
+- rate/sample-count (b->c):   +12.8 points
+- aliasing (c->d):            -24.9 points
+- total (a->c):               +10.1 points
+=== A1 leakage decomposition 09:47 ===
+building feature matrices...
+  overlapping: 32328 windows; non-overlapping: 16164
+evaluating...
+  RANDOM, 50% overlap                100.0 +/-  0.0
+  RANDOM, no overlap                 100.0 +/-  0.0
+  BLOCKED within recording           100.0 +/-  0.0
+  GROUP, no overlap                   53.3 +/- 13.2
+  GROUP, 50% overlap (paper)          52.8 +/- 13.2
+  CROSS-SPEED                         49.9 +/- 15.5
+  CROSS-LOAD                          49.5 +/- 15.2
+## Attribution (successive differences)
+
+- window overlap (shared samples): +0.0 points
+- temporal proximity:              +0.0 points
+- recording identity:              +46.7 points
+- total optimism gap:              +46.7 points
+=== A3 stats v2 09:55 ===
+  baseline seed 0: 56.1%
+  baseline seed 1: 54.2%
+  baseline seed 2: 55.3%
+  baseline seed 3: 50.5%
+  baseline seed 4: 47.8%
+  baseline seed 5: 49.7%
+  baseline seed 6: 57.1%
+  baseline seed 7: 52.0%
+  baseline seed 8: 51.5%
+  baseline seed 9: 64.7%
+baseline   53.9 +/- 12.5  (macro-F1 49.1, n=36)
+  fs25 seed 0: 64.1%
+  fs25 seed 1: 63.3%
+  fs25 seed 2: 63.7%
+  fs25 seed 3: 59.3%
+  fs25 seed 4: 64.0%
+  fs25 seed 5: 63.0%
+  fs25 seed 6: 67.4%
+  fs25 seed 7: 60.7%
+  fs25 seed 8: 66.4%
+  fs25 seed 9: 60.5%
+fs25       63.2 +/- 11.6  (macro-F1 59.2, n=36)
+  frugal seed 0: 78.0%
+  frugal seed 1: 77.5%
+  frugal seed 2: 75.3%
+  frugal seed 3: 72.5%
+  frugal seed 4: 76.3%
+  frugal seed 5: 75.0%
+  frugal seed 6: 75.4%
+  frugal seed 7: 73.8%
+  frugal seed 8: 73.4%
+  frugal seed 9: 73.0%
+frugal     75.0 +/- 11.4  (macro-F1 71.1, n=36)
+frugal_vs_baseline     d=+21.1 pts, paired permutation p=0.0198 (n=36)
+fs25_vs_baseline       d=+9.4 pts, paired permutation p=0.2577 (n=36)
+=== CHAIN DONE 10:10 ===

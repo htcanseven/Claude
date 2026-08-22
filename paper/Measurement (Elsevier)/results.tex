@@ -1,0 +1,406 @@
+% ============================================================================
+%  Section VI — Results  (IOP MST)
+%  Passive voice / third person throughout. Reporting only; interpretation and
+%  limitations are in Section VII (discussion.tex).
+%  Requires: booktabs, graphicx, pifont.
+%  Figures (results/): fig_optimism_gap.png, fig_confusion_group.png,
+%    fig_tradeoffs_main.png, fig_recipe_stacking.png.
+\providecommand{\cmark}{\ding{51}}
+\providecommand{\xmark}{\ding{55}}
+% ============================================================================
+
+\section{Results}
+\label{sec:results}
+
+\subsection{The Optimism Gap of Random-Split Evaluation}
+\label{subsec:gap}
+Table~\ref{tab:optimism} reports the classification accuracy of the three
+baseline models under the four evaluation protocols, and Fig.~\ref{fig:gap}
+visualises the same result. Under the RANDOM protocol every model attains
+essentially perfect accuracy, reproducing---and slightly exceeding---the $98\%$
+reported by the source data article's random-split baseline. Under the
+leakage-free GROUP protocol the accuracy of the same features and models falls to
+roughly one-half, an \emph{optimism gap} of approximately $41$ to $47$ accuracy
+points. The CROSS-SPEED and CROSS-LOAD protocols, which additionally impose an
+operating-condition shift, yield comparably reduced accuracy.
+
+\subsubsection{Which mechanism produces the gap}
+\label{subsec:decomp}
+A gap of that size is usually attributed to two causes at once: overlapping
+windows sharing samples across the partition boundary, and windows inheriting the
+identity of the recording they were cut from. These are separable, and a third
+candidate---simple temporal proximity between neighbouring windows---sits between
+them. Table~\ref{tab:decomp} removes them one at a time. Discarding the $50\%$
+overlap halves the window count and guarantees that no sample appears in both
+partitions; holding out a contiguous temporal block within every recording
+additionally removes near-neighbour proximity while still training on every
+recording; and the recording-wise protocol finally removes recording identity as
+well.
+
+The attribution is unambiguous. Removing window overlap changes nothing: a random
+split of strictly non-overlapping windows still classifies at $100.0\%$. Removing
+temporal proximity as well changes nothing either, with the blocked protocol also
+at $100.0\%$. The entire gap---$46.7$ points---appears at the last step, when
+whole recordings are held out. Sharing samples between partitions is therefore not
+the operative mechanism, contrary to the explanation usually offered. Every window
+cut from one recording carries that recording's particular mounting, operating
+point and session conditions, and this signature is apparently sufficient to
+identify the recording, and hence its label, from any window of it. Halving the
+windows or separating them in time leaves that signature intact. Only holding out
+the recording removes it.
+
+This has a direct methodological consequence. Guarding against leakage by
+enforcing non-overlapping windows, a common precaution, would have offered no
+protection whatever on this dataset, and the same is likely wherever each
+operating condition is captured in a single continuous acquisition. The unit that
+must be held out is the recording.
+
+Two further observations follow from Table~\ref{tab:optimism}: the leakage-free
+accuracy remains well above the $16.7\%$ chance level, and the lower-capacity
+models (KNN, SVM) attain higher GROUP accuracy than the Random Forest.
+
+The seed-averaged confusion matrix of the GROUP protocol
+(Fig.~\ref{fig:confusion}) localises the residual difficulty. The healthy state
+is the most reliably identified, followed by the supply-imbalance and
+broken-rotor-bar faults, whereas the two lubrication-severity states (B1 and B2)
+are frequently confused with each other and with the remaining bearing
+conditions, in agreement with the $50$~Hz band limit established in
+Section~\ref{sec:charact}. Because this per-class behaviour is markedly uneven,
+accuracy alone overstates how well the fine bearing states are resolved: the
+macro-averaged $F_1$-score of the same configuration is $51.1\%$, and per-class
+recall falls from $0.87$ for the healthy state and $0.66$ for the supply
+imbalance to $0.35$ for B3 and $0.16$ for B2. The lubrication-severity states
+therefore dominate the residual error, and the headline figures below should be
+read with that qualification.
+
+\subsection{Accuracy--Resource Trade-offs}
+\label{subsec:tradeoff}
+Each sensing and communication parameter was varied in turn under the GROUP
+protocol (Fig.~\ref{fig:tradeoffs}). Reducing the sampling rate did not degrade
+accuracy: as shown in Table~\ref{tab:sampling}, every rate at or below $25$~Hz
+matched or exceeded the accuracy obtained at $100$~Hz, with a maximum near
+$25$~Hz. Reducing the channel set was likewise not detrimental---the three raw
+axes alone outperformed the full six-channel set---while lengthening the window
+from $2$~s to $4$~s increased accuracy at the cost of detection latency.
+
+The combination of these frugal choices was then examined
+(Table~\ref{tab:recipe} and Fig.~\ref{fig:recipe}). The resource-optimal
+configuration---$25$~Hz sampling, the three raw channels, and a $4$~s
+window---raised the Random Forest accuracy from $52.8\%$ at the naive
+$100$~Hz/six-channel/$2$~s baseline to $75.9\%$, while reducing the raw data
+volume by approximately eight-fold. Robustness to further deployment stresses was
+also measured: reducing the amplitude resolution to $4$~bits lowered accuracy by
+only a few points, injected packet loss of up to $20\%$ left accuracy essentially
+unchanged, and the six-feature subset of the source baseline performed within
+noise of the full feature set. The largest sensitivity was to sensor mounting: a
+simulated $30^{\circ}$ change in orientation degraded accuracy substantially.
+
+Table~\ref{tab:measured} re-estimates the endpoints of that recipe over ten
+partitions rather than five and scores them per held-out recording. The small
+shifts relative to Table~\ref{tab:recipe}---$52.8$ against $53.9$ for the
+baseline, $75.9$ against $75.0$ for the frugal configuration---follow from the
+larger number of partitions and are an order of magnitude smaller than the
+dispersion reported below.
+
+The dispersion of these figures deserves care. Estimates were repeated over ten
+random recording-level partitions and scored separately on each held-out
+recording, so that the reported interval reflects recording-to-recording
+variation rather than the effect of re-partitioning the same data
+(Section~\ref{subsec:stats}). Table~\ref{tab:measured} gives the result. The
+intervals are wide---roughly $\pm12$ points---because performance varies
+substantially from one recording to the next, and an interval computed over seeds
+instead would have been about three times narrower and correspondingly
+misleading.
+
+Compared on their per-recording differences, the resource-frugal configuration
+classifies the health state $21.1$ percentage points more accurately than the
+baseline, and a two-sided paired permutation test over the $36$ recordings gives
+$p=0.020$. The intermediate step tells a different story: reducing the sampling
+rate from $100$ to $25$~Hz alone accounts for $9.4$ points, but that difference is
+not significant at the recording level ($p=0.26$). The rate reduction on its own
+is therefore not established as an improvement by these data, even though the
+combination of rate reduction, channel selection and the longer window is. This
+distinction is invisible to a test conducted over repeated re-partitionings, which
+would have reported both differences as highly significant.
+
+\subsection{What the sampling-rate effect actually is}
+\label{subsec:antialias}
+The sweep of Table~\ref{tab:sampling} shows accuracy rising as the sampling rate
+falls, which invites the interpretation that the diagnostic information is
+concentrated at low frequency and that discarding the rest helps. That
+interpretation cannot be correct as stated. Shaft rotational frequencies in this
+dataset lie between $13.1$ and $24.9$~Hz (Table~\ref{tab:speeds}), so decimation
+to $25$~Hz, whose Nyquist frequency is $12.5$~Hz, removes every rotational
+fundamental in the dataset---including the peaks identified in
+Section~\ref{sec:charact}---and accuracy nevertheless improves.
+
+Three effects are confounded in a naive rate sweep: the band that survives, the
+number of samples the features are computed from, and the aliasing that occurs if
+the anti-alias filter is omitted. Table~\ref{tab:antialias} separates them by
+holding each constant in turn. Band-limiting alone is obtained by low-pass
+filtering at $12.5$~Hz while retaining the $100$~Hz rate, so that the frequency
+content matches the decimated condition but the window still contains $200$
+samples; proper decimation to $25$~Hz then reduces the window to $50$ samples at
+the same bandwidth; and repeating the decimation with the anti-alias filter
+disabled isolates aliasing.
+
+The outcome contradicts the simple reading. Restricting the band to $12.5$~Hz at
+an unchanged sampling rate \emph{reduces} accuracy by $2.7$ points, so the content
+above $12.5$~Hz is not merely useless---the full-rate configuration is using it.
+The entire improvement, $12.8$ points, appears at the second step, where the only
+change is that the same band-limited signal is represented by a quarter as many
+samples per window. Disabling the anti-alias filter costs $24.9$ points, which
+both confirms that the decimation is performed correctly and rules out any
+suggestion that aliasing folds useful content into the observable band.
+
+The mechanism is therefore an interaction between the sampling rate and the
+feature set, not a property of the vibration signal alone. The $14$ time-domain
+descriptors are not invariant to the sampling rate: zero-crossing rate, amplitude
+entropy over a fixed $32$-bin histogram, and the higher-order moments are all
+computed over $W$ samples, and at $100$~Hz a signal band-limited to $12.5$~Hz is
+four times oversampled, so consecutive samples are strongly correlated and the
+descriptors are estimated from far fewer effectively independent values than their
+sample count suggests. Decimation removes that redundancy. The practical
+consequence for a node is unchanged---$25$~Hz remains the better operating
+point---but the reason is not that the fault information lies below $12.5$~Hz, and
+any study that sweeps sampling rate with a fixed time-domain feature set measures
+these two effects together rather than the effect of rate alone.
+
+\subsection{Deployment Implications: Communication and Edge Footprint}
+\label{subsec:edge}
+Table~\ref{tab:linkbudget} compares the bitrate of three telemetry strategies
+with the sustainable throughput of common low-power radios. Streaming the raw
+six-channel signal requires $9.6$~kbps and transmitting the extracted feature
+vector requires $2.69$~kbps; both are carried by Bluetooth Low Energy, Zigbee, or
+NB-IoT, but neither fits within the duty-cycle-limited throughput of a LoRaWAN
+uplink, which admits only the $40$~bps on-node decision stream.
+Table~\ref{tab:footprint} lists the leakage-free accuracy and serialised size of
+four candidate models: a $4.7$~kB logistic-regression classifier exceeded the
+accuracy of a $1.09$~MB Random Forest, and the time-domain feature extraction
+requires only $\mathcal{O}(WC)$ operations per window with no spectral transform.
+
+% ---------------------------------------------------------------------------
+\begin{table}[t]
+\centering
+\caption{Accuracy (\%) by evaluation protocol and model (five-seed means; $100$~Hz, six channels, $2$~s. Dispersion on the recording unit is reported in Tables~
+ef{tab:decomp} and~
+ef{tab:measured}).}
+\label{tab:optimism}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Protocol} & \textbf{RF} & \textbf{KNN} & \textbf{SVM} \\
+\midrule
+RANDOM (leaky)            & $100.0$ & $100.0$ & $100.0$ \\
+GROUP (recording-holdout) & $52.8$ & $59.0$ & $58.4$ \\
+CROSS-SPEED               & $49.9$ & $48.2$ & $50.1$ \\
+CROSS-LOAD                & $49.5$ & $40.3$ & $40.1$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------------
+% ---------------------------------------------------------------------------
+\begin{table}[t]
+\centering
+\caption{Attribution of the optimism gap (Random Forest, five seeds; intervals are
+$95\%$ clustered on recording, $n=36$). Each row removes one further source of
+information shared between the training and test partitions.}
+\label{tab:decomp}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Partitioning} & \textbf{Sources retained} & \textbf{Accuracy (\%)} & \textbf{Macro-$F_1$ (\%)} \\
+\midrule
+RANDOM, $50\%$ overlap    & samples, proximity, identity & $100.0$ & $100.0$ \\
+RANDOM, no overlap        & proximity, identity          & $100.0$ & $100.0$ \\
+BLOCKED within recording  & identity                     & $100.0$ & $100.0$ \\
+GROUP, no overlap         & none                         & $53.3$ & $49.1$ \\
+GROUP, $50\%$ overlap     & none                         & $52.8$ & $48.4$ \\
+CROSS-SPEED               & none, $+$ speed shift        & $49.9$ & $41.5$ \\
+CROSS-LOAD                & none, $+$ load shift         & $49.5$ & $44.5$ \\
+\midrule
+\multicolumn{4}{@{}l}{\textit{Attribution}} \\
+\multicolumn{2}{@{}l}{shared samples (window overlap)} & $+0.0$ & \\
+\multicolumn{2}{@{}l}{temporal proximity}             & $+0.0$ & \\
+\multicolumn{2}{@{}l}{recording identity}             & $\mathbf{+46.7}$ & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Sampling-rate sweep under the GROUP protocol (Random Forest, five-seed means). Lower rates match or exceed $100$~Hz.}
+\label{tab:sampling}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}ccc@{}}
+\toprule
+\textbf{Rate (Hz)} & \textbf{Raw bitrate (kbps)} & \textbf{Accuracy (\%)} \\
+\midrule
+100  & 9.6 & $52.8$ \\
+50   & 4.8 & $39.2$ \\
+25   & 2.4 & $\mathbf{62.9}$ \\
+20   & 1.9 & $60.9$ \\
+12.5 & 1.2 & $60.9$ \\
+10   & 1.0 & $58.8$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------------
+\begin{table}[t]
+\centering
+\caption{Incremental frugal recipe under the GROUP protocol
+(five-seed means). The resource-optimal node exceeds the naive
+baseline.}
+\label{tab:recipe}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Configuration} & \textbf{RF} & \textbf{KNN} & \textbf{LogReg} \\
+\midrule
+Baseline ($100$~Hz, $6$ ch, $2$~s) & $52.8$ & $59.0$ & $59.6$ \\
+\;$+\,25$~Hz                        & $62.9$ & $46.5$ & $57.3$ \\
+\;$+\,$raw $3$ ch                   & $65.6$ & $51.4$ & $52.5$ \\
+\;$+\,4$~s window (optimal)         & $\mathbf{75.9}$ & $54.9$ & $60.3$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------------
+\begin{table}[t]
+\centering
+\caption{Leakage-free (GROUP) accuracy of the Random Forest, scored per held-out
+recording over ten random recording-level partitions. Intervals are $95\%$
+intervals for the mean, clustered on recording ($n=36$); comparisons are
+two-sided paired permutation tests on the per-recording differences.}
+\label{tab:measured}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Configuration} & \textbf{Accuracy (\%)} & \textbf{Macro-$F_1$ (\%)} \\
+\midrule
+Baseline ($100$~Hz, $6$ ch, $2$~s)   & $53.9 \pm 12.5$ & $49.1$ \\
+$\quad25$~Hz, $6$ ch, $2$~s          & $63.2 \pm 11.6$ & $59.2$ \\
+Frugal ($25$~Hz, $3$ raw ch, $4$~s)  & $\mathbf{75.0 \pm 11.4}$ & $\mathbf{71.1}$ \\
+\midrule
+\multicolumn{3}{@{}l}{\textit{Paired comparison on per-recording differences} ($n=36$)} \\
+Frugal $-$ Baseline  & $+21.1$ & $p=0.020$ \\
+$25$~Hz $-$ Baseline & $+9.4$  & $p=0.26$ (n.s.) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------------
+% ---------------------------------------------------------------------------
+\begin{table}[t]
+\centering
+\caption{Separating band-limiting, sample count and aliasing (GROUP protocol,
+Random Forest, five seeds; intervals are $95\%$ clustered on recording, $n=36$).
+Conditions (b) and (c) contain identical frequency content and differ only in the
+number of samples per window.}
+\label{tab:antialias}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}llccc@{}}
+\toprule
+ & \textbf{Condition} & \textbf{Samples/win.} & \textbf{Accuracy (\%)} & \textbf{Macro-$F_1$ (\%)} \\
+\midrule
+(a) & $100$~Hz, unmodified           & $200$ & $52.8$ & $48.4$ \\
+(b) & $100$~Hz, low-pass $12.5$~Hz   & $200$ & $50.1$ & $45.1$ \\
+(c) & $25$~Hz, anti-alias decimation & $50$  & $\mathbf{62.9}$ & $\mathbf{58.6}$ \\
+(d) & $25$~Hz, no anti-alias filter  & $50$  & $38.0$ & $32.2$ \\
+\midrule
+\multicolumn{5}{@{}l}{\textit{Attribution of the $+10.1$ point net change}} \\
+\multicolumn{3}{@{}l}{band-limiting alone, (a)$\rightarrow$(b)}        & $-2.7$ & \\
+\multicolumn{3}{@{}l}{sample count at fixed band, (b)$\rightarrow$(c)} & $\mathbf{+12.8}$ & \\
+\multicolumn{3}{@{}l}{aliasing, (c)$\rightarrow$(d)}                   & $-24.9$ & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Communication link budget: telemetry bitrate versus sustainable uplink
+capacity. Bitrates assume a $1$~s reporting hop, \texttt{int16} raw samples and
+\texttt{float32} features; the assumed sustainable application-level uplinks are
+$300$~kbps (Bluetooth Low Energy $4.2$), $100$~kbps (Zigbee, IEEE~802.15.4),
+$30$~kbps (NB-IoT) and $55$~bps (LoRaWAN, a spreading-factor-$7$ physical rate of
+$5.47$~kbps throttled by a $1\%$ duty cycle). \cmark~= sustainable,
+\xmark~= infeasible.}
+\label{tab:linkbudget}
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+\textbf{Telemetry stream} & \textbf{Bitrate} & \textbf{BLE} & \textbf{Zigbee} &
+\textbf{NB-IoT} & \textbf{LoRaWAN} \\
+\midrule
+Raw ($6$ ch, int16)     & $9.6$~kbps  & \cmark & \cmark & \cmark & \xmark \\
+Features ($84$/s)       & $2.69$~kbps & \cmark & \cmark & \cmark & \xmark \\
+Features (min., $6$/s)  & $192$~bps   & \cmark & \cmark & \cmark & \xmark \\
+On-node decision        & $40$~bps    & \cmark & \cmark & \cmark & \cmark \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------------
+\begin{table}[t]
+\centering
+\caption{Edge-model footprint versus leakage-free (GROUP) accuracy at the
+baseline configuration ($100$~Hz, six channels, $2$~s; five-seed means). Serialised sizes are
+architecture-determined.}
+\label{tab:footprint}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Model} & \textbf{GROUP accuracy (\%)} & \textbf{Serialised size} \\
+\midrule
+Random Forest ($200$ trees)     & $52.8$ & $1.09$~MB \\
+Random Forest ($50$, depth $8$) & $52.9$ & $214$~kB \\
+Decision tree (depth $8$)       & $44.3$ & $4.3$~kB \\
+Logistic regression             & $\mathbf{59.6}$ & $4.7$~kB \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------------
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_optimism_gap.png}
+\caption{Accuracy by evaluation protocol and model. Near-perfect accuracy under
+the RANDOM split collapses once evaluation is leakage-free (GROUP) or imposes an
+operating-condition shift (CROSS-SPEED, CROSS-LOAD).}
+\label{fig:gap}
+\end{figure}
+
+% ---------------------------------------------------------------------------
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_confusion_group.png}
+\caption{Seed-averaged confusion matrix of the Random Forest under the GROUP
+protocol (row-normalised; baseline configuration, five recording-level
+partitions). The healthy state (H) is the most separable, followed by the
+supply-imbalance (V) and broken-rotor-bar (R) faults; the lubrication-severity
+states (B1, B2) are the most confused.}
+\label{fig:confusion}
+\end{figure}
+
+% ---------------------------------------------------------------------------
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_tradeoffs_main.png}
+\caption{Accuracy--resource trade-offs under the GROUP protocol: sampling rate
+(left), window length (centre), and channel subset (right). The dashed line marks
+the $16.7\%$ chance level.}
+\label{fig:tradeoffs}
+\end{figure}
+
+% ---------------------------------------------------------------------------
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_recipe_stacking.png}
+\caption{Incremental frugal recipe under the GROUP protocol. Combining the
+resource-frugal choices raises Random Forest accuracy from $52.8\%$ to $75.9\%$
+while reducing the raw data volume roughly eight-fold.}
+\label{fig:recipe}
+\end{figure}

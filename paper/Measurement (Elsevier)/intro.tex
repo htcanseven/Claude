@@ -1,0 +1,120 @@
+% ============================================================================
+%  Section I — Introduction  (IOP MST; passive voice / third person)
+% ============================================================================
+
+\section{Introduction}
+\label{sec:intro}
+
+Induction machines account for a dominant share of the electrical
+energy consumed by industry and form the mechanical backbone of countless
+processes; their unexpected failure causes costly downtime and, in critical
+applications, safety hazards. Continuous condition monitoring (CM) and early
+fault diagnosis are therefore central to modern maintenance
+practice~\cite{gangsar2020signal, hamani2025advancements}. Among the available
+modalities, vibration analysis is the most established, because the mechanical
+and electrical faults of interest---bearing defects, rotor asymmetries, and
+supply imbalances---imprint characteristic signatures on the machine's vibration
+response~\cite{yang2021fault, zhang2020deep}.
+
+The prevailing paradigm relies on industrial-grade piezoelectric accelerometers
+sampled at tens to hundreds of kilohertz, which resolve the high-frequency
+bearing defect frequencies exploited by spectral and envelope analysis. This is
+reflected in the public benchmarks that anchor the field, acquired at
+$8$--$200$~kHz~\cite{lee2024multidomain, sehri2024ottawa, thuan2023hust,
+huang2018bearing}. Although accurate, such instrumentation is costly, requires
+intrusive installation, and scales poorly to the vast population of small,
+low-value machines that individually do not justify a dedicated monitoring channel
+yet collectively dominate a plant's machine inventory. Closing this coverage gap
+motivates a shift toward inexpensive, wireless, and readily deployable sensing.
+
+Consumer micro-electro-mechanical-systems (MEMS) inertial sensors, epitomised by
+those embedded in smartphones, offer such a platform at negligible marginal
+cost~\cite{grouios2022accelerometers}. Machine fault detection has been demonstrated
+from smartphone- and MEMS-acquired vibration~\cite{naha2017mobile,
+ertargin2023deep, ertargin2025automated}, and dedicated low-cost MEMS nodes now
+integrate on-board processing with wireless telemetry for machine
+diagnostics~\cite{pedotti2020lowcost, jakobsen2024lowcost}. These sensors,
+however, operate at sampling rates one to three orders of magnitude below
+industrial practice---$100$~Hz in the present case---so that, by the Nyquist
+criterion~\cite{nyquist1924certain, shannon1948mathematical}, the high-frequency
+signatures underpinning classical bearing diagnosis are not observable. A
+fundamental and largely unresolved question follows: what fault information is
+genuinely recoverable from such a constrained sensor, and does the apparent
+performance transfer to a real deployment?
+
+The second half of that question is easily overlooked. Learning-based fault
+diagnosis routinely reports near-perfect accuracy, yet a growing body of evidence
+attributes much of this success to \emph{data leakage}---information shared
+between training and test partitions that inflates measured accuracy without
+improving generalisation~\cite{kapoor2023leakage}. In vibration diagnosis, leakage
+arises when overlapping analysis windows from a single continuous recording are
+divided across partitions, or when recording-specific characteristics are learned
+in place of fault features; enforcing component- or recording-wise separation has
+been shown to reduce reported accuracy substantially~\cite{wheat2024impact,
+hendriks2022towards}. This scrutiny has so far been directed at industrial-grade,
+high-rate data. For low-rate smartphone datasets---in which each operating
+condition is captured in one continuous acquisition and heavy window overlap is
+common---the risk is arguably greater, yet random-split evaluation remains the
+norm, including in the baseline accompanying the dataset examined
+here~\cite{ertargin2026smartphone}.
+
+A third consideration is deployment. The Industrial Internet of Things envisions
+dense networks of inexpensive nodes that stream, or locally distil, diagnostic
+information over constrained wireless links~\cite{yousuf2024iot}, and recent
+TinyML implementations have shown that lightweight classifiers can run on
+microcontrollers at millisecond latency and sub-millijoule
+energy~\cite{gao2025edge, asutkar2023tinyml}. Such work establishes that edge
+diagnosis is feasible, but it generally presupposes industrial-bandwidth sensing
+and does not characterise the coupled trade-off between diagnostic accuracy and
+the sampling, communication, and computational cost that governs an ultra-low-rate
+node. Whether, for a smartphone-class sensor, the low sampling rate is a liability
+to be tolerated or an asset to be exploited has not been quantified.
+
+This paper approaches these gaps as a measurement problem. Using a public
+smartphone-acquired vibration dataset of an induction machine recorded across six
+health states, three supply frequencies and two load conditions at
+$100$~Hz~\cite{ertargin2026smartphone, ertargin2026dataset}, and rather than
+proposing a new classifier, the study treats diagnostic performance as a quantity
+to be measured: a protocol is developed for estimating it without leakage, the
+mechanisms that inflate it are isolated experimentally, the accuracy--resource
+trade-off that governs an IoT node is mapped, and every figure is reported with an
+interval whose sampling unit is stated. The scope is deliberately bounded, and the
+bound is stated at the outset: all recordings come from one $1.1$~kW machine in
+which each fault class is represented by a single physical specimen, so what is
+estimated is performance on an unseen recording of that machine, not performance
+on an unseen machine.
+
+The principal contributions are fourfold. First, the study \emph{decomposes} the
+optimism of conventional evaluation into its mechanisms. Random splitting of
+windows is shown to overstate accuracy by $41$ to $47$ percentage points, and a
+ladder of partitionings then attributes that gap: window overlap, the mechanism
+most often blamed and most often guarded against, accounts for none of it, as does
+simple temporal proximity, while recording identity accounts for all $46.7$
+points. Enforcing non-overlapping windows, a common precaution, is therefore no
+protection at all on data of this kind. Second, it resolves what a sampling-rate
+sweep actually measures. Decimation to $25$~Hz improves leakage-free accuracy even
+though it removes every shaft rotational frequency in the dataset, and a
+controlled comparison shows that band-limiting alone is mildly harmful, that the
+improvement follows from the reduced number of samples per window, and that
+omitting the anti-alias filter is severely damaging; a rate sweep performed with a
+fixed time-domain feature set thus confounds the observable band with the
+sample-count sensitivity of the features. Third, it provides a data-derived
+characterisation of the smartphone MEMS channel---its observed output increment,
+an in-operation signal floor, the band made observable by the sampling rate, and
+the relative informativeness of the raw and gravity-compensated triads---while
+stating explicitly that these are properties of the delivered signal and not a
+metrological calibration of the transducer. Finally, it maps the
+accuracy--resource trade-off into deployable terms through a payload-rate
+comparison and an edge-model footprint, and reports all comparisons with
+recording-clustered intervals and paired permutation tests rather than with
+statistics computed over repeated re-partitionings of the same data.
+
+The remainder of this paper is organised as follows.
+Section~\ref{sec:related} reviews related work on vibration-based condition
+monitoring, low-cost MEMS sensing, IoT and edge diagnosis, and evaluation
+methodology. Section~\ref{sec:dataset} describes the dataset and measurement
+setup, and Section~\ref{sec:charact} characterises the sensor and its signals.
+Section~\ref{sec:method} details the processing chain and the evaluation
+protocols. Section~\ref{sec:results} reports the results,
+Section~\ref{sec:discussion} discusses their implications and limitations, and
+Section~\ref{sec:conclusion} concludes.

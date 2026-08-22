@@ -1,0 +1,127 @@
+% ============================================================================
+%  Section IV — Data-derived characterisation  (Measurement, Elsevier)
+%  Passive voice / third person throughout. Requires: graphicx.
+%  Figures: fig_psd_usable_band.png, fig_channel_mi.png (in results/).
+%  Numbers from results/analysis_B.{md,json}.
+% ============================================================================
+
+\section{Data-derived characterisation of the signal channels}
+\label{sec:charact}
+
+Before any classifier is trained, it is instructive to establish what
+fault-related information the recorded channels can, in principle, convey. It is
+important to be precise about what follows and what does not. A metrological
+characterisation of a MEMS accelerometer establishes sensitivity traceable to a
+reference standard, amplitude linearity and frequency response, cross-axis
+sensitivity, and thermal behaviour, and it requires controlled excitation and
+reference instrumentation~\cite{prato2021mems, schiavi2023mems, xu2021mems,
+wang2025mems, xu2021mems2, khankalantary2021mems}. No such experiments are
+possible on an archived dataset, and none are claimed here.
+
+What is presented instead is a \emph{data-derived characterisation of the signal
+channels}: quantities computed directly from the delivered samples that bound
+what those channels can carry. Three are reported---the observed minimum output
+increment, an in-operation broadband power spectral density (PSD) floor, and the
+band made observable by the sampling rate---together with the relative diagnostic
+value of the raw and gravity-compensated triads. These are properties of the
+delivered signal, not of the transducer: each conflates the sensor with the
+device's internal processing, its acquisition software and the machine being
+measured. They are nonetheless the quantities that bound the diagnostic task, and
+they motivate the sensing choices analysed later.
+
+\subsection{Observed output increment and in-operation signal floor}
+The smallest positive difference between consecutive distinct sample values was
+extracted from a healthy, unloaded recording. This gives approximately
+$0.015$~mg for the raw acceleration channels and $0.001$~mg for the
+gravity-compensated channels. The quantity is the granularity of the delivered
+numerical stream, not the resolution of the transducer: the finer step of the
+gravity-compensated triad reflects the additional arithmetic of the on-board
+sensor fusion rather than a more sensitive sensing element, and neither figure
+can be interpreted as a noise-limited resolution without the reference
+measurements described above. An in-operation broadband floor was estimated from the
+PSD of a healthy recording; the median PSD above
+$30$~Hz was $8.2\times10^{-8}$~g$^2$/Hz ($-70.8$~dB re $1$~g$^2$/Hz). Because this
+value is obtained on a \emph{running} machine, it includes residual mechanical
+vibration and therefore upper-bounds, rather than isolates, the sensor's
+intrinsic noise floor, which would require an acquisition with the device at
+rest~\cite{srokosz2024mems, capuano2023smartphone}; no such recording exists in
+this dataset. Even as an upper bound, however, it lies several orders of magnitude
+below the fault-induced vibration, which reaches amplitudes on the order of
+$0.1$--$0.2$~g (Fig.~\ref{fig:signals}); sensor resolution and noise are thus not
+the limiting factor for the coarse fault-discrimination task considered here.
+
+\subsection{Band made observable by the sampling rate}
+At a sampling rate of $100$~Hz the observable spectrum is bounded by the Nyquist
+frequency of $50$~Hz~\cite{nyquist1924certain}. This is a limit imposed by the
+acquisition settings, not a measured property of the accelerometer, whose own
+usable bandwidth is not accessible from these data.
+Fig.~\ref{fig:psd} shows the Welch PSD of the gravity-compensated $g_{userx}$
+channel for the six health states under identical operating conditions. Two
+observations follow. First, discriminative structure is present within the
+$0$--$50$~Hz band: the healthy machine exhibits a spectrum roughly an order of
+magnitude lower in power than the fault conditions, and distinct spectral peaks
+appear for the rotor and electrical faults. The dominant peaks near $24$~Hz
+coincide with the shaft rotational frequency at $50$~Hz supply
+(Table~\ref{tab:speeds}, e.g.\ $1425$--$1486$~r/min $\approx 23.8$--$24.8$~Hz),
+confirming that the low-frequency band captures the rotational fundamental and
+its low-order harmonics. Second, the characteristic bearing defect frequencies
+(ball-pass and ball-spin frequencies and their harmonics) lie largely above
+$50$~Hz at the higher supply frequencies---although some low-order components fall
+within the band at $30$~Hz supply---and are, for the most part, not represented.
+The dataset is therefore better suited to time-domain and low-frequency analysis
+than to the high-frequency envelope analysis conventionally used for incipient
+bearing diagnosis, and a corresponding difficulty in separating the fine
+lubrication-severity states is anticipated.
+
+\subsection{Raw versus gravity-compensated channels}
+The dataset provides both the raw acceleration and the gravity-compensated
+(\textit{userAcceleration}) triads, and their relative diagnostic value is not
+self-evident. Two questions were separated: whether the on-device gravity
+compensation removes vibration \emph{power}, and whether it removes diagnostic
+\emph{information}. For the first, the alternating-current (AC) power of each raw
+channel was compared with that of its gravity-compensated counterpart over every
+recording; the mean raw-to-compensated power ratio was $1.00$ on all three axes
+($0.999$, $1.001$, $1.000$ for $x$, $y$, and $z$). The compensation therefore
+does not attenuate the vibration power. It does, however, \emph{reshape} it: the
+mean-removed raw signal and the compensated signal are only moderately correlated
+(Pearson $0.58$, $0.46$, and $0.46$ for $x$, $y$, and $z$), so the complementary
+filter redistributes the low-frequency content---altering its phase and
+correlation structure---rather than discarding it, and the two triads are
+complementary rather than redundant.
+
+For the second question, the mutual information between each channel's time-domain
+feature set and the fault label was estimated (Fig.~\ref{fig:mi}). The raw
+channels were consistently more informative (mean mutual information $0.69$) than
+the gravity-compensated channels ($0.50$), a ratio of $1.39$. Because the raw
+channels also retain a per-recording static offset that varies with condition, a
+legitimate concern is that this advantage merely encodes recording identity---the
+very leakage this work otherwise criticises. Two controls indicate that it does
+not: removing the offset-dependent \emph{mean} feature leaves the ratio essentially
+unchanged ($1.31$), and restricting the estimate to a DC-invariant feature subset
+(standard deviation, variance, skewness, kurtosis, zero-crossing rate, and
+amplitude entropy) yields a comparable ratio ($1.32$). The raw-channel advantage
+is thus robust to the removal of static offsets and reflects genuine dynamic
+content. The raw channels are therefore preferable for condition monitoring, and
+this informativeness ordering motivates the channel-selection study reported in
+Section~\ref{sec:results}.
+
+% ---------------------------------------------------------------------------
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_psd_usable_band.png}
+\caption{Welch power spectral density of the $g_{userx}$ channel for the six
+health states (loaded, $50$~Hz supply). The analysable band is bounded by the
+$50$~Hz Nyquist frequency; the healthy state is markedly lower in power, and
+rotor/electrical faults produce distinct low-frequency peaks.}
+\label{fig:psd}
+\end{figure}
+
+% ---------------------------------------------------------------------------
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_channel_mi.png}
+\caption{Mean mutual information between each channel's time-domain feature set
+and the fault label. The raw channels ($g_x$, $g_y$, $g_z$) are more informative
+than the gravity-compensated channels ($g_{userx}$, $g_{usery}$, $g_{userz}$).}
+\label{fig:mi}
+\end{figure}

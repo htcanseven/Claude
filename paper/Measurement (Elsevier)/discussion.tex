@@ -1,0 +1,129 @@
+% ============================================================================
+%  Section VII — Discussion and Limitations  (IOP MST)
+%  Passive voice / third person throughout. Interpretation of the Section VI
+%  results, practical guidance, and limitations. Requires: none beyond base.
+% ============================================================================
+
+\section{Discussion and Limitations}
+\label{sec:discussion}
+
+\subsection{Discussion}
+
+\subsubsection{Evaluation methodology}
+The optimism gap of Section~\ref{subsec:gap} is the central methodological
+finding: for low-rate smartphone-based machine diagnosis, accuracies obtained
+under random splitting overstate deployable performance by tens of accuracy
+points. The effect mirrors that documented for industrial-grade vibration
+data~\cite{wheat2024impact, hendriks2022towards} and the broader
+machine-learning leakage literature~\cite{kapoor2023leakage, lones2024leakage},
+and it has been observed independently in wearable
+sensing~\cite{gholamiangonabadi2020cv}.
+
+The decomposition of Section~\ref{subsec:decomp} sharpens the usual account.
+Window overlap, which is the mechanism most often named and most often guarded
+against, accounts for none of the gap here: a random split of strictly
+non-overlapping windows is still perfectly accurate, as is a split that holds out
+a contiguous temporal block from every recording. The whole of the $46.7$-point
+gap is attributable to recording identity. The practical implication is
+uncomfortable for common practice, because enforcing non-overlapping windows---a
+frequent and reasonable-looking precaution---would provide no protection at all on
+data of this kind. Where each operating condition is captured in one continuous
+acquisition, the recording is the only defensible unit of separation.
+
+A consequence for benchmark practice follows. Near-perfect accuracies frequently
+reported for this class of data should be read as measurements of recording
+identifiability rather than of diagnostic capability, a concern raised
+independently for deep bearing-diagnosis benchmarks~\cite{wang2026benchmark}. The
+recording-wise and cross-condition figures obtained here provide a more
+deployment-honest reference against which future methods can be compared.
+
+\subsubsection{Sampling rate, feature invariance and what the sweep measures}
+Decimation to $25$~Hz raises leakage-free accuracy, and the resource-frugal
+configuration built on it remains the better operating point for a node. The
+reason, however, is not the one a rate sweep invites. Section~\ref{subsec:antialias}
+shows that band-limiting to the same $12.5$~Hz while retaining the original
+sampling rate \emph{reduces} accuracy, that the whole improvement appears when the
+band-limited signal is represented by a quarter as many samples per window, and
+that disabling the anti-alias filter is severely damaging. The shaft rotational
+frequencies of this machine, $13.1$ to $24.9$~Hz, lie above the $12.5$~Hz Nyquist
+frequency of the decimated stream and are therefore absent from the configuration
+that performs best.
+
+The operative effect is that the time-domain feature set is not invariant to the
+sampling rate. Zero-crossing rate, amplitude entropy over a fixed histogram and
+the higher-order moments all depend on the number of samples in the window and on
+how strongly those samples are correlated; a band-limited signal retained at
+$100$~Hz is heavily oversampled, and its descriptors are estimated from far fewer
+effectively independent values than the sample count implies. Decimation removes
+that redundancy, and the gain follows.
+
+Two conclusions are worth separating. The practical one is unchanged and useful:
+an ultra-low-rate node is not handicapped for this task, and aggressive decimation
+reduces telemetry and node energy without sacrificing accuracy---provided the
+anti-alias filter is applied, since omitting it costs $24.9$ points. The
+methodological one is a caution that applies well beyond this dataset. A sampling
+rate sweep performed with a fixed time-domain feature set does not measure the
+information content of the band; it measures the band and the sample-count
+sensitivity of the features together. Reports that lower rates suffice, this one
+included, should be read with that confound in mind, and studies of downsampling
+in vibration analysis~\cite{he2021sampling} suggest the interaction deserves
+explicit treatment.
+
+\subsubsection{Model complexity and edge feasibility}
+Under leakage-free evaluation the lower-capacity models generalised at least as
+well as the Random Forest while occupying a kilobyte-scale footprint, so on-node
+inference is practical on inexpensive microcontrollers. Combined with the link
+budget, this yields per-link deployment guidance: Bluetooth Low Energy, Zigbee,
+and NB-IoT nodes can stream raw or feature data to a gateway, whereas LoRaWAN
+nodes, constrained by the duty cycle to the decision stream, must perform
+classification locally. The alignment between the models that deploy most easily
+and those that generalise best is convenient for practical systems.
+
+\subsubsection{Sensor-level guidance}
+The channel analysis of Section~\ref{sec:charact} carries a concrete
+recommendation for smartphone-based acquisition: the raw acceleration channels
+should be preferred over the gravity-compensated channels. The on-device gravity
+compensation---valuable for motion-tracking applications---preserves the vibration
+power but reshapes its low-frequency structure, and the raw channels carry
+measurably more fault information (a mutual-information ratio of about $1.4$ that
+survives the removal of static offsets), so they are the better choice for
+condition monitoring.
+
+\subsubsection{Scope of applicability}
+Taken together, the results delineate where low-cost, low-rate MEMS sensing is
+appropriate. Coarse health states, such as a healthy machine, a broken rotor bar,
+or a supply-voltage imbalance, are separable at $100$~Hz and below; the staging of
+incipient bearing degradation, whose signatures lie in the high-frequency band, is
+not, and remains the province of higher-rate, industrial-grade instrumentation.
+
+\subsection{Limitations}
+\label{subsec:limits}
+Several limitations bound the scope of these findings. The dataset comprises a
+single $1.1$~kW machine with laboratory-induced, discrete-severity faults, and the
+two lubrication states were graded qualitatively; the reported accuracies are
+therefore a deployment-honest baseline rather than a claim of field performance.
+Crucially, each fault class is represented by a \emph{single physical specimen}
+(one modified bearing, one drilled rotor, one imbalance configuration) recorded
+across speeds and loads. The recording-wise protocol therefore removes
+window-overlap and exact operating-point leakage, but not specimen identity: a
+model may still key on the idiosyncratic signature of that particular specimen and
+its mounting rather than on a fault signature that would transfer to a different
+specimen of the same class. The evaluation is thus leakage-free only in this
+restricted sense, and cross-specimen generalisation is not established here. The
+small number of recordings ($36$) also produces wide fold-to-fold variability;
+although five-seed repetition stabilises the central estimates and the reported
+expanded uncertainty quantifies their reproducibility, it captures only resampling
+variance and not the dominant specimen-, machine-, and mounting-to-mounting
+components, so it should not be read as a full measurement-uncertainty budget. The
+deployment quantities are likewise indicative rather than measured: the model
+footprint is a serialised (software) size, and energy and latency are inferred
+from data volume and window length rather than measured on hardware, with a
+cycle-accurate microcontroller characterisation left to future work. A further limitation concerns
+reproducibility in practice: the implementation itself is not distributed, so the
+results must be reimplemented from the description rather than re-executed. The
+feature definitions, estimator settings, resampling and robustness transforms,
+and random seeds are therefore reported in full in Section~\ref{sec:method},
+but exact numerical agreement with an independent reimplementation cannot be
+guaranteed. Finally,
+generalisation across machines of different ratings and manufacturers was not
+assessed and constitutes the most important direction for future validation.
