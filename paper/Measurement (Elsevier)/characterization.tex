@@ -73,6 +73,14 @@ than to the high-frequency envelope analysis conventionally used for incipient
 bearing diagnosis, and a corresponding difficulty in separating the fine
 lubrication-severity states is anticipated.
 
+One caution should be attached to this spectral reading. That the rotational
+fundamental is present and visibly discriminative in the PSD does not establish
+that a time-domain classifier makes use of it. Section~\ref{subsec:antialias}
+shows the opposite: decimation that removes the fundamental entirely improves
+leakage-free accuracy, so the descriptors used here are evidently not relying on
+that component. The spectra below therefore delimit what the channel carries, not
+what the classifier exploits.
+
 \subsection{Raw versus gravity-compensated channels}
 The dataset provides both the raw acceleration and the gravity-compensated
 (\textit{userAcceleration}) triads, and their relative diagnostic value is not
