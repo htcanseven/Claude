@@ -6,6 +6,8 @@ Draft material for the Wiley book proposal (Canseven, Petrov, Pyrhönen).
 
 | File | What it is |
 |---|---|
+| `Chapter_1_HighSpeed_CONSERVATIVE.docx` | **Recommended.** ~20 pp. Original prose verbatim; corrections added alongside. |
+| `Chapter_1_Redline_CONSERVATIVE.docx` | Word-level tracked changes for the conservative version. |
 | `Chapter_1_HighSpeed_FULL.docx` | Full version, ~18 pp. Restructured, with new scaling analysis. |
 | `Chapter_1_HighSpeed_MINIMAL.docx` | Minimal version, ~14 pp. Original structure, repairs only. |
 | `Chapter_1_Record_of_Changes.docx` | Every change against the original draft, with derivations. |
@@ -17,7 +19,8 @@ They differ in structure and depth only.
 
 ## Sources
 
-- `ch1_full.md`, `ch1_minimal.md` — chapter text (edit these, then regenerate)
+- `ch1_conservative.md`, `ch1_full.md`, `ch1_minimal.md` — chapter text
+- `src/build_conservative.py` — generates the conservative chapter from the draft plus an auditable edit list
 - `CHANGES.md` — change record
 - `figures/` — all eight figures, 300 dpi PNG
 - `original_draft_text.json` — the original draft's text, recovered from the redlines

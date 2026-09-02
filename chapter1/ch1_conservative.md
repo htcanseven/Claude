@@ -1,0 +1,508 @@
+# 1 Introduction
+
+## 1.1 Introduction: The High-Speed Landscape
+
+High-speed electrical machine design is the art of balancing four mutually exclusive demands: mechanical integrity, electromagnetic efficiency, thermal management, and power electronic feasibility. While a standard 50/60 Hz machine can be designed using established rules of thumb, a high-speed machine exists at the edge of material and switching limits. At these velocities, a 1% change in rotor diameter can lead to catastrophic mechanical failure or a non-linear surge in windage losses; similarly, a slight increase in pole count to save stator mass can push the inverter beyond its stable switching limit.
+
+The speed of a high-speed machine is not merely a mechanical rpm value; it is an electrical frequency challenge. The relationship between mechanical speed (n in r/min) and fundamental frequency (fs) is governed by the pole-pair number (p):
+
+    fs=np60.
+
+In traditional industrial high-speed machines, designers often favor a low pole count (p=1 or 2). This keeps the fundamental frequency low enough (typically < 600 Hz) to be served by standard Silicon IGBT-based converters. However, as we push toward the high-specific-power paradigm required for traction or aerospace, we encounter a severe conflict:
+
+The Stator Mass Conflict: To reduce the machine's mass, we must minimize the stator yoke, the back-iron. This requires increasing the pole-pair count (p).
+
+The Switching Frequency Wall: Increasing p drives fs into the multi-kilohertz range. To maintain a high-quality current waveform and minimize rotor harmonic heating, the inverter's switching frequency (fsw) should ideally be 10, rather to 20 times the fundamental frequency.
+
+The Thermal Limit of Silicon: Standard IGBTs struggle with high fsw due to excessive switching losses, leading to a significant thermal derating of the inverter. This often forces designers to compromise, either by accepting a heavier machine with fewer poles or by utilizing complex, heavy output filters that negate the weight savings of the high-speed motor.
+
+#### Defining "High Speed"
+
+One challenge with high-speed technology is that there is not a universally accepted definition of what "high speed" actually means. Still, certain physical limitations help define the boundaries for electrical machines. When these limits are approached, the machines can be considered high speed. Mechanical, thermal, and power electronics constraints must all be taken into account when developing a high-speed drive system.
+
+#### The r/min fallacy: Why speed is a relative term.
+
+In high-speed design, revolutions per minute (r/min) is often a deceptive metric that masks the actual physical intensity of the machine. While 50,000 r/min sounds impressive, its engineering significance depends entirely on the physical scale of rotor. A dental drill spinning at 400,000 r/min is a trivial mechanical task compared to a multi-megawatt industrial compressor spinning at 15,000 r/min. This discrepancy is known as the r/min fallacy.
+
+The true measure of "speed" in electrical machines is defined by the peripheral tip speed (vtip = Ωrr). Mechanical stress in the rotor, specifically the centrifugal force, scales with the square of the speed and the radius (rr Ω2). Consequently, a larger rotor at a lower r/min may face far more severe structural challenges, such as the bursting of laminations or the delamination of permanent magnets, than a small rotor at a much higher r/min.
+
+Furthermore, speed is relative to the electromagnetic frequency. A 2-pole machine at 30,000 r/min creates a 500 Hz fundamental, whereas an 8-pole traction motor at the same speed demands 2 kHz. Thus, "high speed" is not a single number but a ratio of mechanical limits, thermal dissipation, and frequency-dependent losses. To classify a machine accurately, one must look past r/min to the vtip and the fP product.
+
+#### Different definitions of high speed
+
+It is striking how much discussion surrounds high-speed drives, yet the definitions in the literature remain ambiguous and inconsistent. As highlighted, there are two dominant definitions for high-speed machines: one based on peripheral tip speed (exceeding 150 m/s) emphasizing the mechanical strength, and another using the product of rated speed and the square root of power (nP in r/minkW > 100,000) (El Hajji et al., 2024). Neither of these definitions is universally adopted, which contributes to the confusion in the field.
+
+If we also consider a third possible benchmark, the product of frequency and power (the fP product), it becomes clear that “high speed” is not just a matter of mechanical or power criteria, but also electromagnetic performance. A more modern benchmark is the product of fundamental frequency and power (the fP product). This metric bridges the gap between mechanical and electromagnetic limits. While tip speed and nP are common, the fP product is increasingly pertinent as designs push the limits of power electronics. While the literature often references tip speed and nP, the fP product appears as a modern, practical metric, especially pertinent as machine designs push the limits of both power electronics and electromagnetics.
+
+In summary, the definitions for high-speed machines remain varied: tip speed, n√P, and now the fP product.
+
+In EU financed Voltcar project a high-speed traction motor has been designed [ref]. This motor is characterized in Table 1.1
+
+**Table 1.1. Voltcar inner six-pole rotor radial-flux traction motor**
+
+| Power, P = 120 kW | rotor diameter Dr = 96 mm | max speed, n = 30000 r/min |
+|---|---|---|
+| peripheral speed vtip = 30000/60 × π × 0.096 m/s = 151 m/s |  |  |
+| nP= 30000 r/min × 120 kW = 329 000 r/min kW |  |  |
+| fP = 1500 1/s × 120 kW = 180 000 kW/s |  |  |
+
+If we consider that the two first definitions fulfil the definition, we may also set a target for the fP product. If fP reaches 180 000 kW/s a drive can be set as a high speed drive.
+
+Two qualifications should be attached to this figure. The value is proposed here from a single design point, and the Voltcar machine is itself marginal by the tip-speed criterion, at 150.8 m/s against a 150 m/s threshold, so it is a weak anchor for a classification boundary. At this stage the fP product is therefore best read as a descriptive figure of merit for converter burden rather than as a validated threshold; Chapter 2 calibrates it against a population of published machines.
+
+What the fP product does capture, and what neither vtip nor n√P can, is the pole number. The same 120 kW rotor wound as a two-pole machine would have an identical tip speed and an identical n√P, while its fundamental frequency, and with it the fP product, would fall by a factor of three. Figure 1.1 shows how the two criteria sit relative to one another in the power–speed plane.
+
+**[Figure 1.1 near here]**
+*Figure 1.1 The n√P and fP criteria in the power–speed plane. The fP contour is drawn for p = 3; changing the pole-pair number translates it vertically, which is the dependence that n√P cannot express. The marked point is the machine of Table 1.1.*
+
+### 1.1.2 Historical Context and the Direct-Drive Revolution in industrial high-speed applications
+
+For decades, the industrial standard for achieving high-speed rotation, required for compressors, pumps, and fans, relied on the geared solution. This architecture utilizes a standard four-pole network-connected induction motor operating at 1,500 or 1,800 r/min, coupled to a mechanical speed-increaser gearbox. While functionally mature, this traditional setup is increasingly viewed as a bottleneck in the pursuit of system efficiency and power density. The modern transition toward integrated high-speed (HS) units represents a fundamental shift toward direct-drive technology, where the electrical machine is designed to match the load speed natively.
+
+#### The Limitations of the Geared Legacy
+
+The primary driver for this transition is the inherent complexity of the mechanical drivetrain. Gearboxes are notoriously maintenance-intensive; they require dedicated massive lubrication systems, oil cooling, and frequent seal replacements. Mechanically, they introduce significant parasitic losses, often reducing system efficiency by 2% to 5%. Furthermore, the sheer physical footprint of a motor-gearbox-load assembly is substantial, making it unsuitable for applications where space and mass are at a premium, such as subsea compression or mobile transport. In the worst case a geared HS unit needs a two-store building where a large lubrication-oil tank needs to be located below the drive itself in the basement.
+
+**[Figure 1.2 near here]**
+*Figure 1.2 Geared and direct-drive architectures compared. Above, a mains-connected motor drives the load through a step-up gearbox, with the lubrication plant below floor level. Below, the impeller is mounted directly on the high-speed motor shaft and carried on active magnetic bearings, giving a single sealed unit with no oil system and no second storey.*
+
+#### The Integrated High-Speed Unit: A Leap in Performance
+
+By eliminating the gearbox, integrated high-speed units offer a streamlined plug-and-play alternative. In this configuration, the rotor of the electrical machine is often mounted on the same shaft as the process load (e.g., the impeller). This integration yields several transformative benefits:
+
+System Efficiency: Removing the gear stages and high-speed couplings provides a direct boost to wire-to-shaft efficiency. When combined with the high fundamental efficiency of a permanent magnet or solid-rotor induction motor, the energy savings over a 20-year lifecycle are immense.
+
+Oil-Free Operation: Integrated units often utilize active magnetic bearings (AMB) or foil bearings. This removes the need for oil lubrication entirely, allowing for oil-free processes that are critical in the food, pharmaceutical, and semiconductor industries, as well as in subsea environments where oil leakage is an environmental hazard.
+
+Reliability and Maintenance: With fewer moving parts and no mechanical gears to wear down, the Mean Time Between Failure (MTBF) increases significantly. The machine becomes a hermetically sealable unit, protected from the environment.
+
+#### Challenges and Trade-offs
+
+The transition is not without its engineering hurdles. Moving from 1,800 r/min to 60,000 r/min shifts the burden from mechanical engineering to multidisciplinary physics. The integrated rotor must handle extreme centrifugal stresses, and the stator must be designed to withstand high-frequency iron losses. Furthermore, the loss of the gearbox means the electrical machine must handle the full thermal load of the process within a much smaller volume, necessitating advanced cooling strategies like direct-oil cooling or jacket cooling.
+
+The move from geared systems to integrated high-speed units is more than a component swap; it is a systemic evolution. As Wide Bandgap (SiC) power electronics and high-strength rotor materials continue to mature, the "direct-drive" approach is becoming the default for any application where footprint, efficiency, and reliability are paramount. This chapter explores how this transition is redefining industrial standards and opening new frontiers in high-performance engineering.
+
+#### The Divergent Evolution: Direct-Drive Industrial vs. Geared Traction
+
+While the trend in high-speed engineering is toward higher rotational velocities, the physical implementation of that speed differs radically based on the economic and operational requirements of the application. This creates a fascinating divergence: Industrial HS units are moving toward the elimination of gears and bearings, while Traction HS units are embracing them as essential components of a mass-optimized system.
+
+#### The Industrial Paradigm: The "Gearless" Hermetic Unit
+
+In the industrial sector, covering compressors, blowers, and expanders, the move is toward total integration. By mounting the impeller directly on the motor shaft and utilizing Active Magnetic Bearings (AMB) or foil bearings, the system becomes a single, hermetically sealed unit.
+
+The primary driver here is Total Cost of Ownership (TCO) and process purity. For a wastewater treatment plant or a subsea gas compressor, the elimination of the gearbox and the oil-lubrication system removes the most frequent points of failure. Although the initial capital expenditure (CAPEX) for a high-speed motor and AMB system is higher than a geared induction motor, the savings in maintenance, the 2–5% gain in system efficiency, and the "oil-free" operation justify the investment. Here, high speed is the enabler for simplicity and reliability.
+
+#### The Traction Paradigm: The Geared High-Speed Optimum
+
+In the automotive and heavy-duty traction sector, engineering logic flips. A direct-drive motor for a vehicle would require immense torque to provide the necessary acceleration at the wheels, leading to a massive, heavy, and expensive machine. To keep the vehicle light and the cost low, engineers utilize the High-Speed Optimum: a high-speed motor (often 15,000 to 25,000 r/min) coupled with a high-precision, fixed-ratio step-down gearbox.
+
+Unlike the industrial compressor, the traction motor relies on high-precision, oil-lubricated angular-contact ball bearings. These are chosen over AMBs because they are significantly cheaper, more compact, and capable of handling the high shock and vibration loads inherent in road transport.
+
+#### The Economic Paradox: Why "More Parts" Can Be Cheaper
+
+The traction sector proves an interesting economic paradox: adding a gearbox and a lubrication system is actually cheaper than building a low-speed direct-drive motor.
+
+Material Cost: A high-speed motor is much smaller, requiring significantly less copper and rare-earth magnet material.
+
+The "Torque is Expensive" Rule: Since P = TΩ, if you increase speed (Ω), you can produce the same power (P) with much less torque (T). In traction, where space is limited, it is economically and physically superior to generate that power at high speed and use a robust set of gears to trade speed for the torque required at the axles.
+
+In summary, the high-speed field is split between the industrial goal of no gears to maximize reliability, and the traction goal of high-speed plus gears to maximize power density and minimize cost. This chapter explores how these two different philosophies dictate the choice of materials, topologies, and power electronics.
+
+### 1.2.1 Industrial High-Speed Machines: The Stationary Approach
+
+In the industrial sector, the transition to high-speed (HS) electrical machines is driven by a paradigm of system simplification and life-cycle economy. For applications such as centrifugal compressors, wastewater aeration blowers, and organic Rankine cycle (ORC) energy recovery systems, the "stationary" approach to HS design prioritizes long-term reliability and high operational efficiency over extreme mass minimization. Unlike the traction sector, where every kilogram saved translates to vehicle range, the industrial HS machine is often judged by its ability to run maintenance-free for 100,000 hours.
+
+#### Applications: The Drivers of Direct-Drive
+
+The primary applications for industrial HS machines are those requiring high-velocity fluid movement or energy extraction from high-pressure flows.
+
+Centrifugal Compressors: Traditionally, these required a speed-increasing gearbox to reach the necessary impeller tip speeds. By utilizing a high-speed motor, the impeller can be mounted directly on the motor shaft. This eliminates the gearbox, reducing the footprint and removing the parasitic mechanical losses (typically 2–5%) associated with gear meshing and additional bearings.
+
+Wastewater Aeration: Large blowers provide oxygen to bacteria in treatment tanks. These machines operate 24/7. Here, the HS approach allows for a compact, oil-free design. When paired with active magnetic bearings (AMB), the risk of oil contaminating the process air, and eventually the treatment tanks, is eliminated.
+
+Energy Recovery (ORC and Turbo-expanders): In industrial waste heat recovery, a high-speed generator is coupled to a turbine. The ability to operate at the turbine’s native speed (often 20,000 to 50,000 r/min) allows for a direct-drive generator that is significantly smaller and more efficient than a standard 1,500 r/min unit with a gearbox.
+
+#### Topology: The Logic of Low Pole Counts
+
+The industrial HS machine is defined by a conservative electromagnetic approach, typically favoring low pole-count topologies, specifically 2-pole Induction Machines (IM) and 2-pole or 4-pole Rotor-Surface-Magnet Permanent-Magnet Synchronous Machines (SPM).
+
+#### 2-Pole Induction Machines (IM)
+
+The high-speed IM remains a workhorse for industrial applications due to its inherent ruggedness. The rotor often consists of a solid steel body or high-strength laminations. While the rotor squirrel cage must be carefully designed to withstand centrifugal forces, the absence of magnets simplifies the mechanical retention strategy. The 2-pole configuration is favored because it results in the lowest possible fundamental frequency for a given speed and the highest possible power factor. Both of these have profound implications for the power electronics. Lowest possible frequency results in low iron losses.
+
+#### 2/4-Pole Rotor-Surface-Magnet PMSMs
+
+For higher efficiency, the SPM topology is preferred. By placing high-energy magnets (typically Neodymium Iron Boron or Samarium Cobalt) on the rotor surface, the machine eliminates rotor copper losses. However, at high speeds, these magnets cannot withstand the centrifugal tension on their own. The industrial stationary strategy utilizes thick high-strength Carbon Fiber (CF) or Inconel sleeves to provide the necessary pre-stress [ref].
+
+A 2-pole or 4-pole arrangement is chosen to maintain a manageable frequency. For example, a 2-pole machine at 30,000 r/min results in a 500 Hz fundamental frequency while 4-pole solution doubles the fundamental to 1000 Hz. A 2-pole solution is a deliberate design choice: it allows the use of relatively thick stator laminations (0.2–0.35 mm) compared to the ultra-thin foils required in higher-frequency machines, keeping manufacturing costs under control while maintaining high efficiency.
+
+#### Strategy: Mechanical Robustness and Sleeve Technology
+
+The defining "strategy" of the industrial HS machine is the management of the Rotor-Stator interface. Since mass is not the primary constraint, the design focuses on:
+
+Stiff Rotor Design: Industrial machines often utilize a larger rotor diameter to achieve the required torque, pushing the peripheral speeds to the limits of the materials (often 200–250 m/s). To manage this, carbon fiber sleeves are wound with high tension to ensure the magnets remain in compression even at maximum overspeed.
+
+Thermal Management of the Rotor: In 2-pole machines, the air-gap flux density is high. To prevent the magnets from overheating due to eddy currents induced by stator harmonics, industrial designs often employ conductive "shields" (like copper or brass) or use the sleeve itself as a thermal barrier, paired with aggressive forced-air or liquid cooling in the stator jacket.
+
+Large Air Gaps: Unlike traction motors that use tiny air gaps to maximize torque density, industrial HS machines often employ larger air gaps (2–5… mm). This reduces windage losses and provides a buffer against the thermal expansion of the rotor, which can be significant at high speeds.
+
+#### Power Electronics: The IGBT Compatibility
+
+Perhaps the greatest advantage of the industrial "low pole-count" approach is its compatibility with standard high-power IGBT (Insulated Gate Bipolar Transistor) converters. Because the fundamental frequency (fs) is kept moderate (typically under 1 kHz), the ratio between the inverter switching frequency (fsw) and the fundamental frequency remains high enough (e.g., fsw/fs > 10) to ensure high-enough-quality current control without specialized hardware.
+
+Thermal Stability: Standard IGBTs are thermally limited when switching at very high frequencies. By keeping the machine's pole count low, the industrial designer ensures the inverter can operate at 8–16 kHz switching frequencies without excessive derating.
+
+Filter Integration: Industrial sites often have strict EMI (Electromagnetic Interference) requirements. The moderate frequencies of industrial HS drives allow for the use of standard LC or sine-wave filters to protect motor insulation from du/dt stress and to eliminate bearing currents, a critical factor when using traditional high-speed ball bearings.
+
+#### Conclusion: The Stationary Philosophy
+
+The industrial high-speed machine is a masterpiece of integrated reliability. By choosing low pole counts and robust mechanical retention (CF sleeves), designers create a machine that is compatible with existing IGBT technology while providing the efficiency gains of a direct-drive system. It represents a sweet spot in engineering where the benefits of high speed (reduced size and gearless operation) are harvested without crossing into the ultra-high-frequency territory that requires expensive wide-bandgap semiconductors or exotic, fragile rotor geometries. In the chapters that follow, we will contrast this with the traction approach, where every gram of weight forces a move toward higher frequencies and more complex electronic solutions.
+
+### 1.2.2 High-Specific-Power HS Machines: The Mobile Approach
+
+In the world of mobile applications, encompassing electric vehicles (EVs), aviation, and heavy-duty transport, the design philosophy shifts from longevity-focused stationary-applications engineering to mass-minimized "dynamic" engineering. For these machines, every cubic centimeter and every gram carries a penalty in terms of battery range, payload capacity, or fuel consumption. The mobile approach to high-speed design pushes the machine into a realm of high electromagnetic frequency, where traditional industrial design rules are discarded in favor of extreme power density.
+
+#### Applications: The Pursuit of Power Density
+
+Mobile high-speed machines are the heart of the more-electric revolution in transportation [ref].
+
+EV Traction: As automotive manufacturers strive to increase efficiency and decrease costs, motor speeds have climbed from 10,000 r/min to over 20,000 r/min. Higher speeds allow the motor to shrink in size while maintaining the power required for highway cruising and rapid acceleration.
+
+Aerospace Propulsion: In hybrid-electric aircraft and UAVs, mass is the ultimate enemy. High-speed generators coupled to gas turbines or high-speed propulsion motors must achieve power densities exceeding 10–15 kW/kg, levels that are simply impossible with conventional industrial topologies.
+
+Turbo-compounding and e-Turbochargers: These units recover energy from exhaust gases or provide instant boost to internal combustion engines. They operate at the extreme end of the speed spectrum (often >100,000 r/min), requiring a machine that is virtually invisible in terms of weight and volume to avoid disrupting the engine's balance.
+
+#### Topology: Multi-pole IPM and Reluctance Torque
+
+Unlike the 2-pole industrial machines, the mobile approach favors multi-pole topologies, typically 6, 8, or even 12 poles. The preferred architecture is the Interior Permanent Magnet Synchronous Machine (IPM).
+
+In an IPM machine, the magnets are embedded within the rotor lamination stack rather than being attached to the rotor surface. This offers several critical advantages for mobile HS units:
+
+Mechanical Protection: The steel bridges and ribs of the rotor laminations act as the structural containment for the magnets, removing the need for thick, bulky carbon fiber sleeves that increase the magnetic air gap.
+
+Reluctance Torque: By embedding magnets, the designer creates saliency (an inductance difference between d-axis and q-axis inductance). This allows the machine to produce reluctance torque in addition to magnet torque, which is vital for the wide constant-power speed range (CPSR) required in vehicle traction.
+
+Field Weakening: Multi-pole IPMs excel at high-speed operation where the inverter voltage is limited. The rotor geometry allows for effective field weakening, enabling the motor to reach high r/min without requiring an excessively high DC bus voltage.
+
+#### Strategy: Mass Minimization through Frequency
+
+The core strategy of the mobile approach is to trade frequency for mass. In electrical machines, the required thickness of the stator yoke (the back-iron) is inversely proportional to the number of poles. By increasing the pole count from 2 to 8, the magnetic flux per pole is quartered. This allows the stator yoke to be significantly thinned, leading to a massive reduction in the total weight of the stator lamination stack.
+
+However, this mass reduction comes at a steep price: high fundamental frequency. An 8-pole motor spinning at 15,000 r/min requires a fundamental frequency of 1,000 Hz. At 30,000 r/min, this rises to 2,000 Hz. To manage the resulting iron losses, mobile HS machines utilize ultra-thin, high-performance electrical steels (often 0.1 mm or 0.2 mm thick) and highly optimized cooling paths, often involving direct oil cooling where the lubricant for the gears is also used to cool the stator windings and rotor.
+
+#### Power Electronics: The Necessity of Wide Bandgap (SiC/GaN)
+
+The mobile approach would be physically impossible without the recent revolution in power electronics. Traditional Silicon IGBTs face a frequency wall; as the fundamental frequency of the motor climbs toward 2 kHz, the switching frequency must climb toward 20–40 kHz to maintain control stability and minimize rotor harmonic heating. At these frequencies, Silicon IGBTs generate so much heat from switching losses that they become inefficient or require massive, heavy cooling systems that negate the motor's weight savings.
+
+Silicon Carbide (SiC) and Gallium Nitride (GaN) are the enablers of this paradigm. These Wide Bandgap (WBG) materials can switch at significantly higher speeds with a fraction of the losses of Silicon.
+
+High Control Fidelity: SiC allows for high switching-to-fundamental frequency ratios, ensuring the current is a clean sine wave even at 2,000 Hz. This is critical for preventing "ripple" which would otherwise cause excessive eddy-current heating in the rotor magnets.
+
+Thermal Integration: Because WBG converters are more efficient, the inverter itself can be made smaller and integrated directly into the motor housing, creating a "smart actuator" that is compact and light.
+
+#### Conclusion: The High-Frequency High-Density Frontier
+
+The mobile HS approach represents a high-stakes engineering balance. By embracing multi-pole IPM topologies and leveraging the high-frequency capabilities of SiC power electronics, designers can achieve power densities that were once unthinkable. While these machines are more complex to manufacture and demand more sophisticated control than their industrial counterparts, they are the essential technology for the future of sustainable, electrified transport. The chapters following this introduction will dive deeper into the specific electromagnetic and mechanical tools used to survive this high-frequency frontier.
+
+## 1.3 Fundamental Physical Constraints
+
+### 1.3.1 Mechanical Limits: The rrΩ 2 Wall
+
+In the design of high-speed electrical machines, the most uncompromising boundary is the mechanical wall dictated by centrifugal force. As rotational speed increases, the internal stresses within the rotor do not scale linearly; they scale with the square of the angular velocity (Ω 2) and the radius (rr). This relationship defines a fundamental limit on the rotor’s physical dimensions, where every millimeter of increased radius exponentially threatens the structural integrity of the machine.
+
+#### Centrifugal Stress Distribution: Solid vs. Laminated Rotors
+
+The distribution of mechanical stress is heavily dependent on the rotor's construction. In laminated rotors, which are common in induction and interior permanent magnet (IPM) machines, the rotor is a stack of thin electrical steel sheets. The stress is primarily concentrated around the shaft hole and the bridges or ribs that hold the magnets or cage bars in place. Because laminations have negligible axial strength, the radial stress must be carried entirely by the planar geometry of the steel. This often leads to a bursting limit where the yield strength of the electrical steel, even high-strength grades, is exceeded by the centrifugal pull of the rotor's own mass. Another disadvantage in using laminates on a shaft is that the laminates need a centre hole that doubles the mechanical stress in in inner radius of the lamination.
+
+Conversely, solid rotors, often found in high-performance induction machines or rotor-surface-magnet PM machines, behave as a single monolithic cylinder. The stress distribution is more uniform, but the maximum stress still occurs at the center of the rotor (if solid) or at the inner bore (if hollow). Solid rotors can typically reach higher peripheral speeds (up to 250–300 m/s) compared to laminated versions [ref], but they introduce significant challenges regarding eddy-current losses, necessitating a trade-off between mechanical peak-performance and electromagnetic efficiency. Solid rotors also need a high airgap, low-harmonic winding and typically necessitate an LC filter in the supply line.
+
+The factor of two is exact for a thin disc. For a solid rotating disc of density ρ and Poisson ratio ν the maximum tangential stress occurs at the centre and is
+
+    σmax = [(3 + ν)/8] · ρ · vtip²
+
+while introducing a small central bore moves the maximum to the bore and doubles it:
+
+    σmax = [(3 + ν)/4] · ρ · vtip²
+
+Figure 1.3 evaluates both for electrical steel, taking ρ = 7650 kg/m³ and ν = 0.3. A bored lamination reaches about 252 MPa at 200 m/s and about 395 MPa at 250 m/s. Against a high-strength grade with a proof stress near 450 MPa and a safety factor of 1.5, the 250 m/s design is already outside the allowable envelope while the 200 m/s design is inside it. This is the quantitative form of the advantage that solid rotors hold over laminated ones.
+
+**[Figure 1.3 near here]**
+*Figure 1.3 Maximum tangential stress against peripheral speed for a solid disc, a disc with a central bore and a thin ring, for electrical steel (ρ = 7650 kg/m³, ν = 0.3). The central bore doubles the stress, which is the penalty paid by any shaft-mounted lamination stack.*
+
+#### Material Fatigue and the Retention System
+
+Surviving a single high-speed run is not enough; industrial and traction rotors must survive millions of start-stop cycles. This introduces material fatigue as a critical constraint. The constant expansion and contraction of the rotor under centrifugal loading can lead to crack propagation, especially at stress concentration points like the sharp corners of magnet pockets.
+
+To combat these forces, designers rely on two primary retention systems:
+
+Sleeves (Surface Retention): In Surface-Magnet PM (SPM) machines, magnets are held against the rotor core by a high-strength sleeve. This sleeve is typically made of Carbon Fiber (high strength-to-weight ratio) or Inconel (high temperature and corrosion resistance). The sleeve is applied with a shrink-fit or pre-stress to ensure that the magnets remain in compression even at maximum overspeed (In some cases a lift-off of the magnet is allowed). If the sleeve expands more than the magnets at high speed, the magnets will lose contact, leading easily to vibration and potential failure. However, careful design makes also this kind of design possible.
+
+Buried Magnets (Internal Retention): In IPM machines, the magnets are protected by the rotor laminations themselves. This eliminates the need for an external sleeve but places immense pressure on the thin steel bridges that separate the magnet from the air gap. The design becomes a delicate optimization: the bridge must be thin enough to prevent magnetic flux leakage, but thick enough to prevent the magnets from "breaking through" the rotor surface at high speed.
+
+Ultimately, the rrΩ 2 wall dictates that as we push for higher speeds, rotors must become longer and thinner. This, in turn, shifts the problem from pure material stress to rotordynamics, as long, slender rotors are more prone to bending and resonance, a topic that serves as the next critical constraint in high-speed design.
+
+### 1.3.2 Rotordynamics and Critical Speeds
+
+While the rrΩ 2 wall dictates the bursting limit of a rotor, rotordynamics governs its behavior during operation. As electrical machines move into the high-speed realm, the rotor can no longer be treated as a rigid body. Instead, it must be analyzed as a flexible system that exhibits specific natural frequencies or critical speeds. Managing these resonances is perhaps the most difficult aspect of high-speed integration, often forcing designers to compromise on the machine's electromagnetic proportions.
+
+**[Figure 1.4 near here]**
+*Figure 1.4 First and second bending modes of a slender high-speed rotor, shown as deflected shapes against the undeflected axis. The second mode has an interior node. Because the first bending critical speed scales as rr/l², lengthening a rotor to recover the torque lost to a reduced diameter reduces it quadratically.*
+
+#### The l/Dr Ratio Challenge: Why HS Machines are Long and Thin?
+
+The physical geometry of a high-speed rotor is a direct result of the conflict between centrifugal stress and rotordynamic stability. To avoid the mechanical limits of tip speed, designers are forced to keep the rotor diameter (Dr) small. However, to achieve the required torque and power, the loss of diameter must be compensated for by increasing the active length (l) of the machine.
+
+This leads to high l/Dr ratios, resulting in a "long and thin" rotor architecture. While this solves the stress problem, it creates a significant rotordynamic penalty [ref]:
+
+Stiffness vs. Length: The bending stiffness of a rotor decreases drastically as its length increases. A slender rotor is much more prone to deflection.
+
+Critical Speed Crossing: Every rotor has natural bending modes. A rigid rotor operates below its first critical speed (n < nc1). However, high-speed machines, especially those with high l/D ratios, frequently must operate supercritically, meaning they must pass through the first, second, or even third critical speeds during startup to reach their operational frequency.
+
+The Stability Limit: Operating near these resonances can lead to catastrophic vibrations. Therefore, the electromagnetic design (which wants a large D) is constantly being pushed back by the rotordynamic analysis (which demands a stiff, short rotor).
+
+#### Bearing Technologies: From Ball Bearings to AMBs
+
+The choice of bearing technology is the primary tool for managing these rotordynamic challenges. The bearing must not only support the weight of the rotor but also provide the necessary damping to safely navigate critical speeds [ref].
+
+High-Precision Ball Bearings: Commonly used in traction motors and smaller industrial units. To survive high speeds, these are often ceramic hybrid bearings (silicon nitride balls) with oil-mist or jet lubrication. While cost-effective, they have a finite Dn factor (diameter × speed limit) and represent a point of mechanical wear and friction. Combined with squeeze-film damping, these bearings offer an economic and rugged solution for low-power applications
+
+Fluid Film and Foil Bearings: These bearings support the rotor on a thin layer of gas or oil. Air foil bearings are increasingly popular in micro-turbines and high-speed blowers because they are oil-free and self-acting. However, they have limited load capacity and can suffer from sub-synchronous whirl instabilities.
+
+Active Magnetic Bearings (AMB): The gold standard for large industrial high-speed machines. AMBs use electromagnetic actuators to levitate the rotor, eliminating physical contact and friction. They, however, are complicated, need sensors and lots of electronics for measurement and position control making them too costly for low-power applications
+
+Active Damping: The greatest advantage of AMBs is their ability to change their stiffness and damping characteristics in real-time. This allows the controller to tune the system to safely pass through critical bending modes that would destroy a conventionally supported rotor.
+
+Monitoring: They provide built-in diagnostic data regarding rotor position and vibration, making them ideal for the 24/7 reliability required in industrial stationary applications.
+
+In summary, the design of a high-speed machine is a constant negotiation between the electromagnetic desire for volume and the rotordynamic requirement for stability. Whether using the mechanical simplicity of damped high-speed ball bearings or the advanced control of AMBs, the rotor's journey from standstill to its rated high-speed operating point is a carefully orchestrated passage through the physics of resonance.
+
+### 1.3.3 Aerodynamic and windage losses
+
+In conventional electrical machines, cooling and friction losses are often treated as minor parasitic effects. However, as peripheral speeds cross the threshold into the high-speed regime, the air (or cooling gas) within the machine ceases to be a passive medium and becomes a significant source of drag and heat. For many high-speed designs, windage losses, the aerodynamic friction between the rotating and stationary parts, can exceed all other loss components combined, fundamentally limiting the machine's efficiency and thermal stability.
+
+#### Turbulence in the air gap
+
+In the narrow gap between the rotor and stator, the fluid dynamics are governed by the Taylor-Reynolds number. At low speeds, the air flows in a predictable, laminar fashion. But at high peripheral speeds, the air is subjected to massive shear forces, leading to the formation of Taylor vortices, toroidal streaks of turbulence that tumble through the air gap.
+
+These vortices act as a thermal blanket, trapping heat near the rotor and significantly increasing the drag torque. In industrial machines with large air gaps, this turbulence can become extremely violent. In contrast, in high-specific-power machines with smaller air gaps, the shear rate is so high that the air begins to act like a viscous "glue," requiring significant mechanical power just to keep the rotor spinning.
+
+**[Figure 1.5 near here]**
+*Figure 1.5 Flow regimes in the air gap. Below the critical Taylor number the flow is laminar and the drag is modest; above it the flow breaks into counter-rotating toroidal cells, and both the drag torque and the rotor heating rise sharply.*
+
+#### The Ω 3 scaling law
+
+The most punishing aspect of aerodynamic drag is its non-linear relationship with speed. While resistive (copper) losses scale with the square of the current, and iron losses scale roughly with the square of the frequency, windage losses are generally proportional to the cube of the angular velocity (Ω 3).
+
+    Pwnd D4 l Ω 3
+
+This cubic relationship means that if you double the rotational speed of a machine, the power required to overcome windage increases by a factor of eight. This windage wall creates several critical design constraints:
+
+Efficiency Decay: At a certain speed, the gain in power density achieved by spinning faster is completely offset by the exponential rise in windage losses.
+
+The Cooling Paradox: The heat generated by windage is deposited directly into the air gap, often the hardest place to cool. In permanent magnet machines, this can lead to rotor overheating and magnet demagnetization, even if the stator is liquid-cooled.
+
+Gas Selection: To combat the Ω 3 scaling, some high-speed industrial machines are operated in a vacuum or filled with low-density gases like helium or hydrogen, which have much lower viscosity and density than air, effectively lowering the windage and allowing for higher speeds.
+
+For the designer, managing windage is not just about efficiency, it is about thermal survival. As machines become smaller and faster, the ability to minimize rotor surface roughness and optimize air-gap geometry becomes just as important as the electromagnetic design itself.
+
+## 1.4. The role of the power electronic interface
+
+In high-speed engineering, the power electronic converter is no longer a peripheral component; it is a fundamental constraint that dictates the machine's geometry and pole count. The interaction between the inverter’s switching behavior and the motor’s electromagnetic design determines the system’s thermal limits and overall feasibility.
+
+### 1.4.1 Switching frequency vs. fundamental frequency
+
+The primary challenge in driving a high-speed machine is maintaining a high-quality current waveform at extreme fundamental frequencies. The relationship between the fundamental frequency (f1) and the inverter's switching frequency (fsw) is characterized by the frequency modulation ratio (mf = fsw/f1).
+
+In conventional 50/60 Hz industrial drives, this ratio is typically high (>100), ensuring a near-perfect sinusoidal current. However, in high-speed applications, f1 can reach 2 kHz or higher. If the switching frequency is limited by the thermal constraints of the semiconductors, the frequency modulating ratio drops significantly causing severe harmonics in the motor current. Traditional rule of thumb is that below mf = 21 synchronous PWM should be used to maintain a high-quality current waveform and avoid excessive subharmonics [ref]. This frequency modulating ratio can be regarded as a general guideline also for HS drives. If only possible mf ≥ 21 should be followed to get good enough current waveform and to avoid excessive subharmonics in the current. This demand, however, rises the switching frequency to high values in cases of traction motors with 2 kHz fundamental.
+
+The Control Limit: A low pulse ratio (typically mf < 10) introduces sampling delay and control instability. If the inverter cannot switch fast enough relative to the fundamental wave, the current regulator loses its ability to suppress disturbances, leading to torque ripple and potential overcurrent trips.
+
+Harmonic Rotor Heating: Lower switching frequencies result in higher current total harmonic distortion (THD). These high-frequency current harmonics create asynchronous magnetic fields in the air gap, that do not contribute to torque but instead induce eddy currents in the rotor. In high-speed machines, especially those with permanent magnets or solid rotors, this harmonic injection can cause rapid rotor heating. Because the rotor is often in a vacuum or a narrow air gap with poor cooling, this can lead to magnet demagnetization or mechanical failure of the retention sleeve.
+
+The Switching Loss Trade-off: Increasing fsw to improve the current waveform directly increases the switching losses within the inverter's semiconductors. In Silicon-based IGBT converters, these losses scale linearly with fsw, often forcing a derating of the inverter. The designer is thus caught in a trap: lower the switching frequency and risk burning the motor rotor or raise it and risk burning the inverter's power modules.
+
+This conflict is the primary reason why high-speed design requires a holistic approach, where the inverter's switching capability is balanced against the motor's pole count and rotor loss tolerance.
+
+It is worth putting a number on this conflict for the machine of Table 1.1. At a fundamental frequency of 1500 Hz, maintaining mf = 21 requires a switching frequency of 31.5 kHz. A silicon IGBT stage of this rating operates practically at 8 to 16 kHz; at 16 kHz the modulation ratio would be 10.7, which is at the control-stability floor identified above and far below the synchronous-PWM threshold. This machine therefore cannot be supplied acceptably from a silicon converter, and the shortfall cannot be recovered at the machine end without changing the pole number. Figure 1.6 shows where the boundary falls.
+
+**[Figure 1.6 near here]**
+*Figure 1.6 Required switching frequency against fundamental frequency for two modulation ratios, with the practical ranges of silicon IGBT and wide-bandgap devices indicated. The machine of Table 1.1 falls outside the silicon region.*
+
+### 1.4.2 The silicon carbide (SiC) catalyst
+
+The emergence of Silicon Carbide (SiC) and Gallium Nitride (GaN) has redefined what is possible in HS design. These materials allow for significantly higher switching frequencies with lower losses. This unlocks the ability to design multi-pole, lightweight high-speed machines (e.g., 6 or 8-pole IPMs) that were previously impossible to supply efficiently.
+
+Consequently, power electronics can no longer be viewed as a separate entity. The choice of semiconductor material, Silicon vs. SiC, now directly influences the machine's rotor topology, the thickness of the stator laminations, and the mechanical retention strategy. If the inverter cannot switch fast enough, the machine must be physically larger; if the machine is made too small, the inverter's du/dt may destroy its insulation. This electro-mechanical-electronic coupling is the defining characteristic of modern high-speed engineering.
+
+#### Framing the Comparison
+
+Industrial HS: Operates in the IGBT-compatible zone (p is low, fs is moderate, reliability is high).
+
+Traction HS: Operates in the SiC-dependent zone (p is high to save mass, fs is high, power density is extreme).
+
+The design of a high-speed machine is fundamentally dictated by its application environment. In the industrial sector, the design is often rotor-limited. Here, the goal is extreme reliability, leading to 2-pole Induction or 4-pole PM machines. Because mass is not a primary constraint, these machines utilize robust housings and moderate frequencies that stay within the switching capabilities of standard IGBTs.
+
+In contrast, the traction and mobile sector faces a mass-limited reality. To reduce the weight of the stator yoke and inactive material, designers push for higher pole counts. This shift moves the bottleneck from the rotor's mechanical sleeve to the inverter's switching frequency, necessitating a transition to Silicon Carbide (SiC) technology to handle the high fundamental frequencies without incurring catastrophic switching losses.
+
+Table 1.2 collects the main ideas of different high-speed motor regimes
+
+**Table 1.2 Comparison of Topology Characteristics**
+
+| Feature | Industrial (Robust) | Traction/Mobile (Lightweight) |
+|---|---|---|
+| Common Pole Count | 2 (IM) or 2/4 (SPM) | 6, 8, or 12 (IPM) |
+| Rotor Retention | Thick Carbon Fiber / Inconel | Strategic Steel Bridges / Thin Sleeves |
+| Stator Yoke | Thick (for flux and stiffness) | Minimized (to save mass) |
+| PE Constraint | Current Ripple / Thermal | Switching Frequency / du/dt |
+| Converter | IGBT | SiC (Wide Bandgap) |
+
+## 1.5. Scaling laws and dimensional analysis
+
+In the design of high-speed electrical machines, scaling laws provide mathematical framework that allows engineers to predict how performance, losses, and mechanical stresses evolve as a design is shrunk or stretched. Dimensional analysis reveals why simply increasing the speed of a machine does not always result in a proportional improvement in performance. Instead, high-speed design is a battle against non-linear scaling.
+
+### 1.5.1 Power density vs. speed: the size scaling
+
+The fundamental power equation for an electrical machine is P ∝ D2lΩ B A [ref], where D is the rotor diameter, l is the active length, Ω is the angular velocity, B is the airgap magnetic-flux density, and A is the linear current density (electric loading).
+
+If we assume the electromagnetic loadings (B, A) and the length-to-diameter ratio (l/D) remain constant, we can derive the following scaling relationships:
+
+Torque (T): Scaled with the volume (D3).
+
+Power (P): Scaled with D3Ω
+
+To maintain constant power while increasing speed (Ω), the volume of the machine must decrease. In an ideal world, doubling the speed would allow for a 50% reduction in rotor volume. However, the high-speed paradox arises because as the machine shrinks, the surface area available for cooling decreases by D2, while the loss density often increases. Consequently, high-speed machines are often thermally limited rather than electromagnetically limited.
+
+### 1.5.2 Mechanical stress scaling: The DΩ constraint
+
+The most restrictive scaling law in high-speed design is the relationship between diameter and centrifugal stress (σmec). As established by the rΩ 2 wall:
+
+    σmec ∝ D2Ω 2 = (DΩ)2
+
+Since DΩ is proportional to the peripheral tip speed (vtip), the mechanical stress is purely a function of the tip speed. This means that for a given material (e.g., high-strength steel or carbon fiber), there is a maximum vtip that cannot be exceeded.
+
+If we are at the mechanical limit of the material, any further increase in rotational speed must be accompanied by a proportional decrease in diameter (D). Because torque scales with D3, this forced reduction in diameter significantly penalizes the torque capability of the machine, eventually leading to a point where increasing speed no longer yields a smaller machine because the rotor must become impractically long to compensate for the tiny diameter.
+
+### 1.5.3 Loss scaling: The efficiency penalty
+
+The transition to high speed changes the dominant loss mechanisms within the machine. Dimensional analysis shows that different losses scale at different rates:
+
+Copper Losses (PCu): with proper conductor arrangements, these are relatively independent of speed, scaling primarily with the current density and winding volume.
+
+Iron Losses (PFe): These scale with f1.5...2. Since f ∝Ω, iron losses grow quadratically with speed, becoming the dominant electromagnetic loss.
+
+Windage Losses (Pwnd): As noted in section 1.3.3, these scale with Ω 3 and D4.
+
+This leads to the Efficiency Cross-over Point. At low to moderate speeds, efficiency increases with speed because power grows faster than the losses. However, at ultra-high speeds, the cubic growth of windage and quadratic growth of iron losses eventually overtake the linear growth of power, causing the efficiency curve to peak and then sharply decline.
+
+### 1.5.4 Thermal scaling: The square-cube conflict
+
+Perhaps the most challenging scaling law is the relationship between heat generation and heat dissipation.
+
+Heat Generation (Qgen): In a high-speed machine, losses are concentrated in a small volume (V ∝ D3).
+
+Heat Dissipation (Qdis): The ability to remove heat depends on the cooling surface area (S ∝ D2).
+
+As we scale a machine down to reach higher speeds, the ratio of Loss/Surface Area increases linearly with 1/D. This means that a smaller, faster machine will always be harder to cool than a larger, slower one of the same power. This scaling law is what necessitates the move from simple air cooling to advanced liquid-jacket cooling or direct cooling in high-specific-power HS machines. Table 1.3 summarizes the scaling trends.
+
+One qualification is worth adding here. The square–cube argument assumes that the machine is scaled isotropically, with every dimension changing in proportion. High-speed machines are not scaled that way. The tip-speed limit caps the diameter, so the rotor shrinks radially while growing axially in order to recover the rating, and along that path the rotor lateral surface area, which is proportional to Dr·l, is very nearly preserved. What does degrade is the loss density inside the stator, and the length of the conduction path out of the rotor, which is thermally isolated by an air gap whose conductance is poor and largely independent of the cooling effort spent on the stator.
+
+**Table 1.3 Summary of scaling trends**
+
+| Parameter | Scaling Formula | Impact of Doubling Speed (Ω) |
+|---|---|---|
+| Power P | D3Ω | Constant (if D is reduced) |
+| Centrifugal Stress (σmec) | D2Ω 2 | Constant (if vtip is fixed) |
+| Iron Loss (PFe) | f 2 | Increases by 4x |
+| Windage Loss (Pwnd) | Ω 3 | Increases by 8x |
+| Cooling Difficulty | Loss / D2 | Increases significantly |
+
+By understanding these scaling laws, the designer can identify the sweet spot for a specific application, balancing the desire for a small, light machine against the harsh realities of mechanical stress, exponential losses, and thermal density.
+
+#### 1.5.5 Reading the scaling table: which path is being followed
+
+Table 1.3 is best read one row at a time, because the rows are not all evaluated under the same condition. The power and stress rows state their condition explicitly, namely constant power as the diameter is reduced and constant stress as the tip speed is held fixed. The iron-loss and windage rows, by contrast, are evaluated at fixed rotor geometry, which is the overspeed case rather than the design case. The distinction matters, because a designer moving to a higher speed does not hold the geometry fixed: the tip-speed limit forces the diameter down, and the rating is then recovered by increasing the active length.
+
+It is therefore useful to tabulate the same speed doubling along the path that a design actually follows, with rated power and peripheral speed both held constant, so that the rotor radius scales as Ω⁻¹ and the active length as Ω. Table 1.4 gives the result and Figure 1.7 compares the two paths.
+
+**Table 1.4** The same doubling of speed evaluated along the tip-speed-limited design path, at constant rated power
+
+| Quantity | Scaling | Factor on doubling Ω |
+|---|---|---|
+| Rotor diameter Dr | ∝ Ω⁻¹ | 0.50 |
+| Active length l | ∝ Ω | 2.00 |
+| l/Dr ratio | ∝ Ω² | 4.00 |
+| Active volume | ∝ Ω⁻¹ | 0.50 |
+| Centrifugal stress σmec | constant | 1.00 |
+| Iron loss PFe | ∝ Ω | 2.00 |
+| Windage loss Pwnd | constant | 1.00 |
+| Rotor surface area | constant | 1.00 |
+| First critical speed ncr | ∝ Ω⁻³ | 0.125 |
+
+Two entries deserve comment. Windage is unchanged rather than increased eightfold, because windage power is the product of a shear stress set by the tip speed, which is fixed by definition along this path, and a rotor surface area proportional to Dr·l, which is preserved because the diameter reduction and the length increase cancel. Iron loss doubles rather than quadruples, because the loss per unit mass rises as f² while the iron mass falls with the halving active volume. The fourfold and eightfold figures of Table 1.3 are correct for overspeeding an existing machine; it is only their application to a redesign that would mislead.
+
+**[Figure 1.7 near here]**
+*Figure 1.7 The same doubling of speed evaluated along three design paths: fixed geometry, tip-speed limited at constant power, and tip-speed limited with the active length capped by rotordynamics.*
+
+#### 1.5.6 Rotordynamic scaling: where the returns actually stop
+
+The last row of Table 1.4 deserves a section of its own, because it identifies the constraint that in practice terminates the pursuit of higher speed.
+
+Section 1.3.2 established that high-speed rotors become long and thin. Treating the rotor as a uniform beam, the first bending critical speed scales as
+
+    ncr ∝ rr / l²
+
+Substituting the tip-speed-limited path used for Table 1.4, with rr ∝ Ω⁻¹ and l ∝ Ω,
+
+    ncr ∝ Ω⁻¹ / Ω² = Ω⁻³
+
+so that the first critical speed falls as the cube of the design speed while the operating speed rises linearly with it. The ratio of the two therefore scales as
+
+    nop / ncr ∝ Ω⁴
+
+A doubling of the design speed degrades the rotordynamic margin by a factor of sixteen, as Figure 1.8 shows. This is why so many high-speed machines must be operated supercritically. It is not a design preference: along the only path that respects the material limit, the critical speed collapses far faster than the operating speed rises.
+
+These exponents are idealised. A real rotor is not a uniform beam, the bearing span exceeds the active length, shaft extensions and couplings add mass outboard of the bearings, and a shrink-fitted sleeve or a solid rotor body stiffens the assembly. They should be read as indicating the severity of the trend rather than as design values. The trend is nevertheless what governs practice, and it is the reason that the rotor's mechanical and rotordynamic design cannot be left until the electromagnetic design is complete.
+
+**[Figure 1.8 near here]**
+*Figure 1.8 Divergence of the operating speed and the first bending critical speed along the tip-speed-limited design path. The rotordynamic margin degrades as the fourth power of the speed multiplier.*
+
+## 1.6 Summary: Framing the Design Challenges Ahead
+
+As we conclude this introduction, it becomes clear that high-speed electrical machine design is not merely an extension of conventional machine design to higher frequencies. It is a distinct engineering discipline defined by the collapse of safety margins and the intense coupling of disparate physical domains. To succeed in this field, the designer must navigate what can be described as the "high-speed trilemma."
+
+**[Figure 1.9 near here]**
+*Figure 1.9 The high-speed design space. The mechanical, electromagnetic and thermal constraints bound the feasible region, and the converter acts as a gate that renders part of that region unreachable regardless of how the three are balanced.*
+
+### 1.6.1 The high-speed trilemma
+
+The design space is bounded by three competing forces that are in constant tension. A move to satisfy one frequently destabilizes the other two:
+
+Mechanical Integrity: To survive the rΩ 2 wall, the rotor must be slender and reinforced. However, adding mechanical reinforcement (like a thick Carbon Fiber sleeve) increases the effective air gap, which cripples the Electromagnetic performance.
+
+Electromagnetic Efficiency: To maximize power density and minimize mass, we push for higher pole counts and higher frequencies. This, however, leads to a massive increase in iron and windage losses, creating a Thermal load that the small physical size of the machine cannot easily dissipate.
+
+Thermal Management: To remove the heat from concentrated losses, we need aggressive cooling. Yet, the inclusion of cooling channels or complex jacket geometries can compromise the Mechanical stiffness of the stator or increase the l/D ratio, leading to rotordynamic challenges.
+
+This trilemma is further complicated by the power electronic interface. As we have seen, the choice of semiconductor (IGBT vs. SiC) acts as the gatekeeper, determining whether a low-pole industrial topology or a high-pole mobile topology is even feasible.
+
+### 1.6.2 Roadmap of the Following Book Chapters
+
+This book is structured as a journey through the multidisciplinary landscape of high-speed engineering. Following this introduction, the text is organised into four parts, each addressing a pillar of the high-speed trilemma.
+
+#### Part I: The High-Speed Design Space
+
+Chapter 2 surveys the applications, from gearless industrial compression through aerospace propulsion to electrically assisted turbocharging, and calibrates the classification criteria of Section 1.1.1 against a population of real machines. Chapter 3 compares the candidate topologies: solid-rotor and laminated induction machines, synchronous and permanent-magnet-assisted reluctance machines, and surface- and interior-magnet synchronous machines, together with the choice of winding at high fundamental frequency.
+
+#### Part II: Electromagnetic Design
+
+Chapter 4 develops the sizing procedure, working from the mechanical and rotordynamic limits inward to the electromagnetic design, with worked examples for both the industrial and the mobile paradigm. Chapter 5 addresses AC copper losses, comparing Litz wire and form-wound conductors and the mitigation of skin and proximity effects. Chapter 6 treats core and rotor losses in the kilohertz range, including the soft magnetic materials available, the manufacturing effects that degrade them, eddy currents in sleeves and magnets, and magnet segmentation.
+
+#### Part III: Mechanical and Thermal Design
+
+Chapter 7 develops rotor stress analysis and magnet retention, comparing carbon fibre and metallic sleeves against interior-magnet bridge designs, and addresses fatigue life and overspeed margin. Chapter 8 covers rotordynamics and bearing selection, from high-precision rolling elements through air foil systems to active magnetic bearings, together with the vibration and acoustic behaviour that follows from both. Chapter 9 treats air-gap flow, windage including Taylor–Couette effects, and the thermal design of the complete machine.
+
+#### Part IV: System Integration and Delivery
+
+Chapter 10 develops the power electronic interface, specifically the role of SiC and GaN devices, insulation stress under fast switching, and the mitigation of bearing currents. Chapter 11 addresses control at high fundamental frequency, including position sensing and sensorless operation at low pulse ratios. Chapter 12 presents complete design case studies drawn from both paradigms, together with test methods, loss segregation at high speed, and overspeed and endurance qualification.
+
+This roadmap ensures that whether the reader is an industrial designer seeking reliability or a traction engineer seeking power density, they have a clear path through the complex interdependencies of high-speed electrical machine design.

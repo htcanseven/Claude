@@ -360,7 +360,29 @@ SUM_MIN = [
     "This redline is marked up word by word: both documents were diffed as a single token stream, so changes appear at the level of individual words and phrases rather than whole paragraphs.",
 ]
 
+SUM_CONS = [
+    "The original draft's prose is reproduced verbatim. 205 of the 227 body paragraphs are unchanged, and corrections are made by adding text, tables and figures alongside the existing wording rather than by rewriting it.",
+    "Deleted, one sentence: the fP passage contained a drafting artefact that apologised for its own missing citation (\'without external resources provided, no direct literature citation can be offered\'). This cannot be fixed by addition and would be the first technical sentence a reviewer reads.",
+    "Trimmed, one sentence: the closing sentence of the same passage kept its summary clause and lost the trailing artefact (\'...limited in the current context\').",
+    "Replaced, the roadmap: Section 1.6.2 described 19 chapters in six parts. It now describes the 12 chapters in four parts agreed for the table of contents. This is the only substantial replacement, and it is required for the chapter to be consistent with the proposal.",
+    "ADDED after the fP threshold: two qualifying paragraphs noting that the 180 000 kW/s value rests on a single design point which is itself marginal by tip speed, and that Chapter 2 calibrates the criterion against a machine population. The original sentence is untouched.",
+    "ADDED in Section 1.3.1: the algebraic form of the centrifugal stress, so that the draft's statement that a central bore doubles the stress becomes quantitative, with worked values in MPa against a real proof stress.",
+    "ADDED in Section 1.4.1: the converter requirement for the machine of Table 1.1 worked as a number, showing that 1500 Hz at mf = 21 needs 31.5 kHz and therefore cannot be supplied from a silicon stage.",
+    "ADDED after the square-cube passage: a qualification noting that the argument assumes isotropic scaling, which high-speed machines do not follow, since the tip-speed limit makes them shrink radially and grow axially.",
+    "ADDED as new Section 1.5.5 and Table 1.4: the same speed doubling evaluated along the tip-speed-limited design path. Table 1.3 is left exactly as written; the new text explains that its rows are evaluated under different conditions and that its fourfold and eightfold figures apply to overspeeding an existing machine rather than to a redesign.",
+    "ADDED as new Section 1.5.6: the rotordynamic scaling result. The first bending critical speed falls as the cube of design speed while operating speed rises linearly, so the margin degrades as the fourth power and a speed doubling costs a factor of sixteen.",
+    "Figures: the draft's four placeholders (Figures 2 to 5) are supplied with artwork and captions, and five further figures are added. All nine are numbered sequentially, correcting the draft numbering which began at Figure 2.",
+    "Removed from the head of the chapter: the 40-line planning outline, which had drifted from the section structure below it (it listed 1.5.2 as thermal scaling where the body has mechanical stress).",
+]
+
 if __name__ == '__main__':
+    s = build_wordlevel('ch1_conservative.md', 'Chapter_1_Redline_CONSERVATIVE.docx',
+                        'Chapter 1 — Tracked Changes (word level): original draft → CONSERVATIVE version',
+                        SUM_CONS)
+    print(f"Chapter_1_Redline_CONSERVATIVE.docx  [word level]\n"
+          f"   word-level paragraphs {s['word_level']}   whole inserts {s['inserted']}   "
+          f"whole deletes {s['deleted']}\n"
+          f"   words: kept {s['kept_words']}  inserted {s['ins_words']}  deleted {s['del_words']}")
     s = build_wordlevel('ch1_minimal.md', 'Chapter_1_Redline_MINIMAL.docx',
                         'Chapter 1 — Tracked Changes (word level): original draft → MINIMAL version',
                         SUM_MIN)

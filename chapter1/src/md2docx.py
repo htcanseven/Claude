@@ -18,6 +18,17 @@ MAP_FULL = {
     '1.7': 'fig_geared_vs_directdrive.png',
     '1.8': 'fig_design_space.png',
 }
+MAP_CONS = {
+    '1.1': 'fig_classification_map.png',
+    '1.2': 'fig_geared_vs_directdrive.png',
+    '1.3': 'fig_stress_vs_tipspeed.png',
+    '1.4': 'fig_bending_modes.png',
+    '1.5': 'fig_taylor_vortices.png',
+    '1.6': 'fig_converter_gate.png',
+    '1.7': 'fig_scaling_paths.png',
+    '1.8': 'fig_critical_speed_divergence.png',
+    '1.9': 'fig_design_space.png',
+}
 MAP_MIN = {
     '1.1': 'fig_stress_vs_tipspeed.png',
     '1.2': 'fig_classification_map.png',
@@ -185,5 +196,7 @@ if __name__ == '__main__':
                 'High-Speed Electrical Machines — Chapter 1 (full version)')
     b = convert('ch1_minimal.md', 'Chapter_1_HighSpeed_MINIMAL.docx', MAP_MIN,
                 'High-Speed Electrical Machines — Chapter 1 (minimal version)')
-    for f in (a, b):
+    c = convert('ch1_conservative.md', 'Chapter_1_HighSpeed_CONSERVATIVE.docx', MAP_CONS,
+                'High-Speed Electrical Machines — Chapter 1 (conservative version)')
+    for f in (a, b, c):
         print(f, f"{os.path.getsize(f)/1024:.0f} kB")

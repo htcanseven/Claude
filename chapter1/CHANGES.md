@@ -1,12 +1,15 @@
 # Chapter 1 — Record of Changes
 
-Two versions were produced from the 6 110-word draft:
+Three versions were produced from the 6 110-word draft:
 
 | | Prose words | Figures | Est. pages* | Scope |
 |---|---|---|---|---|
 | Original draft | 6 110 | 4 placeholders | ~13 | — |
-| **MINIMAL** | 5 544 | 8 (all supplied) | **~14** | repairs only, original structure kept |
-| **FULL** | 7 940 | 8 (all supplied) | **~18** | repairs plus restructuring and new material |
+| **CONSERVATIVE** | 8 577 | 9 (all supplied) | **~20** | original prose verbatim; corrections added alongside it |
+| **MINIMAL** | 5 544 | 8 (all supplied) | **~14** | original structure kept, prose rewritten |
+| **FULL** | 7 940 | 8 (all supplied) | **~18** | restructured, with new material |
+
+**The CONSERVATIVE version is the recommended one for submission.** It reproduces 205 of the draft's 227 body paragraphs verbatim — 93.4 per cent, or 99.1 per cent excluding the roadmap, which had to change to match the 12-chapter table of contents. Every other correction is made by *adding* text, a table or a figure alongside the author's own wording rather than by replacing it. Its complete edit set is listed in §F below and is generated from an auditable operations list in `src/build_conservative.py`.
 
 \* Wiley's formula: 600 words per page, 2 illustrations per page.
 
@@ -133,3 +136,54 @@ Draft had Figures 2, 3, 4, 5 with no Figure 1. Both versions now run 1.1 to 1.8 
 **One open decision.** Whether switched reluctance machines are in scope. The chapter is written on the assumption that SynRM and PM-assisted SynRM are treated in Chapter 3 and that SRM gets a bounded section rather than a chapter, on the grounds that its asymmetric-bridge converter breaks the drive-interface argument running through the rest of the book. If that is wrong, one sentence in §1.7.3 changes.
 
 **Page budget.** The full version is ~18 pages against the 28 budgeted in the table of contents. The gap is real and it can be closed — the most useful additions would be a second worked example carried through the constraints, and expansion of §1.6 with a costed industrial-versus-mobile comparison. Padding it out to reach 28 would weaken it; the alternative is to reduce Chapter 1's budget in the ToC to ~20 and give the recovered pages to Chapter 4.
+
+
+---
+
+## F. The CONSERVATIVE version: complete edit set
+
+Everything done to the original draft, in full. Generated from the `OPS` list in `src/build_conservative.py`, so the edit set is auditable rather than asserted.
+
+### Removed (2 items)
+
+1. **The planning outline at the head of the chapter** (40 lines). Not prose — a working skeleton that had drifted from the body below it, listing §1.5.2 as thermal scaling where the body has mechanical stress. It would read as unfinished in a submitted sample.
+2. **One sentence**, in the fP passage: *"The fP product is discussed in the context of classifying machines beyond simple speed or power alone… However, without external resources provided, no direct literature citation can be offered for the fP product as a formal definition."* This apologises for its own missing citation and cannot be repaired by addition. It sits in the first technical section a reviewer reaches.
+
+### Trimmed (1 item)
+
+3. The closing sentence of the same passage keeps its summary clause — *"In summary, the definitions for high-speed machines remain varied: tip speed, n√P, and now the fP product."* — and loses only the trailing *"…explicit references for its adoption in formal classification are limited in the current context."*
+
+### Replaced (1 item)
+
+4. **Section 1.6.2, the roadmap.** The draft describes 19 chapters in six parts; it now describes the 12 chapters in four parts agreed for the table of contents. This is the only substantial replacement, and it is unavoidable: a sample chapter that promises a different book from the one the proposal offers is incoherent. The closing sentence is preserved verbatim.
+
+### Added — text (6 blocks)
+
+5. **§1.3.1, after the solid-versus-laminated comparison.** The algebraic form of the centrifugal stress, so the draft's statement that a central bore doubles the stress becomes quantitative: σmax = [(3+ν)/8]ρv² for a solid disc against [(3+ν)/4]ρv² with a bore, worked through as 252 MPa at 200 m/s and 395 MPa at 250 m/s against a 450 MPa proof stress. *The original sentence is untouched.*
+6. **§1.1.1, after the fP threshold.** Two paragraphs noting that the 180 000 kW/s value rests on a single design point which is itself marginal by tip speed (150.8 against 150 m/s), and that Chapter 2 calibrates it against a machine population. Also states the argument *for* fP: it is the only criterion containing the pole number. *The original threshold sentence is untouched.*
+7. **§1.4.1, after the switching-loss trade-off.** The converter requirement for the machine of Table 1.1 worked as a number: 1500 Hz at m_f = 21 needs 31.5 kHz, while a silicon stage at 16 kHz gives m_f = 10.7, so this machine cannot be supplied from silicon.
+8. **§1.5.4, after the square–cube passage.** A qualification: the argument assumes isotropic scaling, which high-speed machines do not follow, since the tip-speed limit makes them shrink radially and grow axially, preserving rotor surface area. *The original passage is untouched.*
+9. **New §1.5.5 and Table 1.4.** The same speed doubling evaluated along the tip-speed-limited design path. **Table 1.3 is left exactly as written**; the new section explains that its rows are evaluated under different conditions, and that its fourfold and eightfold figures are correct for overspeeding an existing machine but not for a redesign. On the design path, windage is unchanged and iron loss doubles.
+10. **New §1.5.6.** The rotordynamic scaling result: n_cr ∝ Ω⁻³ against an operating speed rising as Ω, so n_op/n_cr ∝ Ω⁴ and a speed doubling costs a factor of sixteen. This is the constraint that actually terminates the pursuit of speed, and the draft did not quantify it.
+
+### Added — figures (9, of which 4 fill the draft's own placeholders)
+
+| | Figure | Status |
+|---|---|---|
+| 1.1 | n√P and fP criteria in the power–speed plane | new |
+| 1.2 | Geared versus direct-drive architecture | fills the draft's *Figure 2. Caption* |
+| 1.3 | Centrifugal stress against peripheral speed | new |
+| 1.4 | First and second rotor bending modes | fills the draft's *Fig. 3 Caption* |
+| 1.5 | Taylor–Couette flow regimes in the air gap | fills the draft's *Fig 4 Caption* |
+| 1.6 | Required switching frequency, silicon against wide bandgap | new |
+| 1.7 | Speed doubling along three design paths | new |
+| 1.8 | Operating speed against first critical speed | new |
+| 1.9 | The high-speed design space | fills the draft's *Fig. 5 Caption* |
+
+Numbering is now sequential; the draft ran from Figure 2 to Figure 5 with no Figure 1.
+
+### Deliberately left alone
+
+- The fourfold repetition of the industrial-versus-mobile contrast. It is the author's structure and no reviewer will call it an error, only a length question.
+- The trilemma framing in §1.6.1, including *"This trilemma is further complicated by the power electronic interface."* The draft's own next sentence calls the semiconductor choice a "gatekeeper", so Figure 1.9 visualises the author's wording rather than replacing it.
+- Every heading, every table of the original, and all remaining prose.

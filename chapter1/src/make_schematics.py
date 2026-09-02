@@ -130,3 +130,48 @@ fig.suptitle('Bending modes of a slender rotor:  '
              r'$n_{\mathrm{cr}}\propto r_r/l^{2}$', fontsize=9.5, y=.972)
 fig.savefig(F + 'fig_bending_modes.png'); plt.close(fig)
 print('generated fig_geared_vs_directdrive.png and fig_bending_modes.png')
+
+# ──────────────────────────────────── Taylor–Couette flow in the air gap
+fig, axes = plt.subplots(1, 2, figsize=(6.3, 3.2))
+GAPY = (0.0, 1.0)
+
+for ax, (title, vortex) in zip(axes, [('(a)  Laminar Couette flow\nlow Taylor number', False),
+                                      ('(b)  Taylor vortices\nabove the critical Taylor number', True)]):
+    ax.set_axis_off(); ax.set_xlim(-.22, 1.02); ax.set_ylim(-.60, 1.30)
+    # stator (top) and rotor (bottom) walls of the developed annulus
+    ax.add_patch(Rectangle((0, 1.0), 1.0, .17, fc='0.86', ec=INK, lw=1.0, zorder=4))
+    ax.add_patch(Rectangle((0, -.17), 1.0, .17, fc=STEEL, ec=INK, lw=1.0, zorder=4))
+    ax.text(.5, 1.085, 'stator bore', ha='center', va='center', fontsize=7.0, zorder=5)
+    ax.text(.5, -.085, 'rotor surface', ha='center', va='center', fontsize=7.0, zorder=5)
+    ax.annotate('', xy=(-.075, 0), xytext=(-.075, 1.0),
+                arrowprops=dict(arrowstyle='<->', lw=.9, color='0.4'))
+    ax.text(-.105, .5, 'gap  $\\delta$', ha='right', va='center', fontsize=7.2, color='0.4')
+    ax.annotate('', xy=(.34, -.285), xytext=(.06, -.285),
+                arrowprops=dict(arrowstyle='->', lw=1.4, color=ACC))
+    ax.text(.37, -.285, '$v_{\\mathrm{tip}}$', va='center', fontsize=7.6, color=ACC)
+
+    if not vortex:
+        for y in np.linspace(.10, .90, 7):
+            ax.plot([.04, .96], [y, y], color=ACC, lw=1.0, alpha=.75, zorder=3)
+            ax.annotate('', xy=(.62 + .30 * (1 - y), y), xytext=(.58 + .30 * (1 - y), y),
+                        arrowprops=dict(arrowstyle='->', lw=.9, color=ACC, alpha=.8))
+        ax.text(.5, 1.235, 'velocity varies smoothly across the gap;\ndrag is modest',
+                ha='center', fontsize=6.8, color='0.35', style='italic')
+    else:
+        n_cell = 5
+        for k in range(n_cell):
+            xc = (k + .5) / n_cell
+            sgn = 1 if k % 2 == 0 else -1
+            for r in (.30, .62, .94):
+                th = np.linspace(0, 2 * np.pi, 200)
+                ax.plot(xc + r * np.cos(th) * .088, .5 + r * np.sin(th) * .43,
+                        color=ACC2, lw=.95, alpha=.85, zorder=3)
+            ax.annotate('', xy=(xc + sgn * .052, .60), xytext=(xc + sgn * .052, .40),
+                        arrowprops=dict(arrowstyle='->', lw=1.1, color=ACC2))
+        ax.text(.5, 1.235, 'counter-rotating toroidal cells;\ndrag and rotor heating rise sharply',
+                ha='center', fontsize=6.8, color='0.35', style='italic')
+    ax.text(.5, -.475, title, ha='center', va='center', fontsize=8.0, fontweight='bold', color=INK)
+
+fig.suptitle('Flow regimes in the air gap', fontsize=9.5, y=1.045)
+fig.savefig(F + 'fig_taylor_vortices.png'); plt.close(fig)
+print('generated fig_taylor_vortices.png')

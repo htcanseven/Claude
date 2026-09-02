@@ -48,7 +48,8 @@ def norm(xs):
 orig = norm([t for _, t in R.extract_original()])
 ok = True
 for docf, md in [('Chapter_1_Redline_FULL.docx', 'ch1_full.md'),
-                 ('Chapter_1_Redline_MINIMAL.docx', 'ch1_minimal.md')]:
+                 ('Chapter_1_Redline_MINIMAL.docx', 'ch1_minimal.md'),
+                 ('Chapter_1_Redline_CONSERVATIVE.docx', 'ch1_conservative.md')]:
     new = norm([t for _, t in R.extract_markdown(md)])
     acc = norm(resolve(docf, 'accept'))
     rej = norm(resolve(docf, 'reject'))
