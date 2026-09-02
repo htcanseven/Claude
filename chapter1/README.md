@@ -6,7 +6,9 @@ Draft material for the Wiley book proposal (Canseven, Petrov, Pyrhönen).
 
 | File | What it is |
 |---|---|
-| `Chapter_1_HighSpeed_CONSERVATIVE.docx` | **Recommended.** ~20 pp. Original prose verbatim; corrections added alongside. |
+| `Chapter_1_HS_machines_TRACKED.docx` | **The deliverable.** The author's own file with every edit as a Word tracked change (400 revisions). See `TRACKED_CHANGES.md`. |
+| `source/The_first_Ch_of_HS_machines_1.docx` | The author's original file, untouched. |
+| `Chapter_1_HighSpeed_CONSERVATIVE.docx` | Earlier reconstruction: original prose verbatim, corrections added alongside. |
 | `Chapter_1_Redline_CONSERVATIVE.docx` | Word-level tracked changes for the conservative version. |
 | `Chapter_1_HighSpeed_FULL.docx` | Full version, ~18 pp. Restructured, with new scaling analysis. |
 | `Chapter_1_HighSpeed_MINIMAL.docx` | Minimal version, ~14 pp. Original structure, repairs only. |
@@ -20,6 +22,7 @@ They differ in structure and depth only.
 ## Sources
 
 - `ch1_conservative.md`, `ch1_full.md`, `ch1_minimal.md` — chapter text
+- `src/build_tracked.py` — applies the tracked edits directly to the author's .docx XML (run from `work/`)
 - `src/build_conservative.py` — generates the conservative chapter from the draft plus an auditable edit list
 - `CHANGES.md` — change record
 - `figures/` — all eight figures, 300 dpi PNG

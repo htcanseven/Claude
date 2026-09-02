@@ -104,7 +104,8 @@ def add_para(doc, style, segments, mark=None):
 
 
 def enable_track_changes(doc):
-    doc.settings.element.append(parse_xml(f'<w:trackChanges {NS}/>'))
+    # the CT_Settings element is w:trackRevisions (w:trackChanges is not in the schema)
+    doc.settings.element.append(parse_xml(f'<w:trackRevisions {NS}/>'))
 
 
 # ─────────────────────────────────────────────────────── word-level machinery
