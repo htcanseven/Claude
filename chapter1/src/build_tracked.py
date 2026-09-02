@@ -381,7 +381,7 @@ def main():
         ('Figure 2. Caption', 'Figure 1.2. Traditional geared and integrated direct-drive architectures. Left: a mains-frequency motor drives the impeller through a step-up gearbox and its lubrication system. Right: the impeller is mounted directly on the high-speed motor shaft, optionally carried on active magnetic bearings, and the gearbox, couplings and oil system disappear.'),
         ('Fig. 3 Caption', 'Figure 1.4. Computed lateral bending mode shapes of a high-speed rotor between its non-drive end (NDE) and drive end (DE), with the first four natural frequencies. A rotor operated above its first bending mode must pass through resonance on every run-up and coast-down. [machine and source to be stated]'),
         ('Fig 4 Caption', 'Figure 1.5. Loss components against rotational speed at fixed machine geometry: copper loss approximately constant, iron loss rising roughly with the square of speed and windage with its cube. The onset of efficiency decay marks where loss growth overtakes the linear growth of output power. Section 1.5.5 shows how this picture changes when the machine is redesigned for the higher speed rather than overspeed.'),
-        ('Fig. 5 Caption', 'Figure 1.9. The high-speed trilemma. Mechanical integrity, electromagnetic efficiency and thermal management pull against one another along every edge of the triangle, and feasible high-speed designs occupy the compromise window at its centre. As Section 1.6.1 notes, the power electronic interface acts as the gatekeeper that decides which part of that window can be reached at all.'),
+        ('Fig. 5 Caption', 'Figure 1.9. The high-speed trilemma and its gatekeeper. Each remedy at one vertex creates the problem at the next: mechanical reinforcement widens the effective air gap, the pole count and frequency chosen for power density raise the iron and windage losses, and the cooling geometry needed to remove them erodes stiffness and lengthens the rotor. The design space therefore closes on itself, and feasible machines occupy the window at its centre. The power electronic interface decides which part of that window can be reached: silicon IGBT converters admit the low-pole industrial topology, while the high-pole mobile topology is feasible only with SiC or GaN switching.'),
     ]
     for old, new in caps:
         p = P(old) if not old.startswith('Fig. 3') else None
@@ -452,6 +452,25 @@ def main():
         figure('fig_critical_speed_divergence.png', rels, media),
         para('Figure 1.8. Divergence of the operating speed and the first bending critical speed along the tip-speed-limited design path. The rotordynamic margin degrades as the fourth power of the speed multiplier.'))
     log.append('added §1.5.5 with Table 1.4 and Figure 1.7, and §1.5.6 with the rotordynamic scaling result and Figure 1.8')
+
+    # 9b ── Figure 1.9: replace the author's trilemma picture with the one that
+    #       follows the text of §1.6.1 (a tracked replacement: the old picture is
+    #       marked deleted, the new one inserted, so Reject restores the original)
+    if os.path.exists(FIGDIR + 'fig_trilemma.png'):
+        old = None
+        for p in paras:
+            for d in p.iter('{http://schemas.openxmlformats.org/drawingml/2006/main}blip'):
+                if d.get('{%s}embed' % R) == 'rId11':
+                    old = p
+        if old is None:
+            sys.exit('Figure 1.9 picture (rId11) not found')
+        for r in list(old):
+            if r.tag == q('w:r') and r.find(q('w:drawing')) is not None:
+                d = track('w:del'); r.addprevious(d); d.append(r)
+        newfig = figure('fig_trilemma.png', rels, media)
+        for w_ins in newfig.findall(q('w:ins')):
+            old.append(w_ins)
+        log.append('replaced the Figure 1.9 picture with one drawn to the text of §1.6.1 (tracked; reject to restore the original)')
 
     tree.write(doc_path, xml_declaration=True, encoding='UTF-8', standalone=True)
     etree.ElementTree(rels).write('unpacked/word/_rels/document.xml.rels', xml_declaration=True, encoding='UTF-8', standalone=True)

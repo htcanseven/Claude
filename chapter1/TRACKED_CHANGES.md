@@ -1,8 +1,8 @@
 # Chapter 1 — what was changed in `Chapter_1_HS_machines_TRACKED.docx`
 
-The file is the author's own `The_first_Ch_of_HS_machines_1.docx` with every edit recorded as a Word tracked change under the author name **Claude** (400 revisions). Open it with Review → Tracking → **All Markup**; Accept or Reject works on each change individually. Track Changes is switched on in the document, so further edits by the co-authors are recorded too.
+The file is the author's own `The_first_Ch_of_HS_machines_1.docx` with every edit recorded as a Word tracked change under the author name **Claude** (403 revisions). Open it with Review → Tracking → **All Markup**; Accept or Reject works on each change individually. Track Changes is switched on in the document, so further edits by the co-authors are recorded too.
 
-Nothing outside the items below was touched. The four existing figures, the eight Word equations, the styles, footers and page setup are exactly as they were. Reject-all reproduces the original text paragraph for paragraph (verified, 267 of 267).
+Nothing outside the items below was touched. Three of the four existing figures (the fourth, Figure 1.9, is replaced as a tracked change), the eight Word equations, the styles, footers and page setup are exactly as they were. Reject-all reproduces the original text paragraph for paragraph (verified, 267 of 267).
 
 ## Deleted
 
@@ -32,7 +32,7 @@ The pictures were already in the document; only their captions were placeholders
 13. **Figure 1.2** — geared versus direct-drive architecture (was "Figure 2. Caption").
 14. **Figure 1.4** — the computed rotor bending mode shapes, modes 1–4 with frequencies (was "Fig. 3 Caption"). The caption ends with **[machine and source to be stated]** — I did not want to guess which rotor this is.
 15. **Figure 1.5** — loss components against speed (was "Fig 4 Caption"). The caption states that the chart is drawn at fixed machine geometry, which ties it to the new §1.5.5.
-16. **Figure 1.9** — the high-speed trilemma (was "Fig. 5 Caption"). The caption picks up the author's own word "gatekeeper" for the converter from §1.6.1.
+16. **Figure 1.9** — the high-speed trilemma (was "Fig. 5 Caption"). **The picture itself is also replaced** (a tracked replacement: the original picture is marked deleted and the new one inserted, so a single Reject restores the original). The new drawing follows the text of §1.6.1 literally: the three remedies form a directed cycle — sleeve → larger effective air gap, pole count and frequency → iron and windage loss, cooling geometry → lower stiffness and higher l/D — around a feasible design window, and the power-electronic interface is drawn as the gatekeeper splitting that window into the low-pole industrial topology (reachable with silicon IGBT converters) and the high-pole mobile topology (SiC/GaN only). Source: `src/make_trilemma.py`.
 
 ## Added text and figures
 
