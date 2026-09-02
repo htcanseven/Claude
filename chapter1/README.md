@@ -19,9 +19,12 @@ They differ in structure and depth only.
 
 - `ch1_full.md`, `ch1_minimal.md` — chapter text (edit these, then regenerate)
 - `CHANGES.md` — change record
-- `figures/` — six generated figures, 300 dpi PNG
+- `figures/` — all eight figures, 300 dpi PNG
+- `original_draft_text.json` — the original draft's text, recovered from the redlines
 - `src/verify_scaling.py` — numerical check of every scaling relation in §1.4 / §1.5
-- `src/make_figures.py`, `src/fix_figures.py`, `src/fix_figures2.py` — figure generation
+- `src/make_figures.py`, `src/fix_figures.py`, `src/fix_figures2.py` — analytical figures
+- `src/make_schematics.py` — the two schematic figures
+- `src/recover_original.py` — rebuilds original_draft_text.json from a redline
 - `src/md2docx.py` — Word conversion
 - `src/make_redline.py` — tracked-changes redline generation
 - `src/verify_redline.py` — checks that Accept All reproduces the revised text and Reject All the original
@@ -31,11 +34,12 @@ They differ in structure and depth only.
 ```
 pip install matplotlib numpy python-docx
 python3 src/make_figures.py && python3 src/fix_figures.py && python3 src/fix_figures2.py
+python3 src/make_schematics.py
 python3 src/md2docx.py
 python3 src/make_redline.py && python3 src/verify_redline.py
 ```
 
 ## Outstanding
 
-Two figures to be drawn (geared vs direct-drive architecture; rotor bending modes),
-citations to be filled in — both are listed in `CHANGES.md` §E.
+Citations to be filled in; every location is listed in `CHANGES.md` §E.
+All figures are complete.

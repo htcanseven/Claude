@@ -11,18 +11,18 @@ FIGDIR = 'figures/'
 MAP_FULL = {
     '1.1': 'fig_stress_vs_tipspeed.png',
     '1.2': 'fig_classification_map.png',
-    '1.3': None,                                  # bending modes, to be drawn
+    '1.3': 'fig_bending_modes.png',
     '1.4': 'fig_critical_speed_divergence.png',
     '1.5': 'fig_scaling_paths.png',
     '1.6': 'fig_converter_gate.png',
-    '1.7': None,                                  # geared vs direct drive, to be drawn
+    '1.7': 'fig_geared_vs_directdrive.png',
     '1.8': 'fig_design_space.png',
 }
 MAP_MIN = {
     '1.1': 'fig_stress_vs_tipspeed.png',
     '1.2': 'fig_classification_map.png',
-    '1.3': None,                                  # geared vs direct drive, to be drawn
-    '1.4': None,                                  # bending modes, to be drawn
+    '1.3': 'fig_geared_vs_directdrive.png',
+    '1.4': 'fig_bending_modes.png',
     '1.5': 'fig_converter_gate.png',
     '1.6': 'fig_critical_speed_divergence.png',
     '1.7': 'fig_scaling_paths.png',

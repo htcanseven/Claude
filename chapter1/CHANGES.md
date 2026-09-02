@@ -5,8 +5,8 @@ Two versions were produced from the 6 110-word draft:
 | | Prose words | Figures | Est. pages* | Scope |
 |---|---|---|---|---|
 | Original draft | 6 110 | 4 placeholders | ~13 | — |
-| **MINIMAL** | 5 544 | 8 (6 supplied) | **~14** | repairs only, original structure kept |
-| **FULL** | 7 940 | 8 (6 supplied) | **~18** | repairs plus restructuring and new material |
+| **MINIMAL** | 5 544 | 8 (all supplied) | **~14** | repairs only, original structure kept |
+| **FULL** | 7 940 | 8 (all supplied) | **~18** | repairs plus restructuring and new material |
 
 \* Wiley's formula: 600 words per page, 2 illustrations per page.
 
@@ -126,9 +126,7 @@ Draft had Figures 2, 3, 4, 5 with no Figure 1. Both versions now run 1.1 to 1.8 
 
 ## E. Still needed from the authors
 
-**Two figures to be drawn** (marked in both documents):
-- Geared versus direct-drive architecture, side by side
-- First and second bending modes of a slender rotor
+**Figures: complete.** All eight are now supplied and embedded in both chapter documents. Six are generated from the equations in the text (`src/make_figures.py`); the two schematics — geared versus direct-drive architecture, and first and second rotor bending modes — are drawn in `src/make_schematics.py`. All are 300 dpi and reproducible from source, so they can be restyled to Wiley's artwork specification without redrawing.
 
 **Citations.** Every location is listed in the References section of both documents. The only confirmed citation carried from the draft is El Hajji et al. (2024). The ones that matter most for a reviewer are the source for the 150 m/s and n√P thresholds, the Voltcar project reference, and the m_f = 21 synchronous-PWM threshold.
 

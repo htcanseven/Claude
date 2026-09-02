@@ -147,8 +147,8 @@ The practical consequence is that many high-speed machines cannot be operated be
 
 The available options span three orders of magnitude in cost and capability. Hybrid ceramic rolling-element bearings, with silicon nitride balls and oil-mist or jet lubrication, are compact and inexpensive and dominate traction applications, but they impose a finite Dn limit and remain a wearing part. Fluid-film and air-foil bearings remove the wear mechanism and permit oil-free operation, at the cost of limited load capacity and a susceptibility to sub-synchronous whirl. Active magnetic bearings eliminate contact altogether and, uniquely, allow stiffness and damping to be varied during operation, so that a rotor can be actively steered through a resonance that would destroy a passively supported machine; the price is a sensor and power-electronic system that is often comparable in complexity to the drive itself. Chapter 8 treats the selection and the analysis together, because at high speed the rotor and its bearings cannot be designed separately.
 
-**[Figure 1.3 near here — to be drawn]**
-*Figure 1.3 First and second bending modes of a slender high-speed rotor, shown as deflected shapes against the undeflected axis, with bearing locations marked. Schematic; to be prepared.*
+**[Figure 1.3 near here]**
+*Figure 1.3 First and second bending modes of a slender high-speed rotor, shown as deflected shapes against the undeflected axis. The rotor is supported at the two bearings; the second mode has an interior node. The first bending critical speed scales as r_r/l², so lengthening a rotor to recover the torque lost to a reduced diameter reduces it quadratically.*
 
 ### 1.3.3 Aerodynamic drag and windage
 
@@ -377,8 +377,8 @@ The two paradigms are summarised in Table 1.3. The point of the comparison is no
 | Converter | silicon IGBT | SiC or GaN |
 | Transmission | none, direct drive | fixed-ratio reduction gear |
 
-**[Figure 1.7 near here — to be drawn]**
-*Figure 1.7 Geared and direct-drive architectures compared. Upper: mains-connected motor, step-up gearbox, lubrication plant and driven load. Lower: integrated high-speed unit with the impeller mounted directly on the motor shaft. Schematic; to be prepared.*
+**[Figure 1.7 near here]**
+*Figure 1.7 Geared and direct-drive architectures compared. Above: a mains-connected motor drives the load through a step-up gearbox, with the lubrication plant below floor level. Below: the impeller is mounted directly on the high-speed motor shaft and carried on active magnetic bearings, giving a single sealed unit with no oil system and no second storey.*
 
 ## 1.7 The Design Space and the Plan of This Book
 

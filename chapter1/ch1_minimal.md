@@ -83,8 +83,8 @@ Eliminating the gearbox yields several transformative benefits. Removing the gea
 
 The transition is not free. Moving from 1800 to 60 000 r/min shifts the burden from mechanical engineering to multidisciplinary physics: the rotor must survive extreme centrifugal stress, the stator must tolerate high-frequency core loss, and the full thermal load must be removed from a much smaller volume.
 
-**[Figure 1.3 near here — to be drawn]**
-*Figure 1.3 Geared and direct-drive architectures compared. Upper: mains-connected motor, step-up gearbox, lubrication plant and driven load. Lower: integrated high-speed unit with the impeller mounted directly on the motor shaft. Schematic; to be prepared.*
+**[Figure 1.3 near here]**
+*Figure 1.3 Geared and direct-drive architectures compared. Above: a mains-connected motor drives the load through a step-up gearbox, with the lubrication plant below floor level. Below: the impeller is mounted directly on the high-speed motor shaft and carried on active magnetic bearings, giving a single sealed unit with no oil system and no second storey.*
 
 ## 1.2 Two Design Paradigms
 
@@ -159,8 +159,8 @@ so lengthening the rotor reduces the critical speed quadratically while the diam
 
 The practical consequence is that many high-speed machines cannot operate below their first critical speed and must run supercritically, passing through one or more resonances on every run-up and coast-down. The electromagnetic design, which wants a large diameter, is thus continually pushed back by the rotordynamic analysis, which demands a short stiff rotor.
 
-**[Figure 1.4 near here — to be drawn]**
-*Figure 1.4 First and second bending modes of a slender high-speed rotor, shown as deflected shapes against the undeflected axis, with bearing locations marked. Schematic; to be prepared.*
+**[Figure 1.4 near here]**
+*Figure 1.4 First and second bending modes of a slender high-speed rotor, shown as deflected shapes against the undeflected axis. The rotor is supported at the two bearings; the second mode has an interior node. The first bending critical speed scales as r_r/l², so lengthening a rotor to recover the torque lost to a reduced diameter reduces it quadratically.*
 
 The bearing is therefore a first-order design decision rather than a component selection. Hybrid ceramic rolling-element bearings, with silicon nitride balls and oil-mist or jet lubrication, are compact and inexpensive and dominate traction and smaller industrial units, but they impose a finite Dn limit and remain a wearing part; combined with squeeze-film damping they are rugged and economical at lower powers. Fluid-film and air-foil bearings support the rotor on a gas or oil film, are oil-free and self-acting, and are increasingly used in micro-turbines and blowers, but have limited load capacity and can suffer sub-synchronous whirl. Active magnetic bearings levitate the rotor entirely, eliminating contact and wear; uniquely, their stiffness and damping can be varied during operation, so a rotor can be actively steered through a resonance that would destroy a passively supported machine, and they provide continuous position and vibration diagnostics. Their cost, sensor count and control complexity make them difficult to justify at low power.
 
