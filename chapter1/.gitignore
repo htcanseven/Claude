@@ -1,3 +1,4 @@
 work/unpacked*/
 work/pages/
 work/*.json
+__pycache__/
