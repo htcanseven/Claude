@@ -8,6 +8,7 @@ Draft material for the Wiley book proposal (Canseven, Petrov, Pyrhönen).
 |---|---|
 | `Chapter_1_HS_machines_TRACKED.docx` | **The deliverable.** The author's own file with every edit as a Word tracked change (458 revisions). See `TRACKED_CHANGES.md`. |
 | `Annotated_TOC.docx` / `Annotated_TOC.md` | The annotated table of contents for the Wiley proposal: positioning, 12 chapter abstracts, budgets, contributors, schedule. |
+| `Contributor_Invitation.docx` / `Contributor_Invitation.md` | Invitation email, terms sheet, one "your contribution" block per invitee, letter-of-support template, and a pre-sending checklist. |
 | `source/The_first_Ch_of_HS_machines_1.docx` | The author's original file, untouched. |
 | `Chapter_1_HighSpeed_CONSERVATIVE.docx` | Earlier reconstruction: original prose verbatim, corrections added alongside. |
 | `Chapter_1_Redline_CONSERVATIVE.docx` | Word-level tracked changes for the conservative version. |

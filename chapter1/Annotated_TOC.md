@@ -173,7 +173,7 @@ The author line is Canseven, Petrov and Pyrhönen. Contributors are credited at 
 | Contributor | Affiliation | Chapters | Status |
 |---|---|---|---|
 | Jussi Sopanen and group | LUT, machine dynamics | 4, 5, 6 | agreed in principle |
-| Anouar Belahcen | Aalto University | 9 lead, 8 and 5.9 supporting | expected |
+| Anouar Belahcen | Aalto University | 9 lead; 8.6 and 5.7 supporting | expected |
 | Juha Saari | industry | 2, 9, 11 | to be invited |
 | Pasi Peltoniemi | LUT, power electronics | 10 | to be invited |
 | Lassi Aarniovuori | drive loss measurement | 10, 11 | to be invited |

@@ -187,6 +187,12 @@ def convert(md_path, out_path, figmap, title):
         i += 1
 
     doc.core_properties.title = title
+    # python-docx's default template writes <w:zoom/> without the required
+    # w:percent attribute, which fails schema validation; supply it.
+    from docx.oxml.ns import qn
+    zoom = doc.settings.element.find(qn('w:zoom'))
+    if zoom is not None and zoom.get(qn('w:percent')) is None:
+        zoom.set(qn('w:percent'), '100')
     doc.save(out_path)
     return out_path
 
