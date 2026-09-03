@@ -109,7 +109,7 @@ The first practical question an industrial reader brings to a high-speed machine
 
 Sections: 6.1 The bearing question at high speed: load, Dn, life, loss and cost · 6.2 Rolling-element bearings: hybrid ceramics, cages, preload, lubrication regimes, Dn limits and life · 6.3 Fluid-film bearings: tilting-pad, grooved journal and gas bearings · 6.4 Air-foil bearings · 6.5 Active magnetic bearings: actuators, sensing, control interface, losses, touchdown bearings · 6.6 Bearing friction losses in the loss budget · 6.7 Seals: labyrinth, brush and dry gas seals, seal windage, hermetic designs · 6.8 Damage mechanisms: wear, fretting and bearing currents · 6.9 Bearing selection for the two running machines.
 
-Budget: 30 pages, 20 figures, 3 tables. Contributors: J. Sopanen's group (bearing-rotor interaction, fluid-film and magnetic bearings); an industrial bearing application specialist to be identified for lubrication, life and seals. DREM boundary: not covered in the earlier book. New: bearing losses and seal windage placed in the high-speed loss budget.
+Budget: 30 pages, 20 figures, 3 tables. Contributors: J. Sopanen's group (bearing-rotor interaction, fluid-film and magnetic bearings); an industrial bearing application specialist, to be named from J. Sopanen's professional network, for the lubrication regimes, bearing life and seals as they are practised in industry. DREM boundary: not covered in the earlier book. New: bearing losses and seal windage placed in the high-speed loss budget.
 
 ### Part III — Electromagnetic and thermal design within the constraints
 
@@ -187,7 +187,7 @@ The author line is Canseven, Petrov and Pyrhönen. Contributors are credited at 
 | Janne Nerg | LUT, thermal modelling | 10 lead | to be invited |
 | Pasi Peltoniemi | LUT, power electronics | 11 | to be invited |
 | Lassi Aarniovuori | drive loss measurement | 11, 12 | to be invited |
-| bearing application specialist | industry, to be identified | 6 | open |
+| bearing application specialist | industry, through J. Sopanen's network | 6 | to be named |
 | Marko Hinkkanen or Olli Pyrhönen | Aalto / LUT, control | 11 | suggested, one of the two |
 | aerospace contributor | to be identified | 13.2 | open |
 
