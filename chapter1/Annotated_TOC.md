@@ -18,7 +18,7 @@ Between the review papers on high-speed machines and the research monographs the
 
 **New material.** The fP classification criterion for high-speed drives, calibrated against a survey of built machines; the constraints-first sizing procedure; the corrected scaling analysis, including the result that a doubling of design speed degrades the rotordynamic margin sixteenfold; converter co-design rules for the SiC and GaN era; and case studies from current projects, carried from specification to measured validation.
 
-**Companion material.** A set of Python notebooks reproducing every analytical figure in the book and implementing the design procedures of Chapters 6, 7 and 10, published on the Wiley companion site.
+**Companion material.** A set of Python notebooks reproducing every analytical figure in the book and implementing the design procedures of Chapters 6, 7, 9 and 10, published on the Wiley companion site.
 
 ## 2. Structure at a glance
 
@@ -30,21 +30,21 @@ Budgets use the publisher's formula of 600 words per page and two illustrations 
 | | 2 | Applications and system architectures | 34 | 14 100 | 18 | authors; J. Saari |
 | | 3 | Machine topologies for high speed | 38 | 14 400 | 26 | authors |
 | II  The constraints that bind first | 4 | Rotor mechanical design and magnet retention | 38 | 14 400 | 26 | J. Sopanen's group; I. Petrov |
-| | 5 | Rotordynamics, bearings and vibration | 38 | 14 400 | 26 | J. Sopanen's group |
-| | 6 | Windage, air-gap flow and the thermal budget | 32 | 12 600 | 20 | J. Saari; J. Nerg |
+| | 5 | Rotordynamics and vibration | 30 | 11 400 | 20 | J. Sopanen's group |
+| | 6 | Bearings, lubrication and seals for high-speed rotors | 32 | 12 300 | 20 | J. Sopanen's group; bearing specialist |
 | III  Electromagnetic design within the constraints | 7 | Sizing under the speed constraint: the inverted procedure | 36 | 14 400 | 20 | authors |
 | | 8 | AC winding losses and conductor design | 28 | 11 100 | 18 | I. Petrov; A. Belahcen |
-| | 9 | Core and rotor losses at kilohertz frequencies | 34 | 13 200 | 22 | A. Belahcen; I. Petrov |
+| | 9 | Losses, cooling and the thermal budget at kilohertz frequencies | 44 | 17 100 | 28 | A. Belahcen; I. Petrov; J. Saari; J. Nerg |
 | IV  Delivery: the drive and the applications | 10 | The drive: converter interface and control at high fundamental frequency | 42 | 16 200 | 28 | P. Peltoniemi; L. Aarniovuori |
 | | 11 | Industrial case studies: compressor drive and ORC generator | 28 | 9 300 | 22 | authors; J. Saari; L. Aarniovuori |
 | | 12 | Mobile case studies: traction, aerospace and e-turbo | 30 | 9 900 | 24 | authors; aerospace contributor |
-| | | **Chapters 1–12** | **404** | **156 000** | **259** | |
+| | | **Chapters 1–12** | **406** | **156 600** | **259** | |
 | | | Front matter, appendices A–D, index | 40 | | | |
-| | | **Total** | **444** | | | |
+| | | **Total** | **446** | | | |
 
 ## 3. Devices used throughout the book
 
-**Two running machines.** The two-pole industrial compressor drive and the six-pole Voltcar traction machine are specified in Chapter 2, given their rotor retention in Chapter 4, their rotordynamic verification in Chapter 5, their loss budget in Chapter 6, their electromagnetic sizing in Chapter 7, their windings and losses in Chapters 8 and 9, their converters in Chapter 10, and are assembled into complete, measured designs in Chapters 11 and 12. Every design chapter therefore ends with the same two worked examples, and the reader can follow one machine through the whole procedure.
+**Two running machines.** The two-pole industrial compressor drive and the six-pole Voltcar traction machine are specified in Chapter 2, given their rotor retention in Chapter 4, their rotordynamic verification in Chapter 5, their bearings in Chapter 6, their electromagnetic sizing in Chapter 7, their windings in Chapter 8, their losses and loss budget in Chapter 9, their converters in Chapter 10, and are assembled into complete, measured designs in Chapters 11 and 12. Every design chapter therefore ends with the same two worked examples, and the reader can follow one machine through the whole procedure.
 
 **A closing comparison in every design chapter.** Chapters 3 to 10 each close with a short section stating how the industrial and the mobile machine resolve that chapter's trade-off differently. This is the industrial-versus-mobile spine made explicit.
 
@@ -94,21 +94,21 @@ Sections: 4.1 Centrifugal stress in solid, hollow and laminated rotors · 4.2 Ma
 
 Budget: 38 pages, 26 figures, 2 tables. Contributors: J. Sopanen's group (stress, fits, fatigue) with I. Petrov (magnet and bridge design). DREM boundary: the earlier book treats rotor mechanics only at conventional speeds.
 
-#### Chapter 5. Rotordynamics, bearings and vibration
+#### Chapter 5. Rotordynamics and vibration
 
-Along the design path that respects the material limit, the first bending critical speed falls as the cube of the design speed, so most high-speed machines must run supercritically. This chapter makes that manageable. Rigid and flexible rotor behaviour, critical speeds, Campbell diagrams and gyroscopic stiffening are developed for slender rotors with the shaft extensions, sleeves and solid bodies that real machines carry. Subcritical and supercritical operation are compared, and high-speed balancing is treated as a design activity. The bearing options are assessed across three orders of magnitude of cost: hybrid ceramic rolling-element bearings and their Dn limits, fluid-film, air-foil and gas bearings with their whirl instabilities, and active magnetic bearings with their control, sensing and backup requirements. Damping strategies, squeeze-film and active, are the tools for passing through resonance. Electromagnetic force harmonics are linked to structural response, vibration and noise, connecting this chapter to the loss and harmonic content of Chapters 9 and 10. The chapter closes with the rotordynamic verification workflow applied to the two running machines.
+Along the design path that respects the material limit, the first bending critical speed falls as the cube of the design speed, so most high-speed machines must run supercritically. This chapter makes that manageable. Rigid and flexible rotor behaviour, critical speeds, Campbell diagrams and gyroscopic stiffening are developed for slender rotors with the shaft extensions, sleeves and solid bodies that real machines carry. Subcritical and supercritical operation are compared, and high-speed balancing is treated as a design activity rather than a workshop afterthought. Bearing stiffness and damping enter as the rotordynamic inputs that Chapter 6 then supplies, and the strategies for passing through resonance, squeeze-film and active damping, are set out. Electromagnetic force harmonics are linked to structural response, vibration and noise, connecting the chapter to the loss and harmonic content of Chapters 9 and 10. The chapter closes with the rotordynamic verification workflow applied to the two running machines.
 
-Sections: 5.1 Rigid and flexible rotor behaviour · 5.2 Critical speeds, Campbell diagrams, gyroscopic effects · 5.3 Subcritical and supercritical operation · 5.4 High-speed balancing · 5.5 Rolling-element bearings · 5.6 Fluid-film, air-foil and gas bearings · 5.7 Active magnetic bearings · 5.8 Damping: squeeze-film and active · 5.9 Vibration and noise: electromagnetic forces and structural response · 5.10 Rotordynamic verification of the two running machines.
+Sections: 5.1 Rigid and flexible rotor behaviour · 5.2 Critical speeds, Campbell diagrams, gyroscopic effects · 5.3 Subcritical and supercritical operation · 5.4 High-speed balancing · 5.5 Bearing stiffness and damping as rotordynamic inputs · 5.6 Passing through resonance: damping strategies · 5.7 Vibration and noise: electromagnetic forces and structural response · 5.8 Rotordynamic verification of the two running machines.
 
-Budget: 38 pages, 26 figures, 2 tables. Contributors: J. Sopanen's group; 5.9 jointly with A. Belahcen (electromagnetic excitation). DREM boundary: not covered in the earlier book.
+Budget: 30 pages, 20 figures, 2 tables. Contributors: J. Sopanen's group; 5.7 jointly with A. Belahcen (electromagnetic excitation). DREM boundary: not covered in the earlier book.
 
-#### Chapter 6. Windage, air-gap flow and the thermal budget
+#### Chapter 6. Bearings, lubrication and seals for high-speed rotors
 
-Above roughly 100 m/s the air in the gap stops being a passive medium. Flow in the annulus is developed from laminar Couette flow through Taylor vortices to turbulence, with the friction correlations the designer needs and their experimental validation. Surface roughness, grooving and rotor end effects are quantified, and operation in low-density gas or at reduced pressure is treated for the industrial paradigm. The chapter then turns the thermal problem the right way round for high-speed design: the cooling architecture is chosen early, and it sets the loss budget that the electromagnetic design must meet. Cooling architectures are compared, jackets, in-slot and direct winding cooling, rotor and hollow-shaft cooling, and lumped-parameter thermal networks are built with the air gap treated as a heat source rather than a resistance. Magnet temperature and demagnetisation margin are shown to be the binding thermal constraint in most permanent-magnet high-speed machines. The chapter closes by setting the loss budget for each running machine, which Chapters 8 and 9 must then meet.
+The first practical question an industrial reader brings to a high-speed machine is which bearing, lubricated how, lasting how long, and no competing title answers it as a design chapter. This one does, treating the tribology of the support system across three orders of magnitude of cost. Rolling-element bearings are covered with hybrid ceramics, cage design, preload, the lubrication regimes from grease through oil-mist to under-race oil, and Dn limits and life at high speed. Fluid-film bearings, tilting-pad and grooved journal and gas bearings, and air-foil bearings with their lift-off, load capacity and whirl behaviour follow. Active magnetic bearings are treated from actuator sizing and sensing through the control interface and losses to touchdown bearings and drop events. Bearing friction losses are quantified and placed in the loss budget beside windage, where they belong. Seals are given their own section, labyrinth, brush and dry gas seals, seal windage and heating, and the hermetic designs of the industrial paradigm. Damage mechanisms close the technical part, wear, fretting and the tribological face of bearing currents, and the chapter ends with the bearing selection for the two running machines.
 
-Sections: 6.1 Taylor–Couette flow and regime transition · 6.2 Windage loss models and experimental validation · 6.3 Surface roughness, grooving, rotor end effects · 6.4 Low-density gas and reduced-pressure operation · 6.5 Cooling architectures · 6.6 Lumped-parameter thermal networks for high-speed machines · 6.7 Magnet temperature and demagnetisation margin · 6.8 Setting the loss budget for the two running machines.
+Sections: 6.1 The bearing question at high speed: load, Dn, life, loss and cost · 6.2 Rolling-element bearings: hybrid ceramics, cages, preload, lubrication regimes, Dn limits and life · 6.3 Fluid-film bearings: tilting-pad, grooved journal and gas bearings · 6.4 Air-foil bearings · 6.5 Active magnetic bearings: actuators, sensing, control interface, losses, touchdown bearings · 6.6 Bearing friction losses in the loss budget · 6.7 Seals: labyrinth, brush and dry gas seals, seal windage, hermetic designs · 6.8 Damage mechanisms: wear, fretting and bearing currents · 6.9 Bearing selection for the two running machines.
 
-Budget: 32 pages, 20 figures, 2 tables. Contributors: J. Saari (windage), J. Nerg (thermal networks). DREM boundary: the earlier book's thermal chapter is the starting point; only the high-speed departures are treated.
+Budget: 32 pages, 20 figures, 3 tables. Contributors: J. Sopanen's group (bearing-rotor interaction, fluid-film and magnetic bearings); an industrial bearing application specialist to be identified for lubrication, life and seals. DREM boundary: not covered in the earlier book. New: bearing losses and seal windage placed in the high-speed loss budget.
 
 ### Part III — Electromagnetic design within the constraints
 
@@ -122,19 +122,19 @@ Budget: 36 pages, 20 figures, 4 tables. New: the procedure itself. Authors only.
 
 #### Chapter 8. AC winding losses and conductor design
 
-A slot conductor sized on its direct-current resistance is wrong once the skin depth approaches its dimensions, which at kilohertz fundamentals it does. Skin and proximity effects in slot conductors are derived and the circulating currents in parallel paths that dominate real windings are treated with the transposition schemes that suppress them. Litz wire is assessed for construction, effectiveness and its practical limits in fill factor and termination; form-wound and hairpin conductors are assessed for the same duty. End-winding losses and leakage are quantified. The AC resistance factor is evaluated by analytical models and by finite-element analysis, and the domain of validity of each is stated. The chapter closes with design rules and with the winding design of the two running machines, checked against the loss budget of Chapter 6.
+A slot conductor sized on its direct-current resistance is wrong once the skin depth approaches its dimensions, which at kilohertz fundamentals it does. Skin and proximity effects in slot conductors are derived and the circulating currents in parallel paths that dominate real windings are treated with the transposition schemes that suppress them. Litz wire is assessed for construction, effectiveness and its practical limits in fill factor and termination; form-wound and hairpin conductors are assessed for the same duty. End-winding losses and leakage are quantified. The AC resistance factor is evaluated by analytical models and by finite-element analysis, and the domain of validity of each is stated. The chapter closes with design rules and with the winding design of the two running machines, checked against the loss budget set in Chapter 9.
 
 Sections: 8.1 Skin and proximity effects in slot conductors · 8.2 Circulating currents and strand transposition · 8.3 Litz wire · 8.4 Form-wound and hairpin conductors at high frequency · 8.5 End-winding losses and leakage · 8.6 The AC resistance factor: analytical models against FE · 8.7 Windings of the two running machines.
 
 Budget: 28 pages, 18 figures, 1 table. Contributors: I. Petrov, A. Belahcen supporting on FE evaluation.
 
-#### Chapter 9. Core and rotor losses at kilohertz frequencies
+#### Chapter 9. Losses, cooling and the thermal budget at kilohertz frequencies
 
-Loss models fitted below 400 Hz do not extrapolate to 2 kHz. The chapter shows where loss separation breaks above 1 kHz and how measurement and model fitting are done for high-frequency operation. The soft magnetic materials available are compared as design choices, thin-gauge silicon iron, cobalt iron, amorphous and soft magnetic composites, and the manufacturing effects that degrade them, cutting, stacking, coating and residual stress, are quantified rather than mentioned. The rotor side is treated with equal weight: rotor surface and harmonic losses, eddy currents in sleeves, retention rings and magnets, and the effectiveness and cost of magnet segmentation. Solid-rotor loss modelling is given its own section because the solid rotor is the industrial paradigm's workhorse. The chapter closes with the loss balance of the two running machines against the thermal budget set in Chapter 6.
+Loss models fitted below 400 Hz do not extrapolate to 2 kHz, and the air in the gap stops being a passive medium above roughly 100 m/s; this chapter treats every loss mechanism that changes at high speed and the cooling that must remove them. Loss separation is shown to break above 1 kHz, and measurement and model fitting are done for high-frequency operation. The soft magnetic materials are compared as design choices, thin-gauge silicon iron, cobalt iron, amorphous and composites, with the manufacturing effects that degrade them quantified. The rotor side has equal weight: surface and harmonic losses, eddy currents in sleeves, rings and magnets, magnet segmentation, and solid-rotor loss modelling. Aerodynamic and windage losses are developed from laminar Couette flow through Taylor vortices to turbulence, with validated friction correlations, roughness and end effects, and low-density-gas operation. The chapter then turns the thermal problem the right way round for high-speed design: cooling architectures, jackets, in-slot and direct winding cooling, rotor and hollow-shaft cooling, are chosen and lumped-parameter thermal networks built with the air gap as a heat source. Magnet temperature and demagnetisation margin are shown to be the binding thermal constraint in most permanent-magnet high-speed machines. The chapter closes with the loss balance of the two running machines against their thermal budget.
 
-Sections: 9.1 Loss separation above 1 kHz · 9.2 Soft magnetic materials · 9.3 Manufacturing effects · 9.4 Measurement and model fitting · 9.5 Rotor surface and harmonic losses · 9.6 Eddy currents in sleeves, retention rings and magnets · 9.7 Magnet segmentation · 9.8 Solid-rotor loss modelling · 9.9 Loss balance of the two running machines.
+Sections: 9.1 Loss separation above 1 kHz · 9.2 Soft magnetic materials · 9.3 Manufacturing effects · 9.4 Measurement and model fitting · 9.5 Rotor surface and harmonic losses · 9.6 Eddy currents in sleeves, rings and magnets; magnet segmentation · 9.7 Solid-rotor loss modelling · 9.8 Aerodynamic and windage losses: Taylor–Couette flow, correlations, roughness, low-density gas · 9.9 Cooling architectures and thermal networks · 9.10 Magnet temperature and the loss budget of the two running machines.
 
-Budget: 34 pages, 22 figures, 2 tables. Contributors: A. Belahcen (loss modelling, materials, manufacturing effects) with I. Petrov (rotor losses). DREM boundary: the earlier book's loss chapter covers the conventional frequency range.
+Budget: 44 pages, 28 figures, 3 tables. Contributors: A. Belahcen (loss modelling, materials, manufacturing effects), I. Petrov (rotor losses), J. Saari (windage), J. Nerg (thermal networks). DREM boundary: the earlier book's loss and thermal chapters cover the conventional frequency range; only the high-speed departures are treated.
 
 ### Part IV — Delivery: the drive and the applications
 
@@ -172,12 +172,13 @@ The author line is Canseven, Petrov and Pyrhönen. Contributors are credited at 
 
 | Contributor | Affiliation | Chapters | Status |
 |---|---|---|---|
-| Jussi Sopanen and group | LUT, machine dynamics | 4, 5 | agreed in principle |
+| Jussi Sopanen and group | LUT, machine dynamics | 4, 5, 6 | agreed in principle |
 | Anouar Belahcen | Aalto University | 9 lead, 8 and 5.9 supporting | expected |
-| Juha Saari | industry | 2, 6, 11 | to be invited |
+| Juha Saari | industry | 2, 9, 11 | to be invited |
 | Pasi Peltoniemi | LUT, power electronics | 10 | to be invited |
 | Lassi Aarniovuori | drive loss measurement | 10, 11 | to be invited |
-| Janne Nerg | LUT, thermal modelling | 6 | suggested |
+| Janne Nerg | LUT, thermal modelling | 9 | suggested |
+| bearing application specialist | industry, to be identified | 6 | open |
 | Marko Hinkkanen or Olli Pyrhönen | Aalto / LUT, control | 10 | suggested, one of the two |
 | aerospace contributor | to be identified | 12.2 | open |
 
