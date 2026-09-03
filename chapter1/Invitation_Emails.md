@@ -46,22 +46,21 @@ Best regards,
 
 ## Jussi Sopanen — rotor mechanics, rotordynamics, bearings
 
-*He has already supported the idea, so this confirms rather than asks.*
+*He agreed to contribute at the CoE meeting, so this confirms rather than asks.*
 
 Hello Jussi,
 
-Thank you again for supporting the idea when we spoke. We are now putting the proposal to Wiley-IEEE Press together, and I would like to confirm what we discussed.
+Thank you again for supporting the book idea at the last CoE meeting and for agreeing to contribute. We are now putting the proposal to Wiley-IEEE Press together with Ilya Petrov and Juha Pyrhönen, and I would like to confirm the part we hope you will take.
 
 We started outlining the book, but we will wait for the publisher's approval before we start writing it. For the book proposal, we will initially submit a complete introductory chapter and an annotated table of contents.
 
 The mechanical part is the part of the book that no competing title has, and we would like it to be yours: rotor stress and magnet retention, rotordynamics and vibration, and the bearings, lubrication and seals of high-speed rotors. That is three chapters, and we imagine them written with members of your group rather than by you alone. Everyone who contributes is named at the head of the chapter. Once the publisher has approved the proposal, we will send you the detailed structure and settle the division of work with you.
 
-Two things would help now. Could you write us a short letter of support, which we would send to the publisher together with the proposal? A sample is attached, which you are free to change as you wish. And could you tell us which members of your group are likely to write, so that we can name them in the proposal?
+Two things would help now. Could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A draft is attached, which you are free to change as you wish. And could you tell us which members of your group are likely to write? Naming them in the proposal would strengthen it further.
 
-Could you let us know by [date]? We plan to submit on [date].
+Looking forward to hearing from you.
 
-Best regards,
-[signature]
+BR, Hüseyin
 
 ---
 
