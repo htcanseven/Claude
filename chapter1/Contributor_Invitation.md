@@ -2,6 +2,12 @@
 
 **Templates for the core authors** — draft for discussion at the core-author meeting
 
+> **This is the long form, for later.** First contact is made with the short emails in
+> `Invitation_Emails.md`, which describe the invitee's part in a paragraph and attach
+> nothing but the draft letter of support. Chapter 1 and the annotated table of contents
+> are not being circulated yet. Use the templates below once the publisher has approved
+> and the detailed scope is being settled with each contributor.
+
 ## How to use these templates
 
 - Send the invitations after the core-author meeting has settled the author order, the remuneration option and the submission date, so that every invitee is told terms that will not change afterwards.
