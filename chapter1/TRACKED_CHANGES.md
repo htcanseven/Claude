@@ -1,6 +1,6 @@
 # Chapter 1 — what was changed in `Chapter_1_HS_machines_TRACKED.docx`
 
-The file is the author's own `The_first_Ch_of_HS_machines_1.docx` with every edit recorded as a Word tracked change under the author name **Claude** (403 revisions). Open it with Review → Tracking → **All Markup**; Accept or Reject works on each change individually. Track Changes is switched on in the document, so further edits by the co-authors are recorded too.
+The file is the author's own `The_first_Ch_of_HS_machines_1.docx` with every edit recorded as a Word tracked change under the author name **Claude** (458 revisions). Open it with Review → Tracking → **All Markup**; Accept or Reject works on each change individually. Track Changes is switched on in the document, so further edits by the co-authors are recorded too.
 
 Nothing outside the items below was touched. Three of the four existing figures (the fourth, Figure 1.9, is replaced as a tracked change), the eight Word equations, the styles, footers and page setup are exactly as they were. Reject-all reproduces the original text paragraph for paragraph (verified, 267 of 267).
 
@@ -43,9 +43,10 @@ The pictures were already in the document; only their captions were placeholders
 21. **New §1.5.5 "Reading the scaling table" with Table 1.4** — the same speed doubling evaluated along the tip-speed-limited design path. **Table 1.3 is left exactly as written**; the new text explains that its rows are evaluated under different conditions and that its fourfold and eightfold figures are right for overspeeding an existing machine but not for a redesign, where windage is unchanged and iron loss doubles. **New Figure 1.7** compares the paths.
 22. **New §1.5.6 "Rotordynamic scaling"** — the first bending critical speed falls as Ω⁻³ while operating speed rises as Ω, so the margin degrades as Ω⁴ and a speed doubling costs a factor of sixteen. This is the constraint that actually ends the pursuit of speed, and the draft did not quantify it. It cross-references the author's own mode-shape figure (1.4). **New Figure 1.8**.
 
+23. **§1.6.2, the roadmap, rewritten** (tracked replacement; the author's closing sentence is kept). The draft described 19 chapters in six parts; the roadmap now describes the 12 chapters in four parts of the agreed table of contents (`Annotated_TOC.md`), states that the book's order follows the design sequence of this chapter, constraints before electromagnetic design, and introduces the two running machines carried through every design chapter.
+
 ## Deliberately not changed
 
-- **§1.6.2, the roadmap.** It still describes the 19-chapter plan. Left alone because the table of contents is to be discussed next; it will need to match whatever is agreed.
 - The repeated industrial-versus-mobile contrasts, the trilemma framing, every heading, and all three original tables.
 - The `[ref]` placeholders, which are the author's own markers.
 

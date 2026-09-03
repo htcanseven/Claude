@@ -453,6 +453,30 @@ def main():
         para('Figure 1.8. Divergence of the operating speed and the first bending critical speed along the tip-speed-limited design path. The rotordynamic margin degrades as the fourth power of the speed multiplier.'))
     log.append('added §1.5.5 with Table 1.4 and Figure 1.7, and §1.5.6 with the rotordynamic scaling result and Figure 1.8')
 
+    # 9a ── §1.6.2 roadmap: the draft describes 19 chapters in six parts; the
+    #       proposal now offers 12 chapters in four parts.  Tracked replacement of
+    #       the roadmap body; the author's closing sentence is kept.
+    first = P('This book is structured as a comprehensive journey')
+    last = P('This roadmap ensures that whether the reader')
+    doomed, on = [], False
+    for p in paras:
+        if p is first: on = True
+        if p is last: break
+        if on: doomed.append(p)
+    for p in doomed:
+        delete_para(p)
+    after(doomed[-1],
+        para('This book is structured as a journey through the multidisciplinary landscape of high-speed engineering, and its order follows the design sequence described in this chapter rather than the conventional one: the constraints that bind first are treated before the electromagnetic design that must fit within them. Two machines are carried through every design chapter and assembled into complete, measured designs at the end, a two-pole gearless industrial compressor drive and the six-pole traction machine of Table 1.1, so that each of the two paradigms has a worked example running through the whole book. Following this introduction, the text is organised into four parts.'),
+        para('Part I: The High-Speed Design Space', bold=True),
+        para('Chapter 2 surveys the applications, from gearless industrial compression through electric traction to aerospace propulsion and electrically assisted turbocharging, and calibrates the classification criteria of Section 1.1.1 against a population of built machines. Chapter 3 compares the candidate topologies, namely solid-rotor and laminated induction machines, synchronous and permanent-magnet-assisted reluctance machines, and surface- and interior-magnet synchronous machines, together with the choice of winding at high fundamental frequency.'),
+        para('Part II: The Constraints that Bind First', bold=True),
+        para('Chapter 4 addresses the _r_Ω^2^ wall directly: rotor stress analysis, magnet retention by carbon-fibre and metallic sleeves against interior-magnet bridge designs, and fatigue life and overspeed margin. Chapter 5 covers rotordynamics and bearing selection, from high-precision rolling elements through air foil systems to active magnetic bearings, together with the vibration and acoustic behaviour that follows from both. Chapter 6 treats air-gap flow and windage, including Taylor–Couette effects, and establishes the thermal budget that the electromagnetic design must then respect.'),
+        para('Part III: Electromagnetic Design within the Constraints', bold=True),
+        para('Chapter 7 develops the sizing procedure, working from the mechanical and rotordynamic limits inward to the electromagnetic design, with worked examples for both the industrial and the mobile paradigm and a section on optimisation-based multiphysics sizing. Chapter 8 addresses AC copper losses, comparing Litz wire and form-wound conductors to mitigate skin and proximity effects. Chapter 9 treats core and rotor losses in the kilohertz range, including the soft magnetic materials available, the manufacturing effects that degrade them, eddy currents in sleeves and magnets, and magnet segmentation.'),
+        para('Part IV: Delivery, the Drive and the Applications', bold=True),
+        para('Chapter 10 treats the drive as the gatekeeper it is: the converter interface, the role of SiC and GaN devices, insulation stress under fast switching, bearing currents, and control at high fundamental frequency including sensorless operation at low pulse ratios. Chapters 11 and 12 present complete design case studies, industrial and mobile respectively, each carried from specification to measured validation, with the test methods, the loss segregation at high speed, and the overspeed and endurance qualification that the applicable standards require.'))
+    log.append('rewrote the §1.6.2 roadmap for the 12-chapter, four-part structure (tracked; the closing sentence is kept)')
+
     # 9b ── Figure 1.9: replace the author's trilemma picture with the one that
     #       follows the text of §1.6.1 (a tracked replacement: the old picture is
     #       marked deleted, the new one inserted, so Reject restores the original)
