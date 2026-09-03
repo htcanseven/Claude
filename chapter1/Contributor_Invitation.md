@@ -140,11 +140,11 @@ Budget: about 7 pages and 6 figures. Chapter owner [Ilya Petrov]. First draft wi
 
 [Date]
 
-To: [Becky Cowan], Wiley-IEEE Press
+To: The Editors, Wiley-IEEE Press
 
 Re: Book proposal *High-Speed Electrical Machines and Drives: Design for Industrial and Mobile Applications* by H. Canseven, I. Petrov and J. Pyrhönen
 
-Dear [Ms Cowan],
+Dear Editors,
 
 I have read the table of contents and the sample chapter of the proposed book, and I write to confirm my support for the proposal and my intention to contribute to it.
 

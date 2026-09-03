@@ -2,12 +2,12 @@
 
 [Date]
 
-Becky Cowan
+The Editors
 Wiley-IEEE Press
 
 **Re: Book proposal *High-Speed Electrical Machines and Drives: Design for Industrial and Mobile Applications*, by H. Canseven, I. Petrov and J. Pyrhönen**
 
-Dear Ms Cowan,
+Dear Editors,
 
 [Hüseyin Canseven] has described to me the plan for this book and the part I would take in it. I write to support the proposal and to confirm that I intend to contribute to the book.
 
