@@ -106,20 +106,21 @@ Best regards,
 
 ## Pasi Peltoniemi — the drive
 
+*He has already agreed to contribute, so this confirms rather than asks.*
+
 Hello Pasi,
 
-We are preparing a proposal to Wiley-IEEE Press for a new book on high-speed electrical machines together with Ilya Petrov and Juha Pyrhönen, and we would like you to contribute to it.
+Thank you again for supporting the book idea when we discussed it, and for agreeing to contribute. We are now putting the proposal to Wiley-IEEE Press together with Ilya Petrov and Juha Pyrhönen, and I would like to confirm the part we hope you will take.
 
 We started outlining the book, but we will wait for the publisher's approval before we start writing it. For the book proposal, we will initially submit a complete introductory chapter and an annotated table of contents.
 
-One chapter is about the drive, and we would like you to lead it. The book treats the converter not as one constraint among several but as the gatekeeper that decides which machines can be built at all, so this chapter carries a good part of the argument: the converter interface, silicon against SiC and GaN, DC-link voltage and du/dt, insulation under fast switching, bearing currents, and control at a fundamental frequency high enough that the pulse ratio falls to ten or below. You could write it yourself or with colleagues, and everyone who contributes is named at the head of the chapter. Once the publisher has approved the proposal, we will send you the detailed structure and show how the chapter fits the rest of the book.
+One chapter is about the drive, and we would like you to lead it. The book treats the converter not as one constraint among several but as the gatekeeper that decides which machines can be built at all, so this chapter carries a good part of the argument: the converter interface, silicon against SiC and GaN, DC-link voltage and du/dt, insulation under fast switching, bearing currents and EMC, and control at a fundamental frequency high enough that the pulse ratio falls to ten or below. We do not expect you to write all of it yourself. Please build the team as you see fit, from LUT and from your wider network; we had thought of Lassi Aarniovuori for the harmonic losses and of Marko Hinkkanen or Olli Pyrhönen for the control sections, but that is a suggestion rather than a plan. Everyone who contributes is named at the head of the chapter. Once the publisher has approved the proposal, we will send you the detailed structure and settle the division of work with you.
 
-If you would like to join, could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A sample is attached, which you are free to change as you wish.
+Two things would help now. Could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A draft is attached, which you are free to change as you wish. And could you tell us whom you would bring in? Naming them in the proposal would strengthen it further.
 
-Could you let us know by [date]? We plan to submit on [date].
+Looking forward to hearing from you.
 
-Best regards,
-[signature]
+BR, Hüseyin
 
 ---
 

@@ -185,7 +185,7 @@ The author line is Canseven, Petrov and Pyrhönen. Contributors are credited at 
 | Anouar Belahcen | Aalto University | 9 lead; 8.6, 5.7 and 10.8 supporting | expected |
 | Juha Saari | industry | 2, 9.8, 10.5, 12 | to be invited |
 | Janne Nerg | LUT, thermal modelling | 10 lead | to be invited |
-| Pasi Peltoniemi | LUT, power electronics | 11 | to be invited |
+| Pasi Peltoniemi | LUT, power electronics | 11 lead | agreed in principle |
 | Lassi Aarniovuori | drive loss measurement | 11, 12 | to be invited |
 | bearing application specialist | industry, through J. Sopanen's network | 6 | to be named |
 | Marko Hinkkanen or Olli Pyrhönen | Aalto / LUT, control | 11 | suggested, one of the two |
