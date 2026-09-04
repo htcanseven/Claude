@@ -83,7 +83,7 @@ Topology is chosen under the speed constraint before any electromagnetic optimis
 
 Sections: 3.1 Topology selection under the speed constraint · 3.2 Solid-rotor induction machines · 3.3 Laminated-rotor induction machines and their speed ceiling · 3.4 Synchronous reluctance and PM-assisted SynRM · 3.5 Switched reluctance: capability and converter mismatch · 3.6 Surface-magnet PMSM: the sleeve-dominated design · 3.7 Interior PM: bridges, saliency and field weakening · 3.8 Winding choice at high frequency · 3.9 Axial-flux and other emerging topologies at high speed · 3.10 The industrial and the mobile choice.
 
-Budget: 34 pages, 24 figures, 2 tables. DREM boundary: topologies are compared only on their high-speed behaviour; their general theory is referenced, which is what keeps this chapter short.
+Budget: 34 pages, 24 figures, 2 tables. Contributors: authors, with J. Ikäheimo on §3.2, the solid-rotor induction machine, which is written from the practice of a manufacturer that builds them rather than from the literature. DREM boundary: topologies are compared only on their high-speed behaviour; their general theory is referenced, which is what keeps this chapter short.
 
 ### Part II — The constraints that bind first
 
@@ -157,11 +157,11 @@ Budget: 40 pages, 26 figures, 2 tables. Contributors: P. Peltoniemi leads the ch
 
 #### Chapter 12. Industrial case studies: compressor drive and ORC generator
 
-Two complete industrial designs are carried from specification to measured performance. The first is the gearless compressor drive that has served as the industrial running machine throughout the book, now assembled: its rotor, bearings, cooling, electromagnetic design and converter are brought together, built and tested. The second is an organic Rankine cycle turbogenerator, chosen because it exercises the generator side and the high-temperature environment. Manufacture and tolerance control are treated as part of the design, since at high speed they are. The test rig, instrumentation and loss segregation at high speed are described in enough detail to be reproduced, with calorimetric methods where electrical methods fail. Qualification is addressed against the standards that industrial customers require, API 617 and API 541, IEC 60034-25 for converter-fed machines, ISO 21940 balancing grades and ISO 20816 vibration. The chapter closes with the failure modes observed in industrial high-speed machines and the design lessons drawn from them.
+Two complete industrial designs are carried from specification to measured performance. The first is the gearless compressor drive that has served as the industrial running machine throughout the book, now assembled: its rotor, bearings, cooling, electromagnetic design and converter are brought together, built and tested. The second is an organic Rankine cycle turbogenerator, chosen because it exercises the generator side and the high-temperature environment. Manufacture and tolerance control are treated as part of the design, since at high speed they are, and they are written by an engineer from a manufacturer that builds these machines rather than inferred from the outside. The test rig, instrumentation and loss segregation at high speed are described in enough detail to be reproduced, with calorimetric methods where electrical methods fail. Qualification is addressed against the standards that industrial customers require, API 617 and API 541, IEC 60034-25 for converter-fed machines, ISO 21940 balancing grades and ISO 20816 vibration. The chapter closes with the failure modes observed in industrial high-speed machines and the design lessons drawn from them.
 
 Sections: 12.1 The gearless compressor drive: from specification to measured performance · 12.2 The ORC turbogenerator · 12.3 Manufacture and tolerance control · 12.4 Test rig, instrumentation and loss segregation at high speed · 12.5 Qualification against standards · 12.6 Failure modes and design lessons.
 
-Budget: 28 pages, 22 figures, 3 tables. Contributors: authors, J. Saari (compressor case), L. Aarniovuori (loss measurement). New: measured case data.
+Budget: 28 pages, 22 figures, 3 tables. Contributors: authors, J. Saari (the compressor case, 12.1), J. Ikäheimo (manufacture and tolerance control, 12.3, and qualification against the standards, 12.5, both written from a manufacturer's practice), L. Aarniovuori (test rig and loss segregation, 12.4), J. Tiainen (industrial perspective). New: measured case data, and photographs of built machines and rotors supplied by the industrial contributors, which no competing title has.
 
 #### Chapter 13. Mobile case studies: traction, aerospace and e-turbo
 
@@ -183,7 +183,8 @@ The author line is Canseven, Petrov and Pyrhönen. Contributors are credited at 
 |---|---|---|---|
 | Jussi Sopanen and group | LUT, machine dynamics | 4, 5, 6 | agreed in principle |
 | Anouar Belahcen | Aalto University | 9 lead; 8.6, 5.7 and 10.8 supporting | expected |
-| Juha Saari | industry | 2, 9.8, 12 | to be invited |
+| Juha Saari | industry | 2, 9.8, 12.1 | to be invited |
+| Jouni Ikäheimo | ABB, high-speed motors | 3.2, 12.3, 12.5; photographs and machine material throughout | agreed in principle |
 | Ahti Jaatinen-Värri | LUT, turbomachinery | 2.2, 9.8, 10.5 | to be invited |
 | Jonna Tiainen | The Switch | 2.2, 9.8, 10.5, 12 | to be invited |
 | Janne Nerg | LUT, thermal modelling | 10 lead | to be invited |
@@ -199,4 +200,6 @@ Indicative, from contract signature: Chapters 2 and 3 with the running-machine s
 
 ## 7. Material offered with the proposal
 
-Chapter 1 complete; the annotated table of contents above; a partial Chapter 7 demonstrating the inverted sizing procedure on one running machine, to evidence the design-book claim; author and contributor biographies; the competing-titles analysis.
+Chapter 1 complete; the annotated table of contents above; a partial Chapter 7 demonstrating the inverted sizing procedure on one running machine, to evidence the design-book claim; author and contributor biographies; letters of support from the named contributors; the competing-titles analysis.
+
+The contributors from industry also offer photographs of built high-speed machines, rotors and sleeves. Competing titles are illustrated almost entirely with line drawings, so this is worth stating to the publisher explicitly: the industrial contributors are the copyright holders, which removes the permission problem that usually keeps such photographs out of textbooks.
