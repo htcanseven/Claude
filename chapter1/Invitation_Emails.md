@@ -85,6 +85,27 @@ Best regards,
 
 ---
 
+## Jouni Ikäheimo — solid-rotor machines, manufacture, qualification, photographs
+
+*Juha has already pitched the book to him and he has agreed, so this is short: it names
+the sections, separates "material" from "writing", and raises the ABB clearance.*
+
+Hello Jouni,
+
+Thank you for the quick and positive reply to Juha. Let me be concrete about the part we hope you will take. The structure has tightened a little since the list Juha sent you, so I will name the chapters rather than number them.
+
+Three places. In the chapter on machine topologies, the section on solid-rotor induction machines, which the book treats as the industrial workhorse and which is far better written from the manufacturing side than from the literature. In the industrial case-study chapter, manufacture and tolerance control, and qualification against API 617, API 541 and IEC 60034-25, both from practice rather than from the standards themselves. And the photographs and machine material you offered, which we would use across the whole book; competing titles are illustrated almost entirely with line drawings, so real machines would set ours apart.
+
+You offered material and a contribution both, and it would help to know which of the two you want to commit to. It would also help to know early whether ABB would allow the photographs, and any measured data, to be published.
+
+Could you also write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A draft is attached, which you are free to change as you wish.
+
+Looking forward to hearing from you.
+
+BR, Hüseyin
+
+---
+
 ## Janne Nerg — thermal management and cooling
 
 Hello Janne,
