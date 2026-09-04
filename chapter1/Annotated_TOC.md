@@ -83,7 +83,7 @@ Topology is chosen under the speed constraint before any electromagnetic optimis
 
 Sections: 3.1 Topology selection under the speed constraint · 3.2 Solid-rotor induction machines · 3.3 Laminated-rotor induction machines and their speed ceiling · 3.4 Synchronous reluctance and PM-assisted SynRM · 3.5 Switched reluctance: capability and converter mismatch · 3.6 Surface-magnet PMSM: the sleeve-dominated design · 3.7 Interior PM: bridges, saliency and field weakening · 3.8 Winding choice at high frequency · 3.9 Axial-flux and other emerging topologies at high speed · 3.10 The industrial and the mobile choice.
 
-Budget: 34 pages, 24 figures, 2 tables. Contributors: authors, with J. Ikäheimo on §3.2, the solid-rotor induction machine, which is written from the practice of a manufacturer that builds them rather than from the literature. DREM boundary: topologies are compared only on their high-speed behaviour; their general theory is referenced, which is what keeps this chapter short.
+Budget: 34 pages, 24 figures, 2 tables. Contributors: authors, with J. Ikäheimo on §3.2 and §3.3, the solid-rotor and laminated-rotor induction machines, written from the practice of a manufacturer that builds them rather than from the literature. DREM boundary: topologies are compared only on their high-speed behaviour; their general theory is referenced, which is what keeps this chapter short.
 
 ### Part II — The constraints that bind first
 
@@ -184,7 +184,7 @@ The author line is Canseven, Petrov and Pyrhönen. Contributors are credited at 
 | Jussi Sopanen and group | LUT, machine dynamics | 4, 5, 6 | agreed in principle |
 | Anouar Belahcen | Aalto University | 9 lead; 8.6, 5.7 and 10.8 supporting | expected |
 | Juha Saari | industry | 2, 9.8, 12.1 | to be invited |
-| Jouni Ikäheimo | ABB, high-speed motors | 3.2, 12.3, 12.5; photographs and machine material throughout | agreed in principle |
+| Jouni Ikäheimo | ABB, high-speed motors | 3.2 and 3.3, 12.3, 12.5; photographs and machine material throughout | agreed in principle |
 | Ahti Jaatinen-Värri | LUT, turbomachinery | 2.2, 9.8, 10.5 | to be invited |
 | Jonna Tiainen | The Switch | 2.2, 9.8, 10.5, 12 | to be invited |
 | Janne Nerg | LUT, thermal modelling | 10 lead | to be invited |
