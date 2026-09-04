@@ -153,7 +153,7 @@ The converter is not a fourth constraint but the gatekeeper that decides which r
 
 Sections: 11.1 Modulation ratio and synchronous PWM · 11.2 Current harmonics and rotor heating · 11.3 Silicon, SiC and GaN: switching-loss economics · 11.4 DC-link voltage, du/dt and filters · 11.5 Insulation under fast switching · 11.6 Bearing currents · 11.7 Converter integration and EMC · 11.8 Control at low pulse ratios · 11.9 Position sensing and sensorless operation · 11.10 Run-up through critical speeds, field weakening, protection · 11.11 Co-design of the two running machines with their converters.
 
-Budget: 40 pages, 26 figures, 2 tables. Contributors: P. Peltoniemi leads the chapter and writes the converter sections, 11.1 and 11.3 to 11.7, with colleagues from the LUT power electronics group; L. Aarniovuori (harmonic losses and rotor heating, 11.2); M. Hinkkanen or O. Pyrhönen (control at low pulse ratios, 11.8 to 11.10). DREM boundary: not covered in the earlier book.
+Budget: 40 pages, 26 figures, 2 tables. Contributors: P. Peltoniemi leads the chapter and writes the converter sections, 11.1 and 11.3 to 11.7, with colleagues from the LUT power electronics group; L. Aarniovuori (harmonic losses and rotor heating, 11.2); M. Hinkkanen (control at low pulse ratios, 11.8 to 11.10). DREM boundary: not covered in the earlier book.
 
 #### Chapter 12. Industrial case studies: compressor drive and ORC generator
 
@@ -192,7 +192,7 @@ The author line is Canseven, Petrov and Pyrhönen. Contributors are credited at 
 | Pasi Peltoniemi | LUT, power electronics | 11 lead | agreed in principle |
 | Lassi Aarniovuori | drive loss measurement | 11, 12 | to be invited |
 | bearing application specialist | industry, through J. Sopanen's network | 6 | to be named |
-| Marko Hinkkanen or Olli Pyrhönen | Aalto / LUT, control | 11 | suggested, one of the two |
+| Marko Hinkkanen | Aalto University, electric drives | 11.8 to 11.10 (control) | to be invited |
 | aerospace contributor | to be identified | 13.2 | open |
 
 ## 6. Schedule

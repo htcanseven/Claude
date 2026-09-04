@@ -110,7 +110,7 @@ Budget: about 8 pages and 5 figures of the chapter's 28 pages and 18 figures. Ch
 
 ### Pasi Peltoniemi
 
-Chapter 11, The drive: converter interface and control at high fundamental frequency, is the chapter the book's argument rests on: the converter is presented throughout as the gatekeeper that decides which region of the design space a machine can reach at all. We would like you to lead it, writing the converter sections yourself: 11.1, modulation ratio and synchronous PWM; 11.3, silicon, SiC and GaN devices compared on switching-loss economics; 11.4, DC-link voltage, du/dt and output filters; 11.5, insulation under fast switching, including partial-discharge inception and Type II insulation systems; 11.6, bearing currents and their mitigation; 11.7, converter integration and EMC; and 11.11, the co-design of the two running machines with their converters, jointly with us. Lassi Aarniovuori writes 11.2 on current harmonics and rotor heating, and [Marko Hinkkanen / Olli Pyrhönen] the control sections 11.8 to 11.10.
+Chapter 11, The drive: converter interface and control at high fundamental frequency, is the chapter the book's argument rests on: the converter is presented throughout as the gatekeeper that decides which region of the design space a machine can reach at all. We would like you to lead it, writing the converter sections yourself: 11.1, modulation ratio and synchronous PWM; 11.3, silicon, SiC and GaN devices compared on switching-loss economics; 11.4, DC-link voltage, du/dt and output filters; 11.5, insulation under fast switching, including partial-discharge inception and Type II insulation systems; 11.6, bearing currents and their mitigation; 11.7, converter integration and EMC; and 11.11, the co-design of the two running machines with their converters, jointly with us. Lassi Aarniovuori writes 11.2 on current harmonics and rotor heating, and Marko Hinkkanen the control sections 11.8 to 11.10.
 
 Budget: about 25 pages and 17 figures of the chapter's 40 pages and 26 figures. Chapter owner [Hüseyin Canseven]. First draft with Part IV at month 20 after contract. The chapter is cited from Chapter 7 onwards, however, so we would ask for one thing earlier: by month 12, a section outline and the converter capability limits, that is, which pulse ratio is reachable with which device family at which fundamental frequency, so that the pole-number selection of Chapter 7 can be written against them.
 
@@ -120,7 +120,7 @@ Two sections that both turn on measurement. Section 11.2, current harmonics and 
 
 Budget: about 5 pages and 3 figures in Chapter 11, and 6 pages and 5 figures in Chapter 12. Chapter owners [Hüseyin Canseven for Chapter 11; Juha Pyrhönen for Chapter 12]. First drafts with Part IV at month 20 after contract.
 
-### [Marko Hinkkanen / Olli Pyrhönen]
+### Marko Hinkkanen
 
 The control half of Chapter 11: what changes when the pulse ratio falls to ten or below. Section 11.8, current regulation, overmodulation and six-step operation at low pulse ratios; 11.9, position sensing and sensorless operation at kilohertz fundamental frequency; and 11.10, run-up through critical speeds, field weakening and protection. The converter half of the chapter is led by Pasi Peltoniemi.
 
@@ -185,5 +185,4 @@ I confirm that I have read the proposal for *High-Speed Electrical Machines and 
 - Contributors table in the attached table of contents cleaned of the Status column and of names not yet asked.
 - Phone calls made to Jussi Sopanen (who writes) and Juha Saari (data clearance) before their mails go.
 - Janne Nerg's invitation is now a chapter lead rather than one section; it should go early, because Chapter 10 is the newest part of the plan and the proposal names him as its lead.
-- One invitee chosen between Marko Hinkkanen and Olli Pyrhönen.
 - Bearing specialist and aerospace contributor identified, or those two blocks held back until they are.

@@ -262,24 +262,48 @@ BR, Hüseyin
 
 ---
 
-## Marko Hinkkanen or Olli Pyrhönen — control at low pulse ratios
+## Marko Hinkkanen — control at low pulse ratios
 
-*Send to one of the two, not both.*
+*He is at Aalto and has not met Hüseyin, so this is a two-step approach like Wrobel's and
+Saari's: the first email asks only whether the subject interests him and attaches nothing.
+An introduction from Juha, or from Anouar Belahcen at the same university, would help; and
+if it turns out Hüseyin does know him, the two emails collapse into one.*
 
-Hello [Marko],
+### First email — is the subject of interest?
 
-We are preparing a proposal to Wiley-IEEE Press for a new book on high-speed electrical machines together with Ilya Petrov and Juha Pyrhönen, and we would like you to contribute to it.
+Dear Professor Hinkkanen,
 
-We started outlining the book, but we will wait for the publisher's approval before we start writing it. For the book proposal, we will initially submit a complete introductory chapter and an annotated table of contents.
+I am a researcher at LUT University working on high-speed electrical machines, and together with Ilya Petrov and Juha Pyrhönen I am preparing a proposal to Wiley-IEEE Press for a book on high-speed electrical machines and drives, written as a companion to *Design of Rotating Electrical Machines*.
 
-Your contribution would be the control part of the drive chapter: what changes when the fundamental frequency is so high that the pulse ratio falls to ten or below. That means current regulation and overmodulation at low pulse ratios, position sensing and sensorless operation at kilohertz fundamental frequency, and run-up through the critical speeds together with field weakening and protection. The converter part of the same chapter would be written by Pasi Peltoniemi. Everyone who contributes is named at the head of the chapter. Once the publisher has approved the proposal, we will send you the detailed structure.
+One of its chapters treats the drive as the element that decides which machines can be built at all. The converter half of that chapter is being written by Pasi Peltoniemi at LUT, and the part we would like to ask you for is the control half: what changes when the fundamental frequency is high enough that the pulse ratio falls to ten or below. Current regulation and overmodulation at low pulse ratios, position sensing and sensorless operation at kilohertz fundamental frequency, and run-up through the critical speeds together with field weakening and protection. About ten pages.
 
-If you would like to join, could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A sample is attached, which you are free to change as you wish.
+We ask because that material does not seem to be set out anywhere for a designer. Control methods are usually developed and demonstrated where the converter can still be treated as a continuous voltage source, and whether they survive at a pulse ratio of eight is left open.
 
-Could you let us know by [date]? We plan to submit on [date].
+You would certainly not need to write it alone. Colleagues from your group or your wider network would be very welcome, and everyone who contributes is named at the head of the chapter. The book will also carry companion Python notebooks reproducing its figures and design calculations, and if that overlaps with your group's own simulation work, so much the better.
 
-Best regards,
-[signature]
+Nothing is binding at this stage: the publisher has not yet seen the proposal, and no writing would begin before a contract. For now I would simply like to know whether the subject interests you. I would gladly send you the completed introductory chapter and the annotated table of contents, or talk it through in a video call, whichever is easier.
+
+Yours sincerely,
+
+Hüseyin Canseven
+LUT University
+
+### Second email — after he has said yes
+
+*Attach Chapter 1, the annotated table of contents, and the draft letter of support.*
+
+Dear Professor Hinkkanen,
+
+Thank you, I am glad the subject interests you. I attach the completed introductory chapter and the annotated table of contents so that you can see where your sections would sit and what the book is arguing; the control sections are 11.8 to 11.10.
+
+One further request, if you are willing. We are collecting short letters of support to send to Wiley together with the proposal. Letters from the named contributors carry real weight with a publisher's reviewers, because they show that the people listed exist, have agreed, and see the need for the book from their own field. I attach a draft to show what such a letter usually contains; please change it as you see fit, or write something quite different if you would rather.
+
+I would also gladly put you in touch with Pasi Peltoniemi, so that the two halves of the chapter can be planned together from the start.
+
+Yours sincerely,
+
+Hüseyin Canseven
+LUT University
 
 ---
 
