@@ -101,7 +101,9 @@ The second is the industrial side of the applications chapter: the direct-drive 
 
 The third is the industrial case-study chapter, which closes the book with complete designs carried from specification to measured performance. What would make that chapter worth reading is the experience of machines that have actually been built and put into service, and that is something we cannot supply from the university side. We would be glad to build it around a case you know well, and to shape it around whatever can sensibly be shown.
 
-If all three are too much, any one of them would be very welcome. The first is the one nobody else can write.
+If all three are too much, any one of them would be very welcome, and the first is the one nobody else can write. We are equally open to contributions from colleagues in your own network, at [company] or elsewhere; we certainly do not expect you to write all of this yourself, and anyone you would want to bring in would be welcome.
+
+Everyone who contributes is named at the head of the chapter, and once the publisher has approved the proposal we will send you the detailed structure and settle the division of work with you.
 
 Nothing is binding at this stage: the publisher has not yet seen the proposal, and no writing would begin before a contract. For now I would simply like to know whether the idea interests you. I would gladly send you the completed introductory chapter and the annotated table of contents, or talk it through by phone or video, whichever is easier.
 
