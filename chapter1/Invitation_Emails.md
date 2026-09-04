@@ -106,17 +106,17 @@ Best regards,
 
 ## Pasi Peltoniemi — the drive
 
-*He has already agreed to contribute, so this confirms rather than asks.*
+*He has already agreed to contribute, so this confirms rather than asks. Sent version.*
 
 Hello Pasi,
 
-Thank you again for supporting the book idea when we discussed it, and for agreeing to contribute. We are now putting the proposal to Wiley-IEEE Press together with Ilya Petrov and Juha Pyrhönen, and I would like to confirm the part we hope you will take.
+I have told you about the book idea on high-speed machines and drives and you agreed to contribute. We are now putting the proposal to Wiley-IEEE Press together with Ilya and Juha, and I would like to confirm the part we hope you will take.
 
 We started outlining the book, but we will wait for the publisher's approval before we start writing it. For the book proposal, we will initially submit a complete introductory chapter and an annotated table of contents.
 
-One chapter is about the drive, and we would like you to write the converter part of it. The book treats the converter not as one constraint among several but as the gatekeeper that decides which machines can be built at all, so this part carries a good deal of the argument: the converter interface and the modulation ratio, silicon against SiC and GaN, DC-link voltage and du/dt, insulation under fast switching, bearing currents, and converter integration and EMC. We would also like your help on the section that matches each of the two example machines to its converter. The control sections of the chapter, and the section on harmonic losses, are being covered separately, so the part we are asking you for stays within the converter itself. Everyone who contributes is named at the head of the chapter. Once the publisher has approved the proposal, we will send you the detailed structure and settle the division of work with you.
+One chapter is about the drive, and we would like you to lead it. The book treats the converter not as one constraint among several but as the enabler that decides which machines can be built at all, so this chapter carries a good part of the argument: the converter interface, silicon against SiC and GaN, DC-link voltage and du/dt issues under fast switching, and EMC. We do not expect you to write all of it yourself. You are free to share the duties with some of the power electronics people in our lab or from your wider network; we could invite [Freede], for instance, to contribute to this chapter. Everyone who contributes is named at the head of the chapter. Once the publisher has approved the proposal, we will send you the detailed structure and settle the division of work with you.
 
-Two things would help now. Could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A draft is attached, which you are free to change as you wish. And if you would rather write some of it with colleagues, tell us whom, and we will name them in the proposal.
+Could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A draft is attached, which you are free to change as you wish.
 
 Looking forward to hearing from you.
 
