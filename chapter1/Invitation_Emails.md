@@ -75,7 +75,13 @@ BR, Hüseyin
 
 *He knows Juha Pyrhönen well but has not met Hüseyin, so the introduction comes through
 Juha, who should be in copy. Three separate asks, graded so that any one of them can be
-accepted alone, and the data question raised as the thing to settle first.*
+accepted alone.*
+
+*The publication clearance for the compressor measurements is deliberately not raised
+here; the third ask ends on "whatever can sensibly be shown", which opens the subject
+without making a demand of a first email. It still has to be settled before the proposal
+goes out, because the industrial running machine appears from Chapter 2 onwards — put it
+in the follow-up call.*
 
 Dear Juha,
 
@@ -89,7 +95,7 @@ The first is the aerodynamic and windage losses of the air gap, in the loss chap
 
 The second is the industrial side of the applications chapter: the direct-drive transition, the gearless compressors, blowers and ORC units, the subsea and hermetic machines, and the logic by which an architecture is chosen. About fourteen pages.
 
-The third we should discuss before anything else. The book carries two machines through every chapter, one industrial and one mobile, from specification to measured performance. For the industrial one we have a gearless compressor drive in mind, and we would like to know whether such a case could come from your work, and whether [company] would allow the measurements to be published. That machine appears from Chapter 2 onwards, so if it cannot be published we would rather know now and choose differently.
+The third is the industrial case-study chapter, which closes the book with complete designs carried from specification to measured performance. What would make that chapter worth reading is the experience of machines that have actually been built and put into service, and that is something we cannot supply from the university side. We would be glad to build it around a case you know well, and to shape it around whatever can sensibly be shown.
 
 If all three are too much, any one of them would be very welcome. The first is the one nobody else can write.
 
