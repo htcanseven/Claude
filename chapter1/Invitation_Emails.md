@@ -71,24 +71,33 @@ BR, Hüseyin
 
 ---
 
-## Juha Saari — industrial applications, windage, compressor case
+## Juha Saari — windage, industrial applications, the compressor case
 
-Hello Juha,
+*He knows Juha Pyrhönen well but has not met Hüseyin, so the introduction comes through
+Juha, who should be in copy. Three separate asks, graded so that any one of them can be
+accepted alone, and the data question raised as the thing to settle first.*
 
-We are preparing a proposal to Wiley-IEEE Press for a new book on high-speed electrical machines together with Ilya Petrov and Juha Pyrhönen, and we would like you to contribute to it.
+Dear Juha,
+
+Juha Pyrhönen may already have mentioned this to you; if not, let me introduce myself. I am a researcher at LUT University working on high-speed electrical machines, and together with Juha and Ilya Petrov I am preparing a proposal to Wiley-IEEE Press for a book on high-speed machines and drives, written as a companion to *Design of Rotating Electrical Machines*. Juha is in copy.
 
 We started outlining the book, but we will wait for the publisher's approval before we start writing it. For the book proposal, we will initially submit a complete introductory chapter and an annotated table of contents.
 
-Your contribution would be on the industrial side, in three places. One chapter covers the applications, the gearless compressors, blowers and ORC units, and the reasons the gearbox disappeared from them. Two later chapters need the windage and the air-gap flow, where we would much rather have your correlations presented by their author than cited by us. And one of the case-study chapters is built on a gearless compressor drive carried from specification to measured performance. You could write these yourself or with colleagues, and everyone who contributes is named at the head of the chapter. Once the publisher has approved the proposal, we will send you the detailed structure.
+We would very much like to have you in it, and there are three places where your work belongs.
 
-One question we should settle early. The compressor case rests on measured data, and that machine runs through the whole book. Could you find out what [company] would allow us to publish? If the data cannot be released, we would rather choose a different machine now than late.
+The first is the aerodynamic and windage losses of the air gap, in the loss chapter. The correlations the field still uses are yours, and we would much rather have them presented by their author, with the conditions under which they were obtained, than cited by us without them. About six pages.
 
-If you would like to join, could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A sample is attached, which you are free to change as you wish.
+The second is the industrial side of the applications chapter: the direct-drive transition, the gearless compressors, blowers and ORC units, the subsea and hermetic machines, and the logic by which an architecture is chosen. About fourteen pages.
 
-Could you let us know by [date]? We plan to submit on [date].
+The third we should discuss before anything else. The book carries two machines through every chapter, one industrial and one mobile, from specification to measured performance. For the industrial one we have a gearless compressor drive in mind, and we would like to know whether such a case could come from your work, and whether [company] would allow the measurements to be published. That machine appears from Chapter 2 onwards, so if it cannot be published we would rather know now and choose differently.
 
-Best regards,
-[signature]
+If all three are too much, any one of them would be very welcome. The first is the one nobody else can write.
+
+Could you also write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A draft is attached, which you are free to change as you wish.
+
+Looking forward to hearing from you.
+
+BR, Hüseyin
 
 ---
 
