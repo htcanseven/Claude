@@ -205,20 +205,22 @@ BR, Hüseyin
 
 ## Lassi Aarniovuori — harmonic losses and high-speed measurement
 
+*A colleague, but nobody has raised the book with him yet. A word in person first would
+be more natural than a cold mail, with this then recording what was agreed.*
+
 Hello Lassi,
 
 We are preparing a proposal to Wiley-IEEE Press for a new book on high-speed electrical machines together with Ilya Petrov and Juha Pyrhönen, and we would like you to contribute to it.
 
 We started outlining the book, but we will wait for the publisher's approval before we start writing it. For the book proposal, we will initially submit a complete introductory chapter and an annotated table of contents.
 
-Your contribution would be on the measurement side, in two sections. One is the harmonic losses that a converter deposits in a rotor which the air gap and the retaining sleeve keep thermally isolated, which is why supply harmonics matter more at high speed than at mains frequency. The other is the test rig, the instrumentation and the loss segregation of a high-speed machine, where the electrical methods run out and calorimetry has to take over; we would like that written in enough detail that a reader can repeat it. Everyone who contributes is named at the head of the chapter. Once the publisher has approved the proposal, we will send you the detailed structure.
+Your part would be the measurement side, in two places. In the chapter on the drive, the converter harmonics and the rotor heating they cause, which matters far more at high speed than at mains frequency because those losses land in a rotor that the air gap and the retaining sleeve keep thermally isolated. And in the industrial case-study chapter, the test rig, the instrumentation and the loss segregation of a high-speed machine, where the electrical methods run out and calorimetry has to take over. We would like that one written in enough detail that a reader could repeat it, because most books state results without saying how they were obtained. About eleven pages between the two. Everyone who contributes is named at the head of the chapter, and once the publisher has approved the proposal we will send you the detailed structure.
 
-If you would like to join, could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A sample is attached, which you are free to change as you wish.
+Could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A draft is attached, which you are free to change as you wish.
 
-Could you let us know by [date]? We plan to submit on [date].
+Looking forward to hearing from you.
 
-Best regards,
-[signature]
+BR, Hüseyin
 
 ---
 
