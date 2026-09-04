@@ -143,7 +143,7 @@ The thermal problem inverts at high speed. Loss density rises while the surface 
 
 Sections: 10.1 Why the thermal problem inverts at high speed · 10.2 Heat paths and thermal resistances; the air gap as a heat source · 10.3 Stator cooling: jackets, in-slot and direct winding cooling · 10.4 Rotor cooling: hollow shaft, air-gap flow, and the sleeve as a thermal barrier · 10.5 Air-gap convection at high Taylor and axial Reynolds numbers · 10.6 Lumped-parameter thermal networks, and when conjugate heat transfer is needed · 10.7 Transient behaviour: overload, drive cycles and thermal time constants · 10.8 Magnet temperature and demagnetisation margin as the binding constraint · 10.9 Thermal measurement and validation on a rotating rotor · 10.10 Thermal design of the two running machines.
 
-Budget: 28 pages, 18 figures, 3 tables. Contributors: J. Nerg lead (thermal networks, cooling architectures, transients), A. Belahcen (magnet temperature and demagnetisation margin), A. Jaatinen-Värri and J. Tiainen (§10.5 air-gap convection, from the same flow model as the windage of §9.8), J. Saari (the machine-side windage link). DREM boundary: the earlier book covers conventional cooling and thermal-resistance modelling and is referenced for them; only what high speed changes is treated here. New: the rotor thermal path behind the retaining sleeve, and windage and air-gap convection derived from one flow model.
+Budget: 28 pages, 18 figures, 3 tables. Chapter owner: one of the authors, who writes §10.1 and §10.10. Contributors: R. Wrobel (§10.2 to §10.4, the heat paths and the stator and rotor cooling architectures), J. Nerg (§10.6, §10.7 and §10.9, thermal networks, transient behaviour and measurement), A. Belahcen (§10.8, magnet temperature and demagnetisation margin), A. Jaatinen-Värri and J. Tiainen (§10.5 air-gap convection, from the same flow model as the windage of §9.8), J. Saari (the machine-side windage link). DREM boundary: the earlier book covers conventional cooling and thermal-resistance modelling and is referenced for them; only what high speed changes is treated here. New: the rotor thermal path behind the retaining sleeve, and windage and air-gap convection derived from one flow model.
 
 ### Part IV — Delivery: the drive and the applications
 
@@ -187,7 +187,8 @@ The author line is Canseven, Petrov and Pyrhönen. Contributors are credited at 
 | Jouni Ikäheimo | ABB, high-speed motors | 3.2 and 3.3, 12.3, 12.5; photographs and machine material throughout | agreed in principle |
 | Ahti Jaatinen-Värri | LUT, turbomachinery | 2.2, 9.8, 10.5 | to be invited |
 | Jonna Tiainen | The Switch | 2.2, 9.8, 10.5, 12 | to be invited |
-| Janne Nerg | LUT, thermal modelling | 10 lead | to be invited |
+| Rafal Wrobel | Newcastle University | 10.2, 10.3, 10.4 (cooling architectures) | to be invited |
+| Janne Nerg | LUT, thermal modelling | 10.6, 10.7, 10.9, 10.10 (thermal networks) | to be invited |
 | Pasi Peltoniemi | LUT, power electronics | 11 lead | agreed in principle |
 | Lassi Aarniovuori | drive loss measurement | 11, 12 | to be invited |
 | bearing application specialist | industry, through J. Sopanen's network | 6 | to be named |

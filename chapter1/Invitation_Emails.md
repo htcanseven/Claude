@@ -108,6 +108,34 @@ BR, Hüseyin
 
 ---
 
+## Rafal Wrobel — cooling architectures (cold approach)
+
+*The first invitation to someone with no prior connection, so it is more formal, it says
+who is writing and who the co-authors are before it asks for anything, and it explains
+why him specifically rather than why the book is good. Suggested subject line: "Wiley
+book proposal on high-speed machines — invitation to contribute".*
+
+Dear Professor Wrobel,
+
+I am a researcher at LUT University, working on high-speed electrical machines with Ilya Petrov and Juha Pyrhönen. The three of us are preparing a proposal to Wiley-IEEE Press for a book on high-speed electrical machines and drives, written as a companion to *Design of Rotating Electrical Machines*.
+
+I had hoped to raise this with you in person at ICEM in Madeira next week, all the more so after seeing that you are giving a tutorial on this subject, but personal reasons prevent me from travelling. Rather than let it wait for the next occasion, I am writing instead.
+
+The book is built on the argument that high-speed design runs the opposite way from conventional practice: the mechanical and rotordynamic limits fix the rotor first, the converter fixes the admissible pole number, and the electromagnetic design is fitted into what remains. One consequence is that thermal management has a chapter of its own rather than a section, because at high speed the loss density rises while the surface available to reject it shrinks, and the rotor sits behind a retaining sleeve that the mechanical design requires and that also insulates it.
+
+What we would like to ask you for is the cooling architecture: the heat paths and thermal resistances of the winding, stator cooling from water jackets through in-slot to direct winding cooling, and the rotor side including the sleeve as a thermal barrier. About twelve pages. It is the part of the chapter that dates fastest, and we would much rather have it written by someone working on it now than assembled from the literature. Nothing would be binding until the publisher accepts the proposal, and no writing would begin before then.
+
+If the idea interests you, I would also ask whether you might write a short letter of support for the proposal. Letters from recognised contributors carry real weight with a publisher's reviewers. I have attached a draft only to show what such a letter usually contains; please treat it as a starting point rather than as a text to sign.
+
+I would gladly send you the completed introductory chapter and the annotated table of contents, or talk it through in a video call if that is easier.
+
+Yours sincerely,
+
+Hüseyin Canseven
+LUT University
+
+---
+
 ## Janne Nerg — thermal management and cooling
 
 Hello Janne,
@@ -116,14 +144,13 @@ We are preparing a proposal to Wiley-IEEE Press for a new book on high-speed ele
 
 We started outlining the book, but we will wait for the publisher's approval before we start writing it. For the book proposal, we will initially submit a complete introductory chapter and an annotated table of contents.
 
-One chapter is about thermal management and cooling, and we would like you to lead it. The thermal problem turns around at high speed: the losses concentrate while the surface that has to reject them shrinks, and the rotor, which is the easy side in an ordinary machine, sits behind a retaining sleeve that the mechanical design requires and that also insulates it. The chapter would cover the heat paths, the stator and rotor cooling architectures, thermal networks and transient behaviour, and the magnet temperature that usually turns out to be the binding constraint. You could write it yourself or with colleagues, and everyone who contributes is named at the head of the chapter. Once the publisher has approved the proposal, we will send you the detailed structure and show how the chapter fits the argument of the book.
+One chapter is about thermal management and cooling. The thermal problem turns around at high speed: the losses concentrate while the surface that has to reject them shrinks, and the rotor, which is the easy side in an ordinary machine, sits behind a retaining sleeve that the mechanical design requires and that also insulates it. The part we would like to ask you for is the modelling half: lumped-parameter thermal networks for machines of this loss density, with the contact resistances and the calibration that make them trustworthy and the point at which conjugate heat transfer becomes necessary; the transient behaviour under overload and drive cycles, which is how mobile machines are actually rated; and thermal measurement and validation on a rotating rotor. We would also like to work with you on the thermal design of the two machines that run through the whole book. That is about eight pages of a twenty-eight page chapter. The cooling architectures and the air-gap convection are being written by others, and one of us owns the chapter, so your part stays within the modelling. Everyone who contributes is named at the head of the chapter.
 
-If you would like to join, could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A sample is attached, which you are free to change as you wish.
+If you would like to join, could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A draft is attached, which you are free to change as you wish.
 
-Could you let us know by [date]? We plan to submit on [date].
+Looking forward to hearing from you.
 
-Best regards,
-[signature]
+BR, Hüseyin
 
 ---
 
