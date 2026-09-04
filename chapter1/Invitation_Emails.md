@@ -5,7 +5,14 @@ version with the terms sheet, credit model, budgets and schedule is in
 `Contributor_Invitation.md`; use that after the publisher has approved, when the
 detailed scope is settled. These emails deliberately promise less.
 
-**Attach to every one:** the draft letter of support, and nothing else for the moment.
+**When to ask for the letter.** Where the invitee already knows the plan, from a meeting, a
+call, or Juha, ask in the first email and attach the draft: they have the context to judge
+it. Where the approach is cold, ask only whether the subject interests them, and send the
+draft letter with Chapter 1 and the table of contents once they have said yes. A
+pre-written letter from a stranger reads as presumptuous, and it asks someone to endorse a
+plan they have not seen. Wrobel's entry below shows the two-step form.
+
+**Attach to the warm ones:** the draft letter of support, and nothing else for the moment.
 Chapter 1 and the annotated table of contents go to the publisher, not to the invitees,
 so each email carries its own description of the invitee's part instead. When those
 documents do eventually circulate, delete the Status column from the contributor table
@@ -115,6 +122,13 @@ who is writing and who the co-authors are before it asks for anything, and it ex
 why him specifically rather than why the book is good. Suggested subject line: "Wiley
 book proposal on high-speed machines — invitation to contribute".*
 
+*Sent in two steps. The first email asks only whether the subject interests him; the
+letter of support is not mentioned and nothing is attached. The second follows once he
+has said yes. A pre-written letter arriving from a stranger is easy to read as
+presumptuous, and it also asks him to endorse a plan he has not yet seen.*
+
+### First email — is the subject of interest?
+
 Dear Professor Wrobel,
 
 I am a researcher at LUT University, working on high-speed electrical machines with Ilya Petrov and Juha Pyrhönen. The three of us are preparing a proposal to Wiley-IEEE Press for a book on high-speed electrical machines and drives, written as a companion to *Design of Rotating Electrical Machines*.
@@ -123,11 +137,26 @@ I had hoped to raise this with you in person at ICEM in Madeira next week, all t
 
 The book is built on the argument that high-speed design runs the opposite way from conventional practice: the mechanical and rotordynamic limits fix the rotor first, the converter fixes the admissible pole number, and the electromagnetic design is fitted into what remains. One consequence is that thermal management has a chapter of its own rather than a section, because at high speed the loss density rises while the surface available to reject it shrinks, and the rotor sits behind a retaining sleeve that the mechanical design requires and that also insulates it.
 
-What we would like to ask you for is the cooling architecture: the heat paths and thermal resistances of the winding, stator cooling from water jackets through in-slot to direct winding cooling, and the rotor side including the sleeve as a thermal barrier. About twelve pages. It is the part of the chapter that dates fastest, and we would much rather have it written by someone working on it now than assembled from the literature. Nothing would be binding until the publisher accepts the proposal, and no writing would begin before then.
+What we have in mind for you is the cooling architecture: the heat paths and thermal resistances of the winding, stator cooling from water jackets through in-slot to direct winding cooling, and the rotor side including the sleeve as a thermal barrier. About twelve pages. It is the part of the chapter that dates fastest, and we would much rather have it written by someone working on it now than assembled from the literature.
 
-If the idea interests you, I would also ask whether you might write a short letter of support for the proposal. Letters from recognised contributors carry real weight with a publisher's reviewers. I have attached a draft only to show what such a letter usually contains; please treat it as a starting point rather than as a text to sign.
+Before going any further I would simply like to know whether the subject interests you. Nothing is binding at this stage: the publisher has not yet seen the proposal, and no writing would begin before a contract is signed. If it does interest you, I would gladly send you the completed introductory chapter and the annotated table of contents, or talk it through in a video call, whichever is easier.
 
-I would gladly send you the completed introductory chapter and the annotated table of contents, or talk it through in a video call if that is easier.
+Yours sincerely,
+
+Hüseyin Canseven
+LUT University
+
+### Second email — after he has said yes
+
+*Attach Chapter 1, the annotated table of contents, and the draft letter of support.*
+
+Dear Professor Wrobel,
+
+Thank you, I am glad the subject interests you. I attach the completed introductory chapter and the annotated table of contents so that you can see where your sections would sit: §10.2 to §10.4 of the thermal chapter are the ones we have in mind, and Chapter 1 will show you the argument they serve.
+
+One further request, if you are willing. We are collecting short letters of support to send to Wiley together with the proposal. Letters from the named contributors carry real weight with a publisher's reviewers, because they show that the people listed exist, have agreed, and see the need for the book from their own field. I attach a draft to show what such a letter usually contains; please change it as you see fit, or write something quite different if you would rather.
+
+I would of course be glad to answer any questions about the scope, or to arrange a call.
 
 Yours sincerely,
 
