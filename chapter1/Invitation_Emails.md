@@ -77,11 +77,15 @@ BR, Hüseyin
 Juha, who should be in copy. Three separate asks, graded so that any one of them can be
 accepted alone.*
 
-*The publication clearance for the compressor measurements is deliberately not raised
-here; the third ask ends on "whatever can sensibly be shown", which opens the subject
-without making a demand of a first email. It still has to be settled before the proposal
-goes out, because the industrial running machine appears from Chapter 2 onwards — put it
-in the follow-up call.*
+*Sent in two steps, as with Wrobel: the first email asks only whether the idea interests
+him and attaches nothing. Two things wait for the second email — the letter of support,
+and the publication clearance for the compressor measurements. The third ask ends on
+"whatever can sensibly be shown", which opens that subject without making a demand of a
+first contact. The clearance still has to be settled before the proposal goes out,
+because the industrial running machine appears from Chapter 2 onwards, so put it on the
+follow-up call.*
+
+### First email — is the idea of interest?
 
 Dear Juha,
 
@@ -99,11 +103,28 @@ The third is the industrial case-study chapter, which closes the book with compl
 
 If all three are too much, any one of them would be very welcome. The first is the one nobody else can write.
 
-Could you also write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A draft is attached, which you are free to change as you wish.
+Nothing is binding at this stage: the publisher has not yet seen the proposal, and no writing would begin before a contract. For now I would simply like to know whether the idea interests you. I would gladly send you the completed introductory chapter and the annotated table of contents, or talk it through by phone or video, whichever is easier.
 
 Looking forward to hearing from you.
 
 BR, Hüseyin
+
+### Second email — after he has said yes
+
+*Attach Chapter 1, the annotated table of contents, and the draft letter of support.*
+
+Dear Juha,
+
+Thank you, I am very glad you are interested. I attach the completed introductory chapter and the annotated table of contents so that you can see where your sections would sit and what the book is arguing.
+
+One further request, if you are willing. We are collecting short letters of support to send to Wiley together with the proposal. Letters from the named contributors carry real weight with a publisher's reviewers, because they show that the people listed exist, have agreed, and see the need for the book from their own field. I attach a draft to show what such a letter usually contains; please change it as you see fit, or write something quite different if you would rather.
+
+I would be glad to go through the scope with you on a call, and there are a few practical questions on the case study that are easier to settle that way than by mail.
+
+Yours sincerely,
+
+Hüseyin Canseven
+LUT University
 
 ---
 
