@@ -184,17 +184,26 @@ Yours sincerely,
 Hüseyin Canseven
 LUT University
 
-### Second email — after he has said yes
+### Second email — sent after his reply of 5 September
 
-*Attach Chapter 1, the annotated table of contents, and the draft letter of support.*
+*He replied warmly, listed back exactly the topics of 10.2 to 10.4, endorsed the
+constraints-first premise unprompted, asked for the chapter and the table of contents,
+and offered an online discussion. Attach Chapter 1, `Annotated_TOC_for_contributors.docx`
+(not the working copy, which carries the Status column) and the draft letter.*
 
-Dear Professor Wrobel,
+Dear Rafal,
 
-Thank you, I am glad the subject interests you. I attach the completed introductory chapter and the annotated table of contents so that you can see where your sections would sit: §10.2 to §10.4 of the thermal chapter are the ones we have in mind, and Chapter 1 will show you the argument they serve.
+Thank you, and I am glad it fits. The topics you list are precisely the ones we had in mind.
 
-One further request, if you are willing. We are collecting short letters of support to send to Wiley together with the proposal. Letters from the named contributors carry real weight with a publisher's reviewers, because they show that the people listed exist, have agreed, and see the need for the book from their own field. I attach a draft to show what such a letter usually contains; please change it as you see fit, or write something quite different if you would rather.
+I attach the completed introductory chapter and the annotated table of contents. Your sections would be 10.2 to 10.4 of Chapter 10, Thermal management and cooling architectures: the heat paths and thermal resistances of the winding, the stator cooling architectures, and the rotor side including the retaining sleeve as a thermal barrier. Chapter 1 gives the argument they serve; Section 1.6.1 sets the mechanical, electromagnetic and thermal demands against one another, and 1.6.2 lays out the order of the book.
 
-I would of course be glad to answer any questions about the scope, or to arrange a call.
+You have read the premise exactly as we intend it. The one thing I would add is that the thermal chapter is not only downstream of that framework. The cooling architecture decides the admissible loss density, which decides the electric loading and so the size of the machine, so it belongs inside the sizing loop rather than after it. Chapter 7 therefore carries a short section on the thermal constraint in sizing that points forward to your chapter, and I would value your view on whether we have put that boundary in the right place.
+
+An online discussion would be very welcome. Would some time in the week of [date] suit you, once you are back from Madeira? I can fit around your calendar.
+
+One further thing, whenever you have had a chance to read. We are collecting short letters of support to send to Wiley with the proposal. Letters from named contributors carry real weight with a publisher's reviewers, because they show that the people listed exist and see the need for the book from their own field. I attach a draft only to show what such a letter usually contains; please rewrite it as you see fit, or write something quite different.
+
+Enjoy the rest of ICEM.
 
 Yours sincerely,
 

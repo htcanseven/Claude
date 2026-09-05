@@ -2,11 +2,9 @@
 
 ## Design for Industrial and Mobile Applications
 
-**Annotated table of contents for the Wiley proposal** — draft for discussion among the authors
+**Annotated table of contents for the Wiley proposal**
 
 Authors: Hüseyin Canseven, Ilya Petrov, Juha Pyrhönen (LUT University), with named contributors per chapter.
-
-Alternative titles for discussion: *High-Speed Electrical Machines: Design under the Speed Constraint* · *Design of High-Speed Electrical Machines and Drives*. The recommended title carries both market-broadening words, *drives* and *applications*, and answers the editor's stated interest in "a clear focus on the updated applications in the area".
 
 ## 1. Positioning
 
@@ -179,21 +177,21 @@ Preface (the two books and how to use them together); list of symbols; Appendix 
 
 The author line is Canseven, Petrov and Pyrhönen. Contributors are credited at chapter level and each chapter has one of the three authors as owner and editor.
 
-| Contributor | Affiliation | Chapters | Status |
-|---|---|---|---|
-| Jussi Sopanen and group | LUT, machine dynamics | 4, 5, 6 | agreed in principle |
-| Anouar Belahcen | Aalto University | 9 lead; 8.6, 5.7 and 10.8 supporting | expected |
-| Juha Saari | industry | 2, 9.8, 12.1 | to be invited |
-| Jouni Ikäheimo | ABB, high-speed motors | 3.2 and 3.3, 12.3, 12.5; photographs and machine material throughout | agreed in principle |
-| Ahti Jaatinen-Värri | LUT, turbomachinery | 2.2, 9.8, 10.5 | to be invited |
-| Jonna Tiainen | The Switch | 2.2, 9.8, 10.5, 12 | to be invited |
-| Rafal Wrobel | Newcastle University | 10.2, 10.3, 10.4 (cooling architectures) | interested; reviewing the material |
-| Janne Nerg | LUT, thermal modelling | 10.6, 10.7, 10.9, 10.10 (thermal networks) | to be invited |
-| Pasi Peltoniemi | LUT, power electronics | 11 lead | agreed in principle |
-| Lassi Aarniovuori | drive loss measurement | 11, 12 | to be invited |
-| bearing application specialist | industry, through J. Sopanen's network | 6 | to be named |
-| Marko Hinkkanen | Aalto University, electric drives | 11.8 to 11.10 (control) | to be invited |
-| aerospace contributor | to be identified | 13.2 | open |
+| Contributor | Affiliation | Chapters |
+|---|---|---|
+| Jussi Sopanen and group | LUT, machine dynamics | 4, 5, 6 |
+| Anouar Belahcen | Aalto University | 9 lead; 8.6, 5.7 and 10.8 supporting |
+| Juha Saari | industry | 2, 9.8, 12.1 |
+| Jouni Ikäheimo | ABB, high-speed motors | 3.2 and 3.3, 12.3, 12.5; photographs and machine material throughout |
+| Ahti Jaatinen-Värri | LUT, turbomachinery | 2.2, 9.8, 10.5 |
+| Jonna Tiainen | The Switch | 2.2, 9.8, 10.5, 12 |
+| Rafal Wrobel | Newcastle University | 10.2, 10.3, 10.4 (cooling architectures) |
+| Janne Nerg | LUT, thermal modelling | 10.6, 10.7, 10.9, 10.10 (thermal networks) |
+| Pasi Peltoniemi | LUT, power electronics | 11 lead |
+| Lassi Aarniovuori | drive loss measurement | 11, 12 |
+| bearing application specialist | industry, through J. Sopanen's network | 6 |
+| Marko Hinkkanen | Aalto University, electric drives | 11.8 to 11.10 (control) |
+| aerospace contributor | to be identified | 13.2 |
 
 ## 6. Schedule
 
