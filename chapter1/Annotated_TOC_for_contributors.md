@@ -22,21 +22,21 @@ Between the review papers on high-speed machines and the research monographs the
 
 Budgets use the publisher's formula of 600 words per page and two illustrations per page. The target is 450 pages against the 500-page ceiling.
 
-| Part | Ch. | Title | Pages | Words | Figures | Lead |
+| Part | Ch. | Title | Pages | Words | Figures | Owner |
 |---|---|---|---|---|---|---|
 | I  The high-speed design space | 1 | Introduction: what changes at high speed | 26 | 12 000 | 9 | authors (written) |
-| | 2 | Applications and system architectures | 34 | 14 100 | 18 | authors; turbomachinery contributors; J. Saari |
-| | 3 | Machine topologies for high speed | 34 | 13 200 | 24 | authors; J. Ikäheimo |
-| II  The constraints that bind first | 4 | Rotor mechanical design and magnet retention | 36 | 14 400 | 24 | J. Sopanen's group; I. Petrov |
-| | 5 | Rotordynamics and vibration | 30 | 11 400 | 20 | J. Sopanen's group |
-| | 6 | Bearings, lubrication and seals for high-speed rotors | 30 | 12 000 | 20 | J. Sopanen's group; bearing specialist |
+| | 2 | Applications and system architectures | 34 | 14 100 | 18 | J. Saari |
+| | 3 | Machine topologies for high speed | 34 | 13 200 | 24 | authors |
+| II  The constraints that bind first | 4 | Rotor mechanical design and magnet retention | 36 | 14 400 | 24 | J. Sopanen |
+| | 5 | Rotordynamics and vibration | 30 | 11 400 | 20 | J. Sopanen |
+| | 6 | Bearings, lubrication and seals for high-speed rotors | 30 | 12 000 | 20 | J. Sopanen |
 | III  Electromagnetic and thermal design within the constraints | 7 | Sizing under the speed constraint: the inverted procedure | 36 | 14 400 | 20 | authors |
-| | 8 | AC winding losses and conductor design | 28 | 11 100 | 18 | I. Petrov; A. Belahcen |
-| | 9 | Core, rotor and aerodynamic losses at high speed | 30 | 12 000 | 20 | A. Belahcen; I. Petrov; J. Saari |
-| | 10 | Thermal management and cooling architectures | 28 | 11 400 | 18 | R. Wrobel; J. Nerg; A. Belahcen |
-| IV  Delivery: the drive and the applications | 11 | The drive: converter interface and control at high fundamental frequency | 40 | 16 200 | 26 | P. Peltoniemi; M. Hinkkanen; L. Aarniovuori |
-| | 12 | Industrial case studies: compressor drive and ORC generator | 28 | 9 300 | 22 | authors; J. Ikäheimo; L. Aarniovuori |
-| | 13 | Mobile case studies: traction, aerospace and e-turbo | 30 | 9 900 | 24 | authors; aerospace contributor |
+| | 8 | AC winding losses and conductor design | 28 | 11 100 | 18 | authors |
+| | 9 | Core, rotor and aerodynamic losses at high speed | 30 | 12 000 | 20 | A. Belahcen |
+| | 10 | Thermal management and cooling architectures | 28 | 11 400 | 18 | R. Wrobel |
+| IV  Delivery: the drive and the applications | 11 | The drive: converter interface and control at high fundamental frequency | 40 | 16 200 | 26 | P. Peltoniemi |
+| | 12 | Industrial case studies: compressor drive and ORC generator | 28 | 9 300 | 22 | authors |
+| | 13 | Mobile case studies: traction, aerospace and e-turbo | 30 | 9 900 | 24 | authors |
 | | | **Chapters 1–13** | **410** | **161 400** | **263** | |
 | | | Front matter, appendices A–D, index | 40 | | | |
 | | | **Total** | **450** | | | |
@@ -73,7 +73,7 @@ The chapter establishes why high-speed machines exist and why the two paradigms 
 
 Sections: 2.1 The direct-drive transition in industry · 2.2 Why the driven machine sets the speed: specific speed and the turbomachinery optimum · 2.3 Gearless industrial units: compressors, aeration blowers, ORC and turbo-expanders · 2.4 Subsea and hermetic process machines · 2.5 Electric traction and the geared high-speed optimum · 2.6 Aerospace and hybrid-electric propulsion · 2.7 e-Turbochargers, turbo-compounding and the >100 000 r/min class · 2.8 Emerging drivers: high-temperature industrial heat pumps, hydrogen and cryogenic compression, flywheels · 2.9 Architecture selection: total cost of ownership against specific power · 2.10 A survey of built machines: calibrating v_tip, n√P and fP · 2.11 The two running machines specified.
 
-Budget: 34 pages, 18 figures, 3 tables. New: the machine survey and the calibrated criteria; the architecture-selection logic; §2.2, which states the speed requirement from the driven machine's side rather than the motor's. Contributors: A. Jaatinen-Värri and J. Tiainen (§2.2, specific speed and the aerodynamic optimum); J. Saari of Upheat is the candidate for §2.8, the high-temperature heat pump.
+Budget: 34 pages, 18 figures, 3 tables. New: the machine survey and the calibrated criteria; the architecture-selection logic; §2.2, which states the speed requirement from the driven machine's side rather than the motor's. Owner: J. Saari of Upheat, who covers the industrial applications and the high-temperature heat pump of §2.8 from a manufacturer, and who recruits co-authors for §2.2, the aerodynamic optimum, and for the mobile applications.
 
 #### Chapter 3. Machine topologies for high speed
 
@@ -133,7 +133,7 @@ Loss models fitted below 400 Hz do not extrapolate to 2 kHz, and the air in the 
 
 Sections: 9.1 Loss separation above 1 kHz · 9.2 Soft magnetic materials as design choices · 9.3 Manufacturing effects: cutting, stacking, joining and fitting · 9.4 Measurement and model fitting at high frequency · 9.5 Rotor surface and harmonic losses · 9.6 Eddy currents in sleeves, rings and magnets; magnet segmentation · 9.7 Solid-rotor loss modelling · 9.8 Aerodynamic and windage losses: Taylor–Couette flow, correlations, roughness, low-density gas · 9.9 The loss balance of the two running machines.
 
-Budget: 30 pages, 20 figures, 3 tables. Contributors: A. Belahcen (loss modelling, materials, manufacturing effects), I. Petrov (rotor losses), J. Saari (windage correlations for high-speed machines, §9.8), with A. Jaatinen-Värri and J. Tiainen on the flow regimes, roughness and end effects of §9.8. DREM boundary: the earlier book's loss chapters cover the conventional frequency range; only the high-speed departures are treated.
+Budget: 30 pages, 20 figures, 3 tables. Owner: A. Belahcen (loss modelling, materials, manufacturing effects), with I. Petrov on the rotor losses and a co-author of his choosing for the windage of §9.8; J. Saari, whose correlations the section rests on, is the natural name for it. DREM boundary: the earlier book's loss chapters cover the conventional frequency range; only the high-speed departures are treated.
 
 #### Chapter 10. Thermal management and cooling architectures
 
@@ -141,7 +141,7 @@ The thermal problem inverts at high speed. Loss density rises while the surface 
 
 Sections: 10.1 Why the thermal problem inverts at high speed · 10.2 Heat paths and thermal resistances; the air gap as a heat source · 10.3 Stator cooling: jackets, in-slot and direct winding cooling · 10.4 Rotor cooling: hollow shaft, air-gap flow, and the sleeve as a thermal barrier · 10.5 Air-gap convection at high Taylor and axial Reynolds numbers · 10.6 Lumped-parameter thermal networks, and when conjugate heat transfer is needed · 10.7 Transient behaviour: overload, drive cycles and thermal time constants · 10.8 Magnet temperature and demagnetisation margin as the binding constraint · 10.9 Thermal measurement and validation on a rotating rotor · 10.10 Thermal design of the two running machines.
 
-Budget: 28 pages, 18 figures, 3 tables. Chapter owner: one of the authors, who writes §10.1 and §10.10. Contributors: R. Wrobel (§10.2 to §10.4, the heat paths and the stator and rotor cooling architectures), J. Nerg (§10.6, §10.7 and §10.9, thermal networks, transient behaviour and measurement), A. Belahcen (§10.8, magnet temperature and demagnetisation margin), A. Jaatinen-Värri and J. Tiainen (§10.5 air-gap convection, from the same flow model as the windage of §9.8), J. Saari (the machine-side windage link). DREM boundary: the earlier book covers conventional cooling and thermal-resistance modelling and is referenced for them; only what high speed changes is treated here. New: the rotor thermal path behind the retaining sleeve, and windage and air-gap convection derived from one flow model.
+Budget: 28 pages, 18 figures, 3 tables. Owner: R. Wrobel, for the chapter entire, recruiting co-authors where a section calls for a specialism outside his own; the air-gap convection of §10.5 is the obvious such section, and the turbomachinery contributors are available for it. DREM boundary: the earlier book covers conventional cooling and thermal-resistance modelling and is referenced for them; only what high speed changes is treated here. New: the rotor thermal path behind the retaining sleeve, and windage and air-gap convection derived from one flow model.
 
 ### Part IV — Delivery: the drive and the applications
 
@@ -151,7 +151,7 @@ The converter is not a fourth constraint but the gatekeeper that decides which r
 
 Sections: 11.1 Modulation ratio and synchronous PWM · 11.2 Current harmonics and rotor heating · 11.3 Silicon, SiC and GaN: switching-loss economics · 11.4 DC-link voltage, du/dt and filters · 11.5 Insulation under fast switching · 11.6 Bearing currents · 11.7 Converter integration and EMC · 11.8 Control at low pulse ratios · 11.9 Position sensing and sensorless operation · 11.10 Run-up through critical speeds, field weakening, protection · 11.11 Co-design of the two running machines with their converters.
 
-Budget: 40 pages, 26 figures, 2 tables. Contributors: P. Peltoniemi leads the chapter and writes the converter sections, 11.1 and 11.3 to 11.7, with colleagues from the LUT power electronics group; L. Aarniovuori (harmonic losses and rotor heating, 11.2); M. Hinkkanen (control at low pulse ratios, 11.8 to 11.10). DREM boundary: not covered in the earlier book.
+Budget: 40 pages, 26 figures, 2 tables. Owner: P. Peltoniemi, who writes the converter sections, 11.1 and 11.3 to 11.7, and recruits the control sections 11.8 to 11.10 and the harmonic-loss section 11.2; L. Aarniovuori is the intended name for the latter. DREM boundary: not covered in the earlier book.
 
 #### Chapter 12. Industrial case studies: compressor drive and ORC generator
 
@@ -173,25 +173,43 @@ Budget: 30 pages, 24 figures, 3 tables. Contributors: authors (Voltcar), an aero
 
 Preface (the two books and how to use them together); list of symbols; Appendix A material property tables for electrical steels, magnets and sleeve materials; Appendix B symbols and units; Appendix C key design formulae; Appendix D index of companion notebooks; index. Budget 40 pages.
 
-## 5. Contributors
+## 5. Chapter ownership and contributors
 
-The author line is Canseven, Petrov and Pyrhönen. Contributors are credited at chapter level and each chapter has one of the three authors as owner and editor.
+The author line is Canseven, Petrov and Pyrhönen. The book is written on a rule of one
+chapter, one owner. Every chapter has a single owner, either one of the three authors or
+one external contributor, who is responsible for the coherence of that chapter and is the
+authors' only point of contact for it. An owner who needs a specialism outside their own
+recruits a co-author and coordinates them; the authors do not negotiate with co-authors
+directly. This keeps a chapter from becoming four disjoint sections in four notations, and
+it gives each contributor a whole argument to make rather than a fragment inside somebody
+else's.
 
-| Contributor | Affiliation | Chapters |
+Contributors are credited at chapter level: the owner and any co-authors are named
+together at the head of the chapter, in the list of contributors with affiliation and a
+short biography, and in the preface.
+
+**Chapter owners**
+
+| Chapters | Owner | Affiliation |
 |---|---|---|
-| Jussi Sopanen and group | LUT, machine dynamics | 4, 5, 6 |
-| Anouar Belahcen | Aalto University | 9 lead; 8.6, 5.7 and 10.8 supporting |
-| Juha Saari | Upheat, high-temperature heat pumps | one section, 9.8 or 2.8 |
-| Jouni Ikäheimo | ABB, high-speed motors | 3.2 and 3.3, 12.3, 12.5; photographs and machine material throughout |
-| Ahti Jaatinen-Värri | LUT, turbomachinery | 2.2, 9.8, 10.5 |
-| Jonna Tiainen | The Switch | 2.2, 9.8, 10.5, 12 |
-| Rafal Wrobel | Newcastle University | 10.2, 10.3, 10.4 (cooling architectures) |
-| Janne Nerg | LUT, thermal modelling | 10.6, 10.7, 10.9, 10.10 (thermal networks) |
-| Pasi Peltoniemi | LUT, power electronics | 11 lead |
-| Lassi Aarniovuori | drive loss measurement | 11, 12 |
-| bearing application specialist | industry, through J. Sopanen's network | 6 |
-| Marko Hinkkanen | Aalto University, electric drives | 11.8 to 11.10 (control) |
-| aerospace contributor | to be identified | 13.2 |
+| 4, 5, 6 — the whole of Part II | Jussi Sopanen | LUT, machine dynamics |
+| 9 — Core, rotor and aerodynamic losses | Anouar Belahcen | Aalto University |
+| 10 — Thermal management and cooling | Rafal Wrobel | Newcastle University |
+| 11 — The drive | Pasi Peltoniemi | LUT, power electronics |
+| 2 — Applications and system architectures | Juha Saari | Upheat, high-temperature heat pumps |
+| 1, 3, 7, 8, 12, 13 | the authors | LUT University |
+
+**Co-authors, recruited by the owner of the chapter**
+
+| Contributor | Affiliation | Chapter | Brought in by |
+|---|---|---|---|
+| Jouni Ikäheimo | ABB, high-speed motors | 3, 12; photographs and machine material throughout | the authors |
+| Lassi Aarniovuori | drive loss measurement | 11, 12 | P. Peltoniemi and the authors |
+| Ahti Jaatinen-Värri | LUT, turbomachinery | 2 or 10, the air-gap flow and the aerodynamic optimum | J. Saari or R. Wrobel |
+| Jonna Tiainen | The Switch | 2, 12 | J. Saari and the authors |
+| a bearing application specialist | industry | 6 | J. Sopanen, from his network |
+| a control specialist | to be identified | 11 | P. Peltoniemi |
+| an aerospace contributor | to be identified | 13 | the authors |
 
 ## 6. Schedule
 

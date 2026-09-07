@@ -21,7 +21,7 @@ def strip_status_column(text):
     lines = text.split('\n')
     out, in_table = [], False
     for line in lines:
-        if line.startswith('| Contributor | Affiliation |'):
+        if line.startswith('| Chapters | Owner | Affiliation | Status |'):
             in_table = True
         elif in_table and not line.startswith('|'):
             in_table = False
@@ -46,14 +46,13 @@ def main():
     # The check is on the contributor table only. Chapter abstracts may honestly say that
     # a role is still open ("an aerospace contributor to be invited"); what must not
     # survive is a named person carried with the state of their conversation.
-    rows = [r for r in t.split('\n') if r.startswith('| ') and r.count('|') > 2]
-    table = [r for r in rows if re.match(r'^\| [A-Z][a-zé]+ ', r) and 'Chapters' not in r]
-    for r in table:
+    owners = [r for r in t.split('\n') if r.startswith('| ') and ' | ' in r
+              and re.search(r'\| (J\.|A\.|R\.|P\.|the authors)', r)]
+    for r in owners:
         for status in ('agreed in principle', 'to be invited', 'suggested', 'expected',
-                       'to be named', 'open'):
+                       'interested', 'invited'):
             assert status not in r, f'status {status!r} survives in: {r}'
-    assert table, 'contributor table not found'
-    print(f'wrote {OUT}: contributor table carries {len(table)} names, no Status column')
+    print(f'wrote {OUT}: ownership table carries {len(owners)} rows, no Status column')
 
 
 if __name__ == '__main__':

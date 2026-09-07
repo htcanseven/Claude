@@ -111,31 +111,32 @@ Looking forward to hearing from you.
 
 BR, Hüseyin
 
-### Second email — sent after his reply of 7 September
+### Second email — the whole chapter, with a smaller fallback
 
-*He is definitely interested but wants one part rather than three, asked for the material
-so he can choose, and offered to suggest other co-authors. He has also left Aalto for
-Upheat, which makes high-temperature industrial heat pumps: use juha.saari@upheat.com.
-Attach Chapter 1, `Annotated_TOC_for_contributors.docx` (not the working copy) and the
-draft letter.*
+*He is definitely interested but asked for one part rather than three, wants the material
+so he can choose, and offered to name co-authors. He has left Aalto for Upheat, which makes
+high-temperature industrial heat pumps: write to juha.saari@upheat.com. The offer is now
+Chapter 2 entire, with the windage section named as the fallback so that a no to the chapter
+is not a no to the book. Attach the clean Chapter 1,
+`Annotated_TOC_for_contributors.docx` and the draft letter.*
 
 Hi Juha,
 
 Thank you, and noted on the address; I have changed it here and am writing to Upheat.
 
-One part is fine. I would far rather have one section written properly than three written thinly. I attach the introductory chapter and the annotated table of contents so that you can choose against the whole picture.
+One part is fine. Let me put a different shape of one part to you, though, because the book has changed since I wrote.
 
-If a recommendation helps: section 9.8, the aerodynamic and windage losses of the air gap. About six pages. The correlations in general use are yours, and without you the book would cite them without the conditions they were obtained under, which is the thing that most needs saying. Nobody else can write that section as you can.
+We have settled it on one rule: one chapter, one owner. A chapter divided among three or four contributors becomes three or four notations with nobody but us to reconcile them, and it gives the contributor a fragment inside somebody else's argument. So instead of three sections scattered through three chapters, I would like to offer you one chapter: Chapter 2, Applications and system architectures, thirty-four pages.
 
-Your move to Upheat opens a second possibility that had not occurred to us. Section 2.8 covers the emerging drivers for high-speed machines, and the high-temperature industrial heat pump is the most current of them: the compressor in such a machine is exactly the kind of application this book is about. That section is thin as it stands, and written from Upheat it would be new material rather than a survey. Wiley's editor asked us specifically for a focus on updated applications, so it would answer that directly.
+That may well be less work than the three sections rather than more. It is one deliverable with one deadline and one context, instead of three that each have to be fitted into a chapter somebody else is writing. And you would own it: you decide what it contains, you decide whether to write it alone or with co-authors of your own choosing, which is where your offer of other names comes in, and you and they are named together at the head of the chapter.
 
-Either would be very welcome, and both if you have the appetite for it.
+What the chapter has to do. It begins from the driven machine rather than the motor, because that is where the speed requirement originates: the aerodynamic optimum of a compressor or expander, not any electrical consideration, is what asks for 30 000 r/min. It then covers the gearless industrial units, compressors, aeration blowers, ORC and turbo-expanders, and the subsea and hermetic process machines. The high-temperature industrial heat pump has its own section as the driver currently pulling hardest on high-speed compression, and written from Upheat it would be new material rather than a survey; Wiley's editor asked us specifically for a focus on updated applications, so that section answers them directly. The mobile applications follow, traction, aerospace and electrically assisted turbocharging, and this is the part where a co-author would help most. The chapter closes with the architecture-selection logic, total cost of ownership against specific power, a survey of built machines, and the specification of the two machines carried through the rest of the book.
 
-I would gladly take up your offer on other co-authors. Anyone from Upheat or from your wider network would be welcome, and everyone who contributes is named at the head of the chapter. If the heat-pump section appeals but you would rather not write it alone, a colleague who works on those compressors would be an ideal second name.
+If a whole chapter is more than you want, say so plainly and there is no difficulty. The windage and air-gap section in Chapter 9 remains open and would be yours; you would come into it as Anouar Belahcen's co-author rather than through us, since he owns that chapter. Either is very welcome. I would simply rather offer you the chapter first.
 
-One further thing, whenever you have had a chance to look. We are collecting short letters of support to send to Wiley with the proposal. Letters from named contributors carry real weight with a publisher's reviewers, because they show that the people listed exist and see the need for the book from their own field. I attach a draft; its last paragraph offers both sections, so keep whichever you take and delete the other, and rewrite the rest freely.
+One further thing, whenever you have had a chance to look. We are collecting short letters of support to send to Wiley with the proposal. Letters from named contributors carry real weight with a publisher's reviewers, because they show that the people listed exist and see the need for the book from their own field. I attach a draft, written for the chapter; if you prefer the smaller role, its last paragraph is the part to change, and please rewrite the rest freely.
 
-Looking forward to hearing which part appeals.
+Looking forward to hearing which suits you.
 
 BR, Hüseyin
 
@@ -195,20 +196,27 @@ Yours sincerely,
 Hüseyin Canseven
 LUT University
 
-### Second email — sent after his reply of 5 September
+### Second email — the whole chapter
 
-*He replied warmly, listed back exactly the topics of 10.2 to 10.4, endorsed the
-constraints-first premise unprompted, asked for the chapter and the table of contents,
-and offered an online discussion. Attach Chapter 1, `Annotated_TOC_for_contributors.docx`
-(not the working copy, which carries the Status column) and the draft letter.*
+*He replied on 5 September listing back exactly the topics of 10.2 to 10.4, endorsing the
+constraints-first premise unprompted, and asking for the material. Since then the book has
+moved to one chapter, one owner, so the offer is now the whole of Chapter 10 rather than
+three sections. Attach the clean Chapter 1, `Annotated_TOC_for_contributors.docx` and the
+draft letter.*
 
 Dear Rafal,
 
-Thank you, and I am glad it fits. The topics you list are precisely the ones we had in mind.
+Thank you, and I am glad it fits. The topics you list are precisely the ones we had in mind, and in fact rather more than we had in mind, which has changed what we would like to ask you.
 
-I attach the completed introductory chapter and the annotated table of contents. Your sections would be 10.2 to 10.4 of Chapter 10, Thermal management and cooling architectures: the heat paths and thermal resistances of the winding, the stator cooling architectures, and the rotor side including the retaining sleeve as a thermal barrier. Chapter 1 gives the argument they serve; Section 1.6.1 sets the mechanical, electromagnetic and thermal demands against one another, and 1.6.2 lays out the order of the book.
+We have settled the book on one rule: one chapter, one owner. A chapter divided among three or four contributors becomes three or four notations with nobody but us to reconcile them, and it offers each contributor a fragment inside somebody else's argument. So rather than three sections, we would like to offer you Chapter 10 entire, Thermal management and cooling of high-speed machines: twenty-eight pages, eighteen figures, ten sections.
 
-You have read the premise exactly as we intend it. The one thing I would add is that the thermal chapter is not only downstream of that framework. The cooling architecture decides the admissible loss density, which decides the electric loading and so the size of the machine, so it belongs inside the sizing loop rather than after it. Chapter 7 therefore carries a short section on the thermal constraint in sizing that points forward to your chapter, and I would value your view on whether we have put that boundary in the right place.
+Owning it means you decide what it contains, you decide whether to write it alone or with co-authors of your own choosing, and you and anyone you bring are named together at the head of the chapter. We would be your only point of contact, and we would not place anyone in your chapter without you.
+
+What we would want the chapter to do, in four points. First, that the cooling architecture is treated as a design variable rather than a remedy applied afterwards: it fixes the admissible loss density, which fixes the electric loading, which fixes the size of the machine. Second, that the rotor is given equal weight with the stator, because the retaining sleeve that Chapter 4 requires for mechanical integrity is also a thermal insulator, and the magnet temperature behind it is usually what binds. Third, that the architectures appear as design choices, each with the loss density it can sustain and what it costs to manufacture, rather than as a sequence of case studies. Fourth, that it closes on the two machines carried through the whole book, as every design chapter does.
+
+The one section likely to sit outside your own work is 10.5, air-gap convection at high Taylor and axial Reynolds numbers. We know two turbomachinery colleagues who could write it if you would like them, but the choice is yours.
+
+I attach the completed introductory chapter and the annotated table of contents. Chapter 1 carries the argument your chapter serves: Section 1.6.1 sets the mechanical, electromagnetic and thermal demands against one another, and 1.6.2 lays out the order of the book. You read the premise exactly as we intend it; the one thing I would add is that the thermal chapter is not only downstream of that framework, for the reason in the first point above, and Chapter 7 therefore carries a short section on the thermal constraint in sizing that hands over to your chapter. I would value your view on whether we have put that boundary in the right place.
 
 An online discussion would be very welcome. Would some time in the week of [date] suit you, once you are back from Madeira? I can fit around your calendar.
 
@@ -284,7 +292,12 @@ BR, Hüseyin
 
 ## Marko Hinkkanen — control at low pulse ratios
 
-*He is at Aalto and has not met Hüseyin, so this is a two-step approach like Wrobel's and
+*HOLD. Chapter 11 has one owner, Pasi Peltoniemi, who has already agreed to lead it, and
+under the one-chapter-one-owner rule Hinkkanen cannot own a chapter somebody else owns.
+Peltoniemi's email asks him to build the team; wait for his answer. If he wants Hinkkanen,
+the invitation comes from him, not from us. If he names someone else, this is closed.*
+
+*Otherwise, he is at Aalto and has not met Hüseyin, so this is a two-step approach like Wrobel's and
 Saari's: the first email asks only whether the subject interests him and attaches nothing.
 An introduction from Juha, or from Anouar Belahcen at the same university, would help; and
 if it turns out Hüseyin does know him, the two emails collapse into one.*

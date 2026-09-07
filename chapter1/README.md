@@ -6,7 +6,10 @@ Draft material for the Wiley book proposal (Canseven, Petrov, Pyrhönen).
 
 | File | What it is |
 |---|---|
-| `Chapter_1_HS_machines_TRACKED.docx` | **The deliverable.** The author's own file with every edit as a Word tracked change (458 revisions). See `TRACKED_CHANGES.md`. |
+| `Chapter_1_HS_machines_TRACKED.docx` | **For the co-authors.** The author's own file with every edit as a Word tracked change (458 revisions). See `TRACKED_CHANGES.md`. |
+| `Chapter_1_HS_machines_CLEAN.docx` | **For contributors and the publisher.** The same file with every change accepted and Track Changes off. Built by `src/accept_changes.py`; verified identical to accept-all of the tracked file. |
+| `Annotated_TOC_for_contributors.docx` | The version that goes outside: no Status column, no title deliberation. Built by `src/make_circulation_toc.py`. **Circulate this one.** |
+| `Chapter_Ownership.docx` / `.md` | Why every chapter has one owner, and what that means for each invitation. |
 | `Annotated_TOC.docx` / `Annotated_TOC.md` | The annotated table of contents for the Wiley proposal: positioning, 12 chapter abstracts, budgets, contributors, schedule. |
 | `Invitation_Emails.docx` / `Invitation_Emails.md` | Short invitation emails, one per invitee, in the author's own register. Use these to invite. |
 | `Contributor_Invitation.docx` / `Contributor_Invitation.md` | Long form: terms sheet, one detailed "your contribution" block per invitee, letter-of-support template, pre-sending checklist. Use after the publisher approves. |
