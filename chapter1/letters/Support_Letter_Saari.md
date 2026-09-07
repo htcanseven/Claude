@@ -1,4 +1,4 @@
-[Company letterhead]
+[Upheat letterhead]
 
 [Date]
 
@@ -23,6 +23,6 @@ Yours sincerely,
 
 [signature]
 
-[Title] Juha Saari
-[Position], [Company]
+Juha Saari
+[Position], Upheat
 [email address]

@@ -116,25 +116,31 @@ BR, Hüseyin
 *He is definitely interested but asked for one part rather than three, wants the material
 so he can choose, and offered to name co-authors. He has left Aalto for Upheat, which makes
 high-temperature industrial heat pumps: write to juha.saari@upheat.com. The offer is now
-Chapter 2 entire, with the windage section named as the fallback so that a no to the chapter
-is not a no to the book. Attach the clean Chapter 1,
-`Annotated_TOC_for_contributors.docx` and the draft letter.*
+Chapter 2 entire, with §9.8 named as the fallback so that a no to the chapter is not a no
+to the book. The chapter's contents are not recited here, because the annotated table of
+contents carries the full abstract; the email says only what the chapter turns on.
+Attach the clean Chapter 1, `Annotated_TOC_for_contributors.docx` and
+`letters/Support_Letter_Saari.docx`.*
 
-Hi Juha,
+Hello Juha,
 
-Thank you, and noted on the address; I have changed it here and am writing to Upheat.
+Thank you, and noted on the address — I am writing to Upheat.
 
-One part is fine. Let me put a different shape of one part to you, though, because the book has changed since I wrote.
+One part is fine. Let me put a different shape of one part to you, though, because the book has settled since I wrote.
 
-We have settled it on one rule: one chapter, one owner. A chapter divided among three or four contributors becomes three or four notations with nobody but us to reconcile them, and it gives the contributor a fragment inside somebody else's argument. So instead of three sections scattered through three chapters, I would like to offer you one chapter: Chapter 2, Applications and system architectures, thirty-four pages.
+We now work on one rule: one chapter, one owner. A chapter split between three or four contributors becomes three or four notations that nobody but us can reconcile, and it leaves the contributor with a fragment inside somebody else's argument. So instead of three sections in three different chapters, I would like to offer you one chapter: Chapter 2, Applications and system architectures, thirty-four pages.
 
-That may well be less work than the three sections rather than more. It is one deliverable with one deadline and one context, instead of three that each have to be fitted into a chapter somebody else is writing. And you would own it: you decide what it contains, you decide whether to write it alone or with co-authors of your own choosing, which is where your offer of other names comes in, and you and they are named together at the head of the chapter.
+That is probably less work than the three sections rather than more. It is one deliverable with one deadline and one context, instead of three that each have to be fitted into a chapter somebody else is writing. And it would be yours: you decide what it contains, and whether to write it alone or with co-authors of your own choosing, which is where your offer of other names comes in. Everyone who contributes is named at the head of the chapter.
 
-What the chapter has to do. It begins from the driven machine rather than the motor, because that is where the speed requirement originates: the aerodynamic optimum of a compressor or expander, not any electrical consideration, is what asks for 30 000 r/min. It then covers the gearless industrial units, compressors, aeration blowers, ORC and turbo-expanders, and the subsea and hermetic process machines. The high-temperature industrial heat pump has its own section as the driver currently pulling hardest on high-speed compression, and written from Upheat it would be new material rather than a survey; Wiley's editor asked us specifically for a focus on updated applications, so that section answers them directly. The mobile applications follow, traction, aerospace and electrically assisted turbocharging, and this is the part where a co-author would help most. The chapter closes with the architecture-selection logic, total cost of ownership against specific power, a survey of built machines, and the specification of the two machines carried through the rest of the book.
+The annotated table of contents is attached and describes the chapter in full, so let me say only what it turns on. It begins from the driven machine rather than the motor, because that is where the speed requirement originates: the aerodynamic optimum of a compressor or an expander, not any electrical consideration, is what asks for 30 000 r/min. The high-temperature industrial heat pump then has its own section, as the driver currently pulling hardest on high-speed compression, and written from Upheat that would be new material rather than a survey. Wiley's editor asked us specifically for a focus on updated applications, and that section answers them directly.
 
-If a whole chapter is more than you want, say so plainly and there is no difficulty. The windage and air-gap section in Chapter 9 remains open and would be yours; you would come into it as Anouar Belahcen's co-author rather than through us, since he owns that chapter. Either is very welcome. I would simply rather offer you the chapter first.
+If a whole chapter is more than you want, say so plainly and there is no difficulty. The windage and air-gap section of the loss chapter remains open and would be yours; that chapter belongs to Paavo Rasilo, so you would come into it as his co-author rather than through us. Either is very welcome, and I would simply rather offer you the chapter first.
 
-One further thing, whenever you have had a chance to look. We are collecting short letters of support to send to Wiley with the proposal. Letters from named contributors carry real weight with a publisher's reviewers, because they show that the people listed exist and see the need for the book from their own field. I attach a draft, written for the chapter; if you prefer the smaller role, its last paragraph is the part to change, and please rewrite the rest freely.
+I attach the completed introductory chapter as well, so that you can see how the book reads rather than only what it covers.
+
+Could you also write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A draft is attached, written for the chapter; if you prefer the smaller role, its last paragraph is the one to change, and please rewrite the rest as you wish.
+
+Nothing is binding at this stage: the publisher has not yet seen the proposal, and no writing would begin before a contract.
 
 Looking forward to hearing which suits you.
 
