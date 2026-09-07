@@ -360,20 +360,34 @@ BR, Hüseyin
 ## Ahti Jaatinen-Värri and Jonna Tiainen — Chapter 13, the industrial case studies
 
 *One email to both, since they would own the chapter jointly; Ahti is the LUT colleague and
-the natural point of contact. It states plainly which part is theirs and which part Ilya
-Petrov writes, so that the split is agreed rather than discovered.*
+the natural correspondent, but the email lets them settle that rather than appointing him.
+This is the most complicated offer in the set, because four of the chapter's nine sections
+are already spoken for, so it says which ones and by whom rather than letting them find
+out. §13.3 is offered to Jonna rather than assumed for ABB: it asks for a manufacturer's
+voice and she is at one. The running machine is described only as "one of ours here" —
+Jonna is now at a machine manufacturer and its data has not been released.
+Attach `to_send/Chapter_1.docx`, `to_send/Annotated_Table_of_Contents.docx` and
+`letters/Support_Letter_Jaatinen-Varri.docx`.*
 
 Hello Ahti and Jonna,
 
-Together with Ilya Petrov and Juha Pyrhönen I am preparing a proposal to Wiley-IEEE Press for a book on high-speed electrical machines and drives, written as a companion to *Design of Rotating Electrical Machines*. It is a design book, and its argument is that high-speed design runs the opposite way from conventional practice: the mechanical and rotordynamic limits fix the rotor first, the converter fixes the admissible pole number, and the electromagnetic design is fitted into what remains.
+Together with Ilya and Juha we are preparing a proposal to Wiley-IEEE Press for a book on high-speed electrical machines and drives, written as a companion to *Design of Rotating Electrical Machines*. It is a design book, and its argument is that high-speed design runs the opposite way from conventional practice: the mechanical and rotordynamic limits fix the rotor first, the converter fixes the admissible pole number, and the electromagnetic design is fitted into what remains.
 
-Two machines are carried through every chapter from specification to measured performance, one industrial and one mobile, and the book closes with a case-study chapter for each. We would like to offer you Chapter 13, the industrial one: the gearless compressor drive that runs through the whole book, an organic Rankine cycle turbogenerator, manufacture and tolerance control, the test rig and loss segregation at high speed, qualification against API 617 and 541, IEC 60034-25 and the ISO balancing and vibration standards, and the failure modes with the design lessons drawn from them. About twenty-eight pages.
+We started outlining the book but will wait for the publisher's approval before we start writing it. For the proposal we submit a complete introductory chapter and an annotated table of contents; both are attached.
 
-The reason we are asking the two of you is that the chapter needs both sides of the machine. The driven machine, the compressor and the ORC turbine, is where the speed requirement originates and where the case has to be judged; that part is yours. The electrical machine of §13.1 would be written by Ilya Petrov as your co-author, since the industrial running machine is LUT's own two-megawatt solid-rotor design and the test results are ours. Jouni Ikäheimo at ABB is expected to write the manufacture and qualification sections, and Lassi Aarniovuori the loss segregation, both as co-authors you would coordinate.
+Two machines are carried through every chapter from specification to measured performance, one industrial and one mobile, and the book closes with a case-study chapter for each. Each chapter has one owner, and we would like to offer the two of you Chapter 13, the industrial one, twenty-eight pages: the gearless compressor drive that runs through the whole book, an organic Rankine cycle turbogenerator, manufacture and tolerance control, the test rig and loss segregation at high speed, qualification against the API, IEC and ISO standards industrial customers require, and the failure modes with the lessons drawn from them.
 
-Each chapter has a single owner who decides what it contains and answers for its coherence; for this one that would be the two of you together, with Ahti as our point of contact. Everyone who contributes is named at the head of the chapter.
+We are asking the two of you because the chapter needs both sides of the machine, and because you already work across them — the high-speed day you organised here is what made us think of it.
 
-Nothing is binding at this stage: the publisher has not yet seen the proposal, and no writing would begin before a contract. For now I would like to know whether the idea interests you, and I would gladly send you the completed introductory chapter and the annotated table of contents, or talk it through whenever suits.
+Part of the chapter is already spoken for, and we would rather say so now than let you find it. Section 13.1, the compressor drive itself, would be written by Ilya, since the industrial running machine is one of ours here and the test results with it. Sections 13.4 and 13.5, the test rig, loss segregation and qualification, would be Lassi Aarniovuori's. Section 13.3, manufacture and tolerance control, needs a manufacturer's voice rather than a university's — Jonna, that may be yours to take if it fits what you do at The Switch, and if not we have a colleague at ABB who would write it.
+
+What we would most want from you is the rest: the ORC turbogenerator, and the driven-machine side of the compressor case — where the speed requirement comes from, and what the electrical designer has to give the aerodynamicist in return. Owning the chapter means you decide what it contains and answer for it, and that you coordinate those co-authors rather than us. Everyone who contributes is named at the head of the chapter, and once the publisher has approved the proposal we will send you the detailed structure and settle the division of work with you.
+
+One practical thing. The book works on one owner per chapter so that each has a single person to answer for it, and this is the only chapter with two. Ahti, since you are here, we would write to you unless you would both rather it were Jonna.
+
+Could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A draft is attached, written for Ahti, which you are free to change as you wish. Jonna, a second letter from you would be very welcome rather than redundant: the publisher's reviewers weigh a letter from a manufacturer differently from one from a university.
+
+Both attachments are unpublished drafts and the proposal has not yet gone to Wiley, so please treat them as confidential: not forwarded, circulated or quoted outside your own reading, though of course you may show them to a co-author you would want to bring in. Nothing is binding at this stage either, and no writing would begin before a contract.
 
 Looking forward to hearing from you.
 
