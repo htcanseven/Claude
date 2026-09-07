@@ -361,6 +361,33 @@ Best regards,
 
 ---
 
+## Jenni Pippuri-Mäkeläinen — the Voltcar machine, and permission to publish it
+
+*She manages the Voltcar project and is a colleague from it, so this is a warm approach.
+Two asks, and the order matters: the permission question comes first because nine chapters
+depend on that machine, and the invitation to write second. The letter of support waits for
+the follow-up; three asks in one email is too many.*
+
+Hello Jenni,
+
+I am writing about something that has grown out of Voltcar.
+
+Together with Ilya Petrov and Juha Pyrhönen I am preparing a proposal to Wiley-IEEE Press for a book on high-speed electrical machines and drives, written as a companion to *Design of Rotating Electrical Machines*. It is a design book, and its argument is that high-speed design runs the opposite way from conventional practice: the mechanical and rotordynamic limits fix the rotor first, the converter fixes the admissible pole number, and the electromagnetic design is fitted into what remains.
+
+To make that concrete the book carries two machines through every chapter, from specification to measured performance, one industrial and one mobile. The mobile one is the Voltcar traction machine. It is specified in Chapter 2, and its rotor retention, rotordynamics, bearings, electromagnetic sizing, windings, losses, cooling and converter follow through Chapters 4 to 11 before the complete design is assembled and tested in Chapter 13. Nine chapters rest on it, and VTT and the project would be named wherever it appears.
+
+Which is why I am writing to you before anyone else rather than after. Before the proposal goes to Wiley we should know whether the project's results may be published in this form, and what the consortium agreement allows. If the answer is no, or only in part, we would far rather choose differently now than find out after a contract is signed. Could you tell me what applies, and whether others in the consortium need to agree as well?
+
+Second, and separately: we would like you in the book. Chapter 13 presents the mobile case studies, and its first section is the Voltcar machine carried from specification to measured performance. That section ought to be written by the person who ran the project rather than by us reporting it second-hand. About seven pages. The chapter itself is ours, so you would be a co-author of it, named at the head of the chapter, with nothing expected of you beyond your own section.
+
+I attach the completed introductory chapter and the annotated table of contents so that you can see the whole plan and where Voltcar sits in it. Nothing is binding at this stage: the publisher has not yet seen the proposal, and no writing would begin before a contract.
+
+I would be glad to talk it through whenever suits you.
+
+BR, Hüseyin
+
+---
+
 ## Aerospace contributor — high-specific-power generator case study
 
 Hello [name],

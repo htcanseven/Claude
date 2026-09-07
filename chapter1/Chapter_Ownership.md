@@ -144,3 +144,40 @@ section: it would cost the mobile half of the book.
 It is the same class of risk as the compressor measurements, and larger, because the
 compressor case is still unattached while Voltcar is already load-bearing. Ask early, and
 ask what the consortium agreement says rather than only what she personally thinks.
+
+## The other running machine is still unattached
+
+The industrial running machine is described throughout as "a two-pole gearless compressor
+drive" and has no confirmed source. Saari was the assumed one; he is taking a chapter
+rather than the case study, and has in any event moved employer. Ikäheimo at ABB is a
+candidate, and a machine documented in a published dissertation is another.
+
+A published machine has one decisive advantage over an industrial one: **it is already
+cleared.** No employer has to be asked, no consortium has to agree, and the figures can be
+reproduced with a citation. Set against the compressor case, whose clearance is the largest
+unresolved risk in the plan, that is worth a great deal.
+
+What the industrial running machine has to carry, chapter by chapter, before it can be
+adopted:
+
+| Chapter | What it must supply |
+|---|---|
+| 2 | A genuine industrial application, judged on availability and total cost of ownership, not a laboratory demonstrator |
+| 4 | Rotor retention: sleeve or bridge design, interference fits, overspeed margin |
+| 5 | Rotordynamics: bearing span, critical speeds, mode shapes, sub- or supercritical operation |
+| 6 | Bearing type, lubrication arrangement, and ideally life or service experience |
+| 7 | Complete electromagnetic dimensions, enough to re-run the sizing procedure |
+| 8 | Conductor and winding design |
+| 9 | Measured losses, segregated |
+| 10 | Cooling arrangement and measured temperatures |
+| 11 | The converter it runs on: device family, switching frequency, resulting pulse ratio |
+| 12 | Assembled design, measured performance, and ideally qualification against standards |
+
+Two further tests. It should be **recent enough** that a reviewer does not read the book as
+retrospective, since the editor asked for updated applications. And it should sit clearly
+in the industrial paradigm, so that the contrast with the mobile machine carries the weight
+the book puts on it.
+
+A doctoral dissertation is an unusually good source for this, because it normally documents
+mechanical, electromagnetic, thermal and drive aspects of one machine in a single place,
+which is exactly what a running machine needs and what a journal paper never provides.
