@@ -12,11 +12,18 @@ draft letter with Chapter 1 and the table of contents once they have said yes. A
 pre-written letter from a stranger reads as presumptuous, and it asks someone to endorse a
 plan they have not seen. Wrobel's entry below shows the two-step form.
 
-**Attach to the warm ones:** the draft letter of support, and nothing else for the moment.
-Chapter 1 and the annotated table of contents go to the publisher, not to the invitees,
-so each email carries its own description of the invitee's part instead. When those
-documents do eventually circulate, delete the Status column from the contributor table
-first, so that nobody reads that a colleague is "suggested".
+**What to attach.** Always the draft letter of support. Chapter 1 and the annotated table
+of contents now go out too, to anyone being offered a chapter, since nobody can judge a
+chapter without seeing where it sits; send the stamped copies in `to_send/`, not the
+working files. The Status column must be gone from the contributor table before it
+circulates, so that nobody reads that a colleague is "suggested".
+
+**Confidentiality.** The proposal has not been submitted, so both documents are
+unpublished drafts. `src/add_confidentiality.py` puts a notice at the head of each, which
+is what survives a forward; the covering email should say the same thing in one sentence.
+The notice permits one kind of onward sharing on purpose: a chapter owner recruits their
+own co-authors and cannot do it without showing them the plan, so a blanket prohibition
+would be broken by the very people we are asking to recruit.
 
 **Tailor the opening.** The Belahcen email that went out added a personal line after the
 first sentence — that the topic is closely aligned with a project the two already share.
@@ -140,7 +147,7 @@ I attach the completed introductory chapter as well, so that you can see how the
 
 Could you also write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A draft is attached, written for the chapter; if you prefer the smaller role, its last paragraph is the one to change, and please rewrite the rest as you wish.
 
-Nothing is binding at this stage: the publisher has not yet seen the proposal, and no writing would begin before a contract.
+Both attachments are unpublished drafts and the proposal has not yet gone to Wiley, so please treat them as confidential: not forwarded, circulated or quoted outside your own reading, though of course you may show them to a co-author you would want to bring in. Nothing is binding at this stage either, and no writing would begin before a contract.
 
 Looking forward to hearing which suits you.
 

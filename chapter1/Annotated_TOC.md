@@ -6,6 +6,8 @@
 
 Authors: Hüseyin Canseven, Ilya Petrov, Juha Pyrhönen (LUT University), with named contributors per chapter.
 
+> **Confidential — unpublished draft.** This annotated table of contents is an unpublished working document prepared for a book proposal that has not yet been submitted to Wiley-IEEE Press. It is sent to you in confidence and solely so that you can judge whether to take part. Please do not forward, circulate, post or quote it, in whole or in part, without the authors’ written permission. If you invite a co-author, you may of course show it to them on the same terms. © 2026 H. T. Canseven, I. Petrov and J. Pyrhönen. All rights reserved.
+
 Alternative titles for discussion: *High-Speed Electrical Machines: Design under the Speed Constraint* · *Design of High-Speed Electrical Machines and Drives*. The recommended title carries both market-broadening words, *drives* and *applications*, and answers the editor's stated interest in "a clear focus on the updated applications in the area".
 
 ## 1. Positioning

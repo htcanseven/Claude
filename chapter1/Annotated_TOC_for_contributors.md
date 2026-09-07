@@ -6,6 +6,8 @@
 
 Authors: Hüseyin Canseven, Ilya Petrov, Juha Pyrhönen (LUT University), with named contributors per chapter.
 
+> **Confidential — unpublished draft.** This annotated table of contents is an unpublished working document prepared for a book proposal that has not yet been submitted to Wiley-IEEE Press. It is sent to you in confidence and solely so that you can judge whether to take part. Please do not forward, circulate, post or quote it, in whole or in part, without the authors’ written permission. If you invite a co-author, you may of course show it to them on the same terms. © 2026 H. T. Canseven, I. Petrov and J. Pyrhönen. All rights reserved.
+
 ## 1. Positioning
 
 This is a design book for the regime in which conventional electrical-machine design stops working. It is conceived as the companion to *Design of Rotating Electrical Machines* (Pyrhönen, Jokinen, Hrabovcová; Wiley, 2nd ed. 2014): that book gives the general design process for the whole machine landscape; this one takes the reader to where the general rules fail and shows what replaces them. Nothing covered in the earlier book is repeated; each chapter states which conventional assumption breaks at high speed, why, and what the designer does instead.
