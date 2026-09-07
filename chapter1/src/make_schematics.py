@@ -32,7 +32,7 @@ def impeller(ax, x, y, s=0.026):
 
 
 # ─────────────────────────────────── (a) geared legacy  /  (b) direct drive
-fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(6.4, 5.7))
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(6.4, 6.1))
 
 ax1.set_axis_off(); ax1.set_xlim(0, 1); ax1.set_ylim(-.44, .56)
 ax1.add_patch(Rectangle((0, -.44), 1, .44, fc='0.962', ec='none', zorder=0))
@@ -44,11 +44,14 @@ ax1.text(.012, .455, '2\u20135 % gear loss  \u00b7  seals and oil changes  \u00b
          fontsize=7.0, color=ACC2)
 
 box(ax1, .050, .105, .205, .160, 'Induction motor', '4-pole,  1500 r/min')
+# the gearbox is drawn as a closed casing: what is inside it is not the point here
 box(ax1, .335, .105, .160, .160, 'Gearbox', 'step-up \u2248 \u00d720')
 box(ax1, .580, .105, .190, .160, 'Compressor', '30 000 r/min')
 for x0, x1 in ((.255, .335), (.495, .580)):
     ax1.plot([x0, x1], [.185, .185], color=INK, lw=2.4, solid_capstyle='butt', zorder=2)
     ax1.plot([(x0 + x1) / 2], [.185], marker='|', ms=9, color='0.4', mew=1.4, zorder=3)
+ax1.text(.295, .078, 'coupling', ha='center', fontsize=6.2, color='0.45', style='italic')
+ax1.text(.537, .078, 'coupling', ha='center', fontsize=6.2, color='0.45', style='italic')
 impeller(ax1, .790, .185)
 
 box(ax1, .310, -.345, .240, .160, 'Lubrication plant', 'tank,  pump,  cooler', fc=OIL)
@@ -60,33 +63,51 @@ ax1.annotate('', xy=(.050, .350), xytext=(.770, .350),
              arrowprops=dict(arrowstyle='<->', lw=.9, color='0.35'))
 ax1.text(.410, .372, 'footprint', ha='center', fontsize=6.8, color='0.35')
 
-ax2.set_axis_off(); ax2.set_xlim(0, 1); ax2.set_ylim(-.44, .56)
+# ── (b) the bearings sit inside the machine; the impeller is overhung on the
+#       shaft end immediately outboard of the drive-end bearing.
+ax2.set_axis_off(); ax2.set_xlim(0, 1); ax2.set_ylim(-.44, .76)
 ax2.add_patch(Rectangle((0, -.44), 1, .44, fc='0.962', ec='none', zorder=0))
 ax2.axhline(0, color='0.5', lw=1.1)
-ax2.text(.012, .022, 'machine floor', fontsize=6.6, color='0.45', style='italic')
-ax2.text(.012, .520, '(b)   Integrated direct drive', fontsize=9.2, fontweight='bold', color=INK)
-ax2.text(.012, .455, 'no gearbox  \u00b7  no oil system  \u00b7  no basement',
+ax2.text(.012, -.055, 'machine floor', fontsize=6.6, color='0.45', style='italic')
+ax2.text(.012, .720, '(b)   Integrated direct drive', fontsize=9.2, fontweight='bold', color=INK)
+ax2.text(.012, .655, 'no gearbox  \u00b7  no oil system  \u00b7  no basement',
          fontsize=7.0, color=ACC3)
 
-ax2.add_patch(FancyBboxPatch((.050, .062), .525, .228,
-                             boxstyle='round,pad=0.006,rounding_size=0.014',
-                             fc='none', ec=ACC3, lw=1.6, ls='--', zorder=2))
-box(ax2, .150, .115, .250, .130, 'High-speed machine', '2-pole,  30 000 r/min', fs=7.2)
-ax2.plot([.078, .490], [.180, .180], color=INK, lw=2.4, solid_capstyle='butt', zorder=2)
-for x in (.108, .432):
-    ax2.add_patch(Circle((x, .180), .021, fc='white', ec=ACC2, lw=1.5, zorder=5))
-    ax2.plot([x], [.180], marker='o', ms=2.4, color=ACC2, zorder=6)
-    ax2.text(x, .098, 'AMB', ha='center', fontsize=6.3, color=ACC2)
-impeller(ax2, .512, .180)
-ax2.text(.512, .098, 'impeller', ha='center', fontsize=6.3, color='0.35', style='italic')
+SH = .250                                             # shaft centre line
+HX0, HX1, HY0, HY1 = .055, .500, .155, .345           # machine housing
+ax2.add_patch(FancyBboxPatch((HX0, HY0), HX1 - HX0, HY1 - HY0,
+                             boxstyle='round,pad=0.004,rounding_size=0.012',
+                             fc='white', ec=INK, lw=1.3, zorder=2))
+ax2.text((HX0 + HX1) / 2, .385, 'High-speed machine  \u00b7  2-pole,  30 000 r/min',
+         ha='center', fontsize=7.4, fontweight='bold', zorder=6)
 
-ax2.annotate('', xy=(.050, .360), xytext=(.575, .360),
+ax2.add_patch(Rectangle((.190, SH - .034), .180, .068, fc=STEEL, ec=INK, lw=1.0, zorder=4))
+ax2.text(.280, SH, 'stator / rotor', ha='center', va='center', fontsize=6.6, zorder=6)
+
+ax2.plot([.078, .620], [SH, SH], color=INK, lw=3.0, solid_capstyle='butt', zorder=3)
+
+for x in (.128, .428):                                # radial magnetic bearings, inboard
+    ax2.add_patch(Rectangle((x - .027, SH - .046), .054, .092, fc='white', ec=ACC2, lw=1.4, zorder=5))
+    for y0 in (SH + .019, SH - .041):
+        ax2.add_patch(Rectangle((x - .021, y0), .042, .022, fc=ACC2, ec='none', alpha=.45, zorder=6))
+    ax2.text(x, .108, 'radial AMB', ha='center', fontsize=6.1, color=ACC2, zorder=7)
+    ax2.plot([x, x], [.128, .155], color=ACC2, lw=.7, zorder=1)
+
+impeller(ax2, .600, SH)                               # overhung on the shaft end
+ax2.annotate('', xy=(.600, SH + .046), xytext=(.645, .420),
+             arrowprops=dict(arrowstyle='-', lw=.8, color='0.45'))
+ax2.text(.652, .432, 'impeller, overhung on the shaft end,\nimmediately outboard of the bearing',
+         ha='left', va='center', fontsize=6.4, color='0.35', style='italic', linespacing=1.4)
+
+ax2.text(.280, .040, 'the bearings are part of the machine, not a separate pedestal',
+         ha='center', fontsize=6.3, color='0.45', style='italic')
+
+ax2.annotate('', xy=(.055, .530), xytext=(.640, .530),
              arrowprops=dict(arrowstyle='<->', lw=.9, color='0.35'))
-ax2.text(.3125, .382, 'footprint', ha='center', fontsize=6.8, color='0.35')
-ax2.text(.625, .272, 'One hermetically sealed unit.', fontsize=7.4,
-         color=ACC3, va='top', fontweight='bold')
-ax2.text(.625, .212, 'Gearbox, couplings and oil system\nare deleted; the burden moves to\nthe rotor and to the converter.',
-         fontsize=7.2, color=ACC3, va='top', linespacing=1.5)
+ax2.text(.3475, .552, 'footprint', ha='center', fontsize=6.8, color='0.35')
+
+ax2.text(.700, .335, 'One sealed unit. Gearbox,\ncouplings and oil system are\ndeleted; the burden moves to\nthe rotor and the converter.',
+         fontsize=7.0, color=ACC3, va='top', linespacing=1.55, fontweight='bold')
 ax2.text(.290, -.185, 'the two-storey layout disappears', ha='center',
          fontsize=7.2, color='0.45', style='italic')
 

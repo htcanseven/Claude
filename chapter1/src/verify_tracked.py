@@ -103,7 +103,9 @@ if __name__ == '__main__':
         'roadmap: thermal chapter named': any('Chapter 10 removes that heat' in p for p in acc),
         'roadmap: 19-chapter text gone': not any('Chapter 19' in p or 'Part VI' in p for p in acc),
         'closing sentence kept': any(p.startswith('This roadmap ensures') for p in acc),
-        'drawings (4 original + 6 inserted)': len(re.findall(r'<w:drawing[ >]', d)) == 10,
+        'drawings (4 original + 7 inserted)': len(re.findall(r'<w:drawing[ >]', d)) == 11,
+        'gear-lubricant claim gone': not any('lubricant for the gears' in p for p in acc),
+        'stress lead-in present': any('worth putting this into algebra' in p for p in acc),
         'track revisions on': b'trackRevisions' in zipfile.ZipFile(path).read('word/settings.xml'),
     }
     for k, v in checks.items():

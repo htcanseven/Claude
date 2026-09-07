@@ -1,8 +1,8 @@
 # Chapter 1 — what was changed in `Chapter_1_HS_machines_TRACKED.docx`
 
-The file is the author's own `The_first_Ch_of_HS_machines_1.docx` with every edit recorded as a Word tracked change under the author name **Claude** (458 revisions). Open it with Review → Tracking → **All Markup**; Accept or Reject works on each change individually. Track Changes is switched on in the document, so further edits by the co-authors are recorded too.
+The file is the author's own `The_first_Ch_of_HS_machines_1.docx` with every edit recorded as a Word tracked change under the author name **Claude** (463 revisions). Open it with Review → Tracking → **All Markup**; Accept or Reject works on each change individually. Track Changes is switched on in the document, so further edits by the co-authors are recorded too.
 
-Nothing outside the items below was touched. Three of the four existing figures (the fourth, Figure 1.9, is replaced as a tracked change), the eight Word equations, the styles, footers and page setup are exactly as they were. Reject-all reproduces the original text paragraph for paragraph (verified, 267 of 267).
+Nothing outside the items below was touched. Two of the four existing figures (Figures 1.2 and 1.9 are replaced as tracked changes), the eight Word equations, the styles, footers and page setup are exactly as they were. Reject-all reproduces the original text paragraph for paragraph (verified, 267 of 267).
 
 ## Deleted
 
@@ -29,7 +29,7 @@ Nothing outside the items below was touched. Three of the four existing figures 
 
 The pictures were already in the document; only their captions were placeholders. All figures are now numbered in sequence, 1.1 to 1.9.
 
-13. **Figure 1.2** — geared versus direct-drive architecture (was "Figure 2. Caption").
+13. **Figure 1.2** — geared versus direct-drive architecture (was "Figure 2. Caption"). **The picture itself is also replaced**, on review: the original showed an open gearbox with free-floating wheels, and placed the magnetic bearings outside the machine with the impeller beyond them. The replacement draws the gearbox as a closed casing, puts both radial magnetic bearings inside the machine housing, and overhangs the impeller on the shaft end immediately outboard of the drive-end bearing. Tracked, so one Reject restores the original. Source: `src/make_schematics.py`.
 14. **Figure 1.4** — the computed rotor bending mode shapes, modes 1–4 with frequencies (was "Fig. 3 Caption"). The caption ends with **[machine and source to be stated]** — I did not want to guess which rotor this is.
 15. **Figure 1.5** — loss components against speed (was "Fig 4 Caption"). The caption states that the chart is drawn at fixed machine geometry, which ties it to the new §1.5.5.
 16. **Figure 1.9** — the high-speed trilemma (was "Fig. 5 Caption"). **The picture itself is also replaced** (a tracked replacement: the original picture is marked deleted and the new one inserted, so a single Reject restores the original). The new drawing follows the text of §1.6.1 literally: the three remedies form a directed cycle — sleeve → larger effective air gap, pole count and frequency → iron and windage loss, cooling geometry → lower stiffness and higher l/D — around a feasible design window, and the power-electronic interface is drawn as the gatekeeper splitting that window into the low-pole industrial topology (reachable with silicon IGBT converters) and the high-pole mobile topology (SiC/GaN only). Source: `src/make_trilemma.py`.
@@ -55,3 +55,15 @@ The pictures were already in the document; only their captions were placeholders
 - The new equations are typed as formatted text (italic symbols, subscripts, superscripts) rather than as Word equation objects, so they can be edited freely; they can be converted with Insert → Equation if the house style requires it.
 - The five new figures are 300 dpi PNG at the same 15.9 cm width as the author's figures, generated from the equations in the text (`src/make_figures.py`), so they can be restyled without redrawing.
 - The package passes the OOXML schema validation and the redlining check (every changed character is inside an `ins`/`del`). It could not be rendered to PDF in this environment — LibreOffice refuses to load any .docx here, the original included — so the page layout has not been checked visually.
+
+## Added on review (September 2026)
+
+24. **The gear-lubricant claim in §1.2.2 narrowed.** The author's sentence read "…direct oil
+    cooling where the lubricant for the gears is also used to cool the stator windings and
+    rotor". Reusing gear oil as a machine coolant is difficult in practice and risky to
+    assert in print, so the clause now reads "…in which oil is used to cool the stator
+    winding and the rotor". The reader can infer the source; the book does not claim it.
+25. **A lead-in for the centrifugal-stress algebra in §1.3.1.** The derivation arrived without
+    warning. It is now introduced: the penalty for a bore is easily underestimated, and the
+    stress grows with the square of the peripheral speed, so a rotor passes from comfortable
+    to impossible within a narrow band of tip speed.

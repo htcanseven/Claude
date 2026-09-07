@@ -394,7 +394,7 @@ def main():
     # 6 ── quantify the centrifugal stress; add Figure 1.3
     anc = P('Conversely, solid rotors, often found in high-performance induction')
     after(anc,
-        para('The factor of two is exact for a thin disc. For a solid rotating disc of density _ρ_ and Poisson ratio _ν_ the maximum tangential stress occurs at the centre and is'),
+        para('It is worth putting this into algebra, because the penalty for a bore is easily underestimated and because the stress grows with the square of the peripheral speed, so a rotor passes from comfortable to impossible within a narrow band of tip speed. The factor of two quoted above is exact for a thin disc. For a solid rotating disc of density _ρ_ and Poisson ratio _ν_ the maximum tangential stress occurs at the centre and is'),
         equation('_σ_~max~ = [(3 + _ν_)/8] _ρ_ _v_~tip~^2^'),
         para('while introducing a small central bore moves the maximum to the bore and doubles it:'),
         equation('_σ_~max~ = [(3 + _ν_)/4] _ρ_ _v_~tip~^2^'),
@@ -453,6 +453,14 @@ def main():
         para('Figure 1.8. Divergence of the operating speed and the first bending critical speed along the tip-speed-limited design path. The rotordynamic margin degrades as the fourth power of the speed multiplier.'))
     log.append('added §1.5.5 with Table 1.4 and Figure 1.7, and §1.5.6 with the rotordynamic scaling result and Figure 1.8')
 
+    # 8b ── the author's own sentence claims the gear lubricant also cools the
+    #       machine.  In practice that is a difficult thing to do and a risky
+    #       thing to assert; the claim is narrowed to oil cooling as such.
+    delete_span(P('However, this mass reduction comes at a steep price'),
+                'where the lubricant for the gears is also used to cool the stator windings and rotor',
+                'in which oil is used to cool the stator winding and the rotor')
+    log.append('narrowed the direct-oil-cooling sentence: oil cooling, without the claim that the gear lubricant is reused')
+
     # 9a ── §1.6.2 roadmap: the draft describes 19 chapters in six parts; the
     #       proposal now offers 12 chapters in four parts.  Tracked replacement of
     #       the roadmap body; the author's closing sentence is kept.
@@ -476,6 +484,29 @@ def main():
         para('Part IV: Delivery, the Drive and the Applications', bold=True),
         para('Chapter 11 treats the converter as the gatekeeper it is: the converter interface and the modulation ratio, the role of SiC and GaN devices, insulation stress under fast switching, bearing currents and electromagnetic compatibility, and the matching of each of the two machines to its converter. Chapter 12 takes up what the resulting pulse ratio does to the control. Where the switching frequency is no longer far above the fundamental, the computational and modulation delays occupy a substantial part of the period and the discrete-time nature of the regulator becomes a constraint on the machine rather than a detail of its implementation; current regulation, sensorless operation and run-up through the critical speeds are developed on that basis. Chapters 13 and 14 present complete design case studies, industrial and mobile respectively, each carried from specification to measured validation, with the test methods, the loss segregation at high speed, and the overspeed and endurance qualification that the applicable standards require.'))
     log.append('rewrote the §1.6.2 roadmap for the 14-chapter, four-part structure (tracked; the closing sentence is kept)')
+
+    # 9aa ── Figure 1.2: the author's architecture illustration shows an open
+    #        gearbox with free-floating wheels, and places the magnetic bearings
+    #        outside the machine with the impeller beyond them.  Replaced by a
+    #        schematic with the gearbox drawn as a closed casing, the bearings
+    #        inside the machine and the impeller overhung on the shaft end
+    #        immediately outboard of the drive-end bearing.  Tracked: reject
+    #        restores the original picture.
+    if os.path.exists(FIGDIR + 'fig_geared_vs_directdrive.png'):
+        old2 = None
+        for p in paras:
+            for d in p.iter('{http://schemas.openxmlformats.org/drawingml/2006/main}blip'):
+                if d.get('{%s}embed' % R) == 'rId8':
+                    old2 = p
+        if old2 is None:
+            sys.exit('Figure 1.2 picture (rId8) not found')
+        for r in list(old2):
+            if r.tag == q('w:r') and r.find(q('w:drawing')) is not None:
+                d = track('w:del'); r.addprevious(d); d.append(r)
+        newfig2 = figure('fig_geared_vs_directdrive.png', rels, media)
+        for w_ins in newfig2.findall(q('w:ins')):
+            old2.append(w_ins)
+        log.append('replaced the Figure 1.2 picture: closed gearbox casing, bearings inside the machine, impeller overhung on the shaft end (tracked; reject to restore the original)')
 
     # 9b ── Figure 1.9: replace the author's trilemma picture with the one that
     #       follows the text of §1.6.1 (a tracked replacement: the old picture is
