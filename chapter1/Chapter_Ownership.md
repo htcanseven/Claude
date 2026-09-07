@@ -181,3 +181,70 @@ the book puts on it.
 A doctoral dissertation is an unusually good source for this, because it normally documents
 mechanical, electromagnetic, thermal and drive aspects of one machine in a single place,
 which is exactly what a running machine needs and what a journal paper never provides.
+
+## Assessed: the 2 MW solid-rotor machine of Chong Di's dissertation
+
+*Modeling and Analysis of a High-Speed Solid-Rotor Induction Machine*, Chong Di, Acta
+Universitatis Lappeenrantaensis 902, LUT, 2020. Supervised by Juha Pyrhönen and Ilya
+Petrov. 153 pages, article-based.
+
+| | |
+|---|---|
+| Rated power | 2 000 kW |
+| Synchronous speed | 12 000 r/min, 200 Hz, one pole pair |
+| Rated voltage, current | 660 V, 2 100 A rms, delta, two parallel branches |
+| Rated torque | 1 600 Nm; power factor 0.7; estimated efficiency 96 % |
+| Rotor | solid S355, outer diameter 266 mm, 44 slits 4 mm wide and 50 mm deep |
+| Stator | inner 280 mm, outer 700 mm, active length 538 mm, 36 slots, M270-35 |
+| Support | active magnetic bearings |
+| Cooling | direct liquid cooling, prefabricated coils |
+| Tip speed | **167 m/s** |
+| fP | **400 000 kW/s, 2.2 times the threshold of §1.1.1** |
+| l/D | 1.92 |
+
+**It fits the industrial paradigm almost exactly.** Two poles, as the plan already assumes.
+A solid-rotor induction machine, which Chapter 3 calls the industrial workhorse and which
+Ikäheimo is writing §3.2 and §3.3 about, so the running machine and the topology chapter
+would reinforce each other. Two megawatts is industrial scale, not a demonstrator. At 200 Hz
+it sits precisely in the region Figure 1.9 marks as the low-pole industrial topology
+reachable with silicon converters, so it demonstrates the industrial branch of the
+gatekeeper argument rather than contradicting it. And 167 m/s is above the hundred metres a
+second at which the air gap stops being passive, so the windage material has something to
+bite on.
+
+**It feeds the chapters unusually well.** Active magnetic bearings, including
+unbalanced-magnetic-pull compensation, for §6.5. Direct liquid cooling for Chapter 10, which
+is Wrobel's own specialism. Semimagnetic wedges as a slot-geometry decision for Chapter 7.
+An asymmetric winding with prefabricated coils and current-unbalance suppression for
+Chapter 8. Solid-rotor eddy-current harmonic loss modelling, the dissertation's central
+contribution, for §9.5 to §9.7. It also contrasts with the Voltcar machine in the right way:
+solid steel and slits against magnets and a sleeve, which makes the industrial-versus-mobile
+comparison in every design chapter a real comparison rather than a rhetorical one.
+
+**Clearance is not an issue.** It is published, it is LUT, and two of the three authors
+supervised it. Nobody has to be asked.
+
+**The one problem: no measured machine performance.** The measurements in the dissertation
+are material-level, core-loss curves fitted to Bertotti at 100, 200 and 400 Hz. The
+validation of the machine itself is by finite-element analysis. The text discusses rotor
+construction options for "the first prototype", which reads as a design that had not yet
+been built when the dissertation was written.
+
+That matters because §12.1 promises the industrial machine carried *from specification to
+measured performance*, and Chapter 12 is one of the two places where the book claims
+measured case data.
+
+**The question for Juha and Ilya, which only they can answer:** was this machine built, and
+are test results available, whether in later work, at a partner, or unpublished? If yes,
+adopt it. If no, there are two options, and the first is better:
+
+1. Use it as the industrial running machine through Chapters 2 to 11, where its design is
+   fully documented, and pair it in Chapter 12 with whatever measured industrial machine can
+   be obtained, from ABB through Ikäheimo. The chapter then has a designed machine and a
+   measured one, which is honest and still useful.
+2. Adopt it throughout and change §12.1 to read "from specification to validated design",
+   keeping "to measured performance" for Voltcar alone. This costs the symmetry of the
+   two-machine claim and a reviewer may notice.
+
+Even with the caveat, this is a considerably better candidate than the unattached compressor
+drive currently in the plan. Recommend adopting it subject to that one question.
