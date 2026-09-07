@@ -25,17 +25,17 @@ Budgets use the publisher's formula of 600 words per page and two illustrations 
 | Part | Ch. | Title | Pages | Words | Figures | Lead |
 |---|---|---|---|---|---|---|
 | I  The high-speed design space | 1 | Introduction: what changes at high speed | 26 | 12 000 | 9 | authors (written) |
-| | 2 | Applications and system architectures | 34 | 14 100 | 18 | authors; J. Saari |
-| | 3 | Machine topologies for high speed | 34 | 13 200 | 24 | authors |
+| | 2 | Applications and system architectures | 34 | 14 100 | 18 | authors; turbomachinery contributors; J. Saari |
+| | 3 | Machine topologies for high speed | 34 | 13 200 | 24 | authors; J. Ikäheimo |
 | II  The constraints that bind first | 4 | Rotor mechanical design and magnet retention | 36 | 14 400 | 24 | J. Sopanen's group; I. Petrov |
 | | 5 | Rotordynamics and vibration | 30 | 11 400 | 20 | J. Sopanen's group |
 | | 6 | Bearings, lubrication and seals for high-speed rotors | 30 | 12 000 | 20 | J. Sopanen's group; bearing specialist |
 | III  Electromagnetic and thermal design within the constraints | 7 | Sizing under the speed constraint: the inverted procedure | 36 | 14 400 | 20 | authors |
 | | 8 | AC winding losses and conductor design | 28 | 11 100 | 18 | I. Petrov; A. Belahcen |
 | | 9 | Core, rotor and aerodynamic losses at high speed | 30 | 12 000 | 20 | A. Belahcen; I. Petrov; J. Saari |
-| | 10 | Thermal management and cooling architectures | 28 | 11 400 | 18 | J. Nerg; A. Belahcen; J. Saari |
-| IV  Delivery: the drive and the applications | 11 | The drive: converter interface and control at high fundamental frequency | 40 | 16 200 | 26 | P. Peltoniemi; L. Aarniovuori |
-| | 12 | Industrial case studies: compressor drive and ORC generator | 28 | 9 300 | 22 | authors; J. Saari; L. Aarniovuori |
+| | 10 | Thermal management and cooling architectures | 28 | 11 400 | 18 | R. Wrobel; J. Nerg; A. Belahcen |
+| IV  Delivery: the drive and the applications | 11 | The drive: converter interface and control at high fundamental frequency | 40 | 16 200 | 26 | P. Peltoniemi; M. Hinkkanen; L. Aarniovuori |
+| | 12 | Industrial case studies: compressor drive and ORC generator | 28 | 9 300 | 22 | authors; J. Ikäheimo; L. Aarniovuori |
 | | 13 | Mobile case studies: traction, aerospace and e-turbo | 30 | 9 900 | 24 | authors; aerospace contributor |
 | | | **Chapters 1–13** | **410** | **161 400** | **263** | |
 | | | Front matter, appendices A–D, index | 40 | | | |
@@ -69,11 +69,11 @@ Budget: 26 pages, 9 figures, 4 tables. New: the fP criterion; the design-path sc
 
 #### Chapter 2. Applications and system architectures
 
-The chapter establishes why high-speed machines exist and why the two paradigms diverge. It begins from the driven machine rather than the motor, because that is where the speed requirement originates: a centrifugal compressor or a turbo-expander has an aerodynamic optimum fixed by its specific speed, and that optimum, not any electrical consideration, is what asks for 30 000 r/min. In industry the converter then made it possible to move the speed conversion from a gearbox into the electrical domain, and the gearbox was deleted: centrifugal compressors, wastewater aeration blowers, organic Rankine cycle and turbo-expander generators, and subsea and hermetic process machines are treated with their economics of availability, oil-free operation and total cost of ownership. In mobile applications the converter was needed anyway and high speed bought mass instead, so the gearbox was kept: electric traction and its geared high-speed optimum, hybrid-electric and all-electric aircraft propulsion and generation, and electrically assisted turbochargers and turbo-compounding above 100 000 r/min. Emerging drivers are surveyed, including heat-pump and hydrogen and cryogenic compression and flywheel storage. The chapter then presents a survey of built and published high-speed machines, spanning several decades of power and speed, and maps them onto the three classification criteria of Chapter 1; this is where the fP criterion receives its calibration. It closes by specifying the two running machines and stating the architecture-selection logic, total cost of ownership against specific power, that governs every later trade-off.
+The chapter establishes why high-speed machines exist and why the two paradigms diverge. It begins from the driven machine rather than the motor, because that is where the speed requirement originates: a centrifugal compressor or a turbo-expander has an aerodynamic optimum fixed by its specific speed, and that optimum, not any electrical consideration, is what asks for 30 000 r/min. In industry the converter then made it possible to move the speed conversion from a gearbox into the electrical domain, and the gearbox was deleted: centrifugal compressors, wastewater aeration blowers, organic Rankine cycle and turbo-expander generators, and subsea and hermetic process machines are treated with their economics of availability, oil-free operation and total cost of ownership. In mobile applications the converter was needed anyway and high speed bought mass instead, so the gearbox was kept: electric traction and its geared high-speed optimum, hybrid-electric and all-electric aircraft propulsion and generation, and electrically assisted turbochargers and turbo-compounding above 100 000 r/min. Emerging drivers are surveyed, and the high-temperature industrial heat pump is given the most weight among them, because it is the application currently pulling hardest on high-speed compression and is written here from a manufacturer rather than from the literature; hydrogen and cryogenic compression and flywheel storage follow. The chapter then presents a survey of built and published high-speed machines, spanning several decades of power and speed, and maps them onto the three classification criteria of Chapter 1; this is where the fP criterion receives its calibration. It closes by specifying the two running machines and stating the architecture-selection logic, total cost of ownership against specific power, that governs every later trade-off.
 
-Sections: 2.1 The direct-drive transition in industry · 2.2 Why the driven machine sets the speed: specific speed and the turbomachinery optimum · 2.3 Gearless industrial units: compressors, aeration blowers, ORC and turbo-expanders · 2.4 Subsea and hermetic process machines · 2.5 Electric traction and the geared high-speed optimum · 2.6 Aerospace and hybrid-electric propulsion · 2.7 e-Turbochargers, turbo-compounding and the >100 000 r/min class · 2.8 Emerging drivers: heat pumps, hydrogen and cryogenic compression, flywheels · 2.9 Architecture selection: total cost of ownership against specific power · 2.10 A survey of built machines: calibrating v_tip, n√P and fP · 2.11 The two running machines specified.
+Sections: 2.1 The direct-drive transition in industry · 2.2 Why the driven machine sets the speed: specific speed and the turbomachinery optimum · 2.3 Gearless industrial units: compressors, aeration blowers, ORC and turbo-expanders · 2.4 Subsea and hermetic process machines · 2.5 Electric traction and the geared high-speed optimum · 2.6 Aerospace and hybrid-electric propulsion · 2.7 e-Turbochargers, turbo-compounding and the >100 000 r/min class · 2.8 Emerging drivers: high-temperature industrial heat pumps, hydrogen and cryogenic compression, flywheels · 2.9 Architecture selection: total cost of ownership against specific power · 2.10 A survey of built machines: calibrating v_tip, n√P and fP · 2.11 The two running machines specified.
 
-Budget: 34 pages, 18 figures, 3 tables. New: the machine survey and the calibrated criteria; the architecture-selection logic; §2.2, which states the speed requirement from the driven machine's side rather than the motor's. Contributors: J. Saari (industrial machines); A. Jaatinen-Värri and J. Tiainen (§2.2, specific speed and the aerodynamic optimum).
+Budget: 34 pages, 18 figures, 3 tables. New: the machine survey and the calibrated criteria; the architecture-selection logic; §2.2, which states the speed requirement from the driven machine's side rather than the motor's. Contributors: A. Jaatinen-Värri and J. Tiainen (§2.2, specific speed and the aerodynamic optimum); J. Saari of Upheat is the candidate for §2.8, the high-temperature heat pump.
 
 #### Chapter 3. Machine topologies for high speed
 
@@ -133,7 +133,7 @@ Loss models fitted below 400 Hz do not extrapolate to 2 kHz, and the air in the 
 
 Sections: 9.1 Loss separation above 1 kHz · 9.2 Soft magnetic materials as design choices · 9.3 Manufacturing effects: cutting, stacking, joining and fitting · 9.4 Measurement and model fitting at high frequency · 9.5 Rotor surface and harmonic losses · 9.6 Eddy currents in sleeves, rings and magnets; magnet segmentation · 9.7 Solid-rotor loss modelling · 9.8 Aerodynamic and windage losses: Taylor–Couette flow, correlations, roughness, low-density gas · 9.9 The loss balance of the two running machines.
 
-Budget: 30 pages, 20 figures, 3 tables. Contributors: A. Belahcen (loss modelling, materials, manufacturing effects), I. Petrov (rotor losses), J. Saari (windage correlations for high-speed machines), with A. Jaatinen-Värri and J. Tiainen on the flow regimes, roughness and end effects of §9.8. DREM boundary: the earlier book's loss chapters cover the conventional frequency range; only the high-speed departures are treated.
+Budget: 30 pages, 20 figures, 3 tables. Contributors: A. Belahcen (loss modelling, materials, manufacturing effects), I. Petrov (rotor losses), J. Saari (windage correlations for high-speed machines, §9.8), with A. Jaatinen-Värri and J. Tiainen on the flow regimes, roughness and end effects of §9.8. DREM boundary: the earlier book's loss chapters cover the conventional frequency range; only the high-speed departures are treated.
 
 #### Chapter 10. Thermal management and cooling architectures
 
@@ -159,7 +159,7 @@ Two complete industrial designs are carried from specification to measured perfo
 
 Sections: 12.1 The gearless compressor drive: from specification to measured performance · 12.2 The ORC turbogenerator · 12.3 Manufacture and tolerance control · 12.4 Test rig, instrumentation and loss segregation at high speed · 12.5 Qualification against standards · 12.6 Failure modes and design lessons.
 
-Budget: 28 pages, 22 figures, 3 tables. Contributors: authors, J. Saari (the compressor case, 12.1), J. Ikäheimo (manufacture and tolerance control, 12.3, and qualification against the standards, 12.5, both written from a manufacturer's practice), L. Aarniovuori (test rig and loss segregation, 12.4), J. Tiainen (industrial perspective). New: measured case data, and photographs of built machines and rotors supplied by the industrial contributors, which no competing title has.
+Budget: 28 pages, 22 figures, 3 tables. Contributors: authors, the compressor case, §12.1, source to be confirmed, J. Ikäheimo (manufacture and tolerance control, 12.3, and qualification against the standards, 12.5, both written from a manufacturer's practice), L. Aarniovuori (test rig and loss segregation, 12.4), J. Tiainen (industrial perspective). New: measured case data, and photographs of built machines and rotors supplied by the industrial contributors, which no competing title has.
 
 #### Chapter 13. Mobile case studies: traction, aerospace and e-turbo
 
@@ -181,7 +181,7 @@ The author line is Canseven, Petrov and Pyrhönen. Contributors are credited at 
 |---|---|---|
 | Jussi Sopanen and group | LUT, machine dynamics | 4, 5, 6 |
 | Anouar Belahcen | Aalto University | 9 lead; 8.6, 5.7 and 10.8 supporting |
-| Juha Saari | industry | 2, 9.8, 12.1 |
+| Juha Saari | Upheat, high-temperature heat pumps | one section, 9.8 or 2.8 |
 | Jouni Ikäheimo | ABB, high-speed motors | 3.2 and 3.3, 12.3, 12.5; photographs and machine material throughout |
 | Ahti Jaatinen-Värri | LUT, turbomachinery | 2.2, 9.8, 10.5 |
 | Jonna Tiainen | The Switch | 2.2, 9.8, 10.5, 12 |

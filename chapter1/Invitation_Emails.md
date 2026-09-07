@@ -111,22 +111,33 @@ Looking forward to hearing from you.
 
 BR, Hüseyin
 
-### Second email — after he has said yes
+### Second email — sent after his reply of 7 September
 
-*Attach Chapter 1, the annotated table of contents, and the draft letter of support.*
+*He is definitely interested but wants one part rather than three, asked for the material
+so he can choose, and offered to suggest other co-authors. He has also left Aalto for
+Upheat, which makes high-temperature industrial heat pumps: use juha.saari@upheat.com.
+Attach Chapter 1, `Annotated_TOC_for_contributors.docx` (not the working copy) and the
+draft letter.*
 
-Dear Juha,
+Hi Juha,
 
-Thank you, I am very glad you are interested. I attach the completed introductory chapter and the annotated table of contents so that you can see where your sections would sit and what the book is arguing.
+Thank you, and noted on the address; I have changed it here and am writing to Upheat.
 
-One further request, if you are willing. We are collecting short letters of support to send to Wiley together with the proposal. Letters from the named contributors carry real weight with a publisher's reviewers, because they show that the people listed exist, have agreed, and see the need for the book from their own field. I attach a draft to show what such a letter usually contains; please change it as you see fit, or write something quite different if you would rather.
+One part is fine. I would far rather have one section written properly than three written thinly. I attach the introductory chapter and the annotated table of contents so that you can choose against the whole picture.
 
-I would be glad to go through the scope with you on a call, and there are a few practical questions on the case study that are easier to settle that way than by mail.
+If a recommendation helps: section 9.8, the aerodynamic and windage losses of the air gap. About six pages. The correlations in general use are yours, and without you the book would cite them without the conditions they were obtained under, which is the thing that most needs saying. Nobody else can write that section as you can.
 
-Yours sincerely,
+Your move to Upheat opens a second possibility that had not occurred to us. Section 2.8 covers the emerging drivers for high-speed machines, and the high-temperature industrial heat pump is the most current of them: the compressor in such a machine is exactly the kind of application this book is about. That section is thin as it stands, and written from Upheat it would be new material rather than a survey. Wiley's editor asked us specifically for a focus on updated applications, so it would answer that directly.
 
-Hüseyin Canseven
-LUT University
+Either would be very welcome, and both if you have the appetite for it.
+
+I would gladly take up your offer on other co-authors. Anyone from Upheat or from your wider network would be welcome, and everyone who contributes is named at the head of the chapter. If the heat-pump section appeals but you would rather not write it alone, a colleague who works on those compressors would be an ideal second name.
+
+One further thing, whenever you have had a chance to look. We are collecting short letters of support to send to Wiley with the proposal. Letters from named contributors carry real weight with a publisher's reviewers, because they show that the people listed exist and see the need for the book from their own field. I attach a draft; its last paragraph offers both sections, so keep whichever you take and delete the other, and rewrite the rest freely.
+
+Looking forward to hearing which part appeals.
+
+BR, Hüseyin
 
 ---
 
