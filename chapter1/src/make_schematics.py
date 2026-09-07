@@ -53,63 +53,107 @@ def rect(ax, x0, x1, y0, y1, sgn=1, fc='white', hatch=None, ec=INK, lw=1.15, z=4
                            zorder=z, alpha=alpha))
 
 
-# ── (a) geared train: an elevation, the machines seen from outside ─────────
-ax1.set_axis_off(); ax1.set_xlim(0, 1); ax1.set_ylim(-.66, .40)
-ax1.text(.010, .330, '(a)   Geared train', fontsize=9.4, fontweight='bold', color=INK)
+# ── (a) geared train, axial section ────────────────────────────────────────
+ax1.set_axis_off(); ax1.set_xlim(0, 1); ax1.set_ylim(-.70, .52)
+ax1.text(.010, .462, '(a)   Geared train,  axial section',
+         fontsize=9.4, fontweight='bold', color=INK)
 
-ax1.plot([.050, .905], [0, 0], **CL)
-
-
-def machine(ax, x0, x1, h, name, sub, fc='#eef2f7', cover=False):
-    ax.add_patch(Rectangle((x0, -h), x1 - x0, 2 * h, fc=fc, ec=INK, lw=1.2, zorder=4))
-    if cover:
-        ax.add_patch(Rectangle((x0, h), x1 - x0, .024, fc='#dde4ec', ec=INK, lw=.9, zorder=4))
-    for xf in (x0 + .018, x1 - .048):
-        ax.add_patch(Rectangle((xf, -h - .026), .030, .026, fc='0.84', ec=INK, lw=.8, zorder=4))
-    ax.text((x0 + x1) / 2, .030, name, ha='center', fontsize=7.6, fontweight='bold', zorder=6)
-    ax.text((x0 + x1) / 2, -.055, sub, ha='center', fontsize=6.4, color='0.35', zorder=6)
+YM, YC = -.055, .050            # motor centre line, compressor centre line
 
 
-def shaft(ax, x0, x1, r=.014):
-    ax.add_patch(Rectangle((x0, -r), x1 - x0, 2 * r, fc='0.72', ec=INK, lw=.9, zorder=5))
+def housing(ax, x0, x1, yc, h, wall=.024, fc='#f4f4f1'):
+    for sgn in (1, -1):
+        ax.add_patch(Polygon([[x0, yc + sgn * .030], [x0, yc + sgn * h],
+                              [x1, yc + sgn * h], [x1, yc + sgn * .030],
+                              [x1 - wall, yc + sgn * .030], [x1 - wall, yc + sgn * (h - wall)],
+                              [x0 + wall, yc + sgn * (h - wall)], [x0 + wall, yc + sgn * .030]],
+                             closed=True, fc=fc, hatch='xx', ec=INK, lw=1.1, zorder=3))
 
 
-def coupling(ax, xc):
-    for dx in (-.016, .006):
-        ax.add_patch(Rectangle((xc + dx, -.038), .010, .076, fc='0.62', ec=INK, lw=.8, zorder=6))
+def band(ax, x0, x1, yc, r0, r1, **kw):
+    for sgn in (1, -1):
+        lo = yc + sgn * r0 if sgn > 0 else yc - r1
+        ax.add_patch(Rectangle((x0, lo), x1 - x0, r1 - r0, zorder=5, **kw))
 
 
-machine(ax1, .072, .262, .120, 'motor', '1500 r/min')
-shaft(ax1, .262, .330);  coupling(ax1, .296)
-machine(ax1, .330, .512, .150, 'gearbox', 'step-up  × 20', fc='#e5ebf2', cover=True)
-shaft(ax1, .512, .580);  coupling(ax1, .546)
-machine(ax1, .580, .762, .128, 'compressor', '30 000 r/min')
-shaft(ax1, .762, .812)
+def bearing(ax, xc, yc, r0=.020, r1=.050, w=.020):
+    for sgn in (1, -1):
+        lo = yc + sgn * r0 if sgn > 0 else yc - r1
+        ax.add_patch(Rectangle((xc - w / 2, lo), w, r1 - r0, fc='white', hatch='\\\\\\',
+                               ec=INK, lw=1.0, zorder=6))
+
+
+# motor, sectioned
+ax1.plot([.030, .360], [YM, YM], **CL)
+housing(ax1, .062, .286, YM, .172)
+band(ax1, .028, .352, YM, 0, .016, fc='0.80', ec=INK, lw=1.1)
+band(ax1, .112, .232, YM, .026, .076, fc='0.86', ec=INK, lw=1.1)
+band(ax1, .106, .238, YM, .086, .146, fc='white', hatch='///', ec=INK, lw=1.1)
+for xw in (.080, .238):
+    for sgn in (1, -1):
+        ax1.add_patch(FancyBboxPatch((xw, YM + .094 if sgn > 0 else YM - .140), .026, .046,
+                                     boxstyle='round,pad=0.002,rounding_size=0.008',
+                                     fc='#c9a227', ec=INK, lw=.8, zorder=5))
+bearing(ax1, .098, YM); bearing(ax1, .250, YM)
+ax1.text(.174, .356, 'motor', ha='center', fontsize=7.6, fontweight='bold', zorder=7)
+ax1.text(.174, .316, '1500 r/min', ha='center', fontsize=6.4, color='0.3', zorder=7)
+
+for dx in (-.014, .006):        # coupling flanges
+    ax1.add_patch(Rectangle((.312 + dx, YM - .046), .009, .092, fc='0.62', ec=INK, lw=.8, zorder=6))
+
+# gearbox: the casing is sectioned, the inside is not drawn.  The input and
+# output shafts leave at different heights, which is what makes it a step-up.
+ax1.add_patch(Polygon([[.352, -.238], [.352, .232], [.536, .232], [.536, -.238]],
+                      closed=True, fc='none', ec=INK, lw=1.2, zorder=4))
+for poly in ([[.352, -.238], [.352, .232], [.376, .232], [.376, -.238]],
+             [[.512, -.238], [.512, .232], [.536, .232], [.536, -.238]],
+             [[.352, .208], [.352, .232], [.536, .232], [.536, .208]],
+             [[.352, -.238], [.352, -.214], [.536, -.214], [.536, -.238]]):
+    ax1.add_patch(Polygon(poly, closed=True, fc='#f0efe9', hatch='xx', ec=INK, lw=1.1, zorder=4))
+ax1.text(.444, .356, 'gearbox', ha='center', fontsize=7.6, fontweight='bold', zorder=7)
+ax1.text(.444, .316, 'step-up  × 20', ha='center', fontsize=6.4, color='0.3', zorder=7)
+ax1.text(.444, .010, 'sealed\ncasing', ha='center', va='center', fontsize=6.2,
+         color='0.5', style='italic', zorder=7, linespacing=1.5)
+
+# compressor, sectioned, on the raised output centre line
+ax1.plot([.520, .900], [YC, YC], **CL)
+band(ax1, .524, .884, YC, 0, .016, fc='0.80', ec=INK, lw=1.1)
+for dx in (-.014, .006):
+    ax1.add_patch(Rectangle((.556 + dx, YC - .046), .009, .092, fc='0.62', ec=INK, lw=.8, zorder=6))
+housing(ax1, .596, .784, YC, .150)
+bearing(ax1, .634, YC); bearing(ax1, .746, YC)
+ax1.text(.690, .356, 'compressor', ha='center', fontsize=7.6, fontweight='bold', zorder=7)
+ax1.text(.690, .316, '30 000 r/min', ha='center', fontsize=6.4, color='0.3', zorder=7)
 for sgn in (1, -1):
-    ax1.add_patch(Polygon([[.808, sgn * .016], [.868, sgn * .120], [.884, sgn * .096],
-                           [.830, sgn * .012]], fc=ACC, ec=INK, lw=.8, zorder=6))
-    ax1.add_patch(Polygon([[.806, sgn * .010], [.856, sgn * .066], [.872, sgn * .042],
-                           [.822, sgn * .007]], fc=ACC, ec=INK, lw=.8, alpha=.75, zorder=6))
-for xc in (.296, .546):
-    ax1.annotate('coupling', xy=(xc, .040), xytext=(xc, .224), fontsize=6.2, color='0.4',
-                 ha='center', style='italic', zorder=7,
-                 arrowprops=dict(arrowstyle='-', lw=.6, color='0.55', shrinkA=0, shrinkB=2))
+    ax1.add_patch(Polygon([[.822, YC + sgn * .016], [.884, YC + sgn * .132],
+                           [.900, YC + sgn * .108], [.842, YC + sgn * .012]],
+                          fc=ACC, ec=INK, lw=.8, zorder=6))
+    ax1.add_patch(Polygon([[.820, YC + sgn * .010], [.868, YC + sgn * .070],
+                           [.884, YC + sgn * .046], [.834, YC + sgn * .007]],
+                          fc=ACC, ec=INK, lw=.8, alpha=.75, zorder=6))
 
-ax1.add_patch(Rectangle((.058, -.232), .845, .034, fc='0.87', ec=INK, lw=1.0, zorder=3))
-ax1.text(.480, -.215, 'common baseplate', ha='center', va='center', fontsize=6.2,
+LBL1 = dict(fontsize=6.2, color='0.28', ha='center', zorder=8,
+            arrowprops=dict(arrowstyle='-', lw=.6, color='0.5', shrinkA=0, shrinkB=2))
+ax1.annotate('coupling', xy=(.312, YM + .046), xytext=(.312, .196), **LBL1)
+ax1.annotate('coupling', xy=(.556, YC + .046), xytext=(.560, .238), **LBL1)
+ax1.annotate('rolling bearings', xy=(.098, YM + .050), xytext=(.106, .196), **LBL1)
+
+ax1.add_patch(Rectangle((.050, -.300), .845, .034, fc='0.87', ec=INK, lw=1.0, zorder=3))
+ax1.text(.470, -.283, 'common baseplate', ha='center', va='center', fontsize=6.2,
          color='0.3', style='italic', zorder=6)
-ax1.plot([0, 1], [-.268, -.268], color='0.5', lw=1.0)
-ax1.add_patch(Rectangle((0, -.66), 1, .392, fc='0.965', ec='none', zorder=0))
-ax1.text(.012, -.296, 'machine floor', fontsize=6.4, color='0.45', style='italic')
-
-ax1.add_patch(Rectangle((.330, -.505), .230, .120, fc=OIL, ec=INK, lw=1.0, zorder=4))
-ax1.text(.445, -.428, 'lubrication skid', ha='center', fontsize=6.9, fontweight='bold', zorder=6)
-ax1.text(.445, -.472, 'tank  ·  pump  ·  cooler', ha='center', fontsize=6.1, color='0.35', zorder=6)
-for x in (.386, .504):
-    ax1.plot([x, x], [-.385, -.232], color=ACC2, lw=.9, ls='--', zorder=1)
-ax1.text(.585, -.300, 'oil feed and return', fontsize=6.4, color=ACC2, style='italic', va='top')
-ax1.text(.012, -.610, '2–5 % gear loss  ·  seals and oil changes  ·  a second storey below the floor',
+ax1.plot([0, 1], [-.336, -.336], color='0.5', lw=1.0)
+ax1.add_patch(Rectangle((0, -.70), 1, .364, fc='0.965', ec='none', zorder=0))
+ax1.text(.012, -.364, 'machine floor', fontsize=6.4, color='0.45', style='italic')
+ax1.add_patch(Rectangle((.340, -.570), .230, .118, fc=OIL, ec=INK, lw=1.0, zorder=4))
+ax1.text(.455, -.494, 'lubrication skid', ha='center', fontsize=6.9, fontweight='bold', zorder=6)
+ax1.text(.455, -.538, 'tank  ·  pump  ·  cooler', ha='center', fontsize=6.1, color='0.35', zorder=6)
+for x in (.396, .514):
+    ax1.plot([x, x], [-.452, -.300], color=ACC2, lw=.9, ls='--', zorder=1)
+ax1.text(.596, -.366, 'oil feed and return', fontsize=6.4, color=ACC2, style='italic', va='top')
+ax1.text(.012, -.652, '2–5 % gear loss  ·  seals and oil changes  ·  a second storey below the floor',
          fontsize=6.9, color=ACC2)
+ax1.text(.012, -.608, 'the gearbox casing is sealed; its input and output shafts leave at different heights',
+         fontsize=6.4, color='0.45', style='italic')
 
 
 # ── (b) integrated direct drive: axial section ─────────────────────────────
