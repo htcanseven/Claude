@@ -313,32 +313,29 @@ Offer to put him in touch with Peltoniemi, so that Chapters 11 and 12 are planne
 
 ## Paavo Rasilo — Chapter 9, core, rotor and aerodynamic losses
 
-*Cold approach to Tampere, two steps. Note the one gap honestly: the aerodynamic section is
-not his field, and the email says so and offers a co-author for it rather than leaving him to
-discover it.*
+*Sent (Hüseyin's version). Not a cold approach after all — he is in the same Centre of
+Excellence, so it goes in one step and asks for the letter of support directly.
+Attachment: `letters/Support_Letter_Rasilo.docx`.
+The §9.8 gap is not spelled out here; the email says he may share the work with his group or
+network, and the annotated table of contents already names J. Saari for that section, so he
+will see it there. The draft letter has him say he would bring in a co-author for the
+aerodynamic sections rather than extend his own field into them.*
 
-### First email — is the subject of interest?
+Hello Paavo,
 
-Dear Professor Rasilo,
+Together with Ilya and Juha we are preparing a proposal to Wiley-IEEE Press for a book on high-speed electrical machines and drives. I believe the topic of the book is strongly aligned with our CoE project.
 
-I am a researcher at LUT University working on high-speed electrical machines, and together with Ilya Petrov and Juha Pyrhönen I am preparing a proposal to Wiley-IEEE Press for a book on high-speed electrical machines and drives, written as a companion to *Design of Rotating Electrical Machines*.
+We started outlining the book, but we will wait for the publisher's approval before we start writing it. For the book proposal, we will initially submit a complete introductory chapter and an annotated table of contents.
 
-The book is organised so that each chapter has a single author responsible for it, and we would like to offer you Chapter 9: Core, rotor and aerodynamic losses at high speed. About thirty pages.
+One chapter is about the core, and rotor losses at high speed. The premise of the chapter is that loss models fitted at or near mains frequency do not extrapolate to fews of kilohertz. Loss separation loses much of its meaning as the frequency rises. The soft magnetic materials have to be compared as design choices rather than as datasheet entries, thin-gauge silicon iron against cobalt iron, amorphous and composites; and the degradation that cutting, stacking and joining inflict on them is itself frequency dependent, so the correction factors in common use have no dependable basis in this range. The rotor side has equal weight: surface and harmonic losses, eddy currents in sleeves, rings and magnets, magnet segmentation, and solid-rotor loss modelling.
 
-The premise of the chapter is that loss models fitted at or near mains frequency do not extrapolate to two kilohertz. Loss separation loses much of its meaning as the frequency rises; the soft magnetic materials have to be compared as design choices rather than as datasheet entries, thin-gauge silicon iron against cobalt iron, amorphous and composites; and the degradation that cutting, stacking and joining inflict on them is itself frequency dependent, so the correction factors in common use have no dependable basis in this range. The rotor side has equal weight: surface and harmonic losses, eddy currents in sleeves, rings and magnets, magnet segmentation, and solid-rotor loss modelling.
+We do not expect you to write all of it yourself. You are free to share the duties with your group or your wider network. Everyone who contributes is named at the head of the chapter. Once the publisher has approved the proposal, we will send you the detailed structure and settle the division of work with you.
 
-One part of the chapter is outside your field and we would rather say so than let you find it: §9.8 covers the aerodynamic and windage losses of the air gap. Owning the chapter would mean you bring in a co-author for that section, and Juha Saari, whose correlations the field still uses, is the natural name; we can introduce you. Everyone who contributes is named at the head of the chapter.
+Could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A draft is attached, which you are free to change as you wish.
 
-Nothing is binding at this stage: the publisher has not yet seen the proposal, and no writing would begin before a contract. For now I would simply like to know whether the subject interests you. I would gladly send you the completed introductory chapter and the annotated table of contents, or talk it through in a video call.
+Looking forward to hearing from you.
 
-Yours sincerely,
-
-Hüseyin Canseven
-LUT University
-
-### Second email — after he has said yes
-
-*Attach the clean Chapter 1, `Annotated_TOC_for_contributors.docx` and the draft letter.*
+BR, Hüseyin
 
 ---
 
