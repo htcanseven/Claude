@@ -37,7 +37,7 @@ Budgets use the publisher's formula of 600 words per page and two illustrations 
 | IV  Delivery: the drive and the applications | 11 | The drive: the converter interface | 24 | 9 600 | 16 | P. Peltoniemi |
 | | 12 | Control at high fundamental frequency | 18 | 7 200 | 12 | M. Hinkkanen |
 | | 13 | Industrial case studies: compressor drive and ORC generator | 28 | 9 300 | 22 | J. Tiainen and A. Jaatinen-Värri |
-| | 14 | Mobile case studies: traction, aerospace and e-turbo | 30 | 9 900 | 24 | J. Pippuri-Mäkeläinen |
+| | 14 | Mobile case studies: traction | 30 | 9 900 | 24 | J. Pippuri-Mäkeläinen |
 | | | **Chapters 1–14** | **412** | **161 700** | **265** | |
 | | | Front matter, appendices A–D, index | 40 | | | |
 | | | **Total** | **452** | | | |
@@ -170,7 +170,7 @@ Sections: 13.1 The gearless compressor drive: from specification to measured per
 
 Budget: 28 pages, 22 figures, 3 tables. Owners: J. Tiainen and A. Jaatinen-Värri, with A. Jaatinen-Värri as the point of contact. Contributors: the authors and I. Petrov on the machine of §13.1, J. Ikäheimo (manufacture and tolerance control, §13.3, and qualification against the standards, §13.5, both written from a manufacturer's practice), L. Aarniovuori (test rig and loss segregation, §13.4), J. Tiainen (industrial perspective). New: measured case data, and photographs of built machines and rotors supplied by the industrial contributors, which no competing title has.
 
-#### Chapter 14. Mobile case studies: traction, aerospace and e-turbo
+#### Chapter 14. Mobile case studies: traction
 
 Three mobile designs close the book. The Voltcar traction machine, the mobile running machine, is assembled and tested, with its performance under drive-cycle and thermal-transient loading reported against the design predictions of the preceding chapters. A high-specific-power aerospace generator illustrates the extreme of the mass-limited paradigm and the qualification culture of that industry. An electrically assisted turbocharger above 100 000 r/min illustrates the extreme of speed, where the machine must be nearly invisible in mass and inertia. Testing under transient conditions and overspeed, thermal and endurance qualification are described, and the failure modes of mobile high-speed machines are contrasted with the industrial ones of Chapter 13. A closing section revisits the two paradigms with the completed designs in hand and states, with numbers, why the same physics produces opposite machines.
 
