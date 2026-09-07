@@ -387,28 +387,29 @@ Best regards,
 
 ---
 
-## Jenni Pippuri-Mäkeläinen — the Voltcar machine, and permission to publish it
+## Jenni Pippuri-Mäkeläinen — the Voltcar machine and Chapter 14
 
-*She manages the Voltcar project and is a colleague from it, so this is a warm approach.
-Two asks, and the order matters: the permission question comes first because ten chapters
-depend on that machine, and the offer of Chapter 14 second. The letter of support waits for
-the follow-up; three asks in one email is too many.*
+*Sent (Hüseyin's version). She manages the Voltcar project and is a friend of the group, so
+no chapter or table of contents goes with it and the letter of support is asked for in the
+same email rather than in a follow-up. The consortium's permission to publish the Voltcar
+results is not raised here; it is carried instead in the support letter, where she states
+that she will obtain it — which is the right place for it, since the machine is hers to
+clear and the publisher is the party who needs to know.
+Attachment: `letters/Support_Letter_Pippuri-Makelainen.docx`.*
 
 Hello Jenni,
 
 I am writing about something that has grown out of Voltcar.
 
-Together with Ilya Petrov and Juha Pyrhönen I am preparing a proposal to Wiley-IEEE Press for a book on high-speed electrical machines and drives, written as a companion to *Design of Rotating Electrical Machines*. It is a design book, and its argument is that high-speed design runs the opposite way from conventional practice: the mechanical and rotordynamic limits fix the rotor first, the converter fixes the admissible pole number, and the electromagnetic design is fitted into what remains.
+Together with Ilya and Juha we are preparing a proposal to Wiley-IEEE Press for a book on high-speed electrical machines and drives. It is a design book, and its argument is that high-speed design runs the opposite way from conventional practice: the mechanical and rotordynamic limits fix the rotor first, the converter fixes the admissible pole number, and the electromagnetic design is fitted into what remains.
 
-To make that concrete the book carries two machines through every chapter, from specification to measured performance, one industrial and one mobile. The mobile one is the Voltcar traction machine. It is specified in Chapter 2, and its rotor retention, rotordynamics, bearings, electromagnetic sizing, windings, losses, cooling, converter and control follow through Chapters 4 to 12 before the complete design is assembled and tested in Chapter 14. Ten chapters rest on it, and VTT and the project would be named wherever it appears.
+To make that concrete the book carries two machines, from specification to measured performance, one industrial and one mobile. The mobile one might be the Voltcar machine. It will be specified in rotor retention, rotordynamics, bearings, electromagnetic sizing, windings, losses, cooling, converter and control follow, and complete design and tests. Some of the chapters rest on it, and VTT and the Voltcar project would be named wherever it appears.
 
-Which is why I am writing to you before anyone else rather than after. Before the proposal goes to Wiley we should know whether the project's results may be published in this form, and what the consortium agreement allows. If the answer is no, or only in part, we would far rather choose differently now than find out after a contract is signed. Could you tell me what applies, and whether others in the consortium need to agree as well?
+We would like you in the book. Each chapter has one author responsible for it, and we would like to offer you a mobile case studies chapter. Its first section is the Voltcar machine carried from specification to measured performance, which ought to be written by the person who ran the project rather than by us. The chapter also covers a high-specific-power machine for aerospace applications and an electrically assisted turbocharger above 100 000 r/min, and you would bring in co-authors for those rather than write them yourself. The closing section, where the industrial and the mobile paradigms are compared with the finished designs in hand, we would write with you, since it is the argument the whole book has been building. Everyone who contributes is named at the head of the chapter.
 
-Second, and separately: we would like you in the book. Each chapter has one author responsible for it, and we would like to offer you Chapter 14, the mobile case studies, about thirty pages. Its first section is the Voltcar machine carried from specification to measured performance, which ought to be written by the person who ran the project rather than by us reporting it second-hand. The chapter also covers a high-specific-power aerospace generator and an electrically assisted turbocharger above 100 000 r/min, and you would bring in co-authors for those rather than write them yourself; we can suggest names. The closing section, where the industrial and the mobile paradigms are compared with the finished designs in hand, we would write with you, since it is the argument the whole book has been building. Everyone who contributes is named at the head of the chapter.
+If you would like to join, could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A sample is attached, which you are free to change as you wish.
 
-I attach the completed introductory chapter and the annotated table of contents so that you can see the whole plan and where Voltcar sits in it. Nothing is binding at this stage: the publisher has not yet seen the proposal, and no writing would begin before a contract.
-
-I would be glad to talk it through whenever suits you.
+Looking forward to hearing from you.
 
 BR, Hüseyin
 
