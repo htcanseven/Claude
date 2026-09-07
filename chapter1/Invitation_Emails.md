@@ -153,7 +153,7 @@ Thank you for the quick and positive reply to Juha. Let me be concrete about the
 
 We started outlining the book, but we will wait for the publisher's approval before we start writing it. For the book proposal, we will initially submit a complete introductory chapter and an annotated table of contents.
 
-We had three places in mind. In the chapter on machine topologies, the sections on induction machines, which the book treats as the industrial workhorse and which are far better written from the manufacturing side than from the literature. In the industrial case-study chapter, manufacture and tolerance control, and qualification against the international standards, both from practice rather than from the standards themselves. And the photographs and machine material you might provide, which we would use across the whole book (competing titles are illustrated almost entirely with line drawings, so real machines would set ours apart).
+We had three places in mind. In the chapter on machine topologies, the sections on induction machines, which the book treats as the industrial workhorse and which are far better written from the manufacturing side than from the literature. In Chapter 13, the industrial case studies, manufacture and tolerance control, and qualification against the international standards, both from practice rather than from the standards themselves. And the photographs and machine material you might provide, which we would use across the whole book (competing titles are illustrated almost entirely with line drawings, so real machines would set ours apart).
 
 You offered material and a contribution both, and it would help to know which of the two you want to commit to. It would also help to know early whether ABB would allow the photographs, and any data, to be published.
 
@@ -231,21 +231,10 @@ LUT University
 
 ---
 
-## Janne Nerg — thermal management and cooling
+## Janne Nerg — not approached
 
-Hello Janne,
-
-We are preparing a proposal to Wiley-IEEE Press for a new book on high-speed electrical machines together with Ilya Petrov and Juha Pyrhönen, and we would like you to contribute to it.
-
-We started outlining the book, but we will wait for the publisher's approval before we start writing it. For the book proposal, we will initially submit a complete introductory chapter and an annotated table of contents.
-
-One chapter is about thermal management and cooling. The thermal problem turns around at high speed: the losses concentrate while the surface that has to reject them shrinks, and the rotor, which is the easy side in an ordinary machine, sits behind a retaining sleeve that the mechanical design requires and that also insulates it. The part we would like to ask you for is the modelling half: lumped-parameter thermal networks for machines of this loss density, with the contact resistances and the calibration that make them trustworthy and the point at which conjugate heat transfer becomes necessary; the transient behaviour under overload and drive cycles, which is how mobile machines are actually rated; and thermal measurement and validation on a rotating rotor. We would also like to work with you on the thermal design of the two machines that run through the whole book. That is about eight pages of a twenty-eight page chapter. The cooling architectures and the air-gap convection are being written by others, and one of us owns the chapter, so your part stays within the modelling. Everyone who contributes is named at the head of the chapter.
-
-If you would like to join, could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A draft is attached, which you are free to change as you wish.
-
-Looking forward to hearing from you.
-
-BR, Hüseyin
+*Chapter 10 belongs to Rafal Wrobel entire. If he wants a thermal-networks collaborator,
+that is his invitation to make, not ours. Nothing to send.*
 
 ---
 
@@ -259,7 +248,7 @@ I have told you about the book idea on high-speed machines and drives and you ag
 
 We started outlining the book, but we will wait for the publisher's approval before we start writing it. For the book proposal, we will initially submit a complete introductory chapter and an annotated table of contents.
 
-One chapter is about the drive, and we would like you to lead it. The book treats the converter not as one constraint among several but as the enabler that decides which machines can be built at all, so this chapter carries a good part of the argument: the converter interface, silicon against SiC and GaN, DC-link voltage and du/dt issues under fast switching, and EMC. We do not expect you to write all of it yourself. You are free to share the duties with some of the power electronics people in our lab or from your wider network; we could invite [Freede], for instance, to contribute to this chapter. Everyone who contributes is named at the head of the chapter. Once the publisher has approved the proposal, we will send you the detailed structure and settle the division of work with you.
+One chapter is about the drive, and we would like you to lead it. The book treats the converter not as one constraint among several but as the enabler that decides which machines can be built at all, so this chapter carries a good part of the argument: the converter interface, silicon against SiC and GaN, DC-link voltage and du/dt issues under fast switching, EMC, and the matching of each of the two example machines to its converter. Control at high fundamental frequency has become a chapter of its own, which keeps yours to about twenty-four pages. We do not expect you to write all of it yourself. You are free to share the duties with some of the power electronics people in our lab or from your wider network; we could invite [Freede], for instance, to contribute to this chapter. Everyone who contributes is named at the head of the chapter. Once the publisher has approved the proposal, we will send you the detailed structure and settle the division of work with you.
 
 Could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A draft is attached, which you are free to change as you wish.
 
@@ -280,7 +269,7 @@ We are preparing a proposal to Wiley-IEEE Press for a new book on high-speed ele
 
 We started outlining the book, but we will wait for the publisher's approval before we start writing it. For the book proposal, we will initially submit a complete introductory chapter and an annotated table of contents.
 
-Your part would be the measurement side, in two places. In the chapter on the drive, the converter harmonics and the rotor heating they cause, which matters far more at high speed than at mains frequency because those losses land in a rotor that the air gap and the retaining sleeve keep thermally isolated. And in the industrial case-study chapter, the test rig, the instrumentation and the loss segregation of a high-speed machine, where the electrical methods run out and calorimetry has to take over. We would like that one written in enough detail that a reader could repeat it, because most books state results without saying how they were obtained. About eleven pages between the two. Everyone who contributes is named at the head of the chapter, and once the publisher has approved the proposal we will send you the detailed structure.
+Your part would be the measurement side, in two places. In Chapter 11, on the converter, the harmonics and the rotor heating they cause, which matters far more at high speed than at mains frequency because those losses land in a rotor that the air gap and the retaining sleeve keep thermally isolated. And in Chapter 13, the industrial case studies, the test rig, the instrumentation and the loss segregation of a high-speed machine, where the electrical methods run out and calorimetry has to take over. We would like that one written in enough detail that a reader could repeat it, because most books state results without saying how they were obtained. About eleven pages between the two. Everyone who contributes is named at the head of the chapter, and once the publisher has approved the proposal we will send you the detailed structure.
 
 Could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A draft is attached, which you are free to change as you wish.
 
@@ -290,17 +279,11 @@ BR, Hüseyin
 
 ---
 
-## Marko Hinkkanen — control at low pulse ratios
+## Marko Hinkkanen — Chapter 12, control at high fundamental frequency
 
-*HOLD. Chapter 11 has one owner, Pasi Peltoniemi, who has already agreed to lead it, and
-under the one-chapter-one-owner rule Hinkkanen cannot own a chapter somebody else owns.
-Peltoniemi's email asks him to build the team; wait for his answer. If he wants Hinkkanen,
-the invitation comes from him, not from us. If he names someone else, this is closed.*
-
-*Otherwise, he is at Aalto and has not met Hüseyin, so this is a two-step approach like Wrobel's and
-Saari's: the first email asks only whether the subject interests him and attaches nothing.
-An introduction from Juha, or from Anouar Belahcen at the same university, would help; and
-if it turns out Hüseyin does know him, the two emails collapse into one.*
+*The earlier hold is lifted: the drive chapter has been split, so he is offered a chapter of
+his own rather than sections inside Peltoniemi's. Cold approach, two steps; an introduction
+from Juha or from Anouar Belahcen at the same university would help.*
 
 ### First email — is the subject of interest?
 
@@ -308,11 +291,11 @@ Dear Professor Hinkkanen,
 
 I am a researcher at LUT University working on high-speed electrical machines, and together with Ilya Petrov and Juha Pyrhönen I am preparing a proposal to Wiley-IEEE Press for a book on high-speed electrical machines and drives, written as a companion to *Design of Rotating Electrical Machines*.
 
-One of its chapters treats the drive as the element that decides which machines can be built at all. The converter half of that chapter is being written by Pasi Peltoniemi at LUT, and the part we would like to ask you for is the control half: what changes when the fundamental frequency is high enough that the pulse ratio falls to ten or below. Current regulation and overmodulation at low pulse ratios, position sensing and sensorless operation at kilohertz fundamental frequency, and run-up through the critical speeds together with field weakening and protection. About ten pages.
+The book is organised so that each chapter has a single author who is responsible for it. One of them is Chapter 12, Control at high fundamental frequency, about eighteen pages, and we would like to offer it to you.
 
-We ask because that material does not seem to be set out anywhere for a designer. Control methods are usually developed and demonstrated where the converter can still be treated as a continuous voltage source, and whether they survive at a pulse ratio of eight is left open.
+Its subject is what happens when the fundamental frequency is high enough that only eight or ten pulses fall in a period. Current regulation, overmodulation and six-step operation on that basis; position sensing and sensorless operation where the back-EMF is generous but the sampling is not; run-up through the critical speeds; field weakening and protection. Chapter 11, on the converter itself, is written by Pasi Peltoniemi at LUT and hands the pulse ratio to you.
 
-You would certainly not need to write it alone. Colleagues from your group or your wider network would be very welcome, and everyone who contributes is named at the head of the chapter. The book will also carry companion Python notebooks reproducing its figures and design calculations, and if that overlaps with your group's own simulation work, so much the better.
+We ask because that material does not seem to be set out anywhere for a designer. Control methods are usually developed and demonstrated where the converter can still be treated as a continuous voltage source, and whether they survive at a pulse ratio of eight is left open. Owning the chapter would mean you decide what it contains, and whether to write it alone or with colleagues of your own choosing; everyone who contributes is named at the head of the chapter. The book will also carry companion Python notebooks reproducing its figures and design calculations, and if that overlaps with your group's own simulation work, so much the better.
 
 Nothing is binding at this stage: the publisher has not yet seen the proposal, and no writing would begin before a contract. For now I would simply like to know whether the subject interests you. I would gladly send you the completed introductory chapter and the annotated table of contents, or talk it through in a video call, whichever is easier.
 
@@ -323,20 +306,63 @@ LUT University
 
 ### Second email — after he has said yes
 
-*Attach Chapter 1, the annotated table of contents, and the draft letter of support.*
+*Attach the clean Chapter 1, `Annotated_TOC_for_contributors.docx` and the draft letter.
+Offer to put him in touch with Peltoniemi, so that Chapters 11 and 12 are planned together.*
 
-Dear Professor Hinkkanen,
+---
 
-Thank you, I am glad the subject interests you. I attach the completed introductory chapter and the annotated table of contents so that you can see where your sections would sit and what the book is arguing; the control sections are 11.8 to 11.10.
+## Paavo Rasilo — Chapter 9, core, rotor and aerodynamic losses
 
-One further request, if you are willing. We are collecting short letters of support to send to Wiley together with the proposal. Letters from the named contributors carry real weight with a publisher's reviewers, because they show that the people listed exist, have agreed, and see the need for the book from their own field. I attach a draft to show what such a letter usually contains; please change it as you see fit, or write something quite different if you would rather.
+*Cold approach to Tampere, two steps. Note the one gap honestly: the aerodynamic section is
+not his field, and the email says so and offers a co-author for it rather than leaving him to
+discover it.*
 
-I would also gladly put you in touch with Pasi Peltoniemi, so that the two halves of the chapter can be planned together from the start.
+### First email — is the subject of interest?
+
+Dear Professor Rasilo,
+
+I am a researcher at LUT University working on high-speed electrical machines, and together with Ilya Petrov and Juha Pyrhönen I am preparing a proposal to Wiley-IEEE Press for a book on high-speed electrical machines and drives, written as a companion to *Design of Rotating Electrical Machines*.
+
+The book is organised so that each chapter has a single author responsible for it, and we would like to offer you Chapter 9: Core, rotor and aerodynamic losses at high speed. About thirty pages.
+
+The premise of the chapter is that loss models fitted at or near mains frequency do not extrapolate to two kilohertz. Loss separation loses much of its meaning as the frequency rises; the soft magnetic materials have to be compared as design choices rather than as datasheet entries, thin-gauge silicon iron against cobalt iron, amorphous and composites; and the degradation that cutting, stacking and joining inflict on them is itself frequency dependent, so the correction factors in common use have no dependable basis in this range. The rotor side has equal weight: surface and harmonic losses, eddy currents in sleeves, rings and magnets, magnet segmentation, and solid-rotor loss modelling.
+
+One part of the chapter is outside your field and we would rather say so than let you find it: §9.8 covers the aerodynamic and windage losses of the air gap. Owning the chapter would mean you bring in a co-author for that section, and Juha Saari, whose correlations the field still uses, is the natural name; we can introduce you. Everyone who contributes is named at the head of the chapter.
+
+Nothing is binding at this stage: the publisher has not yet seen the proposal, and no writing would begin before a contract. For now I would simply like to know whether the subject interests you. I would gladly send you the completed introductory chapter and the annotated table of contents, or talk it through in a video call.
 
 Yours sincerely,
 
 Hüseyin Canseven
 LUT University
+
+### Second email — after he has said yes
+
+*Attach the clean Chapter 1, `Annotated_TOC_for_contributors.docx` and the draft letter.*
+
+---
+
+## Ahti Jaatinen-Värri and Jonna Tiainen — Chapter 13, the industrial case studies
+
+*One email to both, since they would own the chapter jointly; Ahti is the LUT colleague and
+the natural point of contact. It states plainly which part is theirs and which part Ilya
+Petrov writes, so that the split is agreed rather than discovered.*
+
+Hello Ahti and Jonna,
+
+Together with Ilya Petrov and Juha Pyrhönen I am preparing a proposal to Wiley-IEEE Press for a book on high-speed electrical machines and drives, written as a companion to *Design of Rotating Electrical Machines*. It is a design book, and its argument is that high-speed design runs the opposite way from conventional practice: the mechanical and rotordynamic limits fix the rotor first, the converter fixes the admissible pole number, and the electromagnetic design is fitted into what remains.
+
+Two machines are carried through every chapter from specification to measured performance, one industrial and one mobile, and the book closes with a case-study chapter for each. We would like to offer you Chapter 13, the industrial one: the gearless compressor drive that runs through the whole book, an organic Rankine cycle turbogenerator, manufacture and tolerance control, the test rig and loss segregation at high speed, qualification against API 617 and 541, IEC 60034-25 and the ISO balancing and vibration standards, and the failure modes with the design lessons drawn from them. About twenty-eight pages.
+
+The reason we are asking the two of you is that the chapter needs both sides of the machine. The driven machine, the compressor and the ORC turbine, is where the speed requirement originates and where the case has to be judged; that part is yours. The electrical machine of §13.1 would be written by Ilya Petrov as your co-author, since the industrial running machine is LUT's own two-megawatt solid-rotor design and the test results are ours. Jouni Ikäheimo at ABB is expected to write the manufacture and qualification sections, and Lassi Aarniovuori the loss segregation, both as co-authors you would coordinate.
+
+Each chapter has a single owner who decides what it contains and answers for its coherence; for this one that would be the two of you together, with Ahti as our point of contact. Everyone who contributes is named at the head of the chapter.
+
+Nothing is binding at this stage: the publisher has not yet seen the proposal, and no writing would begin before a contract. For now I would like to know whether the idea interests you, and I would gladly send you the completed introductory chapter and the annotated table of contents, or talk it through whenever suits.
+
+Looking forward to hearing from you.
+
+BR, Hüseyin
 
 ---
 
@@ -364,8 +390,8 @@ Best regards,
 ## Jenni Pippuri-Mäkeläinen — the Voltcar machine, and permission to publish it
 
 *She manages the Voltcar project and is a colleague from it, so this is a warm approach.
-Two asks, and the order matters: the permission question comes first because nine chapters
-depend on that machine, and the invitation to write second. The letter of support waits for
+Two asks, and the order matters: the permission question comes first because ten chapters
+depend on that machine, and the offer of Chapter 14 second. The letter of support waits for
 the follow-up; three asks in one email is too many.*
 
 Hello Jenni,
@@ -374,11 +400,11 @@ I am writing about something that has grown out of Voltcar.
 
 Together with Ilya Petrov and Juha Pyrhönen I am preparing a proposal to Wiley-IEEE Press for a book on high-speed electrical machines and drives, written as a companion to *Design of Rotating Electrical Machines*. It is a design book, and its argument is that high-speed design runs the opposite way from conventional practice: the mechanical and rotordynamic limits fix the rotor first, the converter fixes the admissible pole number, and the electromagnetic design is fitted into what remains.
 
-To make that concrete the book carries two machines through every chapter, from specification to measured performance, one industrial and one mobile. The mobile one is the Voltcar traction machine. It is specified in Chapter 2, and its rotor retention, rotordynamics, bearings, electromagnetic sizing, windings, losses, cooling and converter follow through Chapters 4 to 11 before the complete design is assembled and tested in Chapter 13. Nine chapters rest on it, and VTT and the project would be named wherever it appears.
+To make that concrete the book carries two machines through every chapter, from specification to measured performance, one industrial and one mobile. The mobile one is the Voltcar traction machine. It is specified in Chapter 2, and its rotor retention, rotordynamics, bearings, electromagnetic sizing, windings, losses, cooling, converter and control follow through Chapters 4 to 12 before the complete design is assembled and tested in Chapter 14. Ten chapters rest on it, and VTT and the project would be named wherever it appears.
 
 Which is why I am writing to you before anyone else rather than after. Before the proposal goes to Wiley we should know whether the project's results may be published in this form, and what the consortium agreement allows. If the answer is no, or only in part, we would far rather choose differently now than find out after a contract is signed. Could you tell me what applies, and whether others in the consortium need to agree as well?
 
-Second, and separately: we would like you in the book. Chapter 13 presents the mobile case studies, and its first section is the Voltcar machine carried from specification to measured performance. That section ought to be written by the person who ran the project rather than by us reporting it second-hand. About seven pages. The chapter itself is ours, so you would be a co-author of it, named at the head of the chapter, with nothing expected of you beyond your own section.
+Second, and separately: we would like you in the book. Each chapter has one author responsible for it, and we would like to offer you Chapter 14, the mobile case studies, about thirty pages. Its first section is the Voltcar machine carried from specification to measured performance, which ought to be written by the person who ran the project rather than by us reporting it second-hand. The chapter also covers a high-specific-power aerospace generator and an electrically assisted turbocharger above 100 000 r/min, and you would bring in co-authors for those rather than write them yourself; we can suggest names. The closing section, where the industrial and the mobile paradigms are compared with the finished designs in hand, we would write with you, since it is the argument the whole book has been building. Everyone who contributes is named at the head of the chapter.
 
 I attach the completed introductory chapter and the annotated table of contents so that you can see the whole plan and where Voltcar sits in it. Nothing is binding at this stage: the publisher has not yet seen the proposal, and no writing would begin before a contract.
 
@@ -388,19 +414,8 @@ BR, Hüseyin
 
 ---
 
-## Aerospace contributor — high-specific-power generator case study
+## Aerospace and e-turbocharger contributors — not ours to invite
 
-Hello [name],
-
-We are preparing a proposal to Wiley-IEEE Press for a new book on high-speed electrical machines together with Ilya Petrov and Juha Pyrhönen, and we would like you to contribute to it.
-
-We started outlining the book, but we will wait for the publisher's approval before we start writing it. For the book proposal, we will initially submit a complete introductory chapter and an annotated table of contents.
-
-The book closes with case studies, and one of them should be an aerospace generator, as the extreme of the mass-limited design that runs through the whole text: the specification, the design decisions that differ from those of a traction machine, and the test and qualification programme. Measured data would make the section, but a design study with representative numbers would serve if nothing can be released. Everyone who contributes is named at the head of the chapter. Once the publisher has approved the proposal, we will send you the detailed structure.
-
-If you would like to join, could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A sample is attached, which you are free to change as you wish.
-
-Could you let us know by [date]? We plan to submit on [date].
-
-Best regards,
-[signature]
+*Sections 14.2 and 14.3 sit inside Chapter 14, which belongs to Jenni Pippuri-Mäkeläinen.
+Under the one-chapter-one-owner rule she recruits them, and we suggest names if she asks.
+Nothing to send.*

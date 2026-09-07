@@ -16,7 +16,7 @@ Between the review papers on high-speed machines and the research monographs the
 
 **New material.** The fP classification criterion for high-speed drives, calibrated against a survey of built machines; the constraints-first sizing procedure; the corrected scaling analysis, including the result that a doubling of design speed degrades the rotordynamic margin sixteenfold; converter co-design rules for the SiC and GaN era; the thermal design of a rotor that sits behind a retaining sleeve which is a structural necessity and a thermal insulator; and case studies from current projects, carried from specification to measured validation.
 
-**Companion material.** A set of Python notebooks reproducing every analytical figure in the book and implementing the design procedures of Chapters 6, 7, 9, 10 and 11, published on the Wiley companion site.
+**Companion material.** A set of Python notebooks reproducing every analytical figure in the book and implementing the design procedures of Chapters 6, 7, 9, 10, 11 and 12, published on the Wiley companion site.
 
 ## 2. Structure at a glance
 
@@ -31,21 +31,22 @@ Budgets use the publisher's formula of 600 words per page and two illustrations 
 | | 5 | Rotordynamics and vibration | 30 | 11 400 | 20 | J. Sopanen |
 | | 6 | Bearings, lubrication and seals for high-speed rotors | 30 | 12 000 | 20 | J. Sopanen |
 | III  Electromagnetic and thermal design within the constraints | 7 | Sizing under the speed constraint: the inverted procedure | 36 | 14 400 | 20 | authors |
-| | 8 | AC winding losses and conductor design | 28 | 11 100 | 18 | authors |
-| | 9 | Core, rotor and aerodynamic losses at high speed | 30 | 12 000 | 20 | A. Belahcen |
+| | 8 | AC winding losses and conductor design | 28 | 11 100 | 18 | A. Belahcen |
+| | 9 | Core, rotor and aerodynamic losses at high speed | 30 | 12 000 | 20 | P. Rasilo |
 | | 10 | Thermal management and cooling architectures | 28 | 11 400 | 18 | R. Wrobel |
-| IV  Delivery: the drive and the applications | 11 | The drive: converter interface and control at high fundamental frequency | 40 | 16 200 | 26 | P. Peltoniemi |
-| | 12 | Industrial case studies: compressor drive and ORC generator | 28 | 9 300 | 22 | authors |
-| | 13 | Mobile case studies: traction, aerospace and e-turbo | 30 | 9 900 | 24 | authors |
-| | | **Chapters 1–13** | **410** | **161 400** | **263** | |
+| IV  Delivery: the drive and the applications | 11 | The drive: the converter interface | 24 | 9 600 | 16 | P. Peltoniemi |
+| | 12 | Control at high fundamental frequency | 18 | 7 200 | 12 | M. Hinkkanen |
+| | 13 | Industrial case studies: compressor drive and ORC generator | 28 | 9 300 | 22 | J. Tiainen and A. Jaatinen-Värri |
+| | 14 | Mobile case studies: traction, aerospace and e-turbo | 30 | 9 900 | 24 | J. Pippuri-Mäkeläinen |
+| | | **Chapters 1–14** | **412** | **161 700** | **265** | |
 | | | Front matter, appendices A–D, index | 40 | | | |
-| | | **Total** | **450** | | | |
+| | | **Total** | **452** | | | |
 
 ## 3. Devices used throughout the book
 
-**Two running machines.** The two-pole industrial compressor drive and the six-pole Voltcar traction machine are specified in Chapter 2, given their rotor retention in Chapter 4, their rotordynamic verification in Chapter 5, their bearings in Chapter 6, their electromagnetic sizing in Chapter 7, their windings in Chapter 8, their loss balance in Chapter 9, their cooling and thermal design in Chapter 10, their converters in Chapter 11, and are assembled into complete, measured designs in Chapters 12 and 13. Every design chapter therefore ends with the same two worked examples, and the reader can follow one machine through the whole procedure.
+**Two running machines.** The two-pole industrial compressor drive and the six-pole Voltcar traction machine are specified in Chapter 2, given their rotor retention in Chapter 4, their rotordynamic verification in Chapter 5, their bearings in Chapter 6, their electromagnetic sizing in Chapter 7, their windings in Chapter 8, their loss balance in Chapter 9, their cooling and thermal design in Chapter 10, their converters in Chapter 11, their control in Chapter 12, and are assembled into complete, measured designs in Chapters 13 and 14. Every design chapter therefore ends with the same two worked examples, and the reader can follow one machine through the whole procedure.
 
-**A closing comparison in every design chapter.** Chapters 3 to 11 each close with a short section stating how the industrial and the mobile machine resolve that chapter's trade-off differently. This is the industrial-versus-mobile spine made explicit.
+**A closing comparison in every design chapter.** Chapters 3 to 12 each close with a short section stating how the industrial and the mobile machine resolve that chapter's trade-off differently. This is the industrial-versus-mobile spine made explicit.
 
 **The DREM boundary.** Each chapter opens by naming the conventional assumption it will replace, with a reference to the corresponding treatment in *Design of Rotating Electrical Machines*, so that the two books can be used together without overlap.
 
@@ -145,29 +146,37 @@ Budget: 28 pages, 18 figures, 3 tables. Owner: R. Wrobel, for the chapter entire
 
 ### Part IV — Delivery: the drive and the applications
 
-#### Chapter 11. The drive: converter interface and control at high fundamental frequency
+#### Chapter 11. The drive: the converter interface
 
-The converter is not a fourth constraint but the gatekeeper that decides which region of the design space can be reached. The chapter develops the modulation ratio and the synchronous-PWM and control-stability thresholds, then shows why current harmonics matter more at high speed: they are deposited in a rotor that the air gap and the retaining sleeve thermally isolate, so that the harmonic content of the supply is settled against the rotor thermal path of Chapter 10. Silicon, silicon carbide and gallium nitride devices are compared on switching-loss economics, and the consequences of fast switching for the machine are treated in full, DC-link voltage and du/dt, output filter options, insulation under fast switching including partial-discharge inception and Type II systems, and bearing currents and their mitigation. Converter integration and EMC follow. The control half of the chapter addresses what changes at low pulse ratios: current regulation, overmodulation and six-step operation, position sensing and sensorless operation, run-up through critical speeds, field weakening and protection. The chapter closes with the co-design procedure, matching pole count to converter capability, applied to both running machines.
+The converter is not a fourth constraint but the gatekeeper that decides which region of the design space can be reached at all. The chapter develops the modulation ratio and the synchronous-PWM and control-stability thresholds, then shows why current harmonics matter more at high speed: they are deposited in a rotor that the air gap and the retaining sleeve thermally isolate, so the harmonic content of the supply is settled against the rotor thermal path of Chapter 10. Silicon, silicon carbide and gallium nitride devices are compared on switching-loss economics, and the consequences of fast switching for the machine are treated in full: DC-link voltage and du/dt, output filter options, insulation under fast switching including partial-discharge inception and Type II systems, and bearing currents and their mitigation. Converter integration and EMC follow. The chapter closes with the co-design procedure, matching pole count to converter capability, applied to both running machines; Chapter 12 then takes up what the resulting pulse ratio does to the control.
 
-Sections: 11.1 Modulation ratio and synchronous PWM · 11.2 Current harmonics and rotor heating · 11.3 Silicon, SiC and GaN: switching-loss economics · 11.4 DC-link voltage, du/dt and filters · 11.5 Insulation under fast switching · 11.6 Bearing currents · 11.7 Converter integration and EMC · 11.8 Control at low pulse ratios · 11.9 Position sensing and sensorless operation · 11.10 Run-up through critical speeds, field weakening, protection · 11.11 Co-design of the two running machines with their converters.
+Sections: 11.1 Modulation ratio and synchronous PWM · 11.2 Current harmonics and rotor heating · 11.3 Silicon, SiC and GaN: switching-loss economics · 11.4 DC-link voltage, du/dt and filters · 11.5 Insulation under fast switching · 11.6 Bearing currents · 11.7 Converter integration and EMC · 11.8 Co-design of the two running machines with their converters.
 
-Budget: 40 pages, 26 figures, 2 tables. Owner: P. Peltoniemi, who writes the converter sections, 11.1 and 11.3 to 11.7, and recruits the control sections 11.8 to 11.10 and the harmonic-loss section 11.2; L. Aarniovuori is the intended name for the latter. DREM boundary: not covered in the earlier book.
+Budget: 24 pages, 16 figures, 2 tables. Owner: P. Peltoniemi, who recruits §11.2 on harmonic losses; L. Aarniovuori is the intended name for it. DREM boundary: not covered in the earlier book.
 
-#### Chapter 12. Industrial case studies: compressor drive and ORC generator
+#### Chapter 12. Control at high fundamental frequency
+
+Chapter 11 leaves the designer with a pulse ratio; this chapter says what can then be done with it. Almost all drive control is developed on the assumption that the switching frequency lies far above the fundamental, so that the converter can be treated as a continuous voltage source and the controller designed by continuous-time methods. At eight or ten pulses in a fundamental period that assumption fails: the computational and modulation delays occupy a substantial part of the period, the discrete-time nature of the controller stops being an implementation detail, and the achievable current-control bandwidth becomes a constraint on the machine rather than a property of the controller. Current regulation, overmodulation and six-step operation are developed on that basis. Position sensing and sensorless operation are treated at kilohertz fundamental frequency, where the back-EMF is generous but the sampling is not, and the conditions under which each method remains valid are stated rather than left to the reader. Run-up through the critical speeds of Chapter 5, field weakening and protection close the technical part, and the chapter ends with the control of the two running machines.
+
+Sections: 12.1 What changes when the pulse ratio falls to ten · 12.2 Current regulation, overmodulation and six-step operation · 12.3 Position sensing and sensorless operation at high fundamental frequency · 12.4 Run-up through the critical speeds · 12.5 Field weakening and protection · 12.6 Control of the two running machines.
+
+Budget: 18 pages, 12 figures, 1 table. Owner: M. Hinkkanen. New: the pulse-ratio limit stated as a machine-design constraint rather than a control problem. DREM boundary: not covered in the earlier book.
+
+#### Chapter 13. Industrial case studies: compressor drive and ORC generator
 
 Two complete industrial designs are carried from specification to measured performance. The first is the gearless compressor drive that has served as the industrial running machine throughout the book, now assembled: its rotor, bearings, cooling, electromagnetic design and converter are brought together, built and tested. The second is an organic Rankine cycle turbogenerator, chosen because it exercises the generator side and the high-temperature environment. Manufacture and tolerance control are treated as part of the design, since at high speed they are, and they are written by an engineer from a manufacturer that builds these machines rather than inferred from the outside. The test rig, instrumentation and loss segregation at high speed are described in enough detail to be reproduced, with calorimetric methods where electrical methods fail. Qualification is addressed against the standards that industrial customers require, API 617 and API 541, IEC 60034-25 for converter-fed machines, ISO 21940 balancing grades and ISO 20816 vibration. The chapter closes with the failure modes observed in industrial high-speed machines and the design lessons drawn from them.
 
-Sections: 12.1 The gearless compressor drive: from specification to measured performance · 12.2 The ORC turbogenerator · 12.3 Manufacture and tolerance control · 12.4 Test rig, instrumentation and loss segregation at high speed · 12.5 Qualification against standards · 12.6 Failure modes and design lessons.
+Sections: 13.1 The gearless compressor drive: from specification to measured performance · 13.2 The ORC turbogenerator · 13.3 Manufacture and tolerance control · 13.4 Test rig, instrumentation and loss segregation at high speed · 13.5 Qualification against standards · 13.6 Failure modes and design lessons.
 
-Budget: 28 pages, 22 figures, 3 tables. Contributors: authors, the compressor case, §12.1, source to be confirmed, J. Ikäheimo (manufacture and tolerance control, 12.3, and qualification against the standards, 12.5, both written from a manufacturer's practice), L. Aarniovuori (test rig and loss segregation, 12.4), J. Tiainen (industrial perspective). New: measured case data, and photographs of built machines and rotors supplied by the industrial contributors, which no competing title has.
+Budget: 28 pages, 22 figures, 3 tables. Owners: J. Tiainen and A. Jaatinen-Värri, with A. Jaatinen-Värri as the point of contact. Contributors: the authors and I. Petrov on the machine of §13.1, J. Ikäheimo (manufacture and tolerance control, §13.3, and qualification against the standards, §13.5, both written from a manufacturer's practice), L. Aarniovuori (test rig and loss segregation, §13.4), J. Tiainen (industrial perspective). New: measured case data, and photographs of built machines and rotors supplied by the industrial contributors, which no competing title has.
 
-#### Chapter 13. Mobile case studies: traction, aerospace and e-turbo
+#### Chapter 14. Mobile case studies: traction, aerospace and e-turbo
 
-Three mobile designs close the book. The Voltcar traction machine, the mobile running machine, is assembled and tested, with its performance under drive-cycle and thermal-transient loading reported against the design predictions of the preceding chapters. A high-specific-power aerospace generator illustrates the extreme of the mass-limited paradigm and the qualification culture of that industry. An electrically assisted turbocharger above 100 000 r/min illustrates the extreme of speed, where the machine must be nearly invisible in mass and inertia. Testing under transient conditions and overspeed, thermal and endurance qualification are described, and the failure modes of mobile high-speed machines are contrasted with the industrial ones of Chapter 12. A closing section revisits the two paradigms with the completed designs in hand and states, with numbers, why the same physics produces opposite machines.
+Three mobile designs close the book. The Voltcar traction machine, the mobile running machine, is assembled and tested, with its performance under drive-cycle and thermal-transient loading reported against the design predictions of the preceding chapters. A high-specific-power aerospace generator illustrates the extreme of the mass-limited paradigm and the qualification culture of that industry. An electrically assisted turbocharger above 100 000 r/min illustrates the extreme of speed, where the machine must be nearly invisible in mass and inertia. Testing under transient conditions and overspeed, thermal and endurance qualification are described, and the failure modes of mobile high-speed machines are contrasted with the industrial ones of Chapter 13. A closing section revisits the two paradigms with the completed designs in hand and states, with numbers, why the same physics produces opposite machines.
 
-Sections: 13.1 The Voltcar traction machine: from specification to measured performance · 13.2 A high-specific-power aerospace generator · 13.3 An e-turbocharger above 100 000 r/min · 13.4 Testing under drive-cycle and thermal transients · 13.5 Overspeed, thermal and endurance qualification · 13.6 Failure modes and design lessons · 13.7 The two paradigms revisited.
+Sections: 14.1 The Voltcar traction machine: from specification to measured performance · 14.2 A high-specific-power aerospace generator · 14.3 An e-turbocharger above 100 000 r/min · 14.4 Testing under drive-cycle and thermal transients · 14.5 Overspeed, thermal and endurance qualification · 14.6 Failure modes and design lessons · 14.7 The two paradigms revisited.
 
-Budget: 30 pages, 24 figures, 3 tables. Owner: the authors, who also write §13.7, the closing synthesis of the two paradigms. Co-authors: J. Pippuri-Mäkeläinen of VTT, who manages the Voltcar project, on §13.1; an aerospace contributor for §13.2. New: measured case data from a current EU project, used with the project’s agreement.
+Budget: 30 pages, 24 figures, 3 tables. Owner: J. Pippuri-Mäkeläinen of VTT, who manages the Voltcar project and writes §14.1; she recruits for §14.2 and §14.3, and §14.7, the closing synthesis of the two paradigms, is written jointly with the authors. New: measured case data from a current EU project, used with the project’s agreement.
 
 ### Front and back matter
 
@@ -192,29 +201,32 @@ short biography, and in the preface.
 
 | Chapters | Owner | Affiliation |
 |---|---|---|
-| 4, 5, 6 — the whole of Part II | Jussi Sopanen | LUT, machine dynamics |
-| 9 — Core, rotor and aerodynamic losses | Anouar Belahcen | Aalto University |
-| 10 — Thermal management and cooling | Rafal Wrobel | Newcastle University |
-| 11 — The drive | Pasi Peltoniemi | LUT, power electronics |
 | 2 — Applications and system architectures | Juha Saari | Upheat, high-temperature heat pumps |
-| 1, 3, 7, 8, 12, 13 | the authors | LUT University |
+| 4, 5, 6 — the whole of Part II | Jussi Sopanen | LUT, machine dynamics |
+| 8 — AC winding losses and conductor design | Anouar Belahcen | Aalto University |
+| 9 — Core, rotor and aerodynamic losses | Paavo Rasilo | Tampere University |
+| 10 — Thermal management and cooling | Rafal Wrobel | Newcastle University |
+| 11 — The drive: the converter interface | Pasi Peltoniemi | LUT, power electronics |
+| 12 — Control at high fundamental frequency | Marko Hinkkanen | Aalto University, electric drives |
+| 13 — Industrial case studies | Jonna Tiainen and Ahti Jaatinen-Värri | The Switch; LUT, turbomachinery |
+| 14 — Mobile case studies | Jenni Pippuri-Mäkeläinen | VTT, manager of the Voltcar project |
+| 1, 3, 7 | the authors | LUT University |
 
 **Co-authors, recruited by the owner of the chapter**
 
 | Contributor | Affiliation | Chapter | Brought in by |
 |---|---|---|---|
-| Jouni Ikäheimo | ABB, high-speed motors | 3, 12; photographs and machine material throughout | the authors |
-| Lassi Aarniovuori | drive loss measurement | 11, 12 | P. Peltoniemi and the authors |
-| Ahti Jaatinen-Värri | LUT, turbomachinery | 2 or 10, the air-gap flow and the aerodynamic optimum | J. Saari or R. Wrobel |
-| Jonna Tiainen | The Switch | 2, 12 | J. Saari and the authors |
+| Jouni Ikäheimo | ABB, high-speed motors | 3, the induction machines; 13, manufacture and qualification; photographs and machine material throughout | the authors |
+| Lassi Aarniovuori | drive loss measurement | 11, harmonic losses; 13, the test rig and loss segregation | P. Peltoniemi and the Chapter 13 owners |
+| Ilya Petrov | LUT University, author | 13, the electrical machine of §13.1 | the Chapter 13 owners |
 | a bearing application specialist | industry | 6 | J. Sopanen, from his network |
-| a control specialist | to be identified | 11 | P. Peltoniemi |
-| Jenni Pippuri-Mäkeläinen | VTT, manager of the Voltcar project | 13, the Voltcar machine of §13.1 | the authors |
-| an aerospace contributor | to be identified | 13 | the authors |
+| a windage co-author | to be settled | 9, §9.8 | P. Rasilo; J. Saari is the natural name |
+| an aerospace contributor | to be identified | 14, §14.2 | J. Pippuri-Mäkeläinen |
+| an e-turbocharger contributor | to be identified | 14, §14.3 | J. Pippuri-Mäkeläinen |
 
 ## 6. Schedule
 
-Indicative, from contract signature: Chapters 2 and 3 with the running-machine specifications at month 6; Part II at month 11; Part III, which carries four chapters, at month 16; Part IV at month 20; complete manuscript with problems and notebooks at month 22; delivery at month 24.
+Indicative, from contract signature: Chapters 2 and 3 with the running-machine specifications at month 6; Part II at month 11; Part III, which carries four chapters, at month 16; Part IV, which carries four, at month 20; complete manuscript with problems and notebooks at month 22; delivery at month 24.
 
 ## 7. Material offered with the proposal
 
