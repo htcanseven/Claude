@@ -248,3 +248,84 @@ adopt it. If no, there are two options, and the first is better:
 
 Even with the caveat, this is a considerably better candidate than the unattached compressor
 drive currently in the plan. Recommend adopting it subject to that one question.
+
+## Review of the fourteen-chapter ownership map
+
+The map is a real improvement. Every chapter has one owner; Hinkkanen gets Chapter 12 and
+the awkwardness of a peer professor writing inside Peltoniemi's chapter disappears; Rasilo
+is an excellent name for core losses and adds Tampere to a list that was LUT, Aalto and
+Newcastle; and the page budget still lands at 452 against the 450 target. Four things
+should be settled before it goes out.
+
+### 1. The authors would write 23 per cent of their own book
+
+Chapters 1, 3 and 7, ninety-six pages of four hundred and twelve. Wiley is being asked for
+an authored book with three names on the cover; a reviewer who counts will see a contributed
+volume with three editors. The earlier map had the authors on six chapters of thirteen.
+
+What moved out matters more than the count. Chapters 13 and 14 are where the book's own
+procedure is shown working on the two running machines. If both go to outsiders, the authors
+never demonstrate the method they spent seven chapters arguing for.
+
+The industrial running machine is now LUT's own 2 MW solid-rotor machine, supervised by two
+of the three authors, and the test data is unpublished and in their hands. Chapter 13 should
+therefore be the authors', with Tiainen and Jaatinen-Värri as co-authors for the compressor
+and ORC side. That restores the authored-book balance to four chapters and about a third of
+the text, and it puts the machine's own people in charge of reporting it.
+
+Chapter 14 can stay with Pippuri-Mäkeläinen, because Voltcar is VTT's and the data is
+theirs.
+
+### 2. Chapter 14 has lost the aerospace generator and the e-turbocharger
+
+The title now reads *Mobile case studies: traction*. One machine in thirty pages, and the
+mobile paradigm is represented by a single 120 kW traction motor.
+
+That costs three things. The e-turbocharger above 100 000 r/min is what makes the book's
+claimed speed range credible; without it the highest speed in the book is 30 000 r/min.
+Aerospace is the current market the editor asked about. And the closing section, where the
+two paradigms are revisited with the completed designs in hand, needs range on the mobile
+side or it compares one machine with one machine.
+
+Keep the title and the three sections, and let Pippuri-Mäkeläinen recruit for the two she
+cannot cover, exactly as Saari is being asked to do for the mobile applications in
+Chapter 2.
+
+### 3. Chapter 13 has two owners
+
+Tiainen and Jaatinen-Värri both. That is the arrangement the rule exists to prevent, unless
+they are treated as one unit with one of them named as the contact, in the way Sopanen's
+group is.
+
+There is a second mismatch underneath it. They are turbomachinery people and the chapter's
+first section is the measured performance of an electrical machine. They are the right
+authors for the driven machine and the wrong ones for the motor. Section 1 above resolves
+both: the authors own it, and the turbomachinery pair write the compressor and ORC side as
+co-authors.
+
+### 4. Nobody owns the aerodynamic losses of Chapter 9
+
+The chapter is *Core, rotor and aerodynamic losses* and Rasilo is a core-loss and
+magnetic-materials specialist. Windage and Taylor–Couette flow are not his field, and it
+would be unfair to hand them to him inside a chapter he owns.
+
+Two ways out. Either he recruits Saari for §9.8, which is what the model is for and what
+Saari has said he would like. Or the aerodynamic material moves into Chapter 10, where the
+air-gap flow is already treated as one problem producing both windage and convection, and
+Chapter 9 becomes *Core and rotor losses at high speed*. The second is cleaner physically
+and the proposal already argues for it; the first is easier and keeps Saari's name in the
+book if he declines Chapter 2.
+
+### Smaller points
+
+- **Chapter 3** is marked "authors, plus perhaps someone for each machine type". Four or
+  five outside hands in one chapter is how the earlier problem started. Ikäheimo on the
+  induction machines is enough; anyone further should be his recruit, not a separate one.
+- **Belahcen** was told he could lead one or two chapters on winding losses and on core and
+  rotor losses. He now has one. That is within what the email said, but he should hear it
+  from us rather than discover it in the table of contents, and Rasilo's name should be
+  mentioned to him before it is fixed.
+- **Splitting the drive chapter** reintroduces the converter-and-control boundary the book
+  criticises elsewhere. Worth accepting for a named control owner, but Chapter 12 should
+  open by saying it continues Chapter 11, and the section matching each machine to its
+  converter should sit in one chapter, not be divided between them.
