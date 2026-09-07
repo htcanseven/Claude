@@ -127,3 +127,20 @@ his answer decides it, and it costs nothing to wait.
 - **The contributor table** should show owners and co-authors as two ranks rather than one
   flat list. A reviewer reading a table of eleven names against thirteen chapters sees a
   committee; the same names in two ranks show a structure.
+
+## An open item that outranks all of this: the Voltcar data
+
+The Voltcar traction machine is the book's mobile running machine. It is specified in
+Chapter 2, carried through Chapters 4 to 11, and assembled into a complete measured design
+in §13.1. Nine chapters depend on it, and it is half of the two-paradigm structure that
+organises the whole text.
+
+Nobody has yet asked the project whether its results may be published in a book. Jenni
+Pippuri-Mäkeläinen of VTT manages Voltcar, so she is the person who grants that or brokers
+it with the consortium. This has to be settled whether or not she writes anything, and it
+should be settled before the proposal goes to Wiley, because a late no would not cost a
+section: it would cost the mobile half of the book.
+
+It is the same class of risk as the compressor measurements, and larger, because the
+compressor case is still unattached while Voltcar is already load-bearing. Ask early, and
+ask what the consortium agreement says rather than only what she personally thinks.

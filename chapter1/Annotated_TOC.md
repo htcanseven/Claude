@@ -169,7 +169,7 @@ Three mobile designs close the book. The Voltcar traction machine, the mobile ru
 
 Sections: 13.1 The Voltcar traction machine: from specification to measured performance · 13.2 A high-specific-power aerospace generator · 13.3 An e-turbocharger above 100 000 r/min · 13.4 Testing under drive-cycle and thermal transients · 13.5 Overspeed, thermal and endurance qualification · 13.6 Failure modes and design lessons · 13.7 The two paradigms revisited.
 
-Budget: 30 pages, 24 figures, 3 tables. Contributors: authors (Voltcar), an aerospace contributor to be invited for 13.2. New: measured case data from a current EU project.
+Budget: 30 pages, 24 figures, 3 tables. Owner: the authors, who also write §13.7, the closing synthesis of the two paradigms. Co-authors: J. Pippuri-Mäkeläinen of VTT, who manages the Voltcar project, on §13.1; an aerospace contributor for §13.2. New: measured case data from a current EU project, used with the project’s agreement.
 
 ### Front and back matter
 
@@ -211,6 +211,7 @@ short biography, and in the preface.
 | Jonna Tiainen | The Switch | 2, 12 | J. Saari and the authors |
 | a bearing application specialist | industry | 6 | J. Sopanen, from his network |
 | a control specialist | to be identified | 11 | P. Peltoniemi |
+| Jenni Pippuri-Mäkeläinen | VTT, manager of the Voltcar project | 13, the Voltcar machine of §13.1 | the authors |
 | an aerospace contributor | to be identified | 13 | the authors |
 
 ## 6. Schedule
