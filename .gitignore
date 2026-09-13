@@ -1,1 +1,7 @@
+data/
+*.mat
+*.zip
+__pycache__/
+*.pyc
 results/features_windows.csv.gz
+zenodo_*.json
