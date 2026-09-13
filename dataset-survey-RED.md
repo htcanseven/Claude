@@ -132,27 +132,107 @@ Legend for the "RED fit" column: **a** variants · **b** design metadata · **c*
 
 ---
 
-## 3. Shortlist ranked by fit to the journal
+## 3. Alternative design axis: same faults across different machine *topologies* (USP/InnovaPower trio)
 
-| Rank | Dataset(s) | Framing it supports | Why it ranks here |
+The USP InnovaPower group (Tominaga et al.) has released three CC BY 4.0 datasets on
+[github.com/InnovaPower/MitDev-Eletrica](https://github.com/InnovaPower/MitDev-Eletrica) that apply
+the **same winding short-circuit protocol** to **different generator topologies** — the design
+decision a wind-turbine designer actually makes.
+
+### 3.1 What is strictly comparable and what is not
+
+| | **PMSG-3phase** (*DiB* 62:112040, 2025; Zenodo 10.5281/zenodo.15741561) | **SCIG-3phase** (*DiB* 63:112286, 2025; Zenodo 10.5281/zenodo.17161986) | **Generators-Dataset** (*DiB* 57:111018, 2024; Zenodo 10.5281/zenodo.13685630) |
 |---|---|---|---|
-| 1 | **KAIST PMSM trio (1.0/1.5/3.0 kW)** ± KAIST industrial-scale set (1–7.5 HP) | Design-for-diagnosability across a product family; a method that predicts how fault detectability changes with rating/geometry and sensor choice | Only open PMSM set with identical faults on several designs; CC BY 4.0; current + vibration at high rates |
-| 2 | **ZJU parameter-offset simulation set + own FEA + USP PMSG benchmark** | Simulation-to-measurement transfer as a design-stage validation method, with explicit treatment of design-parameter uncertainty | Extends the *Machines* 2026 FEA + transfer-learning work into a methodology; USP set gives 24 fault cases scaled to a 15 MW turbine; all CC BY |
-| 3 | **CREATOR Case PMSM (+ IM)** | Same as 2, but with a fully documented machine so the design→signal chain is reproducible by readers | Only open PMSM with full design data; CC BY-NC (fine for research, not for redistribution of derived commercial data) |
-| 4 | **Brno/CEITEC ITSC sets (2024, 2026)** | Fault-tolerant-control and mitigation as design decisions; severity ladders with loss channels | Fresh (2026), CC BY 4.0, dq-frame signals ready for physics-informed features |
-| 5 | **CARE wind SCADA (+ NREL GRC)** | Field-data → DFMEA prior updating / design-requirement derivation (mirrors the AfGNN-DFMEA precedent in RED) | Largest labelled field set; CC BY-SA; 3 farms as a variant axis |
-| 6 | **FactoryNet / AURSAD / UR3 CobotOps** | Cross-embodiment diagnosis via a shared representation (design-representation contribution) | RED explicitly welcomes robotics; FactoryNet spans 6 embodiments; NC-SA licence |
-| 7 | **Rotating electromechanical system / Paderborn KAt / Ottawa** | Sensor-suite design (which sensors, what rate) as a cost–diagnosability trade-off | Multi-sensor, synchronous; watch the NC-ND licence on the first |
-| 8 | **SIMSHIFT motor rotor + PHM 2026 challenges** | Design-space-aware surrogates; fresh challenge data with imaging ground truth | Supporting roles |
+| Topology | PM synchronous generator, 4-pole, 2.5 kVA, 230 V, 6.3 A YY, 1800 rpm | Squirrel-cage induction generator, 4-pole, 2.5 kW, 230 V, 7.7 A YY, 1750 rpm | Wound-field synchronous generators: **A** 2 kVA salient-pole fixed-speed; **B** 3 kVA smooth-pole fixed-speed; **C** 2 kVA salient-pole variable-speed |
+| Bench | Same bench, same prime mover (WEG 3.7 kW IM + CFW500), same Imperix B-Box, same Equacional manufacturer | ← identical | Three different benches/labs (São Carlos, Schulich, USP); DC-motor or IM prime movers; A/B via emulated transmission line (no converter), C via 3L-NPC + 2L converters, dSPACE |
+| Fault set | 24 cases: 12 inter-turn (TURNS) + 12 inter-winding (WINDINGS), R = 2.6 Ω, 400 ms, derivation points D01–D24 with tabulated % distance from neutral | **Identical** derivations and identical 24-case list | Same D01–D24 scheme, plus phase-ground and phase-phase; not all faults on all benches |
+| Operating points | 3 speeds (1200/1500/1800 rpm) × 3 torques (5.2/6.4/8.0 Nm), scaled from the IEA 15 MW reference turbine | identical | Bench-specific |
+| Acquisition | 20 kHz, 3 s (1 s healthy → 0.4 s fault → recovery), 225 .mat, 1.2 GB, 32 variables incl. dq, references, PI actions, Vdc, duty cycles, torque, encoder, fault relay, fault current | 20 kHz, 3 s, 225 .mat, 35 variables (adds flux-observer flux, flux reference, observer angle) | ~977 Hz (1024 µs), ~260 ms records, CSV; A: 3,314 files/146 MB (19 features); B: 637 files/21 MB (reduced columns); C: 618 files/2.45 GB (51 features, generator + grid side) |
+| Design metadata | Nameplate + derivation table | Nameplate + derivation table | Equivalent-circuit reactances and time constants per generator (Tables 7–9) |
+| Repetitions | None ("all test combinations are unique") | None | Not stated |
 
-Recommended: **Rank 1 or Rank 2**, or their combination — "a design-for-diagnosability method for
-PMSM families, validated by simulation-to-measurement transfer". That is squarely the kind of
-framework/method paper the journal's 2025–26 record shows it accepts, and it reuses the FEA,
-transfer-learning and PMSM fault-mechanism work already published.
+**Tier 1 (rigorous core): PMSG vs SCIG** — same bench, same protocol, same file naming; the only
+difference beyond topology is the control structure the topology forces (encoder-FOC vs
+flux-observer-FOC), which is itself part of the design decision.
+**Tier 2 (generalisation): WFSG A/B/C** — same fault scheme but 20× lower sampling, 12× shorter
+windows, different labs and fault subsets; usable only after harmonisation (down-sample Tier 1 to
+~977 Hz and 260 ms windows; restrict to the overlapping inter-turn / inter-coil cases).
+
+### 3.2 Why this axis fits *Research in Engineering Design* better than the rating axis
+
+- **Topology is a first-order design decision; rating is sizing.** RED already publishes
+  alternative/topology selection as method (10.1007/s00163-026-00488-y "system alternative
+  selection", 2026; 10.1007/s00163-019-00310-y product-family topology, 2019).
+- **The design argument is stated in the data papers.** The SCIG paper: rotor electrically
+  inaccessible, stator-only instrumentation, and "the effects of these faults on the measured
+  signals are often mitigated or obscured by the control system itself". Diagnosability is thus a
+  property of topology + control + sensor suite — a design property, not an algorithm property.
+- **The comparison is an open, invited gap.** The PMSG paper states "different machine topologies
+  exhibit unique behaviors when subjected to the same type of fault" and the SCIG paper explicitly
+  declines to compare ("not the purpose of this work"). No cross-topology study using these sets was
+  found (Sept 2026); the repo provides no harmonised set or comparison notebook.
+- **Control-loop variables are recorded** (PI actions, references, duty cycles, observer states),
+  enabling "co-design of controller and monitoring" — a question no motor-only dataset supports.
+- The papers list *Machine Design* among their subjects — a small hook for the scope argument.
+
+### 3.3 Weaknesses to design around
+
+1. **n = 1 machine per topology, no repeats** → topology effect is confounded with unit-to-unit
+   variation; no general "PMSG is more diagnosable than SCIG" claim is supportable from data alone.
+   Remedy: present a *procedure*, generate topology-level populations with FEA/analytical models under
+   parameter variation (the *Machines* 2026 approach), and use the measured machines as validation
+   points — this also supplies the sim-to-real element.
+2. **Tier 2 heterogeneity** (see above) — keep the core method on Tier 1; treat harmonisation as an
+   explicit method step and Tier 2 as robustness. At ~977 Hz only fundamental-band indicators
+   (negative-sequence, dq residuals) survive, which itself poses a useful "minimum sensing" question.
+3. **Electrical signals only** (plus torque/speed) — fine for RED if the sensor-suite question is
+   posed within the electrical domain (phase currents vs dq vs controller internals).
+4. **Leakage channels**: `Ifault`, `Fault_Relay` are ground truth only and must be excluded from
+   diagnostic inputs; the 1 s pre-fault segment inside "FAULT" files is healthy data (useful for
+   onset detection, dangerous for naive file-level labelling).
+5. **Single fault resistance (2.6 Ω)** — severity comes only from turn position (D-points).
+6. **Lab scale (2–3 kVA)** — the 15 MW link is a proportional scaling of *operating points*, not of
+   fault physics; state it as such.
+
+### 3.4 Paper concepts on this axis
+
+- **A. Design-stage diagnosability across generator topologies** — a topology-agnostic metric
+  (e.g. minimum detectable severity at fixed false-alarm rate, or mutual information between
+  stator-side features and severity, per operating point), computed for PMSG/SCIG (Tier 1) and
+  WFSG A/B/C (Tier 2), feeding a topology-plus-sensing selection procedure. Position against the
+  model-based structural-analysis diagnosability index (Zhang & Rizzoni, 2017) as its data-driven,
+  cross-topology counterpart.
+- **B. Transferability as a design property** — train on one topology, test on another; identify
+  which physics-informed features transfer; derive monitoring-architecture rules for product
+  families that span topologies. Closest to the existing hybrid-ML / transfer-learning work.
+- **C. Two-axis design-space map** (outlook) — topology (USP) × rating (KAIST); different labs and
+  protocols, so keep as an extension rather than the core.
 
 ---
 
-## 4. Practical notes
+## 4. Shortlist ranked by fit to the journal
+
+| Rank | Dataset(s) | Framing it supports | Why it ranks here |
+|---|---|---|---|
+| 1 | **USP topology trio — PMSG + SCIG core, WFSG A/B/C as generalisation** (+ own FEA populations) | Design-stage diagnosability / transferability across generator topologies (Section 3) | Same faults, same protocol, different topologies — the design decision itself; open invited gap; CC BY 4.0; control-loop variables recorded; needs FEA to fix n = 1 |
+| 2 | **KAIST PMSM trio (1.0/1.5/3.0 kW)** ± KAIST industrial-scale set (1–7.5 HP) | Design-for-diagnosability across a rating ladder within one topology | Only open PMSM set with identical faults on several ratings; CC BY 4.0; current + vibration at high rates; secondary validation axis for the same method |
+| 3 | **ZJU parameter-offset simulation set + own FEA** | Simulation-to-measurement transfer as a design-stage validation method, with explicit design-parameter uncertainty | Extends the *Machines* 2026 FEA + transfer-learning work into a methodology; CC BY |
+| 4 | **CREATOR Case PMSM (+ IM)** | Same as 3, but with a fully documented machine so the design→signal chain is reproducible by readers | Only open PMSM with full design data; CC BY-NC |
+| 5 | **Brno/CEITEC ITSC sets (2024, 2026)** | Fault-tolerant-control and mitigation as design decisions; severity ladders with loss channels | Fresh (2026), CC BY 4.0, dq-frame signals ready for physics-informed features |
+| 6 | **CARE wind SCADA (+ NREL GRC)** | Field-data → DFMEA prior updating / design-requirement derivation (mirrors the AfGNN-DFMEA precedent in RED) | Largest labelled field set; CC BY-SA; 3 farms as a variant axis |
+| 7 | **FactoryNet / AURSAD / UR3 CobotOps** | Cross-embodiment diagnosis via a shared representation (design-representation contribution) | RED explicitly welcomes robotics; FactoryNet spans 6 embodiments; NC-SA licence |
+| 8 | **Rotating electromechanical system / Paderborn KAt / Ottawa** | Sensor-suite design (which sensors, what rate) as a cost–diagnosability trade-off | Multi-sensor, synchronous; watch the NC-ND licence on the first |
+| 9 | **SIMSHIFT motor rotor + PHM 2026 challenges** | Design-space-aware surrogates; fresh challenge data with imaging ground truth | Supporting roles |
+
+Recommended: **Rank 1 as the core, Rank 2 as a second validation axis, Rank 3 to supply the
+topology-level populations** — "a design-stage diagnosability method across machine topologies,
+validated by simulation-to-measurement transfer". That is squarely the kind of framework/method
+paper the journal's 2025–26 record shows it accepts, and it reuses the FEA, transfer-learning and
+PMSM/SCIG fault-mechanism work already published.
+
+---
+
+## 5. Practical notes
 
 - **Licences.** Mendeley/Zenodo sets above are mostly CC BY 4.0 (re-use and derived data fine).
   CREATOR and Paderborn are **NC**; the UAQ/UPC set is **NC-ND** (no derived-data redistribution).
@@ -168,7 +248,7 @@ transfer-learning and PMSM fault-mechanism work already published.
 
 ---
 
-## 5. Sources
+## 6. Sources
 
 Journal scope and record: link.springer.com/journal/163/aims-and-scope; api.crossref.org
 (ISSN 0934-9839). Datasets: links in the tables above; dataset papers in *Data in Brief*,
