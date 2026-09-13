@@ -60,8 +60,9 @@ plt.rcParams.update({
 GROUPS = {
     "stator current": ["I2_I1", "I0_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd"],
     "dq / control": ["Id_2fe", "Iq_2fe", "Id_1fe", "Iq_1fe", "Id_std", "Iq_std",
-                     "Vd_2fe", "Vq_2fe", "PId_2fe", "PIq_2fe", "PId_std", "PIq_std", "D2_D1", "V2_V1"],
-    "mechanical": ["Te_2fe", "Te_1fe", "Te_std", "Spd_std", "Vdc_std"],
+                     "Vd_2fe", "Vq_2fe", "Vdconv_2fe", "Vqconv_2fe", "PId_2fe", "PIq_2fe", "PId_std", "PIq_std",
+                     "D2_D1", "V2_V1"],
+    "mechanical": ["Te_2fe", "Te_1fe", "Te_std", "Tm_2fe", "Tm_1fe", "Tm_std", "Spd_std", "Vdc_std"],
 }
 ALL_FEATS = [f for g in GROUPS.values() for f in g]
 GROUP_OF = {f: g for g, fs in GROUPS.items() for f in fs}

@@ -55,8 +55,8 @@ FEATURES = [
     "fe_Hz", "I1", "I2", "I2_I1", "I0_I1", "I_unbal_rms",
     "V1", "V2_V1", "D2_D1",
     "Id_std", "Iq_std", "Id_2fe", "Iq_2fe", "Id_1fe", "Iq_1fe",
-    "Vd_2fe", "Vq_2fe", "PId_2fe", "PIq_2fe", "PId_std", "PIq_std",
-    "Te_std", "Te_2fe", "Te_1fe",
+    "Vd_2fe", "Vq_2fe", "Vdconv_2fe", "Vqconv_2fe", "PId_2fe", "PIq_2fe", "PId_std", "PIq_std",
+    "Te_std", "Te_2fe", "Te_1fe", "Tm_std", "Tm_2fe", "Tm_1fe",
     "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd",
     "Spd_std", "Vdc_std",
 ]
@@ -117,13 +117,16 @@ def window_features(seg, fs, fe0, rot):
     f = {"fe_Hz": fe, "I1": i1, "I2": i2, "I2_I1": i2 / i1, "I0_I1": i0 / i1,
          "I_unbal_rms": np.max(np.abs(rms - rms.mean())) / rms.mean(),
          "V1": v1, "V2_V1": v2 / v1, "D2_D1": d2 / d1 if d1 > 1e-9 else np.nan}
+    # Vd/Vq are derived from the measured terminal voltages (external transducers); Vd_conv/Vq_conv are
+    # the converter's own voltage commands (drive-internal); Torq_mec is the torque transducer.
     for key, name in (("Id", "Id"), ("Iq", "Iq"), ("Vd", "Vd"), ("Vq", "Vq"),
-                      ("Action_pi_d", "PId"), ("Action_pi_q", "PIq"), ("Torq_ele", "Te")):
+                      ("Vd_conv", "Vdconv"), ("Vq_conv", "Vqconv"),
+                      ("Action_pi_d", "PId"), ("Action_pi_q", "PIq"), ("Torq_ele", "Te"), ("Torq_mec", "Tm")):
         x = seg[key] - seg[key].mean()
-        if name in ("Id", "Iq", "PId", "PIq", "Te"):
+        if name in ("Id", "Iq", "PId", "PIq", "Te", "Tm"):
             f[f"{name}_std"] = np.std(x)
         f[f"{name}_2fe"] = abs(phasor(x, 2 * fe, fs, win))
-        if name in ("Id", "Iq", "Te"):
+        if name in ("Id", "Iq", "Te", "Tm"):
             f[f"{name}_1fe"] = abs(phasor(x, fe, fs, win))
     h1 = abs(pa)
     harm = {k: abs(phasor(seg["Ia"], k * fe, fs, win)) for k in range(2, 21)}
@@ -149,8 +152,8 @@ def process_file(args):
     ifault = m["Ifault"]
     onset = np.flatnonzero((np.abs(ifault) > IFAULT_ONSET_A) & (t >= t_on))
     t_onset = t[onset[0]] if len(onset) else np.nan
-    keys = ["Ia", "Ib", "Ic", "Va", "Vb", "Vc", "Da", "Db", "Dc", "Id", "Iq", "Vd", "Vq",
-            "Action_pi_d", "Action_pi_q", "Torq_ele", "Spd", "Vdc", "Ifault"]
+    keys = ["Ia", "Ib", "Ic", "Va", "Vb", "Vc", "Da", "Db", "Dc", "Id", "Iq", "Vd", "Vq", "Vd_conv", "Vq_conv",
+            "Action_pi_d", "Action_pi_q", "Torq_ele", "Torq_mec", "Spd", "Vdc", "Ifault"]
     sig = {k: np.asarray(m[k], dtype=float) for k in keys}
 
     # File-level fundamental estimate and rotation from the PRE segment.
