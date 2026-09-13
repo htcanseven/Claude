@@ -80,7 +80,7 @@ Legend for the "RED fit" column: **a** variants · **b** design metadata · **c*
 
 | Dataset | Content | Licence | RED fit |
 |---|---|---|---|
-| **KAIST — Vibration & current dataset of 3-phase PMSMs with stator faults** — [data.mendeley.com/datasets/rgn5brrgrn](https://data.mendeley.com/datasets/rgn5brrgrn/4); *Data in Brief* 2023 (PMC9957734) | **Three PMSMs, 1.0 / 1.5 / 3.0 kW**, same faults (healthy, inter-coil SC, ITSC) at 8 severities, same speed/load; 1 accelerometer @ 25.6 kHz, 3 CTs @ 100 kHz; TDMS | CC BY 4.0 | **a + d** — the cleanest "product family" dataset for PMSMs |
+| **KAIST — Vibration & current dataset of 3-phase PMSMs with stator faults** — [data.mendeley.com/datasets/rgn5brrgrn](https://data.mendeley.com/datasets/rgn5brrgrn/4); *Data in Brief* 2023 (PMC9957734) | **Three PMSMs, 1.0 / 1.5 / 3.0 kW**, same faults (healthy, inter-coil SC, ITSC) at 8 severities, same speed/load; 1 accelerometer @ 25.6 kHz, 3 CTs @ 100 kHz; TDMS | CC BY 4.0 | **a + d** — but **reported no longer downloadable from Mendeley (Sept 2026)**; the *Data in Brief* article remains, the files do not. Contact the authors (W. Jung, KAIST) or treat as unavailable |
 | **KAIST — Industrial-scale motors under randomised speed/load** — 7 Mendeley sets + HVAC set (10.17632/5tt3zb2pns.1); *Data in Brief* 2025 (PMC12361783) | AC motors **1, 3, 5, 7.5 HP** + 1.5 kW HVAC; misalignment, bearing spalling, coil/inter-turn shorts (10/40/60 %), journal-bearing clearance, belt looseness; current 100 kHz, vibration/torque 25.6 kHz, RPM 100 kHz; ±4 %/±16 % random speed, 0–90 % load; >60 GB | CC BY 4.0 | **a + d** — scale-up axis for whatever is developed on the PMSM trio |
 | **Univ. of Ottawa Electric Motor Dataset (UOEMD-VAFCVS)** — [data.mendeley.com/datasets/msxs4vj48g](https://data.mendeley.com/datasets/msxs4vj48g/2); PMC11636780 | Healthy, unbalance, misalignment, stator winding, voltage unbalance, bowed rotor, BRB, bearings; vibration + acoustic; constant and variable speed | CC BY 4.0 | **d** |
 | **Univ. of Ottawa bearing sets (UORED-VAFCLS)** — [data.mendeley.com/datasets/y2px5tg92h](https://data.mendeley.com/datasets/y2px5tg92h/5) | 20 bearings × 3 states; accelerometer, microphone, load cell, Hall | CC BY 4.0 | **d** |
@@ -193,6 +193,15 @@ windows, different labs and fault subsets; usable only after harmonisation (down
 5. **Single fault resistance (2.6 Ω)** — severity comes only from turn position (D-points).
 6. **Lab scale (2–3 kVA)** — the 15 MW link is a proportional scaling of *operating points*, not of
    fault physics; state it as such.
+
+### 3.3b First results (13 Sept 2026)
+
+All three datasets are cloned (5.0 GB, GitHub, no LFS) and a first PMSG-vs-SCIG pass is done:
+`scripts/features.py` → `scripts/compare.py`, write-up in `results/findings.md`, every number in
+`results/summary.md`. Headline: same tap pair ≠ same physical severity (fault/load current 1.86 vs 0.80);
+the signature sits in the voltage negative sequence for the PMSG but in the d-axis 2fe current ripple and
+current negative sequence for the SCIG (detector weight vectors nearly orthogonal, cosine 0.06); absolute
+detectors do not transfer across topology, reference-relative ones do.
 
 ### 3.4 Paper concepts on this axis
 
