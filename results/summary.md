@@ -62,10 +62,10 @@ Top-6 features by median SDR per machine and fault type (`median_delta` = median
 | SCIG | WINDINGS | D2_D1 | dq / control | 84.887 | 1.000 | 0.444 | 0.854 |
 | SCIG | WINDINGS | PId_2fe | dq / control | 74.013 | 1.000 | 0.111 | 1.188 |
 | SCIG | WINDINGS | Id_2fe | dq / control | 73.971 | 1.000 | 0.111 | 1.188 |
+| SCIG | WINDINGS | Vdconv_2fe | dq / control | 63.019 | 1.000 | 0.111 | 1.203 |
 | PMSG | WINDINGS | V2_V1 | dq / control | 61.898 | 0.944 | 0.111 | 5.318 |
 | SCIG | WINDINGS | I2_I1 | stator current | 55.608 | 1.000 | 0.111 | 1.869 |
 | SCIG | WINDINGS | V2_V1 | dq / control | 48.192 | 1.000 | 0.000 | 1.569 |
-| SCIG | WINDINGS | Vd_2fe | dq / control | 41.389 | 1.000 | 0.000 | 1.693 |
 | PMSG | WINDINGS | D2_D1 | dq / control | 32.629 | 0.898 | 0.000 | 2.942 |
 | PMSG | WINDINGS | Vq_2fe | dq / control | 22.398 | 0.898 | 0.000 | 3.688 |
 | PMSG | WINDINGS | I2_I1 | stator current | 11.316 | 0.815 | 0.000 | 1.833 |
@@ -73,33 +73,33 @@ Top-6 features by median SDR per machine and fault type (`median_delta` = median
 | PMSG | WINDINGS | PIq_2fe | dq / control | 8.002 | 0.833 | 0.111 | 0.636 |
 | SCIG | TURNS | PId_2fe | dq / control | 6.685 | 0.778 | 0.111 | 0.015 |
 | SCIG | TURNS | Id_2fe | dq / control | 6.682 | 0.787 | 0.111 | 0.015 |
-| PMSG | WINDINGS | Vd_2fe | dq / control | 4.600 | 0.722 | 0.000 | 3.062 |
+| SCIG | TURNS | Vdconv_2fe | dq / control | 5.960 | 0.769 | 0.111 | 0.013 |
+| PMSG | WINDINGS | Vqconv_2fe | dq / control | 5.232 | 0.769 | 0.222 | 0.669 |
 | SCIG | TURNS | I2_I1 | stator current | 4.525 | 0.750 | 0.111 | 0.042 |
 | SCIG | TURNS | V2_V1 | dq / control | 4.171 | 0.731 | 0.000 | 0.026 |
-| SCIG | TURNS | Vd_2fe | dq / control | 3.252 | 0.694 | 0.000 | 0.016 |
 | PMSG | TURNS | V2_V1 | dq / control | 2.990 | 0.759 | 0.111 | 0.003 |
 | PMSG | TURNS | D2_D1 | dq / control | 2.779 | 0.639 | 0.000 | 0.010 |
 | PMSG | TURNS | PIq_2fe | dq / control | 1.802 | 0.630 | 0.111 | -0.028 |
 | PMSG | TURNS | I2_I1 | stator current | 1.471 | 0.565 | 0.000 | -0.003 |
 | PMSG | TURNS | Vq_2fe | dq / control | 1.346 | 0.574 | 0.000 | 0.020 |
-| PMSG | TURNS | Iq_2fe | dq / control | 1.072 | 0.528 | 0.000 | -0.012 |
+| PMSG | TURNS | Vqconv_2fe | dq / control | 1.221 | 0.565 | 0.222 | -0.014 |
 
 Share of fault recordings in which each signal group holds the strongest signature:
 
 | machine | ftype | group | share_of_recordings_where_group_is_strongest |
 |---|---|---|---|
-| PMSG | TURNS | stator current | 0.102 |
-| PMSG | TURNS | dq / control | 0.833 |
+| PMSG | TURNS | stator current | 0.093 |
+| PMSG | TURNS | dq / control | 0.843 |
 | PMSG | TURNS | mechanical | 0.065 |
-| PMSG | WINDINGS | stator current | 0.056 |
+| PMSG | WINDINGS | stator current | 0.046 |
 | PMSG | WINDINGS | dq / control | 0.944 |
-| PMSG | WINDINGS | mechanical | 0.000 |
-| SCIG | TURNS | stator current | 0.278 |
-| SCIG | TURNS | dq / control | 0.676 |
-| SCIG | TURNS | mechanical | 0.046 |
-| SCIG | WINDINGS | stator current | 0.333 |
-| SCIG | WINDINGS | dq / control | 0.667 |
-| SCIG | WINDINGS | mechanical | 0.000 |
+| PMSG | WINDINGS | mechanical | 0.009 |
+| SCIG | TURNS | stator current | 0.222 |
+| SCIG | TURNS | dq / control | 0.574 |
+| SCIG | TURNS | mechanical | 0.204 |
+| SCIG | WINDINGS | stator current | 0.324 |
+| SCIG | WINDINGS | dq / control | 0.481 |
+| SCIG | WINDINGS | mechanical | 0.194 |
 
 ![B](figures/B_sdr_by_feature.png)
 
@@ -159,48 +159,48 @@ Window-level detector (1 = fault window of a fault recording; 0 = pre-fault wind
 
 | calibration | model | train | test | setting | auc | tpr_at_1pct_fpr | n_test |
 |---|---|---|---|---|---|---|---|
-| raw | logistic | PMSG | PMSG | within (unseen cases) | 0.785 | 0.564 | 9775 |
-| raw | logistic | SCIG | SCIG | within (unseen cases) | 0.757 | 0.556 | 9570 |
-| raw | logistic | PMSG | SCIG | cross-topology | 0.719 | 0.381 | 9570 |
-| raw | logistic | SCIG | PMSG | cross-topology | 0.596 | 0.249 | 9775 |
-| raw | gbdt | PMSG | PMSG | within (unseen cases) | 0.879 | 0.614 | 9775 |
-| raw | gbdt | SCIG | SCIG | within (unseen cases) | 0.843 | 0.600 | 9570 |
-| raw | gbdt | PMSG | SCIG | cross-topology | 0.713 | 0.395 | 9570 |
-| raw | gbdt | SCIG | PMSG | cross-topology | 0.582 | 0.289 | 9775 |
-| healthy-z | logistic | PMSG | PMSG | within (unseen cases) | 0.785 | 0.564 | 9775 |
-| healthy-z | logistic | SCIG | SCIG | within (unseen cases) | 0.757 | 0.556 | 9570 |
-| healthy-z | logistic | PMSG | SCIG | cross-topology | 0.696 | 0.426 | 9570 |
-| healthy-z | logistic | SCIG | PMSG | cross-topology | 0.425 | 0.098 | 9775 |
-| healthy-z | gbdt | PMSG | PMSG | within (unseen cases) | 0.879 | 0.614 | 9775 |
-| healthy-z | gbdt | SCIG | SCIG | within (unseen cases) | 0.843 | 0.600 | 9570 |
-| healthy-z | gbdt | PMSG | SCIG | cross-topology | 0.832 | 0.356 | 9570 |
-| healthy-z | gbdt | SCIG | PMSG | cross-topology | 0.782 | 0.495 | 9775 |
-| self-ref | logistic | PMSG | PMSG | within (unseen cases) | 0.938 | 0.777 | 9775 |
-| self-ref | logistic | SCIG | SCIG | within (unseen cases) | 0.980 | 0.855 | 9570 |
-| self-ref | logistic | PMSG | SCIG | cross-topology | 0.982 | 0.908 | 9570 |
-| self-ref | logistic | SCIG | PMSG | cross-topology | 0.943 | 0.723 | 9775 |
-| self-ref | gbdt | PMSG | PMSG | within (unseen cases) | 0.973 | 0.870 | 9775 |
-| self-ref | gbdt | SCIG | SCIG | within (unseen cases) | 0.988 | 0.923 | 9570 |
-| self-ref | gbdt | PMSG | SCIG | cross-topology | 0.987 | 0.917 | 9570 |
-| self-ref | gbdt | SCIG | PMSG | cross-topology | 0.944 | 0.740 | 9775 |
+| raw | logistic | PMSG | PMSG | within (unseen cases) | 0.787 | 0.558 | 9775 |
+| raw | logistic | SCIG | SCIG | within (unseen cases) | 0.756 | 0.558 | 9570 |
+| raw | logistic | PMSG | SCIG | cross-topology | 0.735 | 0.426 | 9570 |
+| raw | logistic | SCIG | PMSG | cross-topology | 0.589 | 0.251 | 9775 |
+| raw | gbdt | PMSG | PMSG | within (unseen cases) | 0.878 | 0.615 | 9775 |
+| raw | gbdt | SCIG | SCIG | within (unseen cases) | 0.843 | 0.618 | 9570 |
+| raw | gbdt | PMSG | SCIG | cross-topology | 0.709 | 0.323 | 9570 |
+| raw | gbdt | SCIG | PMSG | cross-topology | 0.596 | 0.297 | 9775 |
+| healthy-z | logistic | PMSG | PMSG | within (unseen cases) | 0.787 | 0.558 | 9775 |
+| healthy-z | logistic | SCIG | SCIG | within (unseen cases) | 0.756 | 0.558 | 9570 |
+| healthy-z | logistic | PMSG | SCIG | cross-topology | 0.729 | 0.455 | 9570 |
+| healthy-z | logistic | SCIG | PMSG | cross-topology | 0.342 | 0.064 | 9775 |
+| healthy-z | gbdt | PMSG | PMSG | within (unseen cases) | 0.878 | 0.615 | 9775 |
+| healthy-z | gbdt | SCIG | SCIG | within (unseen cases) | 0.843 | 0.618 | 9570 |
+| healthy-z | gbdt | PMSG | SCIG | cross-topology | 0.836 | 0.305 | 9570 |
+| healthy-z | gbdt | SCIG | PMSG | cross-topology | 0.782 | 0.474 | 9775 |
+| self-ref | logistic | PMSG | PMSG | within (unseen cases) | 0.937 | 0.774 | 9775 |
+| self-ref | logistic | SCIG | SCIG | within (unseen cases) | 0.979 | 0.858 | 9570 |
+| self-ref | logistic | PMSG | SCIG | cross-topology | 0.983 | 0.902 | 9570 |
+| self-ref | logistic | SCIG | PMSG | cross-topology | 0.943 | 0.724 | 9775 |
+| self-ref | gbdt | PMSG | PMSG | within (unseen cases) | 0.973 | 0.866 | 9775 |
+| self-ref | gbdt | SCIG | SCIG | within (unseen cases) | 0.990 | 0.928 | 9570 |
+| self-ref | gbdt | PMSG | SCIG | cross-topology | 0.987 | 0.916 | 9570 |
+| self-ref | gbdt | SCIG | PMSG | cross-topology | 0.949 | 0.755 | 9775 |
 
-Cosine similarity of the two logistic weight vectors (healthy-z features), PMSG vs SCIG: **0.06** (1 = identical feature weighting).
+Cosine similarity of the two logistic weight vectors (healthy-z features), PMSG vs SCIG: **0.04** (1 = identical feature weighting).
 
 Largest-weight features (healthy-z logistic):
 
 | feature | PMSG | SCIG | abs_mean |
 |---|---|---|---|
-| PIq_2fe | -2.779 | 3.190 | 2.985 |
-| I2_I1 | 1.045 | 4.885 | 2.965 |
-| V2_V1 | 5.660 | -0.063 | 2.862 |
-| D2_D1 | 2.447 | 0.889 | 1.668 |
-| Vq_2fe | 2.945 | 0.208 | 1.577 |
-| Ia_h3 | 2.021 | 1.099 | 1.560 |
-| Vd_2fe | 1.770 | 1.089 | 1.430 |
-| Iq_std | -0.257 | -2.207 | 1.232 |
-| Iq_2fe | 0.224 | 2.112 | 1.168 |
-| I0_I1 | 0.794 | -1.288 | 1.041 |
-| I_unbal_rms | -1.225 | -0.612 | 0.918 |
-| Spd_std | 0.707 | 0.859 | 0.783 |
+| V2_V1 | 5.543 | -0.190 | 2.867 |
+| PIq_2fe | -2.539 | 2.854 | 2.696 |
+| I2_I1 | 0.936 | 4.398 | 2.667 |
+| Vd_2fe | 2.146 | 1.168 | 1.657 |
+| Iq_2fe | 1.258 | 1.929 | 1.593 |
+| Vq_2fe | 2.947 | -0.144 | 1.546 |
+| Ia_h3 | 2.254 | 0.779 | 1.516 |
+| D2_D1 | 2.282 | 0.549 | 1.415 |
+| Vdconv_2fe | -2.024 | 0.581 | 1.303 |
+| Vqconv_2fe | -0.937 | 1.641 | 1.289 |
+| Iq_std | -0.262 | -2.062 | 1.162 |
+| I0_I1 | 0.654 | -1.438 | 1.046 |
 
 ![E](figures/E_transfer.png)

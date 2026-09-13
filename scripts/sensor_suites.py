@@ -116,13 +116,16 @@ def figure(res, tr):
             s = res[(res.ftype == ft) & (res.machine == m)].set_index("suite").loc[ORDER]
             ax.plot(xs + off[m], s.oracle_min_detectable_pct, "o", ms=7, mfc="none", mec=C.COL[m], mew=1.4, zorder=3)
             ax.plot(xs + off[m], s.fixed_min_detectable_pct, "o", ms=6, color=C.COL[m], label=m, zorder=4)
+            # PMSG labels above-left, SCIG labels below-right, so coincident points stay legible
+            dy, ha = (8, "right") if m == "PMSG" else (-11, "left")
             for x, (feat, y) in zip(xs + off[m], zip(s.best_feature, s.fixed_min_detectable_pct)):
                 if np.isfinite(y):
-                    ax.annotate(feat, (x, y), xytext=(0, 7), textcoords="offset points", ha="center",
+                    ax.annotate(feat, (x, y), xytext=(0, dy), textcoords="offset points", ha=ha,
                                 fontsize=6.3, color=C.INK2)
         ax.set_yscale("log")
         ax.set_yticks([2, 3, 5, 10, 20, 40]); ax.set_yticklabels(["2", "3", "5", "10", "20", "40"])
-        ax.set_ylim(1.8, 60)
+        ax.yaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
+        ax.set_ylim(1.6, 60)
         ax.set_title(f"{C.FT_LABEL[ft]} faults")
         if j == 0:
             ax.set_ylabel("Minimum detectable extent\n(% of winding between taps)")

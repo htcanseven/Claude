@@ -97,10 +97,54 @@ smaller, plausibly because its 2.5× larger stator current gives a better relati
 sensors) is a sensing-chain effect that is confounded with topology. Separating the two requires the
 FEA-generated topology populations planned for the paper, with the two measured machines as validation points.
 
+## 7. Monitoring architecture: what each sensor suite buys, per topology
+
+`scripts/sensor_suites.py`, table `results/tables/F_sensor_suites.csv`, figure `F_sensor_suites.png`,
+all numbers in `results/summary_suites.md`. Five suites ordered by added hardware / integration; each
+feature is assigned to the cheapest suite whose measurements can compute it (dq-frame quantities need the
+drive's angle, so they count as drive access; `Vd/Vq` come from *measured* terminal voltages, `Vd_conv/Vq_conv`
+are the converter's own commands). One fixed feature per suite (best median SDR); the per-recording best
+feature is the upper bound in brackets.
+
+Minimum detectable extent (winding fraction between taps; smallest tested level is 2.3 % inter-winding,
+2.7 % inter-turn) and share of fault recordings detectable:
+
+| suite | PMSG inter-turn | SCIG inter-turn | PMSG inter-winding | SCIG inter-winding |
+|---|---|---|---|---|
+| drive-internal (no added sensors) | 7.4 % · 64 % [87 %] `D2_D1` | 2.7 % · 78 % [96 %] `PId_2fe` | 2.3 % · 90 % [100 %] `D2_D1` | 2.3 % · 100 % `PId_2fe` |
+| 3 CT | 7.4 % · 57 % [78 %] `I2_I1` | 2.8 % · 75 % [84 %] `I2_I1` | 9.7 % · 82 % [94 %] `I2_I1` | 2.3 % · 100 % `I2_I1` |
+| 3 CT + 3 VT | **2.8 % · 76 % [88 %]** `V2_V1` | 2.8 % · 75 % [88 %] `I2_I1` | **2.3 % · 94 % [97 %]** `V2_V1` | 2.3 % · 100 % |
+| 3 CT + 3 VT + drive | 2.8 % · 76 % [95 %] | 2.7 % · 78 % [99 %] `PId_2fe` | 2.3 % · 94 % [100 %] | 2.3 % · 100 % |
+| + torque transducer | no change | no change | no change | no change |
+
+What this says about the design decision:
+
+- **PMSG: the terminal-voltage transducers are the decisive hardware.** Current-only monitoring (classic
+  MCSA) resolves inter-turn faults only from 7.4 % and inter-winding from 9.7 %; adding three voltage
+  transducers takes both to the floor of the test matrix. The drive's own commanded voltage is *not* a
+  substitute — the duty-cycle negative sequence detects inter-turn faults only from 7.4 %, and the commanded
+  q-axis 2fe component (`Vqconv_2fe`) is excluded for firing on healthy recordings — so the signature sits in
+  the measured terminal voltage, i.e. in the difference between what the converter commands and what the
+  machine produces.
+- **SCIG: the cheapest architecture already suffices.** Three current transducers, or the drive's own
+  d-axis PI action with no added sensor, reach the smallest tested extent for both fault types; extra
+  hardware buys robustness (share detectable 75–78 % → 99 % upper bound), not reach.
+- **A torque transducer adds nothing for winding faults in either topology** (shaft-torque SDR 0.03–0.3):
+  the mechanical route does not see stator winding faults at these extents.
+- **Transferability by suite** (GBDT, cross-topology AUC on the monitored machine): with features referenced
+  to each recording's own pre-fault segment every suite transfers (0.93–0.99, currents-only included); with
+  features merely scaled on the target's healthy recordings, currents-only transfers worst (0.68–0.71) and
+  voltage transducers or drive access lift it to 0.72–0.85.
+
+Design-method reading: the same monitoring specification ("three CTs, current-signature analysis") yields a
+2.8 % minimum detectable inter-turn extent on one topology and 7.4 % on the other; the sensor suite has to
+be chosen *with* the topology, and the choice is driven by where the control loop pushes the asymmetry
+(voltage side for the PMSG, magnetising-axis current for the SCIG). Same caveat as before: one machine per
+topology; the SCIG's narrower drift band is partly a sensing-chain effect.
+
 ## Next steps
 
-1. Sensor-suite question: repeat B–C with feature subsets a real installation would have (phase currents
-   only; currents + voltages; controller internals) → cost vs minimum detectable extent per topology.
+1. ~~Sensor-suite question~~ — done (Section 7).
 2. Onset detection: the relay pickup delay (≈ 85–90 ms) and the 1 s pre-fault give a clean onset benchmark;
    the onset-aware approach from the cobot paper applies directly.
 3. Tier 2: harmonise the variable-speed wound-field SG (bench C) to 977 Hz / 260 ms and re-run the SDR
