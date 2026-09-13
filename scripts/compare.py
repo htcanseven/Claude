@@ -66,6 +66,7 @@ GROUPS = {
 }
 ALL_FEATS = [f for g in GROUPS.values() for f in g]
 GROUP_OF = {f: g for g, fs in GROUPS.items() for f in fs}
+MAX_FALSE_ALARM = 0.2   # a feature that fires on > 1 of the 9 healthy recordings of a machine is not trusted there
 FT_LABEL = {"TURNS": "Inter-turn", "WINDINGS": "Inter-winding"}
 
 
@@ -162,12 +163,17 @@ def where_signature(sdr):
     det = pd.DataFrame(rows)
     det.to_csv(TAB / "B_sdr_by_feature.csv", index=False)
 
-    # Which signal group carries the strongest signature, recording by recording?
+    # Which signal group carries the strongest signature, recording by recording? Each group is represented
+    # by its best reliable feature (highest median SDR, healthy false-alarm rate within limits) so that an
+    # erratic feature with a few huge values cannot claim recordings for its group.
     rows = []
     for (m, ft), f in sdr[sdr.is_fault].groupby(["machine", "ftype"]):
-        best_group = f[[f"{x}__sdr" for x in ALL_FEATS]].set_axis(ALL_FEATS, axis=1).idxmax(axis=1).map(GROUP_OF)
+        d = det[(det.machine == m) & (det.ftype == ft) & (det.healthy_false_alarm <= MAX_FALSE_ALARM)]
+        reps = d.sort_values("median_sdr", ascending=False).groupby("group").head(1).set_index("group").feature
+        best_group = f[[f"{reps[g]}__sdr" for g in reps.index]].set_axis(list(reps.index), axis=1).idxmax(axis=1)
         for gname in GROUPS:
-            rows.append(dict(machine=m, ftype=ft, group=gname, share_of_recordings_where_group_is_strongest=(best_group == gname).mean()))
+            rows.append(dict(machine=m, ftype=ft, group=gname, representative_feature=reps.get(gname, ""),
+                             share_of_recordings_where_group_is_strongest=(best_group == gname).mean()))
     best = pd.DataFrame(rows)
     best.to_csv(TAB / "B_strongest_group_share.csv", index=False)
 
@@ -204,9 +210,6 @@ def where_signature(sdr):
 
 
 # ----------------------------------------------------------------------------- C: severity curve
-MAX_FALSE_ALARM = 0.2   # a feature that fires on > 1 of the 9 healthy recordings of either machine is not trusted
-
-
 def severity_curve(sdr, det, n_feats=4):
     unreliable = set(det[det.healthy_false_alarm > MAX_FALSE_ALARM].feature)
     pooled = (det[~det.feature.isin(unreliable)].groupby("feature").median_sdr.median()

@@ -22,13 +22,15 @@ algorithm is involved — the tap-pair label is a *design* description, not a ph
 
 ## 2. The signature moves to a different place in the drive
 
-Share of fault recordings in which each signal group carries the strongest signature:
+Share of fault recordings in which each signal group carries the strongest signature (each group
+represented by its best reliable feature: `I2_I1` for stator current; `V2_V1` (PMSG) / `PId_2fe` (SCIG) for
+dq / control; `Vdc_std` (PMSG) / `Spd_std` (SCIG) for mechanical):
 
 | | stator current | dq / control | mechanical |
 |---|---|---|---|
-| PMSG, inter-turn | 10 % | **83 %** | 7 % |
-| PMSG, inter-winding | 6 % | **94 %** | 0 % |
-| SCIG, inter-turn | 28 % | **68 %** | 5 % |
+| PMSG, inter-turn | 16 % | **75 %** | 9 % |
+| PMSG, inter-winding | 7 % | **90 %** | 3 % |
+| SCIG, inter-turn | 33 % | **62 %** | 5 % |
 | SCIG, inter-winding | 33 % | **67 %** | 0 % |
 
 - **PMSG**: the current controller suppresses the current asymmetry; the fault shows up as **negative-sequence
@@ -38,7 +40,7 @@ Share of fault recordings in which each signal group carries the strongest signa
   (`Id_2fe`, `PId_2fe`: SDR 6.7 / 74) and much more strongly in `I2_I1` (4.5 / 56) — the current side is
   informative, not just the voltage side.
 - The two topologies weight the features almost orthogonally: cosine similarity of the two logistic
-  detectors' weight vectors = **0.06**; `PIq_2fe` even has opposite signs.
+  detectors' weight vectors = **0.04**; `PIq_2fe` even has opposite signs.
 
 Design reading: *which measurement carries the fault is a property of topology + control structure*, so a
 monitoring design fixed at the "current signature analysis" stage is topology-specific.
@@ -70,15 +72,15 @@ one machine and test on all of the other.
 
 | feature calibration | within PMSG | within SCIG | PMSG → SCIG | SCIG → PMSG |
 |---|---|---|---|---|
-| raw physical units (GBDT) | 0.88 | 0.84 | 0.71 | 0.58 |
-| z-scored on target's healthy recordings (GBDT) | 0.88 | 0.84 | 0.83 | 0.78 |
-| \|z\| against each recording's own pre-fault segment (GBDT) | 0.97 | 0.99 | 0.99 | 0.94 |
+| raw physical units (GBDT) | 0.88 | 0.84 | 0.71 | 0.60 |
+| z-scored on target's healthy recordings (GBDT) | 0.88 | 0.84 | 0.84 | 0.78 |
+| \|z\| against each recording's own pre-fault segment (GBDT) | 0.97 | 0.99 | 0.99 | 0.95 |
 
-- Absolute-feature detectors do not transfer (AUC collapses to 0.58–0.72).
+- Absolute-feature detectors do not transfer (AUC collapses to 0.60–0.71).
 - Calibrating the feature scale on the *target* machine's healthy data — a few healthy recordings, no fault
-  data — recovers most of it (0.78–0.83).
+  data — recovers most of it (0.78–0.84).
 - Expressing every feature as a deviation from the recording's own reference makes the detector essentially
-  topology-agnostic (0.94–0.99; TPR at 1 % FPR 0.72–0.92).
+  topology-agnostic (0.95–0.99; TPR at 1 % FPR 0.76–0.92).
 
 Caveat specific to the last row: the negatives are dominated by pre-fault windows, which are ≈ 0 by
 construction under self-referencing; the only hard negatives are the fault-time windows of healthy recordings

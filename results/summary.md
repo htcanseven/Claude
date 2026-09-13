@@ -86,20 +86,20 @@ Top-6 features by median SDR per machine and fault type (`median_delta` = median
 
 Share of fault recordings in which each signal group holds the strongest signature:
 
-| machine | ftype | group | share_of_recordings_where_group_is_strongest |
-|---|---|---|---|
-| PMSG | TURNS | stator current | 0.093 |
-| PMSG | TURNS | dq / control | 0.843 |
-| PMSG | TURNS | mechanical | 0.065 |
-| PMSG | WINDINGS | stator current | 0.046 |
-| PMSG | WINDINGS | dq / control | 0.944 |
-| PMSG | WINDINGS | mechanical | 0.009 |
-| SCIG | TURNS | stator current | 0.222 |
-| SCIG | TURNS | dq / control | 0.574 |
-| SCIG | TURNS | mechanical | 0.204 |
-| SCIG | WINDINGS | stator current | 0.324 |
-| SCIG | WINDINGS | dq / control | 0.481 |
-| SCIG | WINDINGS | mechanical | 0.194 |
+| machine | ftype | group | representative_feature | share_of_recordings_where_group_is_strongest |
+|---|---|---|---|---|
+| PMSG | TURNS | stator current | I2_I1 | 0.157 |
+| PMSG | TURNS | dq / control | V2_V1 | 0.750 |
+| PMSG | TURNS | mechanical | Vdc_std | 0.093 |
+| PMSG | WINDINGS | stator current | I2_I1 | 0.074 |
+| PMSG | WINDINGS | dq / control | V2_V1 | 0.898 |
+| PMSG | WINDINGS | mechanical | Vdc_std | 0.028 |
+| SCIG | TURNS | stator current | I2_I1 | 0.333 |
+| SCIG | TURNS | dq / control | PId_2fe | 0.620 |
+| SCIG | TURNS | mechanical | Spd_std | 0.046 |
+| SCIG | WINDINGS | stator current | I2_I1 | 0.333 |
+| SCIG | WINDINGS | dq / control | PId_2fe | 0.667 |
+| SCIG | WINDINGS | mechanical | Spd_std | 0.000 |
 
 ![B](figures/B_sdr_by_feature.png)
 
