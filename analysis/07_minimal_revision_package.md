@@ -1,23 +1,99 @@
-# Low-effort route: IEEE Access (or e-Prime), with drop-in text
+# Low-effort route: EPSR first, IEEE Access as fallback — with drop-in text
 
 ## The decision
 
-**Primary: IEEE Access.** APC $2,160 (2026), **funded for LUT via FinELib**. First decision
-in ~30 days. Reviewers assess technical soundness and clarity — articles are *not* expected to
-show high novelty, only to be distinct from prior publications and technically sound. That is
-exactly the objection that sank you at TEC, and Access does not apply it the same way.
+**Primary: Electric Power Systems Research (Elsevier).** *Revised recommendation — see below.*
+IF 5.56, Q1, CiteScore 6.6. Hybrid, so publishing costs nothing (subscription route free; OA
+covered by the FinELib Elsevier agreement through Dec 2026). Typically **~1.7 revision rounds**,
+~2.7 review reports, ~3.4 months total handling.
 
-**Backup: e-Prime — Advances in Electrical Engineering, Electronics and Energy (Elsevier).**
-APC $1,400 and **currently waived**. Scope is a near-perfect match (power generation, signal
-processing, AI, sensors). Rapid review. No impact factor yet — it is a young journal — so it
-counts for less on a CV, but it costs nothing and fits the topic precisely.
+**Fallback: IEEE Access.** APC $2,160 (2026), **funded for LUT via FinELib**. First decision in
+~30 days. Reviewers assess technical soundness and clarity — articles are *not* expected to show
+high novelty, only to be distinct from prior work and technically sound. That is exactly the
+objection that sank you at TEC, and Access does not apply it the same way.
+
+**Second fallback: e-Prime (Elsevier).** APC $1,400 and **currently waived**. Scope is a
+near-perfect match (power generation, signal processing, AI, sensors). Rapid review. No impact
+factor yet, so it counts for less on a CV, but it costs nothing.
 
 **Avoid Heliyon.** It retracted roughly **392 papers in 2025** (up from 26 in 2024) amid
 paper-mill cleanup. Not somewhere a post-doc wants a publication on record.
 
-Also viable but less attractive: *Results in Engineering* (APC $2,320, broad engineering scope —
-the impact factor figures circulating for it are inconsistent across aggregators, treat with
-caution) and *Energy Reports* (APC $3,220, expensive for what it is).
+---
+
+## Why EPSR before IEEE Access
+
+The deciding factor is not impact factor — it is the **decision model**, and it interacts
+directly with this paper's specific weaknesses.
+
+| | EPSR | IEEE Access |
+|---|---|---|
+| Impact factor | **5.56** (Q1) | ~3.4 |
+| Revision rounds | **~1.7 typical** | **Binary: accept or reject** |
+| Cost to you | **Free** (hybrid, or FinELib OA) | $2,160, FinELib-funded |
+| Time to decision | ~2.7 months first round | ~30 days |
+| Novelty assessed | Yes, normally | Not heavily |
+| Scope risk | **Real — needs reframing** | Low |
+
+This paper's known problems — the Table IV denominators, thin reproducibility documentation —
+are **fixable**. A journal with revision rounds is strictly better for fixable problems. IEEE
+Access's binary model is built for manuscripts that are already clean; if a reviewer there hits
+either issue, it is a reject with no recovery, and the venue is spent.
+
+At EPSR the same issues produce a major revision, you fix them, and the paper lands in a journal
+with a meaningfully better impact factor for no money.
+
+**Sequencing matters and only works one way.** If EPSR rejects, IEEE Access is still open — and
+you would arrive there with EPSR's reviewer comments already addressed, making it a stronger
+submission. The reverse does not work: an Access rejection wastes the better option, and you
+cannot fall upward.
+
+You also have something no aggregator can give: **you have reviewed for EPSR and seen a similar
+paper go through.** That is better calibration of the real bar than anything in this document.
+
+---
+
+## ⚠️ The one genuine risk at EPSR: scope
+
+EPSR's official scope statement is unusually explicit, and it cuts close:
+
+> "The scope of Electric Power Systems Research is broad, yet the submission contents should be
+> directly related to **the influence on power system operation rather than presenting the issues
+> of particular network elements only**. Furthermore, submissions focusing primarily on
+> electricity prices, market economics, or **isolated components without demonstrating a
+> technical impact on the broader power system fall outside the journal's scope**."
+
+As currently framed — diagnosing a fault in a 10 kVA laboratory machine — the paper reads as
+exactly the "isolated component" case. And the 9-day median to first decision indicates an active
+desk-screening step, which is where a scope mismatch gets caught.
+
+**The fix costs nothing and is honest, not spin.** Your paper is genuinely about power system
+operation, and the current framing hides it:
+
+1. **Reactive power dispatch is set by the grid, not the machine.** The reason the operating
+   point varies across P15–P21 at all is that system voltage-support requirements and grid codes
+   dictate the generator's reactive set point. Cross-operating-point robustness is therefore a
+   *power system operation* requirement, not a laboratory curiosity. This is the single strongest
+   scope argument available and it is already implicit in Section III — make it explicit in the
+   Introduction.
+2. **Rotor ITSC drives unplanned generator outages**, which affect system adequacy, reserve
+   margins and reliability. Early severity-aware detection lets operators schedule maintenance
+   rather than trip unexpectedly.
+3. **Frame the boundary-condition finding in operational terms**: the under-excited,
+   low-power-factor condition is a normal grid-dictated operating state (absorbing reactive power
+   for voltage control), and it is precisely where naive diagnosis fails. That is an operationally
+   relevant result, not a lab artifact.
+
+Rewrite the first two Introduction paragraphs around points 1–3, add one sentence to the abstract
+about generation availability, and the scope objection disappears. Roughly an hour's work.
+
+### Also worth knowing
+
+EPSR reviewers *do* assess novelty, unlike Access. The novelty objection that sank you at TEC is
+still live there. The difference is that at EPSR you get a revision round to argue it, and the
+reframing above (diagnosis under grid-dictated reactive dispatch) is a more defensible position
+than "a benchmark of known features." Present it as an operational-robustness study, not a
+method comparison.
 
 ---
 
@@ -216,6 +292,8 @@ Generators."* One word, no extra work, and it removes the most obvious line of a
 - [ ] Drop-in paragraphs for bench, taps, grid connection, P15–P21, 90° spacing
 - [ ] Limitations paragraph added; "incipient" removed; abstract claim softened
 - [ ] Title reconsidered
+- [ ] **For EPSR: Introduction reframed around power system operation** (grid-dictated reactive
+      dispatch, unplanned outage avoidance, generation availability)
 - [ ] Confirm FinELib APC funding with the LUT library *before* submitting
 - [ ] Cover letter stating scope fit and what the paper contributes
 
@@ -252,6 +330,53 @@ null-result framing. Same length as the original.
 
 Also update the index terms: replace "physics-informed features" with "physics-motivated
 features" if you retitle.
+
+---
+
+## Drop-in: EPSR cover letter
+
+The job of this letter is to clear the scope screen. Lead with power system relevance, not with
+the method.
+
+> Dear Editor,
+>
+> Please consider the enclosed manuscript, "«final title»," for publication in Electric Power
+> Systems Research.
+>
+> Synchronous generators are the primary electromechanical conversion units in conventional
+> generation, and rotor winding inter-turn short circuits are among the faults most likely to
+> force an unplanned outage. Because such outages reduce generation availability and erode system
+> reserve margins, reliable early detection of rotor winding degradation is a power system
+> operation concern as much as a machine design one.
+>
+> The manuscript addresses a problem that arises specifically from system operation. A
+> grid-connected generator's excitation and reactive power set point are dictated by system
+> voltage-support requirements and grid code obligations, not by the machine itself, and the
+> external stray magnetic field used for non-invasive diagnosis varies strongly with that set
+> point. A diagnostic model validated at one reactive dispatch condition can therefore fail at
+> another. We show that this is not hypothetical: under deeply under-excited operation — a normal
+> state when a unit absorbs reactive power for voltage control — stray-field attenuation shifts
+> classification boundaries so that mild rotor faults are misread as healthy.
+>
+> The paper contributes: (i) a leave-one-operating-point-out evaluation protocol that measures
+> generalization to unseen excitation and power-factor conditions rather than to random splits;
+> (ii) a comparison of stray-field feature representations under that protocol, quantifying how
+> far fundamental-normalized descriptors reduce reactive-dispatch sensitivity; and (iii) an
+> analysis of the under-excited boundary condition together with an ordinal severity-calibration
+> stage that recovers the resulting failures.
+>
+> Results are obtained from an openly available measurement dataset (CC BY 4.0,
+> DOI 10.17632/d75sb25f7m.1) covering seven excitation and power-factor conditions of a
+> salient-pole synchronous generator synchronized to a 60 Hz distribution network. The complete
+> analysis pipeline is released at «repository URL» so that all reported results can be
+> independently reproduced. Limitations — a single 10 kVA machine at fixed apparent power — are
+> stated explicitly.
+>
+> The manuscript is original, is not under consideration elsewhere, and all authors have approved
+> the submission.
+>
+> Yours sincerely,
+> Hüseyin Tayyer Canseven, Evin Şahin Sadık
 
 ---
 
