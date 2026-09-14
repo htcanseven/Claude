@@ -15,13 +15,31 @@
 
 \raggedbottom
 
+%% Float placement: allow figures and tables to share pages with text and with each other.
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.7}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.8}
+\setcounter{topnumber}{3}
+\setcounter{totalnumber}{4}
+
+%% Set \anontrue to produce an anonymised copy (no author block, no identifying declarations)
+%% if the journal's editorial system asks for a blinded manuscript.
+\newif\ifanon
+\anonfalse
+
 \begin{document}
 
 \title[Alternative-dependent diagnosability]{Alternative-dependent diagnosability: a design-stage method for co-selecting system architecture and monitoring suite under a detectability requirement, with a demonstration on three wind-turbine generator topologies}
 
+\ifanon
+\author*[1]{\fnm{Anonymised} \sur{for review}}
+\affil*[1]{\orgname{Affiliation withheld for review}}
+\else
 \author*[1]{\fnm{H\"useyin Tayyer} \sur{Canseven}}\email{huseyin.canseven@lut.fi}
 
 \affil*[1]{\orgdiv{Department of Electrical Engineering, LUT School of Energy Systems}, \orgname{LUT University}, \orgaddress{\street{Yliopistonkatu 34}, \city{Lappeenranta}, \postcode{53850}, \country{Finland}}}
+\fi
 
 \abstract{\input{sections/abstract}}
 
@@ -45,7 +63,7 @@ The author thanks the InnovaPower group of the University of S\~ao Paulo for pub
 \section*{Declarations}
 
 \bmhead{Funding}
-No specific funding was received for this work. [Author to complete: project or grant acknowledgements if applicable.]
+No specific funding was received for this work.
 
 \bmhead{Competing interests}
 The author declares no competing interests.
@@ -57,7 +75,7 @@ Not applicable; the work uses no human or animal subjects and no personal data.
 All data are public: the PMSG, SCIG and synchronous-generator datasets of the InnovaPower MitDev-Eletrica project (\url{https://github.com/InnovaPower/MitDev-Eletrica}; Zenodo DOIs 10.5281/zenodo.15741561, 10.5281/zenodo.17161986 and 10.5281/zenodo.13685630), licensed CC BY 4.0. The derived per-trial tables (features, signal-to-drift ratios, bootstrap samples) are provided with the code.
 
 \bmhead{Code availability}
-The complete analysis pipeline (feature extraction, signal-to-drift computation, sensor-suite evaluation, transfer experiments, sensitivity analysis and all figures) is released under an open licence at [repository URL to be added at submission]; it reproduces every number in this paper from the public data.
+The complete analysis pipeline (feature extraction, signal-to-drift computation, sensor-suite evaluation, transfer experiments, sensitivity analysis and all figures) is released under an open licence at \url{https://github.com/htcanseven/Claude} (directory \texttt{scripts/}; an archived release with a DOI will be deposited on Zenodo at acceptance); it reproduces every number in this paper from the public data.
 
 \bmhead{Author contributions}
 H.T.C. conceived the method, designed and carried out the analysis, and wrote the paper.
