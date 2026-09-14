@@ -32,10 +32,10 @@ SUITES = {
                "PId_2fe", "PIq_2fe", "PId_std", "PIq_std", "D2_D1", "Te_2fe", "Te_1fe", "Te_std", "Vdc_std", "Spd_std"]),
     "3 CT": dict(
         cost="3 current transducers at the terminals; no angle information",
-        feats=["I2_I1", "I0_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd"]),
+        feats=["I2_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd"]),
     "3 CT + 3 VT": dict(
         cost="3 current + 3 voltage transducers; no angle information",
-        feats=["I2_I1", "I0_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd", "V2_V1"]),
+        feats=["I2_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd", "V2_V1"]),
     "3 CT + 3 VT + drive": dict(
         cost="external transducers plus controller access (dq transform of measured voltages)",
         feats=None),   # filled below: 3 CT + 3 VT + drive-internal + Vd_2fe, Vq_2fe
@@ -50,21 +50,33 @@ ORDER = list(SUITES)
 
 
 def min_detectable(s, col):
-    med = s.groupby("sev_pct")[col].median()
-    ok = med[med >= 1]
-    return ok.index.min() if len(ok) else np.nan
+    """Limit-of-detection convention (see compare3.min_detectable): smallest tested extent above which every
+    tested extent has median SDR >= 1; equal extents are pooled."""
+    med = s.groupby("sev_pct")[col].median().sort_index()
+    ok = (med >= 1).to_numpy()
+    idx = len(ok)
+    for i in range(len(ok) - 1, -1, -1):
+        if ok[i]:
+            idx = i
+        else:
+            break
+    return float(med.index[idx]) if idx < len(ok) else np.nan
 
 
-def suite_detectability(sdr, det):
+def suite_detectability(sdr, det, q95=None):
     rows = []
     for m in ["PMSG", "SCIG"]:
+        # screen: binomial false-alarm rule (share > MAX_FALSE_ALARM) and null quantile above one (uninformative)
         bad = set(det[(det.machine == m) & (det.healthy_false_alarm > C.MAX_FALSE_ALARM)].feature)
+        if q95 is not None:
+            bad |= set(q95.loc[m][q95.loc[m] > 1].index)
+        h = sdr[(sdr.machine == m) & ~sdr.is_fault]
         for ft in ["TURNS", "WINDINGS"]:
             f = sdr[(sdr.machine == m) & (sdr.ftype == ft)]
             for suite, spec in SUITES.items():
                 feats = [x for x in spec["feats"] if x not in bad and f"{x}__sdr" in f.columns]
                 cols = [f"{x}__sdr" for x in feats]
-                med = f[cols].median().set_axis(feats)
+                med = f[cols].median().set_axis(feats)   # selection rule: highest median SDR among screened features
                 best = med.idxmax()
                 fixed = f[f"{best}__sdr"]
                 oracle = f[cols].max(axis=1)
@@ -73,7 +85,8 @@ def suite_detectability(sdr, det):
                     best_feature=best, fixed_median_sdr=fixed.median(), fixed_share_detectable=(fixed >= 1).mean(),
                     fixed_min_detectable_pct=min_detectable(f.assign(v=fixed), "v"),
                     oracle_median_sdr=oracle.median(), oracle_share_detectable=(oracle >= 1).mean(),
-                    oracle_min_detectable_pct=min_detectable(f.assign(v=oracle), "v")))
+                    oracle_min_detectable_pct=min_detectable(f.assign(v=oracle), "v"),
+                    oracle_healthy_false_alarm=(h[cols].max(axis=1) >= 1).mean() if len(h) else np.nan))
     out = pd.DataFrame(rows)
     out.to_csv(C.TAB / "F_sensor_suites.csv", index=False)
     return out
@@ -86,7 +99,7 @@ def suite_transfer(win):
         feats = [x for x in spec["feats"] if x in w.columns]
         for mode in ["healthy-z", "self-ref"]:
             X = C.calibrate(w, feats, mode)
-            mk = lambda: HistGradientBoostingClassifier(max_depth=3, max_iter=200, learning_rate=0.08)
+            mk = lambda: HistGradientBoostingClassifier(max_depth=3, max_iter=200, learning_rate=0.08, random_state=0)
             for m in ["PMSG", "SCIG"]:
                 idx = (w.machine == m).to_numpy()
                 Xm, ym, gm = X[idx].to_numpy(), w.y[idx].to_numpy(), w.group[idx].to_numpy()
@@ -175,7 +188,7 @@ def figure_paper(res):
             dy, ha = (9, "right") if m == "PMSG" else (-13, "left")
             for x, (feat, y) in zip(xs + off[m], zip(s.best_feature, s.fixed_min_detectable_pct)):
                 if np.isfinite(y):
-                    ax.annotate(feat, (x, y), xytext=(0, dy), textcoords="offset points", ha=ha, fontsize=7, color=C.INK2)
+                    ax.annotate(C.lab(feat), (x, y), xytext=(0, dy), textcoords="offset points", ha=ha, fontsize=7, color=C.INK2)
         ax.set_yscale("log"); ax.set_yticks([2, 3, 5, 10, 20]); ax.set_yticklabels(["2", "3", "5", "10", "20"])
         ax.yaxis.set_minor_formatter(matplotlib.ticker.NullFormatter()); ax.set_ylim(1.6, 30)
         ax.set_title(f"{C.FT_LABEL[ft]} faults", fontsize=10)
@@ -216,7 +229,7 @@ if __name__ == "__main__":
     files, win = C.load()
     sdr, q95, _ = C.sdr_table(win)
     det, _ = C.where_signature(sdr)
-    res = suite_detectability(sdr, det)
+    res = suite_detectability(sdr, det, q95)
     tr = suite_transfer(win)
     figure(res, tr)
     figure_paper(res)

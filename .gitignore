@@ -7,6 +7,8 @@ results/features_windows.csv.gz
 zenodo_*.json
 results/features_windows*.csv.gz
 results/features_wfsg_windows*.csv.gz
+results/run_*.log
+results/revision_run.log
 # LaTeX build artefacts
 paper/*.aux
 paper/*.log

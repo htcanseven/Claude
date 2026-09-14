@@ -32,8 +32,8 @@ GROUP_OF = dict(C.GROUP_OF, If_2fe="excitation", If_std="excitation")
 SUITES3 = {
     "drive-internal": [f for f in ["Id_2fe", "Iq_2fe", "Id_1fe", "Iq_1fe", "Id_std", "Iq_std", "Vdconv_2fe", "Vqconv_2fe",
                                    "D2_D1", "Te_2fe", "Te_1fe", "Te_std", "Vdc_std", "Spd_std"]],
-    "3 CT": ["I2_I1", "I0_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd"],
-    "3 CT + 3 VT": ["I2_I1", "I0_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd", "V2_V1"],
+    "3 CT": ["I2_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd"],
+    "3 CT + 3 VT": ["I2_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd", "V2_V1"],
     "3 CT + 3 VT + drive": None,
     "excitation (WFSG only)": WFSG_EXTRA,
 }
@@ -50,14 +50,20 @@ def load3(wfsg_suffix="_allzf"):
     was raised with fault extent, so extent and impedance are confounded on that bench)."""
     w2 = pd.read_csv(C.RES / "features_windows_ncyc3.csv.gz")
     w3 = pd.read_csv(C.RES / f"features_wfsg_windows{wfsg_suffix}.csv.gz")
+    # the WFSG benchmark also contains phase-to-phase faults (AB/AC at 11-34 ohm), a class absent from the
+    # PMSG/SCIG protocol: they are excluded everywhere (null, ranking, MDE, transfer)
+    w3 = w3[w3.ftype.isin(["TURNS", "WINDINGS", "HEALTHY"])]
     win = pd.concat([w2, w3], ignore_index=True, sort=False)
     win["rid"] = win.machine + "/" + win.file
     win["zf_ohm"] = win.zf_ohm.fillna(win.machine.map(ZF_REF))
     f2 = pd.read_csv(C.RES / "features_files_ncyc3.csv")
     f3 = pd.read_csv(C.RES / f"features_wfsg_files{wfsg_suffix}.csv")
-    files = pd.concat([f2, f3], ignore_index=True, sort=False)
+    f3 = f3[f3.ftype.isin(["TURNS", "WINDINGS", "HEALTHY"])]
+    files = pd.concat([f2, f3], ignore_index=True, sort=False).copy()
     files["zf_ohm"] = files.zf_ohm.fillna(files.machine.map(ZF_REF))
     files["is_fault"] = files.ftype != "HEALTHY"
+    files["sev_pct"] = files.sev_pct.round(1)   # pool equal extents from different tap pairs
+    win["sev_pct"] = win.sev_pct.round(1)
     return files, win
 
 
@@ -82,7 +88,7 @@ def sdr_from_windows(win, feats, q=0.95, pre_split=C.PRE_SPLIT):
     return out, qv
 
 
-def per_feature(sdr, feats):
+def per_feature(sdr, feats, qv=None):
     rows = []
     for m in MACH:
         h = sdr[(sdr.machine == m) & ~sdr.is_fault]
@@ -94,29 +100,54 @@ def per_feature(sdr, feats):
                 s = f[f"{feat}__sdr"].dropna()
                 if not len(s):
                     continue
-                rows.append(dict(machine=m, ftype=ft, feature=feat, group=GROUP_OF[feat], n=len(s),
+                rows.append(dict(machine=m, ftype=ft, feature=feat, group=GROUP_OF[feat], n=len(s), n_trials=len(f),
                                  median_sdr=s.median(), q25=s.quantile(.25), q75=s.quantile(.75),
                                  frac_detectable=(s >= 1).mean(),
                                  healthy_false_alarm=(h[f"{feat}__sdr"] >= 1).mean() if len(h) else np.nan,
+                                 healthy_false_alarm_count=int((h[f"{feat}__sdr"] >= 1).sum()) if len(h) else np.nan,
+                                 n_healthy=len(h),
+                                 null_q=float(qv.loc[m, feat]) if qv is not None and feat in qv.columns else np.nan,
                                  median_delta=f[f"{feat}__delta"].median()))
     return pd.DataFrame(rows)
 
 
-def unreliable(det, m):
-    fa = det[(det.machine == m)].groupby("feature").healthy_false_alarm.first()
-    return set(fa[fa > C.MAX_FALSE_ALARM].index)
+def unreliable(det, m, alpha=0.95):
+    """Features excluded from the design quantities of machine m: (i) healthy false-alarm count incompatible
+    with the nominal rate 1 - alpha (binomial screen; not applicable when a machine has no healthy trials),
+    (ii) null quantile above one, i.e. the healthy relative change exceeds 100 % (uninformative feature)."""
+    d = det[det.machine == m].groupby("feature").first()
+    bad = {f for f, r in d.iterrows() if C.screen_flag(r.healthy_false_alarm_count, r.n_healthy, alpha)}
+    bad |= {f for f, r in d.iterrows() if np.isfinite(r.null_q) and r.null_q > 1}
+    return bad
 
 
 def min_detectable(s, col):
+    """Minimum detectable extent, limit-of-detection convention: the smallest tested extent above which
+    every tested extent has median SDR >= 1 over its trials (equal extents from different tap pairs are
+    pooled; NaN if the largest extent is not detectable)."""
+    med = s.groupby("sev_pct")[col].median().sort_index()
+    ok = (med >= 1).to_numpy()
+    idx = len(ok)
+    for i in range(len(ok) - 1, -1, -1):
+        if ok[i]:
+            idx = i
+        else:
+            break
+    return float(med.index[idx]) if idx < len(ok) else np.nan
+
+
+def min_detectable_first(s, col):
+    """Smallest tested extent whose median SDR reaches one (the original, non-monotone convention)."""
     med = s.groupby("sev_pct")[col].median()
     ok = med[med >= 1]
-    return ok.index.min() if len(ok) else np.nan
+    return float(ok.index.min()) if len(ok) else np.nan
 
 
 def suites(sdr, det):
     rows = []
     for m in MACH:
         bad = unreliable(det, m)
+        h = sdr[(sdr.machine == m) & ~sdr.is_fault]
         for ft in ["TURNS", "WINDINGS"]:
             f = sdr[(sdr.machine == m) & (sdr.ftype == ft)]
             if not len(f):
@@ -129,22 +160,25 @@ def suites(sdr, det):
                 if not feats or (suite.startswith("excitation") and m != "WFSG"):
                     continue
                 cols = [f"{x}__sdr" for x in feats]
-                med = f[cols].median().set_axis(feats)
+                med = f[cols].median().set_axis(feats)   # selection rule: highest median SDR among screened features
                 best = med.idxmax()
                 fixed = f[f"{best}__sdr"]
                 oracle = f[cols].max(axis=1)
-                rows.append(dict(suite=suite, machine=m, ftype=ft, best_feature=best, n_trials=len(f),
+                rows.append(dict(suite=suite, machine=m, ftype=ft, best_feature=best, n_trials=len(f), n_features=len(feats),
                                  fixed_median_sdr=fixed.median(), fixed_share_detectable=(fixed >= 1).mean(),
                                  fixed_min_detectable_pct=min_detectable(fm.assign(v=fm[f"{best}__sdr"]), "v"),
+                                 fixed_min_detectable_first_pct=min_detectable_first(fm.assign(v=fm[f"{best}__sdr"]), "v"),
                                  smallest_extent_tested_pct=fm.sev_pct.min(),
                                  oracle_share_detectable=(oracle >= 1).mean(),
-                                 oracle_min_detectable_pct=min_detectable(fm.assign(v=fm[cols].max(axis=1)), "v")))
+                                 oracle_min_detectable_pct=min_detectable(fm.assign(v=fm[cols].max(axis=1)), "v"),
+                                 oracle_healthy_false_alarm=(h[cols].max(axis=1) >= 1).mean() if len(h) else np.nan))
     return pd.DataFrame(rows)
 
 
 def fault_current(files):
     f = files[files.is_fault].copy()
-    f["Ifault_over_I1"] = f.Ifault_rms_flt / f.I1_pre
+    # I1_pre is the fundamental amplitude (peak) of the Hann projection; the fault current is an RMS value
+    f["Ifault_over_I1"] = f.Ifault_rms_flt / (f.I1_pre / np.sqrt(2))
     g = f.groupby(["case", "ftype", "sev_pct", "machine", "zf_ohm"]).agg(Ifault_A=("Ifault_rms_flt", "median"),
                                                                           Ifault_over_I1=("Ifault_over_I1", "median"),
                                                                           n=("file", "size")).reset_index()
@@ -158,7 +192,7 @@ def fig_physical_severity(sdr, files, feats):
     """SDR against the measured fault current relative to the pre-fault stator current: a physical
     severity axis that is comparable across benches and independent of the tap-pair/impedance design."""
     f = sdr[sdr.is_fault].join(files.set_index(files.machine + "/" + files.file)[["Ifault_rms_flt", "I1_pre"]])
-    f["ratio"] = f.Ifault_rms_flt / f.I1_pre
+    f["ratio"] = f.Ifault_rms_flt / (f.I1_pre / np.sqrt(2))   # RMS / RMS
     fig, axes = plt.subplots(len(feats), 2, figsize=(9, 2.3 * len(feats)), sharex="col", sharey=True,
                              gridspec_kw={"hspace": 0.25, "wspace": 0.08})
     for i, feat in enumerate(feats):
@@ -176,7 +210,7 @@ def fig_physical_severity(sdr, files, feats):
             if i == 0:
                 ax.set_title(C.FT_LABEL[ft])
             if j == 0:
-                ax.set_ylabel(f"{feat}\nSDR")
+                ax.set_ylabel(f"{C.lab(feat)}\nSDR")
             if i == len(feats) - 1:
                 ax.set_xlabel("Fault current / pre-fault stator current (RMS)")
     h, l = axes[0, 0].get_legend_handles_labels()
@@ -190,11 +224,11 @@ def fig_physical_severity(sdr, files, feats):
 def transfer3(win):
     w = win[win.segment.isin(["PRE", "FLT", "POST"])].copy()   # POST (recovery) windows are negatives
     w["y"] = ((w.segment == "FLT") & (w.ftype != "HEALTHY")).astype(int)
-    w["group"] = w.case + "|" + w.machine
+    w["group"] = C.make_groups(w)
     feats = COMMON
     w = w.replace([np.inf, -np.inf], np.nan).dropna(subset=feats)
     X = C.calibrate(w, feats, "self-ref")
-    mk = lambda: HistGradientBoostingClassifier(max_depth=3, max_iter=200, learning_rate=0.08)
+    mk = lambda: HistGradientBoostingClassifier(max_depth=3, max_iter=200, learning_rate=0.08, random_state=0)
     rows = []
     for m in MACH:
         idx = (w.machine == m).to_numpy()
@@ -226,10 +260,8 @@ def save(fig, name):
 
 
 def fig_features(det, feats):
-    groups = {"stator current": [f for f in feats if GROUP_OF[f] == "stator current"],
-              "dq / control": [f for f in feats if GROUP_OF[f] == "dq / control"],
-              "mechanical": [f for f in feats if GROUP_OF[f] == "mechanical"],
-              "excitation": [f for f in feats if GROUP_OF[f] == "excitation"]}
+    groups = {g: [f for f in feats if GROUP_OF[f] == g]
+              for g in ["stator current", "terminal voltage", "dq / control", "mechanical", "excitation"]}
     groups = {k: v for k, v in groups.items() if v}
     fig, axes = plt.subplots(len(groups), 2, figsize=(9.5, 9.6), sharex=True,
                              gridspec_kw={"height_ratios": [len(v) for v in groups.values()], "hspace": 0.2, "wspace": 0.08})
@@ -246,7 +278,7 @@ def fig_features(det, feats):
             ax.axvline(1, color=C.AXIS, lw=0.8, ls="--")
             ax.set_xscale("log"); ax.set_xlim(0.03, 200)
             ax.set_ylim(-0.6, len(fs) - 0.4)
-            ax.set_yticks(range(len(fs))); ax.set_yticklabels(fs[::-1] if j == 0 else [], fontsize=8)
+            ax.set_yticks(range(len(fs))); ax.set_yticklabels([C.lab(f) for f in fs[::-1]] if j == 0 else [], fontsize=8)
             ax.grid(axis="y", visible=False)
             if i == 0:
                 ax.set_title(f"{C.FT_LABEL[ft]} faults")
@@ -284,7 +316,7 @@ def fig_severity(sdr, feats):
             if i == 0:
                 ax.set_title(C.FT_LABEL[ft])
             if j == 0:
-                ax.set_ylabel(f"{feat}\nSDR")
+                ax.set_ylabel(f"{C.lab(feat)}\nSDR")
             if i == len(feats) - 1:
                 ax.set_xlabel("Winding fraction between the shorted taps (%)")
     h, l = axes[0, 0].get_legend_handles_labels()
@@ -345,7 +377,7 @@ def main():
     sdr, qv = sdr_from_windows(win, feats)
     sdr.to_csv(C.TAB / "G_sdr_per_recording_3alt.csv")
     qv.to_csv(C.TAB / "G_sdr_null_q95_3alt.csv")
-    det = per_feature(sdr, feats)
+    det = per_feature(sdr, feats, qv)
     det.to_csv(C.TAB / "G_sdr_by_feature_3alt.csv", index=False)
     res = suites(sdr, det)
     res.to_csv(C.TAB / "G_sensor_suites_3alt.csv", index=False)

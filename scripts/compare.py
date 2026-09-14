@@ -20,6 +20,7 @@ Analyses
   D  operating-point dependence      share of recordings detectable over the 3x3 grid
   E  cross-topology transfer         window-level detector trained on one machine, tested on the other
 """
+import os
 from pathlib import Path
 
 import matplotlib
@@ -58,19 +59,47 @@ plt.rcParams.update({
 })
 
 GROUPS = {
-    "stator current": ["I2_I1", "I0_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd"],
+    "stator current": ["I2_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd"],   # I0/I1 dropped: isolated-neutral star
+    "terminal voltage": ["V2_V1", "Vd_2fe", "Vq_2fe"],   # measured at the terminals (dq needs the controller angle)
     "dq / control": ["Id_2fe", "Iq_2fe", "Id_1fe", "Iq_1fe", "Id_std", "Iq_std",
-                     "Vd_2fe", "Vq_2fe", "Vdconv_2fe", "Vqconv_2fe", "PId_2fe", "PIq_2fe", "PId_std", "PIq_std",
-                     "D2_D1", "V2_V1"],
+                     "Vdconv_2fe", "Vqconv_2fe", "PId_2fe", "PIq_2fe", "PId_std", "PIq_std", "D2_D1"],
     "mechanical": ["Te_2fe", "Te_1fe", "Te_std", "Tm_2fe", "Tm_1fe", "Tm_std", "Spd_std", "Vdc_std"],
 }
 ALL_FEATS = [f for g in GROUPS.values() for f in g]
 GROUP_OF = {f: g for g, fs in GROUPS.items() for f in fs}
-MAX_FALSE_ALARM = 0.2   # a feature that fires on > 1 of the 9 healthy recordings of a machine is not trusted there
+# labels for figures (matplotlib mathtext); the LaTeX tables carry their own map in make_tables.py
+LABEL = {"I2_I1": "$I_2/I_1$", "V2_V1": "$V_2/V_1$", "I0_I1": "$I_0/I_1$", "I_unbal_rms": "RMS unbal.",
+         "Ia_h3": "$I_a$ h3", "Ia_h5": "$I_a$ h5", "Ia_h7": "$I_a$ h7", "Ia_thd": "$I_a$ THD",
+         "Id_2fe": "$I_d$ 2$f_e$", "Iq_2fe": "$I_q$ 2$f_e$", "Id_1fe": "$I_d$ 1$f_e$", "Iq_1fe": "$I_q$ 1$f_e$",
+         "Id_std": "$I_d$ std", "Iq_std": "$I_q$ std", "Vd_2fe": "$V_d$ 2$f_e$", "Vq_2fe": "$V_q$ 2$f_e$",
+         "Vdconv_2fe": "$V_d^{cmd}$ 2$f_e$", "Vqconv_2fe": "$V_q^{cmd}$ 2$f_e$", "PId_2fe": "PI$_d$ 2$f_e$",
+         "PIq_2fe": "PI$_q$ 2$f_e$", "PId_std": "PI$_d$ std", "PIq_std": "PI$_q$ std", "D2_D1": "$D_2/D_1$",
+         "Te_2fe": "$T_e$ 2$f_e$", "Te_1fe": "$T_e$ 1$f_e$", "Te_std": "$T_e$ std", "Tm_2fe": "$T_m$ 2$f_e$",
+         "Tm_1fe": "$T_m$ 1$f_e$", "Tm_std": "$T_m$ std", "Spd_std": "speed std", "Vdc_std": "$V_{dc}$ std",
+         "If_2fe": "$I_f$ 2$f_e$", "If_std": "$I_f$ std"}
+
+
+def lab(f):
+    return LABEL.get(f, f)
+# Reliability screen: a feature is flagged when its count of false alarms on the healthy trials is incompatible
+# with the nominal rate 1 - alpha at the 5 % level (one-sided binomial test). With 9 healthy trials and
+# alpha = 0.95 that is >= 3 false alarms (P[X >= 3] = 0.008; P[X >= 2] = 0.071), i.e. a share > 0.25.
+MAX_FALSE_ALARM = 0.25
+
+
+def screen_flag(count, n, alpha=0.95, level=0.05):
+    """True if `count` false alarms in `n` healthy trials is implausible at the nominal rate 1 - alpha."""
+    from scipy.stats import binom
+    if n == 0 or not np.isfinite(count):
+        return False
+    return bool(binom.sf(int(round(count)) - 1, int(n), 1 - alpha) < level)
 FT_LABEL = {"TURNS": "Inter-turn", "WINDINGS": "Inter-winding"}
 
 
 def header(fig, title, sub, top):
+    if os.environ.get("PAPER_FIGS"):   # manuscript figures: the caption carries the title and the legend text
+        fig.subplots_adjust(top=min(top + 0.06, 0.97))
+        return
     fig.text(0.01, 0.985, title, fontsize=11, color=INK, va="top")
     fig.text(0.01, 0.985 - 0.9 / fig.get_size_inches()[1] * 0.28, sub, fontsize=8, color=INK2, va="top")
     fig.subplots_adjust(top=top)
@@ -87,6 +116,10 @@ def load():
     files["is_fault"] = files.ftype != "HEALTHY"
     # File names are identical across the two machines: every per-recording key must include the machine.
     win["rid"] = win.machine + "/" + win.file
+    # Equal design-level extents realised by different tap pairs (2.8/2.8, 7.4/7.4/7.4, 11.6/11.6 %) are one
+    # extent level: round to 0.1 % so that MDE and the severity curves pool them.
+    files["sev_pct"] = files.sev_pct.round(1)
+    win["sev_pct"] = win.sev_pct.round(1)
     return files, win
 
 
@@ -114,7 +147,7 @@ def sdr_table(win):
 def severity(files):
     f = files[files.is_fault].copy()
     f["Ifault_pu"] = f.Ifault_rms_flt / f.machine.map(RATED_A)
-    f["Ifault_over_I1"] = f.Ifault_rms_flt / f.I1_pre
+    f["Ifault_over_I1"] = f.Ifault_rms_flt / (f.I1_pre / np.sqrt(2))   # I1_pre is a peak amplitude; RMS / RMS
     g = f.groupby(["case", "ftype", "sev_pct", "phases", "machine"]).agg(
         Ifault_A=("Ifault_rms_flt", "mean"), Ifault_min=("Ifault_rms_flt", "min"),
         Ifault_max=("Ifault_rms_flt", "max"), Ifault_pu=("Ifault_pu", "mean"),
@@ -182,7 +215,7 @@ def where_signature(sdr):
     best = pd.DataFrame(rows)
     best.to_csv(TAB / "B_strongest_group_share.csv", index=False)
 
-    fig, axes = plt.subplots(3, 2, figsize=(9.5, 9.2), sharex=True,
+    fig, axes = plt.subplots(len(GROUPS), 2, figsize=(9.5, 10.5), sharex=True,
                              gridspec_kw={"height_ratios": [len(v) for v in GROUPS.values()], "hspace": 0.18, "wspace": 0.08})
     for j, ft in enumerate(["TURNS", "WINDINGS"]):
         sub = det[det.ftype == ft]
@@ -228,10 +261,19 @@ def severity_curve(sdr, det, n_feats=4):
         for ft in ["TURNS", "WINDINGS"]:
             for feat in feats:
                 s = f[(f.machine == m) & (f.ftype == ft)]
-                med = s.groupby("sev_pct")[f"{feat}__sdr"].median()
+                med = s.groupby("sev_pct")[f"{feat}__sdr"].median().sort_index()
                 ok = med[med >= 1]
+                # limit-of-detection convention: smallest extent level above which every level is detectable
+                okv = (med >= 1).to_numpy()
+                idx = len(okv)
+                for i in range(len(okv) - 1, -1, -1):
+                    if okv[i]:
+                        idx = i
+                    else:
+                        break
                 rows.append(dict(machine=m, ftype=ft, feature=feat,
-                                 min_detectable_sev_pct=ok.index.min() if len(ok) else np.nan,
+                                 min_detectable_sev_pct=float(med.index[idx]) if idx < len(okv) else np.nan,
+                                 min_detectable_first_pct=float(ok.index.min()) if len(ok) else np.nan,
                                  n_sev_levels=len(med), n_levels_detectable=len(ok),
                                  spearman_sdr_vs_sev=s[["sev_pct", f"{feat}__sdr"]].corr(method="spearman").iloc[0, 1]))
     mds = pd.DataFrame(rows)
@@ -303,7 +345,7 @@ def build_window_table(win):
     recordings (the relay clicks but nothing is shorted)."""
     w = win[win.segment.isin(["PRE", "FLT", "POST"])].copy()
     w["y"] = ((w.segment == "FLT") & (w.ftype != "HEALTHY")).astype(int)
-    w["group"] = w.case + "|" + w.machine
+    w["group"] = make_groups(w)
     w = w.replace([np.inf, -np.inf], np.nan).dropna(subset=ALL_FEATS)
     return w, ALL_FEATS
 
@@ -319,12 +361,26 @@ def calibrate(w, feats, mode):
             mu, sd = ref.mean(), ref.std().replace(0, 1)
             out.loc[w.machine == m] = (x.loc[w.machine == m] - mu) / sd
         return out
-    if mode == "self-ref":    # per recording: |z| against its own pre-fault windows (change detection)
-        pre_mean = w[w.segment == "PRE"].groupby("rid")[feats].mean()
-        pre_sd = w[w.segment == "PRE"].groupby("rid")[feats].std().replace(0, np.nan)
+    if mode == "self-ref":    # per recording: |z| against the FIRST HALF of its own pre-fault windows
+        norm = norm_mask(w)   # the normalising windows are excluded from the out-of-reference evaluation
+        pre_mean = w[norm].groupby("rid")[feats].mean()
+        pre_sd = w[norm].groupby("rid")[feats].std().replace(0, np.nan)
         z = (x - pre_mean.reindex(w.rid).values) / pre_sd.reindex(w.rid).values
         return z.abs().fillna(0)
     raise ValueError(mode)
+
+
+def norm_mask(w):
+    """Windows used to normalise a trial under the self-referenced rule: the first half of its reference
+    interval (before 0.62 s for the PMSG/SCIG records, before 0.30 s for the WFSG records)."""
+    split = np.where(w.machine == "WFSG", 0.30, PRE_SPLIT)
+    return ((w.segment == "PRE") & (w.t_start < split)).to_numpy()
+
+
+def make_groups(w):
+    """Cross-validation groups: one per tap pair and machine; healthy trials grouped by speed so that they
+    are spread over the folds instead of forming one group."""
+    return np.where(w.ftype == "HEALTHY", "H" + w.speed_rpm.astype(str) + "|" + w.machine, w.case + "|" + w.machine)
 
 
 def tpr_at_fpr(y, s, fpr_target=0.01):
@@ -336,7 +392,7 @@ def transfer(win):
     w, feats = build_window_table(win)
     models = {
         "logistic": lambda: make_pipeline(StandardScaler(), LogisticRegression(max_iter=3000, C=1.0)),
-        "gbdt": lambda: HistGradientBoostingClassifier(max_depth=3, max_iter=200, learning_rate=0.08),
+        "gbdt": lambda: HistGradientBoostingClassifier(max_depth=3, max_iter=200, learning_rate=0.08, random_state=0),
     }
     rows = []
     for mode in ["raw", "healthy-z", "self-ref"]:

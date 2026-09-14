@@ -23,12 +23,14 @@ Requires TeX Live with `sn-jnl.cls` (included here), natbib, booktabs, tikz, siu
 ## Regenerating tables and figures
 
 ```bash
-PYTHONPATH=scripts python3 scripts/compare3.py      # three-alternative results
-PYTHONPATH=scripts python3 scripts/sensitivity.py   # sensitivity + bootstrap
-python3 scripts/sensor_suites.py                    # suites, PMSG/SCIG
-python3 scripts/make_tables.py                      # LaTeX tables
-cp results/figures/*.pdf paper/figures/
+bash scripts/run_all.sh     # compare, sensor_suites, compare3, sensitivity, revision, make_tables; copies figures
 ```
+
+The individual steps are `compare.py` (PMSG/SCIG, five-cycle windows), `sensor_suites.py`, `compare3.py`
+(three alternatives, three-cycle windows), `sensitivity.py` (window/quantile sensitivity, bootstrap),
+`revision.py` (decision table, requirement quantities, decomposition, out-of-reference transfer metrics,
+baseline null, screen list) and `make_tables.py`. Feature extraction from the raw public data is
+`features.py` (PMSG/SCIG) and `features_wfsg.py` (WFSG); see their docstrings.
 
 ## Submission switches
 

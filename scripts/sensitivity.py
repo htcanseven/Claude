@@ -18,22 +18,53 @@ KEY = ["V2_V1", "I2_I1", "Id_2fe", "PId_2fe", "Vq_2fe"]
 MACH = ["PMSG", "SCIG"]
 
 
-def metrics(sdr, feats):
+def metrics(sdr, feats, alpha=0.95):
     rows = []
     for m in MACH:
+        h = sdr[(sdr.machine == m) & ~sdr.is_fault]
         for ft in ["TURNS", "WINDINGS"]:
             f = sdr[(sdr.machine == m) & (sdr.ftype == ft)]
             for feat in feats:
                 col = f"{feat}__sdr"
+                k = int((h[col] >= 1).sum())
                 rows.append(dict(machine=m, ftype=ft, feature=feat, median_sdr=f[col].median(),
-                                 share_detectable=(f[col] >= 1).mean(), min_detectable_pct=min_detectable(f, col)))
+                                 share_detectable=(f[col] >= 1).mean(), min_detectable_pct=min_detectable(f, col),
+                                 healthy_false_alarms=k, screened=C.screen_flag(k, len(h), alpha)))
     return pd.DataFrame(rows)
 
 
 def load_windows(suffix):
     w = pd.read_csv(C.RES / f"features_windows{suffix}.csv.gz")
     w["rid"] = w.machine + "/" + w.file
+    w["sev_pct"] = w.sev_pct.round(1)   # pool equal extents from different tap pairs
     return w
+
+
+def wilson(k, n, z=1.96):
+    if n == 0:
+        return np.nan, np.nan
+    p = k / n
+    d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d
+    h = z * np.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / d
+    return max(0.0, c - h), min(1.0, c + h)
+
+
+def mde_boot(f, col, B, rng):
+    """Resample the operating-point trials within each extent level; monotone-safe MDE per resample."""
+    groups = {k: g[col].to_numpy() for k, g in f.groupby("sev_pct")}
+    keys = sorted(groups)
+    ok = np.zeros((B, len(keys)), dtype=bool)
+    for j, k in enumerate(keys):
+        v = groups[k]
+        ok[:, j] = np.nanmedian(v[rng.randint(0, len(v), size=(B, len(v)))], axis=1) >= 1
+    suffix_ok = np.flip(np.cumprod(np.flip(ok, axis=1), axis=1), axis=1).astype(bool)
+    out = np.full(B, np.nan)
+    for b in range(B):
+        w = np.where(suffix_ok[b])[0]
+        if len(w):
+            out[b] = keys[w[0]]
+    return out
 
 
 def figure(bs):
@@ -42,7 +73,7 @@ def figure(bs):
     import matplotlib.pyplot as plt
     fig, axes = plt.subplots(1, 3, figsize=(10, 3.6), gridspec_kw={"wspace": 0.35, "width_ratios": [1, 1, 0.9]})
     fig.subplots_adjust(top=0.78, bottom=0.2)
-    labels = [f"{ft[:1] + ft[1:].lower()} · {feat}" for ft in ["TURNS", "WINDINGS"] for feat in KEY]
+    labels = [f"{C.FT_LABEL[ft]} · {C.lab(feat)}" for ft in ["TURNS", "WINDINGS"] for feat in KEY]
     y = np.arange(len(labels))[::-1]
     for ax, col, title in zip(axes[:2], ["median_sdr", "share"], ["Median SDR", "Share detectable"]):
         for m, off in (("PMSG", 0.15), ("SCIG", -0.15)):
@@ -74,7 +105,7 @@ def main():
     rows = []
     for q in [0.90, 0.95, 0.99]:
         sdr, _ = sdr_from_windows(win5, feats, q=q)
-        rows.append(metrics(sdr, KEY).assign(null_quantile=q))
+        rows.append(metrics(sdr, KEY, alpha=q).assign(null_quantile=q))
     qa = pd.concat(rows)
     qa.to_csv(C.TAB / "H_sensitivity_quantile.csv", index=False)
     # (b) window length
@@ -89,35 +120,40 @@ def main():
         rows.append(metrics(sdr, KEY).assign(window_cycles=ncyc))
     wb = pd.concat(rows)
     wb.to_csv(C.TAB / "H_sensitivity_window.csv", index=False)
-    # (c) bootstrap (ncyc 5, q 0.95)
+    # (c) bootstrap (ncyc 5, q 0.95). Median SDR and share: cluster bootstrap over the 12 tap pairs, the same
+    # resampled pairs for both machines (matched); Wilson intervals for the shares. MDE: operating-point
+    # trials resampled within each extent level. The null quantile is held fixed (estimated from all 225 trials).
     sdr, _ = sdr_from_windows(win5, feats, q=0.95)
     rng = np.random.RandomState(1)
     B = 2000
     rows = []
     for ft in ["TURNS", "WINDINGS"]:
+        cases = sorted(sdr[sdr.ftype == ft].case.unique())
+        cidx = rng.randint(0, len(cases), size=(B, len(cases)))
         for feat in KEY:
             col = f"{feat}__sdr"
             samples = {}
             for m in MACH:
                 f = sdr[(sdr.machine == m) & (sdr.ftype == ft)]
                 v = f[col].to_numpy()
-                idx = rng.randint(0, len(v), size=(B, len(v)))
-                bs = v[idx]
-                samples[m] = dict(median=np.nanmedian(bs, axis=1), share=np.nanmean(bs >= 1, axis=1))
-                # MDE: resample operating points within each tap pair
-                mde = []
-                groups = {k: g[col].to_numpy() for k, g in f.groupby("sev_pct")}
+                percase = [f[f.case == c][col].to_numpy() for c in cases]
+                med = np.empty(B)
+                share = np.empty(B)
                 for b in range(B):
-                    meds = {k: np.nanmedian(v_[rng.randint(0, len(v_), len(v_))]) for k, v_ in groups.items()}
-                    ok = [k for k, mv in meds.items() if mv >= 1]
-                    mde.append(min(ok) if ok else np.nan)
-                mde = np.array(mde, dtype=float)
+                    vv = np.concatenate([percase[i] for i in cidx[b]])
+                    med[b] = np.nanmedian(vv)
+                    share[b] = np.nanmean(vv >= 1)
+                samples[m] = dict(median=med, share=share)
+                mde = mde_boot(f, col, B, rng)
+                k = int((v >= 1).sum())
+                wl, wh = wilson(k, len(v))
                 rows.append(dict(ftype=ft, feature=feat, machine=m,
-                                 median_sdr=np.nanmedian(v), median_sdr_ci_lo=np.percentile(samples[m]["median"], 2.5),
-                                 median_sdr_ci_hi=np.percentile(samples[m]["median"], 97.5),
-                                 share=np.nanmean(v >= 1), share_ci_lo=np.percentile(samples[m]["share"], 2.5),
-                                 share_ci_hi=np.percentile(samples[m]["share"], 97.5),
-                                 mde=min_detectable(f, col), mde_ci_lo=np.nanpercentile(mde, 2.5), mde_ci_hi=np.nanpercentile(mde, 97.5),
+                                 median_sdr=np.nanmedian(v), median_sdr_ci_lo=np.percentile(med, 2.5),
+                                 median_sdr_ci_hi=np.percentile(med, 97.5),
+                                 share=np.nanmean(v >= 1), share_ci_lo=np.percentile(share, 2.5),
+                                 share_ci_hi=np.percentile(share, 97.5), share_wilson_lo=wl, share_wilson_hi=wh,
+                                 mde=min_detectable(f, col), mde_ci_lo=np.nanpercentile(mde, 2.5) if np.isfinite(mde).any() else np.nan,
+                                 mde_ci_hi=np.nanpercentile(mde, 97.5) if np.isfinite(mde).any() else np.nan,
                                  mde_undetectable_frac=np.mean(np.isnan(mde))))
             diff = np.log(samples["SCIG"]["median"]) - np.log(samples["PMSG"]["median"])
             rows.append(dict(ftype=ft, feature=feat, machine="SCIG/PMSG ratio of medians",

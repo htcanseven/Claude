@@ -8,11 +8,11 @@
   arr/.style={-{Latex[length=2mm]}, thick},
   node distance=4mm and 6mm
 ]
-\node[box] (s1) {\textbf{1 Frame}\\ alternatives $\mathcal{A}$, failure modes $\mathcal{F}$ with extent scale $E_f$, suites $\mathcal{S}$ with cost $c(s)$, envelope $\mathcal{O}$};
-\node[box, right=of s1] (s2) {\textbf{2 Generate trials}\\ per $(a,f,e,o)$: reference interval $R$ + faulted interval $F$; simulation (design stage) or bench (test stage); healthy trials included};
-\node[box, right=of s2] (s3) {\textbf{3 Compute}\\ features $\Phi(s)$ on windows; pooled null $q_\alpha(|\delta^0|)$ per $(a,\varphi)$; $\mathrm{SDR}=|\delta|/q_\alpha$; screen unreliable features};
-\node[box, below=of s3] (s4) {\textbf{4 Map}\\ $D_a(s,f,e,o)$; $\mathrm{MDE}_a(s,f)$, $\mathrm{DS}_a(s,f)$; signature location; fixed and oracle variants};
-\node[box, left=of s4] (s5) {\textbf{5 Select}\\ cheapest $s$ meeting the requirement per $a$; compare alternatives on $(c, \mathrm{MDE}, \mathrm{DS})$ with the other criteria};
+\node[box] (s1) {\textbf{1 Frame}\\ alternatives $\mathcal{A}$; failure modes $\mathcal{F}$ with extent scale $E_f$ and a physical severity axis; suites $\mathcal{S}$ ordered by cost $c(s)$; envelope $\mathcal{O}$; $e_{\mathrm{req}}$, $\alpha$};
+\node[box, right=of s1] (s2) {\textbf{2 Generate trials}\\ per $(a,f,e,o)$: reference interval $R$ ($\ge 2|F|$) + faulted interval $F$; bench (test stage) or simulation + measured null (design stage); healthy trials included};
+\node[box, right=of s2] (s3) {\textbf{3 Compute}\\ features $\Phi(s)$ on windows; pooled null $q_\alpha(|\delta^0|)$ per $(a,\varphi)$; $\mathrm{SDR}=|\delta|/q_\alpha$; binomial screen; drop $q_\alpha>1$};
+\node[box, below=of s3] (s4) {\textbf{4 Map}\\ $D_a(s,f,e,o)$; $\mathrm{MDE}_a(s,f)$, $\mathrm{DS}_a(s,f\mid e\ge e_{\mathrm{req}})$; signature location; fixed, nested and oracle variants; bootstrap intervals};
+\node[box, left=of s4] (s5) {\textbf{5 Select}\\ decision table over $(e_{\mathrm{req}},\alpha)$: meets / uncertain / fails; cheapest adequate $s$ per $a$ over all classes; compare alternatives on cost with the other criteria};
 \node[box, left=of s5] (s6) {\textbf{6 Assess transfer}\\ detector built on one alternative tested on the others under candidate referencing rules; fix the rule in the specification};
 \draw[arr] (s1) -- (s2);
 \draw[arr] (s2) -- (s3);
@@ -24,5 +24,5 @@
 \node[data, below=6mm of s5, text width=4.2cm] (req) {detectability requirement:\\ $\mathrm{MDE}\le e_{\mathrm{req}}$ at false-alarm $\le 1-\alpha$};
 \draw[arr] (req) -- (s5);
 \end{tikzpicture}}
-\caption{The design procedure. Steps 3--4 are fully specified by Eqs.~(\ref{eq:delta})--(\ref{eq:sdr}); steps 1, 2, 5 and 6 are design decisions the method structures.}\label{fig:method}
+\caption{The design procedure. Steps 3--4 are fully specified by Eqs.~(\ref{eq:delta})--(\ref{eq:sdr}); steps 1, 2, 5 and 6 are design decisions for which Section~\ref{sec:procedure} gives default rules.}\label{fig:method}
 \end{figure}

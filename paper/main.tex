@@ -30,7 +30,7 @@
 
 \begin{document}
 
-\title[Alternative-dependent diagnosability]{Alternative-dependent diagnosability: a design-stage method for co-selecting system architecture and monitoring suite under a detectability requirement, with a demonstration on three wind-turbine generator topologies}
+\title[Alternative-dependent diagnosability]{Alternative-dependent diagnosability: co-selecting system architecture and monitoring suite under a detectability requirement, demonstrated on three wind-turbine generator topologies}
 
 \ifanon
 \author*[1]{\fnm{Anonymised} \sur{for review}}
@@ -91,17 +91,11 @@ Let $x_a, x_b, x_c$ be the sampled phase quantities of a window of $N$ samples a
 \begin{equation}
   X(f) = \frac{2}{\sum_n w_n}\sum_{n=0}^{N-1} x_n\, w_n\, e^{-j2\pi f n/f_s}.
 \end{equation}
-The electrical frequency is estimated from the slope of the unwrapped phase of the current space vector $\tfrac{2}{3}(i_a + \mathbf{a}\, i_b + \mathbf{a}^2 i_c)$, $\mathbf{a}=e^{j2\pi/3}$, whose sign gives the phase rotation. Sequence magnitudes are $|X_0| = |X_a+X_b+X_c|/3$, $|X_+| = |X_a + \mathbf{a}X_b + \mathbf{a}^2X_c|/3$ and $|X_-| = |X_a + \mathbf{a}^2X_b + \mathbf{a}X_c|/3$ for an $abc$ rotation (interchanged for $acb$), evaluated at $f=f_e$ for currents ($I_1, I_2, I_0$), terminal voltages ($V_1, V_2$) and mean-removed duty cycles ($D_1, D_2$). The RMS unbalance is $\max_k |I_{\mathrm{rms},k} - \bar I_{\mathrm{rms}}| / \bar I_{\mathrm{rms}}$ over the three phases. Harmonic ratios are $|I_a(kf_e)|/|I_a(f_e)|$ for $k=3,5,7$, and the THD is $\sqrt{\sum_{k=2}^{20}|I_a(kf_e)|^2}/|I_a(f_e)|$. For synchronous-frame and scalar quantities $y$ (currents $i_d,i_q$; measured and commanded voltages $v_d,v_q$; PI outputs; torques; field current) the features are the standard deviation of $y-\bar y$ and the amplitudes $|Y(f_e)|$, $|Y(2f_e)|$ of the mean-removed signal. Speed and DC-link features are standard deviations. Windows are $n_c$ electrical cycles long with a hop of one cycle.
+The electrical frequency is estimated from the slope of the unwrapped phase of the current space vector $\tfrac{2}{3}(i_a + \mathbf{a}\, i_b + \mathbf{a}^2 i_c)$, $\mathbf{a}=e^{j2\pi/3}$, whose sign gives the phase rotation. Sequence magnitudes are $|X_+| = |X_a + \mathbf{a}X_b + \mathbf{a}^2X_c|/3$ and $|X_-| = |X_a + \mathbf{a}^2X_b + \mathbf{a}X_c|/3$ for an $abc$ rotation (interchanged for $acb$), evaluated at $f=f_e$ for currents ($I_1, I_2$), terminal voltages ($V_1, V_2$) and mean-removed duty cycles ($D_1, D_2$); $|X(f)|$ is a fundamental amplitude (peak), and is divided by $\sqrt2$ wherever it is compared with an RMS value. The RMS unbalance is $\max_k |I_{\mathrm{rms},k} - \bar I_{\mathrm{rms}}| / \bar I_{\mathrm{rms}}$ over the three phases. Harmonic ratios are $|I_a(kf_e)|/|I_a(f_e)|$ for $k=3,5,7$, and the THD is $\sqrt{\sum_{k=2}^{20}|I_a(kf_e)|^2}/|I_a(f_e)|$. For the synchronous-frame currents $i_d, i_q$ and the torques the features are the standard deviation of the mean-removed signal and its amplitudes $|Y(f_e)|$ and $|Y(2f_e)|$; for the PI outputs the standard deviation and $|Y(2f_e)|$; for the measured and commanded synchronous-frame voltages $|Y(2f_e)|$ only; for the field current the standard deviation and $|Y(2f_e)|$. Speed and DC-link features are standard deviations. Windows are $n_c$ electrical cycles long with a hop of one cycle; a feature is undefined for a trial whose faulted interval holds no complete window.
 
-\section{Supplementary figure and tables}\label{app:tables}
+\section{Supplementary tables}\label{app:tables}
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=\textwidth]{G_sdr_vs_severity_3alt}
-\caption{Signal-to-drift ratio against the design-level fault extent for four features and the three alternatives (small dots: trials; large markers: median per tap pair and fault impedance, marker shape encoding the impedance), three-cycle windows.}\label{fig:severity}
-\end{figure}
-
-This appendix collects the three-alternative suite table, the per-alternative feature ranking, the operating-point grid, the sensitivity of the design quantities to the tuning choices, the bootstrap intervals and the transfer of suite-restricted detectors.
+This appendix collects the three-alternative suite table, the per-alternative feature ranking, the operating-point grid, the sensitivity of the design quantities to the tuning choices, the outcome of the reliability screen and the transfer of suite-restricted detectors.
 
 \input{sections/appendix_tables}
 \clearpage
