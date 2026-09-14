@@ -153,3 +153,12 @@ topology; the SCIG's narrower drift band is partly a sensing-chain effect.
    pipeline — it has fault impedance and repetition IDs the 3-phase sets lack.
 4. FEA populations: simulate the 24 tap pairs on PMSG and SCIG models under parameter variation to get the
    distribution behind each diamond in figure C.
+
+## 8. Manuscript
+
+The findings above were developed into a Research in Engineering Design manuscript (`paper/`, built PDF `paper/main.pdf`),
+reviewed by three simulated referees (`paper/review/review_*.md`) and revised (`paper/review/response_to_reviewers.md`).
+Note that the revision changed several numbers reported in Sections 1–7 of this file: extent levels are pooled and the
+minimum detectable extent follows the limit-of-detection convention, the reliability screen is a binomial test, the
+severity axis is RMS/RMS, phase-to-phase WFSG trials are excluded, and self-referenced transfer features are normalised
+on the first half of the reference interval. The paper and `results/summary_revision.md` are authoritative.

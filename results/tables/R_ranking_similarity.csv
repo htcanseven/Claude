@@ -1,0 +1,3 @@
+ftype,n_features,spearman,top5_PMSG,top5_SCIG
+TURNS,30,0.696551724137931,"V2_V1, D2_D1, PIq_2fe, I2_I1, Vq_2fe","D2_D1, PId_2fe, Id_2fe, Vdconv_2fe, I2_I1"
+WINDINGS,30,0.8869855394883204,"V2_V1, D2_D1, Vq_2fe, I2_I1, PIq_2fe","D2_D1, PId_2fe, Id_2fe, Vdconv_2fe, I2_I1"

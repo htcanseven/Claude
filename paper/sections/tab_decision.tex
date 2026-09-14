@@ -1,0 +1,25 @@
+\begin{table}[t]
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\caption{Decision table: cheapest observation suite whose minimum detectable extent meets the requirement $e_{\mathrm{req}}$ with bootstrap probability $\ge0.95$, per alternative, fault class and false-alarm level $\alpha$ (three-cycle windows; suites ordered drive-internal $<$ 3\,CT $<$ 3\,CT+3\,VT $<$ 3\,CT+3\,VT+drive; exc: WFSG field current). `(suite)?': no suite meets with that confidence, the cheapest suite whose verdict is uncertain is shown; `none': every suite fails. WFSG inter-turn verdicts are bounded by its smallest tested extent at the matching impedance (11.6\,\%).}\label{tab:decision}
+\begin{tabular}{@{}llcccccc@{}}
+\toprule
+\multirow{2}{*}{$\alpha$} & \multirow{2}{*}{$e_{\mathrm{req}}$ (\%)} & \multicolumn{2}{c}{PMSG} & \multicolumn{2}{c}{SCIG} & \multicolumn{2}{c}{WFSG} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(l){7-8}
+ & & IT & IW & IT & IW & IT & IW \\
+\midrule
+0.90 & 3 & (3CT+3VT)? & (drive)? & none & drive & none & drive \\
+0.90 & 5 & 3CT+3VT & (drive)? & none & drive & none & drive \\
+0.90 & 8 & drive & (drive)? & drive & drive & none & drive \\
+0.90 & 12 & drive & 3CT & drive & drive & drive & drive \\
+0.95 & 3 & (3CT+3VT)? & (drive)? & none & drive & none & drive \\
+0.95 & 5 & (drive)? & (drive)? & none & drive & none & drive \\
+0.95 & 8 & drive & (drive)? & drive & drive & none & drive \\
+0.95 & 12 & drive & 3CT & drive & drive & drive & drive \\
+0.99 & 3 & none & none & none & drive & none & drive \\
+0.99 & 5 & (3CT+3VT)? & none & none & drive & none & drive \\
+0.99 & 8 & drive & none & drive & drive & none & drive \\
+0.99 & 12 & drive & (drive)? & drive & drive & drive & drive \\
+\botrule
+\end{tabular}
+\end{table}

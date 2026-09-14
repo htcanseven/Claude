@@ -105,8 +105,9 @@ def t_suites():
     body = [x if x.endswith(r"\\") or x.endswith(r"\\[2pt]") else x + r" \\" for x in body]
     body[-1] = body[-1].rstrip(r"\\").rstrip()
     cap = ("Observation suites versus what they detect, PMSG and SCIG (five-cycle windows): best fixed feature of the suite, "
-           "its minimum detectable extent (MDE, \\%) and detectable share (DS, \\%; per-trial oracle share in brackets). "
-           "Features firing on more than one of the nine healthy trials of a machine are excluded for that machine.")
+           "its minimum detectable extent (MDE, \\%; limit-of-detection convention) and detectable share (DS, \\%; per-trial "
+           "oracle share in brackets). Features failing the reliability screen (three or more false alarms on the nine healthy "
+           "trials, or null quantile above one) are excluded for that machine; the oracle false-alarm rates are in Table~\\ref{tab:suites3}.")
     head = r"Suite & PMSG feature & MDE & DS [oracle] & SCIG feature & MDE & DS [oracle]"
     return table(body, cap, "tab:suites", "l" * 7, head, size=r"\scriptsize", colsep="3pt")
 
@@ -315,18 +316,19 @@ def t_mde():
             for k, mach in enumerate(["PMSG", "SCIG"]):
                 r = b[(b.ftype == ft) & (b.feature == f) & (b.machine == mach)].iloc[0]
                 mde = "--" if not np.isfinite(r.mde) else f"{r.mde:.1f} [{r.mde_ci_lo:.1f}, {r.mde_ci_hi:.1f}]"
-                row = [FT[ft] if k == 0 else "", tex(f) if k == 0 else "", mach, mde,
+                row = [{"TURNS": "IT", "WINDINGS": "IW"}[ft] if k == 0 else "", tex(f) if k == 0 else "", mach[0], mde,
                        f"{pct(r.share)} [{pct(r.share_wilson_lo)}, {pct(r.share_wilson_hi)}]",
-                       f"{r.median_sdr:.2f} [{r.median_sdr_ci_lo:.2f}, {r.median_sdr_ci_hi:.2f}]",
-                       f"{ratio.median_sdr:.2f} [{ratio.median_sdr_ci_lo:.2f}, {ratio.median_sdr_ci_hi:.2f}]" if k == 1 else ""]
+                       f"{r.median_sdr:.3g} [{r.median_sdr_ci_lo:.3g}, {r.median_sdr_ci_hi:.3g}]",
+                       f"{ratio.median_sdr:.3g} [{ratio.median_sdr_ci_lo:.3g}, {ratio.median_sdr_ci_hi:.3g}]" if k == 1 else ""]
                 body.append(" & ".join(row))
     cap = ("Minimum detectable extent (MDE, \\% of the winding branch between the taps; limit-of-detection convention; "
            "bootstrap 95\\,\\% interval over operating points within each extent level), detectable share (DS, \\%; Wilson "
            "95\\,\\% interval), median SDR (95\\,\\% interval from a bootstrap over tap pairs, the same pairs for both "
            "machines) and the SCIG/PMSG ratio of medians, for four representative features; five-cycle windows, $\\alpha=0.95$. "
-           "`--': the largest tested extent is not detectable. Smallest tested extents: 2.7\\,\\% (inter-turn), 2.3\\,\\% (inter-winding).")
-    head = r"Class & Feature & Machine & MDE [CI] & DS [CI] & Median SDR [CI] & SCIG/PMSG [CI]"
-    return table(body, cap, "tab:mde", "lllcccc", head, size=r"\scriptsize", colsep="3pt")
+           "IT: inter-turn; IW: inter-winding; P: PMSG; S: SCIG. `--': the largest tested extent is not detectable. "
+           "Smallest tested extents: 2.7\\,\\% (inter-turn), 2.3\\,\\% (inter-winding).")
+    head = r"Class & Feature & M. & MDE [CI] & DS [CI] & Median SDR [CI] & S/P ratio [CI]"
+    return table(body, cap, "tab:mde", "lllcccc", head, size=r"\scriptsize", colsep="2pt")
 
 
 def t_suites3():
@@ -502,14 +504,17 @@ def t_between():
     d = pd.read_csv(TAB / "R_between_trial_null.csv")
     body = []
     for r in d.itertuples():
-        body.append(" & ".join([FT[r.ftype], tex(r.feature), r.machine, f"{r.q95_within:.3f}", f"{r.q95_between:.3f}",
-                                f"{r.median_sdr_within:.1f}", f"{r.median_sdr_between:.1f}", pct(r.ds_within), pct(r.ds_between)]) + r" \\")
+        body.append(" & ".join([{"TURNS": "IT", "WINDINGS": "IW"}[r.ftype], tex(r.feature), r.machine[0],
+                                f"{r.q95_within:.3f}", f"{r.q95_between:.3f}",
+                                f"{r.median_sdr_within:.3g}", f"{r.median_sdr_between:.3g}", pct(r.ds_within), pct(r.ds_between)]) + r" \\")
     body[-1] = body[-1].rstrip(r"\\").rstrip()
     cap = ("Within-trial null (reference immediately before the fault) versus commissioning-baseline null (reference: the healthy "
-           "trial at the same operating point, recorded at a different time): null quantile, median SDR and detectable share (\\%), "
-           "PMSG and SCIG, five-cycle windows, $\\alpha=0.95$.")
-    head = r"Class & Feature & Machine & $q_{95}$ within & $q_{95}$ baseline & SDR within & SDR baseline & DS within & DS baseline"
-    return table(body, cap, "tab:between", "lllcccccc", head, size=r"\scriptsize", colsep="3pt")
+           "trial at the same operating point, recorded at a different time): null quantile $q_{95}$, median SDR and detectable "
+           "share DS (\\%), five-cycle windows, $\\alpha=0.95$. IT: inter-turn; IW: inter-winding; P: PMSG; S: SCIG.")
+    head = (r"\multirow{2}{*}{Class} & \multirow{2}{*}{Feature} & \multirow{2}{*}{M.} & \multicolumn{2}{c}{$q_{95}$} & \multicolumn{2}{c}{Median SDR} & \multicolumn{2}{c}{DS} \\" "\n"
+            r"\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(l){8-9}" "\n"
+            r" & & & within & baseline & within & baseline & within & baseline")
+    return table(body, cap, "tab:between", "lllcccccc", head, size=r"\scriptsize", colsep="2.5pt")
 
 
 def t_z2():

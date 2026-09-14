@@ -1,50 +1,50 @@
 alpha,e_req_pct,machine,ftype,cheapest_meets,cheapest_meets_feature,cheapest_not_failing,n_uncertain
-0.9,3,PMSG,TURNS,none,,none,0
-0.9,3,PMSG,WINDINGS,none,,drive-internal,2
-0.9,3,SCIG,TURNS,none,,drive-internal,2
-0.9,3,SCIG,WINDINGS,drive-internal,Vdconv_2fe,drive-internal,0
+0.9,3,PMSG,TURNS,none,,3 CT + 3 VT,2
+0.9,3,PMSG,WINDINGS,none,,drive-internal,3
+0.9,3,SCIG,TURNS,none,,none,0
+0.9,3,SCIG,WINDINGS,drive-internal,Id_2fe,drive-internal,0
 0.9,3,WFSG,TURNS,none,,none,0
 0.9,3,WFSG,WINDINGS,drive-internal,Iq_2fe,drive-internal,0
-0.9,5,PMSG,TURNS,none,,drive-internal,2
+0.9,5,PMSG,TURNS,3 CT + 3 VT,V2_V1,drive-internal,1
 0.9,5,PMSG,WINDINGS,none,,drive-internal,4
-0.9,5,SCIG,TURNS,none,,drive-internal,2
-0.9,5,SCIG,WINDINGS,drive-internal,Vdconv_2fe,drive-internal,0
+0.9,5,SCIG,TURNS,none,,none,0
+0.9,5,SCIG,WINDINGS,drive-internal,Id_2fe,drive-internal,0
 0.9,5,WFSG,TURNS,none,,none,0
 0.9,5,WFSG,WINDINGS,drive-internal,Iq_2fe,drive-internal,0
-0.9,8,PMSG,TURNS,drive-internal,D2_D1,drive-internal,0
+0.9,8,PMSG,TURNS,drive-internal,D2_D1,drive-internal,1
 0.9,8,PMSG,WINDINGS,none,,drive-internal,4
-0.9,8,SCIG,TURNS,drive-internal,Vdconv_2fe,drive-internal,0
-0.9,8,SCIG,WINDINGS,drive-internal,Vdconv_2fe,drive-internal,0
+0.9,8,SCIG,TURNS,drive-internal,Id_2fe,drive-internal,0
+0.9,8,SCIG,WINDINGS,drive-internal,Id_2fe,drive-internal,0
 0.9,8,WFSG,TURNS,none,,none,0
 0.9,8,WFSG,WINDINGS,drive-internal,Iq_2fe,drive-internal,0
 0.9,12,PMSG,TURNS,drive-internal,D2_D1,drive-internal,0
-0.9,12,PMSG,WINDINGS,3 CT,I_unbal_rms,drive-internal,2
-0.9,12,SCIG,TURNS,drive-internal,Vdconv_2fe,drive-internal,0
-0.9,12,SCIG,WINDINGS,drive-internal,Vdconv_2fe,drive-internal,0
+0.9,12,PMSG,WINDINGS,3 CT,I2_I1,drive-internal,1
+0.9,12,SCIG,TURNS,drive-internal,Id_2fe,drive-internal,0
+0.9,12,SCIG,WINDINGS,drive-internal,Id_2fe,drive-internal,0
 0.9,12,WFSG,TURNS,drive-internal,Iq_2fe,drive-internal,0
 0.9,12,WFSG,WINDINGS,drive-internal,Iq_2fe,drive-internal,0
-0.95,3,PMSG,TURNS,none,,none,0
-0.95,3,PMSG,WINDINGS,none,,drive-internal,2
+0.95,3,PMSG,TURNS,none,,3 CT + 3 VT,1
+0.95,3,PMSG,WINDINGS,none,,drive-internal,3
 0.95,3,SCIG,TURNS,none,,none,0
-0.95,3,SCIG,WINDINGS,drive-internal,Vdconv_2fe,drive-internal,0
+0.95,3,SCIG,WINDINGS,drive-internal,Id_2fe,drive-internal,0
 0.95,3,WFSG,TURNS,none,,none,0
 0.95,3,WFSG,WINDINGS,drive-internal,Iq_2fe,drive-internal,0
-0.95,5,PMSG,TURNS,none,,drive-internal,2
-0.95,5,PMSG,WINDINGS,none,,drive-internal,2
-0.95,5,SCIG,TURNS,none,,drive-internal,2
-0.95,5,SCIG,WINDINGS,drive-internal,Vdconv_2fe,drive-internal,0
+0.95,5,PMSG,TURNS,none,,drive-internal,3
+0.95,5,PMSG,WINDINGS,none,,drive-internal,3
+0.95,5,SCIG,TURNS,none,,none,0
+0.95,5,SCIG,WINDINGS,drive-internal,Id_2fe,drive-internal,0
 0.95,5,WFSG,TURNS,none,,none,0
 0.95,5,WFSG,WINDINGS,drive-internal,Iq_2fe,drive-internal,0
-0.95,8,PMSG,TURNS,drive-internal,D2_D1,drive-internal,2
-0.95,8,PMSG,WINDINGS,none,,drive-internal,2
-0.95,8,SCIG,TURNS,drive-internal,Vdconv_2fe,drive-internal,0
-0.95,8,SCIG,WINDINGS,drive-internal,Vdconv_2fe,drive-internal,0
+0.95,8,PMSG,TURNS,drive-internal,D2_D1,drive-internal,1
+0.95,8,PMSG,WINDINGS,none,,drive-internal,3
+0.95,8,SCIG,TURNS,drive-internal,Id_2fe,drive-internal,0
+0.95,8,SCIG,WINDINGS,drive-internal,Id_2fe,drive-internal,0
 0.95,8,WFSG,TURNS,none,,none,0
 0.95,8,WFSG,WINDINGS,drive-internal,Iq_2fe,drive-internal,0
 0.95,12,PMSG,TURNS,drive-internal,D2_D1,drive-internal,0
-0.95,12,PMSG,WINDINGS,3 CT,I2_I1,drive-internal,2
-0.95,12,SCIG,TURNS,drive-internal,Vdconv_2fe,drive-internal,0
-0.95,12,SCIG,WINDINGS,drive-internal,Vdconv_2fe,drive-internal,0
+0.95,12,PMSG,WINDINGS,3 CT,I2_I1,drive-internal,3
+0.95,12,SCIG,TURNS,drive-internal,Id_2fe,drive-internal,0
+0.95,12,SCIG,WINDINGS,drive-internal,Id_2fe,drive-internal,0
 0.95,12,WFSG,TURNS,drive-internal,Iq_2fe,drive-internal,0
 0.95,12,WFSG,WINDINGS,drive-internal,Iq_2fe,drive-internal,0
 0.99,3,PMSG,TURNS,none,,none,0
@@ -65,9 +65,9 @@ alpha,e_req_pct,machine,ftype,cheapest_meets,cheapest_meets_feature,cheapest_not
 0.99,8,SCIG,WINDINGS,drive-internal,Id_2fe,drive-internal,0
 0.99,8,WFSG,TURNS,none,,none,0
 0.99,8,WFSG,WINDINGS,drive-internal,Iq_2fe,drive-internal,0
-0.99,12,PMSG,TURNS,drive-internal,D2_D1,drive-internal,1
+0.99,12,PMSG,TURNS,drive-internal,D2_D1,drive-internal,0
 0.99,12,PMSG,WINDINGS,none,,drive-internal,4
 0.99,12,SCIG,TURNS,drive-internal,Id_2fe,drive-internal,0
 0.99,12,SCIG,WINDINGS,drive-internal,Id_2fe,drive-internal,0
-0.99,12,WFSG,TURNS,drive-internal,Iq_2fe,drive-internal,1
+0.99,12,WFSG,TURNS,drive-internal,Vqconv_2fe,drive-internal,0
 0.99,12,WFSG,WINDINGS,drive-internal,Iq_2fe,drive-internal,0

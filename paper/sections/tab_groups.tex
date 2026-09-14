@@ -1,14 +1,15 @@
 \begin{table}[t]
 \scriptsize
-\caption{Signature location: share of fault trials (\%) in which each measurement group's best reliable feature attains the highest SDR (representative feature in parentheses). PMSG and SCIG, five-cycle windows.}\label{tab:groups}
-\begin{tabular}{@{}llccc@{}}
+\setlength{\tabcolsep}{3pt}
+\caption{Signature location: share of fault trials (\%) in which each measurement group's best screened feature attains the highest SDR (representative feature in parentheses). PMSG and SCIG, five-cycle windows.}\label{tab:groups}
+\begin{tabular}{@{}llcccc@{}}
 \toprule
-Machine & Class & Stator currents & $dq$/controller & Mechanical \\
+Machine & Class & Stator currents & Terminal voltages & Controller/$dq$ & Mechanical \\
 \midrule
-PMSG & inter-turn & 16 ($I_2/I_1$) & 75 ($V_2/V_1$) & 9 ($V_{dc}$\,std) \\
-PMSG & inter-winding & 7 ($I_2/I_1$) & 90 ($V_2/V_1$) & 3 ($V_{dc}$\,std) \\
-SCIG & inter-turn & 33 ($I_2/I_1$) & 62 (PI$_d$\,2$f_e$) & 5 (speed std) \\
-SCIG & inter-winding & 33 ($I_2/I_1$) & 67 (PI$_d$\,2$f_e$) & 0 (speed std) \\
+PMSG & inter-turn & 8 ($I_2/I_1$) & 67 ($V_2/V_1$) & 17 ($D_2/D_1$) & 8 ($V_{dc}$\,std) \\
+PMSG & inter-winding & 6 ($I_2/I_1$) & 88 ($V_2/V_1$) & 4 ($D_2/D_1$) & 3 ($V_{dc}$\,std) \\
+SCIG & inter-turn & 28 ($I_2/I_1$) & 13 ($V_2/V_1$) & 56 (PI$_d$\,2$f_e$) & 4 ($V_{dc}$\,std) \\
+SCIG & inter-winding & 33 ($I_2/I_1$) & 0 ($V_2/V_1$) & 67 (PI$_d$\,2$f_e$) & 0 (speed std) \\
 \botrule
 \end{tabular}
 \end{table}

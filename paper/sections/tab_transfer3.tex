@@ -1,22 +1,22 @@
 \begin{table}[t]
-\footnotesize
-\caption{Transfer between the three alternatives (three-cycle windows, common features, $|z|$ against each trial's own reference, GBDT). Same-machine rows: five-fold cross-validation grouped by tap pair. The WFSG has no healthy trials, so its negatives are reference and recovery windows only.}\label{tab:transfer3}
-\begin{tabular}{@{}llcc@{}}
+\scriptsize
+\caption{Transfer between the three alternatives (three-cycle windows, common features, $|z|$ against the first half of each trial's own reference interval, GBDT with fixed seed). AUC on all windows and on the out-of-reference windows; TPR at 1\,\% FPR on the out-of-reference windows; FA: share of the fault-time windows of the healthy trials (contactor operation without a fault) above the threshold that gives 1\,\% FPR on all negatives. Same-machine rows: five-fold cross-validation grouped by tap pair. The WFSG has no healthy trials, so its negatives are reference and recovery windows only and its rows are optimistic.}\label{tab:transfer3}
+\begin{tabular}{@{}llcccc@{}}
 \toprule
-Trained on & Tested on & AUC & TPR at 1\,\% FPR \\
+Trained on & Tested on & AUC all & AUC o.o.r. & TPR o.o.r. & FA healthy (\%) \\
 \midrule
-PMSG & PMSG & 0.87 & 0.65 \\
-SCIG & SCIG & 0.92 & 0.77 \\
-WFSG & WFSG & 0.99 & 0.96 \\
-PMSG & SCIG & 0.90 & 0.59 \\
-PMSG & WFSG & 0.98 & 0.94 \\
-SCIG & PMSG & 0.81 & 0.34 \\
-SCIG & WFSG & 0.97 & 0.91 \\
-WFSG & PMSG & 0.86 & 0.56 \\
-WFSG & SCIG & 0.91 & 0.68 \\
-SCIG+WFSG & PMSG & 0.84 & 0.42 \\
-PMSG+WFSG & SCIG & 0.90 & 0.63 \\
-PMSG+SCIG & WFSG & 0.98 & 0.94 \\
+PMSG & PMSG & 0.86 & 0.85 & 0.62 & 3 \\
+SCIG & SCIG & 0.92 & 0.91 & 0.76 & 1 \\
+WFSG & WFSG & 0.97 & 0.97 & 0.93 & -- \\
+PMSG & SCIG & 0.88 & 0.88 & 0.60 & 0 \\
+PMSG & WFSG & 0.97 & 0.98 & 0.89 & -- \\
+SCIG & PMSG & 0.81 & 0.80 & 0.35 & 0 \\
+SCIG & WFSG & 0.95 & 0.96 & 0.86 & -- \\
+WFSG & PMSG & 0.86 & 0.84 & 0.52 & 1 \\
+WFSG & SCIG & 0.91 & 0.89 & 0.61 & 0 \\
+SCIG+WFSG & PMSG & 0.84 & 0.83 & 0.41 & 0 \\
+PMSG+WFSG & SCIG & 0.89 & 0.88 & 0.61 & 0 \\
+PMSG+SCIG & WFSG & 0.97 & 0.97 & 0.88 & -- \\
 \botrule
 \end{tabular}
 \end{table}

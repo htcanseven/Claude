@@ -1,0 +1,25 @@
+\begin{table}[t]
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\caption{Decomposition of the SCIG/PMSG ratio of median SDR into its numerator (ratio of median $|\delta|$, the relative change under fault) and its denominator (ratio $q_{0.95}^{\mathrm{PMSG}}/q_{0.95}^{\mathrm{SCIG}}$ of the null quantiles); five-cycle windows.}\label{tab:decomp}
+\begin{tabular}{@{}llccccccc@{}}
+\toprule
+Class & Feature & $|\delta|$ P & $|\delta|$ S & $q_{95}$ P & $q_{95}$ S & Num. & Den. & SDR ratio \\
+\midrule
+inter-turn & $V_2/V_1$ & 0.257 & 0.136 & 0.086 & 0.033 & 0.53 & 2.64 & 1.40 \\
+inter-turn & $I_2/I_1$ & 0.238 & 0.152 & 0.162 & 0.034 & 0.64 & 4.82 & 3.08 \\
+inter-turn & $I_d$\,2$f_e$ & 0.291 & 0.107 & 0.563 & 0.016 & 0.37 & 35.09 & 12.95 \\
+inter-turn & PI$_d$\,2$f_e$ & 0.289 & 0.107 & 0.557 & 0.016 & 0.37 & 34.71 & 12.91 \\
+inter-turn & $V_q$\,2$f_e$ & 0.222 & 0.155 & 0.165 & 0.060 & 0.70 & 2.73 & 1.91 \\
+inter-turn & $V_q^{\mathrm{cmd}}$\,2$f_e$ & 0.197 & 0.139 & 0.162 & 0.039 & 0.71 & 4.17 & 2.94 \\
+inter-turn & $D_2/D_1$ & 0.251 & 0.111 & 0.090 & 0.010 & 0.44 & 8.96 & 3.98 \\
+inter-winding & $V_2/V_1$ & 5.318 & 1.569 & 0.086 & 0.033 & 0.30 & 2.64 & 0.78 \\
+inter-winding & $I_2/I_1$ & 1.833 & 1.869 & 0.162 & 0.034 & 1.02 & 4.82 & 4.91 \\
+inter-winding & $I_d$\,2$f_e$ & 2.335 & 1.188 & 0.563 & 0.016 & 0.51 & 35.09 & 17.85 \\
+inter-winding & PI$_d$\,2$f_e$ & 2.344 & 1.188 & 0.557 & 0.016 & 0.51 & 34.71 & 17.60 \\
+inter-winding & $V_q$\,2$f_e$ & 3.688 & 1.495 & 0.165 & 0.060 & 0.41 & 2.73 & 1.11 \\
+inter-winding & $V_q^{\mathrm{cmd}}$\,2$f_e$ & 0.845 & 1.184 & 0.162 & 0.039 & 1.40 & 4.17 & 5.84 \\
+inter-winding & $D_2/D_1$ & 2.942 & 0.854 & 0.090 & 0.010 & 0.29 & 8.96 & 2.60 \\
+\botrule
+\end{tabular}
+\end{table}
