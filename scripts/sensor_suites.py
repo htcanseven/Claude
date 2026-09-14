@@ -176,7 +176,7 @@ def figure(res, tr):
 
 def figure_paper(res):
     """Two-row version for the manuscript (larger type; the transfer row is a table there)."""
-    fig, axes = plt.subplots(2, 2, figsize=(7.2, 5.6), sharex=True, gridspec_kw={"hspace": 0.18, "wspace": 0.12})
+    fig, axes = plt.subplots(2, 2, figsize=(7.2, 5.0), sharex=True, gridspec_kw={"hspace": 0.18, "wspace": 0.12})
     xs = np.arange(len(ORDER))
     off = {"PMSG": -0.13, "SCIG": 0.13}
     for j, ft in enumerate(["TURNS", "WINDINGS"]):

@@ -259,11 +259,11 @@ def save(fig, name):
     plt.close(fig)
 
 
-def fig_features(det, feats):
+def fig_features(det, feats, figsize=(9.5, 9.6), fsize=8, name="G_sdr_by_feature_3alt"):
     groups = {g: [f for f in feats if GROUP_OF[f] == g]
               for g in ["stator current", "terminal voltage", "dq / control", "mechanical", "excitation"]}
     groups = {k: v for k, v in groups.items() if v}
-    fig, axes = plt.subplots(len(groups), 2, figsize=(9.5, 9.6), sharex=True,
+    fig, axes = plt.subplots(len(groups), 2, figsize=figsize, sharex=True,
                              gridspec_kw={"height_ratios": [len(v) for v in groups.values()], "hspace": 0.2, "wspace": 0.08})
     for j, ft in enumerate(["TURNS", "WINDINGS"]):
         sub = det[det.ftype == ft]
@@ -278,17 +278,17 @@ def fig_features(det, feats):
             ax.axvline(1, color=C.AXIS, lw=0.8, ls="--")
             ax.set_xscale("log"); ax.set_xlim(0.03, 200)
             ax.set_ylim(-0.6, len(fs) - 0.4)
-            ax.set_yticks(range(len(fs))); ax.set_yticklabels([C.lab(f) for f in fs[::-1]] if j == 0 else [], fontsize=8)
+            ax.set_yticks(range(len(fs))); ax.set_yticklabels([C.lab(f) for f in fs[::-1]] if j == 0 else [], fontsize=fsize)
             ax.grid(axis="y", visible=False)
             if i == 0:
                 ax.set_title(f"{C.FT_LABEL[ft]} faults")
             if j == 1:
-                ax.text(1.02, 0.5, gname, transform=ax.transAxes, rotation=270, va="center", fontsize=8, color=C.MUTED)
-    fig.text(0.5, 0.045, "Signal-to-drift ratio (median over recordings; ≥ 1 = detectable)", ha="center", fontsize=9, color=C.INK2)
-    axes[0, 0].legend(loc="lower right")
+                ax.text(1.02, 0.5, gname, transform=ax.transAxes, rotation=270, va="center", fontsize=fsize, color=C.MUTED)
+    fig.text(0.5, 0.03, "Signal-to-drift ratio (median over trials; ≥ 1 = detectable)", ha="center", fontsize=9, color=C.INK2)
+    axes[0, 0].legend(loc="lower right", fontsize=fsize)
     C.header(fig, "Where the short-circuit becomes visible, for three generator topologies",
              "3-cycle windows; ZF = 2.6 Ω (PMSG, SCIG) and 2.83 Ω (WFSG). Dot = median SDR, bar = interquartile range.", top=0.91)
-    save(fig, "G_sdr_by_feature_3alt")
+    save(fig, name)
 
 
 def fig_severity(sdr, feats):

@@ -1,0 +1,100 @@
+%% Online Resource 1 (electronic supplementary material) for the Research in Engineering Design manuscript.
+\documentclass[pdflatex,sn-chicago]{sn-jnl}
+
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{manyfoot}
+\graphicspath{{figures/}}
+\raggedbottom
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.8}
+\setcounter{totalnumber}{4}
+
+\begin{document}
+
+\title[Online Resource 1]{Online Resource 1: supplementary material for ``Alternative-dependent diagnosability: co-selecting system architecture and monitoring suite under a detectability requirement, demonstrated on three wind-turbine generator topologies''}
+
+\author*[1]{\fnm{H\"useyin Tayyer} \sur{Canseven}}\email{huseyin.canseven@lut.fi}
+\affil*[1]{\orgdiv{Department of Electrical Engineering, LUT School of Energy Systems}, \orgname{LUT University}, \orgaddress{\street{Yliopistonkatu 34}, \city{Lappeenranta}, \postcode{53850}, \country{Finland}}}
+
+\abstract{This supplement contains the feature definitions (Section~S1), the computation details of the demonstration (Section~S2), the supplementary tables S1--S12 and the supplementary figures S1--S2 referred to in the main text. Every table and figure is produced by the released code from the public datasets.}
+
+\keywords{supplementary material}
+
+\maketitle
+
+\section{Feature definitions}\label{s:features}
+
+Let $x_a, x_b, x_c$ be the sampled phase quantities of a window of $N$ samples at sampling frequency $f_s$, $w$ the Hann window and $f_e$ the electrical frequency of the window. The complex fundamental amplitude of a signal $x$ at frequency $f$ is
+\begin{equation}
+  X(f) = \frac{2}{\sum_n w_n}\sum_{n=0}^{N-1} x_n\, w_n\, e^{-j2\pi f n/f_s}.
+\end{equation}
+The electrical frequency is estimated from the slope of the unwrapped phase of the current space vector $\tfrac{2}{3}(i_a + \mathbf{a}\, i_b + \mathbf{a}^2 i_c)$, $\mathbf{a}=e^{j2\pi/3}$, whose sign gives the phase rotation; outside 0.5--1.5 times the nominal value the nominal value is used. Sequence magnitudes are $|X_+| = |X_a + \mathbf{a}X_b + \mathbf{a}^2X_c|/3$ and $|X_-| = |X_a + \mathbf{a}^2X_b + \mathbf{a}X_c|/3$ for an $abc$ rotation (interchanged for $acb$), evaluated at $f=f_e$ for currents ($I_1, I_2$), terminal voltages ($V_1, V_2$) and mean-removed duty cycles ($D_1, D_2$); $|X(f)|$ is a fundamental amplitude (peak) and is divided by $\sqrt2$ wherever it is compared with an RMS value. The RMS unbalance is $\max_k |I_{\mathrm{rms},k} - \bar I_{\mathrm{rms}}| / \bar I_{\mathrm{rms}}$ over the three phases. Harmonic ratios are $|I_a(kf_e)|/|I_a(f_e)|$ for $k=3,5,7$, and the THD is $\sqrt{\sum_{k=2}^{20}|I_a(kf_e)|^2}/|I_a(f_e)|$. For the synchronous-frame currents $i_d, i_q$ and the torques the features are the standard deviation of the mean-removed signal and its amplitudes $|Y(f_e)|$ and $|Y(2f_e)|$; for the PI outputs the standard deviation and $|Y(2f_e)|$; for the measured and commanded synchronous-frame voltages $|Y(2f_e)|$ only; for the field current the standard deviation and $|Y(2f_e)|$. Speed and DC-link features are standard deviations. Windows are $n_c$ electrical cycles long with a hop of one cycle; a feature is undefined for a trial whose faulted interval holds no complete window. On the WFSG bench the measured converter-side phase voltages serve as terminal voltages, the synchronous-frame voltages are obtained from them with the encoder angle, the commanded voltages are the controller's, and the electrical torque is computed from power and speed.
+
+\section{Computation details}\label{s:computation}
+
+\paragraph{Intervals.} PMSG and SCIG: reference interval 0.30--0.98\,s after the start of each record, split at 0.62\,s into $R_1$ (0.32\,s) and $R_2$ (0.36\,s); contactor commanded at 1.000\,s; faulted interval from 30\,ms after the command to 10\,ms before its release; the relay picks up 85--90\,ms after the command, so the faulted interval contains about 55\,ms of healthy time (at most 15\,\% of its length); recovery windows start 0.30\,s after the release. WFSG: fault interval located from the measured fault current as the first contiguous interval in which its 10\,ms RMS exceeds $\max(0.3\,\mathrm{A}, 6\sigma)$, $\sigma$ being the standard deviation of that RMS over 0.05--0.40\,s, ending at the first fall below the threshold after 50\,ms; reference interval from 0.05\,s after the start of the record to 10\,ms before the onset, split at 0.30\,s ($R_1$ 0.25\,s, $R_2$ about 0.24\,s); recovery windows start 0.15\,s after the end of the fault interval. At 23.9--63.7\,Hz a WFSG faulted interval holds between zero and eleven three-cycle windows; four trials hold none and are dropped; 81 of 438 hold fewer than three (all 50 trials at 1671\,rpm, 26 of 206 at 1800\,rpm, 4 at 716 and 1 at 955\,rpm).
+
+\paragraph{Null and screen.} The null is pooled over all 225 records of each of the PMSG and SCIG and over the 438 inter-turn and inter-winding records of the WFSG. The reliability screen flags a feature when its count of false alarms on the nine healthy trials is incompatible with the nominal rate $1-\alpha$ at the 5\,\% level (one-sided binomial test: three or more at $\alpha=0.95$, two or more at $\alpha=0.99$, four or more at $\alpha=0.90$), and excludes features whose null quantile exceeds one.
+
+\paragraph{Bootstrap.} 2000 resamples, seed 1. Median SDR and detectable share of a class: cluster bootstrap over the twelve tap pairs, the same resampled pairs for both machines; Wilson 95\,\% intervals for shares. Minimum detectable extent: operating-point trials resampled within each extent level; the limit-of-detection rule applied to each resample. The null quantile is held at its full-sample value. Decision table: 1000 resamples per suite, alternative, class and $\alpha$ (seed 7); a suite \emph{meets} $e_{\mathrm{req}}$ when the resample probability of $\mathrm{MDE}\le e_{\mathrm{req}}$ is at least 0.95 and \emph{fails} when it is at most 0.05.
+
+\paragraph{Transfer.} Windows: reference, faulted and recovery windows of all trials; positives: faulted windows of fault trials. Models: scikit-learn histogram gradient boosting (max depth 3, 200 iterations, learning rate 0.08, random state 0) and logistic regression with standardisation ($C=1$, 3000 iterations). Cross-validation: five-fold GroupKFold with one group per tap pair and machine, healthy trials grouped by speed. Referencing rules: physical units; $z$-score on the target machine's healthy trials; absolute $z$-score against the mean and standard deviation of the first half of the trial's own reference interval (windows starting before 0.62\,s for the PMSG/SCIG, before 0.30\,s for the WFSG). Metrics: AUC and true-positive rate at 1\,\% false-positive rate on all windows and on the windows outside the normalising set; the false-alarm rate of the all-negatives 1\,\% threshold on the fault-time windows of the healthy trials.
+
+\section{Supplementary tables}
+
+\input{sections/appendix_tables}
+\input{sections/tab_z2}
+\input{sections/tab_between}
+
+\begin{table}[t]
+\caption{Tap pairs and fault extents (fraction of the winding branch between the taps), identical for the three alternatives.}\label{tab:taps}
+\begin{tabular}{@{}llcllc@{}}
+\toprule
+\multicolumn{3}{c}{Inter-turn} & \multicolumn{3}{c}{Inter-winding} \\
+\cmidrule(r){1-3}\cmidrule(l){4-6}
+Taps & Phase & $e$ (\%) & Taps & Phase & $e$ (\%) \\
+\midrule
+D11--D12 & A & 2.7 & D04--D06 & A & 2.3 \\
+D09--D10 & A & 2.8 & D16--D18 & A & 3.2 \\
+D23--D24 & A & 2.8 & D04--D07 & A & 9.7 \\
+D21--D22 & A & 3.8 & D16--D19 & A & 10.6 \\
+D06--D07 & A & 7.4 & D01--D06 & A & 14.3 \\
+D14--D15 & B & 7.4 & D13--D18 & A & 14.8 \\
+D18--D19 & A & 7.4 & D01--D07 & A & 21.7 \\
+D02--D03 & B & 7.7 & D13--D19 & A & 22.2 \\
+D17--D20 & C & 11.6 & D12--D21 & A & 33.7 \\
+D13--D16 & A & 11.6 & D11--D21 & A & 36.4 \\
+D01--D04 & A & 12.0 & D12--D22 & A & 37.5 \\
+D05--D08 & C & 12.1 & D11--D22 & A & 40.2 \\
+\botrule
+\end{tabular}
+\end{table}
+
+\input{sections/tab_null}
+\input{sections/tab_transfer3}
+\input{sections/tab_groups}
+
+\clearpage
+\section{Supplementary figures}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{A_fault_current_by_case}
+\caption{Fault current per tap pair, PMSG and SCIG: mean over the nine operating points (dot) and range (bar). Rated currents 6.3\,A (PMSG) and 7.7\,A (SCIG).}\label{fig:faultcurrent}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{H_bootstrap}
+\caption{Tap-pair-level uncertainty: bootstrap 95\,\% intervals of the median SDR, the detectable share and the SCIG/PMSG ratio of median SDR for five features and both fault classes (the same resampled tap pairs for both machines), five-cycle windows.}\label{fig:boot}
+\end{figure}
+
+\end{document}
