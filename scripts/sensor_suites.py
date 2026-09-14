@@ -157,8 +157,40 @@ def figure(res, tr):
     C.header(fig, "Monitoring architecture vs. what it can detect, per topology",
              "Filled = one fixed feature per suite (the best by median SDR, named); hollow = best feature per recording (upper "
              "bound). Bottom row: hollow = trained and tested on the same machine (unseen tap pairs).", top=0.92)
-    fig.savefig(C.FIG / "F_sensor_suites.png")
+    C.savefig_both(fig, "F_sensor_suites")
     plt.close(fig)
+
+
+def figure_paper(res):
+    """Two-row version for the manuscript (larger type; the transfer row is a table there)."""
+    fig, axes = plt.subplots(2, 2, figsize=(7.2, 5.6), sharex=True, gridspec_kw={"hspace": 0.18, "wspace": 0.12})
+    xs = np.arange(len(ORDER))
+    off = {"PMSG": -0.13, "SCIG": 0.13}
+    for j, ft in enumerate(["TURNS", "WINDINGS"]):
+        ax = axes[0, j]
+        for m in ["PMSG", "SCIG"]:
+            s = res[(res.ftype == ft) & (res.machine == m)].set_index("suite").loc[ORDER]
+            ax.plot(xs + off[m], s.oracle_min_detectable_pct, "o", ms=8, mfc="none", mec=C.COL[m], mew=1.5, zorder=3)
+            ax.plot(xs + off[m], s.fixed_min_detectable_pct, "o", ms=7, color=C.COL[m], label=m, zorder=4)
+            dy, ha = (9, "right") if m == "PMSG" else (-13, "left")
+            for x, (feat, y) in zip(xs + off[m], zip(s.best_feature, s.fixed_min_detectable_pct)):
+                if np.isfinite(y):
+                    ax.annotate(feat, (x, y), xytext=(0, dy), textcoords="offset points", ha=ha, fontsize=7, color=C.INK2)
+        ax.set_yscale("log"); ax.set_yticks([2, 3, 5, 10, 20]); ax.set_yticklabels(["2", "3", "5", "10", "20"])
+        ax.yaxis.set_minor_formatter(matplotlib.ticker.NullFormatter()); ax.set_ylim(1.6, 30)
+        ax.set_title(f"{C.FT_LABEL[ft]} faults", fontsize=10)
+        ax = axes[1, j]
+        for m in ["PMSG", "SCIG"]:
+            s = res[(res.ftype == ft) & (res.machine == m)].set_index("suite").loc[ORDER]
+            ax.plot(xs + off[m], s.oracle_share_detectable, "o", ms=8, mfc="none", mec=C.COL[m], mew=1.5, zorder=3)
+            ax.plot(xs + off[m], s.fixed_share_detectable, "o", ms=7, color=C.COL[m], zorder=4)
+        ax.set_ylim(0, 1.05); ax.yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter(1.0))
+        ax.set_xticks(xs); ax.set_xticklabels(ORDER, rotation=25, ha="right", fontsize=8.5)
+    axes[0, 0].set_ylabel("Minimum detectable\nextent (%)", fontsize=9)
+    axes[1, 0].set_ylabel("Share of fault trials\ndetectable (SDR ≥ 1)", fontsize=9)
+    axes[0, 0].legend(loc="upper right", fontsize=8.5)
+    fig.subplots_adjust(top=0.94, bottom=0.2, left=0.12, right=0.98)
+    C.savefig_both(fig, "F_sensor_suites_paper")
 
 
 def report(res, tr):
@@ -187,6 +219,7 @@ if __name__ == "__main__":
     res = suite_detectability(sdr, det)
     tr = suite_transfer(win)
     figure(res, tr)
+    figure_paper(res)
     report(res, tr)
     print(res[["suite", "machine", "ftype", "best_feature", "fixed_min_detectable_pct", "fixed_share_detectable",
                "oracle_min_detectable_pct", "oracle_share_detectable"]].round(3).to_string(index=False))

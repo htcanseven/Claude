@@ -1,0 +1,16 @@
+\begin{table}[t]
+\scriptsize
+\caption{Transfer of a window-level detector between PMSG and SCIG: AUC/true-positive rate at 1\,\% false-alarm rate. Within-machine columns use five-fold cross-validation grouped by tap pair; cross columns train on all trials of one machine and test on all trials of the other. Negatives are the reference and recovery windows of all trials and the fault-time windows of the healthy trials.}\label{tab:transfer}
+\begin{tabular}{@{}llcccc@{}}
+\toprule
+Referencing & Model & P$\to$P & S$\to$S & P$\to$S & S$\to$P \\
+\midrule
+physical units & logistic & 0.80/0.56 & 0.79/0.57 & 0.71/0.41 & 0.61/0.26 \\
+physical units & GBDT & 0.89/0.61 & 0.90/0.65 & 0.76/0.35 & 0.59/0.28 \\
+$z$ on target's healthy trials & logistic & 0.80/0.56 & 0.79/0.57 & 0.70/0.41 & 0.39/0.07 \\
+$z$ on target's healthy trials & GBDT & 0.88/0.62 & 0.90/0.66 & 0.83/0.23 & 0.75/0.31 \\
+$|z|$ vs own reference & logistic & 0.91/0.71 & 0.92/0.80 & 0.91/0.70 & 0.89/0.61 \\
+$|z|$ vs own reference & GBDT & 0.93/0.76 & 0.94/0.83 & 0.93/0.74 & 0.85/0.43 \\
+\botrule
+\end{tabular}
+\end{table}

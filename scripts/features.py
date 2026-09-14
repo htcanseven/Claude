@@ -139,7 +139,7 @@ def window_features(seg, fs, fe0, rot):
 
 
 def process_file(args):
-    machine, path = args
+    machine, path, ncyc = args if len(args) == 3 else (*args, NCYC)
     meta = parse(path.name)
     m = loadmat(path, squeeze_me=True)
     t = m["t"]
@@ -159,7 +159,7 @@ def process_file(args):
     # File-level fundamental estimate and rotation from the PRE segment.
     pre_idx = (t >= PRE[0]) & (t <= PRE[1])
     fe0, rot = fundamental(sig["Ia"][pre_idx], sig["Ib"][pre_idx], sig["Ic"][pre_idx], fs)
-    nwin = int(round(NCYC * fs / fe0))
+    nwin = int(round(ncyc * fs / fe0))
     nhop = int(round(HOP * fs / fe0))
 
     segments = {"PRE": PRE, "FLT": (t_on + FLT_MARGIN[0], t_off - FLT_MARGIN[1]),
@@ -202,6 +202,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--workers", type=int, default=max(1, (os.cpu_count() or 2) - 1))
     ap.add_argument("--limit", type=int, default=0, help="process only the first N files per machine")
+    ap.add_argument("--ncyc", type=int, default=NCYC, help="window length in electrical cycles")
+    ap.add_argument("--suffix", default="", help="suffix for the output file names (e.g. _ncyc3)")
     args = ap.parse_args()
     OUT.mkdir(exist_ok=True)
     jobs = []
@@ -209,7 +211,7 @@ def main():
         files = sorted(folder.glob("*.mat"))
         if args.limit:
             files = files[: args.limit]
-        jobs += [(machine, p) for p in files]
+        jobs += [(machine, p, args.ncyc) for p in files]
     print(f"{len(jobs)} files, {args.workers} workers")
     windows, summaries = [], []
     with ProcessPoolExecutor(max_workers=args.workers) as ex:
@@ -220,8 +222,8 @@ def main():
                 print(f"  {i}/{len(jobs)} done", flush=True)
     win = pd.concat(windows, ignore_index=True)
     files = pd.DataFrame(summaries)
-    win.to_csv(OUT / "features_windows.csv.gz", index=False)
-    files.to_csv(OUT / "features_files.csv", index=False)
+    win.to_csv(OUT / f"features_windows{args.suffix}.csv.gz", index=False)
+    files.to_csv(OUT / f"features_files{args.suffix}.csv", index=False)
     print("windows:", win.shape, "files:", files.shape)
     print(files.groupby(["machine", "ftype"]).size())
 

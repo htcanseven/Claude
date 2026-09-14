@@ -1,0 +1,144 @@
+\begin{table}[t]
+\scriptsize
+\caption{Observation suites for the three alternatives, three-cycle windows, common feature set. MDE (\%) at the fault impedance matching the PMSG/SCIG protocol; $^{\dagger}$the smallest inter-turn extent tested on the WFSG at that impedance is 11.6\,\%, so the value is an upper bound. DS: detectable share (\%) of the fixed feature; oracle: per-trial best feature.}\label{tab:suites3}
+\begin{tabular}{@{}llllcc@{}}
+\toprule
+Suite & Machine & Feature & MDE & DS & Oracle DS \\
+\midrule
+\multicolumn{6}{@{}l}{\emph{Inter-turn faults}} \\
+drive-internal & PMSG & $D_2/D_1$ & 7.4 & 65 & 81 \\
+drive-internal & SCIG & $V_d^{\mathrm{cmd}}$\,2$f_e$ & 7.4 & 73 & 87 \\
+drive-internal & WFSG & $I_q$\,2$f_e$ & 11.6$^{\dagger}$ & 81 & 97 \\
+3 CT & PMSG & $I_2/I_1$ & 7.4 & 57 & 79 \\
+3 CT & SCIG & $I_2/I_1$ & 7.4 & 70 & 81 \\
+3 CT & WFSG & RMS unbal. & 11.6$^{\dagger}$ & 78 & 94 \\
+3 CT + 3 VT & PMSG & $I_2/I_1$ & 7.4 & 57 & 79 \\
+3 CT + 3 VT & SCIG & $I_2/I_1$ & 7.4 & 70 & 81 \\
+3 CT + 3 VT & WFSG & $V_2/V_1$ & 11.6$^{\dagger}$ & 78 & 95 \\
+3 CT + 3 VT + drive & PMSG & $D_2/D_1$ & 7.4 & 65 & 92 \\
+3 CT + 3 VT + drive & SCIG & $V_d^{\mathrm{cmd}}$\,2$f_e$ & 7.4 & 73 & 94 \\
+3 CT + 3 VT + drive & WFSG & $V_2/V_1$ & 11.6$^{\dagger}$ & 78 & 98 \\
+excitation (field current) & WFSG & $I_f$\,2$f_e$ & 11.6$^{\dagger}$ & 70 & 76 \\
+\multicolumn{6}{@{}l}{\emph{Inter-winding faults}} \\
+drive-internal & PMSG & $D_2/D_1$ & 2.3 & 91 & 98 \\
+drive-internal & SCIG & $V_d^{\mathrm{cmd}}$\,2$f_e$ & 2.3 & 100 & 100 \\
+drive-internal & WFSG & $I_q$\,2$f_e$ & 2.3 & 100 & 100 \\
+3 CT & PMSG & $I_2/I_1$ & 9.7 & 83 & 99 \\
+3 CT & SCIG & $I_2/I_1$ & 2.3 & 98 & 98 \\
+3 CT & WFSG & $I_a$\,h3 & 2.3 & 100 & 100 \\
+3 CT + 3 VT & PMSG & $I_2/I_1$ & 9.7 & 83 & 99 \\
+3 CT + 3 VT & SCIG & $I_2/I_1$ & 2.3 & 98 & 98 \\
+3 CT + 3 VT & WFSG & $I_a$\,h3 & 2.3 & 100 & 100 \\
+3 CT + 3 VT + drive & PMSG & $D_2/D_1$ & 2.3 & 91 & 100 \\
+3 CT + 3 VT + drive & SCIG & $V_d^{\mathrm{cmd}}$\,2$f_e$ & 2.3 & 100 & 100 \\
+3 CT + 3 VT + drive & WFSG & $I_q$\,2$f_e$ & 2.3 & 100 & 100 \\
+excitation (field current) & WFSG & $I_f$\,2$f_e$ & 2.3 & 100 & 100 \\
+\botrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\scriptsize
+\caption{Five features with the highest median SDR per alternative and fault class (three-cycle windows, all WFSG impedances); detectable share in parentheses (\%).}\label{tab:topfeat}
+\begin{tabular}{@{}llp{7.6cm}@{}}
+\toprule
+Machine & Class & Features: median SDR (DS) \\
+\midrule
+PMSG & inter-turn & $V_2/V_1$ 2.5 (73); $D_2/D_1$ 2.4 (65); $I_2/I_1$ 1.4 (57); $V_q$\,2$f_e$ 1.2 (55); $V_q^{\mathrm{cmd}}$\,2$f_e$ 1.1 (55) \\
+PMSG & inter-winding & $V_2/V_1$ 51.5 (92); $D_2/D_1$ 28.7 (91); $V_q$\,2$f_e$ 19.8 (89); $I_2/I_1$ 11.5 (83); $V_d$\,2$f_e$ 5.6 (71) \\
+SCIG & inter-turn & $I_d$\,2$f_e$ 6.5 (78); $V_d^{\mathrm{cmd}}$\,2$f_e$ 5.5 (73); $D_2/D_1$ 5.5 (78); $I_2/I_1$ 4.0 (70); $V_q^{\mathrm{cmd}}$\,2$f_e$ 3.6 (66) \\
+SCIG & inter-winding & $I_d$\,2$f_e$ 73.0 (100); $V_d^{\mathrm{cmd}}$\,2$f_e$ 57.3 (100); $D_2/D_1$ 50.7 (100); $I_2/I_1$ 49.5 (98); $V_2/V_1$ 40.7 (100) \\
+WFSG & inter-turn & $V_2/V_1$ 9.4 (80); $I_q$\,2$f_e$ 7.3 (82); $V_q^{\mathrm{cmd}}$\,2$f_e$ 7.1 (82); RMS unbal. 5.6 (80); $V_q$\,2$f_e$ 4.9 (81) \\
+WFSG & inter-winding & $I_q$\,2$f_e$ 33.0 (100); $V_q^{\mathrm{cmd}}$\,2$f_e$ 31.9 (100); $D_2/D_1$ 26.9 (100); $I_q$\,std 24.3 (95); $I_a$\,h3 21.8 (100) \\
+\botrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\footnotesize
+\caption{Operating-point dependence: median SDR of the best of $V_2/V_1$, $V_q$\,2$f_e$, $I_2/I_1$, PI$_d$\,2$f_e$ and detectable share (\%) per cell of the speed--torque grid, 24 fault trials per cell.}\label{tab:opgrid}
+\begin{tabular}{@{}llccc@{}}
+\toprule
+Machine & Speed (rpm) & 5.2\,N\,m & 6.4\,N\,m & 8.0\,N\,m \\
+\midrule
+PMSG & 1200 & 7.9 / 83 & 9.0 / 83 & 5.3 / 79 \\
+PMSG & 1500 & 12.8 / 96 & 11.3 / 96 & 9.6 / 92 \\
+PMSG & 1800 & 20.5 / 92 & 18.2 / 96 & 15.5 / 92 \\
+SCIG & 1200 & 18.1 / 92 & 16.6 / 92 & 16.1 / 96 \\
+SCIG & 1500 & 26.4 / 92 & 23.5 / 92 & 23.8 / 92 \\
+SCIG & 1800 & 51.0 / 100 & 47.2 / 100 & 44.0 / 96 \\
+\botrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\caption{Sensitivity of MDE (\%)/DS (\%) to the window length (3, 5, 8 cycles at $\alpha=0.95$) and to the null quantile ($\alpha=0.90$ and $0.99$ at five cycles). IT: inter-turn; IW: inter-winding.}\label{tab:sens}
+\begin{tabular}{@{}lllccccc@{}}
+\toprule
+Class & Feature & Machine & 3\,c & 5\,c & 8\,c & $\alpha$\,0.90 & $\alpha$\,0.99 \\
+\midrule
+IT & $V_2/V_1$ & PMSG & 2.8/73 & 2.8/76 & 2.8/73 & 2.8/80 & 3.8/69 \\
+IT & $V_2/V_1$ & SCIG & 7.4/69 & 2.7/73 & 2.7/75 & 2.7/76 & 7.4/65 \\
+IT & $I_2/I_1$ & PMSG & 7.4/57 & 7.4/56 & 7.4/58 & 2.8/65 & 7.4/52 \\
+IT & $I_2/I_1$ & SCIG & 7.4/70 & 2.8/75 & 2.8/75 & 2.8/79 & 7.4/68 \\
+IT & $I_d$\,2$f_e$ & PMSG & 11.6/29 & 11.6/30 & 11.6/28 & 11.6/33 & 11.6/24 \\
+IT & $I_d$\,2$f_e$ & SCIG & 2.8/78 & 2.7/79 & 2.7/83 & 2.7/84 & 7.4/72 \\
+IT & PI$_d$\,2$f_e$ & PMSG & 11.6/30 & 11.6/31 & 11.6/28 & 11.6/33 & 11.6/24 \\
+IT & PI$_d$\,2$f_e$ & SCIG & 2.8/78 & 2.7/78 & 2.7/83 & 2.7/84 & 7.4/72 \\
+IT & $V_q$\,2$f_e$ & PMSG & 7.4/55 & 7.4/57 & 7.4/60 & 7.4/65 & 7.4/50 \\
+IT & $V_q$\,2$f_e$ & SCIG & 7.4/61 & 7.4/60 & 7.4/62 & 7.4/64 & 7.4/59 \\
+IW & $V_2/V_1$ & PMSG & 2.3/92 & 2.3/94 & 2.3/94 & 2.3/94 & 2.3/91 \\
+IW & $V_2/V_1$ & SCIG & 2.3/100 & 2.3/100 & 2.3/100 & 2.3/100 & 2.3/100 \\
+IW & $I_2/I_1$ & PMSG & 9.7/83 & 9.7/81 & 9.7/82 & 3.2/87 & 9.7/79 \\
+IW & $I_2/I_1$ & SCIG & 2.3/98 & 2.3/100 & 2.3/100 & 2.3/100 & 2.3/97 \\
+IW & $I_d$\,2$f_e$ & PMSG & 10.6/71 & 10.6/72 & 10.6/69 & 10.6/74 & 14.3/69 \\
+IW & $I_d$\,2$f_e$ & SCIG & 2.3/100 & 2.3/100 & 2.3/100 & 2.3/100 & 2.3/100 \\
+IW & PI$_d$\,2$f_e$ & PMSG & 10.6/71 & 10.6/72 & 10.6/70 & 10.6/74 & 14.3/69 \\
+IW & PI$_d$\,2$f_e$ & SCIG & 2.3/100 & 2.3/100 & 2.3/100 & 2.3/100 & 2.3/100 \\
+IW & $V_q$\,2$f_e$ & PMSG & 2.3/89 & 2.3/90 & 2.3/91 & 2.3/91 & 9.7/86 \\
+IW & $V_q$\,2$f_e$ & SCIG & 9.7/88 & 2.3/92 & 9.7/88 & 2.3/95 & 9.7/84 \\
+\botrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\scriptsize
+\caption{Bootstrap over trials (2000 resamples, 95\,\% percentile intervals): median SDR per machine and ratio of medians SCIG/PMSG. Five-cycle windows, $\alpha=0.95$. Intervals of the detectable shares are in Fig.~\ref{fig:boot}.}\label{tab:boot}
+\begin{tabular}{@{}llccc@{}}
+\toprule
+Class & Feature & PMSG median SDR & SCIG median SDR & SCIG/PMSG \\
+\midrule
+inter-turn & $V_2/V_1$ & 2.99 [1.62, 5.14] & 4.17 [1.98, 6.61] & 1.32 [0.52, 2.87] \\
+inter-turn & $I_2/I_1$ & 1.47 [0.92, 1.78] & 4.52 [2.24, 6.01] & 3.10 [1.60, 5.59] \\
+inter-turn & $I_d$\,2$f_e$ & 0.52 [0.42, 0.65] & 6.68 [2.62, 10.20] & 12.61 [5.00, 20.64] \\
+inter-turn & PI$_d$\,2$f_e$ & 0.52 [0.42, 0.67] & 6.69 [2.85, 10.27] & 12.49 [5.24, 20.83] \\
+inter-turn & $V_q$\,2$f_e$ & 1.35 [0.97, 2.44] & 2.58 [1.54, 3.48] & 2.01 [0.91, 3.18] \\
+inter-winding & $V_2/V_1$ & 61.90 [35.54, 91.27] & 48.19 [29.43, 89.07] & 0.83 [0.43, 1.96] \\
+inter-winding & $I_2/I_1$ & 11.32 [3.95, 22.16] & 55.61 [36.17, 93.45] & 5.38 [2.41, 16.59] \\
+inter-winding & $I_d$\,2$f_e$ & 4.14 [2.49, 6.92] & 73.97 [45.53, 127.88] & 18.00 [9.66, 36.97] \\
+inter-winding & PI$_d$\,2$f_e$ & 4.21 [2.51, 7.01] & 74.01 [45.55, 127.95] & 17.78 [9.41, 36.22] \\
+inter-winding & $V_q$\,2$f_e$ & 22.40 [10.67, 35.86] & 24.80 [13.75, 36.40] & 1.07 [0.51, 2.44] \\
+\botrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\caption{Transfer of a GBDT detector restricted to each suite's features (AUC), PMSG and SCIG, five-cycle windows: features $z$-scored on the target's healthy trials (left block) and $|z|$ against each trial's own reference (right block). P: PMSG, S: SCIG; same-machine columns use five-fold cross-validation grouped by tap pair.}\label{tab:suitetransfer}
+\begin{tabular}{@{}lcccccccc@{}}
+\toprule
+\multirow{2}{*}{Suite} & \multicolumn{4}{c}{$z$ on target's healthy trials} & \multicolumn{4}{c}{$|z|$ vs own reference} \\
+\cmidrule(lr){2-5}\cmidrule(l){6-9}
+ & P$\to$P & S$\to$S & P$\to$S & S$\to$P & P$\to$P & S$\to$S & P$\to$S & S$\to$P \\
+\midrule
+drive-internal & 0.88 & 0.87 & 0.74 & 0.74 & 0.90 & 0.95 & 0.93 & 0.85 \\
+3 CT & 0.85 & 0.86 & 0.72 & 0.65 & 0.87 & 0.89 & 0.92 & 0.83 \\
+3 CT + 3 VT & 0.85 & 0.88 & 0.87 & 0.69 & 0.91 & 0.90 & 0.92 & 0.89 \\
+3 CT + 3 VT + drive & 0.89 & 0.90 & 0.81 & 0.75 & 0.93 & 0.94 & 0.93 & 0.84 \\
++ torque transducer & 0.88 & 0.90 & 0.82 & 0.74 & 0.93 & 0.94 & 0.93 & 0.85 \\
+\botrule
+\end{tabular}
+\end{table}

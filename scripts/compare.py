@@ -76,6 +76,11 @@ def header(fig, title, sub, top):
     fig.subplots_adjust(top=top)
 
 
+def savefig_both(fig, name):
+    fig.savefig(FIG / f"{name}.png")
+    fig.savefig(FIG / f"{name}.pdf")
+
+
 def load():
     files = pd.read_csv(RES / "features_files.csv")
     win = pd.read_csv(RES / "features_windows.csv.gz")
@@ -141,7 +146,7 @@ def severity(files):
     axes[0].legend(loc="lower right")
     header(fig, "Same tap pair, different topology: the fault current differs",
            "Dot = mean over the 9 operating points, bar = min–max. Rated current: PMSG 6.3 A, SCIG 7.7 A.", top=0.86)
-    fig.savefig(FIG / "A_fault_current_by_case.png")
+    savefig_both(fig, "A_fault_current_by_case")
     plt.close(fig)
     return wide
 
@@ -204,7 +209,7 @@ def where_signature(sdr):
     header(fig, "Where the short-circuit becomes visible depends on the topology",
            "Dot = median SDR over recordings, bar = interquartile range. SDR = |relative change under fault| ÷ "
            "95th percentile of |relative change with no fault| (225 recordings per machine).", top=0.91)
-    fig.savefig(FIG / "B_sdr_by_feature.png")
+    savefig_both(fig, "B_sdr_by_feature")
     plt.close(fig)
     return det, best
 
@@ -258,7 +263,7 @@ def severity_curve(sdr, det, n_feats=4):
     axes[0, 0].legend(loc="upper left")
     header(fig, "Detectability versus fault extent, per topology",
            "Small dots = recordings (9 operating points per tap pair); diamonds = median per tap pair. Dashed = SDR 1.", top=0.90)
-    fig.savefig(FIG / "C_sdr_vs_severity.png")
+    savefig_both(fig, "C_sdr_vs_severity")
     plt.close(fig)
     return mds, feats
 
@@ -286,16 +291,17 @@ def operating_point(sdr, feats):
             ax.text(j, i, f"{v:.0%}", ha="center", va="center", fontsize=9, color=INK if v < 0.8 else "#ffffff")
     header(fig, "Share of fault recordings detectable, by operating point",
            f"Detectable = SDR ≥ 1 on the best of {', '.join(feats)}. 24 recordings per cell.", top=0.74)
-    fig.savefig(FIG / "D_operating_point_grid.png")
+    savefig_both(fig, "D_operating_point_grid")
     plt.close(fig)
     return grid
 
 
 # ----------------------------------------------------------------------------- E: transfer
 def build_window_table(win):
-    """Label 1 = FLT window of a FAULT recording; 0 = PRE windows of every recording plus FLT windows
-    of HEALTHY recordings (the relay clicks but nothing is shorted)."""
-    w = win[win.segment.isin(["PRE", "FLT"])].copy()
+    """Label 1 = FLT window of a FAULT recording; 0 = every other window: PRE and POST windows of all
+    recordings (POST = after the fault is cleared, i.e. the recovery) and the FLT windows of HEALTHY
+    recordings (the relay clicks but nothing is shorted)."""
+    w = win[win.segment.isin(["PRE", "FLT", "POST"])].copy()
     w["y"] = ((w.segment == "FLT") & (w.ftype != "HEALTHY")).astype(int)
     w["group"] = w.case + "|" + w.machine
     w = w.replace([np.inf, -np.inf], np.nan).dropna(subset=ALL_FEATS)
@@ -391,7 +397,7 @@ def transfer(win):
     header(fig, "Does a detector trained on one topology transfer to the other?",
            "raw = physical units · healthy-z = z-scored on the target machine's healthy recordings · "
            "self-ref = |z| against each recording's own pre-fault segment", top=0.8)
-    fig.savefig(FIG / "E_transfer.png")
+    savefig_both(fig, "E_transfer")
     plt.close(fig)
     return tr, coef, cos, w
 

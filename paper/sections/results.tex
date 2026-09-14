@@ -1,0 +1,80 @@
+\section{Results}\label{sec:results}
+
+\subsection{The same design-level fault is not the same physical fault}\label{sec:res-severity}
+
+Figure~\ref{fig:faultcurrent} shows the fault current for each tap pair in the PMSG and the SCIG. For the same pair the SCIG's fault current is 4--22\,\% lower (median ratio 0.91), but the difference that matters for detection is relative to what the stator sensors see: the fault current is 1.86 times the pre-fault stator current in the PMSG and 0.80 times in the SCIG, because the SCIG's stator current carries the magnetising component (mean pre-fault current 7.1\,A against 2.8--3.7\,A). In per-unit of rated current the same pairs give 1.05 (PMSG) and 0.78 (SCIG). The WFSG trials at the matching impedance give fault-to-stator current ratios of 0.85 (inter-turn, 11.6--12.1\,\% extents) and 0.73 (inter-winding, 2.3--10.6\,\%), and 0.46 at the lower impedance used for its small inter-turn extents. A fault specified as ``$e$\,\% of a winding'' therefore arrives at the sensors of the three alternatives as three different physical events; Section~\ref{sec:res-mde} uses both the design-level and the physical axis.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{A_fault_current_by_case}
+\caption{Fault current per tap pair, PMSG and SCIG: mean over the nine operating points (dot) and range (bar). Rated currents 6.3\,A (PMSG) and 7.7\,A (SCIG).}\label{fig:faultcurrent}
+\end{figure}
+
+\subsection{Where the signature appears}\label{sec:res-where}
+
+Table~\ref{tab:null} gives the null of the SDR---the 95th percentile of the healthy relative change---for the main features. It differs by up to a factor of thirty between machines: the SCIG's synchronous-frame and current features are far quieter in relative terms than the PMSG's, which is the first thing the method reveals and the first thing that must be kept in mind when the machines are compared (Section~\ref{sec:discussion}). Nine of the 31 features failed the reliability screen on at least one machine (e.g.\ the duty-cycle negative sequence on the SCIG fired on four of nine healthy trials, the speed standard deviation on the PMSG on four of nine) and are excluded from the design quantities below for that machine.
+
+\input{sections/tab_null}
+
+With the null in place, Fig.~\ref{fig:features} shows the median SDR of every feature for the three alternatives, and Table~\ref{tab:groups} the share of trials in which each measurement group carries the strongest signature. The pattern is different in each machine. In the PMSG the terminal-voltage negative sequence $V_2/V_1$ is the strongest feature for both fault classes (median SDR 3.0 for inter-turn and 62 for inter-winding faults at five-cycle windows; 76\,\% and 94\,\% of trials detectable), followed by the duty-cycle negative sequence and the 2$f_e$ component of the $q$-axis voltage; the stator-current negative sequence $I_2/I_1$ is weak for inter-turn faults (median SDR 1.5, 57\,\% detectable) and the controller group holds the strongest signature in 75\,\% and 90\,\% of trials. In the SCIG the strongest features are the 2$f_e$ ripple of the $d$-axis current and of its PI output (6.7 and 74; 78\,\% and 100\,\% detectable), followed by the commanded $d$-axis voltage and by $I_2/I_1$ (4.5 and 56; 75\,\% and 100\,\%); the stator-current group is strongest in a third of the trials. In the WFSG the strongest inter-turn features are $V_2/V_1$, the $q$-axis current ripple and the commanded $q$-axis voltage, and for inter-winding faults the $q$-axis ripple, the commanded voltage, the duty cycles and the third current harmonic; the field-current 2$f_e$ ripple, an observable the other two machines do not have, detected 70\,\% of inter-turn and all inter-winding trials (Table~\ref{tab:topfeat}). Two detectors trained on the PMSG and SCIG with the same features weight them almost orthogonally (cosine similarity of the logistic weight vectors $-0.04$).
+
+\input{sections/tab_groups}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{G_sdr_by_feature_3alt}
+\caption{Median signal-to-drift ratio of every feature for the three alternatives (dot) with interquartile range (bar), three-cycle windows; features to the right of the dashed line are detectable in more than half of the trials. The WFSG rows pool all its fault impedances.}\label{fig:features}
+\end{figure}
+
+\subsection{Minimum detectable extent}\label{sec:res-mde}
+
+Table~\ref{tab:mde} gives the minimum detectable extent and the detectable share of four representative features, with their bootstrap intervals, and Fig.~\ref{fig:physical} plots the SDR against the physical severity axis for all three alternatives (the design-level axis is in Fig.~\ref{fig:severity} of the appendix). Through the terminal-voltage negative sequence both the PMSG and the SCIG detect inter-turn faults from the smallest tested extent (2.7--2.8\,\%) and inter-winding faults from 2.3\,\%. Through the stator-current negative sequence---the classic current-signature route---the SCIG still reaches the smallest extents, while the PMSG needs 7.4\,\% (inter-turn) and 9.7\,\% (inter-winding); through the $d$-axis controller ripple the PMSG needs 10.6--11.6\,\%. The SDR rises monotonically with extent in every machine (Spearman 0.69--0.95), and the bootstrap intervals of the MDE are wide because the tested extents form three clusters (about 3, 7.5 and 12\,\% for inter-turn faults), so the continuous SDR is the better basis for comparison: the ratio of median SDR between SCIG and PMSG is 3.1 [1.6, 5.6] for $I_2/I_1$ and 12.6 [5.0, 20.6] for the $d$-axis ripple on inter-turn faults, but 1.3 [0.5, 2.9] for $V_2/V_1$ and 2.0 [0.9, 3.2] for the $q$-axis voltage ripple (Table~\ref{tab:boot}). The two machines differ where the signature relocates and are indistinguishable where it does not.
+
+\input{sections/tab_mde}
+
+On the physical axis (Fig.~\ref{fig:physical}) the picture is the same and independent of the tap-pair design: at equal fault-to-stator current ratio the SCIG's current-side and $d$-axis features lie above the WFSG's, which lie above the PMSG's, while on $V_2/V_1$ the three machines nearly coincide. For the WFSG, whose small inter-turn extents were tested only at the lower impedance, the design-level MDE at the matching impedance is bounded by the smallest extent tested there (11.6\,\%, detectable in 78--82\,\% of trials); its 2.7--7.7\,\% inter-turn trials at 1\,$\Omega$ sit at SDR $\approx 1$ on $V_2/V_1$ and $I_2/I_1$, and all its inter-winding extents from 2.3\,\% are detectable.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{G_sdr_vs_fault_current_3alt}
+\caption{Signal-to-drift ratio against physical fault severity (fault current relative to the pre-fault stator current) for three features and the three alternatives, all trials, three-cycle windows. Marker shape encodes the fault impedance of the WFSG trials.}\label{fig:physical}
+\end{figure}
+
+\subsection{Operating envelope}\label{sec:res-op}
+
+Speed dominates the operating-point dependence (Table~\ref{tab:opgrid}, Fig.~\ref{fig:opgrid}). In the PMSG the median SDR of the best feature rises from 5--9 at 1200\,rpm to 15--20 at 1800\,rpm and the detectable share from 79--83\,\% to 92--96\,\%; in the SCIG from 16--18 to 44--51 with 92--100\,\% detectable throughout. Torque changes little. The dependence is consistent with the fault electromotive force scaling with speed, and it makes the lowest monitored speed a design parameter of the requirement.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.85\textwidth]{D_operating_point_grid}
+\caption{Share of fault trials detectable per operating point, PMSG and SCIG (best of four features, five-cycle windows).}\label{fig:opgrid}
+\end{figure}
+
+\subsection{Observation suites: what each level of hardware buys}\label{sec:res-suites}
+
+Table~\ref{tab:suites} and Fig.~\ref{fig:suites} answer the design question for the PMSG and SCIG on five suites; Table~\ref{tab:suites3} does the same for the three alternatives on the common feature set. For the PMSG, current transducers alone resolve inter-turn faults only from 7.4\,\% and inter-winding faults only from 9.7\,\%; adding three voltage transducers takes both to the smallest tested extent, and neither controller access nor a torque transducer improves the fixed-feature result further (controller access raises the oracle share from 88 to 95\,\%). The drive-internal suite alone reaches 7.4\,\% for inter-turn faults through the duty-cycle negative sequence, i.e.\ the converter's own commanded quantities carry a weaker version of the signature that the measured terminal voltage carries (the commanded $q$-axis 2$f_e$ component was excluded for firing on healthy trials). For the SCIG the cheapest suites already reach the smallest tested extents: current transducers through $I_2/I_1$, and the drive-internal suite, with no added sensor, through the $d$-axis PI output; additional hardware raises the detectable share (75--78\,\% to 96--99\,\% oracle) rather than the reach. For the WFSG, whose inter-turn coverage is bounded as described above, the drive-internal, current-only and current-plus-voltage suites detect 78--82\,\% of inter-turn trials and all inter-winding trials from 2.3\,\%, and the field current alone detects 70\,\% and 100\,\%. A shaft torque transducer adds nothing for winding faults in either machine on which it was available (median SDR of the torque features 0.03--0.3).
+
+\input{sections/tab_suites}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{F_sensor_suites_paper}
+\caption{Observation suites versus what they detect, PMSG and SCIG (five-cycle windows): minimum detectable extent (top; the fixed feature is named) and detectable share (bottom) for the fixed best feature of each suite (filled) and the per-trial oracle (hollow).}\label{fig:suites}
+\end{figure}
+
+\subsection{Transfer across alternatives}\label{sec:res-transfer}
+
+Table~\ref{tab:transfer} reports step~6 for the PMSG--SCIG pair and Table~\ref{tab:transfer3} for the three alternatives. In physical units a gradient-boosted detector reaches an AUC of 0.89--0.90 within a machine on unseen tap pairs but 0.76 (PMSG$\to$SCIG) and 0.59 (SCIG$\to$PMSG) across; with its features scaled on the target machine's healthy trials, 0.83 and 0.75; with each feature referenced to the trial's own healthy interval, 0.93 and 0.85, against 0.93--0.94 within a machine. The corresponding true-positive rates at a 1\,\% false-alarm rate are 0.35/0.28 (physical units), 0.23/0.31 (target-scaled) and 0.74/0.43 (self-referenced); a logistic detector on self-referenced features transfers with 0.91/0.89 AUC and 0.70/0.61 true-positive rate. Between the three alternatives, self-referenced detectors transfer in all six directions with AUC 0.81--0.98, and a detector trained on two machines detects the faults of the third with 0.84 (PMSG), 0.90 (SCIG) and 0.98 (WFSG); the WFSG entries are inflated by the absence of healthy trials on that bench, which leaves it without the nuisance-transient negatives the other two have. Restricted to each suite's features (Table~\ref{tab:suitetransfer}), the current-only suite transfers worst under target-scaling (0.65--0.71) and adequately under self-referencing (0.83--0.91); every suite transfers at 0.83--0.94 when self-referenced.
+
+\input{sections/tab_transfer}
+\input{sections/tab_transfer3}
+
+\subsection{Robustness}\label{sec:res-robust}
+
+Table~\ref{tab:sens} shows how the tuning choices move the design quantities. Lengthening the window from 3 to 8 cycles raises the median SDR by 10--20\,\% (longer averaging) and leaves every MDE of the PMSG unchanged; on the SCIG two inter-turn MDEs ($V_2/V_1$, $I_2/I_1$) move from 2.7--2.8\,\% at five and eight cycles to 7.4\,\% at three, because those features sit just above the threshold at the smallest extents. Tightening the null quantile from 0.95 to 0.99 lowers the SDR by about a quarter and moves several inter-turn MDEs up one cluster; relaxing it to 0.90 does the reverse. Detectable shares move by at most nine percentage points across all settings, and no ordering of the alternatives on any feature reverses. The bootstrap intervals (Table~\ref{tab:boot}, Fig.~\ref{fig:boot}) show the recording-level variability behind each number: the shares are known to $\pm$8--10 percentage points, the ratios of median SDR exclude one where the signature relocates and include it where it does not.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{H_bootstrap}
+\caption{Recording-level uncertainty: bootstrap 95\,\% intervals of the median SDR, the detectable share and the SCIG/PMSG ratio of median SDR for five features and both fault classes.}\label{fig:boot}
+\end{figure}

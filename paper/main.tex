@@ -1,0 +1,95 @@
+%% Research in Engineering Design -- Springer Nature template (sn-jnl), author-year references.
+\documentclass[pdflatex,sn-chicago]{sn-jnl}
+
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{amsthm}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,calc}
+\usepackage{siunitx}
+\usepackage{adjustbox}
+\usepackage{manyfoot}   % the class's begin-document footnote hook expects this package to be loaded
+\graphicspath{{figures/}}
+
+\raggedbottom
+
+\begin{document}
+
+\title[Alternative-dependent diagnosability]{Alternative-dependent diagnosability: a design-stage method for co-selecting system architecture and monitoring suite under a detectability requirement, with a demonstration on three wind-turbine generator topologies}
+
+\author*[1]{\fnm{H\"useyin Tayyer} \sur{Canseven}}\email{huseyin.canseven@lut.fi}
+
+\affil*[1]{\orgdiv{Department of Electrical Engineering, LUT School of Energy Systems}, \orgname{LUT University}, \orgaddress{\street{Yliopistonkatu 34}, \city{Lappeenranta}, \postcode{53850}, \country{Finland}}}
+
+\abstract{\input{sections/abstract}}
+
+\keywords{design for diagnosability, architecture selection, sensor suite design, Design for X, condition monitoring, wind-turbine generators}
+
+\maketitle
+
+\input{sections/intro}
+\input{sections/background}
+\input{sections/method}
+\input{sections/demo}
+\input{sections/results}
+\input{sections/discussion}
+\input{sections/conclusion}
+
+\backmatter
+
+\bmhead{Acknowledgements}
+The author thanks the InnovaPower group of the University of S\~ao Paulo for publishing the benchmark datasets on which this work rests.
+
+\section*{Declarations}
+
+\bmhead{Funding}
+No specific funding was received for this work. [Author to complete: project or grant acknowledgements if applicable.]
+
+\bmhead{Competing interests}
+The author declares no competing interests.
+
+\bmhead{Ethics approval and consent}
+Not applicable; the work uses no human or animal subjects and no personal data.
+
+\bmhead{Data availability}
+All data are public: the PMSG, SCIG and synchronous-generator datasets of the InnovaPower MitDev-Eletrica project (\url{https://github.com/InnovaPower/MitDev-Eletrica}; Zenodo DOIs 10.5281/zenodo.15741561, 10.5281/zenodo.17161986 and 10.5281/zenodo.13685630), licensed CC BY 4.0. The derived per-trial tables (features, signal-to-drift ratios, bootstrap samples) are provided with the code.
+
+\bmhead{Code availability}
+The complete analysis pipeline (feature extraction, signal-to-drift computation, sensor-suite evaluation, transfer experiments, sensitivity analysis and all figures) is released under an open licence at [repository URL to be added at submission]; it reproduces every number in this paper from the public data.
+
+\bmhead{Author contributions}
+H.T.C. conceived the method, designed and carried out the analysis, and wrote the paper.
+
+\bmhead{Use of generative AI}
+A large language model (Claude, Anthropic) was used under the author's direction as an assistant for code development, literature retrieval, data analysis and drafting and editing of the text. The author designed the study, verified all analyses, checked every reference against its published record, and takes full responsibility for the content. No AI-generated images are used; all figures are produced by the released code from the data.
+
+\begin{appendices}
+
+\section{Feature definitions}\label{app:features}
+
+Let $x_a, x_b, x_c$ be the sampled phase quantities of a window of $N$ samples at sampling frequency $f_s$, $w$ the Hann window and $f_e$ the electrical frequency of the window. The complex fundamental amplitude of a signal $x$ at frequency $f$ is
+\begin{equation}
+  X(f) = \frac{2}{\sum_n w_n}\sum_{n=0}^{N-1} x_n\, w_n\, e^{-j2\pi f n/f_s}.
+\end{equation}
+The electrical frequency is estimated from the slope of the unwrapped phase of the current space vector $\tfrac{2}{3}(i_a + \mathbf{a}\, i_b + \mathbf{a}^2 i_c)$, $\mathbf{a}=e^{j2\pi/3}$, whose sign gives the phase rotation. Sequence magnitudes are $|X_0| = |X_a+X_b+X_c|/3$, $|X_+| = |X_a + \mathbf{a}X_b + \mathbf{a}^2X_c|/3$ and $|X_-| = |X_a + \mathbf{a}^2X_b + \mathbf{a}X_c|/3$ for an $abc$ rotation (interchanged for $acb$), evaluated at $f=f_e$ for currents ($I_1, I_2, I_0$), terminal voltages ($V_1, V_2$) and mean-removed duty cycles ($D_1, D_2$). The RMS unbalance is $\max_k |I_{\mathrm{rms},k} - \bar I_{\mathrm{rms}}| / \bar I_{\mathrm{rms}}$ over the three phases. Harmonic ratios are $|I_a(kf_e)|/|I_a(f_e)|$ for $k=3,5,7$, and the THD is $\sqrt{\sum_{k=2}^{20}|I_a(kf_e)|^2}/|I_a(f_e)|$. For synchronous-frame and scalar quantities $y$ (currents $i_d,i_q$; measured and commanded voltages $v_d,v_q$; PI outputs; torques; field current) the features are the standard deviation of $y-\bar y$ and the amplitudes $|Y(f_e)|$, $|Y(2f_e)|$ of the mean-removed signal. Speed and DC-link features are standard deviations. Windows are $n_c$ electrical cycles long with a hop of one cycle.
+
+\section{Supplementary figure and tables}\label{app:tables}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{G_sdr_vs_severity_3alt}
+\caption{Signal-to-drift ratio against the design-level fault extent for four features and the three alternatives (small dots: trials; large markers: median per tap pair and fault impedance, marker shape encoding the impedance), three-cycle windows.}\label{fig:severity}
+\end{figure}
+
+This appendix collects the three-alternative suite table, the per-alternative feature ranking, the operating-point grid, the sensitivity of the design quantities to the tuning choices, the bootstrap intervals and the transfer of suite-restricted detectors.
+
+\input{sections/appendix_tables}
+\clearpage
+
+\end{appendices}
+
+\bibliography{refs}
+
+\end{document}

@@ -1,0 +1,22 @@
+\begin{table}[t]
+\footnotesize
+\caption{Transfer between the three alternatives (three-cycle windows, common features, $|z|$ against each trial's own reference, GBDT). Same-machine rows: five-fold cross-validation grouped by tap pair. The WFSG has no healthy trials, so its negatives are reference and recovery windows only.}\label{tab:transfer3}
+\begin{tabular}{@{}llcc@{}}
+\toprule
+Trained on & Tested on & AUC & TPR at 1\,\% FPR \\
+\midrule
+PMSG & PMSG & 0.87 & 0.65 \\
+SCIG & SCIG & 0.92 & 0.77 \\
+WFSG & WFSG & 0.99 & 0.96 \\
+PMSG & SCIG & 0.90 & 0.59 \\
+PMSG & WFSG & 0.98 & 0.94 \\
+SCIG & PMSG & 0.81 & 0.34 \\
+SCIG & WFSG & 0.97 & 0.91 \\
+WFSG & PMSG & 0.86 & 0.56 \\
+WFSG & SCIG & 0.91 & 0.68 \\
+SCIG+WFSG & PMSG & 0.84 & 0.42 \\
+PMSG+WFSG & SCIG & 0.90 & 0.63 \\
+PMSG+SCIG & WFSG & 0.98 & 0.94 \\
+\botrule
+\end{tabular}
+\end{table}

@@ -37,15 +37,15 @@ Features that fire on more than one of the nine healthy recordings of a machine 
 
 | suite | calibration | PMSG→PMSG | PMSG→SCIG | SCIG→PMSG | SCIG→SCIG |
 |---|---|---|---|---|---|
-| + torque transducer | healthy-z | 0.878 | 0.836 | 0.781 | 0.843 |
-| + torque transducer | self-ref | 0.973 | 0.987 | 0.949 | 0.990 |
-| 3 CT | healthy-z | 0.850 | 0.706 | 0.679 | 0.813 |
-| 3 CT | self-ref | 0.910 | 0.974 | 0.926 | 0.970 |
-| 3 CT + 3 VT | healthy-z | 0.842 | 0.853 | 0.720 | 0.857 |
-| 3 CT + 3 VT | self-ref | 0.950 | 0.974 | 0.953 | 0.970 |
-| 3 CT + 3 VT + drive | healthy-z | 0.877 | 0.837 | 0.786 | 0.844 |
-| 3 CT + 3 VT + drive | self-ref | 0.974 | 0.987 | 0.947 | 0.990 |
-| drive-internal | healthy-z | 0.868 | 0.745 | 0.745 | 0.820 |
-| drive-internal | self-ref | 0.951 | 0.988 | 0.942 | 0.988 |
+| + torque transducer | healthy-z | 0.883 | 0.823 | 0.744 | 0.898 |
+| + torque transducer | self-ref | 0.927 | 0.929 | 0.847 | 0.943 |
+| 3 CT | healthy-z | 0.850 | 0.719 | 0.652 | 0.865 |
+| 3 CT | self-ref | 0.866 | 0.923 | 0.830 | 0.893 |
+| 3 CT + 3 VT | healthy-z | 0.850 | 0.867 | 0.694 | 0.880 |
+| 3 CT + 3 VT | self-ref | 0.909 | 0.923 | 0.894 | 0.903 |
+| 3 CT + 3 VT + drive | healthy-z | 0.885 | 0.812 | 0.746 | 0.896 |
+| 3 CT + 3 VT + drive | self-ref | 0.927 | 0.932 | 0.844 | 0.944 |
+| drive-internal | healthy-z | 0.878 | 0.743 | 0.743 | 0.871 |
+| drive-internal | self-ref | 0.899 | 0.929 | 0.854 | 0.945 |
 
 ![F](figures/F_sensor_suites.png)

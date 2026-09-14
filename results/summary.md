@@ -155,52 +155,52 @@ Features with the highest pooled median SDR (both machines): V2_V1, Vq_2fe, I2_I
 
 ## E. Cross-topology transfer
 
-Window-level detector (1 = fault window of a fault recording; 0 = pre-fault windows of all recordings and fault-time windows of healthy recordings). n windows = 19345; positives = 5882. Within-topology rows use 5-fold GroupKFold over fault cases (unseen tap pairs).
+Window-level detector (1 = fault window of a fault recording; 0 = pre-fault windows of all recordings and fault-time windows of healthy recordings). n windows = 46030; positives = 5882. Within-topology rows use 5-fold GroupKFold over fault cases (unseen tap pairs).
 
 | calibration | model | train | test | setting | auc | tpr_at_1pct_fpr | n_test |
 |---|---|---|---|---|---|---|---|
-| raw | logistic | PMSG | PMSG | within (unseen cases) | 0.787 | 0.558 | 9775 |
-| raw | logistic | SCIG | SCIG | within (unseen cases) | 0.756 | 0.558 | 9570 |
-| raw | logistic | PMSG | SCIG | cross-topology | 0.735 | 0.426 | 9570 |
-| raw | logistic | SCIG | PMSG | cross-topology | 0.589 | 0.251 | 9775 |
-| raw | gbdt | PMSG | PMSG | within (unseen cases) | 0.878 | 0.615 | 9775 |
-| raw | gbdt | SCIG | SCIG | within (unseen cases) | 0.843 | 0.618 | 9570 |
-| raw | gbdt | PMSG | SCIG | cross-topology | 0.709 | 0.323 | 9570 |
-| raw | gbdt | SCIG | PMSG | cross-topology | 0.596 | 0.297 | 9775 |
-| healthy-z | logistic | PMSG | PMSG | within (unseen cases) | 0.787 | 0.558 | 9775 |
-| healthy-z | logistic | SCIG | SCIG | within (unseen cases) | 0.756 | 0.558 | 9570 |
-| healthy-z | logistic | PMSG | SCIG | cross-topology | 0.729 | 0.455 | 9570 |
-| healthy-z | logistic | SCIG | PMSG | cross-topology | 0.342 | 0.064 | 9775 |
-| healthy-z | gbdt | PMSG | PMSG | within (unseen cases) | 0.878 | 0.615 | 9775 |
-| healthy-z | gbdt | SCIG | SCIG | within (unseen cases) | 0.843 | 0.618 | 9570 |
-| healthy-z | gbdt | PMSG | SCIG | cross-topology | 0.836 | 0.305 | 9570 |
-| healthy-z | gbdt | SCIG | PMSG | cross-topology | 0.782 | 0.474 | 9775 |
-| self-ref | logistic | PMSG | PMSG | within (unseen cases) | 0.937 | 0.774 | 9775 |
-| self-ref | logistic | SCIG | SCIG | within (unseen cases) | 0.979 | 0.858 | 9570 |
-| self-ref | logistic | PMSG | SCIG | cross-topology | 0.983 | 0.902 | 9570 |
-| self-ref | logistic | SCIG | PMSG | cross-topology | 0.943 | 0.724 | 9775 |
-| self-ref | gbdt | PMSG | PMSG | within (unseen cases) | 0.973 | 0.866 | 9775 |
-| self-ref | gbdt | SCIG | SCIG | within (unseen cases) | 0.990 | 0.928 | 9570 |
-| self-ref | gbdt | PMSG | SCIG | cross-topology | 0.987 | 0.916 | 9570 |
-| self-ref | gbdt | SCIG | PMSG | cross-topology | 0.949 | 0.755 | 9775 |
+| raw | logistic | PMSG | PMSG | within (unseen cases) | 0.797 | 0.561 | 23204 |
+| raw | logistic | SCIG | SCIG | within (unseen cases) | 0.791 | 0.573 | 22826 |
+| raw | logistic | PMSG | SCIG | cross-topology | 0.705 | 0.407 | 22826 |
+| raw | logistic | SCIG | PMSG | cross-topology | 0.606 | 0.260 | 23204 |
+| raw | gbdt | PMSG | PMSG | within (unseen cases) | 0.886 | 0.612 | 23204 |
+| raw | gbdt | SCIG | SCIG | within (unseen cases) | 0.898 | 0.652 | 22826 |
+| raw | gbdt | PMSG | SCIG | cross-topology | 0.762 | 0.348 | 22826 |
+| raw | gbdt | SCIG | PMSG | cross-topology | 0.587 | 0.276 | 23204 |
+| healthy-z | logistic | PMSG | PMSG | within (unseen cases) | 0.797 | 0.561 | 23204 |
+| healthy-z | logistic | SCIG | SCIG | within (unseen cases) | 0.791 | 0.573 | 22826 |
+| healthy-z | logistic | PMSG | SCIG | cross-topology | 0.697 | 0.413 | 22826 |
+| healthy-z | logistic | SCIG | PMSG | cross-topology | 0.392 | 0.075 | 23204 |
+| healthy-z | gbdt | PMSG | PMSG | within (unseen cases) | 0.881 | 0.624 | 23204 |
+| healthy-z | gbdt | SCIG | SCIG | within (unseen cases) | 0.896 | 0.658 | 22826 |
+| healthy-z | gbdt | PMSG | SCIG | cross-topology | 0.827 | 0.228 | 22826 |
+| healthy-z | gbdt | SCIG | PMSG | cross-topology | 0.750 | 0.309 | 23204 |
+| self-ref | logistic | PMSG | PMSG | within (unseen cases) | 0.905 | 0.713 | 23204 |
+| self-ref | logistic | SCIG | SCIG | within (unseen cases) | 0.922 | 0.797 | 22826 |
+| self-ref | logistic | PMSG | SCIG | cross-topology | 0.912 | 0.700 | 22826 |
+| self-ref | logistic | SCIG | PMSG | cross-topology | 0.887 | 0.614 | 23204 |
+| self-ref | gbdt | PMSG | PMSG | within (unseen cases) | 0.927 | 0.757 | 23204 |
+| self-ref | gbdt | SCIG | SCIG | within (unseen cases) | 0.944 | 0.825 | 22826 |
+| self-ref | gbdt | PMSG | SCIG | cross-topology | 0.932 | 0.738 | 22826 |
+| self-ref | gbdt | SCIG | PMSG | cross-topology | 0.848 | 0.432 | 23204 |
 
-Cosine similarity of the two logistic weight vectors (healthy-z features), PMSG vs SCIG: **0.04** (1 = identical feature weighting).
+Cosine similarity of the two logistic weight vectors (healthy-z features), PMSG vs SCIG: **-0.04** (1 = identical feature weighting).
 
 Largest-weight features (healthy-z logistic):
 
 | feature | PMSG | SCIG | abs_mean |
 |---|---|---|---|
-| V2_V1 | 5.543 | -0.190 | 2.867 |
-| PIq_2fe | -2.539 | 2.854 | 2.696 |
-| I2_I1 | 0.936 | 4.398 | 2.667 |
-| Vd_2fe | 2.146 | 1.168 | 1.657 |
-| Iq_2fe | 1.258 | 1.929 | 1.593 |
-| Vq_2fe | 2.947 | -0.144 | 1.546 |
-| Ia_h3 | 2.254 | 0.779 | 1.516 |
-| D2_D1 | 2.282 | 0.549 | 1.415 |
-| Vdconv_2fe | -2.024 | 0.581 | 1.303 |
-| Vqconv_2fe | -0.937 | 1.641 | 1.289 |
-| Iq_std | -0.262 | -2.062 | 1.162 |
-| I0_I1 | 0.654 | -1.438 | 1.046 |
+| V2_V1 | 7.122 | -0.868 | 3.995 |
+| I2_I1 | 1.208 | 6.045 | 3.626 |
+| PIq_2fe | -3.375 | 2.936 | 3.155 |
+| Ia_h3 | 3.149 | 0.324 | 1.736 |
+| Iq_2fe | 1.707 | 1.599 | 1.653 |
+| Vd_2fe | 2.192 | 1.074 | 1.633 |
+| Iq_std | -0.491 | -2.706 | 1.599 |
+| I0_I1 | 0.796 | -2.258 | 1.527 |
+| Vq_2fe | 2.129 | -0.609 | 1.369 |
+| D2_D1 | 1.811 | 0.691 | 1.251 |
+| I_unbal_rms | -1.762 | -0.740 | 1.251 |
+| Vdconv_2fe | -2.045 | 0.340 | 1.193 |
 
 ![E](figures/E_transfer.png)

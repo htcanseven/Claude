@@ -5,3 +5,16 @@ __pycache__/
 *.pyc
 results/features_windows.csv.gz
 zenodo_*.json
+results/features_windows*.csv.gz
+results/features_wfsg_windows*.csv.gz
+# LaTeX build artefacts
+paper/*.aux
+paper/*.log
+paper/*.bbl
+paper/*.blg
+paper/*.out
+paper/*.toc
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.synctex.gz
+paper/sections/*.aux

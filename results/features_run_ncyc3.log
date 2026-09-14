@@ -1,0 +1,19 @@
+450 files, 2 workers
+  50/450 done
+  100/450 done
+  150/450 done
+  200/450 done
+  250/450 done
+  300/450 done
+  350/450 done
+  400/450 done
+  450/450 done
+windows: (48730, 48) files: (450, 197)
+machine  ftype   
+PMSG     HEALTHY       9
+         TURNS       108
+         WINDINGS    108
+SCIG     HEALTHY       9
+         TURNS       108
+         WINDINGS    108
+dtype: int64

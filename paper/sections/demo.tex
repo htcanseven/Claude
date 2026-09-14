@@ -1,0 +1,88 @@
+\section{Demonstration: three generator topologies under identical winding faults}\label{sec:demo}
+
+\subsection{Alternatives and data}\label{sec:data}
+
+The three alternatives are laboratory-scale generators of the same power class on instrumented test benches at the University of S\~ao Paulo, whose records were published as open benchmark datasets (Table~\ref{tab:alternatives}). The PMSG \citep{Tominaga2025pmsg} and the SCIG \citep{Tominaga2025scig} are 2.5\,kVA, four-pole machines from the same manufacturer, installed on the \emph{same} bench: the same induction-motor prime mover and frequency converter, the same rapid-control-prototyping platform and field-oriented control (with an encoder for the PMSG and a flux observer for the SCIG), the same sensors, the same acquisition (20\,kHz, 3\,s records), the same fault-insertion hardware and the same test script. The variable-speed WFSG \citep{Tominaga2024gen} is a 2\,kVA four-salient-pole machine on an earlier bench of the same group with a three-level converter, field-oriented control with rotor-position measurement, 4\,kHz acquisition and 1.2--1.3\,s records. The PMSG--SCIG pair is therefore a controlled comparison in which everything but the machine and the control structure it requires is held fixed; the WFSG is a third alternative with the same fault protocol but a different bench, and is analysed with that difference kept explicit.
+
+\begin{table}[t]
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{The three alternatives. PMSG and SCIG share one bench and one protocol; the WFSG bench differs where indicated.}\label{tab:alternatives}
+\begin{tabular}{@{}p{2.4cm}p{2.8cm}p{3.3cm}p{3.4cm}@{}}
+\toprule
+ & PMSG & SCIG & WFSG (variable speed) \\
+\midrule
+Rating, poles & 2.5\,kVA, 4 & 2.5\,kW, 4 & 2\,kVA, 4 salient \\
+Excitation & permanent magnets & induction (magnetising current) & wound field, controlled \\
+Converter and control & 2L, FOC with encoder & 2L, FOC with flux observer & 3L-NPC, FOC with encoder \\
+Acquisition & 20\,kHz, 3\,s & 20\,kHz, 3\,s & 4\,kHz, 1.2--1.3\,s \\
+Pre-fault / fault duration & 1.0\,s / 0.40\,s & 1.0\,s / 0.40\,s & 0.55\,s / 0.12--0.27\,s \\
+Fault impedance & 2.6\,$\Omega$ & 2.6\,$\Omega$ & 2.83\,$\Omega$ (also 1--34\,$\Omega$) \\
+Operating points & 3 speeds $\times$ 3 torques & same & 6 speeds, 4 torque levels (sparse) \\
+Healthy trials & 9 & 9 & none \\
+Fault trials used & 216 & 216 & 198 \\
+\botrule
+\end{tabular}
+\end{table}
+
+\subsection{Failure-mode class and extent scale}\label{sec:extent}
+
+All three machines were built with 24 tapped derivation points along their stator windings at the same relative positions, so that a short-circuit between two taps realises a fault of known extent (Table~\ref{tab:taps}). Two classes are used: inter-turn short-circuits (both taps on the same winding) and inter-winding short-circuits (taps on the two parallel windings of a phase). The extent $e$ is the fraction of the winding between the two taps; it ranges from 2.7\,\% to 12.1\,\% for the twelve inter-turn cases and from 2.3\,\% to 40.2\,\% for the twelve inter-winding cases, and it is identical across the three alternatives because the tap positions are. Faults were closed for about 0.4\,s (PMSG, SCIG) or 0.12--0.27\,s (WFSG) through a contactor and a fault resistance, after the machine had reached steady state; the fault current is measured but is used in this paper only as ground truth, never as a feature. The PMSG and SCIG matrix is complete: 24 fault cases $\times$ 3 speeds (1200, 1500, 1800\,rpm) $\times$ 3 torques (5.2, 6.4, 8.0\,N\,m), scaled from the operating region of the IEA 15\,MW reference turbine \citep{Gaertner2020}, plus the healthy condition at each operating point. The WFSG matrix covers the same 24 cases at a sparser and unbalanced set of operating points with two to six repetitions each; we use the 198 trials at the fault impedance closest to the PMSG/SCIG value.
+
+\begin{table}[t]
+\caption{Tap pairs and fault extents (fraction of the winding between the taps), identical for the three alternatives.}\label{tab:taps}
+\begin{tabular}{@{}llcllc@{}}
+\toprule
+\multicolumn{3}{c}{Inter-turn} & \multicolumn{3}{c}{Inter-winding} \\
+\cmidrule(r){1-3}\cmidrule(l){4-6}
+Taps & Phase & $e$ (\%) & Taps & Phase & $e$ (\%) \\
+\midrule
+D11--D12 & A & 2.7 & D04--D06 & A & 2.3 \\
+D09--D10 & A & 2.8 & D16--D18 & A & 3.2 \\
+D23--D24 & A & 2.8 & D04--D07 & A & 9.7 \\
+D21--D22 & A & 3.8 & D16--D19 & A & 10.6 \\
+D06--D07 & A & 7.4 & D01--D06 & A & 14.3 \\
+D14--D15 & B & 7.4 & D13--D18 & A & 14.8 \\
+D18--D19 & A & 7.4 & D01--D07 & A & 21.7 \\
+D02--D03 & B & 7.7 & D13--D19 & A & 22.2 \\
+D17--D20 & C & 11.6 & D12--D21 & A & 33.7 \\
+D13--D16 & A & 11.6 & D11--D21 & A & 36.4 \\
+D01--D04 & A & 12.0 & D12--D22 & A & 37.5 \\
+D05--D08 & C & 12.1 & D11--D22 & A & 40.2 \\
+\botrule
+\end{tabular}
+\end{table}
+
+\subsection{Observation suites and features}\label{sec:suites}
+
+Five observation suites are considered, ordered by the hardware and integration they add to a bare generator--converter set (Table~\ref{tab:suitedef}). \emph{Drive-internal} uses only quantities the converter controller already has: the $dq$ currents, its own $dq$ voltage commands, the proportional--integral controller outputs, the modulation duty cycles, the DC-link voltage, the estimated electrical torque and the speed. \emph{3\,CT} adds three current transducers at the machine terminals and uses only angle-free features of the phase currents; \emph{3\,CT + 3\,VT} adds three voltage transducers; \emph{3\,CT + 3\,VT + drive} combines the external transducers with controller access, which also allows the measured terminal voltages to be transformed into the synchronous frame; and \emph{+ torque transducer} adds a shaft torque sensor. For the WFSG the field current is an additional drive-internal observable (the \emph{excitation} suite). Each feature is assigned to the cheapest suite whose measurements suffice to compute it; features that need the rotor or flux angle require controller access and are therefore never attributed to an external-transducer suite.
+
+\begin{table}[t]
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Observation suites and the features they can compute. $f_e$: electrical frequency; ``2$f_e$'': amplitude of the component at twice the electrical frequency; $I_1, I_2, I_0$ ($V_1, V_2$): positive-, negative- and zero-sequence magnitudes at $f_e$.}\label{tab:suitedef}
+\begin{tabular}{@{}p{2.3cm}p{3.0cm}p{7.0cm}@{}}
+\toprule
+Suite & Added hardware / access & Features \\
+\midrule
+Drive-internal & none; controller data & $I_d, I_q$: std, 1$f_e$, 2$f_e$; $V_d^{\mathrm{cmd}}, V_q^{\mathrm{cmd}}$: 2$f_e$; PI outputs $d,q$: std, 2$f_e$; duty-cycle negative sequence $D_2/D_1$; $T_e$: std, 1$f_e$, 2$f_e$; DC-link std; speed std \\
+3\,CT & 3 current transducers & $I_2/I_1$, $I_0/I_1$, RMS unbalance, harmonics 3, 5, 7 of $I_a$ relative to the fundamental, THD \\
+3\,CT + 3\,VT & + 3 voltage transducers & 3\,CT features + $V_2/V_1$ \\
+3\,CT + 3\,VT + drive & + controller data & all of the above + measured $V_d, V_q$: 2$f_e$ \\
++ torque transducer & + shaft torque sensor & + $T_m$: std, 1$f_e$, 2$f_e$ \\
+Excitation (WFSG) & field-current measurement & $I_f$: std, 2$f_e$ \\
+\botrule
+\end{tabular}
+\end{table}
+
+Features are computed on sliding windows of $n_c$ electrical cycles with a hop of one cycle. The electrical frequency and the phase rotation are estimated per window from the phase slope of the current space vector, so that no angle sensor is needed for the external suites; sequence components are obtained by Hann-windowed projection of each phase quantity onto the fundamental and symmetrical-component transformation; 1$f_e$ and 2$f_e$ amplitudes of synchronous-frame quantities by projection after mean removal. Appendix~\ref{app:features} lists the definitions.
+
+\subsection{Computation}\label{sec:computation}
+
+For the PMSG and SCIG, the reference interval is 0.30--0.98\,s after the start of each record (the contactor is commanded at 1.000\,s), split at 0.62\,s into $R_1$ and $R_2$, and the faulted interval runs from 30\,ms after the contactor command to 10\,ms before its release; the fault current shows a relay pick-up delay of about 85--90\,ms, so the faulted interval contains the insertion transient and the faulted steady state. For the WFSG the fault interval is located from the measured fault current (the first contiguous interval in which its 10\,ms RMS exceeds a threshold set from the pre-fault noise), the reference interval is 0.05\,s after the start of the record to 10\,ms before the fault, split at 0.30\,s. The main PMSG--SCIG comparison uses $n_c=5$; the three-alternative comparison uses $n_c=3$ for all three machines because the WFSG fault intervals are short, and the sensitivity of every conclusion to $n_c\in\{3,5,8\}$ and to $\alpha\in\{0.90,0.95,0.99\}$ is reported. The null is pooled over all 225 records of each machine (PMSG, SCIG) and all 198 records of the WFSG, every record contributing a healthy reference interval.
+
+Uncertainty is quantified by bootstrap over trials \citep{Efron1993}: 2000 resamples of the 108 trials of each alternative and fault class give percentile intervals for the median SDR, the detectable share and the ratio of median SDR between alternatives, and resampling the operating-point trials within each tap pair gives an interval for the MDE.
+
+Step 6 of the procedure is instantiated as a window-level change detector: a gradient-boosted tree classifier \citep{Lei2020} trained to separate faulted windows from healthy ones, evaluated within an alternative by five-fold cross-validation grouped by tap pair (so that the tested fault locations are never seen in training), and across alternatives by training on all trials of one machine and testing on all trials of another. Three feature-referencing rules are compared: physical units; features $z$-scored on the target machine's healthy trials; and the absolute $z$-score of each window against the mean and standard deviation of its own trial's reference interval. Negatives are the reference windows of all trials plus the fault-interval windows of the healthy trials; the latter are the only negatives that contain the contactor operation without a fault and are therefore the informative ones.
+
+All computations are implemented in Python and released with the paper; the pipeline runs from the public datasets to every table and figure in under fifteen minutes on a four-core machine.

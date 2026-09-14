@@ -1,0 +1,10 @@
+198 files, ncyc=3, 2 workers
+  100/198 done
+  198/198 done
+windows: (7898, 47) files: (198, 145) skipped: 0
+ftype
+TURNS       117
+WINDINGS     81
+dtype: int64
+fault duration s: median 0.126 min 0.122 max 0.276
+n_flt windows: median 3.0 min 0

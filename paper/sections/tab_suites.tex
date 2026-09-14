@@ -1,0 +1,23 @@
+\begin{table}[t]
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\caption{Observation suites versus what they detect, PMSG and SCIG (five-cycle windows): best fixed feature of the suite, its minimum detectable extent (MDE, \%) and detectable share (DS, \%; per-trial oracle share in brackets). Features firing on more than one of the nine healthy trials of a machine are excluded for that machine.}\label{tab:suites}
+\begin{tabular}{@{}lllllll@{}}
+\toprule
+Suite & PMSG feature & MDE & DS [oracle] & SCIG feature & MDE & DS [oracle] \\
+\midrule
+\multicolumn{6}{@{}l}{\emph{Inter-turn faults}} \\
+drive-internal & $D_2/D_1$ & 7.4 & 64 [87] & PI$_d$\,2$f_e$ & 2.7 & 78 [96] \\
+3 CT & $I_2/I_1$ & 7.4 & 56 [78] & $I_2/I_1$ & 2.8 & 75 [84] \\
+3 CT + 3 VT & $V_2/V_1$ & 2.8 & 76 [88] & $I_2/I_1$ & 2.8 & 75 [88] \\
+3 CT + 3 VT + drive & $V_2/V_1$ & 2.8 & 76 [95] & PI$_d$\,2$f_e$ & 2.7 & 78 [99] \\
++ torque transducer & $V_2/V_1$ & 2.8 & 76 [95] & PI$_d$\,2$f_e$ & 2.7 & 78 [99] \\
+\multicolumn{6}{@{}l}{\emph{Inter-winding faults}} \\
+drive-internal & $D_2/D_1$ & 2.3 & 90 [100] & PI$_d$\,2$f_e$ & 2.3 & 100 [100] \\
+3 CT & $I_2/I_1$ & 9.7 & 81 [94] & $I_2/I_1$ & 2.3 & 100 [100] \\
+3 CT + 3 VT & $V_2/V_1$ & 2.3 & 94 [97] & $I_2/I_1$ & 2.3 & 100 [100] \\
+3 CT + 3 VT + drive & $V_2/V_1$ & 2.3 & 94 [100] & PI$_d$\,2$f_e$ & 2.3 & 100 [100] \\
++ torque transducer & $V_2/V_1$ & 2.3 & 94 [100] & PI$_d$\,2$f_e$ & 2.3 & 100 [100] \\
+\botrule
+\end{tabular}
+\end{table}
