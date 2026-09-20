@@ -329,3 +329,36 @@ book if he declines Chapter 2.
   criticises elsewhere. Worth accepting for a named control owner, but Chapter 12 should
   open by saying it continues Chapter 11, and the section matching each machine to its
   converter should sit in one chapter, not be divided between them.
+
+## Chapter 9 after Paavo Rasilo's decline (20 September 2026)
+
+He declined on time — the CoE and an ERC project — and added that he sees himself as a
+generalist and a modeller rather than a designer, doubting he had enough to say about
+machine design or the manufacturing effects on losses. He suggested Anouar Belahcen and
+Floran (presumably Floran Martin, Aalto).
+
+**Recommendation: offer Chapter 9 to Anouar Belahcen as well as Chapter 8, and let him
+bring Floran Martin as co-author.** Three reasons.
+
+1. It repairs a defect that already exists. Belahcen's support letter argues that
+   mains-frequency loss models do not extrapolate, that loss separation loses meaning as
+   frequency rises, and that the degradation from cutting, punching and stacking is itself
+   frequency dependent. That is Chapter 9's premise, not Chapter 8's — his letter was
+   written before Chapter 9 was given away. Give him Chapter 9 and the letter becomes
+   correct as it stands; leave things as they are and it has to be rewritten around skin
+   effect, transposition, litz and hairpin conductors.
+2. Chapters 8 and 9 are the two loss chapters and each cites the other's budget. One owner
+   removes a seam that would otherwise need reconciling by us.
+3. Floran Martin works on magnetic materials and loss modelling in that orbit, so the
+   co-author Paavo named arrives through Anouar rather than through a cold approach from us.
+
+The cost is 58 pages under one owner. Sopanen already carries 96, so there is precedent.
+
+The alternative is to approach Floran Martin directly as owner, with Paavo's name as the
+introduction. That spreads the load and puts a new name on the proposal, which reviewers
+like, but it leaves Belahcen's letter needing a rewrite and adds a cold contact at a late
+stage.
+
+**Until this is settled, no table of contents may be sent to anyone**: both
+`to_send/Annotated_Table_of_Contents.docx` and Juha's revision name Paavo Rasilo in the
+ownership table and again in the Chapter 9 budget line.

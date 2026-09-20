@@ -329,7 +329,20 @@ Offer to put him in touch with Peltoniemi, so that Chapters 11 and 12 are planne
 
 ---
 
-## Paavo Rasilo — Chapter 9, core, rotor and aerodynamic losses
+## Paavo Rasilo — Chapter 9 — DECLINED 20 September
+
+*He declined on time: the CoE and an ERC project already have more of it than he can give.
+He added that he thinks of himself as a generalist and a modeller rather than a designer,
+and doubted he had enough to say about machine design or the manufacturing effects on
+losses — which reads as a misunderstanding of the chapter rather than a real mismatch, so
+the reply corrects it once, for the record, and does not press.
+He suggested Anouar Belahcen and Floran (presumably Floran Martin, Aalto). Anouar is
+already in the book with Chapter 8 — and his support letter argues the core-loss case,
+which is Chapter 9's premise, so giving him Chapter 9 as well would make that letter
+correct instead of needing a rewrite. See `Chapter_Ownership.md`.
+**Chapter 9's owner is unsettled: no table of contents may go out naming him until it is.***
+
+### First email — sent
 
 *Sent (Hüseyin's version). Not a cold approach after all — he is in the same Centre of
 Excellence, so it goes in one step and asks for the letter of support directly.
@@ -352,6 +365,28 @@ We do not expect you to write all of it yourself. You are free to share the duti
 Could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A draft is attached, which you are free to change as you wish.
 
 Looking forward to hearing from you.
+
+BR, Hüseyin
+
+### Reply to his decline — 20 September
+
+*Accept it without pressing; he gave a straight answer quickly, which is worth more than a
+maybe. Correct the fit once, because he has the chapter wrong and we would rather he knew
+that than think we misjudged him, and close that door in the same sentence. Then take the
+two names seriously and ask for permission to use his, which is the one thing a declining
+colleague can still give at no cost. Nothing about returning or deleting the drafts: the
+notice on them says it, and saying it again to a CoE colleague who has just done us the
+courtesy of a fast no would sour the whole note.*
+
+Hello Paavo,
+
+No problem at all, and thank you for answering so quickly — a straight no is worth a great deal more to us than a maybe. The CoE and the ERC come first, obviously.
+
+For what it is worth, the chapter sits closer to your side of the fence than its title suggests. What it actually asks for is loss separation above a kilohertz, material characterisation, and the identification of models for a material state that is not the one the model was fitted on. That is modelling rather than design, and it is why we came to you first. But you know your own calendar, and there is no need to revisit any of it.
+
+Thank you for the two names, and they are good ones. Anouar is already with us — he has Chapter 8, on the AC winding losses. Floran had not occurred to us and on reflection he is an obvious fit. Do you mean Floran Martin? If so, may I write to him and say the suggestion came from you, or would you rather make the introduction yourself?
+
+We will let you know how the proposal goes. See you at the next CoE meeting.
 
 BR, Hüseyin
 
