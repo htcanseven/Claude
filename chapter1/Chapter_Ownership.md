@@ -362,3 +362,17 @@ stage.
 **Until this is settled, no table of contents may be sent to anyone**: both
 `to_send/Annotated_Table_of_Contents.docx` and Juha's revision name Paavo Rasilo in the
 ownership table and again in the Chapter 9 budget line.
+
+
+## Chapter 2 confirmed (22 September 2026)
+
+Juha Saari accepted Chapter 2 and returned the first signed letter of the set. Two things
+follow for the proposal.
+
+His title is **Co-Founder, Upheat Solutions**, not an employee of Upheat — better than we
+assumed, and worth stating that way in the contributor list once he confirms. The annotated
+table of contents says "Owner: J. Saari of Upheat"; make it Upheat Solutions.
+
+He will choose co-authors after the section structure exists, not before, so Chapter 2 goes
+into the proposal with one named owner and co-authors to be named. That is the honest
+position and does not weaken it.

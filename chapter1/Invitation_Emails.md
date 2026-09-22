@@ -153,6 +153,41 @@ Looking forward to hearing which suits you.
 
 BR, Hüseyin
 
+### Reply to his acceptance and returned letter — 22 September
+
+*He accepted Chapter 2, returned the first signed letter of the whole set, said he will
+pick co-authors once a structure exists, offered to talk to "Paavo" about friction losses,
+and asked for a rough timeline.
+Three things to do. Catch him before he writes to Paavo Rasilo, who declined two days
+earlier and does not yet appear to have told anyone else. Ask for the two things his letter
+is missing — a date, and any mention of the book or the authors — without making a
+co-founder feel his letter was marked. And answer the timeline question with real numbers,
+separating the one date we control from the publisher's part, since what he is really
+asking is when he would have to write and by when.
+The signed letter is in `letters/received/Support_Letter_Saari_SIGNED.md`.*
+
+Hello Juha,
+
+Thank you — and this is the first letter back of the whole set, which makes it the one the others will be measured against. The thirty years of product development is the thing none of us can say, and I had not realised you are a co-founder of Upheat; may we describe you that way in the contributor list?
+
+One thing the publisher will want, whenever it is convenient. The letter does not name the book or us anywhere — it says "the proposed book" and "the authors" throughout — and Wiley send these to their reviewers as a bundle, so a letter separated from the proposal cannot be matched back to it. A date and a line at the top would fix it:
+
+Re: Book proposal *High-Speed Electrical Machines and Drives: Design for Industrial and Mobile Applications*, by H. Canseven, I. Petrov and J. Pyrhönen
+
+On Upheat letterhead it would carry more again, if that is easy to do; if not, the date and that one line are enough.
+
+Good on Chapter 2, and your order is the right one — the structure first, the co-authors after. We will send the detailed section plan as soon as the publisher has said yes, and there is nothing to decide before then.
+
+On the friction losses, I should catch you before you write. If you mean Paavo Rasilo, he declined last week; the CoE and an ERC project already have more of his time than he can give. Chapter 9 is therefore without an owner while we settle it, and I will tell you as soon as it has one, so that the introduction is to the person who will actually carry the section. Your point stands whoever it turns out to be, and it is worth having said: a good deal has happened in the CFD modelling of the air gap since your correlations were obtained, and the section should say so rather than stop where the literature stopped. It is a better section for being written by the author of the correlations and honest about what has overtaken them.
+
+The timeline, roughly, and with the caveat that only the first line is ours to control.
+
+We send the proposal to Wiley in [month]. They put it out to external reviewers, which normally takes two to three months, so a decision in the early part of next year. A contract follows that, and writing begins after the contract — nothing at all is asked of you before that point. We would then expect to give contributors something like nine to twelve months for a first full draft, with the detailed structure and a per-chapter schedule agreed at the start rather than imposed later. Review, revision and Wiley's own production add most of another year. So: your writing would fall largely in the second half of next year, and a book on the shelf in 2029. We will know far more once the publisher has answered, and I will pass on whatever they say.
+
+Thank you again for turning this round so quickly.
+
+BR, Hüseyin
+
 ---
 
 ## Jouni Ikäheimo — solid-rotor machines, manufacture, qualification, photographs
