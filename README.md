@@ -79,7 +79,8 @@ operating points sit at 7.0 kVA**, so the loading axis is never explored.
 | `analysis/04_response_draft.md` | Draft point-by-point response text for resubmission |
 | `analysis/05_dataset_reference.md` | Verified facts about source dataset [11], with citations |
 | `analysis/06_journal_shortlist.md` | Where to submit next — ranked venues, APC funding, conference deadlines |
-| `analysis/07_minimal_revision_package.md` | **Low-effort route: IEEE Access / e-Prime, with drop-in LaTeX, abstract and cover letter** |
+| `analysis/07_minimal_revision_package.md` | Low-effort route: EPSR / IEEE Access, with drop-in LaTeX, abstract and cover letters |
+| `analysis/08_iet_epa_presubmission_review.md` | **Pre-submission review of the IET EPA version — fixes, Fig. 5(c) physics, checklist** |
 | `tools/error_rate_check.py` | Reproduces the Fig. 6 resolution and the corrected table |
 
 Two reviewer claims are **factually incorrect** and are handled without dispute in the
