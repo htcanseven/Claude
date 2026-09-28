@@ -1,0 +1,197 @@
+%% =====================================================================================
+%% Revision kit for the IET EPA submission: every text change as ready-to-apply LaTeX.
+%%
+%% Each block states where it goes and what it replaces. Equation references are written
+%% as literal numbers, e.g. (5); when applied to the manuscript source they are mapped to
+%% its existing \label/\eqref names. Items marked [AUTHORS] need information only the
+%% authors have. See review notes in analysis/08_iet_epa_presubmission_review.md.
+%% =====================================================================================
+
+
+%% -------------------------------------------------------------------------------------
+%% A6. ABSTRACT  - replaces the whole abstract (~200 words)
+%% -------------------------------------------------------------------------------------
+Reliable diagnosis of rotor winding inter-turn short circuits (ITSCs) in synchronous
+generators is challenging under operating-point variation, because excitation and reactive
+power strongly affect stray magnetic field measurements. This paper presents a
+leakage-safe cross-operating-point evaluation of rotor winding short-circuit severity
+diagnosis using two-channel stray-field signals from a grid-connected salient-pole
+synchronous generator at seven excitation and power-factor conditions. Physics-informed
+feature representations are evaluated with classical learners and raw-signal 1D-CNN models
+under a leave-one-operating-point-out (LOOPO) protocol. Fundamental-normalized descriptors
+are far more robust than absolute magnitude-dependent features (macro-F1 of 0.9455 versus
+0.8026 with the same classifier); the normalization cancels excitation dependence almost
+completely in over-excited operation but only partially in under-excited operation,
+identifying the under-excited regime as the diagnostic boundary. ExtraTrees with all
+numeric descriptors attains a macro-F1 of 0.9951 (0.49\% file-level error), while SVM-RBF,
+logistic regression and a nested severity-calibrated 1D-CNN each attain 0.9935 (0.66\%),
+and raw 1D-CNN majority voting attains 0.9737 (2.64\%). At the most under-excited
+condition, where the raw CNN misreads 20\% faults as healthy, nested ordinal severity
+calibration corrects every such error without degrading any correct prediction. Robust
+stray-field rotor winding diagnosis therefore depends on physically meaningful
+normalization and leakage-safe evaluation at least as much as on model complexity.
+
+
+%% -------------------------------------------------------------------------------------
+%% B1. SECTION 2 - replaces the sentence that begins
+%%     "The model assumes linear magnetics and a fixed defect location and neglects local
+%%      saturation and AVR dynamics, ..." (through "... is designed to test.")
+%% -------------------------------------------------------------------------------------
+The model assumes linear magnetics and a fixed defect location, and neglects local
+saturation, AVR dynamics and the contribution of the grid-imposed terminal voltage and
+armature current to the fundamental. The first two perturb the constants $K_k$ but not the
+leading-order structure of (5). The third does not: in under-excited operation it limits
+the cancellation of $I_\mathrm{f}$ in (5), as shown in Section~5.1. Because the public
+dataset does not report the field current at each operating point, the excitation ordering
+used here follows from standard phasor relations for a grid-connected synchronous generator
+at constant apparent power rather than from direct measurement. Whether the first-order
+reduction of excitation dependence is sufficient under real operating-point variation is
+exactly what the leakage-safe benchmark of Section~4 is designed to test.
+
+
+%% -------------------------------------------------------------------------------------
+%% B2. SECTION 5.1 - insert as a new paragraph directly after
+%%     "However, the collapse is not complete: visible residual spread remains between
+%%      under-excited and over-excited conditions."
+%%     The 2.5x figure is read from Fig. 5(c) (P18 ~0.29 vs. P19-P21 ~0.73 at gamma = 1);
+%%     [AUTHORS] confirm against the plotted values if convenient.
+%% -------------------------------------------------------------------------------------
+The structure of this residual is informative. The three over-excited operating points
+(P19--P21) collapse almost onto a single curve, whereas the under-excited points fan out
+monotonically with decreasing excitation from P15 to P18, reaching a spread of roughly
+$2.5\times$ at $\gamma = 1$; a single linear fit pooled over all operating points gives
+$R^2 = 0.811$. This pattern follows if the fundamental contains a component that does not
+scale with field current, which (4) omits. Because the generator is grid-connected at
+constant apparent power, its terminal voltage and armature-current magnitude are imposed
+externally, so part of the 60-Hz stray field is fixed by the operating condition rather
+than by $I_\mathrm{f}$. Writing $|V(f_\mathrm{e})| \approx K_a + K_\mathrm{e} I_\mathrm{f}$
+gives
+\[
+  R(kf_\mathrm{m}; f_\mathrm{e}) \approx
+  \frac{\gamma K_k I_\mathrm{f}}{K_a + K_\mathrm{e} I_\mathrm{f}} .
+\]
+At high excitation the rotor term dominates and $R$ tends to the excitation-independent
+value $(K_k/K_\mathrm{e})\gamma$ predicted by (5), whereas at low excitation $R$ falls with
+$I_\mathrm{f}$. Normalization therefore removes the excitation dependence in over-excited
+operation but only partially in under-excited operation, which is precisely the regime of
+the boundary failure analysed in Section~5.4.
+
+
+%% -------------------------------------------------------------------------------------
+%% A5. SECTION 5.2 - insert directly before the sentence
+%%     "Moreover, macro-F1 depends on the class-wise distribution of errors ..."
+%% -------------------------------------------------------------------------------------
+For this reason, Table~4 and Figure~6 report error rates, which are comparable across all
+rows.
+
+
+%% -------------------------------------------------------------------------------------
+%% C. SECTION 5.4 - replaces the two sentences
+%%    "The selected upper threshold was stable across all seven outer LOOPO folds, ...
+%%     ... than by fragile threshold tuning."
+%% -------------------------------------------------------------------------------------
+The P18 corrections return 20\% faults from the healthy class to the 20\% class, a decision
+governed by $t_{01}$ and $t_{12}$. Both thresholds were fixed a priori at the physical
+midpoints between severity levels and were never tuned, so the correction cannot be
+attributed to threshold selection. The tuned threshold $t_{23}$ affects only the 50\%/100\%
+boundary; it was stable at 0.675 across all seven outer LOOPO folds, and P18 performance
+remained perfect for $t_{23}$ between 0.55 and 0.80. The correction is therefore better
+explained by ordinal severity information than by threshold tuning.
+
+
+%% -------------------------------------------------------------------------------------
+%% D2. SECTION 3 - append to the paragraph that introduces P15-P21
+%% -------------------------------------------------------------------------------------
+The public dataset comprises 607 two-channel voltage-vector files, of which 95, 84, 80, 90,
+90, 84 and 84 correspond to P15--P21, respectively; all of them are used in this study.
+
+
+%% -------------------------------------------------------------------------------------
+%% A3 + A5. TABLE 4 - full-width (table*) so it no longer collides with Table 3 on
+%%          page 9, with an error-rate column. Match the manuscript's existing table
+%%          markup (the Wiley NJD template's tablenotes environment) when applying.
+%% -------------------------------------------------------------------------------------
+\begin{table*}[t]
+\caption{Strong classical and raw deep benchmark under LOOPO.}
+\label{tab:benchmark}
+\centering
+\begin{tabular}{llrccccr}
+\hline
+Model & Representation & $n$ & F1 & Bal. & MAE & Err. & Err. rate \\
+\hline
+ET      & All numeric       &  607 & \textbf{0.9951} & \textbf{0.9953} & \textbf{0.0010} &  3 & \textbf{0.49\%} \\
+SVM     & Norm. spectral    &  607 & 0.9935 & 0.9937 & 0.0015 &  4 & 0.66\% \\
+LR-L2   & Band-energy       &  607 & 0.9935 & 0.9936 & 0.0013 &  4 & 0.66\% \\
+SC-CNN  & Raw + calibration & 1821 & 0.9935 & 0.9936 & 0.0013 & 12 & 0.66\% \\
+Raw-CNN & Raw voting        & 1821 & 0.9737 & 0.9733 & 0.0053 & 48 & 2.64\% \\
+RF      & Cross-channel     &  607 & 0.9632 & 0.9619 & 0.0157 & 22 & 3.62\% \\
+\hline
+\end{tabular}
+\par\smallskip
+\footnotesize ET: ExtraTrees; LR-L2: logistic regression with $\ell_2$ regularization;
+SC-CNN: nested severity-calibrated 1D-CNN. $n$: file-level predictions (classical rows
+cover the 607 files once; CNN rows pool three seeds, $3\times607=1821$). F1: macro-F1;
+Bal.: balanced accuracy; MAE: severity mean absolute error; Err.: misclassified
+predictions. Error rates, unlike error counts, are comparable across rows.
+\end{table*}
+
+
+%% -------------------------------------------------------------------------------------
+%% A2. FIGURE CAPTIONS
+%%     [AUTHORS] The attribution assumes Figs. 1-3 are reproduced from the data report
+%%     [14]. If you drew any of them yourselves, drop its last sentence.
+%% -------------------------------------------------------------------------------------
+
+% Figure 1 (workbench)
+\caption{Experimental workbench used to acquire the public dataset: (1) 10~kW DC prime
+mover; (2) 8-pole salient-pole synchronous generator analysed in this study; (3) 2-pole
+cylindrical-rotor synchronous generator, not used here; (4) electromagnetic clutch;
+(5) mechanical unbalance/flange systems; (6) position transducers. Only the 8-pole
+salient-pole generator was used for the rotor-winding ITSC measurements analysed here.
+Reproduced from [14] under the CC~BY~4.0 licence.}
+
+% Figure 2 (tap configuration)
+\caption{Rotor winding configuration showing the taps on a single pole used to impose 20\%,
+50\% and 100\% short-circuit severities (94, 235 and 470 of the pole's 470 turns), selected
+through terminals J1, J2 and J3; terminal J corresponds to the healthy winding. Reproduced
+from [14] under the CC~BY~4.0 licence.}
+
+% Figure 3 (sensor)
+\caption{(Left) Induction sensor (search coil); (right) 90$^\circ$ spatial placement of CH1
+and CH2 on the generator's exterior frame. Reproduced from [14] under the CC~BY~4.0
+licence.}
+
+% Figure 6 (use revision/figures/fig6_macro_f1.pdf)
+\caption{Macro-F1 of strong classical learners and of raw-signal and severity-calibrated
+CNN decisions under the LOOPO protocol. Labels give macro-F1 and the file-level error rate.
+Classical results cover the 607 files; CNN results pool three seeds (1821 file-level
+predictions), so error rates rather than error counts are comparable across bars. SC-CNN
+denotes the nested severity-calibrated 1D-CNN.}
+
+% Figure 7 (P18 confusion matrices)
+\caption{P18 boundary-condition confusion matrices before and after nested severity
+calibration. Counts are pooled over three seeds, so each row total is three times the
+per-seed number of files (P18 contains 30 healthy files and 20 files at each fault
+severity). The raw 1D-CNN mainly misclassifies 20\% faults as healthy, whereas nested
+severity calibration recovers all P18 errors.}
+
+
+%% -------------------------------------------------------------------------------------
+%% A1. ACKNOWLEDGMENTS - new section, placed before "Conflicts of Interest"
+%%     IET EPA asks for all funding sources to be listed here.
+%%     [AUTHORS] add the grant number and confirm the funder name.
+%% -------------------------------------------------------------------------------------
+\section*{Acknowledgments}
+This work was supported by the Research Council of Finland (formerly the Academy of
+Finland) under the Centre of Excellence Programme for the project High-Speed
+Electromechanical Energy Conversion Systems [grant number]. The authors thank the authors
+of [14] for making the stray magnetic field dataset openly available.
+
+
+%% -------------------------------------------------------------------------------------
+%% LAYOUT (applied in the source; no text change)
+%%   - Figure 5: make it full width (figure*) so its legends and axes are legible.
+%%   - Figure 6: replace the image with revision/figures/fig6_macro_f1.pdf.
+%%   - References: switch to revision/references.bib. The double commas (",, and") are
+%%     produced by the bibliography style, not the .bib entries, so the style is fixed too.
+%% -------------------------------------------------------------------------------------
