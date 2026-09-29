@@ -18,8 +18,9 @@ T      = 20;      % Kayit suresi [s]  ->  frekans cozunurlugu = 1/T = 0.05 Hz
 I1     = 10;      % Temel bilesen genligi [A]
 
 % Kirik cubuk yan bandinin temel bilesene gore bagil genligi [dB].
-% Saglam motorlarda bu fark genellikle cok buyuktur (yan bant -50 dB'in altinda);
-% fark kuculdukce ariza siddeti artar. Pratik esikler icin yol haritasina bakin.
+% Pratik kural (Culbert & Letal, IEEE PPIC 2015): (1-2s)f_s yan bandi temel bilesenin
+% 45 dB ya da daha az altindaysa rotor kafes arizasindan suphelenilir; fark kuculdukce
+% hasar buyur. Esikler motora ve yuke gore degisir, trend izlemek esastir.
 Asb_dB = -40;
 
 t = (0:1/Fs:T-1/Fs).';
