@@ -1,7 +1,7 @@
 \begin{table}[t]
 \scriptsize
 \setlength{\tabcolsep}{3pt}
-\caption{Observation suites for the three alternatives, three-cycle windows, common feature set, $\alpha=0.95$. Fixed feature: highest median SDR among the suite's screened features. MDE (\%) at the fault impedance matching the PMSG/SCIG protocol (WFSG: 198 trials, four tap pairs per class); $^{\ddagger}$the smallest inter-turn extent tested on the WFSG at that impedance is 11.6\,\%, so the value is an upper bound. DS: detectable share (\%) of the fixed feature; nested: fixed feature chosen on the other tap pairs; oracle: per-trial best feature, with its false-alarm rate on the healthy trials (FA, \%; not available for the WFSG). `--': largest tested extent not detectable.}\label{tab:suites3}
+\caption{Observation suites for the three alternatives, three-cycle windows, common feature set, $\alpha=0.95$. Fixed feature: highest median SDR among the suite's screened features. MDE (\%) at the fault impedance matching the PMSG/SCIG protocol (WFSG: 198 trials, four tap pairs per class); $^{\mathrm{a}}$the smallest inter-turn extent tested on the WFSG at that impedance is 11.6\,\%, so the value is an upper bound. DS: detectable share (\%) of the fixed feature; nested: fixed feature chosen on the other tap pairs; oracle: per-trial best feature, with its false-alarm rate on the healthy trials (FA, \%; not available for the WFSG). `--': largest tested extent not detectable}\label{tab:suites3}
 \begin{tabular}{@{}llllcccc@{}}
 \toprule
 Suite & Machine & Feature & MDE & DS & DS nested & Oracle DS & Oracle FA \\
@@ -9,17 +9,17 @@ Suite & Machine & Feature & MDE & DS & DS nested & Oracle DS & Oracle FA \\
 \multicolumn{8}{@{}l}{\emph{Inter-turn faults}} \\
 drive-internal & PMSG & $D_2/D_1$ & 7.4 & 65 & 65 & 82 & 44 \\
 drive-internal & SCIG & $I_d$\,2$f_e$ & 7.4 & 78 & 78 & 93 & 78 \\
-drive-internal & WFSG & $I_q$\,2$f_e$ & 11.6$^{\ddagger}$ & 91 & 87 & 96 & -- \\
+drive-internal & WFSG & $I_q$\,2$f_e$ & 11.6$^{\mathrm{a}}$ & 91 & 87 & 96 & -- \\
 3 CT & PMSG & $I_2/I_1$ & 7.4 & 57 & 57 & 78 & 11 \\
 3 CT & SCIG & $I_2/I_1$ & 7.4 & 70 & 70 & 86 & 56 \\
-3 CT & WFSG & $I_a$\,h3 & 11.6$^{\ddagger}$ & 98 & 86 & 94 & -- \\
+3 CT & WFSG & $I_a$\,h3 & 11.6$^{\mathrm{a}}$ & 98 & 86 & 94 & -- \\
 3 CT + 3 VT & PMSG & $V_2/V_1$ & 3.8 & 73 & 73 & 85 & 33 \\
 3 CT + 3 VT & SCIG & $I_2/I_1$ & 7.4 & 70 & 70 & 89 & 56 \\
-3 CT + 3 VT & WFSG & $V_2/V_1$ & 11.6$^{\ddagger}$ & 98 & 98 & 94 & -- \\
+3 CT + 3 VT & WFSG & $V_2/V_1$ & 11.6$^{\mathrm{a}}$ & 98 & 98 & 94 & -- \\
 3 CT + 3 VT + drive & PMSG & $V_2/V_1$ & 3.8 & 73 & 68 & 94 & 67 \\
 3 CT + 3 VT + drive & SCIG & $I_d$\,2$f_e$ & 7.4 & 78 & 78 & 97 & 89 \\
-3 CT + 3 VT + drive & WFSG & $V_2/V_1$ & 11.6$^{\ddagger}$ & 98 & 98 & 98 & -- \\
-excitation (field current) & WFSG & $I_f$\,2$f_e$ & 11.6$^{\ddagger}$ & 86 & 86 & 74 & -- \\
+3 CT + 3 VT + drive & WFSG & $V_2/V_1$ & 11.6$^{\mathrm{a}}$ & 98 & 98 & 98 & -- \\
+excitation (field current) & WFSG & $I_f$\,2$f_e$ & 11.6$^{\mathrm{a}}$ & 86 & 86 & 74 & -- \\
 \multicolumn{8}{@{}l}{\emph{Inter-winding faults}} \\
 drive-internal & PMSG & $D_2/D_1$ & 14.3 & 91 & 91 & 98 & 44 \\
 drive-internal & SCIG & $I_d$\,2$f_e$ & 2.3 & 100 & 100 & 100 & 78 \\
@@ -40,7 +40,7 @@ excitation (field current) & WFSG & $I_f$\,2$f_e$ & 2.3 & 100 & 100 & 100 & -- \
 
 \begin{table}[t]
 \scriptsize
-\caption{Five features with the highest median SDR per alternative and fault class (three-cycle windows; WFSG at all its fault impedances, trials with at least one full fault window); detectable share in parentheses (\%). $^{\dagger}$: fails the reliability screen for that machine (three or more false alarms on the nine healthy trials, or null quantile above one) and is therefore not used in the suite tables.}\label{tab:topfeat}
+\caption{Five features with the highest median SDR per alternative and fault class (three-cycle windows; WFSG at all its fault impedances, trials with at least one full fault window); detectable share in parentheses (\%). $^{\mathrm{a}}$fails the reliability screen for that machine (three or more false alarms on the nine healthy trials, or null quantile above one) and is therefore not used in the suite tables}\label{tab:topfeat}
 \begin{tabular}{@{}llp{7.6cm}@{}}
 \toprule
 Machine & Class & Features: median SDR (DS) \\
@@ -57,7 +57,7 @@ WFSG & inter-winding & $I_q$\,2$f_e$ 30.9 (100); $V_q^{\mathrm{cmd}}$\,2$f_e$ 29
 
 \begin{table}[t]
 \footnotesize
-\caption{Operating-point dependence: median SDR of the best of $V_2/V_1$, $V_q$\,2$f_e$, $I_2/I_1$, PI$_d$\,2$f_e$ and detectable share (\%) per cell of the speed--torque grid, 24 fault trials per cell.}\label{tab:opgrid}
+\caption{Operating-point dependence: median SDR of the best of $V_2/V_1$, $V_q$\,2$f_e$, $I_2/I_1$, PI$_d$\,2$f_e$ and detectable share (\%) per cell of the speed--torque grid, 24 fault trials per cell}\label{tab:opgrid}
 \begin{tabular}{@{}llccc@{}}
 \toprule
 Machine & Speed (rpm) & 5.2\,N\,m & 6.4\,N\,m & 8.0\,N\,m \\
@@ -75,7 +75,7 @@ SCIG & 1800 & 51.0 / 100 & 47.2 / 100 & 44.0 / 96 \\
 \begin{table}[t]
 \scriptsize
 \setlength{\tabcolsep}{3pt}
-\caption{Sensitivity of MDE (\%; limit-of-detection convention, `--' = largest extent not detectable)/DS (\%) to the window length (3, 5, 8 cycles at $\alpha=0.95$) and to the null quantile ($\alpha=0.90$ and $0.99$ at five cycles). $^{s}$: the feature fails the reliability screen at that setting. IT: inter-turn; IW: inter-winding.}\label{tab:sens}
+\caption{Sensitivity of MDE (\%; limit-of-detection convention, `--' = largest extent not detectable)/DS (\%) to the window length (3, 5, 8 cycles at $\alpha=0.95$) and to the null quantile ($\alpha=0.90$ and $0.99$ at five cycles). $^{\mathrm{a}}$the feature fails the reliability screen at that setting. IT: inter-turn; IW: inter-winding}\label{tab:sens}
 \begin{tabular}{@{}lllccccc@{}}
 \toprule
 Class & Feature & Machine & 3\,c & 5\,c & 8\,c & $\alpha$\,0.90 & $\alpha$\,0.99 \\
@@ -106,7 +106,7 @@ IW & $V_q$\,2$f_e$ & SCIG & 9.7/88 & 9.7/92 & 9.7/88 & 9.7/95 & 9.7/84 \\
 
 \begin{table}[t]
 \scriptsize
-\caption{Features failing the reliability screen (three or more false alarms on the nine healthy trials at $\alpha=0.95$; count in parentheses) per window length and machine.}\label{tab:screen}
+\caption{Features failing the reliability screen (three or more false alarms on the nine healthy trials at $\alpha=0.95$; count in parentheses) per window length and machine}\label{tab:screen}
 \begin{tabular}{@{}llp{8cm}@{}}
 \toprule
 Window (cycles) & Machine & Excluded features (false alarms) \\
@@ -123,7 +123,7 @@ Window (cycles) & Machine & Excluded features (false alarms) \\
 \begin{table}[t]
 \scriptsize
 \setlength{\tabcolsep}{3pt}
-\caption{Transfer of a GBDT detector restricted to each suite's features (AUC), PMSG and SCIG, five-cycle windows: features $z$-scored on the target's healthy trials (left block) and $|z|$ against each trial's own reference (right block). P: PMSG, S: SCIG; same-machine columns use five-fold cross-validation grouped by tap pair.}\label{tab:suitetransfer}
+\caption{Transfer of a GBDT detector restricted to each suite's features (AUC), PMSG and SCIG, five-cycle windows: features $z$-scored on the target's healthy trials (left block) and $|z|$ against each trial's own reference (right block). P: PMSG, S: SCIG; same-machine columns use five-fold cross-validation grouped by tap pair}\label{tab:suitetransfer}
 \begin{tabular}{@{}lcccccccc@{}}
 \toprule
 \multirow{2}{*}{Suite} & \multicolumn{4}{c}{$z$ on target's healthy trials} & \multicolumn{4}{c}{$|z|$ vs own reference} \\

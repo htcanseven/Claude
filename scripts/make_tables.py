@@ -45,6 +45,9 @@ def table(body, caption, label, cols, head, size=r"\footnotesize", colsep=None):
             if r.endswith(suf):
                 r = r[: -len(suf)].rstrip()
         rows.append(r)
+    caption = caption.rstrip()
+    if caption.endswith("."):
+        caption = caption[:-1]
     sep = f"\\setlength{{\\tabcolsep}}{{{colsep}}}\n" if colsep else ""
     return (f"\\begin{{table}}[t]\n{size}\n{sep}\\caption{{{caption}}}\\label{{{label}}}\n"
             f"\\begin{{tabular}}{{@{{}}{cols}@{{}}}}\n\\toprule\n{head} \\\\\n\\midrule\n"
@@ -150,7 +153,7 @@ def screened_mark(r):
         bad |= bool(binom.sf(int(r.healthy_false_alarm_count) - 1, int(r.n_healthy), 0.05) < 0.05)
     if "null_q" in r and np.isfinite(r.null_q) and r.null_q > 1:
         bad = True
-    return r"$^{\dagger}$" if bad else ""
+    return r"$^{\mathrm{a}}$" if bad else ""
 
 
 def t_null():
@@ -213,13 +216,13 @@ def t_suites3():
                 if not len(r) or not len(o):
                     continue
                 r, o = r.iloc[0], o.iloc[0]
-                mde = ("--" if not np.isfinite(r.mde_monotone_pct) else f"{r.mde_monotone_pct:.1f}") + ("$^{\\ddagger}$" if m == "WFSG" and ft == "TURNS" else "")
+                mde = ("--" if not np.isfinite(r.mde_monotone_pct) else f"{r.mde_monotone_pct:.1f}") + ("$^{\\mathrm{a}}$" if m == "WFSG" and ft == "TURNS" else "")
                 body.append(" & ".join([SUITE[s], m, tex(r.fixed_feature), mde, pct(r.ds_all), pct(r.ds_nested),
                                         pct(o.oracle_share_detectable), pct(o.oracle_healthy_false_alarm)]) + r" \\")
     body[-1] = body[-1].rstrip(r"\\").rstrip()
     cap = ("Observation suites for the three alternatives, three-cycle windows, common feature set, $\\alpha=0.95$. Fixed feature: "
            "highest median SDR among the suite's screened features. MDE (\\%) at the fault impedance matching the PMSG/SCIG "
-           "protocol (WFSG: 198 trials, four tap pairs per class); $^{\\ddagger}$the smallest inter-turn extent tested on the "
+           "protocol (WFSG: 198 trials, four tap pairs per class); $^{\\mathrm{a}}$the smallest inter-turn extent tested on the "
            "WFSG at that impedance is 11.6\\,\\%, so the value is an upper bound. DS: detectable share (\\%) of the fixed feature; "
            "nested: fixed feature chosen on the other tap pairs; oracle: per-trial best feature, with its false-alarm rate on "
            "the healthy trials (FA, \\%; not available for the WFSG). `--': largest tested extent not detectable.")
@@ -255,8 +258,8 @@ def t_transfer3():
         body.append(f"{r.train} & {r.test} & {r.auc_all:.2f} & {r.auc_oor:.2f} & {r.tpr_oor:.2f} & {fa}" + r" \\")
     body[-1] = body[-1].rstrip(r"\\").rstrip()
     cap = ("Transfer between the three alternatives (three-cycle windows, common features, $|z|$ against the first half of each "
-           "trial's own reference interval, GBDT with fixed seed). AUC on all windows and on the out-of-reference windows; TPR "
-           "at 1\\,\\% FPR on the out-of-reference windows; FA: share of the fault-time windows of the healthy trials (contactor "
+           "trial's own reference interval, GBDT with fixed seed). AUC on all windows and on the out-of-reference windows; TPR: "
+           "true-positive rate at 1\\,\\% false-positive rate (FPR) on the out-of-reference windows; FA: share of the fault-time windows of the healthy trials (contactor "
            "operation without a fault) above the threshold that gives 1\\,\\% FPR on all negatives. Same-machine rows: five-fold "
            "cross-validation grouped by tap pair. The WFSG has no healthy trials, so its negatives are reference and recovery "
            "windows only and its rows are optimistic.")
@@ -288,7 +291,7 @@ def t_sens():
 
     def cell(r):
         mde = "--" if not np.isfinite(r.min_detectable_pct) else f"{r.min_detectable_pct:.1f}"
-        return f"{mde}/{pct(r.share_detectable)}" + (r"$^{s}$" if bool(r.screened) else "")
+        return f"{mde}/{pct(r.share_detectable)}" + (r"$^{\mathrm{a}}$" if bool(r.screened) else "")
     body = []
     for ft in ["TURNS", "WINDINGS"]:
         for f in feats:
@@ -302,7 +305,7 @@ def t_sens():
     body[-1] = body[-1].rstrip(r"\\").rstrip()
     cap = ("Sensitivity of MDE (\\%; limit-of-detection convention, `--' = largest extent not detectable)/DS (\\%) to the window "
            "length (3, 5, 8 cycles at $\\alpha=0.95$) and to the null quantile ($\\alpha=0.90$ and $0.99$ at five cycles). "
-           "$^{s}$: the feature fails the reliability screen at that setting. IT: inter-turn; IW: inter-winding.")
+           "$^{\\mathrm{a}}$the feature fails the reliability screen at that setting. IT: inter-turn; IW: inter-winding.")
     head = r"Class & Feature & Machine & 3\,c & 5\,c & 8\,c & $\alpha$\,0.90 & $\alpha$\,0.99"
     return table(body, cap, "tab:sens", "lllccccc", head, size=r"\scriptsize", colsep="3pt")
 
@@ -318,7 +321,7 @@ def t_topfeat():
     body[-1] = body[-1].rstrip(r"\\").rstrip()
     cap = ("Five features with the highest median SDR per alternative and fault class (three-cycle windows; WFSG at all its "
            "fault impedances, trials with at least one full fault window); detectable share in parentheses (\\%). "
-           "$^{\\dagger}$: fails the reliability screen for that machine (three or more false alarms on the nine healthy "
+           "$^{\\mathrm{a}}$fails the reliability screen for that machine (three or more false alarms on the nine healthy "
            "trials, or null quantile above one) and is therefore not used in the suite tables.")
     return table(body, cap, "tab:topfeat", "llp{7.6cm}", r"Machine & Class & Features: median SDR (DS)", size=r"\scriptsize")
 

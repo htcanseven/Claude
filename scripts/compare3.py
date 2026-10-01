@@ -273,18 +273,19 @@ def fig_features(det, feats, figsize=(9.5, 9.6), fsize=8, name="G_sdr_by_feature
             for m in MACH:
                 s = sub[sub.machine == m].set_index("feature").reindex(fs)
                 y = [ypos[f] for f in fs]
-                ax.hlines(y, s.q25.clip(lower=0.02), s.q75, color=COL3[m], lw=1.2, alpha=0.45)
-                ax.plot(s.median_sdr.clip(lower=0.02), y, "o", ms=5, color=COL3[m], label=m, zorder=3)
+                ax.hlines(y, s.q25.clip(lower=0.02), s.q75, color=COL3[m], lw=1.1, alpha=0.45)
+                ax.plot(s.median_sdr.clip(lower=0.02), y, C.MARK[m], ms=4.2, color=COL3[m], label=m, zorder=3)
             ax.axvline(1, color=C.AXIS, lw=0.8, ls="--")
             ax.set_xscale("log"); ax.set_xlim(0.03, 200)
             ax.set_ylim(-0.6, len(fs) - 0.4)
             ax.set_yticks(range(len(fs))); ax.set_yticklabels([C.lab(f) for f in fs[::-1]] if j == 0 else [], fontsize=fsize)
+            ax.tick_params(axis="x", labelsize=fsize)
             ax.grid(axis="y", visible=False)
             if i == 0:
-                ax.set_title(f"{C.FT_LABEL[ft]} faults")
+                ax.set_title(f"{C.FT_LABEL[ft]} faults", fontsize=fsize + 1)
             if j == 1:
-                ax.text(1.02, 0.5, gname, transform=ax.transAxes, rotation=270, va="center", fontsize=fsize, color=C.MUTED)
-    fig.text(0.5, 0.03, "Signal-to-drift ratio (median over trials; ≥ 1 = detectable)", ha="center", fontsize=9, color=C.INK2)
+                ax.text(1.02, 0.5, gname, transform=ax.transAxes, rotation=270, va="center", fontsize=fsize, color=C.INK2)
+    fig.text(0.5, 0.02, "Signal-to-drift ratio (median over trials; ≥ 1 = detectable)", ha="center", fontsize=fsize + 0.5, color=C.INK2)
     axes[0, 0].legend(loc="lower right", fontsize=fsize)
     C.header(fig, "Where the short-circuit becomes visible, for three generator topologies",
              "3-cycle windows; ZF = 2.6 Ω (PMSG, SCIG) and 2.83 Ω (WFSG). Dot = median SDR, bar = interquartile range.", top=0.91)

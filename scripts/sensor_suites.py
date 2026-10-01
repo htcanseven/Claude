@@ -176,33 +176,37 @@ def figure(res, tr):
 
 def figure_paper(res):
     """Two-row version for the manuscript (larger type; the transfer row is a table there)."""
-    fig, axes = plt.subplots(2, 2, figsize=(7.2, 5.0), sharex=True, gridspec_kw={"hspace": 0.18, "wspace": 0.12})
+    FS = 7.5   # lettering at final size (figure drawn at the journal text width)
+    fig, axes = plt.subplots(2, 2, figsize=(5.15, 3.9), sharex=True, gridspec_kw={"hspace": 0.12, "wspace": 0.1})
     xs = np.arange(len(ORDER))
-    off = {"PMSG": -0.13, "SCIG": 0.13}
+    off = {"PMSG": -0.15, "SCIG": 0.15}
+    short = {"drive-internal": "drive", "3 CT": "3CT", "3 CT + 3 VT": "3CT\n+3VT", "3 CT + 3 VT + drive": "3CT+3VT\n+drive",
+             "+ torque transducer": "+torque"}
+    letters = iter("abcd")
     for j, ft in enumerate(["TURNS", "WINDINGS"]):
         ax = axes[0, j]
         for m in ["PMSG", "SCIG"]:
             s = res[(res.ftype == ft) & (res.machine == m)].set_index("suite").loc[ORDER]
-            ax.plot(xs + off[m], s.oracle_min_detectable_pct, "o", ms=8, mfc="none", mec=C.COL[m], mew=1.5, zorder=3)
-            ax.plot(xs + off[m], s.fixed_min_detectable_pct, "o", ms=7, color=C.COL[m], label=m, zorder=4)
-            dy, ha = (9, "right") if m == "PMSG" else (-13, "left")
-            for x, (feat, y) in zip(xs + off[m], zip(s.best_feature, s.fixed_min_detectable_pct)):
-                if np.isfinite(y):
-                    ax.annotate(C.lab(feat), (x, y), xytext=(0, dy), textcoords="offset points", ha=ha, fontsize=7, color=C.INK2)
-        ax.set_yscale("log"); ax.set_yticks([2, 3, 5, 10, 20]); ax.set_yticklabels(["2", "3", "5", "10", "20"])
+            ax.plot(xs + off[m], s.oracle_min_detectable_pct, C.MARK[m], ms=6.5, mfc="none", mec=C.COL[m], mew=1.2, zorder=3)
+            ax.plot(xs + off[m], s.fixed_min_detectable_pct, C.MARK[m], ms=5.5, color=C.COL[m], label=m, zorder=4)
+        ax.set_yscale("log"); ax.set_yticks([2, 3, 5, 10, 20]); ax.set_yticklabels(["2", "3", "5", "10", "20"], fontsize=FS)
         ax.yaxis.set_minor_formatter(matplotlib.ticker.NullFormatter()); ax.set_ylim(1.6, 30)
-        ax.set_title(f"{C.FT_LABEL[ft]} faults", fontsize=10)
+        ax.set_title(f"{C.FT_LABEL[ft]} faults", fontsize=FS + 1)
+        ax.set_title(f"({next(letters)})", loc="left", fontsize=FS + 0.5, fontweight="bold")
         ax = axes[1, j]
         for m in ["PMSG", "SCIG"]:
             s = res[(res.ftype == ft) & (res.machine == m)].set_index("suite").loc[ORDER]
-            ax.plot(xs + off[m], s.oracle_share_detectable, "o", ms=8, mfc="none", mec=C.COL[m], mew=1.5, zorder=3)
-            ax.plot(xs + off[m], s.fixed_share_detectable, "o", ms=7, color=C.COL[m], zorder=4)
-        ax.set_ylim(0, 1.05); ax.yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter(1.0))
-        ax.set_xticks(xs); ax.set_xticklabels(ORDER, rotation=25, ha="right", fontsize=8.5)
-    axes[0, 0].set_ylabel("Minimum detectable\nextent (%)", fontsize=9)
-    axes[1, 0].set_ylabel("Share of fault trials\ndetectable (SDR ≥ 1)", fontsize=9)
-    axes[0, 0].legend(loc="upper right", fontsize=8.5)
-    fig.subplots_adjust(top=0.94, bottom=0.2, left=0.12, right=0.98)
+            ax.plot(xs + off[m], s.oracle_share_detectable, C.MARK[m], ms=6.5, mfc="none", mec=C.COL[m], mew=1.2, zorder=3)
+            ax.plot(xs + off[m], s.fixed_share_detectable, C.MARK[m], ms=5.5, color=C.COL[m], zorder=4)
+        ax.set_ylim(0, 1.08); ax.yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter(1.0))
+        ax.tick_params(axis="y", labelsize=FS)
+        ax.set_xticks(xs); ax.set_xticklabels([short[o] for o in ORDER], fontsize=FS - 0.5)
+        ax.set_title(f"({next(letters)})", loc="left", fontsize=FS + 0.5, fontweight="bold")
+    axes[0, 0].set_ylabel("Minimum detectable\nextent (%)", fontsize=FS)
+    axes[1, 0].set_ylabel("Share of fault trials\ndetectable (SDR ≥ 1)", fontsize=FS)
+    h, l = axes[0, 0].get_legend_handles_labels()
+    fig.legend(h, l, loc="upper center", ncol=2, fontsize=FS - 0.5, frameon=False, bbox_to_anchor=(0.56, 1.0))
+    fig.subplots_adjust(top=0.88, bottom=0.12, left=0.13, right=0.99)
     C.savefig_both(fig, "F_sensor_suites_paper")
 
 

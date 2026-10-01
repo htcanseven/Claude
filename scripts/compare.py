@@ -44,6 +44,7 @@ FIG.mkdir(exist_ok=True, parents=True)
 
 # Validated categorical slots 1 and 2 (dataviz reference palette) + chart chrome.
 COL = {"PMSG": "#2a78d6", "SCIG": "#eb6834"}
+MARK = {"PMSG": "o", "SCIG": "s", "WFSG": "^"}   # machine encoded by shape as well as colour (accessibility)
 INK, INK2, MUTED, GRID, AXIS, SURF = "#0b0b0b", "#52514e", "#898781", "#e1e0d9", "#c3c2b7", "#fcfcfb"
 SEQ = ["#cde2fb", "#b7d3f6", "#9ec5f4", "#86b6ef", "#6da7ec", "#5598e7", "#3987e5", "#2a78d6",
        "#256abf", "#1c5cab", "#184f95", "#104281", "#0d366b"]
@@ -52,7 +53,8 @@ PRE_SPLIT = 0.62                      # s: PRE-early = windows starting before, 
 
 plt.rcParams.update({
     "font.family": "sans-serif", "font.size": 9, "axes.edgecolor": AXIS, "axes.labelcolor": INK2,
-    "xtick.color": MUTED, "ytick.color": MUTED, "axes.titlecolor": INK, "axes.titlesize": 10,
+    "xtick.color": INK2, "ytick.color": INK2, "axes.titlecolor": INK, "axes.titlesize": 10,   # tick lettering contrast >= 4.5:1
+    "pdf.fonttype": 42, "ps.fonttype": 42,   # embed TrueType fonts (Springer artwork guidelines)
     "axes.spines.top": False, "axes.spines.right": False, "axes.grid": True, "grid.color": GRID,
     "grid.linewidth": 0.6, "axes.axisbelow": True, "figure.facecolor": SURF, "axes.facecolor": SURF,
     "legend.frameon": False, "legend.fontsize": 8, "savefig.dpi": 160, "savefig.bbox": "tight",

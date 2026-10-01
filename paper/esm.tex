@@ -1,5 +1,5 @@
 %% Online Resource 1 (electronic supplementary material) for the Research in Engineering Design manuscript.
-\documentclass[pdflatex,sn-chicago]{sn-jnl}
+\documentclass[pdflatex,sn-basic]{sn-jnl}
 
 \usepackage{graphicx}
 \usepackage{multirow}
@@ -46,7 +46,7 @@ The electrical frequency is estimated from the slope of the unwrapped phase of t
 
 \paragraph{Bootstrap.} 2000 resamples, seed 1. Median SDR and detectable share of a class: cluster bootstrap over the twelve tap pairs, the same resampled pairs for both machines; Wilson 95\,\% intervals for shares. Minimum detectable extent: operating-point trials resampled within each extent level; the limit-of-detection rule applied to each resample. The null quantile is held at its full-sample value. Decision table: 1000 resamples per suite, alternative, class and $\alpha$ (seed 7); a suite \emph{meets} $e_{\mathrm{req}}$ when the resample probability of $\mathrm{MDE}\le e_{\mathrm{req}}$ is at least 0.95 and \emph{fails} when it is at most 0.05.
 
-\paragraph{Transfer.} Windows: reference, faulted and recovery windows of all trials; positives: faulted windows of fault trials. Models: scikit-learn histogram gradient boosting (max depth 3, 200 iterations, learning rate 0.08, random state 0) and logistic regression with standardisation ($C=1$, 3000 iterations). Cross-validation: five-fold GroupKFold with one group per tap pair and machine, healthy trials grouped by speed. Referencing rules: physical units; $z$-score on the target machine's healthy trials; absolute $z$-score against the mean and standard deviation of the first half of the trial's own reference interval (windows starting before 0.62\,s for the PMSG/SCIG, before 0.30\,s for the WFSG). Metrics: AUC and true-positive rate at 1\,\% false-positive rate on all windows and on the windows outside the normalising set; the false-alarm rate of the all-negatives 1\,\% threshold on the fault-time windows of the healthy trials.
+\paragraph{Transfer.} Windows: reference, faulted and recovery windows of all trials; positives: faulted windows of fault trials. Models: scikit-learn histogram gradient boosting (max depth 3, 200 iterations, learning rate 0.08, random state 0) and logistic regression with standardisation ($C=1$, 3000 iterations). Cross-validation: five-fold GroupKFold with one group per tap pair and machine, healthy trials grouped by speed. Referencing rules: physical units; $z$-score on the target machine's healthy trials; absolute $z$-score against the mean and standard deviation of the first half of the trial's own reference interval (windows starting before 0.62\,s for the PMSG/SCIG, before 0.30\,s for the WFSG). Metrics: area under the receiver operating characteristic curve (AUC) and true-positive rate (TPR) at 1\,\% false-positive rate (FPR) on all windows and on the windows outside the normalising set; the false-alarm rate of the all-negatives 1\,\% threshold on the fault-time windows of the healthy trials.
 
 \section{Supplementary tables}
 
@@ -55,7 +55,7 @@ The electrical frequency is estimated from the slope of the unwrapped phase of t
 \input{sections/tab_between}
 
 \begin{table}[t]
-\caption{Tap pairs and fault extents (fraction of the winding branch between the taps), identical for the three alternatives.}\label{tab:taps}
+\caption{Tap pairs and fault extents (fraction of the winding branch between the taps), identical for the three alternatives}\label{tab:taps}
 \begin{tabular}{@{}llcllc@{}}
 \toprule
 \multicolumn{3}{c}{Inter-turn} & \multicolumn{3}{c}{Inter-winding} \\
@@ -88,13 +88,13 @@ D05--D08 & C & 12.1 & D11--D22 & A & 40.2 \\
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{A_fault_current_by_case}
-\caption{Fault current per tap pair, PMSG and SCIG: mean over the nine operating points (dot) and range (bar). Rated currents 6.3\,A (PMSG) and 7.7\,A (SCIG).}\label{fig:faultcurrent}
+\caption{Fault current per tap pair, PMSG and SCIG: mean over the nine operating points (dot) and range (bar). Rated currents 6.3\,A (PMSG) and 7.7\,A (SCIG)}\label{fig:faultcurrent}
 \end{figure}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{H_bootstrap}
-\caption{Tap-pair-level uncertainty: bootstrap 95\,\% intervals of the median SDR, the detectable share and the SCIG/PMSG ratio of median SDR for five features and both fault classes (the same resampled tap pairs for both machines), five-cycle windows.}\label{fig:boot}
+\caption{Tap-pair-level uncertainty: bootstrap 95\,\% intervals of the median SDR, the detectable share and the SCIG/PMSG ratio of median SDR for five features and both fault classes (the same resampled tap pairs for both machines), five-cycle windows}\label{fig:boot}
 \end{figure}
 
 \end{document}
