@@ -1,4 +1,4 @@
-# Manuscript: Alternative-dependent diagnosability (Research in Engineering Design)
+# Manuscript: One monitoring design for three generator topologies (Research in Engineering Design)
 
 ## Build
 
