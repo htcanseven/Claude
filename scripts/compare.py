@@ -59,6 +59,22 @@ plt.rcParams.update({
     "grid.linewidth": 0.6, "axes.axisbelow": True, "figure.facecolor": SURF, "axes.facecolor": SURF,
     "legend.frameon": False, "legend.fontsize": 8, "savefig.dpi": 160, "savefig.bbox": "tight",
 })
+# Manuscript figures (PAPER_FIGS=1): the body font of the sn-jnl class is Computer Modern Roman at 10 pt, so all
+# figure lettering uses matplotlib's bundled Computer Modern (cmr10 for text, the "cm" mathtext set) at 10 pt.
+PAPER = bool(os.environ.get("PAPER_FIGS"))
+if PAPER:
+    plt.rcParams.update({
+        "font.family": "serif", "font.serif": ["cmr10"], "mathtext.fontset": "cm", "axes.unicode_minus": False,
+        "axes.formatter.use_mathtext": True, "font.size": 10, "axes.labelsize": 10, "axes.titlesize": 10,
+        "xtick.labelsize": 10, "ytick.labelsize": 10, "legend.fontsize": 10, "figure.titlesize": 10,
+    })
+
+
+def subcaption(ax, text):
+    """Centred sub-caption under an axes, set as the last line of the x-axis label so that it sits below the
+    tick labels and the axis label with matplotlib's own spacing."""
+    xl = ax.get_xlabel()
+    ax.set_xlabel((xl + "\n" if xl else "") + text)
 
 GROUPS = {
     "stator current": ["I2_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd"],   # I0/I1 dropped: isolated-neutral star
@@ -161,24 +177,24 @@ def severity(files):
     wide = wide.sort_values(["ftype", "sev_pct"])
     wide.to_csv(TAB / "A_fault_current_by_case.csv", index=False)
 
-    fig, axes = plt.subplots(1, 2, figsize=(9.5, 5.4))
-    fig.subplots_adjust(wspace=0.6)
-    for ax, ft in zip(axes, ["TURNS", "WINDINGS"]):
+    fig, axes = plt.subplots(2, 1, figsize=(5.15, 6.8), gridspec_kw={"hspace": 0.45})
+    for ax, ft, letter in zip(axes, ["TURNS", "WINDINGS"], "ab"):
         sub = g[g.ftype == ft].sort_values("sev_pct")
         cases = list(dict.fromkeys(sub.case))
         y = {c: i for i, c in enumerate(cases)}
         for m in ["PMSG", "SCIG"]:
             s = sub[sub.machine == m]
             ax.hlines([y[c] for c in s.case], s.Ifault_min, s.Ifault_max, color=COL[m], lw=1.2, alpha=0.5)
-            ax.plot(s.Ifault_A, [y[c] for c in s.case], "o", ms=5, color=COL[m], label=m, zorder=3)
+            ax.plot(s.Ifault_A, [y[c] for c in s.case], MARK[m], ms=5, color=COL[m], label=m, zorder=3)
         ax.set_yticks(range(len(cases)))
-        ax.set_yticklabels([f"{c.split('_', 1)[1].replace('_', '–')}  ({sv:.1f} %)" for c, sv in
-                            zip(cases, [sub[sub.case == c].sev_pct.iloc[0] for c in cases])], fontsize=7.5)
-        ax.set_title(f"{FT_LABEL[ft]} short-circuits")
-        ax.set_xlabel("Fault current, RMS during the 400 ms fault (A)")
+        ax.set_yticklabels([f"{c.split('_', 1)[1].replace('_', '-')}  ({sv:.1f} %)" for c, sv in
+                            zip(cases, [sub[sub.case == c].sev_pct.iloc[0] for c in cases])])
+        ax.set_xlabel("Fault current, RMS during the fault (A)")
+        subcaption(ax, f"({letter}) {FT_LABEL[ft]} short-circuits")
+        ax.set_ylabel("Tap pair (fraction between taps)")
         ax.grid(axis="y", visible=False)
-    axes[0].set_ylabel("Tap pair (winding fraction between taps)")
     axes[0].legend(loc="lower right")
+    fig.subplots_adjust(left=0.3, right=0.98, top=0.99, bottom=0.08)
     header(fig, "Same tap pair, different topology: the fault current differs",
            "Dot = mean over the 9 operating points, bar = min–max. Rated current: PMSG 6.3 A, SCIG 7.7 A.", top=0.86)
     savefig_both(fig, "A_fault_current_by_case")
@@ -239,7 +255,7 @@ def where_signature(sdr):
                 ax.set_title(f"{FT_LABEL[ft]} faults (108 recordings)")
             if j == 1:
                 ax.text(1.02, 0.5, gname, transform=ax.transAxes, rotation=270, va="center", fontsize=8, color=MUTED)
-    fig.text(0.5, 0.045, "Signal-to-drift ratio (median over recordings; ≥ 1 = detectable)", ha="center", fontsize=9, color=INK2)
+    fig.text(0.5, 0.045, "Signal-to-drift ratio (median over recordings; $\\geq 1$ = detectable)", ha="center", fontsize=9, color=INK2)
     axes[0, 0].legend(loc="lower right")
     header(fig, "Where the short-circuit becomes visible depends on the topology",
            "Dot = median SDR over recordings, bar = interquartile range. SDR = |relative change under fault| ÷ "
@@ -334,7 +350,7 @@ def operating_point(sdr, feats):
         for (i, j), v in np.ndenumerate(p.values):
             ax.text(j, i, f"{v:.0%}", ha="center", va="center", fontsize=9, color=INK if v < 0.8 else "#ffffff")
     header(fig, "Share of fault recordings detectable, by operating point",
-           f"Detectable = SDR ≥ 1 on the best of {', '.join(feats)}. 24 recordings per cell.", top=0.74)
+           f"Detectable = SDR $\\geq 1$ on the best of {', '.join(feats)}. 24 recordings per cell.", top=0.74)
     savefig_both(fig, "D_operating_point_grid")
     plt.close(fig)
     return grid
@@ -483,7 +499,7 @@ def report(files, sdr, q95, sev, det, best, mds, feats, grid, tr, coef, cos, w):
          "Features use only stator-side / controller signals; `Ifault` and `Fault_relay` are ground truth.\n",
          "**Detectability statistic.** Signal-to-drift ratio SDR = |relative change of a feature between PRE-late and FLT| "
          "÷ 95th percentile of |relative change between PRE-early and PRE-late| over all 225 recordings of that machine. "
-         "SDR ≥ 1 means the change under fault exceeds what ordinary within-recording drift produces in 95 % of healthy "
+         "SDR $\\geq 1$ means the change under fault exceeds what ordinary within-recording drift produces in 95 % of healthy "
          "segments, i.e. detectable at ≈5 % per-recording false alarm. It is scale-free and directly comparable across "
          "features, operating points and topologies.\n",
          "**Caveat on every number:** one physical machine per topology, no repeated tests. Differences between the two "
@@ -515,7 +531,7 @@ def report(files, sdr, q95, sev, det, best, mds, feats, grid, tr, coef, cos, w):
 
     L.append("## C. Minimum detectable fault extent\n")
     L.append(f"Features with the highest pooled median SDR (both machines): {', '.join(feats)}. Smallest tap-pair severity "
-             "level whose median SDR is ≥ 1:\n")
+             "level whose median SDR is $\\geq 1$:\n")
     L.append(md_table(mds.round(3)))
     L.append("\n![C](figures/C_sdr_vs_severity.png)\n")
 

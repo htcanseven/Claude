@@ -71,30 +71,31 @@ def figure(bs):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    fig, axes = plt.subplots(1, 3, figsize=(10, 3.6), gridspec_kw={"wspace": 0.35, "width_ratios": [1, 1, 0.9]})
-    fig.subplots_adjust(top=0.78, bottom=0.2)
-    labels = [f"{C.FT_LABEL[ft]} · {C.lab(feat)}" for ft in ["TURNS", "WINDINGS"] for feat in KEY]
+    fig, axes = plt.subplots(3, 1, figsize=(5.15, 7.2), gridspec_kw={"hspace": 0.55})
+    labels = [f"{C.FT_LABEL[ft]}, {C.lab(feat)}" for ft in ["TURNS", "WINDINGS"] for feat in KEY]
     y = np.arange(len(labels))[::-1]
-    for ax, col, title in zip(axes[:2], ["median_sdr", "share"], ["Median SDR", "Share detectable"]):
+    for ax, col, cap in zip(axes[:2], ["median_sdr", "share"], ["(a) Median SDR", "(b) Share of trials detectable"]):
         for m, off in (("PMSG", 0.15), ("SCIG", -0.15)):
             sub = pd.concat([bs[(bs.ftype == ft) & (bs.feature == feat) & (bs.machine == m)] for ft in ["TURNS", "WINDINGS"] for feat in KEY])
             ax.errorbar(sub[col], y + off, xerr=[sub[col] - sub[f"{col}_ci_lo"], sub[f"{col}_ci_hi"] - sub[col]],
-                        fmt="o", ms=4, color=C.COL[m], ecolor=C.COL[m], elinewidth=1, capsize=2, label=m)
-        ax.set_yticks(y); ax.set_yticklabels(labels if ax is axes[0] else [], fontsize=7.5)
-        ax.set_title(title, fontsize=9); ax.grid(axis="y", visible=False)
+                        fmt=C.MARK[m], ms=4, color=C.COL[m], ecolor=C.COL[m], elinewidth=1, capsize=2, label=m)
+        ax.set_yticks(y); ax.set_yticklabels(labels); ax.grid(axis="y", visible=False)
         if col == "median_sdr":
-            ax.set_xscale("log"); ax.axvline(1, color=C.AXIS, lw=0.8, ls="--")
+            ax.set_xscale("log"); ax.axvline(1, color=C.AXIS, lw=0.8, ls="--"); ax.set_xlabel("Median SDR")
         else:
             ax.set_xlim(0, 1.05); ax.xaxis.set_major_formatter(matplotlib.ticker.PercentFormatter(1.0))
+            ax.set_xlabel("Share of trials with SDR $\\geq 1$")
+        C.subcaption(ax, cap)
     ax = axes[2]
     sub = pd.concat([bs[(bs.ftype == ft) & (bs.feature == feat) & (bs.machine.str.startswith("SCIG/PMSG"))] for ft in ["TURNS", "WINDINGS"] for feat in KEY])
     ax.errorbar(sub.median_sdr, y, xerr=[sub.median_sdr - sub.median_sdr_ci_lo, sub.median_sdr_ci_hi - sub.median_sdr],
                 fmt="o", ms=4, color=C.INK2, ecolor=C.INK2, elinewidth=1, capsize=2)
-    ax.axvline(1, color=C.AXIS, lw=0.8, ls="--"); ax.set_xscale("log"); ax.set_yticks(y); ax.set_yticklabels([])
-    ax.set_title("SCIG / PMSG ratio of median SDR", fontsize=9); ax.grid(axis="y", visible=False)
-    axes[0].legend(loc="lower right", fontsize=7.5)
-    C.header(fig, "Recording-level uncertainty of the PMSG–SCIG comparison",
-             "Bootstrap over recordings (2000 resamples), 95 % percentile intervals; 5-cycle windows, α = 0.95.", top=0.78)
+    ax.axvline(1, color=C.AXIS, lw=0.8, ls="--"); ax.set_xscale("log"); ax.set_yticks(y); ax.set_yticklabels(labels)
+    ax.grid(axis="y", visible=False); ax.set_xlabel("SCIG / PMSG ratio of median SDR")
+    C.subcaption(ax, "(c) SCIG/PMSG ratio of median SDR")
+    h, l = axes[0].get_legend_handles_labels()
+    fig.legend(h, l, loc="upper center", ncol=2, frameon=False, bbox_to_anchor=(0.62, 1.0))
+    fig.subplots_adjust(left=0.32, right=0.98, top=0.96, bottom=0.075)
     C.savefig_both(fig, "H_bootstrap")
 
 

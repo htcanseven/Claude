@@ -27,7 +27,7 @@ Table~\ref{tab:mde} gives the minimum detectable extent with its bootstrap inter
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{G_severity_combined}
-\caption{Signal-to-drift ratio of $V_2/V_1$ (\textbf{a}--\textbf{d}) and $I_2/I_1$ (\textbf{e}--\textbf{h}) for inter-turn and inter-winding faults and the three alternatives, three-cycle windows. Left column: against the design-level fault extent (small dots: trials; large markers: median per extent level and fault impedance, marker shape encoding the impedance). Right column: against physical fault severity (RMS fault current relative to the RMS pre-fault stator current), all trials}\label{fig:severity}
+\caption{Signal-to-drift ratio of $V_2/V_1$ (\textbf{a}--\textbf{d}) and $I_2/I_1$ (\textbf{e}--\textbf{h}) for the three alternatives, three-cycle windows, against the design-level fault extent (left column; small dots: trials; large markers: median per extent level and fault impedance, marker shape encoding the impedance) and against physical fault severity (right column; RMS fault current relative to the RMS pre-fault stator current, all trials)}\label{fig:severity}
 \end{figure}
 
 \subsection{Operating envelope}\label{sec:res-op}
@@ -43,7 +43,7 @@ Table~\ref{tab:suites} and Fig.~\ref{fig:suites} give the suite results for the 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{F_sensor_suites_paper}
-\caption{Observation suites versus what they detect, PMSG and SCIG (five-cycle windows): minimum detectable extent (\textbf{a}, \textbf{c}) and detectable share (\textbf{b}, \textbf{d}) for the fixed best feature of each suite (filled; the feature is named in Table~\ref{tab:suites}) and the per-trial oracle (hollow)}\label{fig:suites}
+\caption{Observation suites versus what they detect, PMSG and SCIG (five-cycle windows): minimum detectable extent (MDE; \textbf{a}, \textbf{c}) and detectable share (\textbf{b}, \textbf{d}) for the fixed best feature of each suite (filled; the feature is named in Table~\ref{tab:suites}) and the per-trial oracle (hollow)}\label{fig:suites}
 \end{figure}
 
 The decision table turns this into the selection of step~5. At $\alpha=0.95$ no suite on any alternative meets an inter-turn requirement of 3 or 5\,\% with 95\,\% bootstrap confidence; the PMSG's voltage suite is the only candidate below 5\,\% and its verdict is uncertain, a consequence of the three-cycle windows and the coarse extent grid. At 8\,\% the drive-internal suite meets the requirement on the PMSG and the SCIG, i.e.\ no added sensor is needed for either; the WFSG's inter-turn verdicts are bounded by its smallest tested extent. For inter-winding faults the SCIG and the WFSG meet every requirement from 3\,\% with the drive-internal suite, whereas the PMSG needs current transducers at 12\,\% and is uncertain below (its five-cycle result, Table~\ref{tab:suites}, reaches 2.3\,\% with voltage transducers). Relaxing $\alpha$ to 0.90 admits the PMSG's voltage suite at 5\,\% for inter-turn faults; tightening it to 0.99 removes the PMSG's current-only option at 12\,\% for inter-winding faults. The design content is therefore twofold: for a requirement around 8\,\% of a branch the three alternatives are equally diagnosable with drive-internal quantities; below 5\,\% only the PMSG with voltage transducers is a candidate and the evidence is not yet conclusive.

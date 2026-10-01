@@ -259,12 +259,15 @@ def save(fig, name):
     plt.close(fig)
 
 
-def fig_features(det, feats, figsize=(9.5, 9.6), fsize=8, name="G_sdr_by_feature_3alt"):
+def fig_features(det, feats, figsize=(9.5, 9.6), fsize=None, name="G_sdr_by_feature_3alt"):
+    """Median SDR per feature for the three alternatives. In PAPER mode the lettering follows the rcParams (Computer
+    Modern, 10 pt) and the two columns carry centred sub-captions (a), (b) below them."""
+    fsize = fsize or plt.rcParams["font.size"]
     groups = {g: [f for f in feats if GROUP_OF[f] == g]
               for g in ["stator current", "terminal voltage", "dq / control", "mechanical", "excitation"]}
     groups = {k: v for k, v in groups.items() if v}
     fig, axes = plt.subplots(len(groups), 2, figsize=figsize, sharex=True,
-                             gridspec_kw={"height_ratios": [len(v) for v in groups.values()], "hspace": 0.2, "wspace": 0.08})
+                             gridspec_kw={"height_ratios": [len(v) for v in groups.values()], "hspace": 0.25, "wspace": 0.08})
     for j, ft in enumerate(["TURNS", "WINDINGS"]):
         sub = det[det.ftype == ft]
         for i, (gname, fs) in enumerate(groups.items()):
@@ -281,14 +284,13 @@ def fig_features(det, feats, figsize=(9.5, 9.6), fsize=8, name="G_sdr_by_feature
             ax.set_yticks(range(len(fs))); ax.set_yticklabels([C.lab(f) for f in fs[::-1]] if j == 0 else [], fontsize=fsize)
             ax.tick_params(axis="x", labelsize=fsize)
             ax.grid(axis="y", visible=False)
-            if i == 0:
-                ax.set_title(f"{C.FT_LABEL[ft]} faults", fontsize=fsize + 1)
             if j == 1:
                 ax.text(1.02, 0.5, gname, transform=ax.transAxes, rotation=270, va="center", fontsize=fsize, color=C.INK2)
-    fig.text(0.5, 0.02, "Signal-to-drift ratio (median over trials; ≥ 1 = detectable)", ha="center", fontsize=fsize + 0.5, color=C.INK2)
+            if i == len(groups) - 1:
+                ax.set_xlabel("SDR (median over trials; $\\geq 1$ detectable)", fontsize=fsize)
+                C.subcaption(ax, f"({'ab'[j]}) {C.FT_LABEL[ft]} faults")
     axes[0, 0].legend(loc="lower right", fontsize=fsize)
-    C.header(fig, "Where the short-circuit becomes visible, for three generator topologies",
-             "3-cycle windows; ZF = 2.6 Ω (PMSG, SCIG) and 2.83 Ω (WFSG). Dot = median SDR, bar = interquartile range.", top=0.91)
+    fig.subplots_adjust(left=0.22, right=0.96, top=0.99, bottom=0.1)
     save(fig, name)
 
 
@@ -348,7 +350,7 @@ def fig_suites(res):
         axes[1, j].set_ylim(0, 1.05); axes[1, j].yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter(1.0))
         axes[1, j].set_xticks(xs); axes[1, j].set_xticklabels(order, rotation=20, ha="right", fontsize=8)
     axes[0, 0].set_ylabel("Minimum detectable extent\n(% of winding between taps)")
-    axes[1, 0].set_ylabel("Share of fault recordings\ndetectable (SDR ≥ 1)")
+    axes[1, 0].set_ylabel("Share of fault recordings\ndetectable (SDR $\\geq 1$)")
     axes[0, 0].legend(loc="upper right")
     C.header(fig, "Monitoring architecture versus what it can detect, three topologies",
              "Filled = one fixed feature per suite (best median SDR); hollow = best feature per recording (upper bound). 3-cycle windows.", top=0.9)
