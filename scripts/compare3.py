@@ -285,12 +285,19 @@ def fig_features(det, feats, figsize=(9.5, 9.6), fsize=None, name="G_sdr_by_feat
             ax.tick_params(axis="x", labelsize=fsize)
             ax.grid(axis="y", visible=False)
             if j == 1:
-                ax.text(1.02, 0.5, gname, transform=ax.transAxes, rotation=270, va="center", fontsize=fsize, color=C.INK2)
+                # the two short groups get two-line labels so that neighbouring labels do not run into each other
+                glabel = gname.replace(" ", "\n", 1) if gname in ("stator current", "terminal voltage") else gname
+                ax.text(1.02, 0.5, glabel, transform=ax.transAxes, rotation=270, va="center", fontsize=fsize,
+                        color=C.INK2, linespacing=1.0)
             if i == len(groups) - 1:
-                ax.set_xlabel("SDR (median over trials; $\\geq 1$ detectable)", fontsize=fsize)
+                # two short lines instead of one long one, so that the two columns' labels do not collide
+                ax.set_xlabel("Median SDR over trials\n($\\geq 1$: detectable)", fontsize=fsize)
                 C.subcaption(ax, f"({'ab'[j]}) {C.FT_LABEL[ft]} faults")
-    axes[0, 0].legend(loc="lower right", fontsize=fsize)
-    fig.subplots_adjust(left=0.22, right=0.96, top=0.99, bottom=0.1)
+    h, l = axes[0, 0].get_legend_handles_labels()
+    uniq = dict(zip(l, h))
+    fig.legend(uniq.values(), uniq.keys(), loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.59, 1.0),
+               columnspacing=1.2, fontsize=fsize)
+    fig.subplots_adjust(left=0.22, right=0.925, top=0.955, bottom=0.125)
     save(fig, name)
 
 

@@ -1,6 +1,6 @@
 \begin{table}[t]
 \scriptsize
-\caption{Transfer of a window-level detector between PMSG and SCIG: AUC on all windows / AUC on the windows outside the normalising reference windows (second half of the reference interval, recovery windows and fault-time windows of the healthy trials). Within-machine columns use five-fold cross-validation grouped by tap pair (healthy trials grouped by speed); cross columns train on all trials of one machine and test on all trials of the other}\label{tab:transfer}
+\caption{Transfer of a window-level detector between PMSG and SCIG: AUC on all windows / AUC on the out-of-reference windows}\label{tab:transfer}
 \begin{tabular}{@{}llcccc@{}}
 \toprule
 Referencing & Model & P$\to$P & S$\to$S & P$\to$S & S$\to$P \\
@@ -13,4 +13,5 @@ $|z|$ vs own reference & logistic & 0.90/0.89 & 0.94/0.93 & 0.90/0.89 & 0.88/0.8
 $|z|$ vs own reference & GBDT & 0.92/0.91 & 0.95/0.94 & 0.92/0.91 & 0.86/0.84 \\
 \botrule
 \end{tabular}
+\footnotetext{Out-of-reference windows: second half of the reference interval, recovery windows and fault-time windows of the healthy trials. P$\to$P, S$\to$S: five-fold cross-validation grouped by tap pair (healthy trials by speed); P$\to$S, S$\to$P: trained on all trials of one machine, tested on all trials of the other.}
 \end{table}

@@ -73,6 +73,6 @@ if __name__ == "__main__":
     feats = [f for f in C3.FEATS3 if f in win.columns]
     sdr, qv = C3.sdr_from_windows(win, feats)
     det = C3.per_feature(sdr, feats, qv)
-    C3.fig_features(det, feats, figsize=(W, 5.6))
+    C3.fig_features(det, feats, figsize=(W, 5.8))
     combined(sdr, files)
     print("figures written")

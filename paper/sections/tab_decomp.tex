@@ -1,7 +1,7 @@
 \begin{table}[t]
 \scriptsize
 \setlength{\tabcolsep}{3pt}
-\caption{Decomposition of the SCIG/PMSG ratio of median SDR into its numerator (ratio of median $|\delta|$, the relative change under fault) and its denominator (ratio $q_{0.95}^{\mathrm{PMSG}}/q_{0.95}^{\mathrm{SCIG}}$ of the null quantiles); five-cycle windows}\label{tab:decomp}
+\caption{SCIG/PMSG ratio of median SDR decomposed into numerator and denominator, five-cycle windows}\label{tab:decomp}
 \begin{tabular}{@{}llccccccc@{}}
 \toprule
 Class & Feature & $|\delta|$ P & $|\delta|$ S & $q_{95}$ P & $q_{95}$ S & Num. & Den. & SDR ratio \\
@@ -22,4 +22,5 @@ inter-winding & $V_q^{\mathrm{cmd}}$\,2$f_e$ & 0.845 & 1.184 & 0.162 & 0.039 & 1
 inter-winding & $D_2/D_1$ & 2.942 & 0.854 & 0.090 & 0.010 & 0.29 & 8.96 & 2.60 \\
 \botrule
 \end{tabular}
+\footnotetext{Num.: SCIG/PMSG ratio of the median relative change under fault $|\delta|$; Den.: ratio of null quantiles $q_{95}^{\mathrm{PMSG}}/q_{95}^{\mathrm{SCIG}}$; P: PMSG; S: SCIG.}
 \end{table}
