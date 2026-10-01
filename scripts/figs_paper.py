@@ -27,7 +27,7 @@ def combined(sdr, files, feats=("V2_V1", "I2_I1")):
     f = sdr[sdr.is_fault].join(files.set_index(files.machine + "/" + files.file)[["Ifault_rms_flt", "I1_pre"]])
     f["ratio"] = f.Ifault_rms_flt / (f.I1_pre / np.sqrt(2))
     rows = [(feat, ft) for feat in feats for ft in ["TURNS", "WINDINGS"]]
-    fig, axes = plt.subplots(len(rows), 2, figsize=(W, 1.5 * len(rows) + 0.25), sharey="row",
+    fig, axes = plt.subplots(len(rows), 2, figsize=(W, 1.36 * len(rows) + 0.25), sharey="row",
                              gridspec_kw={"hspace": 0.72, "wspace": 0.06})
     rng = np.random.RandomState(0)
     k = 0
@@ -73,6 +73,6 @@ if __name__ == "__main__":
     feats = [f for f in C3.FEATS3 if f in win.columns]
     sdr, qv = C3.sdr_from_windows(win, feats)
     det = C3.per_feature(sdr, feats, qv)
-    C3.fig_features(det, feats, figsize=(W, 6.3))
+    C3.fig_features(det, feats, figsize=(W, 5.6))
     combined(sdr, files)
     print("figures written")
