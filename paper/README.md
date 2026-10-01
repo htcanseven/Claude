@@ -1,4 +1,4 @@
-# Manuscript: One monitoring design for three generator topologies (Research in Engineering Design)
+# Manuscript: Detectability-driven design of condition monitoring (Research in Engineering Design)
 
 ## Build
 
