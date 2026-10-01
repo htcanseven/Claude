@@ -36,7 +36,7 @@ def pct(x):
     return "--" if not np.isfinite(x) else f"{100 * x:.0f}"
 
 
-def table(body, caption, label, cols, head, size=r"\footnotesize", colsep=None, note=None, lettered=()):
+def table(body, caption, label, cols, head, size=r"\tabsize", colsep=None, note=None, lettered=()):
     """Rows are joined with line breaks here; any trailing \\\\ a builder added is stripped first.
     Captions are kept to one or two lines; definitions and conventions go into table notes (`note`, and
     `lettered` = [(letter, text), ...] for the superscript markers used in the body), typeset by the class
@@ -81,7 +81,7 @@ def t_suites():
     note = ("Oracle: per-trial best feature, its detectable share in brackets (false-alarm rates in Online Resource~1, "
             "Table~S1); features failing the reliability screen are excluded for that machine.")
     head = r"Suite & PMSG feature & MDE & DS [oracle] & SCIG feature & MDE & DS [oracle]"
-    return table(body, cap, "tab:suites", "l" * 7, head, size=r"\scriptsize", colsep="3pt", note=note)
+    return table(body, cap, "tab:suites", "l" * 7, head, size=r"\tabsize", colsep="3pt", note=note)
 
 
 
@@ -104,7 +104,7 @@ def t_boot():
     cap = ("Bootstrap over trials (2000 resamples, 95\\,\\% percentile intervals): median SDR per machine and ratio of "
            "medians SCIG/PMSG. Five-cycle windows, $\\alpha=0.95$. Intervals of the detectable shares are in Fig.~\\ref{fig:boot}.")
     head = r"Class & Feature & PMSG median SDR & SCIG median SDR & SCIG/PMSG"
-    return table(body, cap, "tab:boot", "llccc", head, size=r"\scriptsize")
+    return table(body, cap, "tab:boot", "llccc", head, size=r"\tabsize")
 
 
 
@@ -142,7 +142,7 @@ def t_suitetransfer():
     head = (r"\multirow{2}{*}{Suite} & \multicolumn{4}{c}{$z$ on target's healthy trials} & \multicolumn{4}{c}{$|z|$ vs own reference} \\" "\n"
             r"\cmidrule(lr){2-5}\cmidrule(l){6-9}" "\n"
             r" & P$\to$P & S$\to$S & P$\to$S & S$\to$P & P$\to$P & S$\to$S & P$\to$S & S$\to$P")
-    return table(body, cap, "tab:suitetransfer", "lcccccccc", head, size=r"\scriptsize", colsep="3pt", note=note)
+    return table(body, cap, "tab:suitetransfer", "lcccccccc", head, size=r"\tabsize", colsep="3pt", note=note)
 
 
 # ============================================================================= revision (overrides and new tables)
@@ -204,7 +204,7 @@ def t_mde():
             "same pairs for both machines. IT: inter-turn; IW: inter-winding; P: PMSG; S: SCIG. `--': the largest tested extent "
             "is not detectable; smallest tested extents 2.7\\,\\% (IT) and 2.3\\,\\% (IW).")
     head = r"Class & Feature & M. & MDE [CI] & DS [CI] & Median SDR [CI] & S/P ratio [CI]"
-    return table(body, cap, "tab:mde", "lllcccc", head, size=r"\scriptsize", colsep="2pt", note=note)
+    return table(body, cap, "tab:mde", "lllcccc", head, size=r"\tabsize", colsep="2pt", note=note)
 
 
 def t_suites3():
@@ -232,7 +232,7 @@ def t_suites3():
             "rate on the healthy trials (FA, \\%; not available for the WFSG). `--': largest tested extent not detectable.")
     lettered = [("a", "The smallest inter-turn extent tested on the WFSG at that impedance is 11.6\\,\\%, so the value is an upper bound.")]
     head = r"Suite & Machine & Feature & MDE & DS & DS nested & Oracle DS & Oracle FA"
-    return table(body, cap, "tab:suites3", "llllcccc", head, size=r"\scriptsize", colsep="3pt", note=note, lettered=lettered)
+    return table(body, cap, "tab:suites3", "llllcccc", head, size=r"\tabsize", colsep="3pt", note=note, lettered=lettered)
 
 
 def t_transfer():
@@ -253,7 +253,7 @@ def t_transfer():
             "healthy trials. P$\\to$P, S$\\to$S: five-fold cross-validation grouped by tap pair (healthy trials by speed); "
             "P$\\to$S, S$\\to$P: trained on all trials of one machine, tested on all trials of the other.")
     head = r"Referencing & Model & P$\to$P & S$\to$S & P$\to$S & S$\to$P"
-    return table(body, cap, "tab:transfer", "llcccc", head, size=r"\scriptsize", note=note)
+    return table(body, cap, "tab:transfer", "llcccc", head, size=r"\tabsize", note=note)
 
 
 def t_transfer3():
@@ -271,7 +271,7 @@ def t_transfer3():
             "threshold giving 1\\,\\% FPR on all negatives. Same-machine rows: five-fold cross-validation grouped by tap pair. "
             "The WFSG has no healthy trials, so its negatives are reference and recovery windows only and its rows are optimistic.")
     return table(body, cap, "tab:transfer3", "llcccc", r"Trained on & Tested on & AUC all & AUC o.o.r. & TPR o.o.r. & FA healthy (\%)",
-                 size=r"\scriptsize", note=note)
+                 size=r"\tabsize", note=note)
 
 
 def t_groups():
@@ -289,7 +289,7 @@ def t_groups():
            "group's best screened feature has the highest SDR")
     note = "Representative feature in parentheses."
     return table(body, cap, "tab:groups", "llcccc", r"Machine & Class & Stator currents & Terminal voltages & Controller/$dq$ & Mechanical",
-                 size=r"\scriptsize", colsep="3pt", note=note)
+                 size=r"\tabsize", colsep="3pt", note=note)
 
 
 def t_sens():
@@ -317,7 +317,7 @@ def t_sens():
             "IT: inter-turn; IW: inter-winding.")
     lettered = [("a", "The feature fails the reliability screen at that setting.")]
     head = r"Class & Feature & Machine & 3\,c & 5\,c & 8\,c & $\alpha$\,0.90 & $\alpha$\,0.99"
-    return table(body, cap, "tab:sens", "lllccccc", head, size=r"\scriptsize", colsep="3pt", note=note, lettered=lettered)
+    return table(body, cap, "tab:sens", "lllccccc", head, size=r"\tabsize", colsep="3pt", note=note, lettered=lettered)
 
 
 def t_topfeat():
@@ -334,7 +334,7 @@ def t_topfeat():
     note = "WFSG at all its fault impedances, trials with at least one full fault window."
     lettered = [("a", "Fails the reliability screen for that machine (three or more false alarms on the nine healthy trials, "
                       "or null quantile above one) and is not used in the suite tables.")]
-    return table(body, cap, "tab:topfeat", "llp{7.6cm}", r"Machine & Class & Features: median SDR (DS)", size=r"\scriptsize",
+    return table(body, cap, "tab:topfeat", "llp{7.6cm}", r"Machine & Class & Features: median SDR (DS)", size=r"\tabsize",
                  note=note, lettered=lettered)
 
 
@@ -357,16 +357,17 @@ def t_decision():
                     row.append(c)
             body.append(" & ".join(row) + r" \\")
     body[-1] = body[-1].rstrip(r"\\").rstrip()
-    cap = ("Decision table: cheapest suite whose MDE meets $e_{\\mathrm{req}}$ with bootstrap probability $\\ge0.95$, "
+    cap = ("Decision table: cheapest suite whose MDE meets $e_{\\mathrm{req}}$ with probability $\\ge0.95$, "
            "per alternative, fault class and $\\alpha$")
-    note = ("Three-cycle windows. Suites ordered drive $<$ 3CT $<$ 3CT+3VT $<$ 3CT+3VT+drv; exc: WFSG field current; "
+    note = ("Three-cycle windows; probabilities from 1000 bootstrap resamples. Suites ordered drive $<$ 3CT $<$ 3CT+3VT $<$ "
+            "3CT+3VT+drv; exc: WFSG field current; "
             "IT: inter-turn; IW: inter-winding. `(suite)?': no suite meets with that confidence and the cheapest suite with an "
             "uncertain verdict is shown; `none': every suite fails. WFSG inter-turn verdicts are bounded by its smallest tested "
             "extent at the matching impedance (11.6\\,\\%).")
     head = (r"\multirow{2}{*}{$\alpha$} & \multirow{2}{*}{$e_{\mathrm{req}}$ (\%)} & \multicolumn{2}{c}{PMSG} & \multicolumn{2}{c}{SCIG} & \multicolumn{2}{c}{WFSG} \\" "\n"
             r"\cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(l){7-8}" "\n"
             r" & & IT & IW & IT & IW & IT & IW")
-    return table(body, cap, "tab:decision", "llcccccc", head, size=r"\scriptsize", colsep="3pt", note=note)
+    return table(body, cap, "tab:decision", "llcccccc", head, size=r"\tabsize", colsep="3pt", note=note)
 
 
 def t_decomp():
@@ -381,7 +382,7 @@ def t_decomp():
     note = ("Num.: SCIG/PMSG ratio of the median relative change under fault $|\\delta|$; Den.: ratio of null quantiles "
             "$q_{95}^{\\mathrm{PMSG}}/q_{95}^{\\mathrm{SCIG}}$; P: PMSG; S: SCIG.")
     head = r"Class & Feature & $|\delta|$ P & $|\delta|$ S & $q_{95}$ P & $q_{95}$ S & Num. & Den. & SDR ratio"
-    return table(body, cap, "tab:decomp", "llccccccc", head, size=r"\scriptsize", colsep="3pt", note=note)
+    return table(body, cap, "tab:decomp", "llccccccc", head, size=r"\tabsize", colsep="3pt", note=note)
 
 
 def t_between():
@@ -398,7 +399,7 @@ def t_between():
     head = (r"\multirow{2}{*}{Class} & \multirow{2}{*}{Feature} & \multirow{2}{*}{M.} & \multicolumn{2}{c}{$q_{95}$} & \multicolumn{2}{c}{Median SDR} & \multicolumn{2}{c}{DS} \\" "\n"
             r"\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(l){8-9}" "\n"
             r" & & & within & baseline & within & baseline & within & baseline")
-    return table(body, cap, "tab:between", "lllcccccc", head, size=r"\scriptsize", colsep="2.5pt", note=note)
+    return table(body, cap, "tab:between", "lllcccccc", head, size=r"\tabsize", colsep="2.5pt", note=note)
 
 
 def t_z2():
@@ -414,7 +415,7 @@ def t_z2():
             "(V, RMS): median change of the negative-sequence current and terminal voltage under fault; "
             "$\\Delta V_2/\\Delta I_2$ in $\\Omega$, interquartile range in brackets. WFSG at the matching fault impedance.")
     head = r"Machine & Class & $I_2/I_1$ & $V_2/V_1$ & $D_2/D_1$ & $\Delta I_2$ & $\Delta V_2$ & $\Delta V_2/\Delta I_2$"
-    return table(body, cap, "tab:z2", "llcccccc", head, size=r"\scriptsize", colsep="3pt", note=note)
+    return table(body, cap, "tab:z2", "llcccccc", head, size=r"\tabsize", colsep="3pt", note=note)
 
 
 def t_screen():
@@ -428,7 +429,7 @@ def t_screen():
         body = ["-- & -- & none"]
     cap = ("Features failing the reliability screen at $\\alpha=0.95$ per window length and machine (false alarms on the "
            "nine healthy trials in parentheses)")
-    return table(body, cap, "tab:screen", "llp{8cm}", r"Window (cycles) & Machine & Excluded features (false alarms)", size=r"\scriptsize")
+    return table(body, cap, "tab:screen", "llp{8cm}", r"Window (cycles) & Machine & Excluded features (false alarms)", size=r"\tabsize")
 
 
 if __name__ == "__main__":

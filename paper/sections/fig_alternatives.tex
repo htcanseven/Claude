@@ -1,0 +1,65 @@
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+  font=\normalsize, x=1cm, y=1cm,
+  lab/.style={anchor=west, text width=2.5cm, align=left, inner sep=1pt},
+  tag/.style={anchor=east, inner sep=1pt},
+  box/.style={draw, thick, fill=white, inner sep=1pt}
+]
+%% One column per alternative: turbine rotor, shaft, generator (stator ring and rotor symbol), stator lines,
+%% converter and grid. Tags on the left mark the measurement points of the observation suites.
+\newcommand{\altchain}[1]{%
+  % turbine rotor and shaft
+  \fill (#1+1.0,0) circle (0.08);
+  \foreach \ang in {90,210,330} { \draw[line width=1.6pt, black!60] (#1+1.0,0) -- ++(\ang:0.42); }
+  \node[lab] at (#1+1.6,0) {turbine rotor};
+  \draw[line width=2pt, black!55] (#1+1.0,-0.3) -- (#1+1.0,-0.95);
+  % generator: stator ring with slot ticks, rotor circle
+  \draw[thick] (#1+1.0,-1.55) circle (0.6);
+  \draw[thick] (#1+1.0,-1.55) circle (0.48);
+  \foreach \ang in {0,30,...,330} { \draw (#1+1.0,-1.55) ++(\ang:0.48) -- ++(\ang:0.12); }
+  \draw[thick] (#1+1.0,-1.55) circle (0.36);
+  % stator lines (three-phase), current and voltage transducers
+  \draw[thick] (#1+1.0,-2.15) -- (#1+1.0,-3.1);
+  \foreach \sy in {-2.27,-2.33,-2.39} { \draw (#1+0.9,\sy-0.05) -- (#1+1.1,\sy+0.05); }
+  \draw[thick, fill=white] (#1+1.0,-2.55) circle (0.11);
+  \node[tag] at (#1+0.84,-2.55) {3\,CT};
+  \draw[thick] (#1+1.0,-2.9) -- (#1+0.78,-2.9);
+  \node[tag] at (#1+0.76,-2.9) {3\,VT};
+  % converter (machine side -- dc link -- grid side) and grid
+  \node[box, minimum width=9mm, minimum height=6.5mm] at (#1+1.0,-3.425) {$\sim\,{=}\,\sim$};
+  \draw[thick] (#1+1.0,-3.75) -- (#1+1.0,-4.5);
+  \draw[line width=2pt] (#1+0.6,-4.5) -- (#1+1.4,-4.5);
+  \node[lab] at (#1+1.6,-4.5) {grid};
+}
+%% (a) PMSG: permanent magnets on the rotor, two-level converter, FOC with encoder angle
+\altchain{0}
+\foreach \ang/\col in {90/black!80, 180/black!30, 270/black!80, 0/black!30} {
+  \node[fill=\col, minimum width=2.6mm, minimum height=1.1mm, inner sep=0, rotate=\ang+90] at ($(1.0,-1.55)+(\ang:0.29)$) {};
+}
+\node[box, minimum size=2.2mm] at (1.0,-0.65) {};
+\node[tag] at (0.84,-0.65) {$T_{\mathrm{m}}$};
+\node[lab] at (1.6,-1.55) {permanent-\\ magnet rotor};
+\node[lab] at (1.6,-3.425) {2L converter,\\ FOC with\\ encoder angle};
+\node at (2.2,-5.15) {(a) PMSG};
+%% (b) SCIG: squirrel cage, magnetised from the converter, two-level converter, FOC with flux observer
+\altchain{4.4}
+\draw[thick] (5.4,-1.55) circle (0.2);
+\foreach \ang in {0,45,...,315} { \draw[thick] (5.4,-1.55) ++(\ang:0.2) -- ++(\ang:0.16); }
+\node[box, minimum size=2.2mm] at (5.4,-0.65) {};
+\node[tag] at (5.24,-0.65) {$T_{\mathrm{m}}$};
+\node[lab] at (6.0,-1.55) {squirrel-cage\\ rotor};
+\node[lab] at (6.0,-3.425) {2L converter,\\ FOC with\\ flux observer};
+\node at (6.6,-5.15) {(b) SCIG};
+%% (c) WFSG: field winding on the rotor fed by a static exciter, three-level NPC converter, FOC with encoder
+\altchain{8.8}
+\draw[thick, decorate, decoration={coil, aspect=0.5, segment length=1.1mm, amplitude=0.9mm}] (9.54,-1.55) -- (10.06,-1.55);
+\draw[thick] (9.2,-1.55) -- (9.54,-1.55);
+\node[box, minimum width=4mm, minimum height=3.6mm] at (9.0,-1.55) {};
+\node[tag] at (9.0,-1.9) {$I_{\mathrm{f}}$};
+\node[lab] at (10.4,-1.55) {wound-field\\ rotor, static\\ exciter};
+\node[lab] at (10.4,-3.425) {3L-NPC,\\ FOC with\\ encoder angle};
+\node at (11.0,-5.15) {(c) WFSG};
+\end{tikzpicture}
+\caption{The three alternatives: rotor excitation, converter and control, with the measurement points of the observation suites (3~CT, 3~VT, $T_{\mathrm{m}}$, $I_{\mathrm{f}}$)}\label{fig:alternatives}
+\end{figure}

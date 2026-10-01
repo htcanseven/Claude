@@ -297,7 +297,7 @@ def fig_features(det, feats, figsize=(9.5, 9.6), fsize=None, name="G_sdr_by_feat
     uniq = dict(zip(l, h))
     fig.legend(uniq.values(), uniq.keys(), loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.59, 1.0),
                columnspacing=1.2, fontsize=fsize)
-    fig.subplots_adjust(left=0.22, right=0.925, top=0.955, bottom=0.125)
+    fig.subplots_adjust(left=0.22, right=0.925, top=0.955, bottom=0.13)
     save(fig, name)
 
 

@@ -1,7 +1,7 @@
 \begin{table}[t]
-\scriptsize
+\tabsize
 \setlength{\tabcolsep}{3pt}
-\caption{Decision table: cheapest suite whose MDE meets $e_{\mathrm{req}}$ with bootstrap probability $\ge0.95$, per alternative, fault class and $\alpha$}\label{tab:decision}
+\caption{Decision table: cheapest suite whose MDE meets $e_{\mathrm{req}}$ with probability $\ge0.95$, per alternative, fault class and $\alpha$}\label{tab:decision}
 \begin{tabular}{@{}llcccccc@{}}
 \toprule
 \multirow{2}{*}{$\alpha$} & \multirow{2}{*}{$e_{\mathrm{req}}$ (\%)} & \multicolumn{2}{c}{PMSG} & \multicolumn{2}{c}{SCIG} & \multicolumn{2}{c}{WFSG} \\
@@ -22,5 +22,5 @@
 0.99 & 12 & drive & (drive)? & drive & drive & drive & drive \\
 \botrule
 \end{tabular}
-\footnotetext{Three-cycle windows. Suites ordered drive $<$ 3CT $<$ 3CT+3VT $<$ 3CT+3VT+drv; exc: WFSG field current; IT: inter-turn; IW: inter-winding. `(suite)?': no suite meets with that confidence and the cheapest suite with an uncertain verdict is shown; `none': every suite fails. WFSG inter-turn verdicts are bounded by its smallest tested extent at the matching impedance (11.6\,\%).}
+\footnotetext{Three-cycle windows; probabilities from 1000 bootstrap resamples. Suites ordered drive $<$ 3CT $<$ 3CT+3VT $<$ 3CT+3VT+drv; exc: WFSG field current; IT: inter-turn; IW: inter-winding. `(suite)?': no suite meets with that confidence and the cheapest suite with an uncertain verdict is shown; `none': every suite fails. WFSG inter-turn verdicts are bounded by its smallest tested extent at the matching impedance (11.6\,\%).}
 \end{table}

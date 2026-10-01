@@ -7,7 +7,7 @@
 \usepackage{amsthm}
 \usepackage{booktabs}
 \usepackage{tikz}
-\usetikzlibrary{arrows.meta,positioning,shapes.geometric,calc}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,calc,decorations.pathreplacing,decorations.pathmorphing}
 \usepackage{siunitx}
 \usepackage{adjustbox}
 \usepackage{manyfoot}   % the class's begin-document footnote hook expects this package to be loaded
@@ -22,6 +22,12 @@
 \renewcommand{\floatpagefraction}{0.8}
 \setcounter{topnumber}{3}
 \setcounter{totalnumber}{4}
+\setlength{\textfloatsep}{10pt plus 3pt minus 2pt}
+\setlength{\floatsep}{10pt plus 3pt minus 2pt}
+\setlength{\intextsep}{10pt plus 3pt minus 2pt}
+\setlength{\belowcaptionskip}{3pt}
+%% Table body size: the class's own 8 bp table font (its \footnotesize is 7 pt and its \scriptsize 9 pt).
+\newcommand{\tabsize}{\fontsize{8}{9.5}\selectfont}
 
 %% Set \anontrue to produce an anonymised copy (no author block, no identifying declarations)
 %% if the journal's editorial system asks for a blinded manuscript.

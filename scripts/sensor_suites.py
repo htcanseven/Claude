@@ -176,7 +176,7 @@ def figure(res, tr):
 
 def figure_paper(res):
     """Manuscript version: lettering from the rcParams (Computer Modern, 10 pt), one sub-caption under each panel."""
-    fig, axes = plt.subplots(2, 2, figsize=(5.15, 4.4), sharey="row", gridspec_kw={"hspace": 0.8, "wspace": 0.1})
+    fig, axes = plt.subplots(2, 2, figsize=(5.15, 3.9), sharey="row", gridspec_kw={"hspace": 0.85, "wspace": 0.1})
     xs = np.arange(len(ORDER))
     off = {"PMSG": -0.15, "SCIG": 0.15}
     short = {"drive-internal": "drive", "3 CT": "3 CT", "3 CT + 3 VT": "+3 VT", "3 CT + 3 VT + drive": "+drive",
