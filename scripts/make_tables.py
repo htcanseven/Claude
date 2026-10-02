@@ -1,12 +1,22 @@
-"""Generate the LaTeX tables of the manuscript from the result CSVs (no hand transcription).
-Every table is kept to at most six narrow columns so that it fits the journal text block."""
+"""Generate the LaTeX tables of the manuscript from the result CSVs (no hand transcription) and write them into
+the marked blocks of the single-file manuscript paper/main.tex. Every table is kept narrow enough for the journal
+text block."""
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
 TAB = Path("results/tables")
-OUT = Path("paper/sections")
+MAIN = Path("paper/main.tex")   # single-file manuscript; each table sits between BEGIN/END GENERATED markers
+
+
+def write_block(name, body):
+    """Replace the block between '%% BEGIN GENERATED <name>' and '%% END GENERATED <name>' in the manuscript."""
+    s = MAIN.read_text()
+    start, end = f"%% BEGIN GENERATED {name}", f"%% END GENERATED {name}"
+    i, j = s.index(start), s.index(end)
+    k = s.index("\n", i) + 1          # keep the BEGIN line (it carries the comment)
+    MAIN.write_text(s[:k] + body.rstrip("\n") + "\n" + s[j:])
 FT = {"TURNS": "inter-turn", "WINDINGS": "inter-winding"}
 TEX = {"I2_I1": r"$I_2/I_1$", "V2_V1": r"$V_2/V_1$", "Id_2fe": r"$I_d$\,2$f_e$", "Iq_2fe": r"$I_q$\,2$f_e$",
        "PId_2fe": r"PI$_d$\,2$f_e$", "PIq_2fe": r"PI$_q$\,2$f_e$", "Vq_2fe": r"$V_q$\,2$f_e$", "Vd_2fe": r"$V_d$\,2$f_e$",
@@ -436,13 +446,8 @@ if __name__ == "__main__":
     # Main text: Tables 4-8.  Appendix A: A1 suites3, A2 sens, A3 between, A4 transfer3.  The other builders
     # (null, z2, groups, topfeat, opgrid, screen, suitetransfer) are kept for the released results but are not
     # part of the manuscript; their numbers are quoted in the text.
-    (OUT / "tab_decomp.tex").write_text(t_decomp())
-    (OUT / "tab_mde.tex").write_text(t_mde())
-    (OUT / "tab_suites.tex").write_text(t_suites())
-    (OUT / "tab_decision.tex").write_text(t_decision())
-    (OUT / "tab_transfer.tex").write_text(t_transfer())
-    (OUT / "tab_suites3.tex").write_text(t_suites3())
-    (OUT / "tab_sens.tex").write_text(t_sens())
-    (OUT / "tab_between.tex").write_text(t_between())
-    (OUT / "tab_transfer3.tex").write_text(t_transfer3())
-    print("tables written")
+    for name, builder in [("tab_decomp", t_decomp), ("tab_mde", t_mde), ("tab_suites", t_suites),
+                          ("tab_decision", t_decision), ("tab_transfer", t_transfer), ("tab_suites3", t_suites3),
+                          ("tab_sens", t_sens), ("tab_between", t_between), ("tab_transfer3", t_transfer3)]:
+        write_block(name, builder())
+    print("tables written into", MAIN)
