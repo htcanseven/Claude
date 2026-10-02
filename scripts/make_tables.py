@@ -78,8 +78,8 @@ def t_suites():
     body[-1] = body[-1].rstrip(r"\\").rstrip()
     cap = ("Observation suites versus what they detect, PMSG and SCIG, five-cycle windows: best fixed feature, "
            "its MDE (\\%) and detectable share (\\%)")
-    note = ("Oracle: per-trial best feature, its detectable share in brackets (false-alarm rates in Online Resource~1, "
-            "Table~S1); features failing the reliability screen are excluded for that machine.")
+    note = ("Oracle: per-trial best feature, its detectable share in brackets (false-alarm rates in Table~\\ref{tab:suites3}); "
+            "features failing the reliability screen are excluded for that machine.")
     head = r"Suite & PMSG feature & MDE & DS [oracle] & SCIG feature & MDE & DS [oracle]"
     return table(body, cap, "tab:suites", "l" * 7, head, size=r"\tabsize", colsep="3pt", note=note)
 
@@ -387,6 +387,7 @@ def t_decomp():
 
 def t_between():
     d = pd.read_csv(TAB / "R_between_trial_null.csv")
+    d = d[d.feature.isin(["V2_V1", "I2_I1", "PId_2fe", "Vq_2fe"])]   # the four key features of the MDE table
     body = []
     for r in d.itertuples():
         body.append(" & ".join([{"TURNS": "IT", "WINDINGS": "IW"}[r.ftype], tex(r.feature), r.machine[0],
@@ -394,8 +395,9 @@ def t_between():
                                 f"{r.median_sdr_within:.3g}", f"{r.median_sdr_between:.3g}", pct(r.ds_within), pct(r.ds_between)]) + r" \\")
     body[-1] = body[-1].rstrip(r"\\").rstrip()
     cap = "Within-trial versus commissioning-baseline null, five-cycle windows, $\\alpha=0.95$"
-    note = ("Within: reference immediately before the fault; baseline: the healthy trial at the same operating point, recorded "
-            "at another time. DS: detectable share (\\%). IT: inter-turn; IW: inter-winding; P: PMSG; S: SCIG.")
+    note = ("Four key features. Within: reference immediately before the fault; baseline: the healthy trial at the same "
+            "operating point, recorded at another time. DS: detectable share (\\%). IT: inter-turn; IW: inter-winding; "
+            "P: PMSG; S: SCIG.")
     head = (r"\multirow{2}{*}{Class} & \multirow{2}{*}{Feature} & \multirow{2}{*}{M.} & \multicolumn{2}{c}{$q_{95}$} & \multicolumn{2}{c}{Median SDR} & \multicolumn{2}{c}{DS} \\" "\n"
             r"\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(l){8-9}" "\n"
             r" & & & within & baseline & within & baseline & within & baseline")
@@ -433,15 +435,13 @@ def t_screen():
 
 
 if __name__ == "__main__":
-    (OUT / "tab_null.tex").write_text(t_null())
+    # Main text: Tables 4-7.  Appendix A: A1 suites3, A2 sens.  The other builders (transfer, between,
+    # transfer3, null, z2, groups, topfeat, opgrid, screen, suitetransfer) are kept for the released results but
+    # are not part of the manuscript; their numbers are quoted in the text.
+    (OUT / "tab_decomp.tex").write_text(t_decomp())
     (OUT / "tab_mde.tex").write_text(t_mde())
     (OUT / "tab_suites.tex").write_text(t_suites())
-    (OUT / "tab_transfer.tex").write_text(t_transfer())
-    (OUT / "tab_transfer3.tex").write_text(t_transfer3())
-    (OUT / "tab_groups.tex").write_text(t_groups())
     (OUT / "tab_decision.tex").write_text(t_decision())
-    (OUT / "tab_decomp.tex").write_text(t_decomp())
-    (OUT / "tab_z2.tex").write_text(t_z2())
-    (OUT / "tab_between.tex").write_text(t_between())
-    (OUT / "appendix_tables.tex").write_text("\n".join([t_suites3(), t_topfeat(), t_opgrid(), t_sens(), t_screen(), t_suitetransfer()]))
+    (OUT / "tab_suites3.tex").write_text(t_suites3())
+    (OUT / "tab_sens.tex").write_text(t_sens())
     print("tables written")

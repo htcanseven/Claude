@@ -47,18 +47,18 @@
 \draw[scigc, line width=1.1pt] (4.3,0) circle (0.42);
 \draw[scigc, line width=1.1pt] (4.3,0) circle (0.26);
 \foreach \a in {0,30,...,330} { \draw[scigc, line width=1.1pt] (4.3,0) ++(\a:0.26) -- ++(\a:0.16); }
-\node[sub] at (6.2,-0.85) {(a) SCIG};
+\node[sub] at (6.2,-0.8) {(a) SCIG};
 %% (b) WFSG: field winding on the rotor
-\chain{-2.4}
-\draw[black!50, line width=0.6pt] (4.3,-2.4) circle (0.42);
-\draw[wfsgc, line width=1.1pt, decorate, decoration={coil, aspect=0.6, segment length=1.9mm, amplitude=1.9mm}] (3.9,-2.4) -- (4.7,-2.4);
-\node[sub] at (6.2,-3.25) {(b) WFSG};
+\chain{-2.1}
+\draw[black!50, line width=0.6pt] (4.3,-2.1) circle (0.42);
+\draw[wfsgc, line width=1.1pt, decorate, decoration={coil, aspect=0.6, segment length=1.9mm, amplitude=1.9mm}] (3.9,-2.1) -- (4.7,-2.1);
+\node[sub] at (6.2,-2.9) {(b) WFSG};
 %% (c) PMSG: permanent magnets on the rotor surface
-\chain{-4.8}
-\draw[black!50, line width=0.6pt] (4.3,-4.8) circle (0.31);
-\foreach \a in {0,120,240} { \draw[pmsgc, line width=2.8pt] (4.3,-4.8) ++(\a+7:0.4) arc[start angle=\a+7, end angle=\a+53, radius=0.4]; }
-\foreach \a in {60,180,300} { \draw[black!40, line width=2.8pt] (4.3,-4.8) ++(\a+7:0.4) arc[start angle=\a+7, end angle=\a+53, radius=0.4]; }
-\node[sub] at (6.2,-5.65) {(c) PMSG};
+\chain{-4.2}
+\draw[black!50, line width=0.6pt] (4.3,-4.2) circle (0.31);
+\foreach \a in {0,120,240} { \draw[pmsgc, line width=2.8pt] (4.3,-4.2) ++(\a+7:0.4) arc[start angle=\a+7, end angle=\a+53, radius=0.4]; }
+\foreach \a in {60,180,300} { \draw[black!40, line width=2.8pt] (4.3,-4.2) ++(\a+7:0.4) arc[start angle=\a+7, end angle=\a+53, radius=0.4]; }
+\node[sub] at (6.2,-5.0) {(c) PMSG};
 \end{tikzpicture}
 \caption{The three alternatives as generator systems: turbine rotor, generator with its rotor excitation (squirrel cage, field winding, permanent magnets), back-to-back converter and grid}\label{fig:alternatives}
 \end{figure}
