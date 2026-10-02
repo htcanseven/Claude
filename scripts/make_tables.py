@@ -249,9 +249,8 @@ def t_transfer():
     body[-1] = body[-1].rstrip(r"\\").rstrip()
     cap = ("Transfer of a window-level detector between PMSG and SCIG: AUC on all windows / AUC on the out-of-reference "
            "windows")
-    note = ("Out-of-reference windows: second half of the reference interval, recovery windows and fault-time windows of the "
-            "healthy trials. P$\\to$P, S$\\to$S: five-fold cross-validation grouped by tap pair (healthy trials by speed); "
-            "P$\\to$S, S$\\to$P: trained on all trials of one machine, tested on all trials of the other.")
+    note = ("Out-of-reference windows: those outside the normalising set (Section~\\ref{sec:computation}). P$\\to$P, S$\\to$S: "
+            "cross-validation grouped by tap pair; P$\\to$S, S$\\to$P: trained on one machine, tested on the other.")
     head = r"Referencing & Model & P$\to$P & S$\to$S & P$\to$S & S$\to$P"
     return table(body, cap, "tab:transfer", "llcccc", head, size=r"\tabsize", note=note)
 
@@ -265,10 +264,9 @@ def t_transfer3():
     body[-1] = body[-1].rstrip(r"\\").rstrip()
     cap = ("Transfer between the three alternatives with a self-referenced GBDT detector, three-cycle windows, common "
            "features")
-    note = ("Features: $|z|$ against the first half of each trial's own reference interval; fixed seed. AUC on all windows and "
-            "on the out-of-reference (o.o.r.) windows; TPR: true-positive rate at 1\\,\\% false-positive rate (FPR) on the "
-            "o.o.r. windows; FA: share of the healthy trials' fault-time windows (contactor operation without a fault) above the "
-            "threshold giving 1\\,\\% FPR on all negatives. Same-machine rows: five-fold cross-validation grouped by tap pair. "
+    note = ("Features $|z|$-referenced to the first half of each trial's own reference interval. AUC on all windows and on the "
+            "out-of-reference (o.o.r.) windows; TPR: true-positive rate at 1\\,\\% false-positive rate (FPR) on the o.o.r. "
+            "windows; FA: share of the healthy trials' fault-time windows above the threshold giving 1\\,\\% FPR on all negatives. "
             "The WFSG has no healthy trials, so its negatives are reference and recovery windows only and its rows are optimistic.")
     return table(body, cap, "tab:transfer3", "llcccc", r"Trained on & Tested on & AUC all & AUC o.o.r. & TPR o.o.r. & FA healthy (\%)",
                  size=r"\tabsize", note=note)
@@ -435,13 +433,16 @@ def t_screen():
 
 
 if __name__ == "__main__":
-    # Main text: Tables 4-7.  Appendix A: A1 suites3, A2 sens.  The other builders (transfer, between,
-    # transfer3, null, z2, groups, topfeat, opgrid, screen, suitetransfer) are kept for the released results but
-    # are not part of the manuscript; their numbers are quoted in the text.
+    # Main text: Tables 4-8.  Appendix A: A1 suites3, A2 sens, A3 between, A4 transfer3.  The other builders
+    # (null, z2, groups, topfeat, opgrid, screen, suitetransfer) are kept for the released results but are not
+    # part of the manuscript; their numbers are quoted in the text.
     (OUT / "tab_decomp.tex").write_text(t_decomp())
     (OUT / "tab_mde.tex").write_text(t_mde())
     (OUT / "tab_suites.tex").write_text(t_suites())
     (OUT / "tab_decision.tex").write_text(t_decision())
+    (OUT / "tab_transfer.tex").write_text(t_transfer())
     (OUT / "tab_suites3.tex").write_text(t_suites3())
     (OUT / "tab_sens.tex").write_text(t_sens())
+    (OUT / "tab_between.tex").write_text(t_between())
+    (OUT / "tab_transfer3.tex").write_text(t_transfer3())
     print("tables written")
