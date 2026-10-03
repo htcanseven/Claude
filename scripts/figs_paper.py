@@ -28,7 +28,7 @@ def combined(sdr, files, feats=("V2_V1", "I2_I1")):
     f["ratio"] = f.Ifault_rms_flt / (f.I1_pre / np.sqrt(2))
     rows = [(feat, ft) for feat in feats for ft in ["TURNS", "WINDINGS"]]
     fig, axes = plt.subplots(len(rows), 2, figsize=(W, 1.12 * len(rows) + 0.25), sharey="row",
-                             gridspec_kw={"hspace": 0.72, "wspace": 0.06})
+                             gridspec_kw={"hspace": 0.72, "wspace": 0.1})
     rng = np.random.RandomState(0)
     k = 0
     for i, (feat, ft) in enumerate(rows):
@@ -49,12 +49,17 @@ def combined(sdr, files, feats=("V2_V1", "I2_I1")):
                     for zf, g in s.groupby("zf_ohm"):
                         ax.plot(g.ratio, g[f"{feat}__sdr"].clip(lower=0.02), C3.ZF_MARK.get(round(zf, 2), "o"), ms=2.8,
                                 alpha=0.5, color=C3.COL3[m], mec="none")
+            # the axis quantity is the same down each column, so its label is set once, on the bottom row;
+            # the upper rows carry only their tick labels and sub-caption and fit in the row gap
+            last = i == len(rows) - 1
             if axis == "extent":
                 ax.set_xlim(1.9, 48); ax.set_xticks([2, 3, 5, 10, 20, 40]); ax.set_xticklabels(["2", "3", "5", "10", "20", "40"])
-                ax.set_xlabel("Winding fraction between taps (%)")
+                if last:
+                    ax.set_xlabel("Winding fraction between taps (%)")
             else:
                 ax.set_xlim(0.08, 8); ax.set_xticks([0.1, 0.2, 0.5, 1, 2, 5]); ax.set_xticklabels(["0.1", "0.2", "0.5", "1", "2", "5"])
-                ax.set_xlabel("Fault current / stator current (RMS)")
+                if last:
+                    ax.set_xlabel("Fault current / stator current (RMS)")
             ax.axhline(1, color=C.AXIS, lw=0.8, ls="--")
             ax.xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
             ax.xaxis.set_minor_locator(matplotlib.ticker.NullLocator())
@@ -64,7 +69,7 @@ def combined(sdr, files, feats=("V2_V1", "I2_I1")):
     h, l = axes[0, 0].get_legend_handles_labels()
     uniq = dict(zip(l, h))
     fig.legend(uniq.values(), uniq.keys(), loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.56, 1.0), columnspacing=1.2)
-    fig.subplots_adjust(top=0.955, bottom=0.095, left=0.12, right=0.99)
+    fig.subplots_adjust(top=0.955, bottom=0.13, left=0.12, right=0.99)
     C3.save(fig, "G_severity_combined")
 
 
