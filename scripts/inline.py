@@ -17,7 +17,14 @@ from the alternative's typical value. For every QC:
 * detection of the parts beyond their alternative's 95th percentile: recall
   at a 5 % false-alarm threshold on the predicted deviation.
 
-Outputs: results/inline_lod.csv, summary_inline.md
+At batch level the question is whether the force record tracks the drift that
+makes up the production floor: the deviations of the batch centres from their
+alternative's mean are predicted from the batch centres of the signals (ridge,
+RIDGE_ALPHA_BATCH, folds by alternative, so the model always meets a new
+alternative), and the floor is recomputed after the predicted drift has been
+removed.
+
+Outputs: results/inline_lod.csv, inline_drift.csv, summary_inline.md
 """
 
 from __future__ import annotations
@@ -33,7 +40,7 @@ from sklearn.linear_model import Ridge
 from sklearn.model_selection import GroupKFold
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from alternatives import BATCH  # noqa: E402
+from alternatives import BATCH, batch_centres, floor_from  # noqa: E402
 from common import RESULTS, robust_sd  # noqa: E402
 from qc import QCS, SHARED, parts_qc  # noqa: E402
 
@@ -41,6 +48,7 @@ FEATURES = ["F10_kN", "F20_kN", "F25_kN", "W_draw_J", "F_peak_kN", "imbalance20"
             "oil_gm2"]
 GBR = dict(max_depth=3, max_iter=200, learning_rate=0.08, random_state=0)
 RIDGE_ALPHA = 1.0
+RIDGE_ALPHA_BATCH = 10.0
 N_FOLDS = 5
 ALPHA = BETA = 0.05
 
@@ -48,6 +56,28 @@ ALPHA = BETA = 0.05
 def within(df: pd.DataFrame, cols: list[str]) -> pd.DataFrame:
     g = df.groupby("alternative")[cols]
     return (df[cols] - g.transform("median")) / g.transform(lambda v: robust_sd(v.to_numpy()) or 1.0)
+
+
+def drift_correction(q: pd.DataFrame) -> pd.DataFrame:
+    """Batch level: share of the drift between batch centres that the signals explain, and the floor without it."""
+    bc = batch_centres(q, SHARED + FEATURES)
+    dev = bc - bc.groupby(level=0).transform("mean")
+    rows = []
+    for qc in SHARED:
+        d = dev[[qc] + FEATURES].dropna()
+        X, y = d[FEATURES].to_numpy(), d[qc].to_numpy()
+        X = (X - X.mean(axis=0)) / X.std(axis=0)
+        alt = d.index.get_level_values(0).to_numpy()
+        pred = np.zeros_like(y)
+        for tr, te in GroupKFold(N_FOLDS).split(X, y, alt):
+            pred[te] = Ridge(alpha=RIDGE_ALPHA_BATCH).fit(X[tr], y[tr]).predict(X[te])
+        raw = bc.loc[d.index, [qc]]
+        cor = raw.assign(**{qc: raw[qc].to_numpy() - pred})
+        f_raw, f_cor = floor_from(raw, qc), floor_from(cor, qc)
+        rows.append({"qc": qc, "n_batches": int(y.size),
+                     "r2_oof_batch": float(1 - np.sum((y - pred) ** 2) / np.sum((y - y.mean()) ** 2)),
+                     "floor": f_raw, "floor_drift_removed": f_cor, "floor_reduction": 1 - f_cor / f_raw})
+    return pd.DataFrame(rows)
 
 
 def main() -> None:
@@ -85,10 +115,14 @@ def main() -> None:
                      "recall_top5_at_fa5": recall})
     t = pd.DataFrame(rows)
     t.to_csv(RESULTS / "inline_lod.csv", index=False)
+    dr = drift_correction(q)
+    dr.to_csv(RESULTS / "inline_drift.csv", index=False)
     lines = ["# In-line verifiability from the force record", "",
              f"Gradient boosting {GBR}; ridge alpha {RIDGE_ALPHA}; {N_FOLDS}-fold GroupKFold over production "
              f"batches of {BATCH}.", "",
-             t.round(4).to_markdown(index=False)]
+             t.round(4).to_markdown(index=False), "",
+             f"## Batch level: drift explained by the signals (ridge alpha {RIDGE_ALPHA_BATCH}, folds by "
+             f"alternative)", "", dr.round(4).to_markdown(index=False)]
     (RESULTS / "summary_inline.md").write_text("\n".join(lines) + "\n")
     print("\n".join(lines))
 
