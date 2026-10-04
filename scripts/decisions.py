@@ -142,6 +142,15 @@ def main() -> None:
     parts = match_sims(parts, sims)
     t = alternative_table(parts, sims)
     t.to_csv(RESULTS / "dec_alternatives.csv", index=False)
+    # offset and margin calibrated on all alternatives (used for new designs in design_space.py)
+    mg = []
+    for qc, g in t.groupby("qc"):
+        r2 = g["real_q95"] - g["sim_env_hi"]
+        mg.append({"qc": qc, "offset_env": float(np.median(r2)),
+                   "margin": conformal_margin(np.abs(r2 - np.median(r2)).to_numpy(), CONF_LEVEL),
+                   "offset_nominal": float(np.median(g["real_q95"] - g["sim_nominal"])),
+                   "n_alternatives": int(len(g))})
+    pd.DataFrame(mg).to_csv(RESULTS / "dec_margins.csv", index=False)
 
     records = []
     alts = sorted(t["alternative"].unique())

@@ -187,11 +187,61 @@ def run(jobs: list[tuple], out: Path, workers: int) -> None:
                 print(f"{k}/{len(todo)}, {el / k:.1f} s/sim, eta {(len(todo) - k) * el / k / 60:.0f} min", flush=True)
 
 
+CORNER_SELECTION = {          # DDACS design corners at the RDDAC process conditions
+    "geometry": ["concave", "convex"],
+    "material_scaling_factor": [1.0],
+    "sheet_metal_thickness": [0.98, 0.99],
+    "blankholder_force": [100000.0, 300000.0, 500000.0],
+}
+
+
+def ddacs_packages() -> list[tuple[int, int, int]]:
+    """(first index, last index, DaRUS file id) of the DDACS simulation packages."""
+    import json
+    import urllib.request
+
+    cache = CACHE / "ddacs_files.json"
+    if not cache.exists():
+        url = ("https://darus.uni-stuttgart.de/api/datasets/:persistentId/"
+               "?persistentId=doi:10.18419/DARUS-4801")
+        with urllib.request.urlopen(url, timeout=120) as r:
+            files = json.load(r)["data"]["latestVersion"]["files"]
+        cache.parent.mkdir(parents=True, exist_ok=True)
+        cache.write_text(json.dumps([{"name": f["dataFile"]["filename"], "id": f["dataFile"]["id"]} for f in files]))
+    out = []
+    for f in json.loads(cache.read_text()):
+        stem = f["name"].removesuffix(".zip")
+        if "_" in stem and all(p.isdigit() for p in stem.split("_")):
+            a, b = map(int, stem.split("_"))
+            out.append((a, b, int(f["id"])))
+    return sorted(out)
+
+
+def corner_jobs() -> list[tuple[int, str]]:
+    p = pd.read_csv(fetch_small(DDACS_FILES["process_parameters"], CACHE / "ddacs_process_parameters.csv",
+                                original=True))
+    sel = p[~p["rddac"]]
+    for col, vals in CORNER_SELECTION.items():
+        sel = sel[sel[col].isin(vals)]
+    packs = ddacs_packages()
+    jobs = []
+    for idx in sel["index"].astype(int):
+        fid = next((f for a, b, f in packs if a <= idx <= b), None)
+        if fid is not None:
+            jobs.append((fid, f"{idx}.h5"))
+    return jobs
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--set", choices=["rddac", "sample"], default="rddac")
+    ap.add_argument("--set", choices=["rddac", "corners", "sample"], default="rddac")
     ap.add_argument("--workers", type=int, default=2)
     args = ap.parse_args()
+    if args.set == "corners":
+        jobs = corner_jobs()
+        print(f"corners: {len(jobs)} simulations")
+        run(jobs, RESULTS / "features_ddacs_corners.csv", args.workers)
+        return
     if args.set == "sample":
         import zipfile
 

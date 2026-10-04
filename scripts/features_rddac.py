@@ -72,7 +72,7 @@ MIN_BIN_COUNT = 3           # cells (or nodes) needed for a bin median
 FLAT_SLOPE_DEG = 15.0       # steeper profile parts are wall, die radius or edge roll-off
 ARM_SEG_MARGIN_MM = 1.0     # trimmed from both ends of the flat run
 ARM_MIN_SEGMENT_MM = 4.0
-WALL_LEVELS_MM = (8.0, 15.0, 22.0)  # depths for the wall angle (lower, mid, upper)
+WALL_LEVELS_MM = (10.0, 15.0, 20.0)  # straight part of the wall (lower, mid, upper); avoids the radii
 EDGE_CLEARANCE_MM = 3.0     # flange cells this close to the outer edge are excluded
 TIP_WINDOW_MM = 0.3         # outline points within this of the extreme form a corner tip
 

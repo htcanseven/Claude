@@ -7,7 +7,10 @@ once, identically for parts and simulations.
 
 The south side of the scans is excluded from the wall measures: the scanner
 leaves a gap at the south wall (laser shadow), visible as missing data in
-both operations.
+both operations. The wall angle after cutting is not used: on the cut convex
+parts the north and, in some parts, the west wall read 5-7 degrees steeper
+than the east wall although all three agree after drawing (scan artefacts on
+walls facing the camera); the per-side values remain in the feature table.
 """
 
 from __future__ import annotations
@@ -22,14 +25,12 @@ QCS = {
     "drawin_corner": ("Draw-in at corners", "mm", "max"),
     "waviness": ("Flange waviness", "mm", "max"),
     "wall_op10": ("Wall angle after drawing", "deg", "max"),
-    "wall_op20": ("Wall angle after cutting", "deg", "max"),
     "arm_op20": ("Arm angle after cutting", "deg", "abs"),
     "depth_op10": ("Cup depth", "mm", "max"),
     "dome_op20": ("Bottom dome after cutting", "mm", "abs"),
 }
 #: Characteristics measured identically on parts and simulations.
-SHARED = ["drawin_mid", "drawin_corner", "waviness", "wall_op10", "wall_op20", "arm_op20", "depth_op10",
-          "dome_op20"]
+SHARED = ["drawin_mid", "drawin_corner", "waviness", "wall_op10", "arm_op20", "depth_op10", "dome_op20"]
 #: Process signals and incoming conditions of a part (not quality outcomes).
 SIGNALS = ["F10_kN", "F20_kN", "F25_kN", "W_draw_J", "F_peak_kN", "imbalance20", "v_form_mm_s",
            "punch_temp_C", "sheet_um", "oil_gm2"]
@@ -48,7 +49,6 @@ def parts_qc(f: pd.DataFrame) -> pd.DataFrame:
     q["drawin_corner"] = f["op10_drawin_corner_mm"]
     q["waviness"] = f["op10_wav_sd_mm"]
     q["wall_op10"] = _nanmean(f, [f"op10_wall_angle_{s}_deg" for s in "EWN"])
-    q["wall_op20"] = _nanmean(f, [f"op20_wall_angle_{s}_deg" for s in "EWN"])
     q["arm_op20"] = _nanmean(f, [f"op20_theta_{s}_deg" for s in "EWSN"])
     q["depth_op10"] = f["op10_depth_mm"]
     q["dome_op20"] = f["op20_dome_mm"]
@@ -66,7 +66,6 @@ def sims_qc(s: pd.DataFrame) -> pd.DataFrame:
     q["drawin_corner"] = s["op10_drawin_corner_mm"]
     q["waviness"] = s["op10_wav_sd_mm"]
     q["wall_op10"] = _nanmean(s, ["op10_wall_angle_x_deg", "op10_wall_angle_y_deg"])
-    q["wall_op20"] = _nanmean(s, ["op20_wall_angle_x_deg", "op20_wall_angle_y_deg"])
     q["arm_op20"] = _nanmean(s, ["op20_theta_x_deg", "op20_theta_y_deg"])
     q["depth_op10"] = s["op10_depth_mm"]
     q["dome_op20"] = s["op20_dome_mm"]
