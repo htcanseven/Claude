@@ -157,11 +157,11 @@ def fig_decisions(src: Path, scope: str = "within") -> None:
         ys = [g["correct"], g["abstain"], g["false_reject"], g["false_accept"]]
         ax.stackplot(x, *ys, colors=[OUTCOME_COLOUR[k] for k in ["correct", "abstain", "false_reject", "false_accept"]],
                      lw=0)
-        ax.set_xscale("symlog", linthresh=1.0)
+        ax.set_xscale("symlog", linthresh=10.0, linscale=1.5)    # linear within +-10 floors, log beyond
         ax.set_xlim(x.min(), x.max())
         ax.set_ylim(0, 1)
-        ax.set_xticks([-100, -10, 0, 10, 100], ["$-100$", "", "0", "", "100"], fontsize=9)
-        ax.set_xticks([-500, -50, -5, 5, 50, 500], minor=True)
+        ax.set_xticks([-100, -10, 0, 10, 100], ["", "$-10$", "0", "10", "100"], fontsize=9)
+        ax.set_xticks([-500, -300, -200, -50, -30, -20, -5, 5, 20, 30, 50, 200, 300, 500], minor=True)
         ax.axvline(0, color=INK, lw=0.6)
         subcaption(ax, letter, names[m], "distance $d$ (floors)")
     for ax in axs[:, 0]:
@@ -192,7 +192,10 @@ def fig_budget(src: Path) -> None:
         ax.plot(g["k"], g["safe_floors"], "--" + marker, color=INK, ms=4.5, mfc="white", mew=1.1,
                 label=f"{m}, safe")
     last = int(r["k"].max())
-    fig.legend(loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.5, 1.04))
+    h, lab = ax.get_legend_handles_labels()
+    h.insert(1, plt.Line2D([], [], alpha=0))          # blank slot: columns read M1 | M2 | M5
+    lab.insert(1, " ")
+    fig.legend(h, lab, loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.5, 1.04))
     ax.set_xlim(0.7, last + 0.3)
     ax.set_ylim(0, None)
     ax.set_xticks(range(1, last + 1))
