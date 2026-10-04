@@ -11,4 +11,4 @@ for s in compare sensor_suites compare3 sensitivity revision figs_paper; do
 done
 python3 scripts/make_tables.py > results/run_make_tables.log 2>&1 || echo "make_tables failed (see results/run_make_tables.log)"
 cp results/figures/*.pdf paper/figures/
-echo "== done $(date -u +%H:%M:%S)   (then: cd paper && latexmk -pdf main.tex && latexmk -pdf esm.tex)"
+echo "== done $(date -u +%H:%M:%S)   (then: cd paper && latexmk -pdf main.tex)"
