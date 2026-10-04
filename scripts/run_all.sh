@@ -17,3 +17,4 @@ python3 alternatives.py      # production floor, effect-to-scatter, minimum reso
 python3 decisions.py         # design-stage decisions scored against production
 python3 design_space.py      # DDACS corners: sensitivities, surrogate accuracy
 python3 inline.py            # in-line verifiability from the force record
+python3 figs.py              # figures in the paper's style (results/figures)

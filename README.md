@@ -25,6 +25,7 @@ requests and keep only the extracted features. Raw data are never committed.
 | `scripts/decisions.py` | design-stage decisions (meets / fails / uncertain) scored against production, leave-one-alternative-out and across geometries |
 | `scripts/design_space.py` | sensitivities over the DDACS design corners; surrogate accuracy against the production floor |
 | `scripts/inline.py` | in-line verifiability of each characteristic from the force record |
+| `scripts/figs.py` | `results/figures/`: the paper's figures (PDF and PNG) |
 
 `bash scripts/run_all.sh` reproduces every analysis from the cached feature tables (and extracts them first
 if they are missing). Constants live in `scripts/common.py` and at the top of each script; seeds are fixed.
