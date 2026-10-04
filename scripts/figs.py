@@ -150,7 +150,7 @@ def fig_decisions(src: Path, scope: str = "within") -> None:
     for ax in axs.ravel()[len(methods):]:
         ax.set_visible(False)
     names = {"M0": "nominal simulation", "M1": "bias-corrected", "M2": "envelope + margin",
-             "M3": "ML-corrected simulation", "M4": "ML, no simulation"}
+             "M3": "simulation + ML", "M4": "ML only"}
     for ax, m, letter in zip(axs.ravel(), methods, "abcde"):
         g = c[c["method"] == m].sort_values("d")
         x = g["d"].to_numpy()
