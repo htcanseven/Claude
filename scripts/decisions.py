@@ -134,14 +134,25 @@ def design_matrix(df: pd.DataFrame, qc: str) -> np.ndarray:
     ])
 
 
-def m3_q95(parts: pd.DataFrame, sims: pd.DataFrame, calib: list[str], target: str, qc: str,
-           rng: np.random.Generator) -> float:
-    """Predicted q95 of a new alternative from a model trained on the calibration alternatives' parts."""
+@lru_cache(maxsize=None)
+def m3_fit(calib: frozenset, qc: str):
+    """Model, residuals and training rows of M3 for one calibration set (cached; reused across targets)."""
+    parts = _CTX["parts"]
     tr = parts[parts["alternative"].isin(calib)].dropna(subset=[qc, f"sim_{qc}", "sheet_um", "oil_gm2"])
     if len(tr) < 100:
-        return np.nan
+        return None
     model = HistGradientBoostingRegressor(**GBR).fit(design_matrix(tr, qc), tr[qc].to_numpy())
     resid = tr[qc].to_numpy() - model.predict(design_matrix(tr, qc))
+    return model, resid, tr[["oil_type", "sheet_um", "oil_gm2"]].reset_index(drop=True)
+
+
+def m3_q95(calib: list[str], target: str, qc: str, rng: np.random.Generator) -> float:
+    """Predicted q95 of a new alternative from a model trained on the calibration alternatives' parts."""
+    fit = m3_fit(frozenset(calib), qc)
+    if fit is None:
+        return np.nan
+    model, resid, tr = fit
+    sims = _CTX["sims"]
     geo, bhf, lub = target.split("/")
     pool = tr[tr["oil_type"] == lub]
     pool = pool if len(pool) else tr
@@ -165,13 +176,13 @@ _CTX: dict = {}
 @lru_cache(maxsize=None)
 def m3_nested(calib: tuple[str, ...], qc: str) -> tuple[float, float]:
     """Offset and conformal margin of M3 from a leave-one-out over the calibration alternatives."""
-    parts, sims, t = _CTX["parts"], _CTX["sims"], _CTX["t"]
+    t = _CTX["t"]
     real = t[t["qc"] == qc].set_index("alternative")["real_q95"]
     res = []
     for b in calib:
         if b in real.index:
             rng = np.random.default_rng(stable_seed("nested", b, qc, *calib))
-            res.append(real[b] - m3_q95(parts, sims, [c for c in calib if c != b], b, qc, rng))
+            res.append(real[b] - m3_q95([c for c in calib if c != b], b, qc, rng))
     res = np.array(res)
     off = float(np.nanmedian(res)) if res.size else np.nan
     return off, conformal_margin(np.abs(res - off), CONF_LEVEL)
@@ -180,7 +191,7 @@ def m3_nested(calib: tuple[str, ...], qc: str) -> tuple[float, float]:
 def m3_calibrated(calib: list[str], target: str, qc: str) -> tuple[float, float, float]:
     """(predicted q95, offset, margin) of M3 for a new alternative."""
     rng = np.random.default_rng(stable_seed("target", target, qc, *sorted(calib)))
-    q_target = m3_q95(_CTX["parts"], _CTX["sims"], calib, target, qc, rng)
+    q_target = m3_q95(calib, target, qc, rng)
     off, marg = m3_nested(tuple(sorted(calib)), qc)
     return q_target, off, marg
 
