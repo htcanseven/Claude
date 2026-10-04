@@ -5,7 +5,7 @@ production verdict at a requirement R is *adequate* when at least
 ADEQUATE_RATE of its 500 parts conform (y <= R; |y| <= R for two-sided QCs),
 i.e. when the 95th percentile q95 of the parts is within R.
 
-At the design stage only simulations exist. Four decision rules are scored
+At the design stage only simulations exist. Five decision rules are scored
 with each alternative held out in turn, so that every alternative is judged
 as a new design. Three calibrations: *within* the design family (the other
 alternatives of the same geometry), *pooled* (all other alternatives) and
@@ -22,13 +22,18 @@ M2  envelope with a calibrated margin: the upper end of the simulation envelope
     Meets if the upper bound is within R, fails if the lower bound exceeds R,
     otherwise uncertain (send to trial);
 M3  simulation corrected by machine learning: a gradient-boosting model learns,
-    on the parts of the calibration alternatives, the measured QC from the
-    matched simulation, the design and process descriptors (geometry,
-    blank-holder force, lubrication pattern) and the incoming conditions. For
-    the new alternative the incoming conditions are drawn from calibration
-    parts with the same lubrication pattern (none of its own measurements are
-    used); the predicted q95 gets an offset and a conformal margin from a
-    nested leave-one-out over the calibration alternatives. Verdicts as M2.
+    on the parts of the calibration alternatives, the discrepancy between the
+    measured QC and the matched simulation from the design and process
+    descriptors (geometry, blank-holder force, lubrication pattern) and the
+    incoming conditions (sheet thickness, oil film). For the new alternative
+    the incoming conditions are drawn from calibration parts with the same
+    lubrication pattern (none of its own measurements are used); its
+    simulation plus the predicted discrepancy and a resampled residual give
+    the predicted parts, whose q95 gets an offset and a conformal margin from
+    a nested leave-one-out over the calibration alternatives. Verdicts as M2;
+M4  machine learning without simulation: as M3 with the measured QC itself as
+    the target, so the prediction rests on the produced alternatives alone.
+    The difference between M3 and M4 is what the simulation adds.
 
 Requirements are placed at fixed distances d from each alternative's true q95,
 measured in production floors F of the characteristic (alternatives.py):
@@ -47,9 +52,11 @@ dec_scores.csv, summary_decisions.md
 
 from __future__ import annotations
 
+import os
 import sys
 import zlib
 from functools import lru_cache
+from multiprocessing import Pool
 from pathlib import Path
 
 import numpy as np
@@ -70,6 +77,7 @@ RESOLUTION_TARGET = 0.95     # resolution: smallest |d| beyond which this share 
 GBR = dict(max_depth=3, max_iter=200, learning_rate=0.08, random_state=0)
 M3_DRAWS = 500               # incoming conditions drawn for a new alternative
 SEED = 7
+N_JOBS = min(4, os.cpu_count() or 1)   # parallel characteristics for M3/M4 (results do not depend on it)
 
 
 def transform(qc: str, v):
@@ -136,43 +144,49 @@ def conformal_margin(res: np.ndarray, level: float) -> float:
 
 
 # ── M3: simulation + gradient-boosting correction ─────────────────────────────
-def design_matrix(df: pd.DataFrame, qc: str) -> np.ndarray:
+def design_matrix(df: pd.DataFrame) -> np.ndarray:
+    """Design and process descriptors and incoming conditions of parts."""
     return np.column_stack([
         (df["geometry"] == "convex").astype(float), df["bhf_kN"].astype(float),
         (df["oil_type"] == "coarse").astype(float), (df["oil_type"] == "medium").astype(float),
-        df[f"sim_{qc}"].astype(float), df["sheet_um"].astype(float), df["oil_gm2"].astype(float),
+        df["sheet_um"].astype(float), df["oil_gm2"].astype(float),
     ])
 
 
 @lru_cache(maxsize=None)
-def m3_fit(calib: frozenset, qc: str):
-    """Model, residuals and training rows of M3 for one calibration set (cached; reused across targets)."""
+def m3_fit(calib: frozenset, qc: str, use_sim: bool = True):
+    """Model, residuals and training rows of M3 (target: QC - simulation) or M4 (target: QC), cached."""
     parts = _CTX["parts"]
-    tr = parts[parts["alternative"].isin(calib)].dropna(subset=[qc, f"sim_{qc}", "sheet_um", "oil_gm2"])
+    need = [qc, "sheet_um", "oil_gm2"] + ([f"sim_{qc}"] if use_sim else [])
+    tr = parts[parts["alternative"].isin(calib)].dropna(subset=need)
     if len(tr) < 100:
         return None
-    model = HistGradientBoostingRegressor(**GBR).fit(design_matrix(tr, qc), tr[qc].to_numpy())
-    resid = tr[qc].to_numpy() - model.predict(design_matrix(tr, qc))
-    return model, resid, tr[["oil_type", "sheet_um", "oil_gm2"]].reset_index(drop=True)
+    y = tr[qc].to_numpy() - (tr[f"sim_{qc}"].to_numpy() if use_sim else 0.0)
+    X = design_matrix(tr)
+    model = HistGradientBoostingRegressor(**GBR).fit(X, y)
+    return model, y - model.predict(X), tr[["oil_type", "sheet_um", "oil_gm2"]].reset_index(drop=True)
 
 
-def m3_q95(calib: list[str], target: str, qc: str, rng: np.random.Generator) -> float:
+def m3_q95(calib: list[str], target: str, qc: str, rng: np.random.Generator, use_sim: bool = True) -> float:
     """Predicted q95 of a new alternative from a model trained on the calibration alternatives' parts."""
-    fit = m3_fit(frozenset(calib), qc)
+    fit = m3_fit(frozenset(calib), qc, use_sim)
     if fit is None:
         return np.nan
     model, resid, tr = fit
-    sims = _CTX["sims"]
     geo, bhf, lub = target.split("/")
     pool = tr[tr["oil_type"] == lub]
     pool = pool if len(pool) else tr
     draw = pool.iloc[rng.integers(0, len(pool), M3_DRAWS)][["sheet_um", "oil_gm2"]].reset_index(drop=True)
     new = draw.assign(geometry=geo, bhf_kN=int(float(bhf)), oil_type=lub)
-    idx = matched_index(sims, geo, int(float(bhf)), new["sheet_um"].to_numpy() / 1000.0, new["oil_gm2"].to_numpy())
-    if (idx < 0).any():
-        return np.nan
-    new[f"sim_{qc}"] = sims[qc].reindex(idx).to_numpy()
-    yhat = model.predict(design_matrix(new, qc)) + rng.choice(resid, M3_DRAWS)
+    base = 0.0
+    if use_sim:
+        sims = _CTX["sims"]
+        idx = matched_index(sims, geo, int(float(bhf)), new["sheet_um"].to_numpy() / 1000.0,
+                            new["oil_gm2"].to_numpy())
+        if (idx < 0).any():
+            return np.nan
+        base = sims[qc].reindex(idx).to_numpy()
+    yhat = base + model.predict(design_matrix(new)) + rng.choice(resid, M3_DRAWS)
     return float(np.quantile(transform(qc, yhat), ADEQUATE_RATE))
 
 
@@ -184,25 +198,27 @@ _CTX: dict = {}
 
 
 @lru_cache(maxsize=None)
-def m3_nested(calib: tuple[str, ...], qc: str) -> tuple[float, float]:
-    """Offset and conformal margin of M3 from a leave-one-out over the calibration alternatives."""
+def m3_nested(calib: tuple[str, ...], qc: str, use_sim: bool = True) -> tuple[float, float]:
+    """Offset and conformal margin of M3 (M4) from a leave-one-out over the calibration alternatives."""
     t = _CTX["t"]
     real = t[t["qc"] == qc].set_index("alternative")["real_q95"]
+    tag = "nested" if use_sim else "nested-nosim"
     res = []
     for b in calib:
         if b in real.index:
-            rng = np.random.default_rng(stable_seed("nested", b, qc, *calib))
-            res.append(real[b] - m3_q95([c for c in calib if c != b], b, qc, rng))
+            rng = np.random.default_rng(stable_seed(tag, b, qc, *calib))
+            res.append(real[b] - m3_q95([c for c in calib if c != b], b, qc, rng, use_sim))
     res = np.array(res)
     off = float(np.nanmedian(res)) if res.size else np.nan
     return off, conformal_margin(np.abs(res - off), CONF_LEVEL)
 
 
-def m3_calibrated(calib: list[str], target: str, qc: str) -> tuple[float, float, float]:
-    """(predicted q95, offset, margin) of M3 for a new alternative."""
-    rng = np.random.default_rng(stable_seed("target", target, qc, *sorted(calib)))
-    q_target = m3_q95(calib, target, qc, rng)
-    off, marg = m3_nested(tuple(sorted(calib)), qc)
+def m3_calibrated(calib: list[str], target: str, qc: str, use_sim: bool = True) -> tuple[float, float, float]:
+    """(predicted q95, offset, margin) of M3 (M4 without simulation) for a new alternative."""
+    tag = "target" if use_sim else "target-nosim"
+    rng = np.random.default_rng(stable_seed(tag, target, qc, *sorted(calib)))
+    q_target = m3_q95(calib, target, qc, rng, use_sim)
+    off, marg = m3_nested(tuple(sorted(calib)), qc, use_sim)
     return q_target, off, marg
 
 
@@ -234,6 +250,8 @@ def decide(t: pd.DataFrame, calib: list[str], targets: list[str], qc: str, floor
         if with_m3:
             q3, off3, marg3 = m3_calibrated(calib, target, qc)
             rules["M3"] = verdicts(q3 + off3 - marg3, q3 + off3 + marg3, reqs)
+            q4, off4, marg4 = m3_calibrated(calib, target, qc, use_sim=False)
+            rules["M4"] = verdicts(q4 + off4 - marg4, q4 + off4 + marg4, reqs)
         for name, v in rules.items():
             for d, R, verdict in zip(D_GRID, reqs, v):
                 out.append({"calibration": label, "alternative": target, "geometry": a["geometry"], "qc": qc,
@@ -280,6 +298,29 @@ def score(d: pd.DataFrame, by: list[str]) -> pd.DataFrame:
     return s
 
 
+def qc_records(qc: str) -> list[dict]:
+    """All verdicts of one characteristic: within the family, pooled and across geometries."""
+    from threadpoolctl import threadpool_limits
+
+    t, floors, with_m3 = _CTX["t"], _CTX["floors"], _CTX["with_m3"]
+    alts = sorted(t["alternative"].unique())
+    geo_of = {a: a.split("/")[0] for a in alts}
+    records = []
+    with threadpool_limits(1 if N_JOBS > 1 else None):
+        for a in alts:
+            # within the design family: the other alternatives of the same geometry
+            records += decide(t, [b for b in alts if b != a and geo_of[b] == geo_of[a]], [a], qc, floors,
+                              "within", with_m3)
+            # pooled: all other alternatives, both geometries
+            records += decide(t, [b for b in alts if b != a], [a], qc, floors, "pooled", with_m3)
+        for src, dst in (("concave", "convex"), ("convex", "concave")):
+            calib = [b for b in alts if b.startswith(src)]
+            targets = [b for b in alts if b.startswith(dst)]
+            records += decide(t, calib, targets, qc, floors, f"{src}->{dst}", with_m3)
+    print(f"{qc}: done", flush=True)
+    return records
+
+
 def main(with_m3: bool = True) -> None:
     parts = parts_qc(pd.read_csv(RESULTS / "features_rddac.csv", low_memory=False))
     sims = sims_qc(pd.read_csv(RESULTS / "features_ddacs_rddac.csv"))
@@ -297,23 +338,14 @@ def main(with_m3: bool = True) -> None:
     pd.DataFrame(mg).to_csv(RESULTS / "dec_margins.csv", index=False)
 
     fl = pd.read_csv(RESULTS / "alt_floor.csv").set_index("qc")
-    floors = {(qc, geo): float(fl.loc[qc, f"floor_{geo}"]) for qc in SHARED for geo in ("concave", "convex")}
-    alts = sorted(t["alternative"].unique())
-    records = []
-    geo_of = {a: a.split("/")[0] for a in alts}
-    for qc in SHARED:
-        for a in alts:
-            # within the design family: the other alternatives of the same geometry
-            records += decide(t, [b for b in alts if b != a and geo_of[b] == geo_of[a]], [a], qc, floors,
-                              "within", with_m3)
-            # pooled: all other alternatives, both geometries
-            records += decide(t, [b for b in alts if b != a], [a], qc, floors, "pooled", with_m3)
-        for src, dst in (("concave", "convex"), ("convex", "concave")):
-            calib = [b for b in alts if b.startswith(src)]
-            targets = [b for b in alts if b.startswith(dst)]
-            records += decide(t, calib, targets, qc, floors, f"{src}->{dst}", with_m3)
-        print(f"{qc}: done", flush=True)
-    d = pd.DataFrame(records)
+    _CTX["floors"] = {(qc, geo): float(fl.loc[qc, f"floor_{geo}"]) for qc in SHARED for geo in ("concave", "convex")}
+    _CTX["with_m3"] = with_m3
+    if with_m3 and N_JOBS > 1:            # characteristics are independent; each worker fits its own models
+        with Pool(min(N_JOBS, len(SHARED))) as pool:
+            chunks = pool.map(qc_records, SHARED)
+    else:
+        chunks = [qc_records(qc) for qc in SHARED]
+    d = pd.DataFrame([r for c in chunks for r in c])
     d.to_csv(RESULTS / "dec_verdicts.csv.gz", index=False)
     sc = score(d, ["calibration", "qc", "method"]).reset_index()
     sc.to_csv(RESULTS / "dec_scores.csv", index=False)

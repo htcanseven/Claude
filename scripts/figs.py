@@ -143,12 +143,15 @@ def fig_decisions(src: Path, scope: str = "within") -> None:
     """Verdict shares against the requirement distance, per decision rule."""
     c = pd.read_csv(src / "dec_curve.csv")
     c = c[c["scope"] == scope]
-    methods = [m for m in ["M0", "M1", "M2", "M3"] if m in set(c["method"])]
-    nrow = 2 if len(methods) == 4 else 1
-    ncol = len(methods) // nrow
+    methods = [m for m in ["M0", "M1", "M2", "M3", "M4"] if m in set(c["method"])]
+    nrow = 1 if len(methods) <= 3 else 2
+    ncol = int(np.ceil(len(methods) / nrow))
     fig, axs = plt.subplots(nrow, ncol, figsize=(WIDTH_IN, 2.3 * nrow + 0.25), sharey=True, squeeze=False)
-    names = {"M0": "nominal simulation", "M1": "bias-corrected", "M2": "envelope + margin", "M3": "ML-corrected"}
-    for ax, m, letter in zip(axs.ravel(), methods, "abcd"):
+    for ax in axs.ravel()[len(methods):]:
+        ax.set_visible(False)
+    names = {"M0": "nominal simulation", "M1": "bias-corrected", "M2": "envelope + margin",
+             "M3": "ML-corrected simulation", "M4": "ML, no simulation"}
+    for ax, m, letter in zip(axs.ravel(), methods, "abcde"):
         g = c[c["method"] == m].sort_values("d")
         x = g["d"].to_numpy()
         ys = [g["correct"], g["abstain"], g["false_reject"], g["false_accept"]]
@@ -163,6 +166,8 @@ def fig_decisions(src: Path, scope: str = "within") -> None:
         subcaption(ax, letter, names[m], "distance $d$ (floors)")
     for ax in axs[:, 0]:
         ax.set_ylabel("share of verdicts")
+    for ax in axs[:, 1:].ravel():
+        ax.tick_params(labelleft=False)
     labels = {"correct": "correct", "abstain": "uncertain", "false_reject": "false reject", "false_accept": "false accept"}
     handles = [plt.Rectangle((0, 0), 1, 1, color=OUTCOME_COLOUR[k], label=labels[k]) for k in labels]
     top = 1.0 - 0.17 / (2.3 * nrow + 0.25)
