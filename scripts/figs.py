@@ -143,15 +143,15 @@ def fig_decisions(src: Path, scope: str = "within") -> None:
     """Verdict shares against the requirement distance, per decision rule."""
     c = pd.read_csv(src / "dec_curve.csv")
     c = c[c["scope"] == scope]
-    methods = [m for m in ["M0", "M1", "M2", "M3", "M4"] if m in set(c["method"])]
+    methods = [m for m in ["M0", "M1", "M2", "M5", "M3", "M4"] if m in set(c["method"])]
     nrow = 1 if len(methods) <= 3 else 2
     ncol = int(np.ceil(len(methods) / nrow))
     fig, axs = plt.subplots(nrow, ncol, figsize=(WIDTH_IN, 2.3 * nrow + 0.25), sharey=True, squeeze=False)
     for ax in axs.ravel()[len(methods):]:
         ax.set_visible(False)
     names = {"M0": "nominal simulation", "M1": "bias-corrected", "M2": "envelope + margin",
-             "M3": "simulation + ML", "M4": "ML only"}
-    for ax, m, letter in zip(axs.ravel(), methods, "abcde"):
+             "M3": "simulation + ML", "M4": "ML only", "M5": "GP calibration"}
+    for ax, m, letter in zip(axs.ravel(), methods, "abcdef"):
         g = c[c["method"] == m].sort_values("d")
         x = g["d"].to_numpy()
         ys = [g["correct"], g["abstain"], g["false_reject"], g["false_accept"]]

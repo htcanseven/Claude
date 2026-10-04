@@ -5,7 +5,7 @@ production verdict at a requirement R is *adequate* when at least
 ADEQUATE_RATE of its 500 parts conform (y <= R; |y| <= R for two-sided QCs),
 i.e. when the 95th percentile q95 of the parts is within R.
 
-At the design stage only simulations exist. Five decision rules are scored
+At the design stage only simulations exist. Six decision rules are scored
 with each alternative held out in turn, so that every alternative is judged
 as a new design. Three calibrations: *within* the design family (the other
 alternatives of the same geometry), *pooled* (all other alternatives) and
@@ -33,7 +33,14 @@ M3  simulation corrected by machine learning: a gradient-boosting model learns,
     a nested leave-one-out over the calibration alternatives. Verdicts as M2;
 M4  machine learning without simulation: as M3 with the measured QC itself as
     the target, so the prediction rests on the produced alternatives alone.
-    The difference between M3 and M4 is what the simulation adds.
+    The difference between M3 and M4 is what the simulation adds;
+M5  Gaussian-process calibration (Kennedy-O'Hagan discrepancy): the offset
+    between the parts' q95 and the upper end of the simulation envelope is a
+    Gaussian process over the alternative descriptors (geometry, blank-holder
+    force, lubrication rank) fitted on the calibration alternatives; the
+    verdict interval is its central CONF_LEVEL predictive interval. Unlike M2
+    the offset may vary with the descriptors, and the margin comes from the
+    model instead of a conformal rank.
 
 Requirements are placed at fixed distances d from each alternative's true q95,
 measured in production floors F of the characteristic (alternatives.py):
@@ -61,7 +68,10 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from scipy.stats import norm
 from sklearn.ensemble import HistGradientBoostingRegressor
+from sklearn.gaussian_process import GaussianProcessRegressor
+from sklearn.gaussian_process.kernels import RBF, ConstantKernel, WhiteKernel
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import RESULTS, centre, oil_to_friction  # noqa: E402
@@ -78,6 +88,8 @@ GBR = dict(max_depth=3, max_iter=200, learning_rate=0.08, random_state=0)
 M3_DRAWS = 500               # incoming conditions drawn for a new alternative
 SEED = 7
 N_JOBS = min(4, os.cpu_count() or 1)   # parallel characteristics for M3/M4 (results do not depend on it)
+LUB_RANK = {"coarse": 0.0, "medium": 1.0, "fine": 2.0}
+GP_RESTARTS = 3
 
 
 def transform(qc: str, v):
@@ -222,6 +234,34 @@ def m3_calibrated(calib: list[str], target: str, qc: str, use_sim: bool = True) 
     return q_target, off, marg
 
 
+# ── M5: Gaussian-process discrepancy on the alternatives ─────────────────────
+def descriptors(alts) -> np.ndarray:
+    rows = []
+    for a in alts:
+        geo, bhf, lub = a.split("/")
+        rows.append([1.0 if geo == "convex" else 0.0, float(bhf) / 100.0, LUB_RANK[lub]])
+    return np.array(rows)
+
+
+@lru_cache(maxsize=None)
+def m5_fit(calib: tuple[str, ...], qc: str):
+    """GP of the offset real_q95 - sim_env_hi over the calibration alternatives (cached per calibration set)."""
+    c = _CTX["t"][_CTX["t"]["qc"] == qc].set_index("alternative").loc[list(calib)]
+    X = descriptors(calib)
+    keep = X.std(axis=0) > 0                     # a descriptor constant over the calibration set carries nothing
+    kern = ConstantKernel(1.0, (1e-3, 1e3)) * RBF(np.ones(int(keep.sum())), (1e-1, 1e2)) + \
+        WhiteKernel(1e-2, (1e-6, 1e1))
+    gp = GaussianProcessRegressor(kern, normalize_y=True, n_restarts_optimizer=GP_RESTARTS, random_state=0)
+    return gp.fit(X[:, keep], (c["real_q95"] - c["sim_env_hi"]).to_numpy()), keep
+
+
+def m5_interval(calib: list[str], target: str, qc: str, env_hi: float) -> tuple[float, float]:
+    gp, keep = m5_fit(tuple(sorted(calib)), qc)
+    mu, sd = gp.predict(descriptors([target])[:, keep], return_std=True)
+    z = norm.ppf(0.5 + CONF_LEVEL / 2)
+    return env_hi + mu[0] - z * sd[0], env_hi + mu[0] + z * sd[0]
+
+
 # ── decisions and scoring ─────────────────────────────────────────────────────
 def verdicts(lo: float, hi: float, reqs: np.ndarray) -> np.ndarray:
     return np.where(hi <= reqs, "meets", np.where(lo > reqs, "fails", "uncertain"))
@@ -246,6 +286,7 @@ def decide(t: pd.DataFrame, calib: list[str], targets: list[str], qc: str, floor
             "M0": np.where(a["sim_nominal"] <= reqs, "meets", "fails"),
             "M1": np.where(a["sim_nominal"] + off1 <= reqs, "meets", "fails"),
             "M2": verdicts(a["sim_env_hi"] + off2 - marg2, a["sim_env_hi"] + off2 + marg2, reqs),
+            "M5": verdicts(*m5_interval(calib, target, qc, a["sim_env_hi"]), reqs),
         }
         if with_m3:
             q3, off3, marg3 = m3_calibrated(calib, target, qc)
