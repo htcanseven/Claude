@@ -32,7 +32,7 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import RESULTS  # noqa: E402
+from common import OIL_MAX_GM2, OIL_MIN_GM2, RESULTS, oil_to_friction  # noqa: E402
 from qc import SHARED, parts_qc, sims_qc  # noqa: E402
 
 THICKNESS = [0.98, 0.99]
@@ -74,6 +74,18 @@ def process_slope(s: pd.DataFrame, geo: str, qc: str, x: str) -> float:
     for _, h in g.groupby(others):
         h = h[[x, qc]].dropna()
         if len(h) >= 2:
+            xc = h[x] - h[x].mean()
+            num += float((xc * (h[qc] - h[qc].mean())).sum())
+            den += float((xc ** 2).sum())
+    return num / den if den else np.nan
+
+
+def within_slope(df: pd.DataFrame, qc: str, x: str) -> float:
+    """Pooled within-alternative slope of a QC on a measured covariate."""
+    num = den = 0.0
+    for _, h in df.groupby("alternative"):
+        h = h[[qc, x]].dropna()
+        if len(h) > 20:
             xc = h[x] - h[x].mean()
             num += float((xc * (h[qc] - h[qc].mean())).sum())
             den += float((xc ** 2).sum())
@@ -131,14 +143,13 @@ def main() -> None:
                           if h[qc].notna().sum() >= 2]
                     rs = float(np.mean(sl)) * scale if sl else np.nan
                 elif x == "sheet_metal_thickness":
-                    num = den = 0.0
-                    for _, h in pg.groupby("alternative"):
-                        h = h[[qc, "sheet_um"]].dropna()
-                        if len(h) > 20:
-                            xc = h["sheet_um"] - h["sheet_um"].mean()
-                            num += float((xc * (h[qc] - h[qc].mean())).sum())
-                            den += float((xc ** 2).sum())
-                    rs = (num / den) * 10.0 if den else np.nan
+                    rs = within_slope(pg, qc, "sheet_um") * 10.0          # per 10 um
+                elif x == "friction_coefficient":
+                    # friction equivalent of the measured oil film (rddac mapping), within each series;
+                    # only parts inside the unclamped oil range carry information
+                    h = pg[(pg["oil_gm2"] > OIL_MIN_GM2) & (pg["oil_gm2"] < OIL_MAX_GM2)].copy()
+                    h["fc_equiv"] = [oil_to_friction(o) for o in h["oil_gm2"]]
+                    rs = within_slope(h, qc, "fc_equiv") * scale
                 rows.append({"geometry": geo, "qc": qc, "factor": x, "unit": unit, "sim_sensitivity": ss,
                              "sim_sens_sd": np.nan, "real_sensitivity": rs, "floor": F,
                              "mrc_real_floor": F / abs(rs) if rs and np.isfinite(rs) else np.nan,
