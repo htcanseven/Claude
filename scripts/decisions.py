@@ -6,8 +6,10 @@ ADEQUATE_RATE of its 500 parts conform (y <= R; |y| <= R for two-sided QCs),
 i.e. when the 95th percentile q95 of the parts is within R.
 
 At the design stage only simulations exist. Four decision rules are scored
-with each alternative held out in turn (leave-one-alternative-out, LOAO), so
-that every alternative is judged as a new design:
+with each alternative held out in turn, so that every alternative is judged
+as a new design. Three calibrations: *within* the design family (the other
+alternatives of the same geometry), *pooled* (all other alternatives) and
+*transfer* (only the alternatives of the other geometry):
 
 M0  nominal simulation: meets if the simulation at nominal sheet thickness and
     friction is within R, otherwise fails;
@@ -28,9 +30,13 @@ M3  simulation corrected by machine learning: a gradient-boosting model learns,
     used); the predicted q95 gets an offset and a conformal margin from a
     nested leave-one-out over the calibration alternatives. Verdicts as M2.
 
-Requirements sweep each geometry's own range of q95 (a designer sets them per
-design). The transfer test calibrates on one geometry and applies the rules
-to the other.
+Requirements are placed at fixed distances d from each alternative's true q95,
+measured in production floors F of the characteristic (alternatives.py):
+R = q95 + d F, so the alternative is adequate exactly when d >= 0. The
+resolution of a rule is the smallest |d| beyond which at least
+RESOLUTION_TARGET of its verdicts are correct (an abstention is not correct):
+the decision-level counterpart of a limit of detection. The transfer test
+calibrates on one geometry and applies the rules to the other.
 
 Outputs: results/dec_alternatives.csv, dec_margins.csv, dec_verdicts.csv.gz,
 dec_scores.csv, summary_decisions.md
@@ -55,8 +61,9 @@ ADEQUATE_RATE = 0.95
 CONF_LEVEL = 0.90            # coverage of the split-conformal margin
 NOMINAL_THICKNESS = 0.98     # mm; the measured sheet thickness has its median at 0.985-0.99 mm
 NOMINAL_FRICTION = 0.10      # middle of the DDACS friction range
-N_REQ = 41                   # requirement levels per QC and geometry
-REQ_PAD = 0.25               # the sweep extends this fraction of the q95 span beyond it
+_POS = np.r_[np.arange(0.5, 10.01, 0.5), 12, 15, 20, 25, 30, 40, 50, 75, 100]
+D_GRID = np.r_[-_POS[::-1], 0.0, _POS]   # requirement distance from the true q95, in production floors
+RESOLUTION_TARGET = 0.95     # resolution: smallest |d| beyond which this share of verdicts is correct
 GBR = dict(max_depth=3, max_iter=200, learning_rate=0.08, random_state=0)
 M3_DRAWS = 500               # incoming conditions drawn for a new alternative
 SEED = 7
@@ -201,8 +208,8 @@ def verdicts(lo: float, hi: float, reqs: np.ndarray) -> np.ndarray:
     return np.where(hi <= reqs, "meets", np.where(lo > reqs, "fails", "uncertain"))
 
 
-def decide(t: pd.DataFrame, parts: pd.DataFrame, sims: pd.DataFrame, calib: list[str], targets: list[str],
-           qc: str, reqs_by_geo: dict, label: str, with_m3: bool) -> list[dict]:
+def decide(t: pd.DataFrame, calib: list[str], targets: list[str], qc: str, floors: dict, label: str,
+           with_m3: bool) -> list[dict]:
     c = t[t["alternative"].isin(calib) & (t["qc"] == qc)]
     off1 = np.median(c["real_q95"] - c["sim_nominal"])
     r2 = c["real_q95"] - c["sim_env_hi"]
@@ -214,8 +221,8 @@ def decide(t: pd.DataFrame, parts: pd.DataFrame, sims: pd.DataFrame, calib: list
         if s.empty:
             continue
         a = s.iloc[0]
-        reqs = reqs_by_geo[a["geometry"]]
-        adequate = a["real_q95"] <= reqs
+        F = floors[(qc, a["geometry"])]
+        reqs = a["real_q95"] + D_GRID * F
         rules = {
             "M0": np.where(a["sim_nominal"] <= reqs, "meets", "fails"),
             "M1": np.where(a["sim_nominal"] + off1 <= reqs, "meets", "fails"),
@@ -225,10 +232,23 @@ def decide(t: pd.DataFrame, parts: pd.DataFrame, sims: pd.DataFrame, calib: list
             q3, off3, marg3 = m3_calibrated(calib, target, qc)
             rules["M3"] = verdicts(q3 + off3 - marg3, q3 + off3 + marg3, reqs)
         for name, v in rules.items():
-            for i, (R, verdict, ok) in enumerate(zip(reqs, v, adequate)):
+            for d, R, verdict in zip(D_GRID, reqs, v):
                 out.append({"calibration": label, "alternative": target, "geometry": a["geometry"], "qc": qc,
-                            "method": name, "req_level": i, "R": R, "verdict": verdict, "adequate": bool(ok)})
+                            "method": name, "d": float(d), "R": float(R), "verdict": verdict,
+                            "adequate": bool(d >= 0)})
     return out
+
+
+def resolution(d: pd.DataFrame) -> float:
+    """Smallest |d| beyond which at least RESOLUTION_TARGET of the verdicts are correct."""
+    ok = ((d["verdict"] == "meets") & d["adequate"]) | ((d["verdict"] == "fails") & ~d["adequate"])
+    rate = ok.groupby(d["d"].abs()).mean().sort_index()
+    bad = rate[rate < RESOLUTION_TARGET]
+    if bad.empty:
+        return float(rate.index.min())
+    worst = bad.index.max()
+    above = rate.index[rate.index > worst]
+    return float(above.min()) if len(above) else np.inf
 
 
 def score(d: pd.DataFrame, by: list[str]) -> pd.DataFrame:
@@ -261,35 +281,49 @@ def main(with_m3: bool = True) -> None:
                    "n_alternatives": int(len(g))})
     pd.DataFrame(mg).to_csv(RESULTS / "dec_margins.csv", index=False)
 
+    fl = pd.read_csv(RESULTS / "alt_floor.csv").set_index("qc")
+    floors = {(qc, geo): float(fl.loc[qc, f"floor_{geo}"]) for qc in SHARED for geo in ("concave", "convex")}
     alts = sorted(t["alternative"].unique())
     records = []
+    geo_of = {a: a.split("/")[0] for a in alts}
     for qc in SHARED:
-        reqs_by_geo = {}
-        for geo, g in t[t["qc"] == qc].groupby("geometry"):
-            lo, hi = g["real_q95"].min(), g["real_q95"].max()
-            span = max(hi - lo, 1e-9)
-            reqs_by_geo[geo] = np.linspace(lo - REQ_PAD * span, hi + REQ_PAD * span, N_REQ)
         for a in alts:
-            records += decide(t, parts, sims, [b for b in alts if b != a], [a], qc, reqs_by_geo, "loao", with_m3)
+            # within the design family: the other alternatives of the same geometry
+            records += decide(t, [b for b in alts if b != a and geo_of[b] == geo_of[a]], [a], qc, floors,
+                              "within", with_m3)
+            # pooled: all other alternatives, both geometries
+            records += decide(t, [b for b in alts if b != a], [a], qc, floors, "pooled", with_m3)
         for src, dst in (("concave", "convex"), ("convex", "concave")):
             calib = [b for b in alts if b.startswith(src)]
             targets = [b for b in alts if b.startswith(dst)]
-            records += decide(t, parts, sims, calib, targets, qc, reqs_by_geo, f"{src}->{dst}", with_m3)
+            records += decide(t, calib, targets, qc, floors, f"{src}->{dst}", with_m3)
         print(f"{qc}: done", flush=True)
     d = pd.DataFrame(records)
     d.to_csv(RESULTS / "dec_verdicts.csv.gz", index=False)
     sc = score(d, ["calibration", "qc", "method"]).reset_index()
     sc.to_csv(RESULTS / "dec_scores.csv", index=False)
-    overall = score(d.assign(scope=np.where(d["calibration"] == "loao", "loao", "transfer")),
-                    ["scope", "method"]).reset_index()
+    d["scope"] = np.where(d["calibration"].str.contains("->"), "transfer", d["calibration"])
+    overall = score(d, ["scope", "method"]).reset_index()
+    res = []
+    for (scope, method), g in d.groupby(["scope", "method"]):
+        res.append({"scope": scope, "method": method, "qc": "all", "resolution_floors": resolution(g)})
+        for qc, h in g.groupby("qc"):
+            res.append({"scope": scope, "method": method, "qc": qc, "resolution_floors": resolution(h)})
+    res = pd.DataFrame(res)
+    res.to_csv(RESULTS / "dec_resolution.csv", index=False)
+    curve = score(d, ["scope", "method", "d"]).reset_index()
+    curve.to_csv(RESULTS / "dec_curve.csv", index=False)
 
     lines = ["# Design-stage decisions scored against production", "",
              f"Adequate: at least {ADEQUATE_RATE:.0%} of the parts conform. Conformal coverage {CONF_LEVEL:.0%}. "
              f"Nominal simulation: t = {NOMINAL_THICKNESS} mm, friction {NOMINAL_FRICTION}. "
-             f"{N_REQ} requirement levels per characteristic and geometry.", "",
+             f"Requirements at d = {D_GRID.min():g} to {D_GRID.max():g} production floors from the true q95.", "",
              "## Offset between parts and matched simulations (median over alternatives)", "",
              t.pivot_table(index="qc", columns="geometry", values="gap_matched", aggfunc="median").round(3).to_markdown(),
              "", "## Decision rates over all characteristics", "", overall.round(3).to_markdown(index=False), "",
+             "## Resolution (production floors)", "",
+             res.pivot_table(index="qc", columns=["scope", "method"], values="resolution_floors").round(1).to_markdown(),
+             "",
              "## Decision rates per characteristic", "", sc.round(3).to_markdown(index=False)]
     (RESULTS / "summary_decisions.md").write_text("\n".join(lines) + "\n")
     print("\n".join(lines))
