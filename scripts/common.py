@@ -151,6 +151,47 @@ def robust_sd(v: np.ndarray) -> float:
     return float(1.4826 * np.median(np.abs(v - np.median(v))))
 
 
+# Centre of a group of parts (batch, alternative, cell): the 10 % trimmed mean. It is robust to failed
+# scans like the median, but not locked to the pixel grid: edge positions on the scan are quantised
+# (0.077 mm in x, 0.158 mm in y), and the median of a batch of quantised values jumps between grid levels.
+TRIM = 0.10
+
+
+def centre(v) -> float:
+    from scipy.stats import trim_mean
+
+    v = np.asarray(v, dtype=float)
+    v = v[np.isfinite(v)]
+    return float(trim_mean(v, TRIM)) if v.size else float("nan")
+
+
+def _trim_mean_by(codes: np.ndarray, values: np.ndarray, n_groups: int) -> np.ndarray:
+    """Vectorised scipy.stats.trim_mean per group (int(TRIM * n) values cut from each end)."""
+    ok = np.isfinite(values) & (codes >= 0)
+    c, v = codes[ok], values[ok]
+    order = np.lexsort((v, c))
+    c, v = c[order], v[order]
+    n = np.bincount(c, minlength=n_groups)
+    start = np.concatenate([[0], np.cumsum(n)[:-1]])
+    rank = np.arange(c.size) - start[c]
+    cut = (TRIM * n).astype(int)
+    keep = (rank >= cut[c]) & (rank < (n - cut)[c])
+    s = np.bincount(c[keep], weights=v[keep], minlength=n_groups)
+    m = np.bincount(c[keep], minlength=n_groups)
+    return np.where(m > 0, s / np.maximum(m, 1), np.nan)
+
+
+def group_centres(df, keys, cols):
+    """Trimmed-mean centre of each column per group (index: the sorted group keys)."""
+    import pandas as pd
+
+    g = df.groupby(keys, sort=True)
+    codes = g.ngroup().to_numpy()
+    index = g.size().index
+    return pd.DataFrame({c: _trim_mean_by(codes, df[c].to_numpy(dtype=float), len(index)) for c in cols},
+                        index=index)
+
+
 def atomic_append_rows(path: Path, rows: list[dict], columns: list[str]) -> None:
     """Append rows to a CSV, writing the header when the file is new."""
     import csv

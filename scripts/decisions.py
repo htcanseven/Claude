@@ -32,11 +32,14 @@ M3  simulation corrected by machine learning: a gradient-boosting model learns,
 
 Requirements are placed at fixed distances d from each alternative's true q95,
 measured in production floors F of the characteristic (alternatives.py):
-R = q95 + d F, so the alternative is adequate exactly when d >= 0. The
-resolution of a rule is the smallest |d| beyond which at least
-RESOLUTION_TARGET of its verdicts are correct (an abstention is not correct):
-the decision-level counterpart of a limit of detection. The transfer test
-calibrates on one geometry and applies the rules to the other.
+R = q95 + d F, so the alternative is adequate exactly when d >= 0. Two
+distances summarise a rule: the decisive distance (resolution) is the
+smallest |d| beyond which at least RESOLUTION_TARGET of its verdicts are
+correct (an abstention is not correct), the decision-level counterpart of a
+limit of detection; the safe distance is the smallest |d| beyond which at
+most 1 - RESOLUTION_TARGET of its verdicts are wrong (an abstention is not
+wrong). For rules that always decide (M0, M1) the two coincide. The transfer
+test calibrates on one geometry and applies the rules to the other.
 
 Outputs: results/dec_alternatives.csv, dec_margins.csv, dec_verdicts.csv.gz,
 dec_scores.csv, summary_decisions.md
@@ -54,14 +57,14 @@ import pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import RESULTS, oil_to_friction  # noqa: E402
+from common import RESULTS, centre, oil_to_friction  # noqa: E402
 from qc import QCS, SHARED, parts_qc, sims_qc  # noqa: E402
 
 ADEQUATE_RATE = 0.95
 CONF_LEVEL = 0.90            # coverage of the split-conformal margin
 NOMINAL_THICKNESS = 0.98     # mm; the measured sheet thickness has its median at 0.985-0.99 mm
 NOMINAL_FRICTION = 0.10      # middle of the DDACS friction range
-_POS = np.r_[np.arange(0.5, 10.01, 0.5), 12, 15, 20, 25, 30, 40, 50, 75, 100]
+_POS = np.r_[np.arange(0.5, 10.01, 0.5), 12, 15, 20, 25, 30, 40, 50, 75, 100, 150, 200, 300, 500]
 D_GRID = np.r_[-_POS[::-1], 0.0, _POS]   # requirement distance from the true q95, in production floors
 RESOLUTION_TARGET = 0.95     # resolution: smallest |d| beyond which this share of verdicts is correct
 GBR = dict(max_depth=3, max_iter=200, learning_rate=0.08, random_state=0)
@@ -112,14 +115,14 @@ def alternative_table(parts: pd.DataFrame, sims: pd.DataFrame) -> pd.DataFrame:
                 continue
             rows.append({
                 "alternative": alt, "geometry": geo, "bhf_kN": bhf, "oil_type": g["oil_type"].iloc[0], "qc": qc,
-                "n_parts": int(y.size), "real_median": float(np.median(y)),
+                "n_parts": int(y.size), "real_centre": centre(y),
                 "real_q95": float(np.quantile(y, ADEQUATE_RATE)), "real_sd": float(np.std(y)),
                 "sim_nominal": float(transform(qc, nom[qc].to_numpy())[0]),
                 "sim_env_lo": float(e.min()), "sim_env_hi": float(e.max()),
-                "sim_matched_median": float(np.median(ms)) if ms.size else np.nan,
+                "sim_matched_centre": centre(ms) if ms.size else np.nan,
             })
     t = pd.DataFrame(rows)
-    t["gap_matched"] = t["real_median"] - t["sim_matched_median"]
+    t["gap_matched"] = t["real_centre"] - t["sim_matched_centre"]
     return t
 
 
@@ -239,16 +242,28 @@ def decide(t: pd.DataFrame, calib: list[str], targets: list[str], qc: str, floor
     return out
 
 
-def resolution(d: pd.DataFrame) -> float:
-    """Smallest |d| beyond which at least RESOLUTION_TARGET of the verdicts are correct."""
-    ok = ((d["verdict"] == "meets") & d["adequate"]) | ((d["verdict"] == "fails") & ~d["adequate"])
-    rate = ok.groupby(d["d"].abs()).mean().sort_index()
+def beyond(rate: pd.Series) -> float:
+    """Smallest |d| beyond which the share (indexed by |d|) stays at or above RESOLUTION_TARGET."""
+    rate = rate.sort_index()
     bad = rate[rate < RESOLUTION_TARGET]
     if bad.empty:
         return float(rate.index.min())
-    worst = bad.index.max()
-    above = rate.index[rate.index > worst]
+    above = rate.index[rate.index > bad.index.max()]
     return float(above.min()) if len(above) else np.inf
+
+
+def is_correct(d: pd.DataFrame) -> pd.Series:
+    return ((d["verdict"] == "meets") & d["adequate"]) | ((d["verdict"] == "fails") & ~d["adequate"])
+
+
+def resolution(d: pd.DataFrame) -> float:
+    """Decisive distance: smallest |d| beyond which at least RESOLUTION_TARGET of the verdicts are correct."""
+    return beyond(is_correct(d).groupby(d["d"].abs()).mean())
+
+
+def safe_distance(d: pd.DataFrame) -> float:
+    """Safe distance: smallest |d| beyond which at most 1 - RESOLUTION_TARGET of the verdicts are wrong."""
+    return beyond((is_correct(d) | (d["verdict"] == "uncertain")).groupby(d["d"].abs()).mean())
 
 
 def score(d: pd.DataFrame, by: list[str]) -> pd.DataFrame:
@@ -306,9 +321,11 @@ def main(with_m3: bool = True) -> None:
     overall = score(d, ["scope", "method"]).reset_index()
     res = []
     for (scope, method), g in d.groupby(["scope", "method"]):
-        res.append({"scope": scope, "method": method, "qc": "all", "resolution_floors": resolution(g)})
+        res.append({"scope": scope, "method": method, "qc": "all", "resolution_floors": resolution(g),
+                    "safe_floors": safe_distance(g)})
         for qc, h in g.groupby("qc"):
-            res.append({"scope": scope, "method": method, "qc": qc, "resolution_floors": resolution(h)})
+            res.append({"scope": scope, "method": method, "qc": qc, "resolution_floors": resolution(h),
+                        "safe_floors": safe_distance(h)})
     res = pd.DataFrame(res)
     res.to_csv(RESULTS / "dec_resolution.csv", index=False)
     curve = score(d, ["scope", "method", "d"]).reset_index()
@@ -321,8 +338,10 @@ def main(with_m3: bool = True) -> None:
              "## Offset between parts and matched simulations (median over alternatives)", "",
              t.pivot_table(index="qc", columns="geometry", values="gap_matched", aggfunc="median").round(3).to_markdown(),
              "", "## Decision rates over all characteristics", "", overall.round(3).to_markdown(index=False), "",
-             "## Resolution (production floors)", "",
+             "## Decisive distance (production floors): beyond it at least 95 % of verdicts are correct", "",
              res.pivot_table(index="qc", columns=["scope", "method"], values="resolution_floors").round(1).to_markdown(),
+             "", "## Safe distance (production floors): beyond it at most 5 % of verdicts are wrong", "",
+             res.pivot_table(index="qc", columns=["scope", "method"], values="safe_floors").round(1).to_markdown(),
              "",
              "## Decision rates per characteristic", "", sc.round(3).to_markdown(index=False)]
     (RESULTS / "summary_decisions.md").write_text("\n".join(lines) + "\n")

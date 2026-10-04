@@ -26,7 +26,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 logging.getLogger("fontTools").setLevel(logging.ERROR)   # cmr10 header timestamps
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import FIGURES, RESULTS  # noqa: E402
+from common import FIGURES, RESULTS, centre  # noqa: E402
 from qc import SHARED, parts_qc  # noqa: E402
 
 WIDTH_IN = 5.15
@@ -57,9 +57,9 @@ def style() -> None:
     })
 
 
-def subcaption(ax, text: str, xlabel: str = "") -> None:
-    """Sub-caption appended as the last line of the x-label, as in the first paper."""
-    ax.set_xlabel((xlabel + "\n" if xlabel else "") + text, linespacing=1.6)
+def subcaption(ax, letter: str, text: str, xlabel: str = "") -> None:
+    """Sub-caption with a bold panel letter, appended as the last line of the x-label (as in the first paper)."""
+    ax.set_xlabel((xlabel + "\n" if xlabel else "") + rf"$\mathbf{{({letter})}}$ {text}", linespacing=1.6)
 
 
 def save(fig, name: str) -> None:
@@ -70,7 +70,7 @@ def save(fig, name: str) -> None:
 
 
 def fig_alternatives(src: Path) -> None:
-    """Median and 5-95 % range of each characteristic per alternative, with the production floor."""
+    """Centre (10 % trimmed mean) and 5-95 % range of each characteristic per alternative, with the floor."""
     q = parts_qc(pd.read_csv(src / "features_rddac.csv", low_memory=False))
     fl = pd.read_csv(src / "alt_floor.csv").set_index("qc")
     rows = SHARED
@@ -85,9 +85,9 @@ def fig_alternatives(src: Path) -> None:
                     if v.empty:
                         continue
                     x = k + (m - 1) * 0.22
-                    lo, med, hi = np.quantile(v, [0.05, 0.5, 0.95])
+                    lo, hi = np.quantile(v, [0.05, 0.95])
                     ax.plot([x, x], [lo, hi], color=GEO_COLOUR[geo], lw=1.0)
-                    ax.plot(x, med, LUB_MARKER[lub], color=GEO_COLOUR[geo], ms=4.5, mfc="white", mew=1.1)
+                    ax.plot(x, centre(v), LUB_MARKER[lub], color=GEO_COLOUR[geo], ms=4.5, mfc="white", mew=1.1)
             F = fl.loc[qc, f"floor_{geo}"]
             y0 = ax.get_ylim()[0]
             ax.plot([2.45, 2.45], [y0 + 0.05 * np.ptp(ax.get_ylim()), y0 + 0.05 * np.ptp(ax.get_ylim()) + F],
@@ -99,7 +99,7 @@ def fig_alternatives(src: Path) -> None:
             if j == 0:
                 ax.set_ylabel(ROW_LABEL[qc], fontsize=9)
             if i == len(rows) - 1:
-                subcaption(ax, f"({'ab'[j]}) {geo}", "blank-holder force (kN)")
+                subcaption(ax, "ab"[j], geo, "blank-holder force (kN)")
     handles = [plt.Line2D([], [], ls="", label="lubrication:")]
     handles += [plt.Line2D([], [], ls="", marker=LUB_MARKER[k], mfc="white", mec=MUTED, label=k) for k in LUB_MARKER]
     handles.append(plt.Line2D([], [], color=INK, lw=2.2, label="floor"))
@@ -131,7 +131,7 @@ def fig_sensitivity(src: Path) -> None:
         ax.set_xlim(0.02, 2000)
         ax.set_yticks(range(len(SHARED)), ylabels)
         ax.invert_yaxis()
-        subcaption(ax, f"({letter}) {name}", "ratio")
+        subcaption(ax, letter, name, "ratio")
     handles = [plt.Line2D([], [], ls="", marker=GEO_MARKER[g], color=GEO_COLOUR[g], label=g) for g in GEO_COLOUR]
     handles.append(plt.Line2D([], [], ls="", marker="o", mfc="white", mec=MUTED, label="opposite sign"))
     fig.legend(handles=handles, loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.55, 1.04))
@@ -158,8 +158,9 @@ def fig_decisions(src: Path, scope: str = "within") -> None:
         ax.set_xlim(x.min(), x.max())
         ax.set_ylim(0, 1)
         ax.set_xticks([-100, -10, 0, 10, 100], ["$-100$", "", "0", "", "100"], fontsize=9)
+        ax.set_xticks([-500, -50, -5, 5, 50, 500], minor=True)
         ax.axvline(0, color=INK, lw=0.6)
-        subcaption(ax, f"({letter}) {names[m]}", "distance $d$ (floors)")
+        subcaption(ax, letter, names[m], "distance $d$ (floors)")
     for ax in axs[:, 0]:
         ax.set_ylabel("share of verdicts")
     labels = {"correct": "correct", "abstain": "uncertain", "false_reject": "false reject", "false_accept": "false accept"}
@@ -168,6 +169,27 @@ def fig_decisions(src: Path, scope: str = "within") -> None:
     fig.legend(handles=handles, loc="upper center", ncol=4, frameon=False, bbox_to_anchor=(0.5, 1.0 + 0.02 / nrow))
     fig.tight_layout(rect=(0, 0, 1, top - 0.04 / nrow), w_pad=0.8, h_pad=0.6)
     save(fig, f"F3_decisions_{scope}")
+
+
+def fig_budget(src: Path) -> None:
+    """Safe and decisive distances against the number of calibration alternatives (within geometry)."""
+    r = pd.read_csv(src / "budget_resolution.csv")
+    r = r[r["qc"] == "all"].sort_values("k")
+    m1, m2 = r[r["method"] == "M1"], r[r["method"] == "M2"]
+    fig, ax = plt.subplots(figsize=(WIDTH_IN, 2.5))
+    ax.plot(m1["k"], m1["resolution_floors"], "-s", color=MUTED, ms=4.5, mfc="white", mew=1.1,
+            label="M1, safe = decisive")
+    ax.plot(m2["k"], m2["resolution_floors"], "-o", color=INK, ms=4.5, label="M2, decisive")
+    ax.plot(m2["k"], m2["safe_floors"], "--o", color=INK, ms=4.5, mfc="white", mew=1.1, label="M2, safe")
+    last = int(r["k"].max())
+    fig.legend(loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.5, 1.02))
+    ax.set_xlim(0.7, last + 0.3)
+    ax.set_ylim(0, None)
+    ax.set_xticks(range(1, last + 1))
+    ax.set_xlabel("calibration alternatives $k$ (same geometry)")
+    ax.set_ylabel("distance $|d|$ (floors)")
+    fig.tight_layout(rect=(0, 0, 1, 0.9))
+    save(fig, "F4_budget")
 
 
 def main() -> None:
@@ -180,6 +202,8 @@ def main() -> None:
     fig_sensitivity(src)
     for scope in ("within", "pooled", "transfer"):
         fig_decisions(src, scope)
+    if (src / "budget_resolution.csv").exists():
+        fig_budget(src)
     print(f"figures written to {FIGURES}")
 
 

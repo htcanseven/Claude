@@ -32,7 +32,8 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import OIL_MAX_GM2, OIL_MIN_GM2, RESULTS, oil_to_friction  # noqa: E402
+from alternatives import within_slope  # noqa: E402
+from common import OIL_MAX_GM2, OIL_MIN_GM2, RESULTS, group_centres, oil_to_friction  # noqa: E402
 from qc import SHARED, parts_qc, sims_qc  # noqa: E402
 
 THICKNESS = [0.98, 0.99]
@@ -80,18 +81,6 @@ def process_slope(s: pd.DataFrame, geo: str, qc: str, x: str) -> float:
     return num / den if den else np.nan
 
 
-def within_slope(df: pd.DataFrame, qc: str, x: str) -> float:
-    """Pooled within-alternative slope of a QC on a measured covariate."""
-    num = den = 0.0
-    for _, h in df.groupby("alternative"):
-        h = h[[qc, x]].dropna()
-        if len(h) > 20:
-            xc = h[x] - h[x].mean()
-            num += float((xc * (h[qc] - h[qc].mean())).sum())
-            den += float((xc ** 2).sum())
-    return num / den if den else np.nan
-
-
 def surrogate_loo(s: pd.DataFrame, geo: str, qc: str) -> dict:
     from sklearn.gaussian_process import GaussianProcessRegressor
     from sklearn.gaussian_process.kernels import RBF, ConstantKernel, WhiteKernel
@@ -122,7 +111,7 @@ def main() -> None:
     rows, surr = [], []
     for geo in GEOM_POINTS:
         pg = parts[parts["geometry"] == geo]
-        cell = pg.groupby(["bhf_kN", "oil_type"])[SHARED].median().reset_index()
+        cell = group_centres(pg, ["bhf_kN", "oil_type"], SHARED).reset_index()
         for qc in SHARED:
             F = float(floor.loc[qc, f"floor_{geo}"]) if f"floor_{geo}" in floor.columns else float(floor.loc[qc, "floor"])
             E = float(margin.loc[qc]) if margin is not None and qc in margin.index else np.nan

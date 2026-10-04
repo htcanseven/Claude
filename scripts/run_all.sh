@@ -14,7 +14,9 @@ cd "$(dirname "$0")"
 [ -f ../results/features_ddacs_corners.csv ] || python3 features_ddacs.py --set corners --workers 2
 
 python3 alternatives.py      # production floor, effect-to-scatter, minimum resolvable change
+python3 sensitivity.py       # floor under other batch sizes, quantiles and batch centres; drift share
 python3 decisions.py         # design-stage decisions scored against production
+python3 budget.py            # decisions against the number of calibration alternatives
 python3 design_space.py      # DDACS corners: sensitivities, surrogate accuracy
 python3 inline.py            # in-line verifiability from the force record
 python3 figs.py              # figures in the paper's style (results/figures)

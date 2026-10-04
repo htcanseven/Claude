@@ -9,7 +9,8 @@ from the alternative's typical value. For every QC:
 * a gradient-boosting regressor (depth 3, 200 iterations, learning rate 0.08,
   random state 0) predicts y out of fold, with folds formed by production
   batches (GroupKFold over alternative x batch), so neighbouring parts never
-  sit on both sides of a split;
+  sit on both sides of a split; a ridge regression (RIDGE_ALPHA) on the same
+  folds is the linear comparator;
 * the limit of detection LOD = (z_{1-a} + z_{1-b}) * s_e with a = b = 0.05,
   s_e the robust SD of the out-of-fold error: the smallest deviation flagged
   with 95 % probability at a 5 % false-alarm rate;
@@ -28,6 +29,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import norm
 from sklearn.ensemble import HistGradientBoostingRegressor
+from sklearn.linear_model import Ridge
 from sklearn.model_selection import GroupKFold
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -38,6 +40,7 @@ from qc import QCS, SHARED, parts_qc  # noqa: E402
 FEATURES = ["F10_kN", "F20_kN", "F25_kN", "W_draw_J", "F_peak_kN", "imbalance20", "punch_temp_C", "sheet_um",
             "oil_gm2"]
 GBR = dict(max_depth=3, max_iter=200, learning_rate=0.08, random_state=0)
+RIDGE_ALPHA = 1.0
 N_FOLDS = 5
 ALPHA = BETA = 0.05
 
@@ -57,12 +60,13 @@ def main() -> None:
         y = q[qc] - q.groupby("alternative")[qc].transform("median")
         m = y.notna() & X_all.notna().all(axis=1)
         X, yv, grp = X_all[m].to_numpy(), y[m].to_numpy(), q.loc[m, "group"].to_numpy()
-        pred = np.full(yv.size, np.nan)
+        pred, pred_lin = np.full(yv.size, np.nan), np.full(yv.size, np.nan)
         n_splits = min(N_FOLDS, len(np.unique(grp)))
         if n_splits < 2:
             continue
         for tr, te in GroupKFold(n_splits).split(X, yv, grp):
             pred[te] = HistGradientBoostingRegressor(**GBR).fit(X[tr], yv[tr]).predict(X[te])
+            pred_lin[te] = Ridge(alpha=RIDGE_ALPHA).fit(X[tr], yv[tr]).predict(X[te])
         err = yv - pred
         s_e, s_y = robust_sd(err), robust_sd(yv)
         lod = (norm.ppf(1 - ALPHA) + norm.ppf(1 - BETA)) * s_e
@@ -72,14 +76,18 @@ def main() -> None:
         out_tol = yv > thr
         alarm_thr = np.quantile(pred[~out_tol], 1 - ALPHA)
         recall = float(np.mean(pred[out_tol] > alarm_thr)) if out_tol.any() else np.nan
-        r2 = 1 - np.sum(err ** 2) / np.sum((yv - yv.mean()) ** 2)
+        ss = np.sum((yv - yv.mean()) ** 2)
+        r2 = 1 - np.sum(err ** 2) / ss
+        r2_lin = 1 - np.sum((yv - pred_lin) ** 2) / ss
         rows.append({"qc": qc, "label": QCS[qc][0], "unit": QCS[qc][1], "n": int(yv.size), "r2_oof": float(r2),
+                     "r2_oof_linear": float(r2_lin),
                      "sd_within": s_y, "sd_error": s_e, "lod": float(lod), "lod_over_sd": float(lod / s_y),
                      "recall_top5_at_fa5": recall})
     t = pd.DataFrame(rows)
     t.to_csv(RESULTS / "inline_lod.csv", index=False)
     lines = ["# In-line verifiability from the force record", "",
-             f"Gradient boosting {GBR}; {N_FOLDS}-fold GroupKFold over production batches of {BATCH}.", "",
+             f"Gradient boosting {GBR}; ridge alpha {RIDGE_ALPHA}; {N_FOLDS}-fold GroupKFold over production "
+             f"batches of {BATCH}.", "",
              t.round(4).to_markdown(index=False)]
     (RESULTS / "summary_inline.md").write_text("\n".join(lines) + "\n")
     print("\n".join(lines))

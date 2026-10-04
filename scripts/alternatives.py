@@ -2,12 +2,14 @@
 
 Each of the 18 alternatives (geometry x blank-holder force x lubrication) was
 run as one series of 500 consecutive parts. The series is cut into batches of
-BATCH consecutive parts. For every quality characteristic (QC):
+BATCH consecutive parts; a batch with fewer than MIN_FILL * BATCH valid values
+is dropped. Centres of batches and alternatives are 10 % trimmed means
+(common.centre). For every quality characteristic (QC):
 
 * the production floor F is the ALPHA-quantile of |m_i - m_j| over all pairs
-  of batch medians within the same alternative, pooled over alternatives. It
+  of batch centres within the same alternative, pooled over alternatives. It
   is what drift and scatter alone produce between two batches of one design;
-* the effect between two alternatives is the difference of their medians; the
+* the effect between two alternatives is the difference of their centres; the
   effect-to-scatter ratio ESR = |effect| / F. ESR >= 1 means the difference is
   larger than what the same design shows between two of its own batches;
 * the minimum resolvable change of a continuous factor (blank-holder force;
@@ -30,10 +32,11 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import RESULTS  # noqa: E402
+from common import RESULTS, group_centres  # noqa: E402
 from qc import QCS, parts_qc  # noqa: E402
 
 BATCH = 50
+MIN_FILL = 0.8
 ALPHA = 0.95
 N_BOOT = 2000
 SEED = 1
@@ -44,24 +47,27 @@ FACTORS = {  # contrast family -> (factor column, ordered levels)
 }
 
 
-def batches(q: pd.DataFrame) -> pd.DataFrame:
+def batches(q: pd.DataFrame, size: int = BATCH) -> pd.DataFrame:
     q = q.copy()
-    q["batch"] = (q.groupby("alternative").cumcount() // BATCH).astype(int)
+    q["batch"] = (q.groupby("alternative").cumcount() // size).astype(int)
     return q
 
 
-def batch_medians(q: pd.DataFrame, qcs: list[str]) -> pd.DataFrame:
-    return q.groupby(["alternative", "batch"])[qcs].median()
+def batch_centres(q: pd.DataFrame, qcs: list[str], size: int = BATCH, stat: str = "trim") -> pd.DataFrame:
+    """Centre of each batch and QC; NaN where the batch holds fewer than MIN_FILL * size valid values."""
+    g = q.groupby(["alternative", "batch"])[qcs]
+    c = g.median() if stat == "median" else group_centres(q, ["alternative", "batch"], qcs)
+    return c.where(g.count() >= MIN_FILL * size)
 
 
-def floor_from(bm: pd.DataFrame, qc: str) -> float:
+def floor_from(bm: pd.DataFrame, qc: str, alpha: float = ALPHA) -> float:
     diffs = []
     for _, g in bm[qc].groupby(level=0):
         v = g.dropna().to_numpy()
         if v.size >= 2:
             i, j = np.triu_indices(v.size, 1)
             diffs.append(np.abs(v[i] - v[j]))
-    return float(np.quantile(np.concatenate(diffs), ALPHA)) if diffs else np.nan
+    return float(np.quantile(np.concatenate(diffs), alpha)) if diffs else np.nan
 
 
 def contrasts(alts: list[str]) -> list[tuple[str, str, str]]:
@@ -76,21 +82,22 @@ def contrasts(alts: list[str]) -> list[tuple[str, str, str]]:
     return out
 
 
-def within_slope(q: pd.DataFrame, qc: str, x: str) -> float:
-    """Pooled within-alternative slope of a QC on a measured covariate."""
-    num = den = 0.0
-    for _, g in q.groupby("alternative"):
-        g = g[[qc, x]].dropna()
-        if len(g) < 20:
-            continue
-        xc = g[x] - g[x].mean()
-        num += float((xc * (g[qc] - g[qc].mean())).sum())
-        den += float((xc ** 2).sum())
-    return num / den if den > 0 else np.nan
+def within_slope(q: pd.DataFrame, qc: str, x: str, min_n: int = 20) -> float:
+    """Pooled within-alternative slope of a QC on a measured covariate (alternatives with >= min_n parts)."""
+    y, xv = q[qc].to_numpy(dtype=float), q[x].to_numpy(dtype=float)
+    ok = np.isfinite(y) & np.isfinite(xv)
+    codes = pd.factorize(q["alternative"])[0][ok]
+    y, xv = y[ok], xv[ok]
+    n = np.bincount(codes)
+    use = (n >= min_n)[codes]
+    xc = xv - (np.bincount(codes, xv) / np.maximum(n, 1))[codes]
+    yc = y - (np.bincount(codes, y) / np.maximum(n, 1))[codes]
+    den = float(np.sum(xc[use] ** 2))
+    return float(np.sum(xc[use] * yc[use])) / den if den > 0 else np.nan
 
 
 def bhf_slope(cell_med: pd.DataFrame, qc: str) -> float:
-    """Pooled slope of the cell medians on blank-holder force (per kN) within geometry x lubrication."""
+    """Pooled slope of the cell centres on blank-holder force (per kN) within geometry x lubrication."""
     slopes = []
     for _, g in cell_med.groupby(["geometry", "oil_type"]):
         g = g[["bhf_kN", qc]].dropna()
@@ -99,16 +106,17 @@ def bhf_slope(cell_med: pd.DataFrame, qc: str) -> float:
     return float(np.mean(slopes)) if slopes else np.nan
 
 
-def analyse(q: pd.DataFrame, qcs: list[str]) -> dict:
-    bm = batch_medians(q, qcs)
-    floors = {c: floor_from(bm, c) for c in qcs}
-    med = q.groupby("alternative")[qcs].median()
+def analyse(q: pd.DataFrame, qcs: list[str], alpha: float = ALPHA, size: int = BATCH, stat: str = "trim") -> dict:
+    bm = batch_centres(q, qcs, size, stat)
+    floors = {c: floor_from(bm, c, alpha) for c in qcs}
+    med = q.groupby("alternative")[qcs].median() if stat == "median" else group_centres(q, "alternative", qcs)
     effects = []
     for fam, a, b in contrasts(sorted(med.index)):
         for c in qcs:
             e = med.loc[b, c] - med.loc[a, c]
             effects.append({"family": fam, "a": a, "b": b, "qc": c, "effect": e, "esr": abs(e) / floors[c]})
-    cell = q.groupby(["alternative", "geometry", "bhf_kN", "oil_type"])[qcs].median().reset_index()
+    keys = ["alternative", "geometry", "bhf_kN", "oil_type"]
+    cell = (q.groupby(keys)[qcs].median() if stat == "median" else group_centres(q, keys, qcs)).reset_index()
     mrc = []
     for c in qcs:
         s_bhf = bhf_slope(cell, c)
@@ -152,7 +160,7 @@ def main() -> None:
     boot_fl = np.array([[r["floors"][c] for c in qcs] for r in reps])
     fl["floor_lo"], fl["floor_hi"] = np.nanpercentile(boot_fl, 2.5, axis=0), np.nanpercentile(boot_fl, 97.5, axis=0)
     for geo in ["concave", "convex"]:
-        sub = batch_medians(q[q["geometry"] == geo], qcs)
+        sub = batch_centres(q[q["geometry"] == geo], qcs)
         fl[f"floor_{geo}"] = [floor_from(sub, c) for c in qcs]
     fl["sd_within"] = [q.groupby("alternative")[c].std().median() for c in qcs]
     fl.to_csv(RESULTS / "alt_floor.csv", index=False)
@@ -169,7 +177,8 @@ def main() -> None:
     mrc.to_csv(RESULTS / "alt_mrc.csv", index=False)
 
     lines = ["# Production floor and effects between alternatives", "",
-             f"Parts per alternative: {n_parts.min()}-{n_parts.max()}; batch size {BATCH}; alpha {ALPHA}; "
+             f"Parts per alternative: {n_parts.min()}-{n_parts.max()}; batch size {BATCH} (batches below "
+             f"{MIN_FILL:.0%} valid dropped); centres: 10 % trimmed means; alpha {ALPHA}; "
              f"bootstrap {n_boot} (seed {SEED}).", "", "## Floor per characteristic", "",
              fl.round(4).to_markdown(index=False), "", "## Share of single-factor contrasts with ESR >= 1", ""]
     share = eff.assign(res=eff["esr"] >= 1).groupby(["qc", "family"])["res"].mean().unstack().round(2)

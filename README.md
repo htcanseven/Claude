@@ -22,7 +22,9 @@ requests and keep only the extracted features. Raw data are never committed.
 | `scripts/features_ddacs.py` | `results/features_ddacs_rddac.csv`, `results/features_ddacs_corners.csv`: the same characteristics from simulations |
 | `scripts/qc.py` | the single definition of each quality characteristic |
 | `scripts/alternatives.py` | production floor, effect-to-scatter ratios between alternatives, minimum resolvable change |
+| `scripts/sensitivity.py` | the floor under other batch sizes, quantiles and batch centres; scatter versus drift |
 | `scripts/decisions.py` | design-stage decisions (meets / fails / uncertain) scored against production, leave-one-alternative-out and across geometries |
+| `scripts/budget.py` | the same decisions against the number of produced alternatives used for calibration |
 | `scripts/design_space.py` | sensitivities over the DDACS design corners; surrogate accuracy against the production floor |
 | `scripts/inline.py` | in-line verifiability of each characteristic from the force record |
 | `scripts/figs.py` | `results/figures/`: the paper's figures (PDF and PNG) |
