@@ -1,0 +1,17 @@
+# Raw data and large caches (re-fetched from DaRUS by the scripts)
+data/
+*.h5
+*.zip
+results/cache/
+# Python
+__pycache__/
+*.pyc
+# LaTeX build artefacts
+paper/*.aux
+paper/*.log
+paper/*.bbl
+paper/*.blg
+paper/*.out
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.synctex.gz
