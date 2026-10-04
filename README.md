@@ -23,13 +23,15 @@ requests and keep only the extracted features. Raw data are never committed.
 | `scripts/qc.py` | the single definition of each quality characteristic |
 | `scripts/alternatives.py` | production floor, effect-to-scatter ratios between alternatives, minimum resolvable change |
 | `scripts/sensitivity.py` | the floor under other batch sizes, quantiles and batch centres; scatter versus drift |
-| `scripts/decisions.py` | design-stage decisions (meets / fails / uncertain) scored against production, leave-one-alternative-out and across geometries |
+| `scripts/decisions.py` | design-stage decisions (meets / fails / uncertain) from six rules (nominal simulation, bias correction, conformal envelope, simulation + ML, ML only, Gaussian-process calibration) scored against production, leave-one-alternative-out and across geometries |
 | `scripts/budget.py` | the same decisions against the number of produced alternatives used for calibration |
 | `scripts/design_space.py` | sensitivities over the DDACS design corners; surrogate accuracy against the production floor |
 | `scripts/inline.py` | in-line verifiability of each characteristic from the force record |
 | `scripts/figs.py` | `results/figures/`: the paper's figures (PDF and PNG) |
 
-`bash scripts/run_all.sh` reproduces every analysis from the cached feature tables (and extracts them first
-if they are missing). Constants live in `scripts/common.py` and at the top of each script; seeds are fixed.
+The results, with every number traced to its CSV, are summarised in [`results/findings.md`](results/findings.md).
+
+`bash scripts/run_all.sh` reproduces every analysis from the cached feature tables in about 20 minutes on
+four cores (and extracts them first if they are missing, which takes hours). Constants live in `scripts/common.py` and at the top of each script; seeds are fixed.
 
 Requirements: Python 3.11 with the packages in `requirements.txt`.
