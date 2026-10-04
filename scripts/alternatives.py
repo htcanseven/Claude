@@ -18,6 +18,8 @@ is dropped. Centres of batches and alternatives are 10 % trimmed means
 
 Uncertainty: batches are resampled within alternatives (N_BOOT, seed SEED);
 the floor, effects, ratios and sensitivities are recomputed on each replicate.
+Pairs of two copies of one batch are left out of a replicate's floor: their
+difference is zero by construction and would pull the floor towards zero.
 
 Outputs: results/alt_floor.csv, alt_effects.csv, alt_mrc.csv, summary_alternatives.md
 """
@@ -60,12 +62,17 @@ def batch_centres(q: pd.DataFrame, qcs: list[str], size: int = BATCH, stat: str 
     return c.where(g.count() >= MIN_FILL * size)
 
 
-def floor_from(bm: pd.DataFrame, qc: str, alpha: float = ALPHA) -> float:
+def floor_from(bm: pd.DataFrame, qc: str, alpha: float = ALPHA, origin: pd.Series | None = None) -> float:
+    """ALPHA-quantile of |m_i - m_j| over batch pairs within alternatives; origin (bootstrap) drops copy pairs."""
     diffs = []
     for _, g in bm[qc].groupby(level=0):
-        v = g.dropna().to_numpy()
+        g = g.dropna()
+        v = g.to_numpy()
         if v.size >= 2:
             i, j = np.triu_indices(v.size, 1)
+            if origin is not None:
+                o = origin.reindex(g.index).to_numpy()
+                i, j = i[o[i] != o[j]], j[o[i] != o[j]]
             diffs.append(np.abs(v[i] - v[j]))
     return float(np.quantile(np.concatenate(diffs), alpha)) if diffs else np.nan
 
@@ -108,7 +115,8 @@ def bhf_slope(cell_med: pd.DataFrame, qc: str) -> float:
 
 def analyse(q: pd.DataFrame, qcs: list[str], alpha: float = ALPHA, size: int = BATCH, stat: str = "trim") -> dict:
     bm = batch_centres(q, qcs, size, stat)
-    floors = {c: floor_from(bm, c, alpha) for c in qcs}
+    origin = q.groupby(["alternative", "batch"])["orig_batch"].first() if "orig_batch" in q else None
+    floors = {c: floor_from(bm, c, alpha, origin) for c in qcs}
     med = q.groupby("alternative")[qcs].median() if stat == "median" else group_centres(q, "alternative", qcs)
     effects = []
     for fam, a, b in contrasts(sorted(med.index)):
@@ -138,7 +146,7 @@ def bootstrap(q: pd.DataFrame, qcs: list[str], n_boot: int, seed: int) -> list[d
         for a in alts:
             for new_b, b in enumerate(rng.integers(0, nb[a], nb[a])):
                 g = groups[(a, int(b))].copy()
-                g["batch"] = new_b
+                g["batch"], g["orig_batch"] = new_b, int(b)
                 pieces.append(g)
         reps.append(analyse(pd.concat(pieces, ignore_index=True), qcs))
     return reps
