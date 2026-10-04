@@ -180,20 +180,25 @@ def fig_budget(src: Path) -> None:
     """Safe and decisive distances against the number of calibration alternatives (within geometry)."""
     r = pd.read_csv(src / "budget_resolution.csv")
     r = r[r["qc"] == "all"].sort_values("k")
-    m1, m2 = r[r["method"] == "M1"], r[r["method"] == "M2"]
-    fig, ax = plt.subplots(figsize=(WIDTH_IN, 2.5))
+    fig, ax = plt.subplots(figsize=(WIDTH_IN, 2.7))
+    m1 = r[r["method"] == "M1"]
     ax.plot(m1["k"], m1["resolution_floors"], "-s", color=MUTED, ms=4.5, mfc="white", mew=1.1,
             label="M1, safe = decisive")
-    ax.plot(m2["k"], m2["resolution_floors"], "-o", color=INK, ms=4.5, label="M2, decisive")
-    ax.plot(m2["k"], m2["safe_floors"], "--o", color=INK, ms=4.5, mfc="white", mew=1.1, label="M2, safe")
+    for m, marker in (("M2", "o"), ("M5", "^")):
+        g = r[r["method"] == m]
+        if g.empty:
+            continue
+        ax.plot(g["k"], g["resolution_floors"], "-" + marker, color=INK, ms=4.5, label=f"{m}, decisive")
+        ax.plot(g["k"], g["safe_floors"], "--" + marker, color=INK, ms=4.5, mfc="white", mew=1.1,
+                label=f"{m}, safe")
     last = int(r["k"].max())
-    fig.legend(loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.5, 1.02))
+    fig.legend(loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.5, 1.04))
     ax.set_xlim(0.7, last + 0.3)
     ax.set_ylim(0, None)
     ax.set_xticks(range(1, last + 1))
     ax.set_xlabel("calibration alternatives $k$ (same geometry)")
     ax.set_ylabel("distance $|d|$ (floors)")
-    fig.tight_layout(rect=(0, 0, 1, 0.9))
+    fig.tight_layout(rect=(0, 0, 1, 0.84))
     save(fig, "F4_budget")
 
 

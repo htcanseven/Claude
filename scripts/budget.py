@@ -1,7 +1,8 @@
 """Calibration budget: how many produced alternatives the simulation needs before its decisions resolve.
 
-decisions.py calibrates the bias-corrected rule (M1) and the envelope rule with
-a conformal margin (M2) on all other alternatives of the same geometry (eight).
+decisions.py calibrates the bias-corrected rule (M1), the envelope rule with
+a conformal margin (M2) and the Gaussian-process calibration (M5, from k = 2)
+on all other alternatives of the same geometry (eight).
 Here the calibration set is every subset of size k = 1..8 of those alternatives
 (all 255 subsets per held-out alternative), and the verdicts at each
 requirement distance d are scored as in decisions.py; subsets of one size have
@@ -17,14 +18,16 @@ from __future__ import annotations
 
 import itertools
 import sys
+import warnings
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import decisions  # noqa: E402
 from common import RESULTS  # noqa: E402
-from decisions import CONF_LEVEL, D_GRID, RESOLUTION_TARGET, beyond, conformal_margin  # noqa: E402
+from decisions import CONF_LEVEL, D_GRID, RESOLUTION_TARGET, beyond, conformal_margin, m5_interval  # noqa: E402
 from qc import SHARED  # noqa: E402
 
 OUTCOMES = ["correct", "false_accept", "false_reject", "abstain"]
@@ -37,10 +40,10 @@ def outcome_counts(verdict: np.ndarray, adequate: np.ndarray) -> np.ndarray:
                       verdict == "uncertain"]).astype(float)
 
 
-
-
 def main() -> None:
+    warnings.filterwarnings("ignore", module="sklearn")      # GP hyperparameters at their bounds for small k
     t = pd.read_csv(RESULTS / "dec_alternatives.csv")
+    decisions._CTX["t"] = t                                   # M5 fits are cached per calibration set
     fl = pd.read_csv(RESULTS / "alt_floor.csv").set_index("qc")
     adequate = D_GRID >= 0
     acc = {}                                   # (k, method, qc) -> [sum of outcome rows, n]
@@ -61,7 +64,12 @@ def main() -> None:
                         m1 = np.where(g.loc[a, "sim_nominal"] + off1 <= reqs, "meets", "fails")
                         lo, hi = g.loc[a, "sim_env_hi"] + off2 - marg2, g.loc[a, "sim_env_hi"] + off2 + marg2
                         m2 = np.where(hi <= reqs, "meets", np.where(lo > reqs, "fails", "uncertain"))
-                        for name, v in (("M1", m1), ("M2", m2)):
+                        rules = [("M1", m1), ("M2", m2)]
+                        if k >= 2:
+                            lo5, hi5 = m5_interval(list(o.index[sub]), a, qc, g.loc[a, "sim_env_hi"])
+                            rules.append(("M5", np.where(hi5 <= reqs, "meets",
+                                                         np.where(lo5 > reqs, "fails", "uncertain"))))
+                        for name, v in rules:
                             key = (k, name, qc)
                             s, n = acc.get(key, (0.0, 0))
                             acc[key] = (s + outcome_counts(v, adequate), n + 1)
