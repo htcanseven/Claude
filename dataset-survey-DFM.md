@@ -69,8 +69,11 @@ The sweep ran on 4 October 2026 as eight parallel searches: four by repository t
 aggregators; machine-learning platforms; national labs, domain portals and university repositories; RED
 precedent and the guest editors' own data) and four by topic (additive manufacturing; forming, moulding,
 machining and welding; electrical-machine, electronics and battery manufacturing; CAD and other
-design-representation data). Several thousand records were screened; about 300 were opened and checked on
-their landing page or API record, and the six finalists were checked file by file (Section 6).
+design-representation data). More than 20,000 records were screened: about 16,400 unique records from the
+generalist repositories (≈1,900 API calls over a matrix of 20 process terms × 17 outcome-term groups), about
+3,000 platform records, the 15,008-entry Papers-with-Code archive and all 1,465 NIST records. About 320 were
+opened and checked on their landing page or API record, and the finalists (seven datasets in five groups)
+were checked file by file (Section 6).
 
 1. **Open data that link design alternatives to measured manufacturing outcomes are rare.** Most
    manufacturing datasets are condition-monitoring or defect-image sets of a single product, and most
@@ -78,9 +81,10 @@ their landing page or API record, and the six finalists were checked file by fil
    one protocol, measured outcomes and replication.
 2. **The author's own process chain has almost no open data.** No public dataset was found for hairpin
    forming, welding or stripping, coil winding, impregnation, magnet insertion, die-cast rotor cages or
-   lamination stacking. The only hairpin item is a set of contact-resistance tests on reversible joints (DTU,
-   September 2026). The electrical-machine domain enters through end-of-line testing (two new e-drive sets,
-   September 2026) or as a secondary case, not as the core.
+   lamination stacking; in DataCite, Zenodo and OpenAIRE, hairpin and electrical-steel-cutting terms combined
+   with any outcome term returned no hits at all. The only hairpin item is a set of contact-resistance tests
+   on reversible joints (DTU, September 2026). The electrical-machine domain enters through end-of-line
+   testing (two new e-drive sets, September 2026) or as a secondary case, not as the core.
 3. **No RED paper of 2023–2026 rests on a public manufacturing dataset.** Of about 64 RED papers screened,
    none used one; 26 declare no data and 8 offer data on request. The one paper in the collection keeps its
    domain data private. A paper on open data with a FAIR release of the derived data would stand out.
@@ -108,16 +112,19 @@ are copied from those records. Order of scores: D M O P R L N E.
 | U-Channel drawability, [10.5281/zenodo.15327950](https://doi.org/10.5281/zenodo.15327950) | Zenodo 2025 | 2,533 geometries from 4 parametric CAD families (STEP, mesh, graph, point cloud) | Simulated drawability labels and strains | – | – | 17.5 GB | CC BY 4.0 | ✓ ✓ ~ ✗ ✗ ✓ ✓ ✗ |
 | BenDFM, [10.5281/zenodo.18622958](https://doi.org/10.5281/zenodo.18622958) | Zenodo 2026 | 20,000 synthetic bent sheet-metal parts with flat patterns | Feasibility labels, intrinsic vs machine/tool-configuration-dependent (simulated) | – | Simulated configurations | 3.1 GB | GPL-3.0+ | ✓ ✓ ~ ✗ ~ ✓ ✓ ✗ |
 | Synthetic deep drawing, [10.18419/DARUS-5158](https://doi.org/10.18419/DARUS-5158) | DaRUS 2025 | 228 tool geometries × 10 blank-holder forces = 2,280 simulations; STEP | Simulated | – | – | 10.0 GB | CC BY 4.0 | ✓ ✓ ~ ✗ ✗ ✓ ✓ ✗ |
+| Progressive deep drawing, simulated vs real (TU Darmstadt), [10.48328/tudatalib-2171](https://doi.org/10.48328/tudatalib-2171) | TUdatalib 2026 | 3 pre-cut geometries plus a reference; FE models at 3 fidelity levels; damaged and eccentric cups | Geometry and defect classes | Punch force at 80 strokes/min (sensor-integrated tool) | Simulation vs real; one production press | Not stated | ODbL 1.0 (share-alike) | ✓ ~ ~ ✓ ~ ~ ✓ ✗ |
 | DB4ISF, incremental sheet forming, [10.5281/zenodo.10000815](https://doi.org/10.5281/zenodo.10000815) | Zenodo 2023 | 76 real parts with CAD, CAM toolpaths and robot programs | 3D scans; deviation at every toolpath point | – | One cell | 3.7 GB | CC BY 4.0 | ✓ ✓ ✓ ✗ ~ ✓ ~ ✗ |
 | Injection-moulding simulations, [10.5281/zenodo.18598121](https://doi.org/10.5281/zenodo.18598121) (+ 17831586) | Zenodo 2024–26 | 624 (+196) CAD geometries from the ABC set, random gate, Moldflow, PP-GF30 | Simulated warpage, shrinkage, fibre orientation, residual stress | Simulated fields | – | 32.8 GB (+2.0) | CC BY 4.0 | ✓ ✓ ~ ~ ✗ ✓ ✓ ✗ |
 | SKZ/IPA ProBayes injection moulding (B2SHARE k0v7s-jf859, v64sz-f0f41) | B2SHARE 2022–23 | One "warpage shell" part; PP vs ABS with 70 % recyclate; 47 DoE points × 12 parts = 564 | OK/NOK, camera, scale, IR | 334 features from 9 sources | 12 per point | 107 + 78 MB | CC BY 4.0 (DOI redirect broken; use record ID) | ~ ✗ ✓ ✓ ✓ ✓ ~ ✗ |
 | Sirris drying faults, [10.5281/zenodo.22027505](https://doi.org/10.5281/zenodo.22027505) | Zenodo 2026 | 2 moulds × 6 polymers; drying 0–4 h; 5,001 parts | Drying-adequacy labels | ≈75 cycle variables incl. cavity pressure | 83 batches | 12 MB | CC BY 4.0 | ~ ✗ ~ ✓ ✓ ✓ ✓ ✗ |
 | Milling on three machines (LUH), [10.17632/zpxs87bjt8](https://doi.org/10.17632/zpxs87bjt8) | Mendeley 2023 | 9 end mills worn to end of life on 3 five-axis centres; identical workpiece and parameters | Flank wear | Dynamometer 25 kHz; drive torque/current 500 Hz | 3 machines | 9.1 GB | CC BY 4.0 | ~ ~ ✓ ✓ ✓ ✓ ~ ~ |
 | KIT multimodal CNC milling 1 and 2, [10.35097/hvvwn1kfwf7qt48z](https://doi.org/10.35097/hvvwn1kfwf7qt48z), [10.35097/vnnu3n9z7ndsnhfd](https://doi.org/10.35097/vnnu3n9z7ndsnhfd) | RADAR4KIT 2025 | 33 + 54 runs; 3 component types (STEP + G-code in set 1); 3 materials; 3 tools; 8 induced anomaly types | Anomaly labels | Controller axis/spindle current and torque 500 Hz; force, acceleration 10 kHz | 2 machines | 44.6 + 55.2 GB | CC BY 4.0 | ✓ ✓ ~ ✓ ✓ ~ ✓ ~ |
-| Pro2Future CNC machining repository, [10.17632/gtvvwmz7r7](https://doi.org/10.17632/gtvvwmz7r7) | Mendeley 2025 | 4 part geometries × aluminium and PLA; STEP/STL, NC code, tool lists | Energy and time per operation and part | Per-axis current, torque, load, power at 500 Hz | One machine | 186 MB | CC BY | ✓ ✓ ✓ ✓ ~ ✓ ✓ ✓ |
+| Pro2Future CNC machining repository, [10.17632/gtvvwmz7r7](https://doi.org/10.17632/gtvvwmz7r7) | Mendeley 2025 (v2) | 4–5 part geometries (sources differ) × aluminium and PLA; STEP/STL, NC code, tool lists | Energy and time per operation and part | Per-axis current, torque, load, power at 500 Hz | One machine | 186 MB | CC BY | ✓ ✓ ✓ ✓ ~ ✓ ✓ ✓ |
 | Inconel 718 feature profiles, [10.7910/DVN/1G3SSB](https://doi.org/10.7910/DVN/1G3SSB) | Harvard Dataverse 2024 | 5 features (pockets, slots, hole), Box–Behnken | Power; energy per volume removed | Force, acceleration, AE, power | Repeats; 2 tools | 5.8 GB | CC BY-NC 4.0 | ✓ ~ ✓ ✓ ✓ ~ ✓ ~ |
 | Resistance spot welding insights, [10.17632/rwh8kjzdch](https://doi.org/10.17632/rwh8kjzdch) | Mendeley 2025 (v3) | 495 welds, AISI 1010; electrode angle 0°/15°; current, time, force DoE | Pull-test force, nugget diameter, quality class; IR and RGB | Current and force | ≈250 per angle | 59 MB | CC BY 4.0 | ~ ~ ✓ ✓ ✓ ✓ ~ ✓ |
 | Al busbar remote laser welding, [10.5281/zenodo.15833960](https://doi.org/10.5281/zenodo.15833960) | Zenodo 2025 | 12 power levels × 5 part-to-part gaps × 3 repeats | Weld quality only in the paper | Optical microphone | 3 repeats | 2.2 GB | CC BY 4.0 | ~ ✗ ~ ✓ ✓ ✓ ✓ ✓ |
+| Industrial screw-driving collection, [10.5281/zenodo.14729547](https://doi.org/10.5281/zenodo.14729547) | Zenodo 2025 | 34k operations in 6 scenarios, two with injection-moulding variations of the parts | Pass/fail and fault classes | Torque/angle curves | Thousands of repeats | 296 MB | CC BY 4.0 | ~ ✗ ✓ ✓ ✓ ✓ ~ ~ |
+| AGH multimodal MAG weld surfacing, [10.58032/AGH/ALS80L](https://doi.org/10.58032/AGH/ALS80L) | RODBUK, Sep 2026 | 957 beads on 60 plates, fixed process, 4 measurement-chain conditions | ISO 5817 quality level (833 beads) | Current/voltage 10 kHz, audio, video | 60 plates | 69.7 GB | CC BY 4.0 | ✗ ✗ ✓ ✓ ✓ ~ ✓ ~ |
 
 ### 4.2 Additive manufacturing
 
@@ -132,6 +139,11 @@ are copied from those records. Order of scores: D M O P R L N E.
 | ORNL registered DED, [10.13139/OLCF/2446626](https://doi.org/10.13139/OLCF/2446626) | ORNL 2024 | One IN718 coupon (bulk, thin walls, overhangs) × 8 parameter conditions | XCT flaws registered to the toolpath | Melt-pool camera, positions | One per condition | Not stated | Globus account; licence not stated | ✓ ~ ✓ ✓ ~ ~ ✓ ✗ |
 | SUPSI laser DED In718 series (7 Zenodo records, e.g. [10.5281/zenodo.3978982](https://doi.org/10.5281/zenodo.3978982)) | Zenodo 2020–21 | Tracks, thin walls, corners × speeds, spirals | Bead width, height, roughness | Coaxial melt-pool images | 2 repeats (walls) | 2.4 GB | CC BY 4.0 | ✓ ✓ ✓ ✓ ~ ✓ ~ ✗ |
 | KU Leuven FFF thermal failure, [10.48804/B0CMEN](https://doi.org/10.48804/B0CMEN) | KU Leuven RDR 2026 | 256 single-wall prints; 4 wall CAD variants × print parameters | Thermally induced failure modes | IR video | DoE, one printer | 396 GB (3.35 GB image subset) | CC BY 4.0 | ✓ ✓ ✓ ✓ ~ ~ ✓ ✗ |
+| PartGeometry, 17-4PH and AlSi10Mg, [10.17632/w4vsnk9z6w](https://doi.org/10.17632/w4vsnk9z6w) | Mendeley, Aug 2026 | L-PBF wall, small block and large block × 1/2/3 mm × 2 alloys | Fatigue (stress–life), XCT defects, fractography | – | Several specimens per condition | 295 MB | CC BY 4.0 | ✓ ~ ✓ ✗ ~ ✓ ✓ ✗ |
+| LUH support and stiffening structures, [10.25835/z4qoeq0d](https://doi.org/10.25835/z4qoeq0d) | LUIS, Aug 2026 | Scalmalloy L-PBF parts with alternative support/stiffening designs, then milled; CAD | CMM shape error and roughness vs simulation | – | One machine | 66 MB | CC BY-NC 4.0 | ✓ ✓ ✓ ✗ ~ ~ ✓ ✗ |
+| TUM PA12 geometry-dependent thermography, [10.14459/2025mp1795243](https://doi.org/10.14459/2025mp1795243) | mediaTUM 2025 | Sample width 1–20 mm × energy input 0.60–1.18 J/mm³ | Dimensional deviation, density, melt depth, tensile | Raw IR at 200 Hz plus features | One machine | Not shown | Unclear: the Data in Brief article says open, OpenAIRE says restricted, the page blocks bots | ✓ ~ ✓ ✓ ~ ~ ✓ ✗ |
+| FFF surface roughness by face inclination, [10.5281/zenodo.18827517](https://doi.org/10.5281/zenodo.18827517) | Zenodo 2026 | Box–Behnken design over 7 parameters × 18 face inclinations (0–170°) | Ra per face | – | One printer | 70 kB | CC BY 4.0 | ✓ ✓ ✓ ✗ ~ ✓ ✓ ✗ |
+| Build-orientation validation (GAARA), [10.5281/zenodo.22796259](https://doi.org/10.5281/zenodo.22796259) | Zenodo, Sep 2026 | 8 orientations × 3 replicates of a PLA+ tensile bar; geometry and code | Tensile strength, Ra | – | 3 replicates | 305 MB | CC BY 4.0 | ✓ ✓ ✓ ✗ ✓ ✓ ✓ ✗ |
 | 3D-printed hole accuracy (UPB), [10.17632/4h6ttzh9bf](https://doi.org/10.17632/4h6ttzh9bf) | Mendeley 2022 | Holes 2.3–10 mm; shells, layer height, speed, axis angle; 5 sites | Hole-diameter deviation | – | 5 sites | 32 MB | CC BY 4.0 | ✓ ~ ✓ ✗ ✓ ✓ ~ ✗ |
 | Aalto 316L TPMS lattices, [10.5281/zenodo.7260218](https://doi.org/10.5281/zenodo.7260218) | Zenodo 2022 | Gyroid and diamond × 3 wall thicknesses × 5 replicates; 3D models | MicroCT geometric accuracy, tensile, corrosion | – | 5 replicates | 23.9 GB | CC BY 4.0 | ✓ ✓ ✓ ✗ ✓ ✓ ~ ✗ |
 | TUHH design-guideline family (e.g. [10.15480/882.14567](https://doi.org/10.15480/882.14567)) | TUHH TORE 2020–26 | Support spacing; TPMS cells; metal-extrusion benchmark features; bipolar plates, 6 designs × 2 processes | Scan deviation, shrinkage, printability | – | Single lab | Not seen (bot wall) | CC BY / public domain | ✓ ~ ✓ ✗ ~ ~ ✓ ~ |
@@ -305,7 +317,10 @@ alternatives with effect sizes.
 
 **Second demonstration for breadth (optional, one section).** Apply the same decision layer to a different
 process: NTNU PA12 (achievable tolerance by build orientation; cheap, CC0) if time is short, or INTEGRADDE
-(process and producer selection in metal AM) if an AM emphasis is wanted for this editorial team.
+(process and producer selection in metal AM) if an AM emphasis is wanted for this editorial team. Within
+the same process family, the TU Darmstadt progressive-drawing set (real punch force against FE models at
+three fidelity levels) would add the question "how much simulation fidelity is enough for the decision",
+but its share-alike licence and unstated size need checking first.
 
 **Keep in reserve:** the e-drive EOL and gear-metrology sets. They are in the author's domain and new, but
 the question they answer is test-system design, and the method would repeat the first paper almost
@@ -350,9 +365,16 @@ decision tables → transfer → figures → tables, with `run_all.sh`, fixed se
 
 ## 10. Coverage log
 
-- **Generalist aggregators:** DataCite (with repository-prefix scans), OpenAIRE Graph, Zenodo API,
-  figshare, Dryad, Harvard Dataverse and other Dataverse installations (Borealis, DataverseNO, DaRUS, KU
-  Leuven RDR, Recherche Data Gouv, DataverseNL), Mendeley Data, 4TU.ResearchData, B2SHARE.
+- **Generalist aggregators:** a full matrix of 20 process terms × 17 outcome-term groups (with Boolean
+  synonyms) run on DataCite (340 queries, 5,125 hits; plus newest-first and targeted design and
+  electrical-domain queries), the Zenodo API (340 queries) and OpenAIRE Graph (340 queries); keyword pairs on
+  figshare including institutional portals (414 queries); process terms on Dryad, twelve Dataverse
+  installations (Harvard, DaRUS, Borealis, Recherche Data Gouv, Madroño, DataverseNL, heiDATA, KU Leuven,
+  DataverseNO, Göttingen, Edmond, UniMi), Mendeley Data, B2SHARE and OSF; about 1,900 API calls and 16,409
+  unique records in all. Texas Data Repository, CSUC/CORA, DR-NTU and the 4TU API were bot-protected or
+  down and were covered through DataCite. DataCite facets show where manufacturing data sit: Zenodo 1,192,
+  Mendeley 799, figshare 698, STFC 214, Science Data Bank 76, IEEE DataPort 63; by year, 1,116 records in
+  2026 against 952 in 2025 and 413 in 2024, so new releases are arriving fast.
 - **Machine-learning platforms:** Kaggle (≈150 queries, 2,253 unique records), Hugging Face (incl. the
   Papers-with-Code archive of 15,008 datasets), UCI (all 689 datasets), OpenML (6,434 datasets by name),
   IEEE DataPort, PHM Society repository and challenges 2024–2026, Roboflow, Code Ocean, NASA PCoE (all 21
