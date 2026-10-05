@@ -4,11 +4,83 @@ Design-stage manufacturability decisions qualified with production evidence. Dee
 DP600 cups: 18 design–process alternatives (2 geometries × 3 blank-holder forces × 3 lubrication patterns),
 500 consecutive parts each (RDDAC), against the matching finite-element simulations (DDACS).
 
-Every number below comes from the CSV named in brackets, written by `bash scripts/run_all.sh` (19.5 min on
+Every number below comes from the CSV named in brackets, written by `bash scripts/run_all.sh` (about four hours on
 4 cores from the cached feature tables). Distances and floors are in the units of each quality
 characteristic unless stated; "floors" means multiples of that characteristic's production floor.
 
-## Headline
+## R Revised findings (supersede the first-version headline and Sections 1–10 below)
+
+The revision reorganised the evaluation by the relation of a new design to the produced evidence (grouped
+cross-validation), added every calibrated rule without the simulation and a nearest-produced-setting baseline,
+replaced the grid by the exact estimator of the distances, redefined two characteristics after the scan
+redundancy analysis, and made the floors per geometry. Where the numbers below differ from Sections 1–10, these
+hold; the manuscript (`paper/main.tex`) reports them.
+
+**R1 The floor is set by drift.** Floors of 0.051 mm (mid-side draw-in), 0.046 mm (corner draw-in),
+0.0028 mm (waviness), 0.078° (wall angle), 0.11° (arm angle), 0.011 mm (cup depth) and 0.0070 mm (dome); the
+time order of the parts inflates them by 2.1–4.5 [alt_floor.csv, sens_drift.csv]. Independent part-to-part
+noise, the scanner's repeatability included, would produce 15–33 % of each floor; the 95th percentiles of two
+batches of 100 parts differ by 0.92–1.49 floors; the three lubrication series of one geometry and force differ
+by 1.2–9.8 floors at 95 %, an upper bound of run-to-run variation [meas_floor.csv].
+
+**R2 What production resolves.** All 63 geometry contrasts, 105 of 126 blank-holder force contrasts and 51 of
+126 lubrication contrasts exceed the floor; the local minimum resolvable force change is 21–67 kN between 100
+and 300 kN and 43–105 kN between 300 and 500 kN for the depth, draw-ins and waviness [alt_effects.csv,
+rob_bhf_pairs.csv].
+
+**R3 The nominal simulation** decides correctly only beyond 108 floors (101–115) and errs mostly by false
+rejects (safe distance 17 floors for false accepts, 109 for false rejects); its force effect on the draw-in is
+2.6–5.1 times the measured one [dec_resolution.csv]. The process-window worst case (M0w) is neither safe nor
+decisive (94/119 floors).
+
+**R4 The relation of the new design to the produced evidence governs decision fitness** (decisive/safe
+distance in floors) [dec_resolution.csv]:
+
+| Rule | New variant (sibling produced) | New setting | Interpolation | Extrapolation | New family |
+|---|---|---|---|---|---|
+| NN nearest produced setting | 3.4 | 8.5 | 4.7 | 9.5 | 131 |
+| M1 bias-corrected simulation | 15 | 24 | 11 | 25 | 35 |
+| M2 envelope + residual margin | 23/0.2 | 18/8.1 | 18/2.7 | 18/9.9 | 51/16 |
+| M5 GP correction of the envelope | 6.7/1.4 | 18/7.4 | 19/2.9 | 18/8.9 | 38/30 |
+| M5n GP of q95 without simulation | 6.1/1.0 | 18/5.4 | 16/1.3 | 18/8.5 | 131/131 |
+
+**R5 What the simulation and learning add.** Within a family nothing: M5 − M5n = +0.6 floors (0.0 to +1.6),
+M2 − M2n = +3.9 (+0.4 to +7.4), M1 − M1n = +6.2 (+4.6 to +9.7); for a new setting the bias correction loses
+13.5 floors with the simulation; only for a new family is the simulation decisive (M5 − M5n = −93.3)
+[dec_paired.csv]. Learned models match the nearest produced setting when used as point rules (interval centres
+of M5, M5n, M4 at 3.4, 2.8, 4.8 floors within the family) and add calibrated abstention: M2 covers 8/9 within
+the family, M3 93 %, the GP intervals 71–72 %; for a new setting every calibrated interval covers 39–56 %, for a
+new family the GPs cover none [dec_coverage.csv, dec_gp.csv].
+
+**R6 Calibration budget by relation** [budget_design.csv]: one produced sibling lets M1, M2 and NN decide at
+3.5 floors (2.3–4.6) with no wrong verdict at 10 floors; bracketing a new force without a sibling makes M2, M5
+and M5n safe at 0.5–4.8 floors but decisive only at 15–25 (NN 4.7–6.0); extrapolation is never safe closer
+than 8.5 floors. The share of subsets with a sibling grows from 46 % (two alternatives) to 96 % (six).
+
+**R7 Guards** [dec_guard.csv]: for a new setting the range guard refuses the 84 extrapolated cases and M2, M5
+and NN are never wrong among the 80 verdicts it lets through; the novelty guard refuses 84 other cases, of
+whose verdicts 72–96 % would have been correct. For a new family the novelty guard lets 12 cases through, and
+M5 is wrong in 6 of their 24 verdicts (25 %), M2 in none (12 to trial).
+
+**R8 Requirements from ISO 2768-1 angular classes** (108 decisions, 69 failing, 32 within 5 floors)
+[scen_scores.csv, scen_strata.csv, scen_cost.csv]: new variant NN 100 % right, M5 93 % (75 % within 5 floors);
+new setting NN 97 %, M5n 92 %; new family M5 68 % right, rejecting 46 % of the adequate and accepting 9 % of
+the failing alternatives. Cheapest rule with c_FR = c_FA/2: NN within a family; M2n, M4 and M5n (tied) for a
+new setting up to c_T = 0.1 c_FA and NN from 0.2; M2 for a new family up to 0.1 and M5 from 0.2.
+
+**R9 Robustness** [rob_decisions.csv, rob_refit.csv, tune_decisions.csv]: in every variant that includes it,
+NN stays the most decisive rule for a new variant and a new setting and M2 the safest for a new family; the
+rules without the simulation fail for a new family (≥ 91 floors). Temperature adjustment changes the pooled
+floors by −14 to +4 % and the calibrated distances by at most 2.6 floors; batch sizes of 25/100 rescale the
+distances by 0.80–0.96/0.97–1.16, floor quantiles of 0.90/0.99 by 1.16–1.46/0.54–0.83; the GP variants keep
+M5 at 6.4–6.9 floors for a new variant; refitting widens M5's decisive distance to 5.0–18.6 floors within the
+family (NN 2.2–7.0).
+
+**R10 Not used in the paper.** The DDACS design-corner sensitivities (Section 6), the in-line verifiability
+(Section 7) and the exploratory PA12 case (Section 10.6, `scripts/case2_pa12.py`) remain in the repository but
+are not part of the revised manuscript.
+
+## Headline of the first version (superseded by Section R)
 
 1. **Production resolves geometry and, mostly, blank-holder force, but rarely the lubrication pattern.** All
    63 geometry contrasts, 106 of 126 blank-holder force contrasts and 53 of 126 lubrication contrasts exceed

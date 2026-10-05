@@ -29,7 +29,7 @@ This document first summarises the changes that cut across the reports. It then 
    - a new family;
    - pooled versions of the first two.
 
-   The calibration design is classified the same way, as sibling, interpolation or extrapolation, including k = 1 (Section 5.6, Table 10, Fig. 4).
+   The calibration design is classified the same way, as sibling, interpolation or extrapolation, including k = 1 (Section 5.6, Table 9, Fig. 4).
 
 3. **Baselines and ablations.** Every calibrated rule is now evaluated with and without the simulation:
    - M1 and M1n;
@@ -47,7 +47,7 @@ This document first summarises the changes that cut across the reports. It then 
 4. **Exact distances and inference.**
    - **Estimator.** The distances are now computed exactly, as order statistics of the exclusion distances, instead of on the coarse grid. Requirements below zero are excluded for the non-negative characteristics. One-sided distances (false accept, false reject) are reported (Table A2).
    - **Bootstrap intervals.** The intervals come from a family-stratified bootstrap of the held-out alternatives. Each resample draws a block-bootstrap replicate of the true q95, so the uncertainty of the reference enters. The resamples are common to all rules, which gives paired intervals.
-   - **Refitting bootstrap.** A second bootstrap refits every alternative-level rule on resampled calibration sets (Table 13).
+   - **Refitting bootstrap.** A second bootstrap refits every alternative-level rule on resampled calibration sets (Table 12).
 
 5. **Measurement and the floor.** Referee 3 showed that the scan direction along the lines and the north wall carry measurement noise and bias. The redundancy of the scans is now analysed (Section 4.3, Table A8), and the characteristics are redefined:
    - mid-side draw-in from the flange widths across the scan lines;
@@ -70,7 +70,7 @@ This document first summarises the changes that cut across the reports. It then 
 
 7. **Interval labels.** The "split-conformal 90 %" margin is now described as what it is: a largest-residual margin whose attainable coverage is n/(n+1) (or (n−1)/(n+1) with an estimated offset). The M3/M4 margin is described as a jackknife. Empirical coverage is reported for every interval rule and evidence relation.
 
-8. **Guard.** The misreported post-guard error is corrected: among the 24 verdicts the novelty guard lets through for a new family, M5 is wrong in 6. The guards are now also evaluated where they can fire within a family, for new process settings. A range guard was added. False alarms and misses are reported with counts (Section 5.7, Table 11).
+8. **Guard.** The misreported post-guard error is corrected: among the 24 verdicts the novelty guard lets through for a new family, M5 is wrong in 6. The guards are now also evaluated where they can fire within a family, for new process settings. A range guard was added. False alarms and misses are reported with counts (Section 5.7, Table 10).
 
 9. **Tolerance scenario.** The scenario has been corrected:
    - the ISO 2768-1 rows follow the shorter leg; the convex arms use the "up to 10 mm" row;
@@ -78,19 +78,19 @@ This document first summarises the changes that cut across the reports. It then 
    - false accepts are reported conditional on failing alternatives;
    - the results are stratified by the distance of the limit from the truth;
    - the effect of deciding the worst side instead of the mean is counted;
-   - a cost comparison is added (Section 5.8, Table 12).
+   - a cost comparison is added (Section 5.8, Table 11).
 
 10. **PA12 case removed and claims narrowed.** The powder bed fusion case violated the batch definition and could not test the claims, so it has been removed. Section 6.5 states the data requirements it revealed.
-    - **Guidelines.** They are split into general guidance that follows from the framework and observations on this dataset with their evidence base (Table 14).
-    - **Development record.** The record and the selection optimism of rules added after review are stated (Section 4.5).
+    - **Guidelines.** They are split into general guidance that follows from the framework and observations on this dataset with their evidence base (Table 13).
+    - **Development record.** The record and the selection optimism of rules added after the first results had been seen are stated (Section 4.5).
     - **Threats to validity.** These are extended (Section 6.6).
 
 ### How the conclusions changed
 
 | First version | Revised version |
 |---|---|
-| The GP calibration of the simulation is the best rule within a family (decisive at 7, safe at 2 floors). | With a produced sibling, the nearest produced setting, which uses neither simulation nor learning, is the most decisive rule (3.4 floors). The GP with and without the simulation is equally good (6.6/1.4 and 6.0/1.0 floors). The paired difference is +0.6 floors (0.0 to +1.6). |
-| Four to five bracketing alternatives make calibrated rules reliable. | Bracketing was mostly the presence of a sibling. [B1: budget finding]. Production evidence buys safety before decisiveness. |
+| The GP calibration of the simulation is the best rule within a family (decisive at 7, safe at 2 floors). | With a produced sibling, the nearest produced setting, which uses neither simulation nor learning, is the most decisive rule (3.4 floors). The GP with and without the simulation is equally good (6.7/1.4 and 6.1/1.0 floors). The paired difference is +0.6 floors (0.0 to +1.6). |
+| Four to five bracketing alternatives make calibrated rules reliable. | Bracketing was mostly the presence of a sibling. One produced sibling lets the nearest setting, the bias correction and the residual margin decide at 3.5 floors. Bracketing a new force without a sibling makes the interval rules safe at 0.5–4.8 floors but decisive only at 15–25. The share of subsets that contain a sibling grows from 46 % with two alternatives to 96 % with six, which explains most of the v1 budget curve. Production evidence buys safety before decisiveness. |
 | Machine learning helps where it corrects a physical model. | Within a family the simulation adds nothing to a calibrated rule, and its force trend makes the bias correction worse. Learned models match the nearest produced setting in accuracy and add calibrated abstention where the calibration alternatives resemble the new design. The simulation is indispensable only for a new family. |
 | The nominal simulation needs 150 floors. | 108 floors with the exact estimator, mostly through false rejects. |
 | The guard leaves M5 wrong in 2.4 % across geometries. | M5 is wrong in 6 of the 24 verdicts the novelty guard lets through (25 %). |
@@ -111,7 +111,7 @@ This document first summarises the changes that cut across the reports. It then 
   - the floor with assumptions A1–A3 and its properties: unit invariance, its relation to the short- and long-term standard deviations under a normal model, and its dependence on the protocol (Section 3.2);
   - the distances as operating characteristics, with five stated properties and a decision-theoretic reading whose assumptions are explicit (Section 3.4).
 - **Abstract and conclusions** are rewritten around the generalisable findings, with three numbers in the abstract.
-- **Section 6.4** discusses the implications for margins, verification planning, front-loading and the evaluation of AI-based DFM support.
+- **Sections 6.3 and 6.4** discuss the implications for the evaluation of AI-based DFM support, margins, verification planning and front-loading.
 - **Appendix.** Tables A3 and A5 of v1 (sensitivity ratios, in-line verifiability) have been removed from the paper and remain in the repository.
 
 ### Major 2. Positioning in the design literature; Table 1
@@ -140,7 +140,7 @@ This document first summarises the changes that cut across the reports. It then 
 - **(b) Dependence on the protocol.**
   - Section 3.2 writes the dependence on B, α and the series length into the definition.
   - Table 5 gives the floor from the first half of each series (0.49–0.95 of the full floor).
-  - Table 13 adds batch sizes of 25 and 100 and quantiles of 0.90 and 0.99, and adequacy shares p = 0.90 and 0.99.
+  - Table 12 adds batch sizes of 25 and 100 and quantiles of 0.90 and 0.99, and adequacy shares p = 0.90 and 0.99.
 - **(c) Run-to-run variation.** Each geometry and force cell has three lubrication series that production mostly cannot tell apart; these serve as quasi-replicates. Their centres differ by 0.5–1.6 floors in the median and by 1.2–9.8 floors at 95 %, an upper bound of run-to-run variation (Table 5). The floor is called a lower bound for series production throughout, and Section 6.6 discusses the effect on the effect-to-scatter ratios.
 - **(d) Commensurability.**
   - Per-characteristic distances are given for two relations (Table A5) and, for the safe distances, one-sided (Table A2).
@@ -157,7 +157,7 @@ This document first summarises the changes that cut across the reports. It then 
 - **Observable view.** Section 5.5 reports the share of correct verdicts as a function of the margin between the predicted interval and the requirement. It rises from 86 % to 99 % for the nearest setting on a new setting, but stays at 72–75 % for M5 on a new family. The observable margin is therefore informative only where the rule is calibrated.
 - **One-sided distances.** These are in Table A2. M0, for example, has a false-accept safe distance of 17 floors and a false-reject one of 109.
 - **Cost bound.** Its assumptions are stated (Section 3.4).
-- **Worked cost example.** It uses the realistic margins of the tolerance scenario (Section 5.8). With c_FR = c_FA/2, the cheapest rule is NN for a new variant at any trial cost; for a new setting it is M2n up to c_T = 0.1 c_FA and NN beyond; for a new family it is M2 up to 0.1 and M5 beyond.
+- **Worked cost example.** It uses the realistic margins of the tolerance scenario (Section 5.8). With c_FR = c_FA/2, the cheapest rule is NN for a new variant at any trial cost. For a new setting it is M2n, M4 or M5n (tied) up to c_T = 0.1 c_FA and NN from 0.2. For a new family it is M2 up to 0.1 and M5 from 0.2.
 
 ### Major 5. Near-replicates in the within-family evaluation
 
@@ -165,8 +165,11 @@ This document first summarises the changes that cut across the reports. It then 
 
 **Change.**
 - **Evidence relations.** The evaluation is organised by evidence relation (Section 4.4); Table 8 and Fig. 3 report every rule for each relation.
-- **Calibration design.** It is split into sibling, interpolation and extrapolation, including k = 1 (Table 10, Fig. 4). [B2: budget numbers].
-- **Guidelines.** They are re-derived (Table 14).
+- **Calibration design.** It is split into sibling, interpolation and extrapolation, including k = 1 (Table 9, Fig. 4).
+  - One produced sibling lets the bias correction, the residual margin and the nearest setting decide at 3.5 floors, without a wrong verdict at 10 floors.
+  - With produced alternatives on both sides of a new force but no sibling, the interval rules are safe at 0.5–4.8 floors but decide only at 15–25 floors.
+  - Extrapolation in force is never safe closer than 8.5 floors.
+- **Guidelines.** They are re-derived (Table 13).
 - **Leave-one-out description.** Leave-one-alternative-out is now described as judging "a new variant of a produced process setting".
 
 ### Major 6. Process-setting decisions; requirement model
@@ -176,7 +179,7 @@ This document first summarises the changes that cut across the reports. It then 
 **Change.**
 - **Scope.** Section 3.1 states the scope of the decisions: the release of variants and process settings in process planning and tryout, and the transfer of production knowledge to a new family in platform and variant design. Section 4.1 states that within a geometry the new designs are process settings on an existing tool, and that the geometry change is the only product-design change.
 - **Negative transfer result.** It is now a headline finding in the abstract and conclusions.
-- **Requirement forms.** Two-sided and high-conformance requirements are discussed in Sections 3.1 and 6.5. The adequacy shares p = 0.90 and 0.99 are evaluated (Table 13).
+- **Requirement forms.** Two-sided and high-conformance requirements are discussed in Sections 3.1 and 6.5. The adequacy shares p = 0.90 and 0.99 are evaluated (Table 12).
 - **Linear dimensions.** These are not added to the scenario. The cup depth's "nominal" is the drawing depth of the simulation model (30 mm), and its offset from the scans reflects a difference of reference surfaces (Section 5.3), so no design nominal is available.
 - **DDACS corners.** These are not reported, because they have no production counterpart (see Minor 15).
 
@@ -185,8 +188,8 @@ This document first summarises the changes that cut across the reports. It then 
 **Response.** Agreed; the misreported rate was an error.
 
 **Change.**
-- **Corrected rate.** Section 5.7 and Table 11 report conditional counts. For a new family, the novelty guard lets 12 of 126 cases through, all of them mid-side draw-in or waviness. Among their 24 verdicts at 10 floors, M5 is wrong in 6 and M1 in 6; M2 is wrong in none and sends 12 to trial.
-- **Non-trivial setting.** The guards are now evaluated for a new process setting, where they can fire within a family. A range guard was added, which refuses the extrapolated forces, together with the novelty guard. False alarms and misses are reported: 73–96 % of the verdicts the novelty guard refuses would have been correct.
+- **Corrected rate.** Section 5.7 and Table 10 report conditional counts. For a new family, the novelty guard lets 12 of 126 cases through, all of them mid-side draw-in or waviness. Among their 24 verdicts at 10 floors, M5 is wrong in 6 and M1 in 6; M2 is wrong in none and sends 12 to trial.
+- **Non-trivial setting.** The guards are now evaluated for a new process setting, where they can fire within a family. A range guard was added, which refuses the extrapolated forces, together with the novelty guard. False alarms and misses are reported: for M2, M5 and NN, 72–96 % of the verdicts the novelty guard refuses would have been correct.
 - **Positioning.** The guard is positioned against the valid input domain (Malak and Paredis 2010) in Section 3.5.
 - **Conclusions.** The "nine in ten" sentence has been removed from the conclusions.
 
@@ -195,7 +198,7 @@ This document first summarises the changes that cut across the reports. It then 
 **Response.** Agreed. The requested ablation (a GP without the simulation) and M1/M2 without the simulation were added. They reverse the v1 claim.
 
 **Change.**
-- **Ablations.** Section 5.5 and Table A4 report paired differences. Within a family, M5 − M5n = +0.6 (0.0 to +1.6), M2 − M2n = +3.9 (+0.5 to +7.4) and M1 − M1n = +6.2 (+4.6 to +9.7). For a new family the simulation gains about 93 floors.
+- **Ablations.** Section 5.5 and Table A4 report paired differences. Within a family, M5 − M5n = +0.6 (0.0 to +1.6), M2 − M2n = +3.9 (+0.4 to +7.4) and M1 − M1n = +6.2 (+4.6 to +9.7). For a new family the simulation gains about 93 floors.
 - **M4's transfer failure.** It is described as following from the setup: no geometric descriptor is learnable from one geometry.
 - **Data regime.** It is stated in Section 6.3.
 - **Continuous geometric descriptors.** These would need geometry-varying production, which the data do not have. Section 7 names this as an extension.
@@ -205,7 +208,7 @@ This document first summarises the changes that cut across the reports. It then 
 **Response.** Agreed.
 
 **Change.**
-- **Guidelines table.** Table 14 is split into general guidance that follows from the framework and observations on this dataset. The evidence base (18 alternatives, 2 geometries, 7 characteristics; the new family on two calibrations) is stated in the header.
+- **Guidelines table.** Table 13 is split into general guidance that follows from the framework and observations on this dataset. The evidence base (18 alternatives, 2 geometries, 7 characteristics; the new family on two calibrations) is stated in the header.
 - **Minimum resolvable change.** The guideline "do not iterate below the MRC" now says that such changes are invisible in batch centres but may still matter in the tail. The MRC is local.
 - **k-dependent rows.** These are re-derived from the grouped budget.
 
@@ -232,19 +235,19 @@ This document first summarises the changes that cut across the reports. It then 
 6. **m̄ in Eq. (3) and the ESR ≥ 1 threshold.** m̄ is the centre (trimmed mean) of all parts of the alternative. ESR ≥ 1 means a difference larger than two batches of one design show at 95 %. The error rates this implies are not claimed.
 7. **Rule numbering.** The rules are presented in groups (simulation only; simulation and production; production only) in Table 2, in the order of presentation. M6 is introduced in the robustness section as a variant.
 8. **M2 margin.** Its attainable coverage and the non-split offset are stated in Section 3.3. The same is done for the jackknife of M3/M4.
-9. **M5 identification.** The GP noise floor was added, hyperparameter bound hits are reported (Table A7), and the variants are in Table 13.
+9. **M5 identification.** The GP noise floor was added, hyperparameter bound hits are reported (Table A7), and the variants are in Table 12.
 10. **Grid and "beyond".**
     - (a) Addressed (Major 4).
     - (b) Equal weights are stated.
     - (c) The grid is replaced by the exact estimator, which removes the "somewhere in (100, 150]" problem.
 11. **Cost-bound assumptions.** Stated (Section 3.4).
-12. **Subset weighting.** Weighting is stated. Fig. 4 shows the sibling, interpolation and extrapolation curves with bands, and Table 10 reports the spread over subsets (the share of subsets with a wrong verdict at 10 floors) in `budget_design.csv`.
+12. **Subset weighting.** Weighting is stated. Fig. 4 shows the sibling, interpolation and extrapolation curves with bands, and Table 9 reports the wrong-verdict share at 10 floors for each relation and budget. The spread over subsets (the share of subset–target pairs with a wrong verdict at 10 floors, and the 90th percentile of the wrong share) is in `budget_design.csv`.
 13. **Fig. 1.** Redrawn: per-family steps 1–5, per-design step 6, decision points and outputs.
 14. **Process settings and series order.** Section 4.1 states that new designs are process settings on an existing tool. The production order and dates of the series are not given in the dataset documentation; Section 6.6 lists the unknown run order.
 15. **DDACS corners.** Removed from the paper; they are mentioned in Appendix A.2 as provided with the code but unused. The incorrect limitation statement has been removed.
 16. **Nominal friction.** Mc is the "engineer-calibrated" counterpart the referee suggests, with friction calibrated on the produced draw-in. It does not improve on M1 (Section 5.4). The nominal thickness is now 0.99 mm, the grid value nearest the measured median (Referee 3, Minor 5).
 17. **Wall angle and the simulation.** The wall angle is now the E/W mean on the scans. The simulation averages its two symmetric axes (Section 4.3), and the remaining differences are listed.
-18. **"All constants fixed before".** Rephrased with a development record (Section 4.5): constants chosen before the decision results were seen, the dates in the repository history, rules added after review named, and selection optimism stated.
+18. **"All constants fixed before".** Rephrased with a development record (Section 4.5): constants chosen before the decision results were seen, the dates in the repository history, the rules added after the first results had been seen named, and selection optimism stated.
 19. **Floor CI under drift.** A cluster bootstrap over alternatives was added (Table 4).
 20. **Wall-angle MRC; lubrication statement.** The wall-angle MRC statement is corrected; with the E/W definition, force resolves 4 of 18 wall-angle contrasts (Section 5.2). The lubrication statement is qualified to these characteristics.
 21. **"Order of magnitude"; overlap claim.** The "order of magnitude" sentence and the overlap claim are removed. Paired bootstrap differences replace marginal intervals (Table A4).
@@ -257,15 +260,15 @@ This document first summarises the changes that cut across the reports. It then 
     - (c) The leg rows are stated (Appendix A.1). Only the upper side binds for the wall, and the arm uses |angle|.
     - (d) Linear dimensions: see Major 6.
 26. **Fig. 3.** Linear threshold stated in the caption (±10 floors), with 126 cases per point. Distances are given in Table 8 rather than marked on the panels, to keep them readable.
-27. **Table 13 variants.** B, α and p variants and the grouped schemes are added.
+27. **Table 12 variants.** B, α and p variants and the grouped schemes are added.
 28. **PA12.** The case has been removed (Section 6.5 explains why).
 29. **Section 6.2.** Rewritten (Major 5).
 30. **Section 6.4.** The injection-moulding and machining sentence has been removed. The conditions and obstacles are stated instead (Section 6.5).
 31. **Threats.** All listed threats are added (Section 6.6).
 32. **Conclusions sentence.** Removed.
-33. **Appendix.** Tables A3 and A5 of v1 have been removed. The Table 5 note on contrasts now distinguishes the force intervals.
+33. **Appendix.** Tables A3 and A5 of v1 have been removed. The note of Table 6 (contrasts) now distinguishes the force intervals.
 34. **Terminology.** The floor is related to process variation (Section 2.5). "Alternative", "variant" and "family" are used consistently: a family is a geometry, an alternative is a produced design–process combination, and a variant is a new alternative of a family. The number density in Sections 5 and 6 is reduced, with numbers moved into tables.
-35. **Archive.** A Zenodo DOI will be deposited for the archived code before resubmission (see the submission checklist). A more descriptive repository name is planned with it.
+35. **Archive.** An archived release of the code with a Zenodo DOI will be deposited at acceptance, as the code availability statement says (see the submission checklist). A more descriptive repository name is planned with it.
 
 ---
 
@@ -286,18 +289,18 @@ This document first summarises the changes that cut across the reports. It then 
   - Regularised and flexible boosting settings.
   - Settings selected by an inner leave-one-out.
 
-The referee's numbers were reproduced: GP without simulation 6.0/1.0 against M5 6.6/1.4, and the sibling rule 3.4. The abstract, Section 6.3 and Table 14 now state that the simulation adds nothing within a family and that learning adds calibrated abstention rather than accuracy over NN.
+The referee's comparison holds with the revised definitions and the exact estimator: the GP without simulation reaches 6.1/1.0 floors against M5's 6.7/1.4, and the nearest produced setting 3.4. The abstract, Section 6.3 and Table 13 now state that the simulation adds nothing within a family and that learning adds calibrated abstention rather than accuracy over NN.
 
-**Lubrication encoding.** It is kept ordinal in M5 because the rank follows the oil amount (series medians 1.15–1.48, 0.92–1.23 and 0.85–1.13 g/m²), and one-hot lubrication is added as a robustness variant (Table 13). Alternative-level boosting was not added: with 6–17 points per fit it is a nearest-neighbour rule in effect, which NN represents.
+**Lubrication encoding.** It is kept ordinal in M5 because the rank follows the oil amount (series medians 1.15–1.48, 0.92–1.23 and 0.85–1.13 g/m²), and one-hot lubrication is added as a robustness variant (Table 12). Alternative-level boosting was not added: with 6–17 points per fit it is a nearest-neighbour rule in effect, which NN represents.
 
 ### Major 2. Near-replicates; bracketing
 
 **Response.** Agreed (see Referee 1, Major 5).
 
 **Change.**
-- **Grouped evaluations.** Leave one force level out is the new-setting relation, split into interpolation and extrapolation. Leave one lubrication pattern out is a robustness variant (Table 13).
-- **Calibration design.** Classes are sibling, strict interpolation and extrapolation, including k = 1 (Table 10).
-- **Dependence on resolvable factors.** How the budget depends on the number of factors production can resolve is discussed in Section 6.1.
+- **Grouped evaluations.** Leave one force level out is the new-setting relation, split into interpolation and extrapolation. Leave one lubrication pattern out is a robustness variant (Table 12).
+- **Calibration design.** Classes are sibling, strict interpolation and extrapolation, including k = 1 (Table 9).
+- **Dependence on resolvable factors.** Sections 5.6 and 6.6 discuss how the budget depends on the factors production can resolve. With lubrication mostly unresolved, a sibling is in effect a replicate, which is what makes the sibling budget decisive.
 
 ### Major 3. GP identification, coverage, framing
 
@@ -321,7 +324,7 @@ The referee's numbers were reproduced: GP without simulation 6.0/1.0 against M5 
 **Change.**
 - **Labels.** Table 2 and Section 3.3 now describe a "largest residual" margin with attainable coverage n/(n+1), or (n−1)/(n+1) with the estimated offset. M3/M4 use a "jackknife".
 - **Empirical coverage.** Reported per rule and relation (Table A3). M2 covers exactly 8/9 within a family and 17/18 pooled, confirming the referee's analysis.
-- **Interval-level variants.** These are kept only for the pooled and transfer scopes where they can change M2; the table note says so.
+- **Interval-level variants.** These are kept (Table 12). With 6–8 calibration alternatives, both levels select the largest residual, so M2 is unchanged within the family and for a new setting. Only the Gaussian-process rules and the new family (9 calibration alternatives) respond.
 - **Not implemented.** A pooled-score conformal variant across characteristics, Mondrian and weighted conformal are not implemented. With 6–8 alternatives per fit, the attainable levels, not the method, are the limitation, and the text states this.
 
 ### Major 5. Closed form, grid, sides, truth, unit
@@ -342,7 +345,7 @@ The referee's numbers were reproduced: GP without simulation 6.0/1.0 against M5 
 
 **Change.**
 - **Exact and paired.** Grid-free intervals, a family-stratified paired bootstrap with reference replicates, and paired differences (Table A4).
-- **Refitting.** A refitting bootstrap of every alternative-level rule (200 resamples; Table 13, last row).
+- **Refitting.** A refitting bootstrap of every alternative-level rule (200 resamples; Table 12, last row).
 - **Disclosure.** The statement that the fits are held fixed in the main intervals, the number of cases per scope (126), and that a new family rests on two calibrations.
 - **Overlap claim.** Removed.
 
@@ -351,7 +354,7 @@ The referee's numbers were reproduced: GP without simulation 6.0/1.0 against M5 
 **Response.** Agreed (see Referee 1, Major 7).
 
 **Change.**
-- **Corrected counts.** Reported in Table 11.
+- **Corrected counts.** Reported in Table 10.
 - **New guards.** A range (descriptor) guard was added, and the guards are evaluated for new process settings.
 - **Not added.** A GP-variance guard is not added: within a family the GP's predictive variance does not separate the cases it gets wrong (its coverage is 72 %). Using the 264 geometry-varying DDACS runs to test the guard was not possible without production counterparts; Section 7 names geometry-varying production as an extension.
 - **Disclosure.** That transfer rests on two instances is stated.
@@ -365,8 +368,8 @@ The referee's numbers were reproduced: GP without simulation 6.0/1.0 against M5 
 **Response.** Agreed.
 
 **Change.**
-- **Guidelines.** Table 14 separates general guidance from observations on this dataset.
-- **Development record.** Section 4.5 lists the rules defined first, the rule added during the first analysis (M6), and the rules and schemes added after review. It states the selection optimism (Cawley and Talbot 2010).
+- **Guidelines.** Table 13 separates general guidance from observations on this dataset.
+- **Development record.** Section 4.5 lists the rules defined first, the rule added during the first analysis (M6), and the rules and schemes added in a second round of analysis. It states the selection optimism (Cawley and Talbot 2010).
 - **Confirmatory study.** A confirmatory test on a second dataset is named as future work.
 
 ### Minor comments
@@ -387,9 +390,9 @@ The referee's numbers were reproduced: GP without simulation 6.0/1.0 against M5 
 10. **Development sequence.** Described (Section 4.5).
 11. **Constant correction.** Rephrased in Section 5.3 (the spread of the offset).
 12. **Per-characteristic cases.** Case counts are in the Table A5 note: 36 verdicts per distance and side, where one wrong verdict moves a share by 2.8 points.
-13. **Spread over subsets; k = 1.** The spread is in `budget_design.csv` (share of subset–target pairs with a wrong verdict at 10 floors, 90th percentile of the wrong share). k = 1 is included in Table 10 and Fig. 4.
-14. **Scenario stratification.** Stratified by margin, with the nearest-setting baseline (Table 12).
-15. **Interval-level and temperature variants.** The interval-level rows are qualified. The temperature slope is pooled over all alternatives; this is acceptable for a data variant and is stated in the table note.
+13. **Spread over subsets; k = 1.** The spread is in `budget_design.csv` (share of subset–target pairs with a wrong verdict at 10 floors, 90th percentile of the wrong share). k = 1 is included in Table 9 and Fig. 4.
+14. **Scenario stratification.** Stratified by margin, with the nearest-setting baseline (Table 11).
+15. **Interval-level and temperature variants.** The interval-level rows are qualified. The temperature slope is pooled over all alternatives; this is acceptable for a data variant and is stated in Appendix A.1.
 16. **M6.** Read in light of the GP's over-confidence (Section 5.9).
 17. **GP coverage.** 72 % is stated.
 18. **Threats.** Added.
@@ -432,7 +435,7 @@ The referee's numbers were reproduced: GP without simulation 6.0/1.0 against M5 
 
 **Change.**
 - **Noise levels.** Table A9 and Section 5.3 report 1.7–3.1 floors for the wall angle and 2.4–9.8 floors for the dome, with the raw envelope maximum of the dome inflated by up to 21 floors.
-- **Smoothed simulation.** A variant replaces the raw values by a quadratic response surface over thickness and friction (Table 13). [R1: smoothed-simulation result].
+- **Smoothed simulation.** A variant replaces the raw values by a quadratic response surface over thickness and friction (Table 12). It leaves M5 within the family practically unchanged (6.6/1.4 against 6.7/1.4 floors). It makes the envelope rule less safe for a new family (25 instead of 16 floors). The extraction noise thus inflates the envelope but does not explain the simulation's bias.
 - **Not done.** Re-extraction from interpolated shell surfaces would need the full simulation archive again (650 GB) and is left as a limitation.
 
 ### Major 4. Interpretation of the discrepancies
@@ -441,7 +444,7 @@ The referee's numbers were reproduced: GP without simulation 6.0/1.0 against M5 
 
 **Change.**
 - **(a) Signed offsets.** Table 7 reports signed matched offsets. The concave arm angle's sign error is stated in Section 5.3: parts bend upwards in every case, simulations downwards in 89–100 %.
-- **(b) Force effect.** The force effect, three to seven times the measured one, is attributed to the friction law (pressure dependence; Hol et al. 2012) and the blank-holder model (Section 5.3). Mc tests a calibrated friction coefficient, and it does not repair the trend (Section 6.3). The asymmetry of the flange and the load-cell imbalance are noted as effects a quarter model cannot represent.
+- **(b) Force effect.** The force effect, 2.6 to 5.1 times the measured one, is attributed to the friction law (pressure dependence; Hol et al. 2012) and the blank-holder model (Section 5.3). Mc tests a calibrated friction coefficient, and it does not repair the trend (Section 6.3). The asymmetry of the flange and the load-cell imbalance are noted as effects a quarter model cannot represent.
 - **(c) Friction ratios.** The friction-sensitivity ratios (Table A3 of v1) are removed.
 - **(d) Cup-depth offset.** Interpreted as a reference difference.
 - **(e) DDACS models.** The documented models are stated (Section 4.2): LS-DYNA, a scaled DP600 flow curve, constant Coulomb friction and springback after both operations. The documentation does not state the yield criterion or unloading model, and Yoshida and Uemori (2002) is cited.
@@ -460,7 +463,7 @@ The referee's numbers were reproduced: GP without simulation 6.0/1.0 against M5 
 
 ### Major 6. GP without simulation does as well as M5
 
-**Response.** Agreed; reproduced (6.0/1.0 against 6.6/1.4 floors).
+**Response.** Agreed; the comparison holds in the revision (6.1/1.0 against 6.7/1.4 floors).
 
 **Change.** See Referee 2, Major 1. The control is now part of every relation, and Section 6.3 states that the value of the simulation is confined to a new family.
 
@@ -479,7 +482,7 @@ The referee's numbers were reproduced: GP without simulation 6.0/1.0 against M5 
 - **Angular rows.** These follow the shorter leg; the convex arm is about 9 mm long, so the "up to 10 mm" row applies.
 - **(d) Per-feature tolerances.** The count of decisions whose truth changes when the worst side is decided is reported (12 of 108).
 - **(e) Stratification.** The results are stratified by margin: within 5 floors of the limit, M5 is right in 75 % for a new variant and 44 % for a new setting.
-- **(f) Acceptance criterion.** p = 0.95 is kept as the scenario's criterion, and p = 0.99 is evaluated on the grid (Table 13).
+- **(f) Acceptance criterion.** p = 0.95 is kept as the scenario's criterion, and p = 0.99 is evaluated as a robustness variant (Table 12).
 
 ### Major 9. DDACS corners
 
@@ -509,7 +512,7 @@ The referee's numbers were reproduced: GP without simulation 6.0/1.0 against M5 
 12. **Overlap and bootstrap.** See Referee 2, Major 6.
 13. **Guarded transfer.** Correct-verdict shares are reported with counts.
 14. **Leg lengths.** Stated (Appendix A.1); the convex arm uses the "up to 10 mm" row. The design wall angle refers to the DDACS wall-angle parameter of the tool.
-15. **Temperature correction.** Its limitation is stated in the table note.
+15. **Temperature correction.** Its definition, with the pooled slope, is stated in Appendix A.1.
 16. **M3 oil variant.** The confound is noted. The variant is kept, with the caveat that it changes both the match and the input.
 17. **Threats.** Corrected and extended (Section 6.6).
 18. **Constants.** See Referee 1, Minor 18.

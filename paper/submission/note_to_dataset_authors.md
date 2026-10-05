@@ -8,7 +8,7 @@ offer collaboration or co-authorship is the author's decision.
 
 ---
 
-**Subject:** Research using the RDDAC and DDACS datasets – design-stage decisions qualified with production evidence
+**Subject:** Research using the RDDAC and DDACS datasets – design-stage decisions evaluated against production
 
 Dear Mr Baum, dear Mr Heinzelmann,
 
@@ -28,12 +28,12 @@ Some questions on which your knowledge of the experiments would help:
 2. Measurement: were any parts scanned repeatedly, with re-fixturing, or was a reference artefact scanned during the
    series? Which scanner and fixture were used, and how was the calibration (mm per pixel and per height unit)
    obtained? In the scans the flange width along the scan lines scatters 4-18 times more than across them and the
-   north wall reads about 1 degree low on the convex cups; I would like to describe this correctly.
+   north wall reads 0.9-1.6 degrees low on the convex cups; I would like to describe this correctly.
 3. What were the blank dimensions and the rolling direction relative to the scan axes, and in which order and on
    which dates were the 18 series produced? Were any alternatives produced on more than one day or coil? That would
    allow a production floor that covers variation between runs.
-4. The simulations reproduce the draw-in well in level but overstate its blank-holder force effect by a factor of
-   three to seven, and the simulated cut arms of the concave cups bend the other way from the parts. Is there
+4. The simulations overestimate the corner draw-in by about 3 mm and the blank-holder force effect on the draw-in
+   by a factor of 2.6 to 5.1, and the simulated cut arms of the concave cups bend the other way from the parts. Is there
    information on the yield criterion and the unloading behaviour in the DDACS material model, or on the
    blank-holder system (cushion, spacers), that would help to interpret this?
 

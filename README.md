@@ -37,7 +37,7 @@ requests and keep only the extracted features. Raw data are never committed.
 
 The results, with every number traced to its CSV, are summarised in [`results/findings.md`](results/findings.md).
 
-`bash scripts/run_all.sh` reproduces every analysis from the cached feature tables in about an hour on
+`bash scripts/run_all.sh` reproduces every analysis from the cached feature tables in about four hours on
 four cores (and extracts them first if they are missing, which takes hours). Constants live in `scripts/common.py` and at the top of each script; seeds are fixed.
 
 Requirements: Python 3.11 with the packages in `requirements.txt`.

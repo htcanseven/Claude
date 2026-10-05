@@ -5,33 +5,36 @@ Research in Engineering Design
 
 Dear Editors,
 
-Please find enclosed the manuscript "Qualifying design-stage manufacturability decisions with production evidence",
-submitted to the special collection *AI in Design for Manufacturing*.
+Please find enclosed the manuscript "Evaluating design-stage manufacturability decisions against the resolution of
+production", submitted to the special collection *AI in Design for Manufacturing*.
 
 Design-stage manufacturability decisions increasingly rest on simulation and machine learning, yet whether a
-prediction can be trusted to decide is a property of production that design research rarely measures. The
-manuscript proposes a method that scores such decisions against production. It defines the production floor – the
-difference that drift and scatter produce between two batches of one design – as the unit of design decisions, and
-characterises any decision rule that returns *meets*, *fails* or *send to trial* by two distances: a decisive
-distance, beyond which 95 % of its verdicts are correct, and a safe distance, beyond which at most 5 % are wrong.
-A calibration budget and a calibration design state how many, and which, produced variants of a design family a
-rule needs before its verdicts become reliable, and an applicability guard sends designs outside the calibrated
-family to trial. The method is summarised as a six-step procedure.
+prediction is fit to decide is rarely evaluated against production. The manuscript proposes a framework that
+expresses this fitness in a unit set by production, the production floor: the difference that drift and scatter
+produce between two batches of one design. A rule that returns *meets*, *fails* or *trial* is characterised by two
+operating characteristics in floors, a decisive distance beyond which at least 95 % of its verdicts are correct and
+a safe distance beyond which at most 5 % are wrong. Both are evaluated separately for each relation of a new design
+to the produced evidence: a variant of a produced process setting, a new process setting, or a new design family.
+A calibration budget, an applicability guard and a six-step procedure turn the framework into a tool for design
+teams.
 
-The demonstration uses open data of unusual depth: 9,000 deep-drawn and cut parts of 18 design–process
-alternatives, each produced as a series of 500 parts, with matched finite-element simulations. Each alternative is
-judged as a new design. The findings bear directly on the questions the collection raises about learning from
-historical design and manufacturing data: a Gaussian-process calibration of the simulation on the production record
-of a design family decides correctly within 7 floors; four to five produced variants that bracket a new design make
-calibrated decisions reliable; and across design families no rule is safe closer than 20 floors, while models
-without the simulation fail – the simulation carries a decision into a new family, and learning carries production
-evidence within it. Against general tolerances, the best rule decides 89 % of 162 design questions correctly
-without a false accept.
+The framework is evaluated on open data of unusual depth: 9,000 deep-drawn and cut parts of 18 design–process
+alternatives, each produced as a series of 500 parts, with matched finite-element simulations. Twelve rules, from
+the nominal simulation to Gaussian-process and gradient-boosting models, are compared, and every calibrated rule is
+also evaluated without the simulation. The relation of the new design to the produced evidence governed decision
+fitness more than the model did. With a produced sibling, the nearest produced setting decided within about
+3 floors. For a new process setting no rule decided closer than 8.5 floors, and for a new family no rule was safe
+closer than 16 floors. The simulation contributed only to the new family, and learned models matched the nearest
+produced setting in accuracy while adding calibrated abstention where the produced alternatives resembled the new
+design.
 
-The contribution is methodological: a definition, a decision procedure and design guidelines, with the case as a
-demonstration rather than the object of the paper. All data are public, and the released code reproduces every
-number from them. The manuscript has not been published or submitted elsewhere. The use of a large language model
-as an assistant is declared in the manuscript.
+The findings bear directly on the questions the collection raises about learning from design and manufacturing
+data, about trust in automated manufacturability assessment and about transfer between design families. They also
+give the evaluation of AI-based DFM support a production-referenced standard: a learned model is compared with a
+production-record baseline and scored by evidence relation, in a unit that production defines.
+
+All data are public, and the released code reproduces every number from them. The manuscript has not been
+published or submitted elsewhere. The use of a large language model as an assistant is declared in the manuscript.
 
 Yours sincerely,
 Hüseyin Tayyer Canseven
