@@ -24,10 +24,14 @@ requests and keep only the extracted features. Raw data are never committed.
 | `scripts/alternatives.py` | production floor, effect-to-scatter ratios between alternatives, minimum resolvable change |
 | `scripts/sensitivity.py` | the floor under other batch sizes, quantiles and batch centres; scatter versus drift |
 | `scripts/decisions.py` | design-stage decisions (meets / fails / uncertain) from six rules (nominal simulation, bias correction, conformal envelope, simulation + ML, ML only, Gaussian-process calibration) scored against production, leave-one-alternative-out and across geometries |
-| `scripts/budget.py` | the same decisions against the number of produced alternatives used for calibration |
+| `scripts/guard.py` | applicability guards: designs outside the calibrated family go to trial |
+| `scripts/scenarios.py` | verdicts against requirements from general tolerances (ISO 2768) |
+| `scripts/budget.py` | the same decisions against the number and choice of produced alternatives used for calibration |
+| `scripts/robustness.py` | punch-temperature correction, force–speed confound, analysis constants, friction mapping, conformalised GP |
 | `scripts/design_space.py` | sensitivities over the DDACS design corners; surrogate accuracy against the production floor |
 | `scripts/inline.py` | in-line verifiability of each characteristic from the force record |
 | `scripts/figs.py` | `results/figures/`: the paper's figures (PDF and PNG) |
+| `scripts/make_tables.py` | writes the manuscript's data tables from the CSVs into `paper/main.tex` |
 
 The results, with every number traced to its CSV, are summarised in [`results/findings.md`](results/findings.md).
 
@@ -35,3 +39,9 @@ The results, with every number traced to its CSV, are summarised in [`results/fi
 four cores (and extracts them first if they are missing, which takes hours). Constants live in `scripts/common.py` and at the top of each script; seeds are fixed.
 
 Requirements: Python 3.11 with the packages in `requirements.txt`.
+
+## Manuscript
+
+`paper/main.tex` (Springer `sn-jnl`, single file; build with `latexmk -pdf main.tex` in `paper/`). Tables between
+`%% BEGIN GENERATED` markers are written by `scripts/make_tables.py`; figures are copied from `results/figures/`.
+`paper/submission/` holds the cover letter, outreach drafts and the submission checklist.
