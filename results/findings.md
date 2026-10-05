@@ -90,6 +90,10 @@ it, NN is the most decisive rule within a family and M2 the safest for a new fam
 NN − M5 = −3.8 (−7.45 to −1.79) and NN − M5n = −3.8 (−5.0 to −2.05), NN smaller in all resamples; for a new
 setting NN − M5 = −10.2 (−12.1 to −9.1).
 
+**P11 Part-level learners** [tune_decisions.csv]: with jackknife+ intervals, M3n (M4 in the code) decides at
+11.2–12.7 floors within the family under every learner and setting, M3 at 19.9–32.3; for a new setting M3n at
+13.1–16.2, M3 at 26.8–36.8. The ranking of the two does not depend on the learner.
+
 ## R Revised findings (supersede the first-version headline and Sections 1–10 below)
 
 The revision reorganised the evaluation by the relation of a new design to the produced evidence (grouped
