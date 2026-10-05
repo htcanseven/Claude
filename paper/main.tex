@@ -48,7 +48,7 @@
 \fi
 
 %% BEGIN ABSTRACT
-\abstract{Design-stage manufacturability decisions rest on simulation and machine learning, but whether a prediction can be trusted to decide is a property of production that is rarely measured. This paper scores such decisions against production. A production floor---the difference that drift and scatter produce between two batches of one design---is the unit; a rule that returns meets, fails or trial is characterised by its decisive distance, beyond which 95\,\% of its verdicts are correct, and its safe distance, beyond which at most 5\,\% are wrong. Six rules, from the nominal simulation through conformal and Gaussian-process calibration to gradient-boosting models with and without the simulation, are compared on 9,000 deep-drawn cups of 18 design--process alternatives with matched finite-element simulations, each alternative judged as a new design. The nominal simulation needs requirements 150 floors away to decide reliably. Calibrated on the other alternatives of its family, a Gaussian-process discrepancy model decides correctly beyond 7 floors and errs rarely beyond 2; a conformal envelope is safe beyond half a floor but decisive only beyond 25. Four to five produced alternatives that bracket the new design's process settings make calibrated rules reliable. Across geometries no rule is safe closer than 20 floors and models without the simulation fail; the simulation carries a decision into a new family, while an applicability guard sends it to trial. Against general tolerances the best rule decides 89\,\% of 162 design questions correctly without a false accept. Data and code are open.}
+\abstract{Design-stage manufacturability decisions rest on simulation and machine learning, but whether a prediction can be trusted to decide is a property of production that is rarely measured. A production floor---the difference that drift and scatter produce between two batches of one design---is proposed as the unit; a rule that returns meets, fails or trial is characterised by its decisive distance, beyond which 95\,\% of its verdicts are correct, and its safe distance, beyond which at most 5\,\% are wrong. Six rules, from the nominal simulation to conformal, Gaussian-process and gradient-boosting corrections, are compared on 9,000 deep-drawn cups of 18 design--process alternatives with matched finite-element simulations, each alternative judged as a new design. The nominal simulation needs requirements 150 floors away to decide reliably. Calibrated on the other alternatives of its family, a Gaussian-process discrepancy model decides correctly beyond 7 floors and errs rarely beyond 2; a conformal envelope is safe beyond half a floor but decisive only beyond 25. Four to five produced alternatives that bracket the new design's process settings make calibrated rules reliable. Across geometries no rule is safe closer than 20 floors and models without the simulation fail; the simulation carries a decision into a new family, while an applicability guard sends it to trial. Against general tolerances the best rule decides 89\,\% of 162 design questions correctly without a false accept. On a second process, powder bed fusion without simulation, the record of one produced orientation decides for the others within 2 floors.}
 %% END ABSTRACT
 
 \keywords{design for manufacturing, design verification, simulation credibility, uncertainty quantification, Gaussian-process calibration, deep drawing}
@@ -444,6 +444,37 @@ Resolution target 0.99 & 30 & 50/1.5 & 12/5.5 & 15/5 & 75/30 & 75/40 \\
 \end{table}
 %% END GENERATED robust
 
+
+\subsection{A second process: build orientation in powder bed fusion}\label{sec:res-case2}
+
+To test whether the procedure carries over to a process without a simulation, it was applied to an open dataset on laser powder bed fusion of PA12 \citep{leirmo2021data, leirmo2021investigating}: one test artefact printed as 135 specimens in three builds, in 37 orientations about one axis (0--180$^\circ$ in 5$^\circ$ steps), each orientation printed once in every build, and measured three times on a coordinate measuring machine. Build orientation is a genuine design-for-additive-manufacturing decision that affects dimensional and geometric accuracy \citep{senthilkumaran2009influence, minetola2020comparing, leirmo2022minimizing}. Six orientation classes of 30$^\circ$ serve as the alternatives and a class within one build (six or seven specimens) as a batch; eight characteristics cover the diameters of pins and holes, an across-flats distance, cylindricity, flatness and position (Table~\ref{tab:case2}). Without a simulation, the design-stage evidence is the production record of the other classes: M0 predicts the nominal geometry, M1 the median 95th percentile of the other classes, M2 adds a conformal margin and M5 a Gaussian process over the orientation angle.
+
+The floors of this process are as large as the scatter of single specimens, because the builds differ, and production resolves only 18 of the 120 pairs of orientation classes: for most characteristics a change of orientation about the tested axis is not visible against the build-to-build variation. The decision layer is correspondingly easy to satisfy. The nominal geometry is reliable beyond 5.5 floors, and the production record of the other classes decides correctly beyond 2 floors with the bias correction alone---already with a single produced class---while the interval rules are safe beyond 1 floor. The contrast with deep drawing is instructive: where the alternatives barely differ relative to the floor, the record of any one of them answers for the others, and the procedure shows it; where they differ strongly and the simulation is biased, calibration and its budget decide how close to a requirement a verdict can be trusted.
+
+%% BEGIN GENERATED case2
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{4.5pt}
+\caption{Build orientation in powder bed fusion of PA12: floor, resolvable class pairs and distances}\label{tab:case2}
+\begin{tabular}{@{}lrrrrrrr@{}}
+\toprule
+Characteristic & Floor (mm) & Part SD & ESR\,$\geq$\,1 & M0 & M1 & M2 & M5 \\
+\midrule
+Diameter, 8 mm pin & 0.13 & 0.13 & 1/15 & 4 & 1 & 1.5/0.5 & 2/0 \\
+Diameter, 24 mm pin & 0.072 & 0.079 & 3/15 & 4 & 1.5 & 3/0.5 & 1/1 \\
+Diameter, 8 mm hole & 0.070 & 0.080 & 2/15 & 4.5 & 1 & 1.5/0.5 & 1.5/1 \\
+Diameter, 24 mm hole & 0.077 & 0.064 & 0/15 & 4 & 2 & 2.5/1 & 2/1 \\
+Hexagon across flats & 0.051 & 0.071 & 6/15 & 6.5 & 3 & 4.5/1.5 & 4/1 \\
+Cylindricity, 24 mm pin & 0.057 & 0.049 & 5/15 & 6 & 2 & 3/1 & 2.5/0.5 \\
+Flatness, base plate & 0.072 & 0.073 & 0/15 & 6 & 1.5 & 2.5/0.5 & 2/0.5 \\
+Position, 24 mm pin & 0.31 & 0.32 & 1/15 & 4.5 & 2 & 3.5/1 & 3/2.5 \\
+\midrule All &  &  & 18/120 & 5.5 & 2 & 4/1 & 3.5/1 \\
+\botrule
+\end{tabular}
+\footnotetext{Six orientation classes of 30$^\circ$, three builds; floor from the build centres of one class. ESR\,$\geq$\,1: class pairs that production resolves. M0--M5: decisive or decisive/safe distance in floors with the class held out; no simulation is used (M0: nominal geometry).}
+\end{table}
+%% END GENERATED case2
+
 \FloatBarrier
 %% ----------------------------------------------------------------------
 \section{Discussion}\label{sec:discussion}
@@ -479,7 +510,7 @@ The comparison of the six rules answers the question the call for this collectio
 
 \subsection{Applying the procedure elsewhere}
 
-The procedure needs three things: several produced alternatives of a design family, each with a series of consecutive parts from which the floor can be measured; a design-stage predictor for every alternative, a simulation or a surrogate; and characteristics that can be measured identically on parts and predictions. None is specific to forming. Injection moulding with warpage simulations, machining with deflection models and additive manufacturing with distortion simulations fit the same pattern, and the calibration budget and design apply wherever a product family is produced in variants. Where the predictor is not a physics model, rule M4 is the baseline that tells what the production record alone already achieves.
+The procedure needs three things: several produced alternatives of a design family, each with a series of consecutive parts or several batches from which the floor can be measured; a design-stage predictor for every alternative, which may be a simulation, a surrogate or the production record of the other alternatives; and characteristics that can be measured identically on parts and predictions. None is specific to forming. The second demonstration applied the procedure unchanged to powder bed fusion, with builds as batches and no simulation at all, and it returned a different but equally useful answer: there, production barely separates the orientations, so the record of one of them suffices to decide for the others within 2 floors. Injection moulding with warpage simulations and machining with deflection models fit the same pattern, and the calibration budget and design apply wherever a product family is produced in variants. Where the predictor is not a physics model, rules M1 and M4 are the baselines that tell what the production record alone already achieves.
 
 \subsection{Threats to validity}
 
@@ -498,7 +529,7 @@ Three extensions follow: series produced on several days, coils and tool states,
 \backmatter
 
 \bmhead{Acknowledgements}
-The author thanks the Institute for Metal Forming Technology and the Institute for Parallel and Distributed Systems of the University of Stuttgart for publishing the RDDAC and DDACS datasets on which this work rests.
+The author thanks the authors of the RDDAC and DDACS datasets at the University of Stuttgart and of the PA12 powder bed fusion dataset at the Norwegian University of Science and Technology for publishing the data on which this work rests.
 
 \section*{Declarations}
 
@@ -512,7 +543,7 @@ The author declares no competing interests.
 Not applicable.
 
 \bmhead{Data availability}
-All data are public. RDDAC: doi:10.18419/DARUS-5589 (version 2.0); DDACS: doi:10.18419/DARUS-4801 (version 3.0); both licensed CC BY 4.0. The extracted per-part and per-simulation feature tables are provided with the code.
+All data are public. RDDAC: doi:10.18419/DARUS-5589 (version 2.0); DDACS: doi:10.18419/DARUS-4801 (version 3.0); both licensed CC BY 4.0. PA12 powder bed fusion: doi:10.18710/DHACHZ (version 1.1, CC0). The extracted per-part and per-simulation feature tables are provided with the code.
 
 \bmhead{Code availability}
 The complete analysis pipeline is released under an open licence at \url{https://github.com/htcanseven/Claude} (directory \texttt{scripts/}; an archived release with a DOI will be deposited on Zenodo at acceptance) and reproduces every number in this paper from the public data.

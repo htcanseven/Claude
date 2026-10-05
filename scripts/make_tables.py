@@ -342,9 +342,36 @@ def t_bhfpairs() -> str:
                       r"mean sensitivity within the pair.")
 
 
+def t_case2() -> str:
+    sys.path.insert(0, str(ROOT / "scripts"))
+    from case2_pa12 import LABEL2, QCS2
+
+    fl = pd.read_csv(RESULTS / "case2_floor.csv").set_index("qc")
+    eff = pd.read_csv(RESULTS / "case2_effects.csv")
+    r = pd.read_csv(RESULTS / "case2_resolution.csv").set_index(["qc", "method"])
+    rows = []
+    for c in list(QCS2) + ["all"]:
+        if c == "all":
+            lab, f, sd = r"\midrule All", "", ""
+            e = eff
+        else:
+            lab, f, sd = LABEL2[c], sig(fl.loc[c, "floor"]), sig(fl.loc[c, "sd_within"])
+            e = eff[eff["qc"] == c]
+        rows.append(f"{lab} & {f} & {sd} & {int((e['esr'] >= 1).sum())}/{len(e)} & "
+                    f"{num(r.loc[(c, 'M0'), 'resolution_floors'])} & {num(r.loc[(c, 'M1'), 'resolution_floors'])} & "
+                    f"{num(r.loc[(c, 'M2'), 'resolution_floors'])}/{num(r.loc[(c, 'M2'), 'safe_floors'])} & "
+                    f"{num(r.loc[(c, 'M5'), 'resolution_floors'])}/{num(r.loc[(c, 'M5'), 'safe_floors'])}")
+    head = (r"Characteristic & Floor (mm) & Part SD & ESR\,$\geq$\,1 & M0 & M1 & M2 & M5")
+    return table(rows, "Build orientation in powder bed fusion of PA12: floor, resolvable class pairs and distances",
+                 "tab:case2", "lrrrrrrr", head, colsep="4.5pt",
+                 note=r"Six orientation classes of 30$^\circ$, three builds; floor from the build centres of one class. "
+                      r"ESR\,$\geq$\,1: class pairs that production resolves. M0--M5: decisive or decisive/safe "
+                      r"distance in floors with the class held out; no simulation is used (M0: nominal geometry).")
+
+
 TABLES = {"floors": t_floors, "resolve": t_resolve, "offsets": t_offsets, "distances": t_distances,
           "distci": t_distci, "qcdist": t_qc_distances, "scenarios": t_scenarios, "dsratio": t_design_space,
-          "inline": t_inline, "design": t_design, "robust": t_robust, "bhfpairs": t_bhfpairs}
+          "inline": t_inline, "design": t_design, "robust": t_robust, "bhfpairs": t_bhfpairs, "case2": t_case2}
 
 
 def main() -> None:

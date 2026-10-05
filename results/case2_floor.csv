@@ -1,0 +1,9 @@
+qc,floor,n_batches,sd_within,measurement_note
+Cylindricity_Cyl_24mm_Pos,0.05704640569799656,18,0.04897992986426355,mean of three CMM repetitions
+Diameter_Cyl_24mm_Neg,0.07724237937810031,18,0.06425572168337733,mean of three CMM repetitions
+Diameter_Cyl_24mm_Pos,0.07223512867306925,18,0.07863740767277662,mean of three CMM repetitions
+Diameter_Cyl_8mm_Neg,0.07015222675379665,18,0.07981538376836964,mean of three CMM repetitions
+Diameter_Cyl_8mm_Pos,0.13107410210002834,18,0.12501552254438913,mean of three CMM repetitions
+Dist_HX1_1-4,0.05111439911356589,18,0.07076145283223392,mean of three CMM repetitions
+Flatness_Base_Plate,0.07189763268793059,18,0.0729307931308687,mean of three CMM repetitions
+Position_Cyl_24mm_Pos,0.31424193200019795,18,0.32089753806251564,mean of three CMM repetitions
