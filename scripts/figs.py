@@ -176,6 +176,36 @@ def fig_decisions(src: Path, scope: str = "within") -> None:
     save(fig, f"F3_decisions_{scope}")
 
 
+def fig_decisions_compare(src: Path) -> None:
+    """Verdict shares of three rules within the family (top) and for a new geometry (bottom)."""
+    c = pd.read_csv(src / "dec_curve.csv")
+    methods = [("M2", "envelope + margin"), ("M5", "GP calibration"), ("M4", "ML only")]
+    scopes = [("within", "within family"), ("transfer", "new geometry")]
+    fig, axs = plt.subplots(2, 3, figsize=(WIDTH_IN, 4.85), sharey=True, squeeze=False)
+    letters = iter("abcdef")
+    for i, (scope, sname) in enumerate(scopes):
+        for j, (m, mname) in enumerate(methods):
+            ax = axs[i, j]
+            g = c[(c["scope"] == scope) & (c["method"] == m)].sort_values("d")
+            x = g["d"].to_numpy()
+            ax.stackplot(x, g["correct"], g["abstain"], g["false_reject"], g["false_accept"],
+                         colors=[OUTCOME_COLOUR[k] for k in ["correct", "abstain", "false_reject", "false_accept"]],
+                         lw=0)
+            ax.set_xscale("symlog", linthresh=10.0, linscale=1.5)
+            ax.set_xlim(x.min(), x.max())
+            ax.set_ylim(0, 1)
+            ax.set_xticks([-100, -10, 0, 10, 100], ["", "$-10$", "0", "10", "100"], fontsize=9)
+            ax.set_xticks([-500, -300, -200, -50, -30, -20, -5, 5, 20, 30, 50, 200, 300, 500], minor=True)
+            ax.axvline(0, color=INK, lw=0.6)
+            subcaption(ax, next(letters), f"{m}, {sname}", "distance $d$ (floors)")
+        axs[i, 0].set_ylabel("share of verdicts")
+    labels = {"correct": "correct", "abstain": "uncertain", "false_reject": "false reject", "false_accept": "false accept"}
+    handles = [plt.Rectangle((0, 0), 1, 1, color=OUTCOME_COLOUR[k], label=labels[k]) for k in labels]
+    fig.legend(handles=handles, loc="upper center", ncol=4, frameon=False, bbox_to_anchor=(0.5, 1.01))
+    fig.tight_layout(rect=(0, 0, 1, 0.955), w_pad=0.8, h_pad=0.6)
+    save(fig, "F3_decisions_compare")
+
+
 def fig_budget(src: Path) -> None:
     """Safe and decisive distances against the number of calibration alternatives (within geometry)."""
     r = pd.read_csv(src / "budget_resolution.csv")
@@ -215,6 +245,7 @@ def main() -> None:
     fig_sensitivity(src)
     for scope in ("within", "pooled", "transfer"):
         fig_decisions(src, scope)
+    fig_decisions_compare(src)
     if (src / "budget_resolution.csv").exists():
         fig_budget(src)
     print(f"figures written to {FIGURES}")
