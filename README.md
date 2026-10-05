@@ -10,6 +10,7 @@ Working repository for a paper aimed at the *Research in Engineering Design* spe
 |---|---|---|
 | RDDAC, [doi:10.18419/DARUS-5589](https://doi.org/10.18419/DARUS-5589) (v2.0) | 9,000 deep-drawn and cut DP600 cups: 2 geometries × 3 blank-holder forces × 3 lubrication patterns, 500 consecutive parts each; press force, sheet and oil traverses, 3D scans after drawing and after cutting | CC BY 4.0 |
 | DDACS, [doi:10.18419/DARUS-4801](https://doi.org/10.18419/DARUS-4801) (v3.0) | ≈32,000 FE simulations of the same process; 396 matched to the RDDAC conditions, the rest over design corners and process parameters | CC BY 4.0 |
+| NTNU PA12, [doi:10.18710/DHACHZ](https://doi.org/10.18710/DHACHZ) (v1.1) | One test artefact printed as 135 specimens in three builds, 37 build orientations, CMM characteristics measured three times | CC0 |
 
 Nothing is downloaded in bulk: the scripts read single files from the DaRUS archives through HTTP range
 requests and keep only the extracted features. Raw data are never committed.
@@ -30,6 +31,7 @@ requests and keep only the extracted features. Raw data are never committed.
 | `scripts/robustness.py` | punch-temperature correction, force–speed confound, analysis constants, friction mapping, conformalised GP |
 | `scripts/design_space.py` | sensitivities over the DDACS design corners; surrogate accuracy against the production floor |
 | `scripts/inline.py` | in-line verifiability of each characteristic from the force record |
+| `scripts/case2_pa12.py` | second demonstration: build orientation in powder bed fusion of PA12 (NTNU, doi:10.18710/DHACHZ, CC0) |
 | `scripts/figs.py` | `results/figures/`: the paper's figures (PDF and PNG) |
 | `scripts/make_tables.py` | writes the manuscript's data tables from the CSVs into `paper/main.tex` |
 

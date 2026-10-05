@@ -279,3 +279,19 @@ decomposes the simulation-to-reality deviation (geometry 77–92 % of its varian
 boosting from process measurements (R² 81–92 %). This paper's question is complementary (design-stage decisions
 without process measurements of the new alternative); their R² is mostly between-alternative variation, which
 the within-alternative in-line analysis removes.
+
+### 10.6 Second demonstration: build orientation in powder bed fusion of PA12 [case2_*.csv]
+
+NTNU dataset (Leirmo and Semeniuta 2021, doi:10.18710/DHACHZ, CC0): 111 specimens (37 orientations, 0–180° in 5°
+steps about one axis, once per build, three builds; anchors excluded), eight characteristics (pin and hole
+diameters, across-flats distance, cylindricity, flatness, position), mean of three CMM repetitions (repeatability
+0.003–0.012 mm against 0.05–0.32 mm between specimens). Six orientation classes of 30° are the alternatives; a
+batch is a class within one build. No simulation: rules M0 (nominal geometry), M1 (median q95 of the other
+classes), M2 (with conformal margin), M5 (GP over orientation).
+
+- Floors 0.051–0.31 mm, as large as the single-specimen SD: builds differ.
+- Production resolves 18 of 120 orientation-class pairs (cylindricity 5/15, across-flats 6/15, others 0–3/15).
+- Decisive/safe distances over all characteristics: M0 5.5/5.5, M1 2/2, M2 4/1, M5 3.5/1 floors.
+- Calibration budget: M1 decides at 2 floors with a single produced class; M2 and M5 safe at 1–1.5 floors from k=2.
+- Reading: where alternatives barely differ relative to the floor, the record of any one of them answers for the
+  others; deep drawing is the opposite case.
