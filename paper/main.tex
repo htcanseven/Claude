@@ -9,7 +9,8 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,calc}
 \usepackage{siunitx}
-\usepackage{manyfoot}   % the class's begin-document footnote hook expects this package to be loaded
+\usepackage{manyfoot}
+\usepackage{placeins}   % \FloatBarrier keeps floats from drifting past sections   % the class's begin-document footnote hook expects this package to be loaded
 \graphicspath{{figures/}}
 
 \raggedbottom
@@ -281,7 +282,7 @@ Bottom dome, cut & 9/9 & 9.6 & 15/18 & 2.4 & 11/18 & 1.6 & 623 (494--828) \\
 \end{table}
 %% END GENERATED resolve
 
-\begin{figure}[t]
+\begin{figure}[p]
 \centering
 \includegraphics[width=\textwidth]{F1_alternatives}
 \caption{Centre and 5--95\,\% range of each characteristic per alternative; the black bar is the production floor}\label{fig:alternatives}
@@ -441,6 +442,7 @@ Resolution target 0.99 & 30 & 50/1.5 & 12/5.5 & 15/5 & 75/30 & 75/40 \\
 \end{table}
 %% END GENERATED robust
 
+\FloatBarrier
 %% ----------------------------------------------------------------------
 \section{Discussion}\label{sec:discussion}
 
@@ -490,6 +492,7 @@ On 9,000 deep-drawn and cut cups of 18 design--process alternatives, the nominal
 
 Three extensions follow: series produced on several days, coils and tool states, so that the floor covers long-term variation; more design families and processes, to turn the calibration budget into a general rule; and a cost model for trials, false accepts and false rejects, so that the choice between a safe and a decisive rule can be posed as an optimisation. The released code, which reproduces every result from the public data, is the starting point for all three.
 
+\FloatBarrier
 \backmatter
 
 \bmhead{Acknowledgements}
@@ -655,6 +658,7 @@ Bottom dome, cut & 0.10 & 0.08 & 3.3 & 0.10 & 10 \\
 \end{table}
 %% END GENERATED inline
 
+\FloatBarrier
 \end{appendices}
 
 {\makeatletter\def\bibfont{\reset@font\fontfamily{\rmdefault}\footnotesize\selectfont}\makeatother
