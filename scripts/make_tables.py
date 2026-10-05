@@ -536,12 +536,19 @@ TABLES = {"floors": t_floors, "components": t_components, "resolve": t_resolve, 
 
 def main() -> None:
     s = MAIN.read_text()
+    failed = []
     for name, fn in TABLES.items():
-        if f"%% BEGIN GENERATED {name}" in s:
+        if f"%% BEGIN GENERATED {name}" not in s:
+            print(f"{name}: no block in main.tex")
+            continue
+        try:
             write_block(name, fn())
             print(f"{name}: written")
-        else:
-            print(f"{name}: no block in main.tex")
+        except (KeyError, FileNotFoundError, ValueError) as e:      # a result file not yet regenerated
+            failed.append(name)
+            print(f"{name}: FAILED ({type(e).__name__}: {e})")
+    if failed:
+        sys.exit(f"tables not written: {', '.join(failed)}")
 
 
 if __name__ == "__main__":

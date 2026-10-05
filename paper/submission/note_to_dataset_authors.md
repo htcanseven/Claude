@@ -16,18 +16,26 @@ Thank you for publishing the RDDAC and DDACS datasets and your recent paper on t
 in deep drawing. I am preparing a paper for *Research in Engineering Design* that builds on both datasets with a
 different question: how close to a requirement a design-stage decision made from simulation can be trusted, and how
 much production evidence a design team needs before such decisions become reliable. The work defines a production
-floor from batches of consecutive parts, scores six decision rules (nominal simulation, calibrated envelopes,
-Gaussian-process and gradient-boosting corrections) by leaving each of the 18 alternatives out in turn, and derives
-a calibration budget. All code and extracted feature tables are open, and the datasets and your paper are cited.
+floor from batches of consecutive parts and scores twelve decision rules (from the nominal simulation to
+Gaussian-process and gradient-boosting models, each calibrated rule also without the simulation) by how the new
+design relates to the produced alternatives: a new lubrication variant, a new blank-holder force, or the other
+geometry. All code and extracted feature tables are open, and the datasets and your paper are cited.
 
-Three questions on which your knowledge of the experiments would help:
+Some questions on which your knowledge of the experiments would help:
 
-1. Are there drawing specifications or tolerances for the cups (wall angle, flange, bottom flatness, depth) that
-   could replace the general-tolerance scenarios (ISO 2768) used in the paper?
-2. How confident are you in the linear oil-to-friction mapping of the rddac package for within-series variation of
-   the oil film? In the analysis the simulated friction sensitivity is 5 to 630 times the one inferred from the
-   measured film.
-3. Were any alternatives produced on more than one day or coil? That would allow a long-term production floor.
+1. Are there drawing specifications or tolerances for the cups (wall angle, flange, bottom, depth) that could
+   replace the general-tolerance scenarios (ISO 2768-1) used in the paper?
+2. Measurement: were any parts scanned repeatedly, with re-fixturing, or was a reference artefact scanned during the
+   series? Which scanner and fixture were used, and how was the calibration (mm per pixel and per height unit)
+   obtained? In the scans the flange width along the scan lines scatters 4-18 times more than across them and the
+   north wall reads about 1 degree low on the convex cups; I would like to describe this correctly.
+3. What were the blank dimensions and the rolling direction relative to the scan axes, and in which order and on
+   which dates were the 18 series produced? Were any alternatives produced on more than one day or coil? That would
+   allow a production floor that covers variation between runs.
+4. The simulations reproduce the draw-in well in level but overstate its blank-holder force effect by a factor of
+   three to seven, and the simulated cut arms of the concave cups bend the other way from the parts. Is there
+   information on the yield criterion and the unloading behaviour in the DDACS material model, or on the
+   blank-holder system (cushion, spacers), that would help to interpret this?
 
 I would be glad to send you the manuscript before submission and to hear any comments.
 
