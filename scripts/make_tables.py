@@ -408,7 +408,7 @@ def t_scenarios() -> str:
 
 def t_robust() -> str:
     r = pd.read_csv(RESULTS / "rob_decisions.csv").set_index(["variant", "scope", "method"])
-    order = [("reference", "Reference"), ("temperature-adjusted", "Temperature-adjusted characteristics"),
+    order = [("reference", "Reference"), ("temperature-adjusted", "Temperature-adjusted"),
              ("smoothed simulation", "Smoothed simulation"), ("adequacy share 0.90", "Adequacy share 0.90"),
              ("adequacy share 0.99", "Adequacy share 0.99"),
              ("floor with batch 25 and quantile 0.95", "Floor: batches of 25"),
@@ -418,7 +418,7 @@ def t_robust() -> str:
              ("resolution target 0.90", r"Target 90\,\%"), ("resolution target 0.99", r"Target 99\,\%"),
              ("interval level 0.80", "Interval level 0.80"), ("interval level 0.95", "Interval level 0.95"),
              ("GP matern", r"GP: Mat\'ern 5/2"), ("GP linear", "GP: linear trend"),
-             ("GP onehot", "GP: lubrication indicators"), ("GP ls_floor", "GP: length scales $\\geq$ one step"),
+             ("GP onehot", "GP: one-hot lubrication"), ("GP ls_floor", "GP: length-scale floor"),
              ("GP no_noise_floor", "GP: no noise floor")]
     cols = [("within", "M1"), ("within", "M2"), ("within", "M5"), ("within", "NN"), ("setting", "M2"),
             ("setting", "M5"), ("setting", "NN"), ("transfer", "M2"), ("transfer", "M5")]
@@ -429,7 +429,7 @@ def t_robust() -> str:
 
     rows = [f"{name} & " + " & ".join(cell(v, s, m) for s, m in cols) for v, name in order]
     lolo = [("leave one pattern out", "lubricant", m) for m in ["M1", "M2", "M5", "NN"]]
-    rows.append("Leave one lubrication pattern out & " + " & ".join(
+    rows.append("Leave one pattern out & " + " & ".join(
         pair(r.loc[k], k[2]) if k in r.index else "" for k in lolo) + " & & & & & ")
     ref = pd.read_csv(RESULTS / "rob_refit.csv").set_index(["scope", "method"])
 

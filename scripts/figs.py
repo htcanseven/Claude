@@ -232,7 +232,7 @@ def fig_budget(src: Path) -> None:
             ax.set_xticks(range(1, 9))
             ax.set_xlim(0.7, 8.3)
             ax.tick_params(labelsize=8)
-            subcaption(ax, next(letters), rname, "produced alternatives $k$" if i == 1 else "")
+            subcaption(ax, next(letters), rname, "produced alternatives $k$" if i == 1 and j == 1 else ("$k$" if i == 1 else ""))
         axs[i, 0].set_ylabel(f"{kname} distance\n(floors)", fontsize=9)
     h, lab = axs[0, 0].get_legend_handles_labels()
     fig.legend(h, lab, loc="upper center", ncol=4, frameon=False, bbox_to_anchor=(0.5, 1.02))
