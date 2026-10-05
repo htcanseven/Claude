@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: "If you use this code or the extracted feature tables, please cite the paper and the datasets below."
+title: "Qualifying design-stage manufacturability decisions with production evidence: analysis code"
+authors:
+  - family-names: Canseven
+    given-names: Hüseyin Tayyer
+    affiliation: LUT University
+    email: huseyin.canseven@lut.fi
+repository-code: "https://github.com/htcanseven/Claude"
+keywords:
+  - design for manufacturing
+  - design verification
+  - simulation credibility
+  - Gaussian-process calibration
+  - deep drawing
+references:
+  - type: dataset
+    title: "Real Deep Drawing and Cutting (RDDAC) Dataset"
+    authors:
+      - family-names: Baum
+        given-names: Sebastian
+      - family-names: Heinzelmann
+        given-names: Pascal
+    doi: 10.18419/DARUS-5589
+    version: "2.0"
+  - type: dataset
+    title: "Deep Drawing and Cutting Simulations (DDACS) Dataset"
+    authors:
+      - family-names: Baum
+        given-names: Sebastian
+      - family-names: Heinzelmann
+        given-names: Pascal
+    doi: 10.18419/DARUS-4801
+    version: "3.0"
