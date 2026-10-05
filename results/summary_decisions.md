@@ -46,7 +46,7 @@ Adequate: at least 95% of the parts conform. Conformal coverage 90%. Nominal sim
 | pooled   | M2       | 50 (40-75)           | 0 (0-0)          |
 | pooled   | M3       | 25 (25-30)           | 0 (0-0.5)        |
 | pooled   | M4       | 25 (15-30)           | 0.5 (0-1.5)      |
-| pooled   | M5       | 12 (9.975-15)        | 1 (0.5-2.5)      |
+| pooled   | M5       | 12 (9-15)            | 1 (0.5-2.5)      |
 | transfer | M0       | 150 (100-150)        | 150 (100-150)    |
 | transfer | M1       | 40 (40-40)           | 40 (40-40)       |
 | transfer | M2       | 75 (75-75)           | 20 (12-25)       |

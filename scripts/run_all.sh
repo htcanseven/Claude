@@ -22,4 +22,6 @@ python3 budget.py            # decisions against the number and choice of calibr
 python3 robustness.py        # temperature correction, speed confound, constants, friction mapping, M6
 python3 design_space.py      # DDACS corners: sensitivities, surrogate accuracy
 python3 inline.py            # in-line verifiability from the force record
+python3 case2_pa12.py        # second demonstration: build orientation in powder bed fusion (downloads 35 MB)
 python3 figs.py              # figures in the paper's style (results/figures)
+python3 make_tables.py       # tables of paper/main.tex from the CSVs
