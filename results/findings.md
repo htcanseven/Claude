@@ -18,17 +18,26 @@ characteristic unless stated; "floors" means multiples of that characteristic's 
    between alternatives of one geometry; it needs requirements 150 floors from the truth before 95 % of its
    verdicts are right [dec_alternatives.csv, dec_resolution.csv].
 3. **Calibrated on the other alternatives of the family, a Gaussian-process discrepancy model (M5) decides
-   correctly beyond 7 floors and errs in at most 5 % of verdicts beyond 2 floors.** The conformal envelope
-   (M2) is safer (0.5 floors) but needs 25 floors to decide; learning the characteristic from production data
-   alone (M4) needs 12 [dec_resolution.csv].
+   correctly beyond 7 floors (bootstrap 95 % CI 6.5–8) and errs in at most 5 % of verdicts beyond 2 floors
+   (0.5–4.5).** The conformal envelope (M2) is safer (0.5 floors) but needs 25 floors to decide; learning the
+   characteristic from production data alone (M4) needs 12; the intervals of M5, M4, M1 and M2 do not overlap
+   [dec_resolution.csv].
 4. **Across geometries no rule is safe closer than 20 floors, and machine learning without the simulation
    fails outright** (150 floors). The simulation is what carries a decision into a new geometry, but its
    calibration does not transfer reliably [dec_resolution.csv].
-5. **Production evidence buys safety first.** With 4 to 5 produced alternatives of the family the calibrated
-   rules err in under 1 % of verdicts at 10 floors; more alternatives make M5 more decisive (20 to 7 floors)
-   but M2 less so (12 to 25) [budget_resolution.csv].
+5. **Production evidence buys safety first, and which variants are produced matters.** With 4 to 5 produced
+   alternatives of the family the calibrated rules err in under 1 % of verdicts at 10 floors; more alternatives
+   make M5 more decisive (20 to 7 floors) but M2 less so (12 to 25) [budget_resolution.csv]. Calibration sets
+   whose blank-holder forces bracket the new design make M2 error-free and M5 nearly so at 10 floors from two
+   alternatives on; extrapolating sets err in 4.6–7.9 % [budget_design.csv].
 6. **The press-force record cannot stand in for the scan.** It explains at most 17 % of the part-to-part and
    11 % of the batch-to-batch variation of any characteristic [inline_lod.csv, inline_drift.csv].
+7. **Against general tolerances (ISO 2768) the best rule decides 89 % of 162 design questions correctly, with no
+   false accept** (within the family); the nominal simulation is right in 66 % and accepts 19 % that fail
+   [scen_scores.csv].
+8. **An applicability guard makes the transfer safe by sending it to trial.** For 90.5 % of the cases on a new
+   geometry the simulated q95 lies outside the calibration range; the rest are decided with at most 2.4 % wrong
+   verdicts [dec_guard.csv].
 
 ## 0 Data and characteristics
 
@@ -226,3 +235,47 @@ Simulated against measured sensitivity [ds_sensitivity.csv; Figure F2]:
   simulation carries the decision and no calibration is safe below 20 floors).
 - Open items before writing: a realistic requirement scenario taken from the part's function, a procedure
   figure and positioning table, and the simulated three-referee review of the playbook.
+
+## 10 Additions after the publishability review
+
+### 10.1 Calibration design [budget_design.csv]
+
+| Rule | Calibration set | Safe distance k = 2 / 3 / 4 / 5 | Wrong at 10 floors k = 2 / 3 / 4 / 5 |
+|---|---|---|---|
+| M2 | brackets the new design's force | 3 / 1.5 / 1.5 / 1 | 0 / 0 / 0 / 0 % |
+| M2 | extrapolates | 12 / 12 / 12 / 12 | 7.9 / 5.8 / 5.6 / 5.2 % |
+| M5 | brackets | 2.5 / 3 / 2.5 / 2 | 0.1 / 0.6 / 0.2 / 0.1 % |
+| M5 | extrapolates | 12 / 12 / 10 / 10 | 6.7 / 5.4 / 4.6 / 4.7 % |
+
+### 10.2 Applicability guards [dec_guard.csv]
+
+Across geometries the novelty guard (simulated q95 of the new design outside the range of the calibration
+alternatives) fires in 90.5 % of the cases and the family guard in all; the remaining cases are decided with 0 %
+(M2) and 2.4 % (M5) wrong verdicts at 10 floors. Within a family neither guard fires.
+
+### 10.3 Requirements from general tolerances [scen_truth.csv, scen_scores.csv]
+
+ISO 2768-1 angular classes (f/m 0.5°, c 1°, v 2°, legs 10–50 mm) on the wall angle (about the tool's design
+angle) and the arm angle (about flat), ISO 2768-2 flatness classes (H 0.1, K 0.2, L 0.4 mm, 30–100 mm) on the
+bottom dome; values checked against the standards' text (paper/notes/tolerance_sources.md). 162 decisions per
+rule and scope. Within the family: M5 89 % right, 0 % false accepts, 1.2 % false rejects, 10 % trial; M1 87 %
+right with 6.8 % false accepts; M2 72 % right, no wrong verdicts, 28 % trial; M0 66 % right, 19 % false accepts.
+Transfer: M5 65 % right with 9.9 % false accepts; M2 44 % right, 4.3 % false accepts, 39 % trial.
+
+### 10.4 Robustness [rob_floor.csv, rob_bhf_pairs.csv, rob_decisions.csv]
+
+- Punch-temperature correction lowers floors by 1–14 %; M5 within 7/2.5 floors (reference 7/2), pooled 10/1.
+- Conformal level 0.80 / 0.95: M2 within unchanged (25/0.5); M5 decisive 6 / 7.5.
+- Resolution target 0.90 / 0.99: M5 5 / 12, M4 8 / 15, M1 10 / 30 floors (ranking unchanged).
+- Force effects at equal stroke speed (300→500 kN): corner draw-in and depth resolved in 6/6 contrasts, mid-side
+  draw-in, arm angle and dome in 5/6, waviness 3/6, wall angle 2/6.
+- Oil film replaced by the pattern median for M3: decisive 40 floors (reference 20), safe 3.
+- Conformalised GP (M6): safe 0.5 floors, decisive 75 everywhere (negative result).
+
+### 10.5 Related work found
+
+The dataset authors' descriptor paper (Baum et al. 2026, Trans Indian Inst Met, doi:10.1007/s12666-026-03870-5)
+decomposes the simulation-to-reality deviation (geometry 77–92 % of its variance) and predicts it with gradient
+boosting from process measurements (R² 81–92 %). This paper's question is complementary (design-stage decisions
+without process measurements of the new alternative); their R² is mostly between-alternative variation, which
+the within-alternative in-line analysis removes.
