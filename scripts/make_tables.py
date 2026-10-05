@@ -71,6 +71,22 @@ def pct(x: float) -> str:
     return "--" if not np.isfinite(x) else f"{100 * x:.0f}"
 
 
+def signed(x: float, d: int = 1, plus: bool = True) -> str:
+    """A number with a typographic minus, halves rounded away from zero; a zero carries no sign."""
+    if x is None or not np.isfinite(x):
+        return "--"
+    s = f"{x + np.sign(x) * 1e-9:{'+' if plus else ''}.{d}f}"
+    if float(s) == 0:
+        s = f"{0:.{d}f}"
+    return s.replace("-", "$-$")
+
+
+def rng(lo: float, hi: float, d: int = 2) -> str:
+    """A range; written with 'to' when an end is negative, so that the dash cannot read as a minus."""
+    a, b = signed(lo, d, plus=False), signed(hi, d, plus=False)
+    return f"{a} to {b}" if "$-$" in a + b else f"{a}--{b}"
+
+
 def table(rows, caption, label, cols, head, colsep=None, note=None, star=False, size=r"\tabsize"):
     env = "table*" if star else "table"
     sep = f"\\setlength{{\\tabcolsep}}{{{colsep}}}\n" if colsep else ""
@@ -180,16 +196,17 @@ def t_offsets() -> str:
         cells = []
         for geo in ["concave", "convex"]:
             h = g[g["geometry"] == geo]
-            cells.append(f"{h['off_F'].median():.0f} & {h['off_F'].max() - h['off_F'].min():.0f}")
+            cells.append(f"{signed(h['off_F'].median(), 0, plus=False)} & "
+                         f"{signed(h['off_F'].max() - h['off_F'].min(), 0, plus=False)}")
         gm = [g[g["geometry"] == geo]["gap_matched_signed"].median() for geo in ["concave", "convex"]]
-        rows.append(f"{LABEL[c]} ({UNIT[c]}) & " + " & ".join(cells) + f" & {gm[0]:+.2f} & {gm[1]:+.2f}")
+        rows.append(f"{LABEL[c]} ({UNIT[c]}) & " + " & ".join(cells) + f" & {signed(gm[0], 2)} & {signed(gm[1], 2)}")
     head = (r" & \multicolumn{2}{c}{Concave} & \multicolumn{2}{c}{Convex} & \multicolumn{2}{c}{Matched, signed} \\"
             "\n" r"\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}" "\n"
             r"Characteristic & Offset & Spread & Offset & Spread & Concave & Convex")
     return table(rows, "Offset between the parts' 95th percentile and the nominal simulation, in floors",
                  "tab:offsets", "lrrrrrr", head, colsep="5pt",
-                 note=r"Offset: median over the nine alternatives of a geometry of $(q_{95}-$ nominal "
-                      r"simulation$)/F$ on the decision scale (absolute values for the arm angle and the dome); "
+                 note=r"Offset: median over the nine alternatives of a geometry of $(q_{95}-s_0)/F$, $s_0$ the "
+                      r"nominal simulation, on the decision scale (absolute values for the arm angle and the dome); "
                       r"spread: its range over the alternatives. Matched, signed: median difference between the "
                       r"centre of the parts and of their matched simulations, in the characteristic's unit, with "
                       r"signs; the simulated arm angle of the concave cup has the opposite sign of the parts'.")
@@ -300,7 +317,8 @@ def t_paired() -> str:
                 cells.append("--")
                 continue
             x = p.loc[(scope, a, b)]
-            cells.append(f"{x['resolution_diff']:+.1f} ({x['resolution_diff_lo']:+.1f}, {x['resolution_diff_hi']:+.1f})")
+            cells.append(f"{signed(x['resolution_diff'])} ({signed(x['resolution_diff_lo'])}, "
+                         f"{signed(x['resolution_diff_hi'])})")
         rows.append(f"{a} $-$ {b} & " + " & ".join(cells))
     head = r"Pair & New variant & New setting & New family"
     return table(rows, "Paired differences of the decisive distance between rules (floors)", "tab:paired",
@@ -480,18 +498,22 @@ def t_tuning() -> str:
 
 def t_scan() -> str:
     s = pd.read_csv(RESULTS / "meas_scan.csv")
-    rows = []
-    for geo, g in s.groupby("geometry"):
-        rng_ = lambda c, f="{:.2f}": f"{f.format(g[c].min())}--{f.format(g[c].max())}"  # noqa: E731
-        rows.append(f"{geo} & {rng_('sd_wx')} & {rng_('sd_wy')} & {rng_('r_wx_wy')} & {rng_('wy_minus_wx', '{:.1f}')} & "
-                    f"{rng_('sd_EW_mean')} & {rng_('sd_N')} & {rng_('N_minus_EW', '{:.1f}')} & {rng_('r_E_W')}")
-    head = (r" & \multicolumn{4}{c}{Flange widths (mm)} & \multicolumn{4}{c}{Wall angles ($^\circ$)} \\" "\n"
-            r"\cmidrule(lr){2-5}\cmidrule(lr){6-9}" "\n"
-            r"Geometry & SD $W_x$ & SD $W_y$ & $r(W_x,W_y)$ & $W_y-W_x$ & SD E/W & SD N & N$-$E/W & $r$(E,W)")
+    quantities = [("sd_wx", r"Flange width $W_x$, SD (mm)", 2), ("sd_wy", r"Flange width $W_y$, SD (mm)", 2),
+                  ("r_wx_wy", r"Correlation of $W_x$ and $W_y$", 2), ("wy_minus_wx", r"$W_y-W_x$ (mm)", 1),
+                  ("sd_EW_mean", r"Wall angle, mean of E and W, SD ($^\circ$)", 2),
+                  ("sd_N", r"Wall angle N, SD ($^\circ$)", 2),
+                  ("N_minus_EW", r"Wall angle N minus mean of E and W ($^\circ$)", 1),
+                  ("r_E_W", r"Correlation of the E and W wall angles", 2)]
+    geos = ["concave", "convex"]
+    rows = [f"{name} & " + " & ".join(rng(s.loc[s["geometry"] == g, c].min(), s.loc[s["geometry"] == g, c].max(), d)
+                                      for g in geos)
+            for c, name, d in quantities]
+    head = r"Quantity & Concave & Convex"
     return table(rows, "Redundancy of the scans: ranges over the nine series of each geometry", "tab:scan",
-                 "l" + "r" * 8, head, colsep="2.8pt",
-                 note=r"$W_x$, $W_y$: flange width across the cup in the two scan directions; E/W: mean of the east and "
-                      r"west walls; N: north wall; $r$: correlation over the parts of a series.")
+                 "lrr", head, colsep="6pt",
+                 note=r"$W_x$, $W_y$: flange width across the cup centre, across and along the scan lines; E, W, N: "
+                      r"east, west and north walls; SD: standard deviation over the parts of a series; correlation "
+                      r"over the parts of a series.")
 
 
 def t_simnoise() -> str:

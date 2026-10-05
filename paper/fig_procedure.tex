@@ -1,34 +1,35 @@
 %% Procedure figure (TikZ, body font); \input by main.tex
+\def\stagetext#1{\parbox[t][2.9cm][t]{2.1cm}{\hyphenpenalty=10000\exhyphenpenalty=10000\raggedright #1}}
 \begin{tikzpicture}[
   font=\footnotesize,
-  stage/.style={draw, rounded corners=2pt, align=left, text width=2.05cm, minimum height=3.0cm, inner sep=3pt,
-                anchor=north, execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000\raggedright}},
-  decide/.style={draw, rounded corners=2pt, align=left, text width=9.2cm, inner sep=3pt,
+  stage/.style={draw, rounded corners=2pt, inner sep=3pt, anchor=north},
+  decide/.style={draw, rounded corners=2pt, align=left, text width=10.1cm, inner sep=3pt,
                  execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000\raggedright}},
-  io/.style={draw, dashed, rounded corners=2pt, align=center, text width=3.4cm, minimum height=0.55cm, inner sep=2pt,
+  io/.style={draw, dashed, rounded corners=2pt, align=center, text width=3.6cm, inner sep=2pt,
              execute at begin node={\hyphenpenalty=10000}},
   arr/.style={-{Stealth[length=1.8mm]}, semithick}
 ]
-\node[stage] (s1) at (0,0) {\textbf{1 Frame}\\ family, alternatives, characteristics; requirement on $q_p$\\[3pt]
-  \emph{out:} decision problem};
-\node[stage] (s2) at (2.55,0) {\textbf{2 Floor}\\ batches of consecutive parts of the produced alternatives\\[3pt]
-  \emph{out:} $F$ per characteristic};
-\node[stage] (s3) at (5.10,0) {\textbf{3 Resolve}\\ effect-to-scatter ratios; local minimum resolvable changes\\[3pt]
-  \emph{out:} the questions production can answer;\\ \emph{below $F$: no design question}};
-\node[stage] (s4) at (7.65,0) {\textbf{4 Calibrate}\\ rules on the produced alternatives, with and without the simulation\\[3pt]
-  \emph{out:} intervals for $q_p$};
-\node[stage] (s5) at (10.20,0) {\textbf{5 Qualify}\\ held out by evidence relation; budget, guard\\[3pt]
-  \emph{out:} $\delta_\mathrm{d}$, $\delta_\mathrm{s}$ per rule and relation;\\ \emph{too large: produce another
-  variant}};
-\foreach \a/\b in {s1/s2, s2/s3, s3/s4, s4/s5} \draw[arr] (\a) -- (\b);
-\node[io] (prod) at (3.82,0.95) {produced alternatives: parts, scans};
-\node[io] (sim) at (8.92,0.95) {simulations of every alternative};
-\draw[arr, dashed] ([xshift=-1.0cm]prod.south) -- ([xshift=-1.0cm, yshift=-0.32cm]prod.south);
-\draw[arr, dashed] ([xshift=1.0cm]prod.south) -- ([xshift=1.0cm, yshift=-0.32cm]prod.south);
-\draw[arr, dashed] ([xshift=-1.0cm]sim.south) -- ([xshift=-1.0cm, yshift=-0.32cm]sim.south);
-\node[decide, anchor=north east] (s6) at (11.225,-3.45) {\textbf{6 Decide} (every new design)\quad relation of the
-  design to the produced evidence $\to$ rule qualified for that relation $\to$ guard $\to$ interval for $q_p$\\[2pt]
-  \emph{out:} meets, fails or trial, with the margin of the requirement in floors; \emph{guard fires or margin below
-  $\delta_\mathrm{s}$: physical trial}};
+\node[stage] (s1) at (0,0) {\stagetext{\textbf{1 Frame}\\ family, alternatives, characteristics; requirement on
+  $q_p$\\[3pt] \emph{out:} decision problem}};
+\node[stage] (s2) at (2.67,0) {\stagetext{\textbf{2 Floor}\\ batches of consecutive parts of the produced
+  alternatives\\[3pt] \emph{out:} $F$ per characteristic}};
+\node[stage] (s3) at (5.34,0) {\stagetext{\textbf{3 Resolve}\\ effect-to-scatter ratios; minimum resolvable
+  changes\\[3pt] \emph{out:} questions production can answer;\\ \emph{below $F$: no design question}}};
+\node[stage] (s4) at (8.01,0) {\stagetext{\textbf{4 Calibrate}\\ rules on the produced alternatives, with and
+  without the simulation\\[3pt] \emph{out:} intervals for $q_p$}};
+\node[stage] (s5) at (10.68,0) {\stagetext{\textbf{5 Qualify}\\ held out by evidence relation; budget,
+  guard\\[3pt] \emph{out:} $\delta_\mathrm{d}$, $\delta_\mathrm{s}$ per rule and relation;\\ \emph{too large:
+  produce another variant}}};
+\foreach \a/\b in {s1/s2, s2/s3, s3/s4, s4/s5} \draw[arr] (\a.east) -- (\b.west);
+\node[io, anchor=south] (prod) at (4.005,0.42) {produced alternatives: parts, scans};
+\node[io, anchor=south] (sim) at (8.01,0.42) {simulations of every alternative};
+\draw[arr, dashed] (prod.south -| s2.north) -- (s2.north);
+\draw[arr, dashed] (prod.south -| s3.north) -- (s3.north);
+\draw[arr, dashed] (sim.south) -- (s4.north);
+\node[decide, anchor=north east] (s6) at ([yshift=-0.45cm]s5.south east) {\textbf{6 Decide} (every new
+  design)\quad relation of the design to the produced evidence $\to$ rule qualified for that relation $\to$ guard
+  $\to$ interval for $q_p$\\[2pt]
+  \emph{out:} meets, fails or trial, with the margin of the requirement in floors; \emph{guard fires or margin
+  below $\delta_\mathrm{s}$: physical trial}};
 \draw[arr] (s5.south) -- (s5.south |- s6.north);
 \end{tikzpicture}
