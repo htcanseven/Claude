@@ -55,3 +55,56 @@ Within-geometry calibration on every subset of k of the other alternatives; conf
 |   8 | M1       | all  |                  15 |          15   |           0     |         0.091 |
 |   8 | M2       | all  |                  25 |           0.5 |           0.333 |         0     |
 |   8 | M5       | all  |                   7 |           2   |           0.028 |         0     |
+
+## Calibration design: subsets that bracket the new design's force or span the tested range
+
+|   k | method   | class_type   | class   |   n_cases |   resolution_floors |   safe_floors |   error_at_10 |   abstain_at_10 |
+|----:|:---------|:-------------|:--------|----------:|--------------------:|--------------:|--------------:|----------------:|
+|   2 | M1       | brackets     | False   |      1512 |                25   |          25   |         0.257 |           0     |
+|   2 | M1       | brackets     | True    |      2016 |                12   |          12   |         0.063 |           0     |
+|   2 | M1       | spans        | False   |      2646 |                20   |          20   |         0.156 |           0     |
+|   2 | M1       | spans        | True    |       882 |                15   |          15   |         0.115 |           0     |
+|   2 | M2       | brackets     | False   |      1512 |                15   |          12   |         0.079 |           0.07  |
+|   2 | M2       | brackets     | True    |      2016 |                15   |           3   |         0     |           0.113 |
+|   2 | M2       | spans        | False   |      2646 |                15   |           9.5 |         0.045 |           0.073 |
+|   2 | M2       | spans        | True    |       882 |                15   |           4.5 |         0     |           0.162 |
+|   2 | M5       | brackets     | False   |      1512 |                20   |          12   |         0.067 |           0.105 |
+|   2 | M5       | brackets     | True    |      2016 |                20   |           2.5 |         0.001 |           0.141 |
+|   2 | M5       | spans        | False   |      2646 |                20   |           9.5 |         0.039 |           0.106 |
+|   2 | M5       | spans        | True    |       882 |                20   |           2.5 |         0     |           0.187 |
+|   3 | M1       | brackets     | False   |      1764 |                25   |          25   |         0.255 |           0     |
+|   3 | M1       | brackets     | True    |      5292 |                15   |          15   |         0.137 |           0     |
+|   3 | M1       | spans        | False   |      3276 |                20   |          20   |         0.196 |           0     |
+|   3 | M1       | spans        | True    |      3780 |                20   |          20   |         0.14  |           0     |
+|   3 | M2       | brackets     | False   |      1764 |                25   |          12   |         0.058 |           0.211 |
+|   3 | M2       | brackets     | True    |      5292 |                25   |           1.5 |         0     |           0.256 |
+|   3 | M2       | spans        | False   |      3276 |                25   |           6.5 |         0.031 |           0.188 |
+|   3 | M2       | spans        | True    |      3780 |                25   |           2   |         0     |           0.293 |
+|   3 | M5       | brackets     | False   |      1764 |                20   |          12   |         0.054 |           0.184 |
+|   3 | M5       | brackets     | True    |      5292 |                20   |           3   |         0.006 |           0.119 |
+|   3 | M5       | spans        | False   |      3276 |                20   |           7   |         0.03  |           0.107 |
+|   3 | M5       | spans        | True    |      3780 |                20   |           3.5 |         0.008 |           0.161 |
+|   4 | M1       | brackets     | False   |      1260 |                25   |          25   |         0.269 |           0     |
+|   4 | M1       | brackets     | True    |      7560 |                15   |          15   |         0.125 |           0     |
+|   4 | M1       | spans        | False   |      2100 |                20   |          20   |         0.201 |           0     |
+|   4 | M1       | spans        | True    |      6720 |                15   |          15   |         0.128 |           0     |
+|   4 | M2       | brackets     | False   |      1260 |                25   |          12   |         0.056 |           0.197 |
+|   4 | M2       | brackets     | True    |      7560 |                25   |           1.5 |         0     |           0.261 |
+|   4 | M2       | spans        | False   |      2100 |                20   |           6.5 |         0.034 |           0.172 |
+|   4 | M2       | spans        | True    |      6720 |                25   |           1.5 |         0     |           0.277 |
+|   4 | M5       | brackets     | False   |      1260 |                20   |          10   |         0.046 |           0.214 |
+|   4 | M5       | brackets     | True    |      7560 |                 9.5 |           2.5 |         0.002 |           0.038 |
+|   4 | M5       | spans        | False   |      2100 |                20   |           6.5 |         0.028 |           0.136 |
+|   4 | M5       | spans        | True    |      6720 |                 9.5 |           2.5 |         0.003 |           0.041 |
+|   5 | M1       | brackets     | False   |       504 |                25   |          25   |         0.259 |           0     |
+|   5 | M1       | brackets     | True    |      6552 |                15   |          15   |         0.138 |           0     |
+|   5 | M1       | spans        | False   |       672 |                25   |          25   |         0.239 |           0     |
+|   5 | M1       | spans        | True    |      6384 |                15   |          15   |         0.137 |           0     |
+|   5 | M2       | brackets     | False   |       504 |                25   |          12   |         0.052 |           0.265 |
+|   5 | M2       | brackets     | True    |      6552 |                25   |           1   |         0     |           0.313 |
+|   5 | M2       | spans        | False   |       672 |                25   |           7.5 |         0.039 |           0.24  |
+|   5 | M2       | spans        | True    |      6384 |                25   |           1   |         0     |           0.316 |
+|   5 | M5       | brackets     | False   |       504 |                20   |          10   |         0.047 |           0.215 |
+|   5 | M5       | brackets     | True    |      6552 |                 8   |           2   |         0.001 |           0.028 |
+|   5 | M5       | spans        | False   |       672 |                20   |           9   |         0.035 |           0.164 |
+|   5 | M5       | spans        | True    |      6384 |                 8   |           2   |         0.001 |           0.029 |
