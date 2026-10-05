@@ -291,9 +291,58 @@ def t_design() -> str:
                       r"wrong: share of wrong verdicts at $|d|=10$ (\%).")
 
 
+def t_robust() -> str:
+    r = pd.read_csv(RESULTS / "rob_decisions.csv")
+    order = ["reference", "temperature-adjusted", "conformal level 0.80", "conformal level 0.95",
+             "resolution target 0.90", "resolution target 0.99"]
+    name = {"reference": "Reference", "temperature-adjusted": "Temperature-adjusted characteristics",
+            "conformal level 0.80": "Conformal level 0.80", "conformal level 0.95": "Conformal level 0.95",
+            "resolution target 0.90": "Resolution target 0.90", "resolution target 0.99": "Resolution target 0.99"}
+    r = r.set_index(["variant", "scope", "method"])
+
+    def cell(v, scope, m, both=True):
+        if (v, scope, m) not in r.index:
+            v = "reference"
+        x = r.loc[(v, scope, m)]
+        return f"{num(x['decisive'])}/{num(x['safe'])}" if both else num(x["decisive"])
+
+    rows = []
+    for v in order:
+        rows.append(f"{name[v]} & {cell(v, 'within', 'M1', False)} & {cell(v, 'within', 'M2')} & "
+                    f"{cell(v, 'within', 'M5')} & {cell(v, 'pooled', 'M5')} & {cell(v, 'transfer', 'M2')} & "
+                    f"{cell(v, 'transfer', 'M5')}")
+    head = (r" & \multicolumn{3}{c}{Within family} & Pooled & \multicolumn{2}{c}{Transfer} \\" "\n"
+            r"\cmidrule(lr){2-4}\cmidrule(lr){5-5}\cmidrule(lr){6-7}" "\n"
+            r"Variant & M1 & M2 & M5 & M5 & M2 & M5")
+    return table(rows, "Decisive/safe distances (floors) under the robustness variants", "tab:robust",
+                 "lrrrrrr", head, colsep="5pt",
+                 note=r"Temperature-adjusted: every characteristic corrected for the punch temperature with its "
+                      r"pooled within-alternative slope, floors recomputed. Conformal level: coverage of the M2 "
+                      r"margin and the M5 interval. Resolution target: share of correct (or at most wrong) verdicts "
+                      r"defining the two distances. M1: decisive = safe; for the conformal variants M1 is unchanged.")
+
+
+def t_bhfpairs() -> str:
+    p = pd.read_csv(RESULTS / "rob_bhf_pairs.csv").set_index(["qc", "pair"])
+    rows = []
+    for c in SHARED:
+        cells = []
+        for pair in ["100->300", "300->500"]:
+            x = p.loc[(c, pair)]
+            cells.append(f"{round(6 * x['share_resolvable']):.0f}/6 & {x['mrc_kN']:.0f}")
+        rows.append(f"{LABEL[c]} & " + " & ".join(cells))
+    head = (r" & \multicolumn{2}{c}{100$\to$300\,kN (speed changes)} & \multicolumn{2}{c}{300$\to$500\,kN (same speed)} \\"
+            "\n" r"\cmidrule(lr){2-3}\cmidrule(lr){4-5}" "\n"
+            r"Characteristic & ESR\,$\geq$\,1 & MRC (kN) & ESR\,$\geq$\,1 & MRC (kN)")
+    return table(rows, "Blank-holder force contrasts with and without a change of stroke speed", "tab:bhfpairs",
+                 "lrrrr", head, colsep="6pt",
+                 note=r"Six contrasts per pair (two geometries, three lubrication patterns). MRC: pooled floor over the "
+                      r"mean sensitivity within the pair.")
+
+
 TABLES = {"floors": t_floors, "resolve": t_resolve, "offsets": t_offsets, "distances": t_distances,
           "distci": t_distci, "qcdist": t_qc_distances, "scenarios": t_scenarios, "dsratio": t_design_space,
-          "inline": t_inline, "design": t_design}
+          "inline": t_inline, "design": t_design, "robust": t_robust, "bhfpairs": t_bhfpairs}
 
 
 def main() -> None:

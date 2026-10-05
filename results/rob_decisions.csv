@@ -1,0 +1,71 @@
+variant,scope,method,decisive,safe
+reference,pooled,M1,30.0,30.0
+reference,pooled,M2,50.0,0.0
+reference,pooled,M5,12.0,1.0
+reference,transfer,M1,40.0,40.0
+reference,transfer,M2,75.0,20.0
+reference,transfer,M5,40.0,30.0
+reference,within,M1,15.0,15.0
+reference,within,M2,25.0,0.5
+reference,within,M5,7.0,2.0
+temperature-adjusted,pooled,M1,25.0,25.0
+temperature-adjusted,pooled,M2,50.0,0.0
+temperature-adjusted,pooled,M5,10.0,1.0
+temperature-adjusted,transfer,M1,40.0,40.0
+temperature-adjusted,transfer,M2,75.0,15.0
+temperature-adjusted,transfer,M5,40.0,30.0
+temperature-adjusted,within,M1,15.0,15.0
+temperature-adjusted,within,M2,30.0,0.5
+temperature-adjusted,within,M5,7.0,2.5
+conformal level 0.80,pooled,M2,50.0,1.0
+conformal level 0.80,pooled,M5,9.0,1.5
+conformal level 0.80,transfer,M2,75.0,20.0
+conformal level 0.80,transfer,M5,40.0,30.0
+conformal level 0.80,within,M2,25.0,0.5
+conformal level 0.80,within,M5,6.0,2.5
+conformal level 0.95,pooled,M2,50.0,0.0
+conformal level 0.95,pooled,M5,15.0,1.0
+conformal level 0.95,transfer,M2,75.0,20.0
+conformal level 0.95,transfer,M5,40.0,30.0
+conformal level 0.95,within,M2,25.0,0.5
+conformal level 0.95,within,M5,7.5,1.5
+resolution target 0.90,pooled,M0,75.0,75.0
+resolution target 0.90,pooled,M1,20.0,20.0
+resolution target 0.90,pooled,M2,40.0,0.0
+resolution target 0.90,pooled,M3,25.0,0.0
+resolution target 0.90,pooled,M4,12.0,0.0
+resolution target 0.90,pooled,M5,5.5,0.5
+resolution target 0.90,transfer,M0,75.0,75.0
+resolution target 0.90,transfer,M1,25.0,25.0
+resolution target 0.90,transfer,M2,40.0,8.5
+resolution target 0.90,transfer,M3,40.0,12.0
+resolution target 0.90,transfer,M4,150.0,150.0
+resolution target 0.90,transfer,M5,25.0,20.0
+resolution target 0.90,within,M0,75.0,75.0
+resolution target 0.90,within,M1,10.0,10.0
+resolution target 0.90,within,M2,20.0,0.0
+resolution target 0.90,within,M3,20.0,0.0
+resolution target 0.90,within,M4,8.0,0.0
+resolution target 0.90,within,M5,5.0,0.5
+resolution target 0.99,pooled,M0,150.0,150.0
+resolution target 0.99,pooled,M1,50.0,50.0
+resolution target 0.99,pooled,M2,75.0,0.5
+resolution target 0.99,pooled,M3,30.0,3.5
+resolution target 0.99,pooled,M4,30.0,2.5
+resolution target 0.99,pooled,M5,15.0,5.0
+resolution target 0.99,transfer,M0,150.0,150.0
+resolution target 0.99,transfer,M1,75.0,75.0
+resolution target 0.99,transfer,M2,75.0,30.0
+resolution target 0.99,transfer,M3,75.0,40.0
+resolution target 0.99,transfer,M4,200.0,200.0
+resolution target 0.99,transfer,M5,75.0,40.0
+resolution target 0.99,within,M0,150.0,150.0
+resolution target 0.99,within,M1,30.0,30.0
+resolution target 0.99,within,M2,50.0,1.5
+resolution target 0.99,within,M3,30.0,3.5
+resolution target 0.99,within,M4,15.0,4.0
+resolution target 0.99,within,M5,12.0,5.5
+"M3, friction of the pattern's median oil film",within,M3,40.0,3.0
+M6 conformalised GP,pooled,M6,75.0,0.5
+M6 conformalised GP,transfer,M6,75.0,25.0
+M6 conformalised GP,within,M6,75.0,0.5

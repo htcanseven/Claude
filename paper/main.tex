@@ -414,7 +414,32 @@ M4 learned, no simulation & 84 & 0 & 1 & 15 & 43 & 25 & 19 & 14 \\
 
 \subsection{Robustness}\label{sec:res-robust}
 
-\pending{results robust}
+Table~\ref{tab:robust} repeats the decision analysis under variants of the data and of the constants. Removing the punch-temperature trend from every characteristic lowers the floors by 1--14\,\% and leaves the distances within one step of the grid (M5 within the family: 7 and 2.5 floors; pooled: 10 and 1). A conformal level of 0.80 or 0.95 instead of 0.90 leaves M2 unchanged within the family---with eight calibration alternatives its margin is the largest residual at any of these levels---and moves the decisive distance of M5 between 6 and 7.5 floors. A looser or stricter resolution target moves every distance but not the ranking: at 90\,\% correct M5 decides at 5 floors, M4 at 8 and M1 at 10; at 99\,\% at 12, 15 and 30.
+
+The blank-holder force effects are not a by-product of the slower stroke at 100\,kN: between 300 and 500\,kN, at equal stroke speed, force still resolves the corner draw-in and the cup depth in all six contrasts and the mid-side draw-in, the arm angle and the dome in five of six, although the sensitivity of the waviness and the arm angle flattens at the higher forces (Appendix~\ref{app:tables}). Replacing each part's oil film by the median film of its pattern, in the simulation match and in the model, makes M3 less decisive (40 floors instead of 20), so the within-series variation of the film carries information for the part-level model rather than noise. Finally, a conformalised Gaussian process (M6), which scales the Gaussian-process interval by the largest leave-one-out standardised residual of the calibration alternatives, is as safe as M2 (0.5 floors) but decisive only at 75 floors: with eight calibration alternatives the conformal quantile is the extreme residual, and it widens the interval of every design.
+
+%% BEGIN GENERATED robust
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{5pt}
+\caption{Decisive/safe distances (floors) under the robustness variants}\label{tab:robust}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+ & \multicolumn{3}{c}{Within family} & Pooled & \multicolumn{2}{c}{Transfer} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-5}\cmidrule(lr){6-7}
+Variant & M1 & M2 & M5 & M5 & M2 & M5 \\
+\midrule
+Reference & 15 & 25/0.5 & 7/2 & 12/1 & 75/20 & 40/30 \\
+Temperature-adjusted characteristics & 15 & 30/0.5 & 7/2.5 & 10/1 & 75/15 & 40/30 \\
+Conformal level 0.80 & 15 & 25/0.5 & 6/2.5 & 9/1.5 & 75/20 & 40/30 \\
+Conformal level 0.95 & 15 & 25/0.5 & 7.5/1.5 & 15/1 & 75/20 & 40/30 \\
+Resolution target 0.90 & 10 & 20/0 & 5/0.5 & 5.5/0.5 & 40/8.5 & 25/20 \\
+Resolution target 0.99 & 30 & 50/1.5 & 12/5.5 & 15/5 & 75/30 & 75/40 \\
+\botrule
+\end{tabular}
+\footnotetext{Temperature-adjusted: every characteristic corrected for the punch temperature with its pooled within-alternative slope, floors recomputed. Conformal level: coverage of the M2 margin and the M5 interval. Resolution target: share of correct (or at most wrong) verdicts defining the two distances. M1: decisive = safe; for the conformal variants M1 is unchanged.}
+\end{table}
+%% END GENERATED robust
 
 %% ----------------------------------------------------------------------
 \section{Discussion}\label{sec:discussion}
@@ -534,6 +559,30 @@ Bottom dome, cut & 0.15 & 0.34 & 1.0 & -3.7 & -630 & 21 \\
 \footnotetext{Ratio of the slope of the characteristic on the factor in the matched simulations to the slope measured in production (blank-holder force: between cells; sheet thickness and friction equivalent of the oil film: within series). A negative ratio is an effect of the opposite sign.}
 \end{table}
 %% END GENERATED dsratio
+
+%% BEGIN GENERATED bhfpairs
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{6pt}
+\caption{Blank-holder force contrasts with and without a change of stroke speed}\label{tab:bhfpairs}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+ & \multicolumn{2}{c}{100$\to$300\,kN (speed changes)} & \multicolumn{2}{c}{300$\to$500\,kN (same speed)} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Characteristic & ESR\,$\geq$\,1 & MRC (kN) & ESR\,$\geq$\,1 & MRC (kN) \\
+\midrule
+Draw-in, mid-side & 5/6 & 75 & 5/6 & 112 \\
+Draw-in, corner & 6/6 & 67 & 6/6 & 47 \\
+Flange waviness & 6/6 & 21 & 3/6 & 78 \\
+Wall angle & 2/6 & 253 & 2/6 & 544 \\
+Arm angle, cut & 6/6 & 48 & 5/6 & 1083 \\
+Cup depth & 6/6 & 21 & 6/6 & 43 \\
+Bottom dome, cut & 5/6 & 543 & 5/6 & 731 \\
+\botrule
+\end{tabular}
+\footnotetext{Six contrasts per pair (two geometries, three lubrication patterns). MRC: pooled floor over the mean sensitivity within the pair.}
+\end{table}
+%% END GENERATED bhfpairs
 
 %% BEGIN GENERATED inline
 \begin{table}[t]
