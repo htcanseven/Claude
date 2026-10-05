@@ -5,18 +5,35 @@ scans; x, y for the quarter-model simulations). This module turns them into
 the characteristics used in the study, so that a characteristic is defined
 once, identically for parts and simulations.
 
-The south side of the scans is excluded from the wall measures: the scanner
-leaves a gap at the south wall (laser shadow), visible as missing data in
-both operations. The wall angle after cutting is not used: on the cut convex
-parts the north and, in some parts, the west wall read 5-7 degrees steeper
-than the east wall although all three agree after drawing (scan artefacts on
-walls facing the camera); the per-side values remain in the feature table.
+Measurement directions. The scans resolve 0.0769 mm per pixel across the
+line (x) but 0.1581 mm per line (y), and the redundancy of the four sides
+shows which readings carry measurement noise or bias (measurement.py):
+- the flange width in y has a part-to-part standard deviation 4-18 times
+  that in x, uncorrelated with it and without serial correlation, and it
+  reads 2.3-3.5 mm larger; the mid-side draw-in is therefore taken from the
+  x widths only, (blank - Wx) / 2;
+- the north wall carries about 0.3 deg of uncorrelated scatter in every
+  series and reads 0.9-1.6 deg low on the convex cups; the south wall is
+  shadowed and returns values 7-10 deg off. The wall angle is therefore the
+  mean of the east and west walls, which also cancels a residual tilt (on the
+  convex cups the two are anti-correlated, r = -0.5 to -0.7);
+- the corner draw-in uses the mean of the two flange diagonals, which differ
+  by 1.6-2.2 mm in every series (consistent with a small non-orthogonality of
+  the scan axes); their mean is invariant to it to first order.
+The wall angle after cutting is not used: on the cut convex parts the north
+and, in some parts, the west wall read 5-7 degrees steeper than the east wall
+(scan artefacts on walls facing the camera); the per-side values remain in the
+feature table. The quarter-model simulations are symmetric about the diagonal,
+so their x and y values estimate the same quantity and their mean is used,
+which halves the extraction noise of the 1 mm mesh.
 """
 
 from __future__ import annotations
 
 import numpy as np
 import pandas as pd
+
+from common import BLANK_MM
 
 #: name -> (label, unit, direction of a requirement: 'max' = smaller is better,
 #: 'abs' = closer to zero is better)
@@ -45,10 +62,10 @@ def parts_qc(f: pd.DataFrame) -> pd.DataFrame:
     """QCs of the scanned parts from the rows of results/features_rddac.csv."""
     f = f[f["status"] == "ok"].copy()
     q = pd.DataFrame(index=f.index)
-    q["drawin_mid"] = f["op10_drawin_mid_mm"]
+    q["drawin_mid"] = (BLANK_MM - f["op10_Wx_mm"]) / 2.0
     q["drawin_corner"] = f["op10_drawin_corner_mm"]
     q["waviness"] = f["op10_wav_sd_mm"]
-    q["wall_op10"] = _nanmean(f, [f"op10_wall_angle_{s}_deg" for s in "EWN"])
+    q["wall_op10"] = _nanmean(f, [f"op10_wall_angle_{s}_deg" for s in "EW"])
     q["arm_op20"] = _nanmean(f, [f"op20_theta_{s}_deg" for s in "EWSN"])
     q["depth_op10"] = f["op10_depth_mm"]
     q["dome_op20"] = f["op20_dome_mm"]

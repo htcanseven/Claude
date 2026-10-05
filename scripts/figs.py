@@ -74,7 +74,7 @@ def fig_alternatives(src: Path) -> None:
     q = parts_qc(pd.read_csv(src / "features_rddac.csv", low_memory=False))
     fl = pd.read_csv(src / "alt_floor.csv").set_index("qc")
     rows = SHARED
-    fig, axs = plt.subplots(len(rows), 2, figsize=(WIDTH_IN, 1.0 * len(rows) + 0.6), squeeze=False)
+    fig, axs = plt.subplots(len(rows), 2, figsize=(WIDTH_IN, 0.9 * len(rows) + 0.6), squeeze=False)
     for i, qc in enumerate(rows):
         for j, geo in enumerate(["concave", "convex"]):
             ax = axs[i, j]
@@ -176,15 +176,19 @@ def fig_decisions(src: Path, scope: str = "within") -> None:
     save(fig, f"F3_decisions_{scope}")
 
 
+RULE_COLOUR = {"M1": MUTED, "M2": INK, "M5": "#2a78d6", "NN": "#eb6834", "M5n": "#0ca30c"}
+RULE_MARKER = {"M1": "s", "M2": "o", "M5": "^", "NN": "D", "M5n": "v"}
+
+
 def fig_decisions_compare(src: Path) -> None:
-    """Verdict shares of three rules within the family (top) and for a new geometry (bottom)."""
+    """Verdict shares of four rules for a new variant, a new process setting and a new family."""
     c = pd.read_csv(src / "dec_curve.csv")
-    methods = [("M2", "envelope + margin"), ("M5", "GP calibration"), ("M4", "ML only")]
-    scopes = [("within", "within family"), ("transfer", "new geometry")]
-    fig, axs = plt.subplots(2, 3, figsize=(WIDTH_IN, 4.85), sharey=True, squeeze=False)
-    letters = iter("abcdef")
+    methods = ["M2", "M5", "M5n", "NN"]
+    scopes = [("within", "new variant"), ("setting", "new setting"), ("transfer", "new family")]
+    fig, axs = plt.subplots(len(scopes), len(methods), figsize=(WIDTH_IN, 6.1), sharey=True, squeeze=False)
+    letters = iter("abcdefghijkl")
     for i, (scope, sname) in enumerate(scopes):
-        for j, (m, mname) in enumerate(methods):
+        for j, m in enumerate(methods):
             ax = axs[i, j]
             g = c[(c["scope"] == scope) & (c["method"] == m)].sort_values("d")
             x = g["d"].to_numpy()
@@ -192,46 +196,47 @@ def fig_decisions_compare(src: Path) -> None:
                          colors=[OUTCOME_COLOUR[k] for k in ["correct", "abstain", "false_reject", "false_accept"]],
                          lw=0)
             ax.set_xscale("symlog", linthresh=10.0, linscale=1.5)
-            ax.set_xlim(x.min(), x.max())
+            ax.set_xlim(-100, 100)
             ax.set_ylim(0, 1)
-            ax.set_xticks([-100, -10, 0, 10, 100], ["", "$-10$", "0", "10", "100"], fontsize=9)
-            ax.set_xticks([-500, -300, -200, -50, -30, -20, -5, 5, 20, 30, 50, 200, 300, 500], minor=True)
+            ax.set_xticks([-100, -10, 0, 10, 100], ["", "$-10$", "0", "10", "100"], fontsize=8)
+            ax.set_xticks([-50, -30, -20, -5, 5, 20, 30, 50], minor=True)
+            ax.tick_params(axis="y", labelsize=8)
             ax.axvline(0, color=INK, lw=0.6)
-            subcaption(ax, next(letters), f"{m}, {sname}", "distance $d$ (floors)")
-        axs[i, 0].set_ylabel("share of verdicts")
-    labels = {"correct": "correct", "abstain": "uncertain", "false_reject": "false reject", "false_accept": "false accept"}
+            subcaption(ax, next(letters), m, "$d$ (floors)" if i == len(scopes) - 1 else "")
+        axs[i, 0].set_ylabel(f"{sname}\nshare of verdicts", fontsize=9)
+    labels = {"correct": "correct", "abstain": "trial", "false_reject": "false reject", "false_accept": "false accept"}
     handles = [plt.Rectangle((0, 0), 1, 1, color=OUTCOME_COLOUR[k], label=labels[k]) for k in labels]
     fig.legend(handles=handles, loc="upper center", ncol=4, frameon=False, bbox_to_anchor=(0.5, 1.01))
-    fig.tight_layout(rect=(0, 0, 1, 0.955), w_pad=0.8, h_pad=0.6)
+    fig.tight_layout(rect=(0, 0, 1, 0.965), w_pad=0.5, h_pad=0.5)
     save(fig, "F3_decisions_compare")
 
 
 def fig_budget(src: Path) -> None:
-    """Safe and decisive distances against the number of calibration alternatives (within geometry)."""
-    r = pd.read_csv(src / "budget_resolution.csv")
-    r = r[r["qc"] == "all"].sort_values("k")
-    fig, ax = plt.subplots(figsize=(WIDTH_IN, 2.7))
-    m1 = r[r["method"] == "M1"]
-    ax.plot(m1["k"], m1["resolution_floors"], "-s", color=MUTED, ms=4.5, mfc="white", mew=1.1,
-            label="M1, safe = decisive")
-    for m, marker in (("M2", "o"), ("M5", "^")):
-        g = r[r["method"] == m]
-        if g.empty:
-            continue
-        ax.plot(g["k"], g["resolution_floors"], "-" + marker, color=INK, ms=4.5, label=f"{m}, decisive")
-        ax.plot(g["k"], g["safe_floors"], "--" + marker, color=INK, ms=4.5, mfc="white", mew=1.1,
-                label=f"{m}, safe")
-    last = int(r["k"].max())
-    h, lab = ax.get_legend_handles_labels()
-    h.insert(1, plt.Line2D([], [], alpha=0))          # blank slot: columns read M1 | M2 | M5
-    lab.insert(1, " ")
-    fig.legend(h, lab, loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.5, 1.04))
-    ax.set_xlim(0.7, last + 0.3)
-    ax.set_ylim(0, None)
-    ax.set_xticks(range(1, last + 1))
-    ax.set_xlabel("calibration alternatives $k$ (same geometry)")
-    ax.set_ylabel("distance $|d|$ (floors)")
-    fig.tight_layout(rect=(0, 0, 1, 0.84))
+    """Decisive and safe distances against the number of produced alternatives, by the relation of the new
+    design to them (sibling, interpolation, extrapolation), with bands from resampling the targets."""
+    r = pd.read_csv(src / "budget_design.csv").replace([np.inf, -np.inf], np.nan)
+    rels = [("sibling", "sibling produced"), ("interpolation", "interpolation"), ("extrapolation", "extrapolation")]
+    kinds = [("resolution", "decisive"), ("safe", "safe")]
+    fig, axs = plt.subplots(2, 3, figsize=(WIDTH_IN, 4.4), sharex=True, sharey="row", squeeze=False)
+    letters = iter("abcdef")
+    for i, (col, kname) in enumerate(kinds):
+        for j, (rel, rname) in enumerate(rels):
+            ax = axs[i, j]
+            for m in ("M1", "M2", "M5", "NN"):
+                g = r[(r["relation"] == rel) & (r["method"] == m)].sort_values("k")
+                if g.empty:
+                    continue
+                ax.fill_between(g["k"], g[f"{col}_lo"], g[f"{col}_hi"], color=RULE_COLOUR[m], alpha=0.12, lw=0)
+                ax.plot(g["k"], g[f"{col}_floors"], "-" + RULE_MARKER[m], color=RULE_COLOUR[m], ms=3.5, lw=1.0,
+                        mfc="white", mew=1.0, label=m)
+            ax.set_xticks(range(1, 9))
+            ax.set_xlim(0.7, 8.3)
+            ax.tick_params(labelsize=8)
+            subcaption(ax, next(letters), rname, "produced alternatives $k$" if i == 1 else "")
+        axs[i, 0].set_ylabel(f"{kname} distance\n(floors)", fontsize=9)
+    h, lab = axs[0, 0].get_legend_handles_labels()
+    fig.legend(h, lab, loc="upper center", ncol=4, frameon=False, bbox_to_anchor=(0.5, 1.02))
+    fig.tight_layout(rect=(0, 0, 1, 0.95), w_pad=0.5, h_pad=0.6)
     save(fig, "F4_budget")
 
 
@@ -242,11 +247,8 @@ def main() -> None:
     src = Path(args.src)
     style()
     fig_alternatives(src)
-    fig_sensitivity(src)
-    for scope in ("within", "pooled", "transfer"):
-        fig_decisions(src, scope)
     fig_decisions_compare(src)
-    if (src / "budget_resolution.csv").exists():
+    if (src / "budget_design.csv").exists():
         fig_budget(src)
     print(f"figures written to {FIGURES}")
 

@@ -20,6 +20,9 @@ Uncertainty: batches are resampled within alternatives (N_BOOT, seed SEED);
 the floor, effects, ratios and sensitivities are recomputed on each replicate.
 Pairs of two copies of one batch are left out of a replicate's floor: their
 difference is zero by construction and would pull the floor towards zero.
+Because drift makes neighbouring batches of a series dependent, the floor
+also gets a cluster-bootstrap interval that resamples whole alternatives
+(floor_lo_alt, floor_hi_alt).
 
 Outputs: results/alt_floor.csv, alt_effects.csv, alt_mrc.csv, summary_alternatives.md
 """
@@ -167,6 +170,17 @@ def main() -> None:
     fl["floor"] = [base["floors"][c] for c in qcs]
     boot_fl = np.array([[r["floors"][c] for c in qcs] for r in reps])
     fl["floor_lo"], fl["floor_hi"] = np.nanpercentile(boot_fl, 2.5, axis=0), np.nanpercentile(boot_fl, 97.5, axis=0)
+    # cluster bootstrap over alternatives: batches of one series are serially dependent under drift
+    bm = batch_centres(q, qcs)
+    alts = np.array(sorted(q["alternative"].unique()))
+    rng = np.random.default_rng(SEED + 1)
+    cl = []
+    for _ in range(N_BOOT):
+        pick = rng.choice(alts, len(alts))
+        rb = pd.concat([bm.loc[[a]].rename(index={a: f"{a}#{i}"}, level=0) for i, a in enumerate(pick)])
+        cl.append([floor_from(rb, c) for c in qcs])
+    cl = np.array(cl)
+    fl["floor_lo_alt"], fl["floor_hi_alt"] = np.nanpercentile(cl, 2.5, axis=0), np.nanpercentile(cl, 97.5, axis=0)
     for geo in ["concave", "convex"]:
         sub = batch_centres(q[q["geometry"] == geo], qcs)
         fl[f"floor_{geo}"] = [floor_from(sub, c) for c in qcs]

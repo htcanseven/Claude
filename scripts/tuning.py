@@ -1,19 +1,19 @@
-"""Sensitivity of the learned rules M3 and M4 to the learner and its settings.
+"""Sensitivity of the part-level learned rules M3 and M4 to the learner and its settings.
 
-M3 (matched simulation + learned correction) and M4 (learned model without the
-simulation) use one fixed gradient-boosting setting (decisions.GBR). Both rules
-are recomputed within the design family and across families (transfer) with
+M3 (matched simulation + learned correction) and M4 (learned model without the simulation) use one fixed
+gradient-boosting setting (decisions.GBR). Both rules are recomputed for a new variant (scope 'within'),
+a new process setting ('setting') and a new family ('transfer') with
   - a more regularised boosting setting (shallower trees, fewer and smaller steps, L2 penalty),
   - a more flexible boosting setting (deeper trees, more and larger steps),
   - a ridge regression on the same standardised inputs (a linear learner),
-  - the boosting setting selected for each calibration set by the mean absolute
-    leave-one-alternative-out error over the calibration alternatives, the same
-    residuals that set the conformal margin, so nothing of the held-out
-    alternative enters the choice.
-Every other step (draws of incoming conditions, seeds, offset and margin) is that
-of decisions.py, so the reference setting reproduces the stored M3 and M4
-distances. The pooled scope is left out to bound the run time; it lies between
-the two scopes in decisions.py.
+  - quantile-loss boosting (loss = quantile 0.95), which models the 95th percentile of a part directly
+    instead of resampling the pooled in-sample residuals; the alternative's q95 is the median of the
+    predicted conditional quantiles over the drawn incoming conditions,
+  - the boosting setting selected for each calibration set by the mean absolute leave-one-alternative-out
+    error over the calibration alternatives, the residuals that also set the jackknife margin, so nothing
+    of the held-out alternative enters the choice.
+Every other step (draws of incoming conditions, seeds, offset and margin) is that of decisions.py, so the
+reference setting reproduces the stored M3 and M4 intervals.
 
 Outputs: results/tune_intervals.csv, tune_decisions.csv, summary_tuning.md
 """
@@ -37,18 +37,43 @@ from common import RESULTS  # noqa: E402
 from qc import SHARED, parts_qc, sims_qc  # noqa: E402
 
 HGB = D.HistGradientBoostingRegressor
+M3_Q95 = D.m3_q95
 SETTINGS = {
     "reference": dict(D.GBR),
     "regularised": dict(max_depth=2, max_iter=100, learning_rate=0.05, l2_regularization=1.0, random_state=0),
     "flexible": dict(max_depth=6, max_iter=400, learning_rate=0.1, min_samples_leaf=10, random_state=0),
     "ridge": None,
+    "quantile": dict(D.GBR, loss="quantile", quantile=D.ADEQUATE_RATE),
 }
 BOOSTING = ["reference", "regularised", "flexible"]
 RIDGE_ALPHA = 1.0
 
 
+def m3_q95_quantile(calib, target, qc, rng, use_sim=True) -> float:
+    """q95 of a new alternative from quantile-loss boosting: the median predicted conditional 95th
+    percentile over the drawn incoming conditions (no residuals are resampled)."""
+    fit = D.m3_fit(frozenset(calib), qc, use_sim)
+    if fit is None:
+        return np.nan
+    model, _, tr = fit
+    geo, bhf, lub = target.split("/")
+    pool = tr[tr["oil_type"] == lub]
+    pool = pool if len(pool) else tr
+    draw = pool.iloc[rng.integers(0, len(pool), D.M3_DRAWS)][["sheet_um", "oil_gm2"]].reset_index(drop=True)
+    new = draw.assign(geometry=geo, bhf_kN=int(float(bhf)), oil_type=lub)
+    base = 0.0
+    if use_sim:
+        idx = D.matched_index(D._CTX["sims"], geo, int(float(bhf)), new["sheet_um"].to_numpy() / 1000.0,
+                              new["oil_gm2"].to_numpy())
+        if (idx < 0).any():
+            return np.nan
+        base = D._CTX["sims"][qc].reindex(idx).to_numpy()
+    return float(np.median(D.transform(qc, base + model.predict(D.design_matrix(new)))))
+
+
 def use_setting(name: str) -> None:
-    """Point decisions.m3_fit at the learner of a setting and empty its caches."""
+    """Point decisions.m3_fit / m3_q95 at the learner of a setting and empty their caches."""
+    D.m3_q95 = m3_q95_quantile if name == "quantile" else M3_Q95
     if SETTINGS[name] is None:
         D.HistGradientBoostingRegressor = lambda **_: make_pipeline(StandardScaler(), Ridge(alpha=RIDGE_ALPHA))
     else:
@@ -59,7 +84,7 @@ def use_setting(name: str) -> None:
 
 
 def nested(calib: tuple[str, ...], qc: str, use_sim: bool) -> tuple[float, float, float]:
-    """Offset, conformal margin and mean absolute centred residual of the leave-one-out over the
+    """Offset, jackknife margin and mean absolute centred residual of the leave-one-out over the
     calibration alternatives (as decisions.m3_nested, with the same seeds)."""
     real = D._CTX["t"][D._CTX["t"]["qc"] == qc].set_index("alternative")["real_q95"]
     tag = "nested" if use_sim else "nested-nosim"
@@ -70,29 +95,38 @@ def nested(calib: tuple[str, ...], qc: str, use_sim: bool) -> tuple[float, float
     return off, D.conformal_margin(np.abs(res - off), D.CONF_LEVEL), float(np.nanmean(np.abs(res - off)))
 
 
+def cases(alts: list[str]) -> list[tuple[str, list[str], list[str]]]:
+    geo_of = {a: a.split("/")[0] for a in alts}
+    out = [("within", [b for b in alts if b != a and geo_of[b] == geo_of[a]], [a]) for a in alts]
+    for geo, bhf in sorted({(geo_of[a], D.bhf_of(a)) for a in alts}):
+        held = [b for b in alts if geo_of[b] == geo and D.bhf_of(b) == bhf]
+        out.append(("setting", [b for b in alts if geo_of[b] == geo and b not in held], held))
+    out += [("transfer", [b for b in alts if geo_of[b] == s], [b for b in alts if geo_of[b] == d])
+            for s, d in (("concave", "convex"), ("convex", "concave"))]
+    return out
+
+
 def job(args: tuple[str, str]) -> list[dict]:
-    """Intervals of M3 and M4 for one characteristic under one setting, within the family and in transfer."""
+    """Intervals of M3 and M4 for one characteristic under one setting, in all three scopes."""
     from threadpoolctl import threadpool_limits
 
     qc, name = args
     use_setting(name)
-    t = D._CTX["t"]
-    alts = sorted(t["alternative"].unique())
-    geo_of = {a: a.split("/")[0] for a in alts}
-    cases = [("within", [b for b in alts if b != a and geo_of[b] == geo_of[a]], [a]) for a in alts]
-    cases += [("transfer", [b for b in alts if geo_of[b] == s], [b for b in alts if geo_of[b] == d])
-              for s, d in (("concave", "convex"), ("convex", "concave"))]
+    t, floors = D._CTX["t"], D._CTX["floors"]
+    tq = t[t["qc"] == qc].set_index("alternative")
     rows = []
     with threadpool_limits(1):
-        for scope, calib, targets in cases:
+        for scope, calib, targets in cases(sorted(t["alternative"].unique())):
             for rule, use_sim in (("M3", True), ("M4", False)):
                 off, marg, mae = nested(tuple(sorted(calib)), qc, use_sim)
                 for a in targets:
                     rng = np.random.default_rng(D.stable_seed("target" if use_sim else "target-nosim", a, qc,
                                                               *sorted(calib)))
                     q = D.m3_q95(calib, a, qc, rng, use_sim)
-                    rows.append({"scope": scope, "rule": rule, "setting": name, "qc": qc, "alternative": a,
-                                 "lo": q + off - marg, "hi": q + off + marg, "inner_mae": mae, "inner_margin": marg})
+                    rows.append({"scope": scope, "relation": D.relation(calib, a), "rule": rule, "setting": name,
+                                 "method": f"{rule}|{name}", "qc": qc, "alternative": a, "geometry": tq.loc[a, "geometry"],
+                                 "lo": q + off - marg, "hi": q + off + marg, "real_q95": float(tq.loc[a, "real_q95"]),
+                                 "floor": floors[(qc, tq.loc[a, "geometry"])], "inner_mae": mae, "inner_margin": marg})
     print(f"{qc} {name}: done", flush=True)
     return rows
 
@@ -102,20 +136,8 @@ def with_selected(iv: pd.DataFrame) -> pd.DataFrame:
     b = iv[iv["setting"].isin(BOOSTING)].copy()
     b["order"] = b["setting"].map({s: i for i, s in enumerate(BOOSTING)})
     sel = b.sort_values(["inner_mae", "order"]).drop_duplicates(["scope", "rule", "qc", "alternative"])
-    sel = sel.assign(chosen=sel["setting"], setting="selected").drop(columns="order")
+    sel = sel.assign(chosen=sel["setting"], setting="selected", method=sel["rule"] + "|selected").drop(columns="order")
     return pd.concat([iv, sel], ignore_index=True)
-
-
-def verdict_rows(iv: pd.DataFrame, t: pd.DataFrame, floors: dict) -> pd.DataFrame:
-    tq = t.set_index(["qc", "alternative"])
-    rows = []
-    for r in iv.itertuples(index=False):
-        s = tq.loc[(r.qc, r.alternative)]
-        reqs = s["real_q95"] + D.D_GRID * floors[(r.qc, s["geometry"])]
-        for d, v in zip(D.D_GRID, D.verdicts(r.lo, r.hi, reqs)):
-            rows.append({"scope": r.scope, "method": f"{r.rule}|{r.setting}", "qc": r.qc,
-                         "alternative": r.alternative, "d": float(d), "verdict": v, "adequate": bool(d >= 0)})
-    return pd.DataFrame(rows)
 
 
 def main() -> None:
@@ -123,45 +145,34 @@ def main() -> None:
     parts = parts_qc(pd.read_csv(RESULTS / "features_rddac.csv", low_memory=False))
     sims = sims_qc(pd.read_csv(RESULTS / "features_ddacs_rddac.csv"))
     t = pd.read_csv(RESULTS / "dec_alternatives.csv")
-    fl = pd.read_csv(RESULTS / "alt_floor.csv").set_index("qc")
-    floors = {(c, g): float(fl.loc[c, f"floor_{g}"]) for c in SHARED for g in ("concave", "convex")}
-    D._CTX.update(parts=D.match_sims(parts, sims), sims=sims, t=t, floors=floors)
+    D.setup(t, sims, D.load_floors(), D.match_sims(parts, sims))
 
     with Pool(D.N_JOBS) as pool:
         chunks = pool.map(job, [(qc, s) for s in SETTINGS for qc in SHARED], chunksize=1)
     iv = with_selected(pd.DataFrame([r for c in chunks for r in c]))
     iv.to_csv(RESULTS / "tune_intervals.csv", index=False)
 
-    res = D.distance_table(verdict_rows(iv, t, floors))
+    res = D.distances(D.with_relation_scopes(iv), n_boot=0, per_qc=False)
     res[["rule", "setting"]] = res["method"].str.split("|", expand=True)
-    res = res.drop(columns="method")[["scope", "rule", "setting", "qc", "resolution_floors", "safe_floors",
-                                       "resolution_lo", "resolution_hi", "safe_lo", "safe_hi"]]
+    res = res.drop(columns="method")
     res.to_csv(RESULTS / "tune_decisions.csv", index=False)
 
-    ref = pd.read_csv(RESULTS / "dec_resolution.csv")
-    ref = ref[(ref["qc"] == "all") & ref["method"].isin(["M3", "M4"]) & ref["scope"].isin(["within", "transfer"])]
-    allq = res[res["qc"] == "all"]
-    check = allq[allq["setting"] == "reference"].merge(ref, left_on=["scope", "rule"], right_on=["scope", "method"],
-                                                         suffixes=("", "_stored"))
-    same = bool((check["resolution_floors"] == check["resolution_floors_stored"]).all()
-                and (check["safe_floors"] == check["safe_floors_stored"]).all())
+    stored = pd.read_csv(RESULTS / "dec_intervals.csv")
+    stored = stored[stored["method"].isin(["M3", "M4"]) & stored["scope"].isin(["within", "setting", "transfer"])]
+    mine = iv[iv["setting"] == "reference"].assign(method=lambda d: d["rule"])
+    m = stored.merge(mine, on=["scope", "method", "qc", "alternative"], suffixes=("_stored", ""))
+    same = bool(np.allclose(m["lo"], m["lo_stored"], equal_nan=True) and np.allclose(m["hi"], m["hi_stored"], equal_nan=True))
     chosen = iv[iv["setting"] == "selected"].groupby(["scope", "rule"])["chosen"].value_counts().unstack(fill_value=0)
-    tab = allq.assign(decisive=[f"{r:g} ({lo:g}-{hi:g})" for r, lo, hi in
-                                zip(allq["resolution_floors"], allq["resolution_lo"], allq["resolution_hi"])],
-                      safe=[f"{r:g} ({lo:g}-{hi:g})" for r, lo, hi in
-                            zip(allq["safe_floors"], allq["safe_lo"], allq["safe_hi"])])
     lines = ["# Sensitivity of M3 and M4 to the learner and its settings", "",
              "Settings: " + "; ".join(f"{k}: {v if v is not None else f'ridge (alpha {RIDGE_ALPHA:g})'}"
                                       for k, v in SETTINGS.items()) + "; selected: the boosting setting with the "
              "smallest mean absolute leave-one-out error over the calibration alternatives.", "",
-             f"Reference setting reproduces the stored distances: {same}.", "",
-             "## Decisive and safe distances over all characteristics (floors, bootstrap 95 % interval)", "",
-             tab[["scope", "rule", "setting", "decisive", "safe"]].sort_values(["scope", "rule", "setting"])
+             f"Reference setting reproduces the stored intervals: {same} ({len(m)} cases).", "",
+             "## Decisive and safe distances over all characteristics (floors)", "",
+             res.sort_values(["scope", "rule", "setting"])[["scope", "rule", "setting", "resolution_floors",
+                                                            "safe_floors", "resolution_failing", "safe_failing"]]
              .to_markdown(index=False), "",
-             "## Settings chosen by the inner leave-one-out (design cases)", "", chosen.to_markdown(), "",
-             "## Decisive distance per characteristic", "",
-             res.pivot_table(index="qc", columns=["scope", "rule", "setting"], values="resolution_floors")
-             .round(1).to_markdown()]
+             "## Settings chosen by the inner leave-one-out (design cases)", "", chosen.to_markdown()]
     (RESULTS / "summary_tuning.md").write_text("\n".join(lines) + "\n")
     print("\n".join(lines))
 

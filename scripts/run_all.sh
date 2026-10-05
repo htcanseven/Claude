@@ -15,13 +15,14 @@ cd "$(dirname "$0")"
 
 python3 alternatives.py      # production floor, effect-to-scatter, minimum resolvable change
 python3 sensitivity.py       # floor under other batch sizes, quantiles and batch centres; drift share
-python3 decisions.py         # design-stage decisions scored against production
-python3 guard.py             # applicability guards for designs outside the calibrated family
-python3 scenarios.py         # verdicts against general-tolerance requirements (ISO 2768)
+python3 measurement.py       # scan redundancy, components of the floor, extraction noise of the simulations
+python3 decisions.py         # design-stage decisions scored against production (all scopes and rules)
+python3 guard.py             # applicability guards on new process settings and a new family
+python3 scenarios.py         # verdicts against general angular tolerances (ISO 2768-1)
 python3 budget.py            # decisions against the number and choice of calibration alternatives
-python3 robustness.py        # temperature correction, speed confound, constants, friction mapping, M6
-python3 design_space.py      # DDACS corners: sensitivities, surrogate accuracy
-python3 inline.py            # in-line verifiability from the force record
-python3 case2_pa12.py        # second demonstration: build orientation in powder bed fusion (downloads 35 MB)
+python3 robustness.py        # data weaknesses, constants, GP specification, refitting bootstrap
+python3 tuning.py            # learner and settings of the part-level rules M3 and M4
+python3 design_space.py      # supplementary: DDACS corners, sensitivities, surrogate accuracy (not in the paper)
+python3 inline.py            # supplementary: in-line verifiability from the force record (not in the paper)
 python3 figs.py              # figures in the paper's style (results/figures)
 python3 make_tables.py       # tables of paper/main.tex from the CSVs

@@ -1,5 +1,11 @@
 """Second demonstration: build orientation in laser powder bed fusion of PA12.
 
+EXPLORATORY; NOT USED IN THE PAPER. It was removed in the revision: a batch here (an orientation class
+within a build) mixes six or seven orientations, so it is not a batch of one design as the floor requires;
+builds are blocks shared by all classes; and the floor rests on 18 build-centre differences. A proper
+version would take the floor from the eight identical anchor specimens per build (or from the residuals of
+an orientation + build + position model). Kept for reference; run_all.sh does not run it.
+
 Data: Leirmo and Semeniuta (2021), DataverseNO doi:10.18710/DHACHZ (CC0). One test artefact printed as 135
 specimens in three builds on an EOSINT P395 (PA2200, 120 um layers): 37 build orientations (0-180 deg in
 5-deg steps about one axis), each printed once in every build, plus eight anchor specimens per build; CMM
