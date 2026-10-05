@@ -11,7 +11,12 @@ the production evidence a design team needs before simulation-based decisions
 become reliable. M3 is left out because every subset would need a refit and a
 nested leave-one-out.
 
-Outputs: results/budget_curve.csv, budget_resolution.csv, summary_budget.md
+Calibration design: each subset is also classified by whether its blank-holder
+forces bracket the new design's force (interpolation rather than
+extrapolation) and whether they span the tested range (100 and 500 kN), which
+tells a design team which alternatives to produce first.
+
+Outputs: results/budget_curve.csv, budget_resolution.csv, budget_design.csv, summary_budget.md
 """
 
 from __future__ import annotations
@@ -47,6 +52,7 @@ def main() -> None:
     fl = pd.read_csv(RESULTS / "alt_floor.csv").set_index("qc")
     adequate = D_GRID >= 0
     acc = {}                                   # (k, method, qc) -> [sum of outcome rows, n]
+    acc_design = {}                            # (k, method, class type, class) -> [sum of outcome rows, n]
     for qc in SHARED:
         for geo, g in t[t["qc"] == qc].groupby("geometry"):
             g = g.set_index("alternative")
@@ -56,9 +62,13 @@ def main() -> None:
                 r1 = (o["real_q95"] - o["sim_nominal"]).to_numpy()
                 r2 = (o["real_q95"] - o["sim_env_hi"]).to_numpy()
                 reqs = g.loc[a, "real_q95"] + D_GRID * F
+                bhf = np.array([int(x.split("/")[1]) for x in o.index])
+                bhf_a = int(a.split("/")[1])
                 for k in range(1, len(o) + 1):
                     for sub in itertools.combinations(range(len(o)), k):
                         sub = list(sub)
+                        design = {"brackets": bool(bhf[sub].min() <= bhf_a <= bhf[sub].max()),
+                                  "spans": bool({100, 500} <= set(bhf[sub].tolist()))}
                         off1, off2 = np.median(r1[sub]), np.median(r2[sub])
                         marg2 = conformal_margin(np.abs(r2[sub] - off2), CONF_LEVEL)
                         m1 = np.where(g.loc[a, "sim_nominal"] + off1 <= reqs, "meets", "fails")
@@ -70,9 +80,14 @@ def main() -> None:
                             rules.append(("M5", np.where(hi5 <= reqs, "meets",
                                                          np.where(lo5 > reqs, "fails", "uncertain"))))
                         for name, v in rules:
+                            oc = outcome_counts(v, adequate)
                             key = (k, name, qc)
                             s, n = acc.get(key, (0.0, 0))
-                            acc[key] = (s + outcome_counts(v, adequate), n + 1)
+                            acc[key] = (s + oc, n + 1)
+                            for ctype, cls in design.items():
+                                key = (k, name, ctype, cls)
+                                s, n = acc_design.get(key, (0.0, 0))
+                                acc_design[key] = (s + oc, n + 1)
     rows = []
     for (k, name, qc), (s, n) in acc.items():
         for j, d in enumerate(D_GRID):
@@ -95,6 +110,18 @@ def main() -> None:
                         "safe_floors": beyond(h.groupby(h["d"].abs())["not_wrong"].mean())})
     res = pd.DataFrame(res)
     res.to_csv(RESULTS / "budget_resolution.csv", index=False)
+    des = []
+    for (k, name, ctype, cls), (s, n) in sorted(acc_design.items(), key=lambda kv: tuple(map(str, kv[0]))):
+        rate = pd.DataFrame(s.T / n, columns=OUTCOMES, index=D_GRID)
+        by_abs = rate.groupby(np.abs(rate.index)).mean()
+        at10 = rate.loc[[-10.0, 10.0]].mean()
+        des.append({"k": k, "method": name, "class_type": ctype, "class": cls, "n_cases": n,
+                    "resolution_floors": beyond(by_abs["correct"]),
+                    "safe_floors": beyond(by_abs["correct"] + by_abs["abstain"]),
+                    "error_at_10": float(at10["false_accept"] + at10["false_reject"]),
+                    "abstain_at_10": float(at10["abstain"])})
+    des = pd.DataFrame(des)
+    des.to_csv(RESULTS / "budget_design.csv", index=False)
     lines = ["# Calibration budget", "",
              f"Within-geometry calibration on every subset of k of the other alternatives; conformal coverage "
              f"{CONF_LEVEL:.0%}; resolution target {RESOLUTION_TARGET:.0%} correct.", "",
@@ -103,7 +130,9 @@ def main() -> None:
              "", "## Safe distance (production floors) against k", "",
              res.pivot_table(index="qc", columns=["method", "k"], values="safe_floors").round(1).to_markdown(),
              "", "## All characteristics: abstention and error at |d| = 10 floors", "",
-             res[res["qc"] == "all"].round(3).to_markdown(index=False)]
+             res[res["qc"] == "all"].round(3).to_markdown(index=False), "",
+             "## Calibration design: subsets that bracket the new design's force or span the tested range", "",
+             des[des["k"].between(2, 5)].round(3).to_markdown(index=False)]
     (RESULTS / "summary_budget.md").write_text("\n".join(lines) + "\n")
     print("\n".join(lines))
 

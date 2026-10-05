@@ -16,7 +16,10 @@ cd "$(dirname "$0")"
 python3 alternatives.py      # production floor, effect-to-scatter, minimum resolvable change
 python3 sensitivity.py       # floor under other batch sizes, quantiles and batch centres; drift share
 python3 decisions.py         # design-stage decisions scored against production
-python3 budget.py            # decisions against the number of calibration alternatives
+python3 guard.py             # applicability guards for designs outside the calibrated family
+python3 scenarios.py         # verdicts against general-tolerance requirements (ISO 2768)
+python3 budget.py            # decisions against the number and choice of calibration alternatives
+python3 robustness.py        # temperature correction, speed confound, constants, friction mapping, M6
 python3 design_space.py      # DDACS corners: sensitivities, surrogate accuracy
 python3 inline.py            # in-line verifiability from the force record
 python3 figs.py              # figures in the paper's style (results/figures)

@@ -53,8 +53,13 @@ most 1 - RESOLUTION_TARGET of its verdicts are wrong (an abstention is not
 wrong). For rules that always decide (M0, M1) the two coincide. The transfer
 test calibrates on one geometry and applies the rules to the other.
 
-Outputs: results/dec_alternatives.csv, dec_margins.csv, dec_verdicts.csv.gz,
-dec_scores.csv, summary_decisions.md
+Uncertainty of the two distances: the design cases (held-out alternatives)
+are resampled with replacement (N_BOOT_DEC, seed SEED) and the distances
+recomputed, which gives a percentile interval for each rule and scope.
+
+Outputs: results/dec_alternatives.csv, dec_margins.csv, dec_intervals.csv,
+dec_verdicts.csv.gz, dec_scores.csv, dec_resolution.csv, dec_curve.csv,
+summary_decisions.md
 """
 
 from __future__ import annotations
@@ -87,6 +92,7 @@ RESOLUTION_TARGET = 0.95     # resolution: smallest |d| beyond which this share 
 GBR = dict(max_depth=3, max_iter=200, learning_rate=0.08, random_state=0)
 M3_DRAWS = 500               # incoming conditions drawn for a new alternative
 SEED = 7
+N_BOOT_DEC = 1000            # resamples of the design cases for the intervals of the two distances
 N_JOBS = min(4, os.cpu_count() or 1)   # parallel characteristics for M3/M4 (results do not depend on it)
 LUB_RANK = {"coarse": 0.0, "medium": 1.0, "fine": 2.0}
 GP_RESTARTS = 3
@@ -267,14 +273,32 @@ def verdicts(lo: float, hi: float, reqs: np.ndarray) -> np.ndarray:
     return np.where(hi <= reqs, "meets", np.where(lo > reqs, "fails", "uncertain"))
 
 
+def rule_intervals(a: pd.Series, calib: list[str], qc: str, stats: tuple[float, float, float],
+                   with_m3: bool) -> dict[str, tuple[float, float]]:
+    """Predicted interval of the target's q95 under every rule; M0 and M1 are points (lo = hi)."""
+    off1, off2, marg2 = stats
+    target = a["alternative"]
+    iv = {"M0": (a["sim_nominal"], a["sim_nominal"]),
+          "M1": (a["sim_nominal"] + off1, a["sim_nominal"] + off1),
+          "M2": (a["sim_env_hi"] + off2 - marg2, a["sim_env_hi"] + off2 + marg2),
+          "M5": m5_interval(calib, target, qc, a["sim_env_hi"])}
+    if with_m3:
+        q3, off3, marg3 = m3_calibrated(calib, target, qc)
+        iv["M3"] = (q3 + off3 - marg3, q3 + off3 + marg3)
+        q4, off4, marg4 = m3_calibrated(calib, target, qc, use_sim=False)
+        iv["M4"] = (q4 + off4 - marg4, q4 + off4 + marg4)
+    return {k: (float(lo), float(hi)) for k, (lo, hi) in iv.items()}
+
+
 def decide(t: pd.DataFrame, calib: list[str], targets: list[str], qc: str, floors: dict, label: str,
-           with_m3: bool) -> list[dict]:
+           with_m3: bool) -> tuple[list[dict], list[dict]]:
+    """Verdicts at every requirement distance, and the intervals behind them, for the targets of one calibration."""
     c = t[t["alternative"].isin(calib) & (t["qc"] == qc)]
-    off1 = np.median(c["real_q95"] - c["sim_nominal"])
     r2 = c["real_q95"] - c["sim_env_hi"]
-    off2 = np.median(r2)
-    marg2 = conformal_margin(np.abs(r2 - off2).to_numpy(), CONF_LEVEL)
-    out = []
+    off2 = float(np.median(r2))
+    stats = (float(np.median(c["real_q95"] - c["sim_nominal"])), off2,
+             conformal_margin(np.abs(r2 - off2).to_numpy(), CONF_LEVEL))
+    out, ivs = [], []
     for target in targets:
         s = t[(t["alternative"] == target) & (t["qc"] == qc)]
         if s.empty:
@@ -282,23 +306,17 @@ def decide(t: pd.DataFrame, calib: list[str], targets: list[str], qc: str, floor
         a = s.iloc[0]
         F = floors[(qc, a["geometry"])]
         reqs = a["real_q95"] + D_GRID * F
-        rules = {
-            "M0": np.where(a["sim_nominal"] <= reqs, "meets", "fails"),
-            "M1": np.where(a["sim_nominal"] + off1 <= reqs, "meets", "fails"),
-            "M2": verdicts(a["sim_env_hi"] + off2 - marg2, a["sim_env_hi"] + off2 + marg2, reqs),
-            "M5": verdicts(*m5_interval(calib, target, qc, a["sim_env_hi"]), reqs),
-        }
-        if with_m3:
-            q3, off3, marg3 = m3_calibrated(calib, target, qc)
-            rules["M3"] = verdicts(q3 + off3 - marg3, q3 + off3 + marg3, reqs)
-            q4, off4, marg4 = m3_calibrated(calib, target, qc, use_sim=False)
-            rules["M4"] = verdicts(q4 + off4 - marg4, q4 + off4 + marg4, reqs)
-        for name, v in rules.items():
-            for d, R, verdict in zip(D_GRID, reqs, v):
+        for name, (lo, hi) in rule_intervals(a, calib, qc, stats, with_m3).items():
+            ivs.append({"calibration": label, "alternative": target, "geometry": a["geometry"], "qc": qc,
+                        "method": name, "lo": lo, "hi": hi, "real_q95": float(a["real_q95"]), "floor": F,
+                        "sim_env_hi": float(a["sim_env_hi"]), "calib_env_min": float(c["sim_env_hi"].min()),
+                        "calib_env_max": float(c["sim_env_hi"].max()),
+                        "calib_geometries": "|".join(sorted(c["geometry"].unique()))})
+            for d, R, verdict in zip(D_GRID, reqs, verdicts(lo, hi, reqs)):
                 out.append({"calibration": label, "alternative": target, "geometry": a["geometry"], "qc": qc,
                             "method": name, "d": float(d), "R": float(R), "verdict": verdict,
                             "adequate": bool(d >= 0)})
-    return out
+    return out, ivs
 
 
 def beyond(rate: pd.Series) -> float:
@@ -325,6 +343,29 @@ def safe_distance(d: pd.DataFrame) -> float:
     return beyond((is_correct(d) | (d["verdict"] == "uncertain")).groupby(d["d"].abs()).mean())
 
 
+def distance_table(d: pd.DataFrame, n_boot: int = N_BOOT_DEC, seed: int = SEED) -> pd.DataFrame:
+    """Decisive and safe distances per scope, rule and characteristic ('all' pooled), with percentile
+    intervals from resampling the design cases (held-out alternatives) with replacement."""
+    d = d.assign(correct=is_correct(d), ad=d["d"].abs())
+    d["not_wrong"] = d["correct"] | (d["verdict"] == "uncertain")
+    rng = np.random.default_rng(seed)
+    rows = []
+    for (scope, method), g in d.groupby(["scope", "method"]):
+        for qc, h in [("all", g)] + list(g.groupby("qc")):
+            per = h.groupby(["alternative", "ad"])[["correct", "not_wrong"]].mean()
+            pc, pn = per["correct"].unstack(), per["not_wrong"].unstack()
+            idx = rng.integers(0, len(pc), (n_boot, len(pc)))
+            bc = [beyond(pc.iloc[i].mean()) for i in idx]
+            bn = [beyond(pn.iloc[i].mean()) for i in idx]
+            rows.append({"scope": scope, "method": method, "qc": qc,
+                         "resolution_floors": beyond(pc.mean()), "safe_floors": beyond(pn.mean()),
+                         "resolution_lo": float(np.percentile(bc, 2.5, method="lower")),
+                         "resolution_hi": float(np.percentile(bc, 97.5, method="higher")),
+                         "safe_lo": float(np.percentile(bn, 2.5, method="lower")),
+                         "safe_hi": float(np.percentile(bn, 97.5, method="higher"))})
+    return pd.DataFrame(rows)
+
+
 def score(d: pd.DataFrame, by: list[str]) -> pd.DataFrame:
     d = d.assign(
         correct=((d["verdict"] == "meets") & d["adequate"]) | ((d["verdict"] == "fails") & ~d["adequate"]),
@@ -346,20 +387,23 @@ def qc_records(qc: str) -> list[dict]:
     t, floors, with_m3 = _CTX["t"], _CTX["floors"], _CTX["with_m3"]
     alts = sorted(t["alternative"].unique())
     geo_of = {a: a.split("/")[0] for a in alts}
-    records = []
+    records, intervals = [], []
     with threadpool_limits(1 if N_JOBS > 1 else None):
+        jobs = []
         for a in alts:
             # within the design family: the other alternatives of the same geometry
-            records += decide(t, [b for b in alts if b != a and geo_of[b] == geo_of[a]], [a], qc, floors,
-                              "within", with_m3)
+            jobs.append(([b for b in alts if b != a and geo_of[b] == geo_of[a]], [a], "within"))
             # pooled: all other alternatives, both geometries
-            records += decide(t, [b for b in alts if b != a], [a], qc, floors, "pooled", with_m3)
+            jobs.append(([b for b in alts if b != a], [a], "pooled"))
         for src, dst in (("concave", "convex"), ("convex", "concave")):
-            calib = [b for b in alts if b.startswith(src)]
-            targets = [b for b in alts if b.startswith(dst)]
-            records += decide(t, calib, targets, qc, floors, f"{src}->{dst}", with_m3)
+            jobs.append(([b for b in alts if b.startswith(src)], [b for b in alts if b.startswith(dst)],
+                         f"{src}->{dst}"))
+        for calib, targets, label in jobs:
+            v, iv = decide(t, calib, targets, qc, floors, label, with_m3)
+            records += v
+            intervals += iv
     print(f"{qc}: done", flush=True)
-    return records
+    return records, intervals
 
 
 def main(with_m3: bool = True) -> None:
@@ -386,21 +430,22 @@ def main(with_m3: bool = True) -> None:
             chunks = pool.map(qc_records, SHARED)
     else:
         chunks = [qc_records(qc) for qc in SHARED]
-    d = pd.DataFrame([r for c in chunks for r in c])
+    d = pd.DataFrame([r for c, _ in chunks for r in c])
+    iv = pd.DataFrame([r for _, c in chunks for r in c])
+    iv["scope"] = np.where(iv["calibration"].str.contains("->"), "transfer", iv["calibration"])
+    iv.to_csv(RESULTS / "dec_intervals.csv", index=False)
     d.to_csv(RESULTS / "dec_verdicts.csv.gz", index=False)
     sc = score(d, ["calibration", "qc", "method"]).reset_index()
     sc.to_csv(RESULTS / "dec_scores.csv", index=False)
     d["scope"] = np.where(d["calibration"].str.contains("->"), "transfer", d["calibration"])
     overall = score(d, ["scope", "method"]).reset_index()
-    res = []
-    for (scope, method), g in d.groupby(["scope", "method"]):
-        res.append({"scope": scope, "method": method, "qc": "all", "resolution_floors": resolution(g),
-                    "safe_floors": safe_distance(g)})
-        for qc, h in g.groupby("qc"):
-            res.append({"scope": scope, "method": method, "qc": qc, "resolution_floors": resolution(h),
-                        "safe_floors": safe_distance(h)})
-    res = pd.DataFrame(res)
+    res = distance_table(d)
     res.to_csv(RESULTS / "dec_resolution.csv", index=False)
+    allq = res[res["qc"] == "all"].copy()
+    allq["decisive (95 % CI)"] = [f"{r:g} ({lo:g}-{hi:g})" for r, lo, hi in
+                                 zip(allq["resolution_floors"], allq["resolution_lo"], allq["resolution_hi"])]
+    allq["safe (95 % CI)"] = [f"{r:g} ({lo:g}-{hi:g})" for r, lo, hi in
+                             zip(allq["safe_floors"], allq["safe_lo"], allq["safe_hi"])]
     curve = score(d, ["scope", "method", "d"]).reset_index()
     curve.to_csv(RESULTS / "dec_curve.csv", index=False)
 
@@ -411,6 +456,9 @@ def main(with_m3: bool = True) -> None:
              "## Offset between parts and matched simulations (median over alternatives)", "",
              t.pivot_table(index="qc", columns="geometry", values="gap_matched", aggfunc="median").round(3).to_markdown(),
              "", "## Decision rates over all characteristics", "", overall.round(3).to_markdown(index=False), "",
+             f"## Distances over all characteristics with bootstrap intervals over design cases ({N_BOOT_DEC} "
+             f"resamples)", "", allq[["scope", "method", "decisive (95 % CI)", "safe (95 % CI)"]].to_markdown(index=False),
+             "",
              "## Decisive distance (production floors): beyond it at least 95 % of verdicts are correct", "",
              res.pivot_table(index="qc", columns=["scope", "method"], values="resolution_floors").round(1).to_markdown(),
              "", "## Safe distance (production floors): beyond it at most 5 % of verdicts are wrong", "",

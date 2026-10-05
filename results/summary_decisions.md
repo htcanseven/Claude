@@ -37,6 +37,29 @@ Adequate: at least 95% of the parts conform. Conformal coverage 90%. Nominal sim
 | within   | M4       |     0.783 |          0.002 |          0.005 |     0.21  |                0.009 |
 | within   | M5       |     0.881 |          0.006 |          0.01  |     0.103 |                0.018 |
 
+## Distances over all characteristics with bootstrap intervals over design cases (1000 resamples)
+
+| scope    | method   | decisive (95 % CI)   | safe (95 % CI)   |
+|:---------|:---------|:---------------------|:-----------------|
+| pooled   | M0       | 150 (100-150)        | 150 (100-150)    |
+| pooled   | M1       | 30 (25-40)           | 30 (25-40)       |
+| pooled   | M2       | 50 (40-75)           | 0 (0-0)          |
+| pooled   | M3       | 25 (25-30)           | 0 (0-0.5)        |
+| pooled   | M4       | 25 (15-30)           | 0.5 (0-1.5)      |
+| pooled   | M5       | 12 (9.975-15)        | 1 (0.5-2.5)      |
+| transfer | M0       | 150 (100-150)        | 150 (100-150)    |
+| transfer | M1       | 40 (40-40)           | 40 (40-40)       |
+| transfer | M2       | 75 (75-75)           | 20 (12-25)       |
+| transfer | M3       | 50 (50-50)           | 20 (20-25)       |
+| transfer | M4       | 150 (150-200)        | 150 (150-200)    |
+| transfer | M5       | 40 (40-40)           | 30 (25-40)       |
+| within   | M0       | 150 (100-150)        | 150 (100-150)    |
+| within   | M1       | 15 (12-20)           | 15 (12-20)       |
+| within   | M2       | 25 (25-30)           | 0.5 (0-1)        |
+| within   | M3       | 20 (20-25)           | 0 (0-0.5)        |
+| within   | M4       | 12 (10-12)           | 1 (0-2)          |
+| within   | M5       | 7 (6.5-8)            | 2 (0.5-4.5)      |
+
 ## Decisive distance (production floors): beyond it at least 95 % of verdicts are correct
 
 | qc            |   ('pooled', 'M0') |   ('pooled', 'M1') |   ('pooled', 'M2') |   ('pooled', 'M3') |   ('pooled', 'M4') |   ('pooled', 'M5') |   ('transfer', 'M0') |   ('transfer', 'M1') |   ('transfer', 'M2') |   ('transfer', 'M3') |   ('transfer', 'M4') |   ('transfer', 'M5') |   ('within', 'M0') |   ('within', 'M1') |   ('within', 'M2') |   ('within', 'M3') |   ('within', 'M4') |   ('within', 'M5') |
