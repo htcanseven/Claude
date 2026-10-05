@@ -47,7 +47,7 @@
 \fi
 
 %% BEGIN ABSTRACT
-\abstract{\pending{abstract}}
+\abstract{Design-stage manufacturability decisions rest on simulation and machine learning, but whether a prediction can be trusted to decide is a property of production that is rarely measured. This paper scores such decisions against production. A production floor---the difference that drift and scatter produce between two batches of one design---is the unit; a rule that returns meets, fails or trial is characterised by its decisive distance, beyond which 95\,\% of its verdicts are correct, and its safe distance, beyond which at most 5\,\% are wrong. Six rules, from the nominal simulation through conformal and Gaussian-process calibration to gradient-boosting models with and without the simulation, are compared on 9,000 deep-drawn cups of 18 design--process alternatives with matched finite-element simulations, each alternative judged as a new design. The nominal simulation needs requirements 150 floors away to decide reliably. Calibrated on the other alternatives of its family, a Gaussian-process discrepancy model decides correctly beyond 7 floors and errs rarely beyond 2; a conformal envelope is safe beyond half a floor but decisive only beyond 25. Four to five produced alternatives that bracket the new design's process settings make calibrated rules reliable. Across geometries no rule is safe closer than 20 floors and models without the simulation fail; the simulation carries a decision into a new family, while an applicability guard sends it to trial. Against general tolerances the best rule decides 89\,\% of 162 design questions correctly without a false accept. Data and code are open.}
 %% END ABSTRACT
 
 \keywords{design for manufacturing, design verification, simulation credibility, uncertainty quantification, Gaussian-process calibration, deep drawing}
@@ -444,12 +444,51 @@ Resolution target 0.99 & 30 & 50/1.5 & 12/5.5 & 15/5 & 75/30 & 75/40 \\
 %% ----------------------------------------------------------------------
 \section{Discussion}\label{sec:discussion}
 
-\pending{discussion}
+\subsection{What the demonstration establishes}
+
+Three results carry beyond the case. First, production has a resolution, and it is set by drift: two batches of one design differ by more than independent parts would, by a factor of 1.4 to 4.5, so the floor has to be measured on consecutive production rather than inferred from the scatter of single parts. The floor sorts design questions into those production can answer and those it cannot; here a choice between the three lubrication patterns is unresolvable for most characteristics, and changes of blank-holder force below 28--100\,kN cannot be seen in five of the seven. Second, a nominal simulation that reproduces trends is not yet a decision instrument: its offsets from production reach 108 floors and vary by 10.5 to 38 floors between alternatives of one family, so it needs requirements 150 floors away before it decides reliably. Third, with the production record of the design family the same simulation decides within a few floors, and the safe and decisive distances make the trade between deciding and abstaining explicit: the conformal envelope never misleads beyond half a floor but sends a third of the designs to trial, while the Gaussian-process calibration decides almost everything beyond 7 floors and misleads only within 2.
+
+\subsection{Implications for design practice}
+
+Table~\ref{tab:guidelines} turns the results into rules a design team can apply. A design-stage verdict should state its distance from the requirement in floors, so that it can be compared with the rule's decisive and safe distances. Production evidence should be planned as part of the design of a product family: four to five produced variants make a calibrated rule reliable, and choosing them so that their process settings bracket the window in which new designs will lie removes almost all wrong verdicts---a calibration design rather than a sample size. Design iterations made on the simulation below the minimum resolvable change are invisible in production and need not be pursued. And a new geometry is a new family: no calibration from another family is safe closer than 20 floors, so the guard, not the model, should decide whether the simulation may be trusted there.
+
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{4pt}
+\caption{Guidelines for design-stage manufacturability decisions from the demonstration}\label{tab:guidelines}
+\begin{tabular}{@{}p{3.3cm}p{3.6cm}p{5.0cm}@{}}
+\toprule
+Situation & Rule & What to expect and do \\
+\midrule
+No produced alternative of the family & nominal simulation only for gross margins & reliable beyond about 150 floors; otherwise physical trial \\
+Two or three produced alternatives & M2 envelope with conformal margin & choose alternatives that bracket the new design's process settings; no wrong verdict beyond 10 floors, about a quarter sent to trial \\
+Four or more produced alternatives & M5 Gaussian-process calibration & right beyond 7--10 floors, wrong rarely beyond 2; M2 where a false accept is costly \\
+New geometry & M2 with the applicability guard & designs outside the simulated range of the calibration alternatives go to trial \\
+Design or process change below the minimum resolvable change & none & not visible in production; do not iterate on it \\
+\botrule
+\end{tabular}
+\end{table}
+
+\subsection{Where machine learning helps}
+
+The comparison of the six rules answers the question the call for this collection poses about learning from manufacturing data. Machine learning helps where it corrects a physical model with the production record of a design family: the Gaussian-process discrepancy is the most decisive rule within the family and pooled, and halves the decisive distance of the best rule without learning. A flexible model trained on parts adds nothing over it: within a family a gradient-boosting model reaches 12 floors without any simulation and 20 with the simulation as its baseline, and across geometries the model without simulation fails completely because nothing in one family's record describes the other. The simulation is therefore what carries a decision into a new design family, while learning carries the production evidence within it. Uncertainty quantification is not interchangeable either: the conformal margin is safest but indecisive with few alternatives, the Gaussian-process interval is decisive but over-confident when the alternatives are not exchangeable, and their combination did not inherit the strengths of both. A model's interval is a statement about the model; the safe distance is a statement about production, and it is the one a designer can rely on.
+
+\subsection{Applying the procedure elsewhere}
+
+The procedure needs three things: several produced alternatives of a design family, each with a series of consecutive parts from which the floor can be measured; a design-stage predictor for every alternative, a simulation or a surrogate; and characteristics that can be measured identically on parts and predictions. None is specific to forming. Injection moulding with warpage simulations, machining with deflection models and additive manufacturing with distortion simulations fit the same pattern, and the calibration budget and design apply wherever a product family is produced in variants. Where the predictor is not a physics model, rule M4 is the baseline that tells what the production record alone already achieves.
+
+\subsection{Threats to validity}
+
+The demonstration covers one material, one press and two geometries; the procedure is general, the numbers are not. Each alternative was produced once, as 500 consecutive strokes, so the floor covers drift within a series but not between days, coils or tool states and is a lower bound of the variation a requirement has to absorb in series production. The blank-holder force of 100\,kN ran at a slower stroke; the force effects persist between 300 and 500\,kN at equal speed, but the 100\,kN alternatives combine both. Lubrication is a pattern, not a friction coefficient, and the simulations are matched through a linear mapping from the oil film that the design-space analysis calls into question; the rules M0, M1, M2 and M5 use the simulation envelope or the nominal simulation and do not depend on it. Edge positions on the scans are quantised by the pixel grid, which the trimmed-mean centres address, and absolute offsets between scans and simulations carry the scanner calibration uncertainty, which floors and effects do not. With eight to seventeen calibration alternatives the conformal margin equals the largest residual, and its guarantee assumes exchangeable alternatives, which the transfer violates by design. The requirements on the distance grid are synthetic by construction; the general-tolerance scenarios show that the conclusions hold for requirements a drawing would carry, but not for the specification of a particular part. Finally, the design-space analysis rests on corners in which three geometric parameters change together, so single geometric effects are not identifiable from it.
 
 %% ----------------------------------------------------------------------
 \section{Conclusions}\label{sec:conclusion}
 
-\pending{conclusions}
+Design-stage manufacturability decisions made from simulation can be scored against production, and the score is a pair of distances in a unit that production itself defines. The production floor---the difference that drift and scatter produce between two batches of one design---tells which design questions are worth asking; the decisive and safe distances tell how close to a requirement a decision rule can decide and how close it can be trusted not to mislead.
+
+On 9,000 deep-drawn and cut cups of 18 design--process alternatives, the nominal simulation needed requirements 150 floors away before it decided reliably. Calibrated on the production record of its design family, a Gaussian-process model of the simulation's discrepancy decided correctly beyond 7 floors and erred rarely beyond 2, and against general tolerances it decided 89\,\% of 162 design questions correctly without a false accept. Four to five produced alternatives that bracket the new design's process settings made the calibrated rules reliable. Across geometries no rule was safe closer than 20 floors, a model without the simulation failed outright, and an applicability guard that uses design-stage information only sent nine in ten of these decisions to trial.
+
+Three extensions follow: series produced on several days, coils and tool states, so that the floor covers long-term variation; more design families and processes, to turn the calibration budget into a general rule; and a cost model for trials, false accepts and false rejects, so that the choice between a safe and a decisive rule can be posed as an optimisation. The released code, which reproduces every result from the public data, is the starting point for all three.
 
 \backmatter
 
@@ -486,11 +525,19 @@ A large language model (Claude, Anthropic) was used under the author's direction
 
 \subsection{Computation details}\label{app:computation}
 
-\pending{appendix computation}
+\emph{Feature extraction.} Scans are reduced to a grid of 2$\times$4-pixel medians after a luminescence filter (connected components of at least 20,040 pixels); calibration 0.0769\,mm per pixel across, 0.1581\,mm per line and 0.00775\,mm per height unit. The cup-bottom plane is fitted robustly to the plateau at least 10\,mm inside its edge, and all depths are taken from it. The flange comprises the points 20--40\,mm below the bottom plane, at least 8\,mm from the cup wall and 3\,mm from the outer edge. Wall positions are interpolated where the binned (0.5\,mm) radial profile reaches 10, 15 and 20\,mm depth; the wall angle is taken between 10 and 20\,mm. The arm angle is fitted to the longest run of the profile whose slope stays below 15$^\circ$, shortened by 1\,mm at both ends and at least 4\,mm long. Flange widths are medians over bands $\pm$2\,mm about the mid-lines; corner tips are the outline points within 0.3\,mm of the extreme diagonal projection. Simulated parts are mirrored from the quarter model and processed with the same definitions on a 1\,mm grid.
+
+\emph{Floors and effects.} Batches of $B=50$ consecutive parts; batches with fewer than 80\,\% valid values are dropped; centres are 10\,\% trimmed means; $\alpha=0.95$. Uncertainty: 2000 resamples of the batches within alternatives (seed 1), pairs of copies of one batch excluded from a resampled floor. Scatter floor: 50 random permutations of the parts within each series (seed 1).
+
+\emph{Decision rules.} Adequacy share $p=0.95$. Requirement distances $d\in\{0,\pm0.5,\dots,\pm10$ in steps of 0.5, $\pm12,\pm15,\pm20,\pm25,\pm30,\pm40,\pm50,\pm75,\pm100,\pm150,\pm200,\pm300,\pm500\}$ floors, per-geometry floors. Conformal margin: the $\lceil (n+1)\cdot 0.9\rceil$-th smallest absolute residual of $n$ calibration alternatives, the largest residual when this exceeds $n$. M5: Gaussian-process regression with a constant times anisotropic squared-exponential kernel plus white noise, normalised targets, three optimiser restarts (random state 0); descriptors are a convex-geometry indicator, the blank-holder force in units of 100\,kN and the lubrication rank (coarse 0, medium 1, fine 2), with descriptors that are constant over the calibration set dropped. M3 and M4: histogram gradient boosting (maximum depth 3, 200 iterations, learning rate 0.08, random state 0) on the geometry indicator, blank-holder force, two lubrication indicators, sheet thickness and oil film; 500 incoming conditions are drawn for the new alternative from calibration parts with the same lubrication pattern, with residuals resampled from the training fit; offset and margin from a leave-one-out over the calibration alternatives. Distance intervals: 1000 resamples of the held-out alternatives (seed 7).
+
+\emph{Budget, guard, scenarios, robustness.} The budget uses all subsets of $k=1,\dots,8$ calibration alternatives of the family (M5 from $k=2$). The guards and the tolerance scenarios use the stored intervals of every rule. The temperature correction subtracts $b\,(T-\bar T_a)$ from each characteristic, with $b$ the pooled within-alternative slope on the punch temperature $T$.
+
+\emph{Software.} Python 3.11 with NumPy 2.4, pandas 3.0, SciPy 1.17, scikit-learn 1.9 \citep{Pedregosa2011scikit} and Matplotlib 3.11.
 
 \subsection{Additional tables}\label{app:tables}
 
-\pending{appendix tables}
+Table~\ref{tab:distci} gives the bootstrap intervals of the decisive and safe distances, Table~\ref{tab:qcdist} the distances per characteristic within the family, Table~\ref{tab:bhfpairs} the blank-holder force contrasts with and without a change of stroke speed, Table~\ref{tab:dsratio} the ratio of simulated to measured sensitivity per factor, and Table~\ref{tab:inline} the in-line verifiability of the characteristics from the force record. The simulation reproduces the sensitivity of the cup depth and the dome to sheet thickness on the concave cup, overstates the effect of blank-holder force on draw-in three to seven times, and overstates the effect of friction 5 to 630 times, which points to the oil-to-friction mapping rather than to the solver. The force record explains at most 17\,\% of the part-to-part and 11\,\% of the batch-to-batch variation of any characteristic, so the scan, not the press, is the evidence on which the floor rests.
 
 %% BEGIN GENERATED distci
 \begin{table}[t]
