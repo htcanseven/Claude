@@ -720,6 +720,41 @@
 | convex/500/fine    |         29.646 |              1.492 |           1.966 |           990.299 |              78.298 |
 | convex/500/medium  |         27.529 |              2.487 |           3.269 |           990.367 |              78.307 |
 
+## force_effect
+
+| qc            | geometry   |   real_effect |   sim_effect |   ratio |
+|:--------------|:-----------|--------------:|-------------:|--------:|
+| drawin_mid    | concave    |        -0.415 |       -2.131 |   5.13  |
+| drawin_mid    | convex     |        -0.418 |       -2.034 |   4.871 |
+| drawin_corner | concave    |        -0.342 |       -1.175 |   3.437 |
+| drawin_corner | convex     |        -0.335 |       -0.896 |   2.673 |
+
+## q95_unit
+
+| scope    | method   |   resolution_floors |   safe_floors |
+|:---------|:---------|--------------------:|--------------:|
+| setting  | M0       |               76.2  |         76.2  |
+| setting  | M1       |               17.5  |         17.5  |
+| setting  | M1s      |               14.85 |         14.85 |
+| setting  | M2       |               15.2  |          5.95 |
+| setting  | M5       |               17.9  |          6.15 |
+| setting  | M5n      |               16.5  |          5.05 |
+| setting  | NN       |                6.85 |          6.85 |
+| transfer | M0       |               76.2  |         76.2  |
+| transfer | M1       |               30.4  |         30.4  |
+| transfer | M1s      |              133.05 |        133.05 |
+| transfer | M2       |               41.3  |         12.65 |
+| transfer | M5       |               33.85 |         29.95 |
+| transfer | M5n      |              140.4  |        136.8  |
+| transfer | NN       |              138.55 |        138.55 |
+| within   | M0       |               76.2  |         76.2  |
+| within   | M1       |               12.35 |         12.35 |
+| within   | M1s      |                5.3  |          5.3  |
+| within   | M2       |               16.9  |          0.15 |
+| within   | M5       |                6.85 |          0.4  |
+| within   | M5n      |                6.65 |          0.6  |
+| within   | NN       |                2.75 |          2.75 |
+
 ## sibling strata: cases
 
 |   resolved_siblings |   cases |

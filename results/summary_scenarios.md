@@ -244,10 +244,10 @@ Alternatives meeting the limit:
 | ('setting', 0.5)   | M2n/M4 | M2n/M4 | M2n/M4 | NN     | NN     | NN     |
 | ('setting', 1.0)   | M2n/M4 | M2n/M4 | M2n/M4 | M2n/M4 | M2n/M4 | NN     |
 | ('setting', 2.0)   | M2n/M4 | M2n/M4 | M2n/M4 | M2n/M4 | M2n/M4 | M2n/M4 |
-| ('transfer', 0.25) | M2     | M2     | M2     | M2     | M5     | M5     |
-| ('transfer', 0.5)  | M2     | M2     | M2     | M2     | M5     | M5     |
-| ('transfer', 1.0)  | M2     | M2     | M2     | M2     | M5     | M5     |
-| ('transfer', 2.0)  | M0w    | M0w    | M0w    | M0w    | M0w    | M5     |
+| ('transfer', 0.25) | trial  | trial  | M2     | M2     | M5     | M5     |
+| ('transfer', 0.5)  | trial  | trial  | trial  | M2     | M5     | M5     |
+| ('transfer', 1.0)  | trial  | trial  | trial  | trial  | M5     | M5     |
+| ('transfer', 2.0)  | trial  | trial  | trial  | trial  | trial  | M5     |
 | ('within', 0.25)   | M1s/NN | M1s/NN | M1s/NN | M1s/NN | M1s/NN | M1s/NN |
 | ('within', 0.5)    | M1s/NN | M1s/NN | M1s/NN | M1s/NN | M1s/NN | M1s/NN |
 | ('within', 1.0)    | M1s/NN | M1s/NN | M1s/NN | M1s/NN | M1s/NN | M1s/NN |

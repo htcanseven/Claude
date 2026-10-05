@@ -244,7 +244,7 @@ def t_qcs() -> str:
     rows = [f"{LABEL[c]} & {UNIT[c]} & {role} & {text}" for c, role, text in QC_DEFINITIONS]
     return table(rows, "Quality characteristics, extracted with the same definitions from the scans and the simulated "
                        "nodes", "tab:qcs", "L{2.5cm}L{0.6cm}L{1.6cm}L{7.0cm}",
-                 "Characteristic & Unit & Role & Definition", colsep="4pt", place="h",
+                 "Characteristic & Unit & Role & Definition", colsep="4pt", place="tbp",
                  note="All depths are referred to the plane of the cup bottom; definitions of the extraction in "
                       "Section~S1.")
 
@@ -260,7 +260,7 @@ def t_components() -> str:
             r"Characteristic & $\sigma_\mathrm{LT}/\sigma_\mathrm{ST}$ & White share (\%) & First half & "
             r"$q_{95}$ floor & median & 95\,\%")
     return table(rows, "What the production floor contains: components and variants in floors", "tab:components",
-                 "lrrrrrr", head, colsep="4.5pt", place="h",
+                 "lrrrrrr", head, colsep="4.5pt", place="tbp",
                  note=r"$\sigma_\mathrm{ST}$: standard deviation within subgroups of five consecutive parts; "
                       r"$\sigma_\mathrm{LT}$: of the whole series (medians). White share: the floor that independent "
                       r"part-to-part noise alone would produce, $1.96\sqrt{2/B}$ times the successive-difference standard "
@@ -282,7 +282,7 @@ def t_protocol() -> str:
     head = (r"Characteristic & Geometry & $F$ & $\sigma_\mathrm{LT}$ & $\sigma_\mathrm{ST}$ & $\sigma_\mathrm{w}$ & "
             r"$\sigma_\mathrm{b}$ & $F/\sigma_\mathrm{LT}$ & $F/\sigma_\mathrm{ST}$ & model $F$")
     return table(rows, "Floor protocol: variance components and the floor in units of the part scatter",
-                 "tab:protocol", "llrrrrrrrr", head, colsep="3pt", place="h",
+                 "tab:protocol", "llrrrrrrrr", head, colsep="3pt", place="tbp",
                  note=r"Units of the characteristic. $\sigma_\mathrm{w}$: pooled standard deviation within batches of 50; "
                       r"$\sigma_\mathrm{b}$: between batch means, corrected for $\sigma_\mathrm{w}^2/50$; model $F$: "
                       r"$1.96\sqrt{2}\sqrt{\sigma_\mathrm{b}^2+\sigma_\mathrm{w}^2/50}$. Medians over the nine series.")
@@ -294,7 +294,7 @@ def t_lags() -> str:
     rows = [f"{lag} ({50 * lag}) & " + " & ".join(f"{w.loc[lag, c]:.2f}" for c in SHARED) for lag in w.index]
     head = r"Lag (parts) & " + " & ".join(["DM", "DC", "Wav", "Wall", "Arm", "Depth", "Dome"])
     return table(rows, "The floor by the time between the batches compared, in floors", "tab:lags",
-                 "lrrrrrrr", head, colsep="5pt", place="h",
+                 "lrrrrrrr", head, colsep="5pt", place="tbp",
                  note=r"95\,\% quantile of the difference between batch centres a given number of batches apart, over "
                       r"the floor (mean of the two geometries). DM, DC: mid-side and corner draw-in; Wav: flange waviness.")
 
@@ -326,7 +326,7 @@ def t_resolve() -> str:
             r"Characteristic & ESR\,$\geq$\,1 & Median & ESR\,$\geq$\,1 & Median & ESR\,$\geq$\,1 & Median & "
             r"100--300 & 300--500")
     return table(rows, "Single-factor contrasts that production resolves and minimum resolvable force change",
-                 "tab:resolve", "lrrrrrrrr", head, colsep="3.5pt", place="h",
+                 "tab:resolve", "lrrrrrrrr", head, colsep="3.5pt", place="tbp",
                  note=r"ESR: effect-to-scatter ratio of two alternatives that differ in one factor. MRC: floor over the "
                       r"local sensitivity of the alternative centres to blank-holder force, between 100 and 300\,kN (the "
                       r"stroke speed also changes) and between 300 and 500\,kN; $>$200: beyond the interval.")
@@ -352,7 +352,7 @@ def t_offsets() -> str:
             "\n" r"\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}" "\n"
             r"Characteristic & Offset & Spread & Offset & Spread & Concave & Convex")
     return table(rows, "Offset between the parts' 95th percentile and the nominal simulation, in floors",
-                 "tab:offsets", "lrrrrrr", head, colsep="5pt", place="h",
+                 "tab:offsets", "lrrrrrr", head, colsep="5pt", place="tbp",
                  note=r"Offset: median over the nine alternatives of a geometry of $(q_{95}-s_0)/F$, $s_0$ the nominal "
                       r"simulation, on the decision scale; spread: its range. Matched, signed: median difference between "
                       r"the centre of the parts and of their matched simulations, in the unit, with signs. Removing the "
@@ -375,7 +375,7 @@ def t_simnoise() -> str:
             r"\cmidrule(lr){2-4}\cmidrule(lr){5-7}" "\n"
             r"Characteristic & noise & envelope & surrogate & noise & envelope & surrogate")
     return table(rows, "Extraction noise of the simulated characteristics and accuracy of a surrogate (floors)",
-                 "tab:simnoise", "lrrrrrr", head, colsep="4.5pt", place="h",
+                 "tab:simnoise", "lrrrrrr", head, colsep="4.5pt", place="tbp",
                  note=r"Noise: standard deviation of the second difference along the friction grid over $\sqrt{1.5}$. "
                       r"Envelope: largest difference between the maximum of the simulated values of a geometry and force "
                       r"and that of a quadratic response surface. Surrogate: leave-one-out error of a Gaussian-process "
@@ -393,7 +393,7 @@ def t_scan() -> str:
     rows = [f"{name} & " + " & ".join(rng(s.loc[s["geometry"] == g, c].min(), s.loc[s["geometry"] == g, c].max(), d)
                                       for g in ("concave", "convex")) for c, name, d in quantities]
     return table(rows, "Redundancy of the scans: ranges over the nine series of each geometry", "tab:scan",
-                 "lrr", r"Quantity & Concave & Convex", colsep="6pt", place="h",
+                 "lrr", r"Quantity & Concave & Convex", colsep="6pt", place="tbp",
                  note=r"$W_x$, $W_y$: flange width across the cup centre, across and along the scan lines; E, W, N: east, "
                       r"west and north walls; SD and correlation over the parts of a series.")
 
@@ -409,7 +409,7 @@ def t_resolution() -> str:
                     f"{int(x['alternatives_with_zero_q95_se'])}")
     head = r"Characteristic & Step (unit) & Step/$F$ & Distinct values per series & Zero SE of $q_{95}$"
     return table(rows, "Measurement resolution of the characteristics", "tab:resolution", "lrrrr", head,
-                 colsep="6pt", place="h",
+                 colsep="6pt", place="tbp",
                  note=r"Step: median difference between adjacent distinct values within a series. Zero SE: alternatives "
                       r"whose block-bootstrap standard error of $q_{95}$ is zero (the quantile does not move).")
 
@@ -422,7 +422,7 @@ def t_runs() -> str:
     head = (r" & & & \multicolumn{3}{c}{Punch temperature} & & \\" "\n" r"\cmidrule(lr){4-6}" "\n"
             r"Geometry & Force (kN) & Oiling & start ($^\circ$C) & rise, 150 (K) & rise, all (K) & Sheet (mm) & "
             r"Speed (mm/s)")
-    return table(rows, "Run metadata of the 18 series", "tab:runs", "llrrrrrr", head, colsep="2.8pt", place="h",
+    return table(rows, "Run metadata of the 18 series", "tab:runs", "llrrrrrr", head, colsep="2.8pt", place="tbp",
                  note=r"Punch temperature at the start (median of the first ten parts) and its rise over the first 150 "
                       r"parts and over the series; median sheet "
                       r"thickness; median forming speed. The order and dates of the series are not documented.")
@@ -434,7 +434,7 @@ def t_weights() -> str:
             zip(w["delta"], w["feasible_failing"], w["cases"], w["weight_failing"])]
     return table(rows, "Weight of the failing side at given distances", "tab:weights", "rrr",
                  r"$\delta$ (floors) & Feasible failing requirements & Weight of the failing side", colsep="8pt",
-                 place="h", note=r"A requirement $q_{95}-\delta F$ below zero is no requirement for a non-negative "
+                 place="tbp", note=r"A requirement $q_{95}-\delta F$ below zero is no requirement for a non-negative "
                                  r"characteristic; every feasible verdict has equal weight (Section~\ref{M-sec:distances} of the paper).")
 
 
@@ -453,7 +453,7 @@ def t_alldist() -> str:
             r"\cmidrule(lr){3-5}\cmidrule(lr){7-8}" "\n"
             r"Rule & variant & all & interpolated & extrapolated & family & variant & setting")
     return table(rows, "Decisive and safe distances (floors) of all rules and scopes", "tab:alldist", "lrrrrrrr",
-                 head, colsep="4pt", place="h",
+                 head, colsep="4pt", place="tbp",
                  note=r"$\delta_\mathrm{d}/\delta_\mathrm{s}$; one number for rules that always decide. Pooled: the other "
                       r"geometry's alternatives added to the calibration set. M3n is M4 in the code. M6: M5 mean with a "
                       r"conformal margin on standardised leave-one-out residuals.")
@@ -474,7 +474,7 @@ def t_distci() -> str:
             r"Rule & $\delta_\mathrm{d}$ & $\delta_\mathrm{s}$ & $\delta_\mathrm{d}$ & $\delta_\mathrm{s}$ & "
             r"$\delta_\mathrm{d}$ & $\delta_\mathrm{s}$")
     return table(rows, r"Bootstrap 95\,\% intervals of the decisive and safe distances (floors)", "tab:distci",
-                 "lrrrrrr", head, colsep="4pt", place="h",
+                 "lrrrrrr", head, colsep="4pt", place="tbp",
                  note=r"1000 resamples of the held-out alternatives within each geometry, each with a block-bootstrap "
                       r"replicate of the true $q_{95}$; the fits are held fixed (refitting: Table~\ref{tab:robust}).")
 
@@ -490,7 +490,7 @@ def t_onesided() -> str:
             "\n" r"\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}" "\n"
             r"Rule & FA side & FR side & FA side & FR side & FA side & FR side")
     return table(rows, "One-sided safe distances (floors): false accepts and false rejects", "tab:onesided",
-                 "lrrrrrr", head, colsep="4.5pt", place="h",
+                 "lrrrrrr", head, colsep="4.5pt", place="tbp",
                  note=r"FA side: smallest distance beyond which at most 5\,\% of the verdicts on failing alternatives are "
                       r"false accepts; FR side: the same for false rejects of adequate alternatives.")
 
@@ -526,7 +526,7 @@ def t_paired() -> str:
             rows.append(f"{SHORT[a]} $-$ {SHORT[b]} & " + " & ".join(cells))
     head = r"Pair & New variant & New setting & New family"
     return table(rows, "Paired differences of the decisive distance between rules (floors)", "tab:paired", "lrrr",
-                 head, colsep="5pt", place="h",
+                 head, colsep="5pt", place="tbp",
                  note=r"Difference and 95\,\% interval; a negative difference means that the first rule decides closer to "
                       r"the requirement. Upper block: common resamples of Table~\ref{tab:distci} (fits fixed); lower "
                       r"block: refitted rules.")
@@ -547,7 +547,7 @@ def t_coverage() -> str:
             r"\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}\cmidrule(lr){11-13}" "\n"
             r"Rule & cov. & half & centre & cov. & half & centre & cov. & half & centre & cov. & half & centre")
     return table(rows, "Interval rules: coverage of the true $q_{95}$, half-width and the accuracy of the centre",
-                 "tab:coverage", "l" + "r" * 12, head, colsep="2.6pt", place="h",
+                 "tab:coverage", "l" + "r" * 12, head, colsep="2.6pt", place="tbp",
                  note=r"cov.: share of cases whose true $q_{95}$ lies in the interval (\%; nominal 90\,\%; the largest "
                       r"residual attains at most $n/(n+1)$); half: median half-width (floors); centre: decisive distance "
                       r"of the interval centre used as a point rule (floors).")
@@ -565,7 +565,7 @@ def t_qcdist() -> str:
     head = (r" & \multicolumn{5}{c}{New variant} & \multicolumn{5}{c}{New setting} \\" "\n"
             r"\cmidrule(lr){2-6}\cmidrule(lr){7-11}" "\n" "Characteristic & " + " & ".join(rules + rules))
     return table(rows, "Decisive/safe distance per characteristic (floors)", "tab:qcdist", "l" + "r" * 10, head,
-                 colsep="2.4pt", place="h",
+                 colsep="2.4pt", place="tbp",
                  note=r"18 held-out alternatives per characteristic and scope; one wrong verdict moves a share by about "
                       r"three percentage points.")
 
@@ -580,7 +580,7 @@ def t_units() -> str:
             "\n" r"\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-8}" "\n"
             r"Characteristic & NN & M5 & NN & M5 & M1 & M2 & M5")
     return table(rows, "Decisive distances per characteristic in its unit", "tab:units", "lrrrrrrr", head,
-                 colsep="4pt", place="h",
+                 colsep="4pt", place="tbp",
                  note=r"The decisive distance computed with a unit floor, in the unit of the characteristic.")
 
 
@@ -599,7 +599,7 @@ def t_transfer() -> str:
         rows.append(f"{label} & {dd} & {x['median_abs_error']:.1f}; {x['abs_error_p90']:.1f}")
     head = r"Rule & target family's floor & source family's floor"
     return table(rows, "A new family: distances in the floor of the produced family, and a baseline from the drawing "
-                       "nominal", "tab:transfer", "lrr", head, colsep="8pt", place="h",
+                       "nominal", "tab:transfer", "lrr", head, colsep="8pt", place="tbp",
                  note=r"Upper block: all characteristics, $\delta_\mathrm{d}/\delta_\mathrm{s}$ (floors). Lower block: wall "
                       r"angle of a new family (18 cases); nominal + offset: the design angle of the new family plus the "
                       r"median deviation $q_{95}-$ design angle of the produced family.")
@@ -621,7 +621,7 @@ def t_tuning() -> str:
             "\n" r"\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}" "\n"
             r"Learner & M3 & M3n & M3 & M3n & M3 & M3n")
     return table(rows, "Part-level rules M3 and M3n under other learners and settings (decisive/safe, floors)",
-                 "tab:tuning", "lrrrrrr", head, colsep="4pt", place="h",
+                 "tab:tuning", "lrrrrrr", head, colsep="4pt", place="tbp",
                  note=r"Reference: histogram gradient boosting, depth 3, 200 iterations, rate 0.08. Regularised: depth 2, "
                       r"100 iterations, rate 0.05, L2 penalty 1. Flexible: depth 6, 400 iterations, rate 0.1. Ridge: linear "
                       r"regression on standardised inputs. Quantile loss: boosting of the 95th percentile. Selected: the "
@@ -641,7 +641,7 @@ def t_gp() -> str:
     head = (r" & \multicolumn{3}{c}{M5} & \multicolumn{3}{c}{M5n} \\" "\n" r"\cmidrule(lr){2-4}\cmidrule(lr){5-7}" "\n"
             r"Scope & fits & noise (\%) & length (\%) & fits & noise (\%) & length (\%)")
     return table(rows, "Gaussian-process fits with a hyperparameter at a bound", "tab:gp", "lrrrrrr", head,
-                 colsep="5pt", place="h",
+                 colsep="5pt", place="tbp",
                  note=r"Share of the fits whose noise level sits at its lower bound, the variance between the series of "
                       r"one geometry and force, and with a length scale at a bound (0.1 or 100).")
 
@@ -665,7 +665,7 @@ def t_step6() -> str:
             rows.append(f"{name if m == rules[0] else ''} & {SHORT[m]} & {dist(g)} & {alone} & {step} & {tr}")
     head = r"Relation & Rule & $g$ & rule alone & step 6 & trial at 10 floors (\%)"
     return table(rows, "The procedure's decision rule: guard band and operating characteristics", "tab:step6",
-                 "llrrrr", head, colsep="6pt", place="h",
+                 "llrrrr", head, colsep="6pt", place="tbp",
                  note=r"$g$: smallest observable margin (floors) beyond which at least 95\,\% of the decided verdicts are "
                       r"correct for requirements on the grid within 20 floors of the truth; $\infty$: never, the procedure "
                       r"sends every design to trial. Distances $\delta_\mathrm{d}/\delta_\mathrm{s}$ in floors.")
@@ -686,7 +686,7 @@ def t_guard() -> str:
             r"\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}" "\n"
             f"Scope & Guard & Guarded & {DD} & wrong & {DD} & wrong & $\\delta_\\mathrm{{d}}$ & wrong")
     return table(rows, "Applicability guards: distances and wrong verdicts among the cases a guard lets through",
-                 "tab:guard", "llrrrrrrr", head, colsep="3.5pt", place="h",
+                 "tab:guard", "llrrrrrrr", head, colsep="3.5pt", place="tbp",
                  note=r"Guarded: cases (of 126) sent to trial. Range guard: geometry not calibrated or force outside the "
                       r"calibrated range; novelty guard: simulated $q_{95}$ outside the calibration range. Wrong: wrong "
                       r"verdicts at $|d|=10$ among those let through.")
@@ -704,7 +704,7 @@ def t_capability() -> str:
     med = read("panel_capability.csv").groupby("ppk")["median_d"].median()
     head = "Relation & Rule & " + " & ".join(f"$P_\\mathrm{{pk}}={p:g}$" for p in ppk)
     return table(rows, "Requirements anchored in capability: right and trial verdicts (\\%)", "tab:capability",
-                 "llrrrr", head, colsep="6pt", place="h",
+                 "llrrrr", head, colsep="6pt", place="tbp",
                  note=r"Upper limit at centre $+\,3P_\mathrm{pk}$ standard deviations of each alternative's parts; every "
                       r"alternative meets it, so the rest of the verdicts are false rejects. The limits lie a median "
                       + ", ".join(f"{med.loc[p]:.1f}" for p in ppk) + r" floors above $q_{95}$.")
@@ -730,7 +730,7 @@ def t_scenarios() -> str:
             r"\multicolumn{4}{c}{New family (\%)} \\" "\n" r"\cmidrule(lr){2-5}\cmidrule(lr){6-9}\cmidrule(lr){10-13}" "\n"
             r"Rule & right & ${<}5$ & FA & trial & right & ${<}5$ & FA & trial & right & ${<}5$ & FA & trial")
     return table(rows, "Verdicts against requirements from general angular tolerances (ISO 2768-1)", "tab:scenarios",
-                 "l" + "r" * 12, head, colsep="2.4pt", place="h",
+                 "l" + "r" * 12, head, colsep="2.4pt", place="tbp",
                  note=f"Wall and arm angle, classes f/m, c and v: {len(tr)} decisions per rule and scope, {n_fail} with a "
                       f"failing alternative, {n_near} with the limit within 5 floors of the truth. right: correct verdicts; "
                       r"${<}5$: correct among the decisions within 5 floors; FA: false accepts among the failing "
@@ -748,8 +748,9 @@ def t_costmap() -> str:
             rows.append(f"{name if cfr == min(c['c_fr']) else ''} & {cfr:g} & " + " & ".join(cells))
     head = r"Relation & $c_\mathrm{FR}$ & " + " & ".join(f"{ct:g}" for ct in cts)
     return table(rows, "Cheapest rule in the tolerance scenario by the costs of a false reject and a trial",
-                 "tab:costmap", "lr" + "l" * len(cts), head, colsep="4pt", place="h",
-                 note=r"Costs relative to a false accept; columns: cost of a trial $c_\mathrm{T}$. Ties joined by a slash.")
+                 "tab:costmap", "lr" + "l" * len(cts), head, colsep="4pt", place="tbp",
+                 note=r"Costs relative to a false accept; columns: cost of a trial $c_\mathrm{T}$. Ties joined by a slash. "
+                      r"trial: a physical trial for every design, the current-practice baseline.")
 
 
 def t_inline() -> str:
@@ -759,7 +760,7 @@ def t_inline() -> str:
             f"{signed(-100 * d.loc[c, 'floor_reduction'], 0)}" for c in SHARED]
     head = r"Characteristic & Batches & $R^2$, out of fold & $F$ & $F$, drift removed & Change (\%)"
     return table(rows, "Drift of the batch centres explained by the process signals", "tab:inline", "lrrrrr", head,
-                 colsep="5pt", place="h",
+                 colsep="5pt", place="tbp",
                  note=r"Ridge regression of the batch centres on the batch centres of press force, punch temperature, sheet "
                       r"thickness and oil film, folds by alternative; $F$ recomputed after removing the predicted drift.")
 
@@ -791,6 +792,11 @@ def t_robust() -> str:
 
     rows = [f"{name} & " + " & ".join(cell(v, s, m) for s, m in cols) for v, name in order
             if any((v, s, m) in r.index for s, m in cols)]
+    qu = RESULTS / "panel_q95_unit.csv"
+    if qu.exists():
+        u = pd.read_csv(qu).set_index(["scope", "method"])
+        rows.append(r"Unit: reproducibility of $q_{95}$ & " + " & ".join(pair(u.loc[(s, m)], m) if (s, m) in u.index else ""
+                                                                    for s, m in cols))
     lolo = [("leave one pattern out", "lubricant", m) for m in ["M1s", "M2", "M5", "NN"]]
     rows.append("Leave one pattern out & " + " & ".join(pair(r.loc[k], k[2]) if k in r.index else "" for k in lolo)
                 + " & & & & & ")
@@ -807,11 +813,12 @@ def t_robust() -> str:
             "\n" r"\cmidrule(lr){2-5}\cmidrule(lr){6-8}\cmidrule(lr){9-10}" "\n"
             r"Variant & M1s & M2 & M5 & NN & M2 & M5 & NN & M2 & M5")
     return table(rows, "Decisive/safe distances (floors) under the robustness variants", "tab:robust",
-                 "l" + "r" * 9, head, colsep="2.4pt", place="h",
+                 "l" + "r" * 9, head, colsep="2.4pt", place="tbp",
                  note=r"Alternative-level rules refitted for every variant; empty cells: the variant does not affect the "
                       r"rule. Floor variants rescale the distances with other floors. Calibration series of $n$: the "
                       r"calibration alternatives' $q_{95}$ from their first $n$ parts. Leave one pattern out: columns M1s, "
-                      r"M2, M5 and NN of the first block. Refit bootstrap: 95\,\% interval when the lubrication patterns of "
+                      r"M2, M5 and NN of the first block. Unit: distances in units of the 95\,\% quantile of the difference "
+                      r"between the $q_{95}$ of two batches of 100 parts instead of $F$. Refit bootstrap: 95\,\% interval when the lubrication patterns of "
                       r"each geometry are resampled and every rule is refitted (200 resamples).")
 
 
@@ -837,7 +844,7 @@ def main() -> None:
         except (KeyError, FileNotFoundError, ValueError, IndexError) as e:     # a result file not yet regenerated
             failed.append(name)
             write_block(name, table([r"\multicolumn{2}{l}{(not yet generated)}"], f"{name} (pending)", f"tab:{name}",
-                                    "ll", "Pending & ", place="h"))
+                                    "ll", "Pending & ", place="tbp"))
             print(f"{name}: FAILED ({type(e).__name__}: {e})")
     esm_labels()
     if failed:

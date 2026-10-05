@@ -16,18 +16,20 @@ for a brief indication of whether it falls within its scope before I submit it i
 **Working title:** Evaluating design-stage manufacturability decisions against the resolution of production
 
 **Summary.** Design-stage manufacturability decisions increasingly rest on simulation and machine learning, but
-whether a prediction is fit to decide is rarely evaluated against production. The paper proposes a framework that
-expresses this fitness in a unit set by production, the production floor: the difference that drift and scatter
-produce between two batches of one design. A rule that returns meets, fails or send to trial is characterised by a
-decisive distance (beyond which 95 % of its verdicts are correct) and a safe distance (beyond which at most 5 % are
-wrong), evaluated for each relation of a new design to the produced evidence: a variant of a produced setting, a
-new process setting or a new design family. Twelve rules, from the nominal simulation to Gaussian-process and
-gradient-boosting models, each calibrated rule also without the simulation, are compared on open data of 9,000
-deep-drawn parts of 18 design–process alternatives with matched finite-element simulations (University of
-Stuttgart, RDDAC/DDACS). The relation governed decision fitness more than the model did: with a produced sibling
-the nearest produced setting decided within about 3 floors, for a new process setting no rule decided closer than
-8.5 floors, and for a new family no rule was safe closer than 16 floors. The simulation contributed only to the new
-family; learned models added calibrated abstention rather than accuracy.
+whether a prediction is fit to decide is rarely evaluated against production. The paper proposes a framework whose
+unit is set by production, the production floor: the difference that drift and scatter produce between two batches
+of one design within a run. A rule that returns meets, fails or send to trial is characterised by a decisive distance
+(beyond which 95 % of its verdicts are correct) and a safe distance (beyond which at most 5 % are wrong), evaluated
+for each relation of a new design to the produced evidence: a variant of a produced setting, a new process setting
+or a new design family. A procedure turns them into a guard band on the margin of a single verdict. Thirteen rules,
+from the nominal simulation to Gaussian-process and gradient-boosting models and a nearest-produced-setting
+baseline, each calibrated rule also without the simulation, are compared at a 95 % conformance level. The data are
+open: 18 deep-drawn design–process alternatives of 500 parts each, mostly process settings on one tool, with matched
+finite-element simulations (University of Stuttgart, RDDAC/DDACS). With a produced sibling the nearest produced
+setting decided within 3.4 floors, for a new process setting no rule decided closer than 8.5 floors, and in two
+transfers to a new family no rule was safe closer than 16 floors. Within a family the choice of rule mattered at
+least as much as the relation. In this small-data regime the simulation, as used, helped only across families, and
+learned models added abstention rather than accuracy.
 
 **Fit to the collection.** It addresses learning from design and manufacturing data, automated manufacturability
 assessment with stated confidence, knowledge transfer across design families, and designer trust (the "send to

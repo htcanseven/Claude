@@ -326,6 +326,16 @@ def force_effect(t: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def q95_unit(iv: pd.DataFrame) -> pd.DataFrame:
+    """Distances in another unit: the reproducibility of the decided quantile (95 % quantile of the difference
+    between the 95th percentiles of two batches of 100 parts) instead of the floor of batch centres."""
+    unit = pd.read_csv(RESULTS / "meas_floor.csv").set_index("qc")["q95_floor_b100"]
+    rows = []
+    for (scope, m), g in iv[iv["scope"].isin(SCOPES) & iv["method"].isin(CORE)].groupby(["scope", "method"]):
+        rows.append({"scope": scope, "method": m, **dist(g, g["qc"].map(unit).to_numpy(float), sides=False)})
+    return pd.DataFrame(rows)
+
+
 def main() -> None:
     iv = pd.read_csv(RESULTS / "dec_intervals.csv")
     ivr = D.with_relation_scopes(iv)
@@ -348,6 +358,7 @@ def main() -> None:
     out["resolution_steps"] = resolution_steps(q, floors, t)
     out["runs"] = run_metadata(q)
     out["force_effect"] = force_effect(t)
+    out["q95_unit"] = q95_unit(iv)
     for name, frame in out.items():
         frame.to_csv(RESULTS / f"panel_{name}.csv", index=False)
 

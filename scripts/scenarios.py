@@ -124,6 +124,9 @@ def main() -> None:
     cost.to_csv(RESULTS / "scen_cost.csv", index=False)
     cmap = []                                       # cheapest rule(s) over false-reject and trial costs
     core = sc[sc["scope"].isin(["within", "setting", "transfer"])]
+    trial = pd.DataFrame([{"scope": sc_, "method": "trial", "false_accept": 0.0, "false_reject": 0.0, "uncertain": 1.0}
+                          for sc_ in ["within", "setting", "transfer"]])
+    core = pd.concat([core, trial], ignore_index=True)    # current practice: a physical trial for every design
     for scope, g in core.groupby("scope"):
         for cfr in C_FR_MAP:
             for ct in C_TRIAL:

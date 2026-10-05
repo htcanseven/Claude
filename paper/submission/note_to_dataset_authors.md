@@ -14,9 +14,9 @@ Dear Mr Baum, dear Mr Heinzelmann,
 
 Thank you for publishing the RDDAC and DDACS datasets and your recent paper on the simulation-to-reality deviation
 in deep drawing. I am preparing a paper for *Research in Engineering Design* that builds on both datasets with a
-different question: how close to a requirement a design-stage decision made from simulation can be trusted, and how
+different question: how close to a requirement a design-stage decision made from simulation can be relied on, and how
 much production evidence a design team needs before such decisions become reliable. The work defines a production
-floor from batches of consecutive parts and scores twelve decision rules (from the nominal simulation to
+floor from batches of consecutive parts and scores thirteen decision rules (from the nominal simulation to
 Gaussian-process and gradient-boosting models, each calibrated rule also without the simulation) by how the new
 design relates to the produced alternatives: a new lubrication variant, a new blank-holder force, or the other
 geometry. All code and extracted feature tables are open, and the datasets and your paper are cited.

@@ -17,12 +17,14 @@
 \graphicspath{{figures/}}
 
 \raggedbottom
-\renewcommand{\topfraction}{0.9}
-\renewcommand{\bottomfraction}{0.7}
-\renewcommand{\textfraction}{0.07}
-\renewcommand{\floatpagefraction}{0.8}
-\setcounter{topnumber}{3}
-\setcounter{totalnumber}{4}
+%% The supplement is mostly tables: let several share a page, at its top, bottom or on a float page.
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.95}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.6}
+\setcounter{topnumber}{6}
+\setcounter{bottomnumber}{4}
+\setcounter{totalnumber}{8}
 \setlength{\textfloatsep}{10pt plus 3pt minus 2pt}
 \setlength{\floatsep}{10pt plus 3pt minus 2pt}
 \setlength{\intextsep}{10pt plus 3pt minus 2pt}
@@ -69,7 +71,7 @@
 
 \emph{Decision rules.} Adequacy share $p=0.95$; per-geometry floors; requirements below zero are left out for these non-negative characteristics. The largest-residual margin is the $\lceil (n+1)\cdot 0.9\rceil$-th smallest absolute residual of $n$ calibration alternatives, the largest when this exceeds $n$. M1s: ordinary least squares of $q_{95}$ on the nominal simulation $s_0$ over the calibration alternatives, M1 when fewer than two alternatives or no spread of $s_0$. M5 and M5n: Gaussian-process regression with a constant times anisotropic squared-exponential kernel plus white noise, normalised targets, three optimiser restarts (random state 0), length scales in $[0.1, 100]$; the noise variance is bounded below by the larger of the mean squared block-bootstrap standard error of the calibration alternatives' $q_{95}$ and the pooled variance of the targets between the calibration alternatives of one geometry and blank-holder force, relative to the variance of the targets; descriptors are a convex-geometry indicator, the blank-holder force in units of 100\,kN and the lubrication rank (coarse 0, medium 1, fine 2, the order of the oil amount), with descriptors that are constant over the calibration set dropped. NN: mean $q_{95}$ of the calibration alternatives of the target's geometry at the nearest blank-holder force (both neighbours when equally near; the other geometry when the family has none). Mc: for each lubrication pattern, the friction coefficient of the DDACS grid at 0.99\,mm whose simulated mid-side and corner draw-in, in floors, are closest in least squares to the centres of the calibration alternatives with that pattern (all calibration alternatives if none has it). M3 and M3n (M4 in the code): histogram gradient boosting (maximum depth 3, 200 iterations, learning rate 0.08, random state 0) on the geometry indicator, blank-holder force, two lubrication indicators, sheet thickness and oil film; 500 incoming conditions are drawn for the new alternative from calibration parts with the same lubrication pattern, with in-sample residuals pooled over the calibration alternatives resampled. Their jackknife+ interval \citep{barber2021predictive} uses the $n$ leave-one-out fits over the calibration alternatives: each predicts the new alternative and leaves a residual on the alternative it left out; with the median residual as offset and the absolute deviations of the residuals from it as scores, the interval runs from the $\lfloor 0.1(n+1)\rfloor$-th smallest prediction minus score to the $\lceil 0.9(n+1)\rceil$-th smallest prediction plus score, the extreme values when $n$ is too small.
 
-\emph{Distances and intervals.} The shares of correct and wrong verdicts are evaluated exactly at the exclusion distances of the cases, on a grid of 0.05 floors up to 600 floors. Intervals: 1000 resamples of the held-out alternatives within each geometry (seeds derived from the scope), each with one of 1000 block-bootstrap replicates of every alternative's $q_{95}$ (batches of 50 resampled within the series); the resamples are shared by all rules of a scope. Refitting bootstrap: 200 resamples in which the three lubrication patterns of each geometry are drawn with replacement (at least two distinct ones), all forces kept; every alternative of a drawn pattern enters as often as its pattern was drawn, a target's copies never calibrate it, and every alternative-level rule is refitted, so that each case keeps its evidence relation. The decomposition of Section~\ref{M-sec:res-drivers} is a two-way analysis of variance of the log decisive distance over the ten calibrated rules and the relations, without replication, so the interaction is the residual.
+\emph{Distances and intervals.} The shares of correct and wrong verdicts are evaluated exactly at the exclusion distances of the cases, on a grid of 0.05 floors up to 600 floors. Intervals: 1000 resamples of the held-out alternatives within each geometry (seeds derived from the scope), each with one of 1000 block-bootstrap replicates of every alternative's $q_{95}$ (batches of 50 resampled within the series); the resamples are shared by all rules of a scope. Refitting bootstrap: 200 resamples in which the three lubrication patterns of each geometry are drawn with replacement (at least two distinct ones), all forces kept; every alternative of a drawn pattern enters as often as its pattern was drawn, a target's copies never calibrate it, and every alternative-level rule is refitted, so that each case keeps its evidence relation. The decomposition of Section~\ref{M-sec:res-drivers} is a two-way analysis of variance of the log decisive distance over the eleven calibrated rules and the relations, without replication, so the interaction is the residual.
 
 \emph{Procedure.} The guard band $g$ of a rule and relation is the smallest margin on a grid of 0.25 floors up to 20 floors beyond which at least 95\,\% of the decided verdicts are correct, the verdicts being those at the requirement grid of the paper (0.5 to 10 floors in steps of 0.5, then 12, 15 and 20 floors, on both sides of the truth); the margin of a verdict is $(R-U)/F$ for meets and $(L-R)/F$ for fails. Step 6 widens the rule's interval by $g$ floors on both sides, and its distances are computed with the exact estimator. The guard bands are chosen and evaluated on the same cases.
 
@@ -83,7 +85,7 @@
 Table~\ref{tab:qcs} defines the quality characteristics. Table~\ref{tab:components} decomposes the floor and gives the reproducibility of the decided statistic, Table~\ref{tab:protocol} the variance components that allow the floor to be recomputed for another protocol, and Table~\ref{tab:lags} its dependence on the time between the batches compared. Table~\ref{tab:resolve} counts the single-factor contrasts that production resolves, and Fig.~\ref{fig:alternatives} shows the alternatives against the floor. Table~\ref{tab:offsets} gives the offsets of the nominal simulation and Table~\ref{tab:simnoise} the extraction noise of the simulated characteristics and the accuracy of a surrogate of the simulations. Tables~\ref{tab:scan} and \ref{tab:resolution} document the measurement and Table~\ref{tab:runs} the run conditions.
 
 %% BEGIN GENERATED qcs
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{4pt}
 \caption{Quality characteristics, extracted with the same definitions from the scans and the simulated nodes}\label{tab:qcs}
@@ -105,7 +107,7 @@ Bottom dome, cut & mm & drawing & sag of the bottom at 40\,mm radius from a fitt
 %% END GENERATED qcs
 
 %% BEGIN GENERATED components
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{4.5pt}
 \caption{What the production floor contains: components and variants in floors}\label{tab:components}
@@ -129,7 +131,7 @@ Bottom dome, cut & 1.10 & 17 & 0.49 & 1.02 & 1.6 & 9.8 \\
 %% END GENERATED components
 
 %% BEGIN GENERATED protocol
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{3pt}
 \caption{Floor protocol: variance components and the floor in units of the part scatter}\label{tab:protocol}
@@ -158,7 +160,7 @@ Bottom dome, cut & concave & 0.0034 & 0.0024 & 0.0019 & 0.0026 & 0.0011 & 1.44 &
 %% END GENERATED protocol
 
 %% BEGIN GENERATED lags
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{5pt}
 \caption{The floor by the time between the batches compared, in floors}\label{tab:lags}
@@ -182,7 +184,7 @@ Lag (parts) & DM & DC & Wav & Wall & Arm & Depth & Dome \\
 %% END GENERATED lags
 
 %% BEGIN GENERATED resolve
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{3.5pt}
 \caption{Single-factor contrasts that production resolves and minimum resolvable force change}\label{tab:resolve}
@@ -206,14 +208,14 @@ Bottom dome, cut & 9/9 & 9.6 & 15/18 & 2.4 & 11/18 & 1.6 & $>$200 & $>$200 \\
 \end{table}
 %% END GENERATED resolve
 
-\begin{figure}[h]
+\begin{figure}[tbp]
 \centering
 \includegraphics[width=\textwidth]{F1_alternatives}
 \caption{Centre and 5--95\,\% range of each characteristic per alternative; the black bar is the production floor}\label{fig:alternatives}
 \end{figure}
 
 %% BEGIN GENERATED offsets
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{5pt}
 \caption{Offset between the parts' 95th percentile and the nominal simulation, in floors}\label{tab:offsets}
@@ -237,7 +239,7 @@ Bottom dome, cut (mm) & $-$28 & 22 & 10 & 9 & $-$0.04 & +0.06 \\
 %% END GENERATED offsets
 
 %% BEGIN GENERATED simnoise
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{4.5pt}
 \caption{Extraction noise of the simulated characteristics and accuracy of a surrogate (floors)}\label{tab:simnoise}
@@ -261,7 +263,7 @@ Bottom dome, cut & 9.8 & 20.9 & 11.2 & 2.4 & 9.9 & 1.7 \\
 %% END GENERATED simnoise
 
 %% BEGIN GENERATED scan
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{6pt}
 \caption{Redundancy of the scans: ranges over the nine series of each geometry}\label{tab:scan}
@@ -284,7 +286,7 @@ Correlation of the E and W wall angles & $-$0.10 to 0.27 & $-$0.71 to $-$0.49 \\
 %% END GENERATED scan
 
 %% BEGIN GENERATED resolution
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{6pt}
 \caption{Measurement resolution of the characteristics}\label{tab:resolution}
@@ -306,7 +308,7 @@ Bottom dome, cut & 0.000021 & 0.004 & 490 (474--497) & 0 \\
 %% END GENERATED resolution
 
 %% BEGIN GENERATED runs
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{2.8pt}
 \caption{Run metadata of the 18 series}\label{tab:runs}
@@ -347,7 +349,7 @@ convex & 500 & medium & 27.5 & 2.5 & 3.3 & 0.990 & 78 \\
 Table~\ref{tab:weights} gives the weight of the failing side in the estimator of Section~\ref{M-sec:distances}. Table~\ref{tab:alldist} gives the distances of all rules and scopes, Table~\ref{tab:distci} their bootstrap intervals, Table~\ref{tab:onesided} the one-sided safe distances and Table~\ref{tab:paired} the paired differences between rules, with the fits held fixed and refitted. Table~\ref{tab:coverage} gives the coverage and width of the interval rules and the accuracy of their centres, Tables~\ref{tab:qcdist} and \ref{tab:units} the distances per characteristic, in floors and in units, Table~\ref{tab:transfer} the distances of a new family in the floor of the produced family, with a baseline from the drawing nominal, Table~\ref{tab:design} the calibration budget behind Fig.~\ref{M-fig:budget} and Table~\ref{tab:drivers} the subsets and variants of the cases discussed in Section~\ref{M-sec:res-drivers}.
 
 %% BEGIN GENERATED weights
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{8pt}
 \caption{Weight of the failing side at given distances}\label{tab:weights}
@@ -368,7 +370,7 @@ $\delta$ (floors) & Feasible failing requirements & Weight of the failing side \
 %% END GENERATED weights
 
 %% BEGIN GENERATED alldist
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{4pt}
 \caption{Decisive and safe distances (floors) of all rules and scopes}\label{tab:alldist}
@@ -399,7 +401,7 @@ M6 & 39/0.4 & 95/4.7 & 81/0.0 & 139/7.9 & 40/22 & -- & -- \\
 %% END GENERATED alldist
 
 %% BEGIN GENERATED distci
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{4pt}
 \caption{Bootstrap 95\,\% intervals of the decisive and safe distances (floors)}\label{tab:distci}
@@ -429,7 +431,7 @@ M5n & 6.4--7.5 & 0.0--1.7 & 16--18 & 2.5--9.0 & 130--133 & 128--130 \\
 %% END GENERATED distci
 
 %% BEGIN GENERATED onesided
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{4.5pt}
 \caption{One-sided safe distances (floors): false accepts and false rejects}\label{tab:onesided}
@@ -459,7 +461,7 @@ M5n & 0.1 & 0.9 & 9.0 & 2.3 & 167 & 127 \\
 %% END GENERATED onesided
 
 %% BEGIN GENERATED paired
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{5pt}
 \caption{Paired differences of the decisive distance between rules (floors)}\label{tab:paired}
@@ -487,7 +489,7 @@ Mc $-$ M1 & +11.5 (+8.9, +12.9) & +14.8 (+13.4, +16.3) & +2.4 (+0.9, +9.1) \\
 %% END GENERATED paired
 
 %% BEGIN GENERATED coverage
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{2.6pt}
 \caption{Interval rules: coverage of the true $q_{95}$, half-width and the accuracy of the centre}\label{tab:coverage}
@@ -511,7 +513,7 @@ M5n & 85 & 2.3 & 3.1 & 55 & 4.4 & 11 & 0 & 2.0 & 131 & 89 & 2.3 & 3.0 \\
 %% END GENERATED coverage
 
 %% BEGIN GENERATED qcdist
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{2.4pt}
 \caption{Decisive/safe distance per characteristic (floors)}\label{tab:qcdist}
@@ -535,7 +537,7 @@ Bottom dome, cut & 5.0 & 15/0.6 & 12/5.3 & 9.8/3.1 & 7.0 & 14 & 18/2.8 & 17/3.5 
 %% END GENERATED qcdist
 
 %% BEGIN GENERATED units
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{4pt}
 \caption{Decisive distances per characteristic in its unit}\label{tab:units}
@@ -559,7 +561,7 @@ Bottom dome, cut (mm) & 0.050 & 0.10 & 0.050 & 0.15 & 0.20 & 0.25 & 0.25 \\
 %% END GENERATED units
 
 %% BEGIN GENERATED transfer
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{8pt}
 \caption{A new family: distances in the floor of the produced family, and a baseline from the drawing nominal}\label{tab:transfer}
@@ -653,7 +655,7 @@ new process setting (126) & 8.5 & 20 & 53/1.0 & 28/5.4 & 16/2.7 \\
 Table~\ref{tab:tuning} repeats the part-level rules under other learners and settings, among them a setting selected by its leave-one-out error, and Table~\ref{tab:gp} shows how often a hyperparameter of the Gaussian processes sits at a bound.
 
 %% BEGIN GENERATED tuning
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{4pt}
 \caption{Part-level rules M3 and M3n under other learners and settings (decisive/safe, floors)}\label{tab:tuning}
@@ -676,7 +678,7 @@ selected & 16/0.3 & 11/0.6 & 26/17 & 13/8.2 & 47/26 & 133/129 \\
 %% END GENERATED tuning
 
 %% BEGIN GENERATED gp
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{5pt}
 \caption{Gaussian-process fits with a hyperparameter at a bound}\label{tab:gp}
@@ -703,7 +705,7 @@ New family & 14 & 100 & 50 & 14 & 100 & 29 \\
 Table~\ref{tab:step6} gives the guard bands of step 6 and the operating characteristics of the procedure's decision rule, Table~\ref{tab:guard} the performance of the applicability guards, Table~\ref{tab:capability} the verdicts at requirements anchored in capability, Table~\ref{tab:scenarios} those at requirements from general tolerances and Table~\ref{tab:costmap} the cheapest rule in the tolerance scenario as a function of the costs.
 
 %% BEGIN GENERATED step6
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{6pt}
 \caption{The procedure's decision rule: guard band and operating characteristics}\label{tab:step6}
@@ -746,7 +748,7 @@ new family & M1s & $\infty$ & 122/122 & trial & 0 $\to$ 100 \\
 %% END GENERATED step6
 
 %% BEGIN GENERATED guard
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{3.5pt}
 \caption{Applicability guards: distances and wrong verdicts among the cases a guard lets through}\label{tab:guard}
@@ -769,7 +771,7 @@ New family & none & 0 & 51/16 & 23/239 & 38/28 & 44/239 & 131 & 106/239 \\
 %% END GENERATED guard
 
 %% BEGIN GENERATED capability
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{6pt}
 \caption{Requirements anchored in capability: right and trial verdicts (\%)}\label{tab:capability}
@@ -802,7 +804,7 @@ New family & NN & 50/0 & 51/0 & 53/0 & 53/0 \\
 %% END GENERATED capability
 
 %% BEGIN GENERATED scenarios
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{2.4pt}
 \caption{Verdicts against requirements from general angular tolerances (ISO 2768-1)}\label{tab:scenarios}
@@ -826,7 +828,7 @@ M5n & 94 & 78 & 0 & 6 & 86 & 59 & 0 & 14 & 31 & 44 & 62 & 2 \\
 %% END GENERATED scenarios
 
 %% BEGIN GENERATED costmap
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{4pt}
 \caption{Cheapest rule in the tolerance scenario by the costs of a false reject and a trial}\label{tab:costmap}
@@ -842,13 +844,13 @@ New setting & 0.25 & M2n/M3n & M2n/M3n & NN & NN & NN & NN \\
  & 0.5 & M2n/M3n & M2n/M3n & M2n/M3n & NN & NN & NN \\
  & 1 & M2n/M3n & M2n/M3n & M2n/M3n & M2n/M3n & M2n/M3n & NN \\
  & 2 & M2n/M3n & M2n/M3n & M2n/M3n & M2n/M3n & M2n/M3n & M2n/M3n \\
-New family & 0.25 & M2 & M2 & M2 & M2 & M5 & M5 \\
- & 0.5 & M2 & M2 & M2 & M2 & M5 & M5 \\
- & 1 & M2 & M2 & M2 & M2 & M5 & M5 \\
- & 2 & M0w & M0w & M0w & M0w & M0w & M5 \\
+New family & 0.25 & trial & trial & M2 & M2 & M5 & M5 \\
+ & 0.5 & trial & trial & trial & M2 & M5 & M5 \\
+ & 1 & trial & trial & trial & trial & M5 & M5 \\
+ & 2 & trial & trial & trial & trial & trial & M5 \\
 \botrule
 \end{tabular}
-\footnotetext{Costs relative to a false accept; columns: cost of a trial $c_\mathrm{T}$. Ties joined by a slash.}
+\footnotetext{Costs relative to a false accept; columns: cost of a trial $c_\mathrm{T}$. Ties joined by a slash. trial: a physical trial for every design, the current-practice baseline.}
 \end{table}
 %% END GENERATED costmap
 
@@ -859,7 +861,7 @@ New family & 0.25 & M2 & M2 & M2 & M2 & M5 & M5 \\
 Table~\ref{tab:robust} repeats the evaluation under variants of the data, the constants and the model specifications, and gives the intervals of the refitting bootstrap. Table~\ref{tab:inline} tests whether the process signals recorded for every part explain the drift that sets the floor. The sensitivities of the simulation over the geometric corners of the simulation dataset, which have no production counterpart, and the part-level in-line verifiability of the characteristics from the press-force record are provided with the code but not used in the paper.
 
 %% BEGIN GENERATED robust
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{2.4pt}
 \caption{Decisive/safe distances (floors) under the robustness variants}\label{tab:robust}
@@ -887,16 +889,17 @@ GP: linear trend &  &  & 6.7/1.4 &  &  & 19/6.3 &  &  & 38/30 \\
 GP: one-hot lubrication &  &  & 6.8/2.2 &  &  & 18/6.9 &  &  & 34/32 \\
 GP: length-scale floor &  &  & 6.9/1.2 &  &  & 18/6.5 &  &  & 38/29 \\
 GP: no noise floor &  &  & 6.7/1.5 &  &  & 18/7.4 &  &  & 38/30 \\
+Unit: reproducibility of $q_{95}$ & 5.3 & 17/0.2 & 6.9/0.4 & 2.8 & 15/6.0 & 18/6.2 & 6.9 & 41/13 & 34/30 \\
 Leave one pattern out &  & 22/0.3 & 6.4/1.1 & 3.4 & & & & & \\
 \midrule Refit bootstrap, $\delta_\mathrm{d}$ &  & 19--28 & 5.0--19 & 2.2--7.0 & 16--27 & 17--23 & 5.4--14 &  & \\
 \botrule
 \end{tabular}
-\footnotetext{Alternative-level rules refitted for every variant; empty cells: the variant does not affect the rule. Floor variants rescale the distances with other floors. Calibration series of $n$: the calibration alternatives' $q_{95}$ from their first $n$ parts. Leave one pattern out: columns M1s, M2, M5 and NN of the first block. Refit bootstrap: 95\,\% interval when the lubrication patterns of each geometry are resampled and every rule is refitted (200 resamples).}
+\footnotetext{Alternative-level rules refitted for every variant; empty cells: the variant does not affect the rule. Floor variants rescale the distances with other floors. Calibration series of $n$: the calibration alternatives' $q_{95}$ from their first $n$ parts. Leave one pattern out: columns M1s, M2, M5 and NN of the first block. Unit: distances in units of the 95\,\% quantile of the difference between the $q_{95}$ of two batches of 100 parts instead of $F$. Refit bootstrap: 95\,\% interval when the lubrication patterns of each geometry are resampled and every rule is refitted (200 resamples).}
 \end{table}
 %% END GENERATED robust
 
 %% BEGIN GENERATED inline
-\begin{table}[h]
+\begin{table}[tbp]
 \tabsize
 \setlength{\tabcolsep}{5pt}
 \caption{Drift of the batch centres explained by the process signals}\label{tab:inline}
