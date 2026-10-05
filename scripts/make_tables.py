@@ -798,7 +798,7 @@ def t_robust() -> str:
     qu = RESULTS / "panel_q95_unit.csv"
     if qu.exists():
         u = pd.read_csv(qu).set_index(["scope", "method"])
-        rows.append(r"Unit: reproducibility of $q_{95}$ & " + " & ".join(pair(u.loc[(s, m)], m) if (s, m) in u.index else ""
+        rows.append(r"Unit: $q_{95}$ reproducibility & " + " & ".join(pair(u.loc[(s, m)], m) if (s, m) in u.index else ""
                                                                     for s, m in cols))
     lolo = [("leave one pattern out", "lubricant", m) for m in ["M1s", "M2", "M5", "NN"]]
     rows.append("Leave one pattern out & " + " & ".join(pair(r.loc[k], k[2]) if k in r.index else "" for k in lolo)

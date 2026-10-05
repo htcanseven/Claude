@@ -258,7 +258,7 @@ def fig_budget(src: Path) -> None:
     r = pd.read_csv(src / "budget_design.csv").replace([np.inf, -np.inf], np.nan)
     rels = [("sibling", "sibling produced"), ("interpolation", "interpolation"), ("extrapolation", "extrapolation")]
     kinds = [("resolution", "decisive"), ("safe", "safe")]
-    fig, axs = plt.subplots(2, 3, figsize=(WIDTH_IN, 3.7), sharex=True, sharey="row", squeeze=False)
+    fig, axs = plt.subplots(2, 3, figsize=(WIDTH_IN, 3.4), sharex=True, sharey="row", squeeze=False)
     letters = iter("abcdef")
     for i, (col, kname) in enumerate(kinds):
         for j, (rel, rname) in enumerate(rels):

@@ -29,13 +29,13 @@ Manuscript: *Evaluating design-stage manufacturability decisions against the res
 
 - [x] Pipeline results regenerated (`bash scripts/run_all.sh` or the individual scripts), tables written by
       `python scripts/make_tables.py`, figures copied from `results/figures/` to `paper/figures/`.
-- [x] `paper/main.tex` compiles: zero errors, no undefined references or citations, no overfull boxes; MAINPAGES
-      pages in all, the main text (abstract to conclusions) ending on page MAINEND; five tables and four figures in
+- [x] `paper/main.tex` compiles: zero errors, no undefined references or citations, no overfull boxes; 32
+      pages in all, the main text (abstract to conclusions) ending on page 24; five tables and four figures in
       the main text, two tables in the appendix.
-- [x] `paper/esm.tex` compiles after `main.tex` (it reads the paper's labels through `xr-hyper`): ESMPAGES pages,
+- [x] `paper/esm.tex` compiles after `main.tex` (it reads the paper's labels through `xr-hyper`): 20 pages,
       thirty tables and one figure, numbered S1, S2, ... automatically.
 - [x] Abstract 250 words; six keywords; captions of at most two lines; no first person; British spelling.
-- [x] Every cited key (CITED) is in `refs.bib`; the references added in the revision were checked against the
+- [x] Every cited key (77, of which 76 in the paper) is in `refs.bib`; the references added in the revision were checked against the
       publisher, DBLP, Crossref or the ISO catalogue, and ISO standards are cited in their current editions.
 - [x] Every number in the text checked against the result CSVs; tables are generated, not typed.
 - [x] The upload zip (`bash paper/submission/make_zip.sh`: main.tex, esm.tex, esm_labels.tex, class and style files,

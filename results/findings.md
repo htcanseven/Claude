@@ -67,7 +67,28 @@ with R² of −0.23 to 0.20; removing it changes the floors by −16 to +12 %.
 the production-only interval rules for a new setting while a trial costs at most a tenth of a false accept, NN
 beyond; for a new family a trial of every design up to a tenth, M2 at a fifth, M5 beyond.
 
-PENDING_BUDGET_ROBUST
+**P9 Calibration budget by relation** [budget_design.csv]: one produced sibling lets M1, M2 and NN decide at
+3.5 floors (2.25–4.6) with no wrong verdict at 10 floors (they coincide by construction). More alternatives leave
+NN at 3.35–3.5, make M1 worse (12–18 floors) and M2 safer but less decisive (safe 2.15 → 0.15, decisive 14.5 → 23),
+and make the GPs safer and more decisive (M5 decisive 14.3 at k = 2 → 7.15 at k = 8, M5n 11.8 → 7.15). Without a
+sibling, bracketing the new force: M2, M5 and M5n safe at 0–4.75 floors with no wrong verdict at 10 floors from
+k = 2, but decisive only at 15–25 floors (NN 4.65–6.0). Extrapolation: no rule safe closer than 8.55 floors at any
+budget. Subsets with a sibling: 46 % (k = 2) to 96 % (k = 6). M1's odd–even pattern: its median offset averages
+two forces only for an even k.
+
+**P10 Robustness** [rob_decisions.csv, rob_floor_between.csv, rob_refit.csv, rob_refit_paired.csv,
+panel_q95_unit.csv]: temperature adjustment changes no calibrated distance by more than 2.55 floors; dropping
+the first 150 parts shrinks the floors and lengthens the distances (NN 4.1 within, 11.55 for a new setting);
+floors between series are 1.45–9.08 times the reference and shorten them (NN 0.75 and 2.7); batches of 25/100
+rescale the distances by 0.80–0.96/0.97–1.21, floor quantiles of 0.90/0.99 by 1.17–1.42/0.60–0.76; the GP
+variants move them by at most 1.2 (decisive) and 2.1 floors (safe); calibration series of 50/100/250 parts move
+no within-family distance by more than 1.15/0.95/0.65 floors (new family 4.0/2.65/0.95). In the unit of the
+reproducibility of q95, NN decides at 2.75 (within) and 6.85 floors (new setting). In every variant that includes
+it, NN is the most decisive rule within a family and M2 the safest for a new family. M6 (conformalised GP):
+17.35/0.05 within, 56.15/6.15 for a new setting, 40.7/24.7 for a new family. Relation-preserving refit bootstrap
+(200 resamples of the lubrication patterns): within the family NN 2.25–4.6, M5 4.04–11.21, M5n 4.3–8.8 floors;
+NN − M5 = −3.8 (−7.45 to −1.79) and NN − M5n = −3.8 (−5.0 to −2.05), NN smaller in all resamples; for a new
+setting NN − M5 = −10.2 (−12.1 to −9.1).
 
 ## R Revised findings (supersede the first-version headline and Sections 1–10 below)
 
