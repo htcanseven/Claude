@@ -20,6 +20,15 @@ For every characteristic and tolerance class the truth is whether an
 alternative's 95th percentile meets the limit; the verdict of every rule and
 calibration scope comes from its interval in dec_intervals.csv.
 
+The values were checked against the text of ISO 2768-1:1989 and ISO 2768-2:1989
+and several independent tables (f and m share one row for angles). ISO 2768-1
+covers parts formed from sheet metal; ISO 2768-2 mainly addresses machined
+features and was withdrawn in 2021 (replaced by ISO 22081, which has no class
+table), so its flatness classes serve as a representative general flatness
+requirement for the nominally flat cup bottom. DIN 6930-2 (stamped parts) has
+no flatness tolerance and refers bent angles to DIN 6935 (+-2 deg up to 30 mm),
+which equals class v for the wall.
+
 Outputs: results/scen_truth.csv, scen_scores.csv, summary_scenarios.md
 """
 

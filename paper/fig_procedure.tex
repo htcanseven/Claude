@@ -1,0 +1,28 @@
+%% Procedure figure (TikZ, body font); \input by main.tex
+\begin{tikzpicture}[
+  font=\footnotesize,
+  stage/.style={draw, rounded corners=2pt, align=left, text width=3.45cm, minimum height=1.55cm, inner sep=4pt,
+                execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000}},
+  io/.style={draw, dashed, rounded corners=2pt, align=center, text width=3.1cm, minimum height=0.8cm, inner sep=3pt,
+             execute at begin node={\hyphenpenalty=10000}},
+  arr/.style={-{Stealth[length=2mm]}, semithick}
+]
+\node[stage] (s1) {\textbf{1 Frame}\\ alternatives, characteristics, requirement on the 95th percentile};
+\node[stage, right=0.45cm of s1] (s2) {\textbf{2 Floor}\\ batches of consecutive parts; floor $F$ per characteristic};
+\node[stage, right=0.45cm of s2] (s3) {\textbf{3 Resolve}\\ effect-to-scatter ratio between alternatives; minimum resolvable change};
+\node[stage, below=0.75cm of s3] (s4) {\textbf{4 Calibrate}\\ rules on the produced alternatives: offset, envelope, discrepancy model};
+\node[stage, left=0.45cm of s4] (s5) {\textbf{5 Qualify}\\ leave one alternative out: safe and decisive distances, calibration budget};
+\node[stage, left=0.45cm of s5] (s6) {\textbf{6 Decide}\\ new design: meets, fails or trial; guard against designs outside the family};
+\draw[arr] (s1) -- (s2);
+\draw[arr] (s2) -- (s3);
+\draw[arr] (s3) -- (s4);
+\draw[arr] (s4) -- (s5);
+\draw[arr] (s5) -- (s6);
+\node[io, above=0.45cm of s2] (prod) {produced alternatives (parts, scans)};
+\node[io, above=0.45cm of s3] (sim) {simulations of all alternatives};
+\draw[arr, dashed] (prod) -- (s2);
+\draw[arr, dashed] (prod.south east) -- ([xshift=-1.1cm]s3.north);
+\draw[arr, dashed] (sim.east) -| ([xshift=0.35cm]s4.east) -- (s4.east);
+\node[io, below=0.45cm of s6] (out) {verdict and its distance in floors};
+\draw[arr] (s6) -- (out);
+\end{tikzpicture}
