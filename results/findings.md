@@ -8,6 +8,67 @@ Every number below comes from the CSV named in brackets, written by `bash script
 4 cores from the cached feature tables). Distances and floors are in the units of each quality
 characteristic unless stated; "floors" means multiples of that characteristic's production floor.
 
+## P Findings of the revision for the review panel (supersede Section R where they differ)
+
+The simulated review panel (`paper/review/cfp_panel/`, AI agents) led to three changes of the rules and to new
+analyses. The GP noise floor is now the variance between the series of one geometry and force. M3 and M3n (M4 in
+the code) use jackknife+ intervals. A scaled simulation rule M1s is added (13 rules in all). The manuscript
+(`paper/main.tex`, `paper/esm.tex`) reports these numbers.
+
+**P1 Distances by relation** (decisive/safe, floors; one number for rules that always decide) [dec_resolution.csv]:
+
+| Rule | New variant | New setting | Interpolated | Extrapolated | New family |
+|---|---|---|---|---|---|
+| NN nearest produced setting | 3.4 (2.0–4.5) | 8.5 (5.5–10.2) | 4.7 | 9.5 | 131 |
+| M1s scaled simulation | 4.9 | 19 (false accepts up to 164) | 19 | 19 | 122 |
+| M5 GP correction of the envelope | 7.2/0.8 | 19/6.8 | 19/2.8 | 19/8.9 | 38/28 |
+| M5n GP without simulation | 7.2/0.6 | 17/6.1 | 16/0.0 | 18/8.6 | 132/130 |
+| M2 envelope + residual margin | 23/0.2 | 18/8.1 | 18/2.7 | 18/9.9 | 51/16 |
+| M1 bias-corrected simulation | 15 | 24 | | | 35 |
+| M0 nominal simulation | 108 (101–115) | 108 | | | 108 |
+
+**P2 Where the distances come from** [panel_decomposition.csv, panel_sibling_strata.csv, panel_force_levels.csv]:
+over the eleven calibrated rules the relation explains 69 % of the variation of the log decisive distance and the
+rule 6 %; within a family the rule explains 68 % and the relation 15 %. New variant with neither sibling resolvable
+(58 cases): NN 0.85 floors; both resolvable (34): NN 4.9, M5 9.7. Held-out force 100 kN (slower stroke): NN 11 floors;
+500 kN: 4.9; 300 kN (interpolated): 4.7. Pooling the other family: M5 7.2 → 11, M2 23 → 53, M2n 19 → 325 floors;
+M5 coverage 86 → 90 %, M5 centre 2.9 floors [dec_resolution.csv, dec_coverage.csv].
+
+**P3 What the simulation and learning add** [dec_paired.csv, dec_coverage.csv, dec_gp.csv, panel_force_effect.csv]:
+M5 − M5n = 0.0 (−0.4 to +1.1), M2 − M2n = +3.9, M1 − M1n = +6.2 within the family; M1s − M1n = −4.2 (−5.4 to −0.5)
+within the family but +8.9 for a new setting; M5 − M5n = −94 for a new family. The simulated force effect on the
+draw-ins is 2.7–5.1 times the measured one. Interval centres decide at 3.3 (M5), 3.1 (M5n) and 3.7 floors (M3n)
+within the family; coverage within the family 85–86 % (GPs), 89 % (M2), 96 % (M3, jackknife+); 43–55 % for a new
+setting; at most 12 % (GPs) for a new family. In the median new-setting GP fit the force length scale sits at its
+lower bound (10 kN).
+
+**P4 New family** [panel_source_floor.csv, panel_nominal_offset.csv, panel_m0_split.csv]: in the floor of the
+produced family M5 decides at 35 and is safe at 31 floors, M2 at 41 and 26. For the wall angle, the design angle
+plus the produced family's deviation decides at 2.0 floors (M5 7.3, M1 16). Removing the cup-depth reference
+offset brings M0 from 108 to 65 floors.
+
+**P5 The procedure's decision rule** [panel_step6.csv, panel_step6_curves.csv]: guard bands 0 (interval rules) and
+0.25 floors (NN) within the family; 2.0 floors for NN on an interpolated setting (decisive 6.7, safe 2.7, no
+trial at 10 floors); 7.0 floors on an extrapolated one (decisive 17, 26 % trial at 10 floors); none up to 20
+floors for a new family (every design to trial). The share of correct decided verdicts of NN for a new setting
+grows from 85 % at any margin to 95 % beyond 5 floors; M5 for a new family is right in 71–74 % at every margin.
+
+**P6 Requirements anchored in capability** [panel_capability.csv]: limits at Ppk 1.0, 1.33, 1.67 and 2.0 lie a
+median 1.0, 1.7, 2.5 and 3.1 floors above q95. At Ppk 1.33, NN says meets in 91 % of the new-variant cases (M5
+44 %), 65 % for a new setting (M5 32 %); no rule exceeds 54 % for a new family.
+
+**P7 Floor protocol and measurement** [panel_floor_protocol.csv, panel_variogram.csv, panel_resolution_steps.csv,
+inline_drift.csv, meas_floor.csv]: one floor is 0.66–2.2 long-term standard deviations of the parts; the normal
+model reproduces the floors to within 12 %; batches one position apart differ by 0.51–0.80 floors, nine apart by
+1.1–1.5. Mid-side draw-in quantised in steps of 0.38 floors. Process signals predict the batch drift out of fold
+with R² of −0.23 to 0.20; removing it changes the floors by −16 to +12 %.
+
+**P8 Cost** [scen_cost_map.csv]: with c_FR = c_FA/2, NN (or M1s) is cheapest for a new variant at any trial cost;
+the production-only interval rules for a new setting while a trial costs at most a tenth of a false accept, NN
+beyond; for a new family a trial of every design up to a tenth, M2 at a fifth, M5 beyond.
+
+PENDING_BUDGET_ROBUST
+
 ## R Revised findings (supersede the first-version headline and Sections 1–10 below)
 
 The revision reorganised the evaluation by the relation of a new design to the produced evidence (grouped

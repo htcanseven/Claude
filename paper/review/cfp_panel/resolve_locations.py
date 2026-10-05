@@ -1,7 +1,8 @@
 """Write the response to the panel with page and line numbers of the revised manuscript.
 
 Reads response_to_panel.src.md, compiles a line-numbered copy of paper/main.tex in a temporary directory and replaces
-every {{loc:phrase}} by "p. N, l. L" of the first place where the phrase occurs in the compiled PDF, {{mainpages}} by the
+every {{loc:phrase}} by "p. N, l. L" of the first place where the phrase occurs in the compiled PDF, {{esm:name}} by the
+number of the ESM table written from block <name> (paper/esm_labels.tex), {{mainpages}} by the
 number of pages from the abstract to the end of the conclusions and {{totalpages}} by the page count. Writes
 response_to_panel.md and lists phrases that could not be found.
 
@@ -104,7 +105,16 @@ def main() -> None:
             return "(location not found)"
         return f"p. {hit[0]}, l. {hit[1]}"
 
+    labels = dict(re.findall(r"esm@(\w+)\\endcsname\{(S\d+)\}", (PAPER / "esm_labels.tex").read_text()))
+
+    def esm(m):
+        if m.group(1) not in labels:
+            missing.append("esm:" + m.group(1))
+            return "S?"
+        return labels[m.group(1)]
+
     out = re.sub(r"\{\{loc:(.*?)\}\}", rep, src)
+    out = re.sub(r"\{\{esm:(\w+)\}\}", esm, out)
     out = out.replace("{{mainpages}}", str(main_pages)).replace("{{totalpages}}", str(total))
     OUT.write_text(out)
     print(f"{OUT.name}: {total} pages, main text {main_pages}")
