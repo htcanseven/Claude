@@ -34,7 +34,9 @@ GEO_COLOUR = {"concave": "#2a78d6", "convex": "#eb6834"}     # validated categor
 GEO_MARKER = {"concave": "o", "convex": "s"}
 BHF_COLOUR = {100: "#86b6ef", 300: "#2a78d6", 500: "#104281"}  # validated ordinal ramp
 LUB_MARKER = {"coarse": "o", "medium": "s", "fine": "^"}
-OUTCOME_COLOUR = {"correct": "#0ca30c", "abstain": "#c3c2b7", "false_reject": "#ec835a", "false_accept": "#d03b3b"}
+# verdict outcomes: categorical slots blue / orange / violet (validated for colour-vision deficiency, adjacent pairs
+# in stacking order) and a neutral grey for the abstention
+OUTCOME_COLOUR = {"correct": "#2a78d6", "abstain": "#c3c2b7", "false_reject": "#eb6834", "false_accept": "#4a3aa7"}
 INK, MUTED, GRID = "#0b0b0b", "#52514e", "#e1e0d9"
 SHORT = {"drawin_mid": "draw-in, mid-side", "drawin_corner": "draw-in, corner", "waviness": "flange waviness",
          "wall_op10": "wall angle", "arm_op20": "arm angle (cut)", "depth_op10": "cup depth",
@@ -176,13 +178,16 @@ def fig_decisions(src: Path, scope: str = "within") -> None:
     save(fig, f"F3_decisions_{scope}")
 
 
-RULE_COLOUR = {"M1": MUTED, "M2": INK, "M5": "#2a78d6", "NN": "#eb6834", "M5n": "#0ca30c"}
+RULE_COLOUR = {"M1": MUTED, "M2": INK, "M5": "#2a78d6", "NN": "#eb6834", "M5n": "#1baf7a"}   # slots 1-3 + neutrals
 RULE_MARKER = {"M1": "s", "M2": "o", "M5": "^", "NN": "D", "M5n": "v"}
 
 
 def fig_decisions_compare(src: Path) -> None:
-    """Verdict shares of four rules for a new variant, a new process setting and a new family."""
+    """Verdict shares of four rules for a new variant, a new process setting and a new family, with the decisive
+    (solid) and safe (dashed) distances marked."""
     c = pd.read_csv(src / "dec_curve.csv")
+    res = pd.read_csv(src / "dec_resolution.csv")
+    res = res[res["qc"] == "all"].set_index(["scope", "method"])
     methods = ["M2", "M5", "M5n", "NN"]
     scopes = [("within", "new variant"), ("setting", "new setting"), ("transfer", "new family")]
     fig, axs = plt.subplots(len(scopes), len(methods), figsize=(WIDTH_IN, 6.1), sharey=True, squeeze=False)
@@ -194,7 +199,13 @@ def fig_decisions_compare(src: Path) -> None:
             x = g["d"].to_numpy()
             ax.stackplot(x, g["correct"], g["abstain"], g["false_reject"], g["false_accept"],
                          colors=[OUTCOME_COLOUR[k] for k in ["correct", "abstain", "false_reject", "false_accept"]],
-                         lw=0)
+                         edgecolor="white", lw=0.4)
+            if (scope, m) in res.index:
+                for col, ls in (("resolution_floors", "-"), ("safe_floors", "--")):
+                    dv = float(res.loc[(scope, m), col])
+                    if np.isfinite(dv) and dv < 100:
+                        for sgn in (-1, 1):
+                            ax.axvline(sgn * dv, color=INK, lw=0.9, ls=ls)
             ax.set_xscale("symlog", linthresh=10.0, linscale=1.5)
             ax.set_xlim(-100, 100)
             ax.set_ylim(0, 1)
@@ -206,9 +217,38 @@ def fig_decisions_compare(src: Path) -> None:
         axs[i, 0].set_ylabel(f"{sname}\nshare of verdicts", fontsize=9)
     labels = {"correct": "correct", "abstain": "trial", "false_reject": "false reject", "false_accept": "false accept"}
     handles = [plt.Rectangle((0, 0), 1, 1, color=OUTCOME_COLOUR[k], label=labels[k]) for k in labels]
-    fig.legend(handles=handles, loc="upper center", ncol=4, frameon=False, bbox_to_anchor=(0.5, 1.01))
+    handles += [plt.Line2D([], [], color=INK, lw=0.9, ls="-", label=r"$\pm\delta_\mathrm{d}$"),
+                plt.Line2D([], [], color=INK, lw=0.9, ls="--", label=r"$\pm\delta_\mathrm{s}$")]
+    fig.legend(handles=handles, loc="upper center", ncol=6, frameon=False, bbox_to_anchor=(0.5, 1.01),
+               handlelength=1.4, columnspacing=1.0, fontsize=9)
     fig.tight_layout(rect=(0, 0, 1, 0.965), w_pad=0.5, h_pad=0.5)
     save(fig, "F3_decisions_compare")
+
+
+def fig_reliability(src: Path) -> None:
+    """Share of correct verdicts among the decided ones against the observable margin between the predicted interval
+    and the requirement (requirements on the grid within 20 floors of the truth), by evidence relation."""
+    c = pd.read_csv(src / "panel_step6_curves.csv")
+    scopes = [("within", "new variant"), ("setting", "new setting"), ("transfer", "new family")]
+    fig, axs = plt.subplots(1, 3, figsize=(WIDTH_IN, 2.35), sharey=True, squeeze=False)
+    letters = iter("abc")
+    for j, (scope, sname) in enumerate(scopes):
+        ax = axs[0, j]
+        for m in ("M1", "M2", "M5", "M5n", "NN"):
+            g = c[(c["scope"] == scope) & (c["method"] == m)].sort_values("margin")
+            ax.plot(g["margin"], g["correct_when_decided"], "-", color=RULE_COLOUR[m], lw=1.1, label=m,
+                    marker=RULE_MARKER[m], markevery=8, ms=3.5, mfc="white", mew=1.0)
+        ax.axhline(0.95, color=MUTED, lw=0.8, ls=":")
+        ax.set_xlim(0, 20)
+        ax.set_ylim(0.5, 1.005)
+        ax.set_xticks([0, 5, 10, 15, 20])
+        ax.tick_params(labelsize=8)
+        subcaption(ax, next(letters), sname, "margin $g$ (floors)" if j == 1 else "")
+    axs[0, 0].set_ylabel("correct among\ndecided verdicts", fontsize=9)
+    h, lab = axs[0, 0].get_legend_handles_labels()
+    fig.legend(h, lab, loc="upper center", ncol=5, frameon=False, bbox_to_anchor=(0.5, 1.04), fontsize=9)
+    fig.tight_layout(rect=(0, 0, 1, 0.92), w_pad=0.6)
+    save(fig, "F5_reliability")
 
 
 def fig_budget(src: Path) -> None:
@@ -250,6 +290,8 @@ def main() -> None:
     fig_decisions_compare(src)
     if (src / "budget_design.csv").exists():
         fig_budget(src)
+    if (src / "panel_step6_curves.csv").exists():
+        fig_reliability(src)
     print(f"figures written to {FIGURES}")
 
 

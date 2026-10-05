@@ -24,11 +24,21 @@ target's force is produced), setting (a new process setting; interpolation and e
 9. Leave one lubrication pattern out of a family (scope 'lubricant').
 10. M3 with the pattern's median oil film for the simulation match and the model input (within the family).
 11. M6: the M5 mean with a conformal margin on standardised leave-one-out residuals.
-12. Refitting bootstrap: the alternatives of each geometry are resampled with replacement and every fast rule
-    is refitted and rescored on each resample (within and setting), so that the interval includes the
-    variability of the calibration sets, which the intervals of decisions.py hold fixed.
+12. Refitting bootstrap: the lubrication patterns of each geometry are resampled with replacement (at least two
+    distinct patterns, so that every target keeps a sibling; copies of the target never calibrate it), and every
+    fast rule is refitted and rescored on each resample (within, setting, transfer). The forces are kept, so
+    every case keeps its evidence relation. The interval includes the variability of the calibration sets,
+    which the intervals of decisions.py hold fixed; paired refit intervals are given for key rule pairs.
+13. The GP noise floor of the first version (the sampling variance of q95 alone; GP variant 'se_floor').
+14. Thermal transient: the first 150 parts of every series (the punch warm-up) are dropped; floors, truths and
+    rules are recomputed from parts 151-500.
+15. Between-series floor: the floor taken over batch pairs from different series of one geometry and force,
+    which contains the variation between runs (and the lubrication effect), an upper bound of the unit.
+16. Short calibration series: the calibration alternatives' q95 from their first 50, 100 or 250 parts only
+    (the truth of the held-out alternative and the floors stay those of the full series).
 
-Outputs: results/rob_floor.csv, rob_bhf_pairs.csv, rob_decisions.csv, rob_refit.csv, summary_robustness.md
+Outputs: results/rob_floor.csv, rob_bhf_pairs.csv, rob_decisions.csv, rob_refit.csv, rob_refit_paired.csv,
+summary_robustness.md
 """
 
 from __future__ import annotations
@@ -48,13 +58,18 @@ from alternatives import analyse, batch_centres, batches, floor_from, within_slo
 from common import RESULTS, centre  # noqa: E402
 from qc import QCS, SHARED, parts_qc, sims_qc  # noqa: E402
 
-FAST = ["M0", "M0w", "M1", "M2", "M5", "M1n", "NN", "M2n", "M5n"]
+FAST = ["M0", "M0w", "M1", "M1s", "M2", "M5", "M1n", "NN", "M2n", "M5n"]
 SCOPES = ("within", "setting", "transfer")
 CONF_LEVELS = [0.80, 0.95]
 RESOLUTION_TARGETS = [0.90, 0.99]
 ADEQUACY = [0.90, 0.99]
-GP_VARIANTS = ["matern", "linear", "onehot", "ls_floor", "no_noise_floor"]
+GP_VARIANTS = ["matern", "linear", "onehot", "ls_floor", "no_noise_floor", "se_floor"]
 N_REFIT = 200
+REFIT_RULES = ["M1", "M1s", "M2", "M5", "NN", "M5n", "M2n", "M1n"]
+REFIT_PAIRS = [("NN", "M5"), ("NN", "M5n"), ("M5", "M5n"), ("M2", "M2n"), ("M1s", "NN"), ("M1", "M1n"),
+               ("M1s", "M1")]
+WARM_UP = 150                  # parts dropped at the start of every series (thermal transient)
+SHORT_SERIES = [50, 100, 250]  # parts per calibration series in the short-series variant
 
 
 # ── fast rules ────────────────────────────────────────────────────────────────
@@ -94,6 +109,8 @@ def fast_intervals(t: pd.DataFrame, floors: dict, scopes=SCOPES, level: float = 
             m2 = D.conformal_margin(np.abs(r2 - off2), level)
             m2n = D.conformal_margin(np.abs(qv - med), level)
             off1 = float(np.median(c["real_q95"] - c["sim_nominal"]))
+            s0 = c["sim_nominal"].to_numpy()
+            b1, a1 = np.polyfit(s0, qv, 1) if np.ptp(s0) > 0 and len(qv) >= 2 else (1.0, off1)
             gps = {}
             for name, use_sim in (("M5", True), ("M5n", False)):
                 if name in rules and len(set(calib)) >= 2:
@@ -101,7 +118,7 @@ def fast_intervals(t: pd.DataFrame, floors: dict, scopes=SCOPES, level: float = 
             for a in dict.fromkeys(targets):
                 s = tq.loc[a]
                 iv = {"M0": (s["sim_nominal"],) * 2, "M0w": (s["sim_env_lo"], s["sim_env_hi"]),
-                      "M1": (s["sim_nominal"] + off1,) * 2,
+                      "M1": (s["sim_nominal"] + off1,) * 2, "M1s": (a1 + b1 * s["sim_nominal"],) * 2,
                       "M2": (s["sim_env_hi"] + off2 - m2, s["sim_env_hi"] + off2 + m2),
                       "M1n": (med, med), "NN": (D.nn_point(calib, a, qc),) * 2, "M2n": (med - m2n, med + m2n)}
                 for name, (gp, keep) in gps.items():
@@ -196,10 +213,10 @@ def m3_within(qc: str) -> list[dict]:
     with threadpool_limits(1):
         for a in alts:
             calib = [b for b in alts if b != a and geo_of[b] == geo_of[a]]
-            q3, off3, marg3 = D.m3_calibrated(calib, a, qc)
+            lo3, hi3 = D.m3_calibrated(calib, a, qc)
             s = t[(t["alternative"] == a) & (t["qc"] == qc)].iloc[0]
             rows.append({"scope": "within", "relation": "sibling", "method": "M3", "qc": qc, "alternative": a,
-                         "geometry": s["geometry"], "lo": q3 + off3 - marg3, "hi": q3 + off3 + marg3,
+                         "geometry": s["geometry"], "lo": lo3, "hi": hi3,
                          "real_q95": float(s["real_q95"]), "floor": floors[(qc, s["geometry"])]})
     return rows
 
@@ -236,22 +253,64 @@ def m6_intervals(t: pd.DataFrame, floors: dict) -> pd.DataFrame:
 
 # ── 12. refitting bootstrap ───────────────────────────────────────────────────
 def refit_one(b: int) -> pd.DataFrame:
+    """One refitting resample: the lubrication patterns of each geometry are drawn with replacement (at least
+    two distinct ones), all forces kept. A target's copies never calibrate it (jobs_for excludes its name), so a
+    new variant keeps a sibling, a new setting its forces and a new family its source."""
     from threadpoolctl import threadpool_limits
 
     t, floors = D._CTX["t_ref"], D._CTX["floors_ref"]
     alts = sorted(t["alternative"].unique())
-    rng = np.random.default_rng(D.stable_seed("refit", str(b)))
+    rng = np.random.default_rng(D.stable_seed("refit-patterns", str(b)))
     pick = []
     for geo in ("concave", "convex"):
-        fam = [a for a in alts if a.startswith(geo)]
-        pick += list(rng.choice(fam, len(fam)))
+        pats = sorted({a.split("/")[2] for a in alts if a.startswith(geo)})
+        draw = rng.choice(pats, len(pats))
+        while len(set(draw)) < 2:
+            draw = rng.choice(pats, len(pats))
+        for pat in draw:
+            pick += [a for a in alts if a.startswith(geo) and a.split("/")[2] == pat]
     with threadpool_limits(1):
-        iv = fast_intervals(t, floors, ("within", "setting"), rules=["M1", "M2", "M5", "NN", "M5n", "M2n"],
-                            alts=sorted(pick))
+        iv = fast_intervals(t, floors, ("within", "setting", "transfer"), rules=REFIT_RULES, alts=sorted(pick))
     # every copy of a resampled target counts once
     mult = pd.Series(pick).value_counts()
     iv = iv.loc[iv.index.repeat(iv["alternative"].map(mult).to_numpy())]
-    return point_distances(iv, f"refit {b}")
+    return point_distances(iv, f"refit {b}").assign(boot=b)
+
+
+# ── 14.-16. variants of the parts used ───────────────────────────────────────
+def part_slice(q: pd.DataFrame, start: int = 0, stop: int | None = None) -> pd.DataFrame:
+    """Parts start..stop-1 of every series, in production order."""
+    pos = q.groupby("alternative").cumcount()
+    keep = (pos >= start) & ((pos < stop) if stop is not None else True)
+    return q[keep]
+
+
+def geometry_floors(q: pd.DataFrame) -> dict:
+    qb = batches(q)
+    return {(c, g): floor_from(batch_centres(qb[qb["geometry"] == g], [c]), c) for c in SHARED
+            for g in ("concave", "convex")}
+
+
+def between_series_floors(q: pd.DataFrame) -> dict:
+    """ALPHA-quantile of |m_i - m_j| over pairs of batches from different series of one geometry and force."""
+    qb = batches(q)
+    bc = batch_centres(qb, list(SHARED))
+    out = {}
+    for c in SHARED:
+        for geo in ("concave", "convex"):
+            diffs = []
+            cells = {}
+            for (alt, _), v in bc[c].dropna().items():
+                if alt.startswith(geo):
+                    cells.setdefault(D.bhf_of(alt), {}).setdefault(alt, []).append(v)
+            for series in cells.values():
+                names = list(series)
+                for i in range(len(names)):
+                    for j in range(i + 1, len(names)):
+                        a, b = np.array(series[names[i]]), np.array(series[names[j]])
+                        diffs.append(np.abs(a[:, None] - b[None, :]).ravel())
+            out[(c, geo)] = float(np.quantile(np.concatenate(diffs), 0.95))
+    return out
 
 
 def main() -> None:
@@ -303,6 +362,26 @@ def main() -> None:
     D._CTX.pop("gp_variant", None)
     # 9. leave one lubrication pattern out
     dec.append(point_distances(fast_intervals(t_ref, floors, scopes=("lubricant",)), "leave one pattern out"))
+    # 14. thermal transient excluded
+    late = part_slice(q, WARM_UP)
+    floors_late = geometry_floors(late)
+    t_late, _ = D.alternative_table(D.match_sims(late, sims), sims)
+    dec.append(point_distances(fast_intervals(t_late, floors_late), f"first {WARM_UP} parts dropped"))
+    D._CTX["t"] = t_ref
+    # 15. floor with the between-series component (stored intervals rescaled)
+    fbs = between_series_floors(q)
+    pd.DataFrame([{"qc": c, "geometry": g, "floor_between_series": v, "floor": floors[(c, g)]}
+                  for (c, g), v in fbs.items()]).to_csv(RESULTS / "rob_floor_between.csv", index=False)
+    dec.append(point_distances(iv_ref.assign(floor=[fbs[(c, g)] for c, g in zip(iv_ref["qc"], iv_ref["geometry"])]),
+                               "floor between series"))
+    # 16. short calibration series: q95 of the calibration alternatives from their first n parts
+    truth = t_ref.set_index(["alternative", "qc"])["real_q95"]
+    for n in SHORT_SERIES:
+        t_n, _ = D.alternative_table(D.match_sims(part_slice(q, 0, n), sims), sims)
+        iv_n = fast_intervals(t_n, floors)
+        iv_n["real_q95"] = [truth[(a, c)] for a, c in zip(iv_n["alternative"], iv_n["qc"])]
+        dec.append(point_distances(iv_n, f"calibration series of {n} parts"))
+    D._CTX["t"] = t_ref
 
     # 2. blank-holder force pairs: speed change (100->300) against same speed (300->500)
     fl = pd.read_csv(RESULTS / "alt_floor.csv").set_index("qc")
@@ -337,6 +416,21 @@ def main() -> None:
     with Pool(D.N_JOBS) as pool:
         boots = pd.concat(pool.map(refit_one, range(N_REFIT)), ignore_index=True)
     ref = rob[rob["variant"] == "reference"].set_index(["scope", "method"])
+    paired = []
+    for scope, g in boots.groupby("scope"):
+        for kind in ("resolution_floors", "safe_floors"):
+            w = g.pivot_table(index="boot", columns="method", values=kind)
+            for a, b in REFIT_PAIRS:
+                if a in w and b in w:
+                    x, y = w[a].to_numpy(), w[b].to_numpy()
+                    diff = np.where(np.isinf(x) & np.isinf(y), 0.0, x - y)
+                    paired.append({"scope": scope, "kind": kind, "rule_a": a, "rule_b": b,
+                                   "diff": ref.loc[(scope, a), kind] - ref.loc[(scope, b), kind]
+                                   if (scope, a) in ref.index and (scope, b) in ref.index else np.nan,
+                                   "diff_lo": float(np.percentile(diff, 2.5)), "diff_hi": float(np.percentile(diff, 97.5)),
+                                   "share_a_smaller": float(np.mean(x < y))})
+    paired = pd.DataFrame(paired)
+    paired.to_csv(RESULTS / "rob_refit_paired.csv", index=False)
     refit = []
     for (scope, method), g in boots.groupby(["scope", "method"]):
         if (scope, method) in ref.index:
@@ -357,8 +451,9 @@ def main() -> None:
              "## Decision distances (floors) under the variants", "",
              rob.pivot_table(index=["variant", "method"], columns="scope", values=["resolution_floors", "safe_floors"])
              .round(2).to_markdown(), "",
-             f"## Refitting bootstrap ({N_REFIT} resamples of the alternatives within each geometry)", "",
-             refit.round(2).to_markdown(index=False)]
+             f"## Refitting bootstrap ({N_REFIT} resamples of the lubrication patterns within each geometry)", "",
+             refit.round(2).to_markdown(index=False), "",
+             "## Paired refit differences (a minus b, floors)", "", paired.round(2).to_markdown(index=False)]
     (RESULTS / "summary_robustness.md").write_text("\n".join(lines) + "\n")
     print("\n".join(lines[-20:]))
 

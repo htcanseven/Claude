@@ -10,9 +10,9 @@ a new process setting ('setting') and a new family ('transfer') with
     instead of resampling the pooled in-sample residuals; the alternative's q95 is the median of the
     predicted conditional quantiles over the drawn incoming conditions,
   - the boosting setting selected for each calibration set by the mean absolute leave-one-alternative-out
-    error over the calibration alternatives, the residuals that also set the jackknife margin, so nothing
+    error over the calibration alternatives, the residuals that also set the jackknife+ interval, so nothing
     of the held-out alternative enters the choice.
-Every other step (draws of incoming conditions, seeds, offset and margin) is that of decisions.py, so the
+Every other step (draws of incoming conditions, seeds, jackknife+ interval) is that of decisions.py, so the
 reference setting reproduces the stored M3 and M4 intervals.
 
 Outputs: results/tune_intervals.csv, tune_decisions.csv, summary_tuning.md
@@ -83,16 +83,11 @@ def use_setting(name: str) -> None:
     D.m3_nested.cache_clear()
 
 
-def nested(calib: tuple[str, ...], qc: str, use_sim: bool) -> tuple[float, float, float]:
-    """Offset, jackknife margin and mean absolute centred residual of the leave-one-out over the
-    calibration alternatives (as decisions.m3_nested, with the same seeds)."""
-    real = D._CTX["t"][D._CTX["t"]["qc"] == qc].set_index("alternative")["real_q95"]
-    tag = "nested" if use_sim else "nested-nosim"
-    res = np.array([real[b] - D.m3_q95([c for c in calib if c != b], b, qc,
-                                       np.random.default_rng(D.stable_seed(tag, b, qc, *calib)), use_sim)
-                    for b in calib if b in real.index])
-    off = float(np.nanmedian(res))
-    return off, D.conformal_margin(np.abs(res - off), D.CONF_LEVEL), float(np.nanmean(np.abs(res - off)))
+def inner_error(calib: tuple[str, ...], qc: str, use_sim: bool) -> float:
+    """Mean absolute centred residual of the leave-one-out over the calibration alternatives
+    (decisions.m3_nested, same seeds), the criterion of the 'selected' setting."""
+    off, _, res = D.m3_nested(calib, qc, use_sim)
+    return float(np.nanmean(np.abs(np.array(res) - off)))
 
 
 def cases(alts: list[str]) -> list[tuple[str, list[str], list[str]]]:
@@ -118,15 +113,13 @@ def job(args: tuple[str, str]) -> list[dict]:
     with threadpool_limits(1):
         for scope, calib, targets in cases(sorted(t["alternative"].unique())):
             for rule, use_sim in (("M3", True), ("M4", False)):
-                off, marg, mae = nested(tuple(sorted(calib)), qc, use_sim)
+                mae = inner_error(tuple(sorted(calib)), qc, use_sim)
                 for a in targets:
-                    rng = np.random.default_rng(D.stable_seed("target" if use_sim else "target-nosim", a, qc,
-                                                              *sorted(calib)))
-                    q = D.m3_q95(calib, a, qc, rng, use_sim)
+                    lo, hi = D.m3_calibrated(calib, a, qc, use_sim)
                     rows.append({"scope": scope, "relation": D.relation(calib, a), "rule": rule, "setting": name,
                                  "method": f"{rule}|{name}", "qc": qc, "alternative": a, "geometry": tq.loc[a, "geometry"],
-                                 "lo": q + off - marg, "hi": q + off + marg, "real_q95": float(tq.loc[a, "real_q95"]),
-                                 "floor": floors[(qc, tq.loc[a, "geometry"])], "inner_mae": mae, "inner_margin": marg})
+                                 "lo": lo, "hi": hi, "real_q95": float(tq.loc[a, "real_q95"]),
+                                 "floor": floors[(qc, tq.loc[a, "geometry"])], "inner_mae": mae})
     print(f"{qc} {name}: done", flush=True)
     return rows
 

@@ -1,0 +1,910 @@
+%% Research in Engineering Design -- Springer Nature template (sn-jnl), author-year references.
+\documentclass[pdflatex,sn-basic]{sn-jnl}
+
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{amsthm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\usepackage{siunitx}
+\usepackage{manyfoot}
+\usepackage{placeins}   % \FloatBarrier keeps floats from drifting past sections   % the class's begin-document footnote hook expects this package to be loaded
+\graphicspath{{figures/}}
+
+\raggedbottom
+
+%% Float placement: allow figures and tables to share pages with text and with each other.
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.7}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.8}
+\setcounter{topnumber}{3}
+\setcounter{totalnumber}{4}
+\setlength{\textfloatsep}{10pt plus 3pt minus 2pt}
+\setlength{\floatsep}{10pt plus 3pt minus 2pt}
+\setlength{\intextsep}{10pt plus 3pt minus 2pt}
+\setlength{\belowcaptionskip}{3pt}
+%% Float pages fill from the top instead of centring their floats.
+\makeatletter
+\setlength{\@fptop}{0pt}
+\setlength{\@fpsep}{12pt plus 2fil}
+\setlength{\@fpbot}{0pt plus 1fil}
+\makeatother
+%% Table body size: the class's own 8 bp table font (its \footnotesize is 7 pt and its \scriptsize 9 pt).
+\newcommand{\tabsize}{\fontsize{8}{9.5}\selectfont}
+%% Ragged-right paragraph column for text tables.
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash\hspace{0pt}}p{#1}}
+
+%% Set \anontrue to produce an anonymised copy (no author block, no identifying declarations).
+\newcommand{\pending}[1]{\textit{[#1 pending]}}
+\newif\ifanon
+\anonfalse
+
+\begin{document}
+
+\title[Evaluating design-stage manufacturability decisions]{Evaluating design-stage manufacturability decisions against the resolution of production}
+
+\ifanon
+\author*[1]{\fnm{Anonymised} \sur{for review}}
+\affil*[1]{\orgname{Affiliation withheld for review}}
+\else
+\author*[1]{\fnm{H\"useyin Tayyer} \sur{Canseven}}\email{huseyin.canseven@lut.fi}
+
+\affil*[1]{\orgdiv{Department of Electrical Engineering, LUT School of Energy Systems}, \orgname{LUT University}, \orgaddress{\street{Yliopistonkatu 34}, \city{Lappeenranta}, \postcode{53850}, \country{Finland}}}
+\fi
+
+%% BEGIN ABSTRACT
+\abstract{Design-stage manufacturability decisions rest on simulation and machine learning, but whether a prediction is fit to decide is rarely evaluated against production. A framework is proposed that expresses this fitness in a unit set by production, the production floor: the difference that drift and scatter produce between two batches of one design. A rule returning meets, fails or trial is characterised by two operating characteristics in floors: its decisive distance, beyond which at least 95\,\% of its verdicts are correct, and its safe distance, beyond which at most 5\,\% are wrong, evaluated separately for each relation of a new design to the produced evidence: a variant of a produced setting, a new process setting or a new design family. It is evaluated on open data of 18 deep-drawn design--process alternatives of 500 parts each with matched simulations, for twelve rules from the nominal simulation to learned models, each calibrated rule also without the simulation. This relation governed decision fitness more than the model did: with a produced sibling the nearest produced setting decided within about 3 floors, for a new process setting no rule decided closer than 8.5 floors, and for a new family no rule was safe closer than 16 floors. The simulation contributed only to the new family, and learned models matched the nearest produced setting in accuracy while adding calibrated abstention where the produced alternatives resembled the new design. The findings show which design-stage decisions can be trusted and when a physical trial is unavoidable.}
+%% END ABSTRACT
+
+\keywords{design for manufacturing, design decision making, verification and validation, operating characteristic, uncertainty quantification, deep drawing}
+
+\maketitle
+
+%% ----------------------------------------------------------------------
+\section{Introduction}\label{sec:intro}
+
+Whether a design alternative can be made to its requirements is decided long before it is made. In sheet-metal forming, as in most processes, the decision rests on a finite-element simulation of the process \citep{banabic2010sheet}: the design team simulates the alternative, compares the predicted characteristics with the requirements on the drawing and either releases the design, changes it or sends it to a physical trial. Simulation has moved such decisions forward in the design process \citep{thomke1998simulation, thomke2000effect}, and machine learning has made the loop faster and broader---surrogates replace simulations, data-driven models learn from earlier products, and manufacturability checks are increasingly automated \citep{yan2026machine, liu2026afgnn}---but neither has changed the question a designer has to answer: \emph{can this prediction be trusted to decide?} A simulation that is right on average can still be wrong for the alternative at hand, and a model that learned from earlier products may be asked about a design unlike any of them. Whitney argued in this journal that mechanical design cannot be verified by simulation the way integrated circuits are \citep{whitney1996why}, and variation in production remains the reason \citep{thornton2000more}: the credibility of a simulation-based decision is ultimately a property of production, and production evidence is exactly what is scarce at the design stage.
+
+This paper treats the design-stage manufacturability decision itself as the object of study and asks three questions. How can the fitness of a design-stage prediction for a manufacturability decision be expressed independently of the predictor and of the characteristic (RQ1)? How does that fitness depend on the production evidence available---on its amount and on how the new design relates to what has been produced (RQ2)? And what do simulation and machine learning contribute to such a decision once production evidence exists (RQ3)? The questions sit between three strands of design research: decision-based design, which treats design as a sequence of decisions under uncertainty \citep{hazelrigg1998framework, lewis2006decision}; the margins that designers keep between predictions and requirements \citep{eckert2019design, brahma2020margin}; and the planning of verification and testing in product development \citep{thomke2001sequential, salado2018mathematical, tahera2019testing}. Each needs to know how far a prediction can be trusted before a test is cheaper than a decision, and none has a production-referenced measure of it.
+
+A framework that provides such a measure is proposed. Its unit is the \emph{production floor}: the difference between two batches of consecutive parts of one and the same design that drift and scatter produce at a chosen confidence. A rule that turns the design-stage evidence into one of three verdicts---the alternative \emph{meets} the requirement, \emph{fails} it, or goes to a physical \emph{trial}---is characterised by two operating characteristics expressed in floors: its \emph{decisive distance}, beyond which at least 95\,\% of its verdicts are correct, and its \emph{safe distance}, beyond which at most 5\,\% are wrong. Both are functions of how far the requirement lies from the truth, in the way the operating characteristic of an acceptance plan is a function of the true quality, and between them the rule abstains rather than errs. They are evaluated separately for each \emph{evidence relation} between a new design and the produced alternatives---a variant whose process setting has been produced with another, unresolvable variation; a new process setting within or outside the produced range; and a new design family---together with a calibration budget, an applicability guard and a six-step procedure.
+
+The framework is evaluated on open data that make such an evaluation possible: 9,000 deep-drawn and cut cups of dual-phase steel, produced as 18 design--process alternatives of 500 consecutive parts each, scanned after drawing and after cutting \citep{baum2026rddac}, together with finite-element simulations of the same process and tools \citep{baum2025ddacs}. Each produced alternative is judged as a new design---by leaving it out alone, or with every alternative that shares its process setting, or with its whole family---and the verdicts of twelve rules are compared with what its 500 parts actually did. In the terms of the design research methodology \citep{blessing2009drm}, the paper is a prescriptive study whose framework and procedure are given an initial evaluation on production data; that evaluation establishes whether the framework discriminates between rules and evidence situations, not how design teams use it.
+
+The contributions are fourfold. The first is the framework itself (Section~\ref{sec:method}): the production floor with its effect-to-scatter ratio and minimum resolvable change, and the decisive and safe distances as operating characteristics, with their assumptions, properties and an exact estimator. The second is an evaluation design for design-stage decision rules that separates the evidence relations by grouped cross-validation \citep{roberts2017cross} and isolates what the simulation contributes by evaluating every calibrated rule with and without it (Section~\ref{sec:evaldesign}). The third is the empirical answer to the three questions on deep drawing, including what the production floor contains and how the conclusions depend on the analysis choices (Section~\ref{sec:results}). The fourth is a procedure and guidance for design practice that separate what is general from what holds for this dataset (Section~\ref{sec:discussion}).
+
+Section~\ref{sec:background} positions the work; Section~\ref{sec:method} defines the framework; Section~\ref{sec:demo} describes the data, the characteristics and the evaluation design; Section~\ref{sec:results} reports the results; Section~\ref{sec:discussion} discusses what they establish and the threats to validity; and Section~\ref{sec:conclusion} concludes. Appendix~\ref{app:appendix} gives computation details and additional tables.
+
+%% ----------------------------------------------------------------------
+\section{Background and related work}\label{sec:background}
+
+\subsection{Manufacturability evaluation and machine learning in design for manufacturing}
+
+Design for manufacturing (DFM) has long codified what a process can make into rules, guidelines and cost models applied at the design stage \citep{boothroyd2010product, bralla1999design}, and quantitative manufacturability models have been used in this journal to drive design decisions \citep{latrobe2003design}. Process simulation now predicts the outcome of a specific alternative rather than of a class of features, and machine learning learns manufacturability from historical designs and their production records, from simulated design spaces, or from both \citep{yan2026machine, ballegeer2026bendfm}. Work in this journal has used data and models to choose between manufacturing processes from shape \citep{benslama2024novel}, to quantify design robustness \citep{li2026deriving}, to reason about failure causes in design FMEA \citep{liu2026afgnn} and to show that measures left out of an alternative-selection problem change which alternative is chosen \citep{eaton2026omitted}. A recurring difficulty is transfer: a model learned on one process, machine or product family is applied to another \citep{safdar2024transferability}, and its reproducibility and reusability are open questions \citep{xie2025reproducible, xie2026reusability}. What these studies rarely have is a production record of the very alternatives the model is asked about, so their evaluation stops at prediction accuracy and does not reach the design decision; open datasets that would allow more are increasingly recognised as research contributions in their own right \citep{ahmed2025design}.
+
+\subsection{Design decisions under uncertainty and their evaluation}
+
+Decision-based design casts design as choosing between alternatives whose outcomes are uncertain, with a preference over them \citep{hazelrigg1998framework, lewis2006decision}. In practice the uncertainty of a prediction is absorbed by margins: buffers between what is predicted and what is required, which are seldom made explicit and whose value is rarely known \citep{eckert2019design, brahma2020margin}. Testing is the alternative to a margin, and its planning---when to test, how many alternatives to test in parallel or in sequence, and which verification activities to perform---has been modelled as a trade between the cost of tests and the cost of errors \citep{thomke1998simulation, thomke2001sequential, loch2001parallel, salado2018mathematical}, with physical and virtual testing studied as design activities in their own right \citep{tahera2019testing}. Variation risk management identifies the key characteristics whose variation matters and the processes that control them \citep{thornton1999mathematical, thornton2000more}. The framework of this paper supplies a quantity these approaches assume but do not measure: how close to a requirement a design-stage prediction can decide, in a unit set by production, and therefore how large a margin has to be, or when a test is unavoidable. The evaluation of design methods themselves has its own methodology: the design research methodology separates the development of support from its evaluation \citep{blessing2009drm}, the validation square distinguishes the structural and performance validity of a method \citep{seepersad2006validation}, and evaluation designs from medicine have been proposed for design methods \citep{frey2006validation}.
+
+\subsection{Simulation credibility, calibration and validation metrics}
+
+Verification and validation methodology asks whether a model is accurate enough for its intended use, and answers it by comparing predictions with experiments under a stated validation metric \citep{oberkampf2010verification, roy2011comprehensive}; standards for computational solid mechanics and for the credibility of decisions based on models formalise the same question \citep{asme2020standard, nasa2024standard}. Validation metrics compare predicted and observed distributions in physical units \citep{ferson2008model, liu2011toward}, and predictive maturity tracks how the predictive capability of a calibrated model improves with validation experiments \citep{hemez2010defining}. Bayesian calibration adds a model of the discrepancy between simulator and reality, typically a Gaussian process over the inputs, together with calibration parameters of the simulator \citep{kennedy2001bayesian, higdon2008computer, bayarri2007framework}; omitting the discrepancy biases the calibrated parameters \citep{brynjarsdottir2014learning}, and the identifiability of discrepancy and parameters limits what few experiments can teach \citep{arendt2012quantification}. Where a predictive model may be trusted at all is the question of its valid input domain \citep{malak2010using}. Conformal prediction gives distribution-free intervals with a finite-sample coverage guarantee under exchangeability \citep{vovk2005algorithmic, lei2018distribution, barber2021predictive, angelopoulos2023conformal}, including for quantiles \citep{romano2019conformalized} and under a shift of the inputs \citep{tibshirani2019conformal}, and it has begun to appear in engineering design and quality assurance \citep{zong2026trustworthy, heddoub2026conformal}. These methods produce intervals and accuracy statements; how close to a requirement such an interval can be trusted to decide, and how much production evidence that takes, remains open.
+
+In sheet-metal forming, the accuracy of finite-element predictions---springback above all---has been studied for decades \citep{wagoner2013advanced, chen2022robustness}, with friction \citep{hol2012advanced} and the unloading behaviour of the material \citep{yoshida2002model} among the main sources of error. Simulations are used to compensate springback in the tool design \citep{gan2004die}, robust process design under material and process scatter is well established \citep{strano2006optimization, hou2010stochastic, wiebenga2014effect}, often with metamodels \citep{jakumeit2005parameter, harsch2016process}, and data-driven models predict forming outcomes from process data in series production \citep{havinga2020exploiting, purr2015stamping}. Simulation datasets of deep drawing have been released for surrogate and transfer learning \citep{baum2025ddacs, heinzelmann2025comprehensive}, with surrogates trained on them \citep{heinzelmann2025datadriven, baum2025enhancing} and the gap between synthetic and real data identified as the obstacle to their industrial use \citep{baum2026addressing}. The dataset's authors decomposed the deviation between simulation and parts and found that the part geometry explains 77--92\,\% of its variance and that gradient boosting with process measurements explains 81--92\,\% \citep{baum2026statistical}; the present paper asks the complementary design question of how close to a requirement a decision taken before production, without process measurements of the new alternative, can be trusted.
+
+\subsection{Decisions with abstention and their operating characteristics}
+
+Three fields evaluate decisions that may abstain. In conformity assessment under measurement uncertainty, a measured value proves conformance, proves non-conformance or leaves the decision open, with guard bands set by the uncertainty and the specific and global risks of false acceptance and false rejection as the measures of a decision rule \citep{iso2017decision, jcgm2012evaluation}. In analytical chemistry, the limit of detection is the smallest quantity a method detects with stated error rates \citep{currie1968limits, currie1995nomenclature}, and in acceptance sampling and selection the operating characteristic gives the probability of a decision as a function of the true quality \citep{bechhofer1954single}. In machine learning, a classifier with a reject option trades errors against abstentions \citep{chow1970optimum}, summarised by risk--coverage curves \citep{geifman2017selective}, and interval forecasts are scored by their coverage and width \citep{gneiting2007strictly}. The decisive and safe distances are operating characteristics of this kind for design-stage manufacturability decisions; what the framework adds is a unit set by production, which makes them comparable across characteristics and predictors, and their evaluation by evidence relation.
+
+\subsection{Production variation and measurement capability}
+
+Statistical quality control separates the variation of a process into short-term and long-term components and compares it with tolerances through capability indices \citep{montgomery2019introduction, kane1986process}, and measurement systems analysis decides whether a gauge can resolve a tolerance \citep{aiag2010measurement, iso2021measurement}. The production floor is a quantity of the same family, measured between batches of one design: it contains short-term scatter only through the batch average, and drift within a series in full.
+
+Table~\ref{tab:positioning} places the framework among these approaches. It does not replace calibration or conformal prediction; it uses them as decision rules and scores them against production in a common unit, which is what a design team needs to choose between them.
+
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{3.5pt}
+\caption{Positioning among methods that support or evaluate design-stage manufacturability decisions}\label{tab:positioning}
+\begin{tabular}{@{}L{3.0cm}L{2.5cm}L{3.0cm}L{1.9cm}L{1.6cm}@{}}
+\toprule
+Approach & Evidence & Output & Scored against production & Abstains \\
+\midrule
+DFM rules and cost models \citep{boothroyd2010product} & codified process knowledge & guideline compliance, cost & no & no \\
+Design margins \citep{eckert2019design} & experience, analysis & buffer to the requirement & rarely & no \\
+V\&V, validation metrics \citep{oberkampf2010verification, ferson2008model} & physics model, validation tests & accuracy in physical units & on test cases & no \\
+Bayesian calibration \citep{kennedy2001bayesian} & simulations, experiments & predictive distribution & not as decisions & implicitly \\
+Conformal prediction \citep{lei2018distribution} & exchangeable calibration data & interval with coverage & coverage only & yes \\
+Conformity assessment, OC curves \citep{iso2017decision, bechhofer1954single} & measurement and its uncertainty & accept, reject, undecided; risks & on the measured item & yes \\
+Selective classification \citep{chow1970optimum, geifman2017selective} & labelled data & class or reject; risk--coverage & on held-out data & yes \\
+ML manufacturability models \citep{yan2026machine} & historical or simulated data & class or value & on held-out data & rarely \\
+This paper & simulations, produced alternatives & verdict; decisive and safe distance in floors by evidence relation & yes, per verdict & yes \\
+\botrule
+\end{tabular}
+\end{table}
+
+%% ----------------------------------------------------------------------
+\section{The framework}\label{sec:method}
+
+\subsection{The decision problem}\label{sec:problem}
+
+A design alternative $a$ is a combination of product geometry and process settings that is produced as a series of parts. A quality characteristic $c$ varies over the parts of a series. A requirement is an upper limit $R$ on the characteristic, or on its absolute value for characteristics whose target is zero, that a share $p$ of the parts must meet: alternative $a$ is \emph{adequate} for $c$ when the $p$-quantile of its parts satisfies $q_p(a,c)\le R$. The demonstration uses $p=0.95$ and checks $p=0.90$ and $0.99$; requirements on a lower limit or two-sided limits follow by a change of sign or by the absolute deviation from the target. At the design stage $q_p$ is unknown. A decision rule $r$ maps the available evidence to an interval $[L_r, U_r]$ for $q_p$ and to a verdict
+\begin{equation}
+V_r = \begin{cases} \text{meets} & U_r \le R,\\ \text{fails} & L_r > R,\\ \text{trial} & \text{otherwise.} \end{cases}
+\label{eq:verdict}
+\end{equation}
+The three verdicts mirror the decision rules of conformity assessment, in which uncertainty creates a zone where neither conformance nor non-conformance can be proven \citep{iso2017decision}; here the uncertainty is that of the design-stage prediction. A rule that returns a point ($L_r=U_r$) always decides. The evidence consists of simulations of $a$ and of the production record of other alternatives, the \emph{calibration alternatives}. The decisions in scope are those of a design team that has produced variants of a design family and has to decide on a further variant, a new process setting or a new family before producing it: the release of variants and process settings in process planning and tryout, and the transfer of production knowledge to a new family in platform and variant design.
+
+\subsection{Production floor, effect-to-scatter ratio and minimum resolvable change}\label{sec:floor}
+
+Production evidence comes as series of consecutive parts. Each series is cut into batches of $B$ consecutive parts, and each batch is summarised by a robust centre $m$ (here the 10\,\% trimmed mean). The production floor of characteristic $c$ is
+\begin{equation}
+F_c = Q_\alpha\bigl\{\,|m_i - m_j| : i< j \text{ batches of the same alternative}\,\bigr\},
+\label{eq:floor}
+\end{equation}
+the $\alpha$-quantile of the difference between two batches of one design, pooled over the produced alternatives (here $B=50$, $\alpha=0.95$ and series of ten batches; floors per geometry are used where geometries differ). The floor rests on three assumptions: batches of one design differ only by drift and scatter within a run (A1); the runs from which it is estimated are like those of future production (A2); and the measurement adds little to it (A3, checked in Section~\ref{sec:res-floor}). It has three properties that matter for its use. It has the unit of the characteristic, so a margin expressed in floors does not depend on the unit or the origin of the characteristic. Under a stationary normal model with a standard deviation $\sigma_\mathrm{b}$ between batch means and $\sigma_\mathrm{w}$ between parts, $F_c = 1.96\sqrt{2}\sqrt{\sigma_\mathrm{b}^2+\sigma_\mathrm{w}^2/B}$ at $\alpha=0.95$, so the short-term capability enters through $\sigma_\mathrm{w}/\sqrt{B}$ while drift within a run enters in full; the floor obtained after the parts of each series are randomly permuted contains scatter only, and its ratio to the floor measures the drift. And the floor is a property of a production protocol: it grows with the length of the series under drift, shrinks with $B$, and excludes the variation between runs, which bounds it from below as a measure of series production. The floor resolves batch centres while the requirement concerns a quantile; it is used as a unit, and the reproducibility of the quantile itself is reported alongside.
+
+Two alternatives $a$ and $b$ are resolvable for $c$ when their effect-to-scatter ratio
+\begin{equation}
+\mathrm{ESR}_c(a,b) = |\bar m_a - \bar m_b| \,/\, F_c
+\label{eq:esr}
+\end{equation}
+is at least one, $\bar m$ being the centre of all parts of an alternative. For a continuous design or process parameter $x$ with a local sensitivity $s_c = \partial \bar m/\partial x$, the minimum resolvable change is $F_c/|s_c|$: a change of $x$ by less moves the centre of the characteristic by less than two batches of one design differ. It is a statement about centres; a change below it can still move the tail of the distribution.
+
+\subsection{Decision rules}\label{sec:rules}
+
+Twelve rules span what a design team can do with its evidence (Table~\ref{tab:rules}); each is defined for any set of calibration alternatives. Two use the simulation alone: the nominal simulation (M0) and the worst case of a process-window simulation (M0w), as a robustness simulation is read in practice. Five combine the simulation with the production record. M1 adds to the nominal simulation the median offset between the calibration alternatives' $q_p$ and their nominal simulation. Mc calibrates a parameter of the simulator instead: the friction coefficient of each lubrication pattern is chosen so that the simulated draw-in matches the produced alternatives, in the sense of a calibration parameter of \citet{kennedy2001bayesian} without a discrepancy model, and the median remaining offset is added. M2 takes the upper end of the simulation envelope over plausible incoming conditions, adds the median offset and a margin equal to the largest absolute residual of the calibration alternatives. M5 models the offset between $q_p$ and the envelope as a Gaussian process \citep{rasmussen2006gaussian} over the alternatives' descriptors, so that the correction may vary with the design and process settings, and uses its 90\,\% predictive interval. M3 is a part-level model: gradient boosting \citep{friedman2001greedy} learns the discrepancy between the measured characteristic and the matched simulation from the descriptors and the measured incoming conditions of the calibration parts, and the predicted parts of the new alternative give its $q_p$, with an offset and a margin from a leave-one-out over the calibration alternatives (a jackknife). Five rules use the production record alone and isolate what the simulation adds: the median $q_p$ of the calibration alternatives (M1n), the same with the residual margin (M2n), the Gaussian process of $q_p$ itself (M5n), the part-level boosting model of the characteristic (M4), and the nearest produced setting (NN), which takes the mean $q_p$ of the calibration alternatives of the design's family at the nearest process setting.
+
+The margins are labelled by what they guarantee. With $n$ calibration alternatives, the largest-residual margin of M2 and M2n covers a new exchangeable residual with probability $n/(n+1)$ when the offset is fixed and $(n-1)/(n+1)$ when it is estimated from the same residuals; it is the split-conformal quantile \citep{lei2018distribution} at the highest level that $n$ residuals can attain, not a 90\,\% interval. The Gaussian-process interval is model-based, and the jackknife margin of M3 and M4 carries no guarantee \citep{barber2021predictive}. Their empirical coverage is reported in Section~\ref{sec:res-ml}.
+
+%% BEGIN GENERATED rules
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{3.5pt}
+\caption{The decision rules}\label{tab:rules}
+\begin{tabular}{@{}L{3.2cm}L{5.1cm}L{2.0cm}L{1.6cm}@{}}
+\toprule
+Rule & Prediction of $q_p$ & Interval & Production evidence \\
+\midrule
+\multicolumn{4}{@{}l}{\emph{Simulation only}} \\
+M0 nominal simulation & simulation at nominal sheet thickness and friction & point & none \\
+M0w process-window worst case & lowest to highest simulated value over the incoming conditions & range & none \\
+\multicolumn{4}{@{}l}{\emph{Simulation and production record}} \\
+M1 bias-corrected simulation & M0 plus the median offset & point & $q_p$ \\
+Mc friction-calibrated simulation & simulation with friction calibrated on the draw-in, plus the median offset & point & centres, $q_p$ \\
+M2 envelope + residual margin & upper end of the envelope plus the median offset & largest residual & $q_p$ \\
+M3 simulation + boosting & matched simulation plus a boosting model of the discrepancy, part level & jackknife & parts \\
+M5 GP correction of the envelope & envelope plus a Gaussian-process offset over the descriptors & GP, 90\,\% & $q_p$ \\
+\multicolumn{4}{@{}l}{\emph{Production record only}} \\
+M1n median of the produced & median $q_p$ of the calibration alternatives & point & $q_p$ \\
+NN nearest produced setting & mean $q_p$ at the nearest produced process setting of the family & point & $q_p$ \\
+M2n median + residual margin & M1n with the largest-residual margin & largest residual & $q_p$ \\
+M4 boosting, no simulation & boosting model of the characteristic, part level & jackknife & parts \\
+M5n GP of $q_p$ & Gaussian process of $q_p$ over the descriptors & GP, 90\,\% & $q_p$ \\
+\botrule
+\end{tabular}
+\footnotetext{Descriptors: geometry indicator, blank-holder force and lubrication rank (the order of the oil amount). Largest residual: with $n$ calibration alternatives, coverage $n/(n+1)$ at most. GP: the noise variance is bounded below by the sampling variance of the calibration alternatives' $q_p$.}
+\end{table}
+%% END GENERATED rules
+
+\subsection{Operating characteristics: decisive and safe distances}\label{sec:distances}
+
+A rule is scored by judging each produced alternative as a new design at requirements placed at a known distance from the truth,
+\begin{equation}
+R = q_p(a,c) + d\,F_c ,
+\label{eq:requirement}
+\end{equation}
+so that $a$ is adequate exactly when $d\ge 0$. For a case $(a,c)$ with interval $[L,U]$, let $u=(U-q_p)/F_c$ and $v=(q_p-L)/F_c$ be the distances by which the interval excludes the truth from above and below. At $d=+\delta$ the verdict is correct when $u\le\delta$ and wrong (a false reject) when $-v>\delta$; at $d=-\delta$ it is correct when $v<\delta$ and wrong (a false accept) when $-u\ge\delta$. Over a population of cases, let $\kappa(\delta)$ and $\omega(\delta)$ be the shares of correct and of wrong verdicts at $|d|=\delta$, both signs weighted equally and requirements below zero excluded for characteristics that cannot be negative. The \emph{decisive distance} $\delta_\mathrm{d}$ of a rule is the smallest $\delta$ beyond which $\kappa\ge 0.95$, and its \emph{safe distance} $\delta_\mathrm{s}$ the smallest $\delta$ beyond which $\omega\le 0.05$.
+
+The two distances have five properties. They are exact: $\kappa$ and $\omega$ change only where $\delta$ crosses one of the case's $u$, $v$, $-u$ or $-v$, so the distances are order statistics of these exclusion distances and need no grid; for a rule that always decides, $\delta_\mathrm{d}=\delta_\mathrm{s}$ is the 90\,\% quantile of its absolute prediction error in floors when no requirement is excluded. Always $\delta_\mathrm{s}\le\delta_\mathrm{d}$, and between the two the rule sends designs to trial rather than misleading. They do not depend on the unit of the characteristic. They split into one-sided distances for failing alternatives, where the errors are false accepts, and for adequate ones, where they are false rejects, which matters when the two errors cost differently. And they are operating characteristics: functions of the true margin over a population of design situations, like the operating characteristic of an acceptance plan \citep{bechhofer1954single} or the risk--coverage curve of a selective classifier \citep{geifman2017selective}, not statements about a single verdict. A design team uses them before a requirement is fixed, to choose a rule for a family and evidence relation, to judge whether a requirement placed near the expected capability can be decided at the design stage at all, and to plan trials and production evidence. For a single verdict the observable quantity is the margin between the predicted interval and the requirement; the share of correct verdicts as a function of that margin is reported with the results.
+
+In decision-theoretic terms, let a false accept cost $c_\mathrm{FA}$, a false reject $c_\mathrm{FR}$ and a trial $c_\mathrm{T}$, with correct verdicts free and trials error-free. Over the population at a true margin beyond $\delta_\mathrm{d}$, the expected cost of a verdict is at most $0.05\,\max(c_\mathrm{FA}, c_\mathrm{FR}, c_\mathrm{T})$, and beyond $\delta_\mathrm{s}$ at most $0.05\,\max(c_\mathrm{FA}, c_\mathrm{FR}) + u(\delta)\,c_\mathrm{T}$ with $u(\delta)$ the share sent to trial; the bound holds on average over adequate and failing alternatives weighted equally, and one-sided distances replace it when the base rates differ. Which rule to prefer then depends on the cost ratios; a worked comparison with realistic requirement margins is given in Section~\ref{sec:res-scenarios}.
+
+\subsection{Evidence relation, calibration budget and applicability guard}\label{sec:budget}
+
+How a new design relates to the produced alternatives is part of the decision situation. With a \emph{sibling}, an alternative at the same process setting has been produced with another variation that production may not resolve; a \emph{new process setting} lies between produced settings (interpolation) or outside them (extrapolation); and a \emph{new family} shares no produced alternative. The two distances are evaluated for each relation. The calibration budget is their dependence on the number $k$ of produced alternatives, over all subsets of size $k$, and the calibration design asks which alternatives to produce first: subsets are classified by the relation of the new design to them. An applicability guard returns \emph{trial} when the new design lies outside what the calibration has seen: its geometry is not among the calibration alternatives (family guard), a descriptor lies outside the calibrated range (range guard), or its simulated $q_p$ lies outside the range of the calibration alternatives' simulated values (novelty guard); all three use design-stage information only, in the spirit of a valid input domain \citep{malak2010using}.
+
+\subsection{Procedure}\label{sec:procedure}
+
+Figure~\ref{fig:procedure} turns the framework into six steps. Steps~1 to 5 are carried out once per design family and repeated when production evidence is added; step~6 is carried out for every new design. Step~1 frames the decision: the family, its alternatives, the characteristics and the form of the requirement. Step~2 measures the floor on the produced alternatives, and step~3 states which differences between alternatives, and which local changes of a parameter, production can resolve; a design question below the floor is not one the design stage needs to answer finer. Step~4 calibrates the candidate rules, with and without the simulation, and step~5 qualifies them by their decisive and safe distances for each evidence relation, their calibration budget and the guard; when the distances are too large for the requirements expected of coming designs, another variant is produced, chosen by the calibration design. Step~6 decides: it establishes the relation of the new design to the produced evidence, applies the rule qualified for that relation and the guard, and returns a verdict with the margin of the requirement in floors, or a trial when the guard fires or the margin lies below the rule's safe distance.
+
+\begin{figure}[t]
+\centering
+\input{fig_procedure}
+\caption{The procedure: steps 1--5 once per design family, step 6 for every new design; dashed boxes are the evidence it uses}\label{fig:procedure}
+\end{figure}
+
+%% ----------------------------------------------------------------------
+\section{Demonstration on deep drawing}\label{sec:demo}
+
+\subsection{Alternatives and production data}\label{sec:data}
+
+The production data are the Real Deep Drawing and Cutting dataset (RDDAC) of the University of Stuttgart \citep{baum2026rddac, baum2026statistical}. Square blanks of DP600 dual-phase steel, 210\,mm wide and about 1\,mm thick, were deep drawn into cups (operation OP10) and cut (OP20) on one tool set with two geometries, concave and convex side walls, which differ in the curvature of the base shape, the wall angle and the bottom radius at once. Each geometry was run at three blank-holder forces (100, 300 and 500\,kN) and three lubrication patterns (coarse, medium and fine oil application, with series medians of 1.15--1.48, 0.92--1.23 and 0.85--1.13\,g/m$^2$ of oil), giving 18 alternatives, each produced as one series of 500 consecutive parts. Within a geometry the new designs are therefore new process settings and lubrication variants on an existing tool; the change of geometry is the only change of product design. For every part the dataset holds the press force, traverses of the sheet thickness and of the oil film before forming, and 3D scans after drawing and after cutting (0.077\,mm per pixel across the scan line, 0.158\,mm per line and 0.008\,mm in height). Of the 9,000 parts, 10 carry no scan, leaving 8,990.
+
+\subsection{Simulations}\label{sec:sims}
+
+The simulations come from the Deep Drawing and Cutting Simulations dataset (DDACS) of the same group \citep{baum2025ddacs, heinzelmann2025comprehensive}: LS-DYNA models of the same process on a quarter of the part, with nodes about 1\,mm apart, a scaled DP600 flow curve, Coulomb friction with a constant coefficient between blank and tools, and springback after both operations; the documentation does not state the yield criterion or the unloading model, which govern springback \citep{yoshida2002model}. For the RDDAC tools, 396 simulations vary the sheet thickness (0.95--1.00\,mm in six steps) and the friction coefficient (0.05--0.15 in eleven steps) at each geometry and blank-holder force. A part is matched to the simulation with the nearest sheet thickness and the friction coefficient that the dataset's linear mapping assigns to its measured oil film. The nominal simulation of an alternative is the one at 0.99\,mm, the grid value nearest the measured median thickness of 0.990\,mm, and friction 0.10, the middle of the range. The simulated characteristics carry extraction noise from the 1\,mm node spacing; it is quantified in Section~\ref{sec:res-sim}.
+
+\subsection{Quality characteristics and their measurement}\label{sec:qcs}
+
+Seven characteristics were extracted from the scans and from the simulated nodes, all referred to the plane of the cup bottom (Table~\ref{tab:qcs}). The four sides of a part measure several of them twice, and this redundancy exposes the measurement (Table~\ref{tab:scan}). The flange width in the direction along the scan lines scatters 4 to 18 times more than across them, uncorrelated with it and without serial correlation, and reads 2.3--3.5\,mm larger; the mid-side draw-in is therefore taken from the widths across the scan lines only. The north wall carries about 0.3$^\circ$ of uncorrelated scatter in every series and reads 0.9--1.6$^\circ$ low on the convex cups, and the south wall is shadowed; the wall angle is therefore the mean of the east and west walls, which also cancels a residual tilt of the part (on the convex cups the two are anti-correlated). The corner draw-in uses the mean of the two flange diagonals, which differ by 1.6--2.2\,mm in every series, consistent with a small non-orthogonality of the scan axes to which their mean is insensitive. The quarter-model simulations are symmetric about the diagonal, so their values along both axes estimate the same quantity and are averaged. Differences that remain between scans and simulations---the scanned surface against the shell mid-surface, edge treatment and spatial resolution---affect the absolute offsets between the two but not the floors and the effects within production.
+
+%% BEGIN GENERATED qcs
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{4pt}
+\caption{Quality characteristics, extracted with the same definitions from the scans and the simulated nodes}\label{tab:qcs}
+\begin{tabular}{@{}L{2.6cm}L{0.7cm}L{8.4cm}@{}}
+\toprule
+Characteristic & Unit & Definition \\
+\midrule
+Draw-in, mid-side & mm & $(210 - W_x)/2$; $W_x$: flange width across the cup centre, across the scan lines \\
+Draw-in, corner & mm & $(2\sqrt{2}\cdot 210 - L_1 - L_2)/4$; $L$: distance between opposite corner tips of the flange \\
+Flange waviness & mm & robust standard deviation of the flange about a fitted quadratic surface \\
+Wall angle & $^\circ$ & inclination of the wall from the punch axis between 10 and 20\,mm depth, mean of the east and west walls \\
+Arm angle, cut & $^\circ$ & inclination of the flat segment of the cut arms, mean of four arms (requirement on its absolute value) \\
+Cup depth & mm & median depth of the flange below the plane of the cup bottom after drawing \\
+Bottom dome, cut & mm & sag of the bottom at 40\,mm radius from a fitted paraboloid (requirement on its absolute value) \\
+\botrule
+\end{tabular}
+\end{table}
+%% END GENERATED qcs
+
+\subsection{Evaluation design}\label{sec:evaldesign}
+
+Every produced alternative is judged as a new design under four schemes of grouped cross-validation \citep{roberts2017cross}, one per evidence relation. \emph{New variant}: the alternative alone is held out and the other eight alternatives of its geometry calibrate, so two siblings at its blank-holder force, produced with another lubrication pattern, are among them. \emph{New process setting}: all three alternatives of one blank-holder force of a geometry are held out together and the six others calibrate; the 300\,kN alternatives are then interpolated and the 100 and 500\,kN alternatives extrapolated in force. \emph{New family}: the alternatives of one geometry calibrate the rules for the other. The pooled versions of the first two add the other geometry's alternatives to the calibration set. Every calibrated rule is evaluated with and without the simulation (M1/M1n, M2/M2n, M3/M4, M5/M5n), so that the paired difference isolates what the simulation contributes, and the nearest produced setting (NN) is the baseline without simulation and without learning. A scope comprises 126 cases (18 alternatives, 7 characteristics) and two transfer calibrations.
+
+The distances are computed exactly from the cases. Their intervals come from 1000 resamples of the held-out alternatives within each geometry, every resample taking one block-bootstrap replicate of the true $q_p$ of each alternative (batches of 50 parts resampled), so that the uncertainty of the reference enters; the resamples are common to all rules, which gives paired intervals for their differences. These intervals hold the fitted rules fixed; a second bootstrap resamples the alternatives of each geometry, refits every alternative-level rule on each resample and repeats the evaluation, which adds the variability of the calibration sets.
+
+\subsection{Computation and development record}\label{sec:computation}
+
+The constants of the floor and the requirement grid were chosen before the decision results were seen and are listed in Appendix~\ref{app:computation}; the repository history records their dates. The rules were not all fixed in advance: M0--M5 and the three original calibration scopes were defined in a first analysis, the conformalised Gaussian process M6 was added as a candidate during it, and the rules M0w, Mc, M1n, NN, M2n and M5n, the grouped schemes, the noise floor of the Gaussian processes and the exact estimator of the distances were added in a second round of analysis, after the results of the first had been seen. Every variant tried is reported, and the comparisons between rules carry the optimism of a selection made on the evaluation data \citep{cawley2010over}. The pipeline reads single files from the public archives by HTTP range requests, keeps only the extracted features, and reproduces every result from the cached feature tables in about four hours on four processor cores.
+
+%% ----------------------------------------------------------------------
+\section{Results}\label{sec:results}
+
+\subsection{What the production floor contains}\label{sec:res-floor}
+
+Table~\ref{tab:floors} gives the floor of each characteristic. Two batches of 50 consecutive parts of one alternative differ by up to 0.051\,mm in mid-side draw-in, 0.046\,mm in corner draw-in, 0.078$^\circ$ in wall angle, 0.11$^\circ$ in arm angle, 0.011\,mm in cup depth and 0.007\,mm in bottom dome at 95\,\% confidence; resampling whole alternatives instead of batches, which respects the dependence of neighbouring batches under drift, widens the intervals most for the waviness (0.0021--0.0050\,mm) and the arm angle (0.089--0.15$^\circ$). The floors are set by drift: once the time order of the parts is removed, they shrink by a factor of 2.1 (wall angle) to 4.5 (corner draw-in), and over a series the punch temperature rises by a median of 4.3\,K (range 1.1--6.4\,K), one of the sources of this drift.
+
+Table~\ref{tab:components} shows what the floor contains. Part-to-part noise that is independent between parts---which includes the repeatability of the scanner---would produce 15--33\,\% of each floor, so the floor is dominated by variation between batches, which a repeatable measurement cannot create. The redundancy of the scans had shown where the measurement did matter: with the flange widths along the scan lines and the north wall included, the mid-side draw-in had a floor of 0.085\,mm and a part standard deviation of 0.13\,mm, of which the redefinition removes 40\,\% and 70\,\%; the wall angle kept its floor (0.081 against 0.078$^\circ$) because the north wall's scatter averaged out within batches. Drift of the scanner itself cannot be separated from drift of the process without a reference artefact scanned through the series. The floor also depends on the protocol: from the first 250 parts of every series it is 0.49--0.95 of the full value, and it varies by a factor of 0.6--2.2 over batch sizes of 25--100 and quantiles of 0.90--0.99 (Section~\ref{sec:res-robust}). The decided statistic itself reproduces to about one floor: the 95th percentiles of two batches of 100 parts differ by 0.92--1.49 floors at 95\,\% confidence, and the block-bootstrap standard error of an alternative's $q_{95}$ is 0.11 floors in the median (at most 0.39). Distances below about one floor are therefore at the limit of what production can confirm. Variation between runs is not in the floor: the three lubrication series of one geometry and force, which production mostly cannot tell apart, differ by a median of 0.5--1.6 floors and, at 95\,\%, by 1.2 (waviness) to 9.8 floors (dome), an upper bound of what separate runs of one design add.
+
+%% BEGIN GENERATED floors
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{2.6pt}
+\caption{Production floor per characteristic, pooled and per geometry}\label{tab:floors}
+\begin{tabular}{@{}lrrrrrrr@{}}
+\toprule
+ & & \multicolumn{2}{c}{95\,\% interval} & & & & \\
+\cmidrule(lr){3-4}
+Characteristic & $F$ & batches & alternatives & Concave & Convex & Part SD & Drift \\
+\midrule
+Draw-in, mid-side (mm) & 0.051 & 0.045--0.061 & 0.042--0.061 & 0.050 & 0.052 & 0.039 & 3.3 \\
+Draw-in, corner (mm) & 0.046 & 0.035--0.052 & 0.032--0.053 & 0.053 & 0.030 & 0.027 & 4.5 \\
+Flange waviness (mm) & 0.0028 & 0.0024--0.0031 & 0.0021--0.0050 & 0.0037 & 0.0021 & 0.0020 & 2.5 \\
+Wall angle ($^\circ$) & 0.078 & 0.066--0.10 & 0.054--0.10 & 0.081 & 0.078 & 0.083 & 2.1 \\
+Arm angle, cut ($^\circ$) & 0.11 & 0.094--0.12 & 0.089--0.15 & 0.12 & 0.100 & 0.091 & 2.6 \\
+Cup depth (mm) & 0.011 & 0.0096--0.012 & 0.0090--0.012 & 0.0087 & 0.012 & 0.0069 & 3.9 \\
+Bottom dome, cut (mm) & 0.0070 & 0.0061--0.0081 & 0.0052--0.0084 & 0.0034 & 0.0082 & 0.0036 & 3.9 \\
+\botrule
+\end{tabular}
+\footnotetext{Batches of 50 consecutive parts, 95\,\% quantile of the difference of batch centres. Intervals: 2000 resamples of the batches within the alternatives, and of whole alternatives (clusters). Part SD: median within-alternative standard deviation of single parts. Drift factor: floor over the floor of randomly permuted series. The decision analysis uses the per-geometry floors.}
+\end{table}
+%% END GENERATED floors
+
+%% BEGIN GENERATED components
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{4.5pt}
+\caption{What the production floor contains: components and variants in floors}\label{tab:components}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+ & & & & & \multicolumn{2}{c}{Between series} \\
+\cmidrule(lr){6-7}
+Characteristic & $\sigma_\mathrm{LT}/\sigma_\mathrm{ST}$ & White share (\%) & First half & $q_{95}$ floor & median & 95\,\% \\
+\midrule
+Draw-in, mid-side & 1.22 & 24 & 0.93 & 1.49 & 0.9 & 2.4 \\
+Draw-in, corner & 1.24 & 17 & 0.63 & 1.08 & 0.7 & 2.4 \\
+Flange waviness & 1.16 & 23 & 0.81 & 1.07 & 0.5 & 1.2 \\
+Wall angle & 1.23 & 33 & 0.90 & 0.92 & 0.5 & 2.7 \\
+Arm angle, cut & 1.35 & 23 & 0.71 & 0.96 & 1.0 & 4.3 \\
+Cup depth & 1.41 & 15 & 0.95 & 1.11 & 0.5 & 4.8 \\
+Bottom dome, cut & 1.10 & 17 & 0.49 & 1.02 & 1.6 & 9.8 \\
+\botrule
+\end{tabular}
+\footnotetext{$\sigma_\mathrm{ST}$: standard deviation within subgroups of five consecutive parts; $\sigma_\mathrm{LT}$: of the whole series (medians over series). White share: the floor that independent part-to-part noise alone would produce, $1.96\sqrt{2/B}$ times the successive-difference standard deviation, over $F$; it bounds the share a scanner's repeatability can explain. First half: floor of the first 250 parts of each series. $q_{95}$ floor: 95\,\% quantile of the difference between the 95th percentiles of two batches of 100 parts. Between series: difference between the centres of the three lubrication series of one geometry and force, an upper bound of the variation between runs (lubrication effects included).}
+\end{table}
+%% END GENERATED components
+
+\subsection{What production resolves}\label{sec:res-resolve}
+
+Figure~\ref{fig:alternatives} shows the 18 alternatives against the floor and Table~\ref{tab:resolve} counts the contrasts that production resolves. All 63 geometry contrasts exceed the floor, with median effect-to-scatter ratios from 2.8 (waviness) to 129 (wall angle). Blank-holder force is resolved in 105 of 126 contrasts; the exception is the wall angle, which force barely moves (4 of 18). The lubrication pattern is resolved in 51 of 126 contrasts and in at most 11 of 18 for any characteristic, so that for most characteristics an alternative's lubrication variant is a near-replicate of it. The force sensitivity is local: between 100 and 300\,kN, where the stroke speed changes as well, the minimum resolvable change is 21--67\,kN for the cup depth, the waviness, the draw-ins and the arm angle, whereas between 300 and 500\,kN, at equal speed, it is 43--105\,kN for the depth, the draw-ins and the waviness and the arm angle no longer responds; the wall angle and the dome need 366--731\,kN in either interval.
+
+%% BEGIN GENERATED resolve
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{3.5pt}
+\caption{Single-factor contrasts that production resolves and minimum resolvable force change}\label{tab:resolve}
+\begin{tabular}{@{}lrrrrrrrr@{}}
+\toprule
+ & \multicolumn{2}{c}{Geometry} & \multicolumn{2}{c}{Blank-holder force} & \multicolumn{2}{c}{Lubrication} & \multicolumn{2}{c}{Force MRC (kN)} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}
+Characteristic & ESR\,$\geq$\,1 & Median & ESR\,$\geq$\,1 & Median & ESR\,$\geq$\,1 & Median & 100--300 & 300--500 \\
+\midrule
+Draw-in, mid-side & 9/9 & 18.7 & 18/18 & 6.8 & 9/18 & 0.9 & 32 & 105 \\
+Draw-in, corner & 9/9 & 108.8 & 18/18 & 4.3 & 7/18 & 0.7 & 67 & 47 \\
+Flange waviness & 9/9 & 2.8 & 15/18 & 6.4 & 3/18 & 0.5 & 21 & 78 \\
+Wall angle & 9/9 & 129.0 & 4/18 & 0.6 & 5/18 & 0.5 & 420 & 366 \\
+Arm angle, cut & 9/9 & 47.2 & 17/18 & 3.0 & 9/18 & 1.0 & 48 & 1083 \\
+Cup depth & 9/9 & 34.6 & 18/18 & 10.2 & 7/18 & 0.5 & 21 & 43 \\
+Bottom dome, cut & 9/9 & 9.6 & 15/18 & 2.4 & 11/18 & 1.6 & 543 & 731 \\
+\midrule All & 63/63 & 34.6 & 105/126 & 4.3 & 51/126 & 0.7 & & \\
+\botrule
+\end{tabular}
+\footnotetext{ESR: effect-to-scatter ratio of two alternatives that differ in one factor; counts of contrasts with ESR\,$\geq$\,1 and median ESR. MRC: floor over the sensitivity of the alternative centres to blank-holder force, between 100 and 300\,kN (the stroke speed also changes) and between 300 and 500\,kN (same speed); the sensitivity is local.}
+\end{table}
+%% END GENERATED resolve
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\textwidth]{F1_alternatives}
+\caption{Centre and 5--95\,\% range of each characteristic per alternative; the black bar is the production floor}\label{fig:alternatives}
+\end{figure}
+
+\subsection{Simulation against production}\label{sec:res-sim}
+
+The nominal simulation misses production by far more than a floor (Table~\ref{tab:offsets}). Its median offset reaches 109 floors for the cup depth of the concave cup and 108 for the corner draw-in of the convex cup, and within one geometry the offset varies by 8.5 to 39 floors between alternatives. In units, the simulation overestimates the corner draw-in by about 3\,mm and the mid-side draw-in by 0.6--1.2\,mm and underestimates the wall angle by 1.0--1.2$^\circ$. Its blank-holder force effect on the draw-in is 2.6 to 5.1 times the measured one, which points to the friction model---a constant Coulomb coefficient where friction falls with contact pressure \citep{hol2012advanced}---and to the modelled blank-holder contact rather than to the solver. The signed comparison exposes a sign error that the decision scale hides: the cut arms of the concave cups bend upwards in every part and downwards in 89--100\,\% of the simulations, so their absolute values agree better than their physics. The offset of the cup depth, $-0.90$ to $-0.95$\,mm for all alternatives, is nearly constant and is consistent with a difference of reference---the shell mid-surface against the scanned surface, and the drawing depth of the model---rather than with forming physics. The simulated characteristics also carry extraction noise from the 1\,mm node spacing (Table~\ref{tab:simnoise}): 1.7--3.1 floors for the wall angle and 2.4--9.8 floors for the dome, which inflates the upper end of the simulation envelope of the dome by up to 21 floors.
+
+%% BEGIN GENERATED offsets
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{5pt}
+\caption{Offset between the parts' 95th percentile and the nominal simulation, in floors}\label{tab:offsets}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+ & \multicolumn{2}{c}{Concave} & \multicolumn{2}{c}{Convex} & \multicolumn{2}{c}{Matched, signed} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+Characteristic & Offset & Spread & Offset & Spread & Concave & Convex \\
+\midrule
+Draw-in, mid-side (mm) & $-$16 & 37 & $-$20 & 32 & $-$0.60 & $-$1.19 \\
+Draw-in, corner (mm) & $-$59 & 17 & $-$108 & 22 & $-$2.96 & $-$3.32 \\
+Flange waviness (mm) & 7 & 11 & 2 & 13 & +0.03 & $-$0.01 \\
+Wall angle ($^\circ$) & 16 & 19 & 12 & 13 & +1.20 & +1.03 \\
+Arm angle, cut ($^\circ$) & $-$27 & 39 & 1 & 15 & +4.26 & $-$0.04 \\
+Cup depth (mm) & $-$109 & 14 & $-$74 & 31 & $-$0.95 & $-$0.90 \\
+Bottom dome, cut (mm) & $-$28 & 22 & 10 & 9 & $-$0.04 & +0.06 \\
+\botrule
+\end{tabular}
+\footnotetext{Offset: median over the nine alternatives of a geometry of $(q_{95}-s_0)/F$, $s_0$ the nominal simulation, on the decision scale (absolute values for the arm angle and the dome); spread: its range over the alternatives. Matched, signed: median difference between the centre of the parts and of their matched simulations, in the characteristic's unit, with signs; the simulated arm angle of the concave cup has the opposite sign of the parts'.}
+\end{table}
+%% END GENERATED offsets
+
+\subsection{Decisions by evidence relation}\label{sec:res-decisions}
+
+Table~\ref{tab:distances} and Fig.~\ref{fig:decisions} score the twelve rules. The nominal simulation (M0) needs requirements 108 floors from the truth (bootstrap interval 101--115) before 95\,\% of its verdicts are right, and it errs mostly by rejecting adequate alternatives: its safe distance is 17 floors for false accepts but 109 for false rejects (Table~\ref{tab:onesided}). Reading the process-window simulation by its worst case (M0w) makes it neither safe nor decisive (94 and 119 floors), because the window does not contain the simulation's bias.
+
+\emph{A new variant with a produced sibling.} With the other eight alternatives of the family produced, every calibrated rule improves by an order of magnitude, and the simplest one is the most decisive: the nearest produced setting (NN), the mean $q_{95}$ of the two siblings at the same blank-holder force, is right beyond 3.4 floors (2.0--4.5) and at 10 floors decides every case correctly. The Gaussian process without the simulation (M5n) decides at 6.1 floors and is safe at 1.0, and with the simulation (M5) at 6.7 and 1.4. The interval rules are safe at or below 1.4 floors, but the envelope with the residual margin (M2) sends a third of the designs to trial at 10 floors and is decisive only at 23 floors. Bias-correcting the nominal simulation (M1, 15 floors) is worse than taking the median of the produced alternatives without it (M1n, 9.1), and calibrating the friction coefficient (Mc, 27 floors) is worse still.
+
+\emph{A new process setting.} When every alternative at the new design's blank-holder force is held out, all rules lose. The nearest produced setting is right beyond 8.5 floors (5.5--10.2) and the median of the produced alternatives beyond 10; the interval rules are decisive only at 13--18 floors and safe at 5.4--8.1 (M4 13/7.9, M2n 15/5.9, M2 18/8.1, M5 18/7.4, M5n 18/5.4; M3 32/16), and at 10 floors they send a fifth to a third of the designs to trial. Interpolating in force (300\,kN from 100 and 500\,kN) is much easier than extrapolating: the nearest setting decides at 4.7 against 9.5 floors, and M2 and M5 are safe at 2.7 and 2.9 against 9.9 and 8.9 floors.
+
+\emph{A new design family.} Calibrated only on the other geometry, every rule without the simulation fails (131--133 floors), because nothing in one family's production record describes the other. With the simulation, the bias correction decides at 35 floors, M5 at 38 and M3 at 48, and the envelope with its residual margin is the safest rule at 16 floors; no rule is safe closer than that. The simulation thus reduces the distance at which a new family can be decided from about 130 floors to 35--51, but not to a distance at which a design team would rely on it near the requirement.
+
+%% BEGIN GENERATED distances
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{3.5pt}
+\caption{Decisive and safe distances (floors) by the relation of the new design to the produced evidence}\label{tab:distances}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+ & New & \multicolumn{3}{c}{New process setting} & New \\
+\cmidrule(lr){3-5}
+Rule & variant & all & interpolation & extrapolation & family \\
+\midrule
+\multicolumn{6}{@{}l}{\emph{Simulation only}} \\
+M0 nominal simulation & 108 & 108 & 109 & 106 & 108 \\
+M0w process-window worst case & 119/94 & 119/94 & 119/94 & 119/77 & 119/94 \\
+\multicolumn{6}{@{}l}{\emph{Simulation and production record}} \\
+M1 bias-corrected & 15 & 24 & 11 & 25 & 35 \\
+Mc friction-calibrated & 27 & 39 & 14 & 40 & 38 \\
+M2 envelope + margin & 23/0.2 & 18/8.1 & 18/2.7 & 18/9.9 & 51/16 \\
+M3 simulation + boosting & 17/0.0 & 32/16 & 31/15 & 32/16 & 48/22 \\
+M5 GP correction & 6.7/1.4 & 18/7.4 & 19/2.9 & 18/8.9 & 38/30 \\
+\multicolumn{6}{@{}l}{\emph{Production record only}} \\
+M1n median & 9.1 & 10 & 4.8 & 12 & 131 \\
+NN nearest setting & 3.4 & 8.5 & 4.7 & 9.5 & 131 \\
+M2n median + margin & 19/0.0 & 15/5.9 & 13/0.0 & 16/9.1 & 132/129 \\
+M4 boosting & 11/0.6 & 13/7.9 & 15/8.5 & 13/7.6 & 133/128 \\
+M5n GP of $q_{95}$ & 6.1/1.0 & 18/5.4 & 16/1.3 & 18/8.5 & 131/131 \\
+\botrule
+\end{tabular}
+\footnotetext{Decisive/safe distance $\delta_\mathrm{d}/\delta_\mathrm{s}$ over all seven characteristics; one number for rules that always decide ($\delta_\mathrm{d}=\delta_\mathrm{s}$). New variant: a sibling at the same blank-holder force is produced (leave one alternative out within the family); new setting: all alternatives of one force are held out (interpolation at 300\,kN, extrapolation at 100 or 500\,kN); new family: calibration on the other geometry. 126 cases per rule (42 for interpolation, 84 for extrapolation). Intervals in Table~\ref{tab:distci}.}
+\end{table}
+%% END GENERATED distances
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{F3_decisions_compare}
+\caption{Verdict shares against the requirement distance $d$ (symmetric logarithmic axis, linear within $\pm10$ floors; 126 cases per point) for four rules and three evidence relations}\label{fig:decisions}
+\end{figure}
+
+\subsection{What the simulation and learning contribute}\label{sec:res-ml}
+
+Pairing each calibrated rule with its counterpart without the simulation isolates what the simulation adds (Table~\ref{tab:paired}). Within a family it adds nothing: the decisive distance of M5 differs from that of M5n by $+0.6$ floors (95\,\% interval 0.0 to $+1.6$), that of M2 from M2n by $+3.9$ ($+0.4$ to $+7.4$), and that of M1 from M1n by $+6.2$ ($+4.6$ to $+9.7$); for a new process setting the bias correction loses 13.5 floors by using the simulation, because the simulated force effect is too large. Only for a new family is the simulation decisive, by about 93 floors. Learning adds little over the nearest produced setting: within the family M5 is 3.3 floors less decisive than NN ($+2.1$ to $+5.1$) and 2 floors safer, and for a new setting 9.4 floors less decisive. The ranking between learners rests on their intervals rather than on their predictions: used as point rules, the centres of the M5, M5n and M4 intervals decide at 3.4, 2.8 and 4.8 floors within the family, close to the nearest produced setting (Table~\ref{tab:coverage}). The part-level models keep their ranking under other learners and settings, including quantile-loss boosting and settings selected by an inner leave-one-out (Table~\ref{tab:tuning}).
+
+The intervals are calibrated only where the calibration alternatives are exchangeable with the new design (Table~\ref{tab:coverage}). Within the family the residual margin of M2 covers the true $q_{95}$ in 88.9\,\% of the cases---exactly the $n/(n+1)=8/9$ that eight residuals attain---and the part-level jackknife of M3 in 93\,\%; the Gaussian-process intervals cover 71--72\,\% although their nominal level is 90\,\%, and they are narrow (1.1--1.2 floors in half-width) because the fits interpolate: the noise level sits at its lower bound in 35--38\,\% of the fits and a length scale at a bound in 28--48\,\% (Table~\ref{tab:gp}). For a new setting every calibrated interval covers only 39--56\,\%, and for a new family the Gaussian processes cover none, M2 47\,\% and M3 40\,\%. What a designer observes for a single verdict is the margin between the predicted interval and the requirement. With requirements spread over the 20 floors around the truth, the share of correct verdicts among the decided ones grows with that margin for a new variant and a new setting---for the nearest produced setting from 86\,\% at any margin to 95\,\% beyond 5 floors and 99\,\% beyond 10 for a new setting---but not for a new family, where M5 is right in 72--75\,\% of its decided verdicts whatever the margin. The observed margin is a guide to a verdict only where the rule is calibrated for the evidence relation.
+
+\subsection{Calibration budget and calibration design}\label{sec:res-budget}
+
+Figure~\ref{fig:budget} and Table~\ref{tab:design} show how the distances depend on the number of produced alternatives of the family and on how the new design relates to them. A single produced sibling decides: with one alternative at the new design's force, the bias correction, the residual-margin rule and the nearest setting all decide at 3.5 floors (2.3--4.6) without a wrong verdict at 10 floors, and further alternatives do not improve the nearest setting. They make the bias correction worse (12--18 floors), because the offsets of other forces dilute the sibling's, and the interval rules safer but not more decisive: M2 becomes safe at 0.2--2.2 floors and decisive at 15--23. Without a sibling, bracketing the new force buys safety but not decisiveness: with produced alternatives on both sides, M2, M5 and M5n are safe at 0.5--4.8 floors, M2 and M5n are never wrong at 10 floors and M5 in under 0.5\,\%, but they decide only at 15--25 floors, while the nearest setting decides at 4.7--6.0 floors. Extrapolation stays unsafe at every budget: no rule is safe closer than 8.5 floors, and at 10 floors 2--13\,\% of the verdicts of the interval rules and the nearest setting are wrong, and 26--28\,\% of those of the bias correction. Averaged over all subsets, the distances shrink with the number of produced alternatives mainly because the share of subsets that contain a sibling grows, from 46\,\% of the cases with two alternatives to 96\,\% with six; what a produced alternative is worth depends on its relation to the designs to come.
+
+%% BEGIN GENERATED design
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{3pt}
+\caption{Calibration design: distances and wrong verdicts at 10 floors by the relation of the new design to the produced alternatives}\label{tab:design}
+\begin{tabular}{@{}llrrrrrrrr@{}}
+\toprule
+Relation & Rule & \multicolumn{2}{c}{$k=1$} & \multicolumn{2}{c}{$k=2$} & \multicolumn{2}{c}{$k=4$} & \multicolumn{2}{c}{$k=6$} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+ & & $\delta_\mathrm{d}/\delta_\mathrm{s}$ & wrong & $\delta_\mathrm{d}/\delta_\mathrm{s}$ & wrong & $\delta_\mathrm{d}/\delta_\mathrm{s}$ & wrong & $\delta_\mathrm{d}/\delta_\mathrm{s}$ & wrong \\
+\midrule
+sibling & M1 & 3.5 & 0 & 12 & 7 & 17 & 14 & 18 & 15 \\
+sibling & M2 & 3.5/3.5 & 0 & 15/2.2 & 0 & 23/1.0 & 0 & 23/0.5 & 0 \\
+sibling & M5 & -- & -- & 14/1.6 & 0 & 7.3/2.1 & 0 & 7.1/1.6 & 0 \\
+sibling & NN & 3.5 & 0 & 3.5 & 0 & 3.4 & 0 & 3.4 & 0 \\
+interpolation & M1 & -- & -- & 11 & 8 & 13 & 15 & 11 & 9 \\
+interpolation & M2 & -- & -- & 15/4.8 & 0 & 25/3.8 & 0 & 18/2.7 & 0 \\
+interpolation & M5 & -- & -- & 19/3.7 & 0 & 22/3.3 & 0 & 19/2.9 & 0 \\
+interpolation & NN & -- & -- & 5.0 & 0 & 5.3 & 0 & 4.7 & 0 \\
+extrapolation & M1 & 29 & 26 & 25 & 28 & 25 & 28 & 25 & 28 \\
+extrapolation & M2 & 15/15 & 13 & 15/11 & 8 & 20/9.3 & 4 & 18/9.9 & 4 \\
+extrapolation & M5 & -- & -- & 18/11 & 7 & 19/9.0 & 3 & 18/8.9 & 3 \\
+extrapolation & NN & 11 & 8 & 10 & 6 & 9.5 & 4 & 9.5 & 4 \\
+\botrule
+\end{tabular}
+\footnotetext{All subsets of $k$ produced alternatives of the family. Sibling: the subset holds an alternative at the new design's force; interpolation: no sibling, forces on both sides; extrapolation: no sibling, the new force outside. Wrong: share of wrong verdicts at $|d|=10$ (\%). M5 from $k=2$; interpolation needs at least two alternatives.}
+\end{table}
+%% END GENERATED design
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{F4_budget}
+\caption{Decisive and safe distances against the number of produced alternatives of the family, by the relation of the new design to them; bands: 95\,\% intervals over the held-out alternatives}\label{fig:budget}
+\end{figure}
+
+\subsection{Applicability guard}\label{sec:res-guard}
+
+A guard is useful only where it can fire, which within this design means a new process setting and a new family (Table~\ref{tab:guard}). For a new setting the range guard refuses exactly the extrapolated forces, the 84 of 126 cases whose distances are largest, and among the interpolated cases it lets through, M2, M5 and the nearest setting are never wrong at 10 floors. The novelty guard, which compares the simulated $q_{95}$ of the new design with the calibration range, also refuses 84 cases but not the same ones; among the 80 verdicts it lets through, M2 and M5 are wrong twice and the nearest setting never, but 72--96\,\% of the verdicts it refuses would have been correct. For a new family the family and range guards refuse everything. The novelty guard lets 12 of 126 cases through, all of them mid-side draw-in or waviness, and among their 24 verdicts at 10 floors M5 is wrong in 6 (25\,\%) and M1 in 6, whereas M2 is never wrong and sends 12 to trial. A guard on the simulated value therefore protects a rule only as far as the rule's own interval does.
+
+%% BEGIN GENERATED guard
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{3.5pt}
+\caption{Applicability guards: distances and wrong verdicts among the cases a guard lets through}\label{tab:guard}
+\begin{tabular}{@{}llrrrrrrr@{}}
+\toprule
+ & & & \multicolumn{2}{c}{M2} & \multicolumn{2}{c}{M5} & \multicolumn{2}{c}{NN} \\
+\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}
+Scope & Guard & Guarded & $\delta_\mathrm{d}/\delta_\mathrm{s}$ & wrong & $\delta_\mathrm{d}/\delta_\mathrm{s}$ & wrong & $\delta_\mathrm{d}$ & wrong \\
+\midrule
+New setting & none & 0 & 18/8.1 & 6/239 & 18/7.4 & 4/239 & 8.5 & 6/239 \\
+ & range & 84 & $\infty$/0.0 & 0/80 & $\infty$/0.9 & 0/80 & $\infty$ & 0/80 \\
+ & novelty & 84 & $\infty$/0.0 & 2/80 & $\infty$/0.1 & 2/80 & $\infty$ & 0/80 \\
+New family & none & 0 & 51/16 & 23/239 & 38/30 & 47/239 & 131 & 106/239 \\
+ & range & 126 & $\infty$/0.0 & 0/0 & $\infty$/0.0 & 0/0 & $\infty$ & 0/0 \\
+ & novelty & 114 & $\infty$/0.0 & 0/24 & $\infty$/0.0 & 6/24 & $\infty$ & 6/24 \\
+\botrule
+\end{tabular}
+\footnotetext{Guarded: cases (of 126) sent to trial. Range guard: geometry not calibrated or blank-holder force outside the calibrated range; novelty guard: simulated $q_{95}$ outside the range of the calibration alternatives. Wrong: wrong verdicts at $|d|=10$ among the verdicts the guard lets through. The family guard equals the range guard for a new family and never fires for a new setting.}
+\end{table}
+%% END GENERATED guard
+
+\subsection{Requirements from general tolerances}\label{sec:res-scenarios}
+
+Requirements from the angular classes of ISO~2768-1 \citep{iso1989tolerances}, applied to the wall angle against its design angle and to the arm angle against flat with the row for the shorter leg of each, turn the verdicts into concrete design decisions (Table~\ref{tab:scenarios}). Of the 108 decisions, 69 concern an alternative that fails its limit, and the limit lies within 5 floors of the truth in 32 and within 10 floors in 55; deciding the worst side of a part instead of the mean of its sides would change the truth in 12 of them, since a general tolerance applies to every feature. For a new variant the nearest produced setting decides all 108 correctly and M5 93\,\%, with no false accept; within 5 floors of the limit, M5 is right in 75\,\% and sends the rest to trial, M2 is right in 25\,\%, and the bias-corrected simulation accepts three of the six failing alternatives there. For a new process setting the nearest setting is right in 97\,\% and the Gaussian process without the simulation in 92\,\%, whereas M5 and M2 send 22--25\,\% to trial and falsely accept 4\,\% of the failing alternatives. For a new family M5 is right in 68\,\% but rejects 46\,\% of the adequate alternatives and accepts 9\,\% of the failing ones; M2 never accepts a failing alternative but sends 39\,\% to trial. With a false reject costing half a false accept, the cheapest rule per decision is the nearest produced setting for a new variant at any trial cost, the interval rules without the simulation (M2n, M4 and M5n, tied) for a new setting while a trial costs at most a tenth of a false accept and the nearest setting from a fifth, and for a new family M2 up to a tenth and M5 from a fifth. A drawing of a deep-drawn part would normally carry profile and position tolerances to datums \citep{iso2017tolerancing, iso2021general}, which the data do not allow to evaluate; the general tolerances serve as requirements with realistic margins.
+
+%% BEGIN GENERATED scenarios
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{2.4pt}
+\caption{Verdicts against requirements from general angular tolerances (ISO 2768-1)}\label{tab:scenarios}
+\begin{tabular}{@{}lrrrrrrrrrrrr@{}}
+\toprule
+ & \multicolumn{4}{c}{New variant (\%)} & \multicolumn{4}{c}{New setting (\%)} & \multicolumn{4}{c}{New family (\%)} \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}\cmidrule(lr){10-13}
+Rule & right & ${<}5$ & FA & trial & right & ${<}5$ & FA & trial & right & ${<}5$ & FA & trial \\
+\midrule
+M0 & 61 & 69 & 39 & 0 & 61 & 69 & 39 & 0 & 61 & 69 & 39 & 0 \\
+M1 & 83 & 62 & 9 & 0 & 75 & 53 & 13 & 0 & 61 & 62 & 30 & 0 \\
+M2 & 67 & 25 & 0 & 33 & 72 & 38 & 4 & 25 & 44 & 47 & 0 & 39 \\
+M5 & 93 & 75 & 0 & 7 & 75 & 44 & 4 & 22 & 68 & 56 & 9 & 10 \\
+NN & 100 & 100 & 0 & 0 & 97 & 91 & 0 & 0 & 31 & 44 & 65 & 0 \\
+M5n & 94 & 78 & 0 & 6 & 92 & 72 & 0 & 8 & 31 & 44 & 62 & 2 \\
+\botrule
+\end{tabular}
+\footnotetext{Wall and arm angle, classes f/m, c and v, 18 alternatives: 108 decisions per rule and scope, 69 with a failing alternative and 32 with the limit within 5 floors of the truth. right: correct verdicts; ${<}5$: correct verdicts among the decisions within 5 floors; FA: false accepts among the failing alternatives; trial: sent to trial.}
+\end{table}
+%% END GENERATED scenarios
+
+\subsection{Robustness}\label{sec:res-robust}
+
+Table~\ref{tab:robust} repeats the analysis under variants of the data, the constants and the Gaussian-process specification. The variants rescale the distances but leave the conclusions in place: in every variant that includes it, the nearest produced setting remains the most decisive rule for a new variant and a new setting and M2 the safest for a new family, and the rules without the simulation fail for a new family (91 floors or more); only rules within a few floors of each other change places, such as M1, M5 and Mc for a new family. Correcting every characteristic for the punch temperature changes the pooled floors by $-14$ to $+4$\,\% and the distances of the calibrated rules by at most 2.6 floors. Smoothing the simulation removes its extraction noise but not its bias: M5 is unchanged within the family and the envelope rule becomes less safe for a new family (25 instead of 16 floors). Deciding on the 90th or 99th percentile instead of the 95th moves no distance by more than 1.7 floors. Floors from batches of 25 or 100 parts rescale the distances by factors of 0.80--0.96 and 0.97--1.16, and floors at the 90\,\% or 99\,\% quantile by 1.16--1.46 and 0.54--0.83. Requiring 90\,\% or 99\,\% correct verdicts instead of 95\,\% shortens the decisive distances by up to 43\,\% (within the family) or lengthens them by up to 93\,\% (for a new setting), as an operating characteristic should. The Gaussian-process variants---a Mat\'ern kernel, a linear trend, one-hot lubrication, a floor on the length scales and the first specification without the noise floor---keep M5 at 6.4--6.9 floors for a new variant and 17.7--18.9 for a new setting. Leaving out one lubrication pattern behaves like a new variant (nearest setting 3.4, M5 6.4/1.1 floors), because the siblings at the same force remain. Refitting every rule on resampled calibration sets widens the intervals, most for the Gaussian processes (M5 for a new variant: 5.0--18.6 floors, against 2.2--7.0 for the nearest setting), whose fits on calibration sets with repeated alternatives are unstable. Replacing each part's oil film by its pattern's median makes M3 less decisive (33 instead of 17 floors), and a conformalised Gaussian process (M6), the M5 mean with a margin on standardised leave-one-out residuals, is safe at 0.4 floors within the family but decisive only at 39: it buys safety for the over-confident Gaussian-process intervals at the cost of decisiveness.
+
+%% BEGIN GENERATED robust
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{2.6pt}
+\caption{Decisive/safe distances (floors) under the robustness variants}\label{tab:robust}
+\begin{tabular}{@{}lrrrrrrrrr@{}}
+\toprule
+ & \multicolumn{4}{c}{New variant} & \multicolumn{3}{c}{New setting} & \multicolumn{2}{c}{New family} \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-8}\cmidrule(lr){9-10}
+Variant & M1 & M2 & M5 & NN & M2 & M5 & NN & M2 & M5 \\
+\midrule
+Reference & 15 & 23/0.2 & 6.7/1.4 & 3.4 & 18/8.1 & 18/7.4 & 8.5 & 51/16 & 38/30 \\
+Temperature-adjusted & 15 & 23/0.1 & 6.5/1.4 & 3.4 & 17/7.6 & 19/7.1 & 9.4 & 48/15 & 36/30 \\
+Smoothed simulation & 15 & 25/0.3 & 6.6/1.4 & 3.4 & 18/7.6 & 19/7.2 & 8.5 & 49/25 & 34/30 \\
+Adequacy share 0.90 & 15 & 23/0.2 & 6.7/1.6 & 3.3 & 18/7.5 & 18/7.0 & 8.4 & 51/15 & 38/31 \\
+Adequacy share 0.99 & 15 & 23/0.0 & 7.2/1.7 & 3.3 & 18/8.3 & 20/7.1 & 8.7 & 51/16 & 38/30 \\
+Floor: batches of 25 & 13 & 21/0.2 & 6.0/1.2 & 2.9 & 16/6.9 & 16/6.9 & 7.7 & 43/14 & 30/25 \\
+Floor: batches of 100 & 16 & 24/0.2 & 7.6/1.5 & 3.5 & 19/8.5 & 20/7.8 & 8.9 & 57/17 & 44/31 \\
+Floor: 90\,\% quantile & 19 & 31/0.2 & 8.3/1.7 & 4.0 & 21/10 & 22/8.6 & 10 & 61/20 & 44/37 \\
+Floor: 99\,\% quantile & 10 & 14/0.1 & 4.7/1.0 & 2.4 & 11/4.4 & 13/4.5 & 5.7 & 37/11 & 28/17 \\
+Target 90\,\% & 12 & 17/0.0 & 5.2/0.5 & 1.9 & 16/5.2 & 17/4.8 & 5.4 & 45/9.6 & 22/19 \\
+Target 99\,\% & 20 & 28/1.4 & 11/5.2 & 5.1 & 27/11 & 34/11 & 11 & 60/28 & 59/35 \\
+Interval level 0.80 &  & 23/0.2 & 6.0/1.6 &  & 18/8.1 & 16/8.1 &  & 50/17 & 37/30 \\
+Interval level 0.95 &  & 23/0.2 & 7.4/1.0 &  & 18/8.1 & 20/6.4 &  & 51/16 & 38/29 \\
+GP: Mat\'ern 5/2 &  &  & 6.4/1.1 &  &  & 19/6.8 &  &  & 38/30 \\
+GP: linear trend &  &  & 6.7/1.4 &  &  & 19/6.3 &  &  & 38/30 \\
+GP: one-hot lubrication &  &  & 6.8/2.2 &  &  & 18/6.9 &  &  & 34/32 \\
+GP: length-scale floor &  &  & 6.9/1.2 &  &  & 18/6.5 &  &  & 38/29 \\
+GP: no noise floor &  &  & 6.7/1.5 &  &  & 18/7.4 &  &  & 38/30 \\
+Leave one pattern out & 15 & 22/0.3 & 6.4/1.1 & 3.4 & & & & & \\
+\midrule Refit bootstrap, $\delta_\mathrm{d}$ & 14--31 & 19--28 & 5.0--19 & 2.2--7.0 & 16--27 & 17--23 & 5.4--14 &  & \\
+\botrule
+\end{tabular}
+\footnotetext{Alternative-level rules refitted for every variant; empty cells: the variant does not affect the rule. Smoothed simulation: nominal value and envelope from a quadratic response surface over thickness and friction. Floor variants rescale the distances with other floors. Leave one pattern out: columns M1, M2, M5 and NN of the first block. Refit bootstrap: 95\,\% interval of the decisive distance when the alternatives of each geometry are resampled and every rule is refitted (200 resamples).}
+\end{table}
+%% END GENERATED robust
+
+%% ----------------------------------------------------------------------
+\section{Discussion}\label{sec:discussion}
+
+\subsection{What the evaluation establishes}
+
+Five findings answer the three research questions beyond the particular numbers. First (RQ1), production has a resolution, and the floor makes decision fitness comparable across characteristics and predictors: it is set by drift within a run rather than by the scatter of single parts or by the measurement, the decided percentile reproduces to about one floor, and the distances of very different rules can be read on one scale. It is a lower bound for series production, since separate runs of one design may differ by several floors more. Second (RQ2), the relation of a new design to the produced evidence governs decision fitness more than the model does. With a produced sibling, the best rules calibrated on production decide within a few floors; for a new process setting no rule decides closer than 8.5 floors, and extrapolating in force doubles the decisive distance of the nearest produced setting and more than triples the safe distances of M2 and M5; for a new family no rule is safe closer than 16 floors. Third, production evidence buys safety before decisiveness: interval rules become safe with few produced alternatives that bracket the new design but remain indecisive, and only near-replicates make them decisive (Section~\ref{sec:res-budget}). Fourth, interval rules trade abstention for safety, the two distances make the trade explicit, and the nominal level of an interval is reached only where the calibration alternatives are exchangeable with the new design. Fifth (RQ3), in this data regime the simulation's contribution is confined to a new family, and learned models add calibrated abstention rather than accuracy over the nearest produced setting.
+
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{4pt}
+\caption{Guidance for design-stage manufacturability decisions}\label{tab:guidelines}
+\begin{tabular}{@{}L{4.1cm}L{8.1cm}@{}}
+\toprule
+\multicolumn{2}{@{}l}{\emph{From the framework (general)}} \\
+Before trusting a predictor & Measure the floor on consecutive production of the family and report it with its protocol; treat it as a lower bound of series variation. \\
+Qualifying a rule & Evaluate it for the evidence relation of the coming designs (grouped cross-validation), not by leave-one-out over variants that production cannot tell apart. \\
+Choosing a rule & Compare every simulation- or learning-based rule with the nearest produced setting and with its own version without the simulation; keep it only where it is closer or safer. \\
+Fixing a requirement & If the expected margin to the capability is below the safe distance of the best qualified rule, plan a trial or further production evidence. \\
+Planning production evidence & Produce variants that bracket the settings of the coming designs; near-replicates make decisions easy but do not inform new settings. \\
+A new design family & Use the simulation for gross margins only; send decisions near the requirement to trial. \\
+\multicolumn{2}{@{}l}{\emph{Observed on this dataset (18 alternatives, 2 geometries, 7 characteristics)}} \\
+Nominal simulation & reliable beyond about 108 floors; errs mostly by false rejects \\
+New variant with a produced sibling & nearest produced setting right beyond 3.4 floors; calibrated interval rules safe at or below 1.4 floors \\
+New process setting & nearest produced setting right beyond 8.5 floors (interpolation 4.7, extrapolation 9.5); margin and Gaussian-process rules safe at 5.4--8.1 floors \\
+New family (two calibrations) & best rule safe at 16 floors; rules without the simulation fail \\
+Changes below the minimum resolvable change & invisible in the batch centres; they may still matter in the tail of a characteristic \\
+\botrule
+\end{tabular}
+\end{table}
+
+\subsection{Using the framework in design}
+
+Table~\ref{tab:guidelines} separates guidance that follows from the framework and plausibly holds elsewhere from observations on this dataset, with their evidence base. The general guidance turns the distances into planning questions. Before a requirement is fixed, the expected margin between the requirement and the capability of the design can be compared with the safe distance of the best rule qualified for the evidence relation of that design; if the margin is smaller, no design-stage decision can be trusted and a trial or further production evidence has to be planned. For a single verdict, the margin between the predicted interval and the requirement is what a designer observes, and it is informative only where the rule is calibrated for the relation (Section~\ref{sec:res-ml}). Which rule to prefer then depends on the costs: with the realistic margins of general tolerances, a rule that always decides was cheapest where it was accurate, and an interval rule where a false accept is expensive relative to a trial.
+
+\subsection{Where simulation and machine learning help}
+
+The question the call for this collection poses about learning from manufacturing data receives a sober answer here. Within a design family, the production record carries the decision: the nearest produced setting is the most decisive rule, and adding the simulation to a calibrated rule does not improve it and, for the bias correction, makes it worse, because the simulation's process trends---the effect of blank-holder force above all---are not credible. A physically motivated calibration of the friction coefficient did not repair this, which points to the friction law and the blank-holder model rather than to a parameter. Learning models, a Gaussian process or gradient boosting with or without the simulation, predict about as well as the nearest produced setting; what they add is an interval, which makes a rule safe where the calibration alternatives are exchangeable with the new design and over-confident where they are not. The simulation is indispensable only for a new family, where nothing in the production record of another family carries over, but even there it supports decisions only at margins that a design team would not need a model for. A model's interval is a statement about the model; the safe distance for the evidence relation is a statement about production. For the evaluation of AI-based DFM support this means that accuracy on held-out data is not enough: a learned model should be compared with a production-record baseline and scored by evidence relation, in a unit that production defines.
+
+\subsection{Implications for design research}
+
+The framework gives three constructs of design research a production-referenced measure. The safe distance of a rule for an evidence relation is the margin a design team has to keep between a prediction and a requirement for the verdict to be trusted, and so puts a number on what design margins are for \citep{eckert2019design, brahma2020margin}. The two distances decide when a test is cheaper than a decision, the trade at the core of testing strategies \citep{thomke2001sequential, salado2018mathematical}, and the calibration budget turns the production of variants into a planned verification activity. And they show how far simulation front-loads a decision \citep{thomke2000effect}: only as far as its distance for the relation at hand. In the terms of the design research methodology \citep{blessing2009drm}, the evaluation reported here establishes that the framework discriminates between rules and evidence situations on real production data---its empirical performance validity in the sense of the validation square \citep{seepersad2006validation}---while its use by design teams, and the success criteria that would link the distances to fewer trials or late changes, remain to be evaluated.
+
+\subsection{Applying the framework elsewhere}
+
+The framework needs four things: several produced variants of a design family, each with a series of consecutive parts or replicated batches of one design from which the floor can be measured; variants whose relations to each other span the relations of the coming designs; a design-stage predictor for every variant, which may be a simulation, a surrogate or the production record itself; and characteristics that can be measured identically on parts and predictions. None is specific to forming. An attempt to apply it to an open dataset of powder bed fusion of PA12 \citep{leirmo2021data} showed what the first condition demands: grouping the specimens by orientation class would have mixed several orientations in a batch, and only eight identical anchor specimens per build replicate one design. Two-sided requirements follow from the absolute deviation from the target, as for the arm angle and the dome; requirements on a high conformance share are scored in the same way as long as the series estimates the quantile, and need a parametric tail beyond it.
+
+\subsection{Threats to validity}
+
+The evaluation covers one material, one press and two geometries, and the relations within a family come from a $3\times3$ factorial in which one factor, lubrication, is mostly not resolved; the procedure is general, the numbers are not. The new family rests on two calibrations. Each alternative was produced once, so the floor covers drift within a run but not between days, coils or tool states; the quasi-replicate series bound that variation from above at 1.2--9.8 floors. No gauge study or acceptance test of the scanner \citep{vdi2012optical, iso2021measurement} was available: the redundancy of the scans bounds the independent measurement noise, but a drift of the scanner cannot be separated from that of the process, and systematic scan errors and differences of reference surface enter the absolute offsets of the simulation, though not the floors and effects. The simulated characteristics carry extraction noise of up to several floors, and the documentation of the simulation leaves the material model open. The blank-holder force of 100\,kN ran at a slower stroke. Lubrication is a pattern whose oil amount varies between series. The requirements are one-sided limits on the 95th percentile of a characteristic averaged over sides, the scenario covers two angles, and the reference $q_{95}$ has a standard error of about 0.1 floor. Several rules, the grouped schemes and the estimator were added after the first results had been seen and are evaluated on the same data, so the comparison between rules carries selection optimism \citep{cawley2010over}; the analysis was carried out by a single analyst, with code and data open for replication.
+
+%% ----------------------------------------------------------------------
+\section{Conclusions}\label{sec:conclusion}
+
+Design-stage manufacturability decisions can be evaluated against production, in a unit that production defines. The production floor---the difference that drift and scatter produce between two batches of one design---expresses the fitness of any predictor for a decision independently of the predictor and the characteristic, and the decisive and safe distances, read as operating characteristics, tell how close to a requirement a rule decides and how close it can be trusted not to mislead.
+
+On 18 deep-drawn design--process alternatives with matched simulations, the relation of a new design to the produced evidence governed decision fitness more than the model did. With a produced sibling the production record decided within a few floors, for a new process setting no rule decided closer than 8.5 floors, and for a new family no rule was safe closer than 16 floors. The simulation contributed only to the new family; learned models matched the nearest produced setting in accuracy and added calibrated abstention where the calibration alternatives resembled the new design.
+
+Four extensions follow: series produced on several days, coils and tool states, so that the floor covers variation between runs; design families with continuous geometric descriptors, so that new designs can be placed between produced ones; a cost model that turns the distances into decisions on trials and margins; and an evaluation of the procedure with design teams. The released code, which reproduces every result from the public data, is the starting point for all four.
+
+\FloatBarrier
+\backmatter
+
+\bmhead{Acknowledgements}
+The author thanks the authors of the RDDAC and DDACS datasets at the University of Stuttgart for publishing the data on which this work rests.
+
+\section*{Declarations}
+
+\bmhead{Funding}
+No specific funding was received for this work.
+
+\bmhead{Competing interests}
+The author declares no competing interests.
+
+\bmhead{Ethics approval and consent}
+Not applicable.
+
+\bmhead{Data availability}
+All data are public. RDDAC: doi:10.18419/DARUS-5589 (version 2.0); DDACS: doi:10.18419/DARUS-4801 (version 3.0); both licensed CC BY 4.0. The extracted per-part and per-simulation feature tables are provided with the code.
+
+\bmhead{Code availability}
+The complete analysis pipeline is released under an open licence at \url{https://github.com/htcanseven/Claude} (directory \texttt{scripts/}; an archived release with a DOI will be deposited on Zenodo at acceptance) and reproduces every number in this paper from the public data.
+
+\bmhead{Author contributions}
+H.T.C. conceived the method, designed and carried out the analysis, and wrote the paper.
+
+\bmhead{Use of generative AI}
+A large language model (Claude, Anthropic) was used under the author's direction as an assistant for code development, literature retrieval, data analysis and drafting and editing of the text. The author designed the study, verified all analyses, checked every reference against its published record, and takes full responsibility for the content. No AI-generated images are used; all figures are produced by the released code from the data.
+
+%% ----------------------------------------------------------------------
+\begin{appendices}
+
+\section{Computation details and additional tables}\label{app:appendix}
+
+\subsection{Computation details}\label{app:computation}
+
+\emph{Feature extraction.} Scans are reduced to a grid of 2$\times$4-pixel medians after a luminescence filter (connected components of at least 20,040 pixels); calibration 0.0769\,mm per pixel across the scan line, 0.1581\,mm per line and 0.00775\,mm per height unit. The cup-bottom plane is fitted robustly to the plateau at least 10\,mm inside its edge, and all depths are taken from it. The flange comprises the points 20--40\,mm below the bottom plane, at least 8\,mm from the cup wall and 3\,mm from the outer edge. Wall positions are interpolated where the binned (0.5\,mm) radial profile reaches 10, 15 and 20\,mm depth; the wall angle is taken between 10 and 20\,mm. The arm angle is fitted to the longest run of the profile whose slope stays below 15$^\circ$, shortened by 1\,mm at both ends and at least 4\,mm long. Flange widths are medians over bands $\pm$2\,mm about the mid-lines; corner tips are the outline points within 0.3\,mm of the extreme diagonal projection. Simulated parts are mirrored from the quarter model and processed with the same definitions on a 1\,mm grid.
+
+\emph{Floors and effects.} Batches of $B=50$ consecutive parts; batches with fewer than 80\,\% valid values are dropped; centres are 10\,\% trimmed means; $\alpha=0.95$. Intervals: 2000 resamples of the batches within alternatives (seed 1), pairs of copies of one batch excluded, and 2000 resamples of whole alternatives. Scatter floor: 50 random permutations of the parts within each series. Components: rational subgroups of five consecutive parts; successive-difference standard deviation $\sqrt{\overline{\Delta^2}/2}$.
+
+\emph{Decision rules.} Adequacy share $p=0.95$; per-geometry floors; requirements below zero are left out for these non-negative characteristics. The largest-residual margin is the $\lceil (n+1)\cdot 0.9\rceil$-th smallest absolute residual of $n$ calibration alternatives, the largest when this exceeds $n$. M5 and M5n: Gaussian-process regression with a constant times anisotropic squared-exponential kernel plus white noise, normalised targets, three optimiser restarts (random state 0), length scales in $[0.1, 100]$; the noise level is bounded below by the mean squared block-bootstrap standard error of the calibration alternatives' $q_{95}$ relative to the variance of the targets; descriptors are a convex-geometry indicator, the blank-holder force in units of 100\,kN and the lubrication rank (coarse 0, medium 1, fine 2, the order of the oil amount), with descriptors that are constant over the calibration set dropped. NN: mean $q_{95}$ of the calibration alternatives of the target's geometry at the nearest blank-holder force (both neighbours when equally near; the other geometry when the family has none). Mc: for each lubrication pattern, the friction coefficient of the DDACS grid at 0.99\,mm whose simulated mid-side and corner draw-in, in floors, are closest in least squares to the centres of the calibration alternatives with that pattern (all calibration alternatives if none has it). M3 and M4: histogram gradient boosting (maximum depth 3, 200 iterations, learning rate 0.08, random state 0) on the geometry indicator, blank-holder force, two lubrication indicators, sheet thickness and oil film; 500 incoming conditions are drawn for the new alternative from calibration parts with the same lubrication pattern, with in-sample residuals pooled over the calibration alternatives resampled; offset and margin from a leave-one-out over the calibration alternatives.
+
+\emph{Distances and intervals.} The shares of correct and wrong verdicts are evaluated exactly on a grid of 0.05 floors up to 600 floors. Intervals: 1000 resamples of the held-out alternatives within each geometry (seeds derived from the scope), each with one of 1000 block-bootstrap replicates of every alternative's $q_{95}$ (batches of 50 resampled within the series); the resamples are shared by all rules of a scope. Refitting bootstrap: 200 resamples of the alternatives within each geometry, every alternative-level rule refitted.
+
+\emph{Budget, guard, scenarios, robustness.} The budget uses all subsets of $k=1,\dots,8$ calibration alternatives of the family (M5 and M5n from $k=2$), bands from 200 resamples of the held-out alternatives. The guards and the tolerance scenarios use the stored intervals of every rule. ISO~2768-1 angular rows by the shorter leg: the wall (about 28\,mm) and the concave arm (about 18\,mm) over 10 up to 50\,mm, the convex arm (about 9\,mm) up to 10\,mm. The temperature correction subtracts $b\,(T-\bar T_a)$ from each characteristic, with $b$ the pooled within-alternative slope on the punch temperature $T$. The smoothed simulation replaces the simulated values of each geometry and force by a quadratic response surface in sheet thickness and friction coefficient.
+
+\emph{Software.} Python 3.11 with NumPy 2.4, pandas 3.0, SciPy 1.17, scikit-learn 1.9 \citep{pedregosa2011scikit} and Matplotlib 3.11.
+
+\subsection{Additional tables}\label{app:tables}
+
+Table~\ref{tab:distci} gives the bootstrap intervals of the decisive and safe distances, Table~\ref{tab:onesided} the one-sided safe distances, Table~\ref{tab:coverage} the coverage and width of the interval rules, Table~\ref{tab:paired} the paired differences between rules, Table~\ref{tab:qcdist} the distances per characteristic, Table~\ref{tab:tuning} the part-level rules under other learners, Table~\ref{tab:gp} the hyperparameters of the Gaussian-process fits, Table~\ref{tab:scan} the redundancy of the scans and Table~\ref{tab:simnoise} the extraction noise of the simulations. Two analyses are provided with the code but not used here: the sensitivities of the simulation over the geometric corners of the simulation dataset, which have no production counterpart, and the in-line verifiability of the characteristics from the press-force record.
+
+%% BEGIN GENERATED distci
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{4pt}
+\caption{Bootstrap 95\,\% intervals of the decisive and safe distances (floors)}\label{tab:distci}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+ & \multicolumn{2}{c}{New variant} & \multicolumn{2}{c}{New setting} & \multicolumn{2}{c}{New family} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+Rule & $\delta_\mathrm{d}$ & $\delta_\mathrm{s}$ & $\delta_\mathrm{d}$ & $\delta_\mathrm{s}$ & $\delta_\mathrm{d}$ & $\delta_\mathrm{s}$ \\
+\midrule
+M0 & 101--115 & 101--115 & 101--115 & 101--115 & 101--115 & 101--115 \\
+M0w & 118--119 & 77--100 & 118--119 & 77--100 & 118--119 & 77--100 \\
+M1 & 12--18 & 12--18 & 21--25 & 21--25 & 33--37 & 33--37 \\
+Mc & 24--29 & 24--29 & 34--40 & 34--40 & 36--45 & 36--45 \\
+M2 & 22--23 & 0.0--0.7 & 17--18 & 6.4--9.9 & 50--52 & 14--23 \\
+M3 & 16--21 & 0.0--0.3 & 25--34 & 14--17 & 43--50 & 18--23 \\
+M5 & 6.1--7.6 & 0.4--3.5 & 18--20 & 5.3--8.9 & 35--38 & 27--32 \\
+M1n & 5.5--10 & 5.5--10 & 9.0--12 & 9.0--12 & 129--131 & 129--131 \\
+NN & 2.0--4.5 & 2.0--4.5 & 5.5--10 & 5.5--10 & 129--131 & 129--131 \\
+M2n & 15--21 & 0.0--0.7 & 15--16 & 3.3--9.3 & 131--133 & 127--129 \\
+M4 & 9.7--12 & 0.0--1.6 & 12--15 & 5.7--9.2 & 132--133 & 127--129 \\
+M5n & 5.3--6.6 & 0.4--2.6 & 17--18 & 3.7--9.0 & 130--132 & 129--131 \\
+\botrule
+\end{tabular}
+\footnotetext{1000 resamples of the held-out alternatives within each geometry, each with a block-bootstrap replicate of the true $q_{95}$; the fits are held fixed (refitting: Table~\ref{tab:robust}). A new family rests on two calibrations, one per direction.}
+\end{table}
+%% END GENERATED distci
+
+%% BEGIN GENERATED onesided
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{4.5pt}
+\caption{One-sided safe distances (floors): false accepts and false rejects}\label{tab:onesided}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+ & \multicolumn{2}{c}{New variant} & \multicolumn{2}{c}{New setting} & \multicolumn{2}{c}{New family} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+Rule & FA side & FR side & FA side & FR side & FA side & FR side \\
+\midrule
+M0 & 17 & 109 & 17 & 109 & 17 & 109 \\
+M1 & 15 & 12 & 24 & 23 & 33 & 36 \\
+M2 & 0.3 & 0.0 & 8.3 & 6.7 & 11 & 23 \\
+M3 & 0.0 & 0.0 & 12 & 17 & 18 & 23 \\
+M5 & 1.1 & 1.4 & 7.5 & 7.4 & 32 & 29 \\
+NN & 2.8 & 3.4 & 10 & 5.3 & 169 & 128 \\
+M4 & 0.5 & 0.6 & 9.1 & 6.8 & 165 & 126 \\
+M5n & 0.9 & 1.0 & 9.1 & 2.3 & 168 & 128 \\
+\botrule
+\end{tabular}
+\footnotetext{FA side: smallest distance beyond which at most 5\,\% of the verdicts on failing alternatives ($d<0$) are false accepts; FR side: the same for false rejects of adequate alternatives ($d\ge0$). Requirements below zero are left out.}
+\end{table}
+%% END GENERATED onesided
+
+%% BEGIN GENERATED coverage
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{3.5pt}
+\caption{Interval rules: coverage of the true $q_{95}$, interval width and the accuracy of the centre}\label{tab:coverage}
+\begin{tabular}{@{}lrrrrrrrrr@{}}
+\toprule
+ & \multicolumn{3}{c}{New variant} & \multicolumn{3}{c}{New setting} & \multicolumn{3}{c}{New family} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
+Rule & cov. & half & centre & cov. & half & centre & cov. & half & centre \\
+\midrule
+M0w & 37 & 12 & 105 & 37 & 12 & 105 & 37 & 12 & 105 \\
+M2 & 89 & 7.6 & 8.6 & 53 & 5.1 & 12 & 47 & 7.5 & 34 \\
+M3 & 93 & 8.4 & 7.5 & 40 & 7.4 & 21 & 40 & 7.1 & 36 \\
+M5 & 72 & 1.2 & 3.4 & 56 & 5.0 & 12 & 0 & 0.8 & 32 \\
+M2n & 90 & 5.9 & 9.1 & 53 & 4.1 & 10 & 12 & 5.5 & 131 \\
+M4 & 86 & 2.4 & 4.8 & 39 & 2.3 & 9.9 & 6 & 3.0 & 131 \\
+M5n & 71 & 1.1 & 2.8 & 52 & 4.3 & 11 & 0 & 0.6 & 131 \\
+\botrule
+\end{tabular}
+\footnotetext{cov.: share of cases whose true $q_{95}$ lies in the interval (\%; nominal level 90\,\%; the maximum-residual margin of M2 and M2n attains at most $n/(n+1)$ with $n$ calibration alternatives); half: median half-width (floors); centre: decisive distance of the interval centre used as a point rule (floors).}
+\end{table}
+%% END GENERATED coverage
+
+%% BEGIN GENERATED paired
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{5pt}
+\caption{Paired differences of the decisive distance between rules (floors)}\label{tab:paired}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Pair & New variant & New setting & New family \\
+\midrule
+M5 $-$ M5n & +0.6 (0.0, +1.6) & $-$0.2 ($-$0.6, +1.6) & $-$93.3 ($-$95.4, $-$91.9) \\
+M2 $-$ M2n & +3.9 (+0.4, +7.4) & +2.3 (+1.4, +3.2) & $-$81.7 ($-$82.5, $-$78.5) \\
+M1 $-$ M1n & +6.2 (+4.6, +9.7) & +13.5 (+10.6, +14.9) & $-$95.4 ($-$96.6, $-$92.5) \\
+M5 $-$ NN & +3.3 (+2.1, +5.1) & +9.4 (+7.5, +13.5) & $-$92.5 ($-$94.8, $-$91.4) \\
+M5 $-$ M2 & $-$16.0 ($-$16.6, $-$13.7) & +0.3 ($-$0.1, +1.7) & $-$12.6 ($-$15.1, $-$11.6) \\
+M5 $-$ M4 & $-$4.6 ($-$5.3, $-$2.7) & +4.5 (+2.9, +6.6) & $-$95.0 ($-$97.0, $-$93.6) \\
+M3 $-$ M4 & +6.2 (+5.1, +11.1) & +18.2 (+11.7, +20.4) & $-$84.7 ($-$89.4, $-$82.0) \\
+Mc $-$ M1 & +11.5 (+8.9, +12.9) & +14.8 (+13.4, +16.3) & +2.4 (+0.9, +9.1) \\
+\botrule
+\end{tabular}
+\footnotetext{Difference and 95\,\% interval from the common resamples of Table~\ref{tab:distci}; a negative difference means that the first rule decides closer to the requirement. M5$-$M5n, M2$-$M2n and M1$-$M1n isolate what the simulation adds to a rule.}
+\end{table}
+%% END GENERATED paired
+
+%% BEGIN GENERATED qcdist
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{2.6pt}
+\caption{Decisive/safe distance per characteristic (floors)}\label{tab:qcdist}
+\begin{tabular}{@{}lrrrrrrrrrr@{}}
+\toprule
+ & \multicolumn{5}{c}{New variant} & \multicolumn{5}{c}{New setting} \\
+\cmidrule(lr){2-6}\cmidrule(lr){7-11}
+Characteristic & M1 & M2 & M5 & NN & M5n & M1 & M2 & M5 & NN & M5n \\
+\midrule
+Draw-in, mid-side & 21 & 20/0.0 & 2.8/1.0 & 2.0 & 2.7/0.6 & 27 & 18/8.3 & 19/6.8 & 6.5 & 11/4.2 \\
+Draw-in, corner & 12 & 6.1/0.5 & 2.6/0.4 & 4.5 & 2.1/0.3 & 16 & 6.6/2.2 & 6.4/2.0 & 6.7 & 18/4.9 \\
+Flange waviness & 8.1 & 23/0.1 & 1.4/0.2 & 0.9 & 1.4/0.2 & 9.7 & 16/11 & 19/11 & 11 & 18/10 \\
+Wall angle & 11 & 9.3/0.2 & 2.0/0.9 & 3.4 & 3.5/0.9 & 14 & 7.6/3.2 & 7.7/3.1 & 1.9 & 3.2/1.6 \\
+Arm angle, cut & 8.4 & 27/0.3 & 6.2/2.1 & 2.8 & 6.1/1.6 & 22 & 27/8.1 & 34/8.1 & 5.9 & 8.1/4.4 \\
+Cup depth & 19 & 28/0.3 & 5.1/2.7 & 3.3 & 5.2/3.1 & 24 & 15/13 & 16/13 & 15 & 22/13 \\
+Bottom dome, cut & 14 & 15/0.6 & 11/9.3 & 7.0 & 10/5.8 & 14 & 18/2.8 & 15/4.8 & 4.5 & 8.9/2.9 \\
+\botrule
+\end{tabular}
+\footnotetext{18 held-out alternatives per characteristic and scope (36 verdicts per distance and side); one wrong verdict moves a share by 2.8 percentage points.}
+\end{table}
+%% END GENERATED qcdist
+
+%% BEGIN GENERATED tuning
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{4pt}
+\caption{Part-level rules M3 and M4 under other learners and settings (decisive/safe, floors)}\label{tab:tuning}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+ & \multicolumn{2}{c}{New variant} & \multicolumn{2}{c}{New setting} & \multicolumn{2}{c}{New family} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+Learner & M3 & M4 & M3 & M4 & M3 & M4 \\
+\midrule
+reference & 17/0.0 & 11/0.6 & 32/16 & 13/7.9 & 48/22 & 133/128 \\
+regularised & 20/0.3 & 11/0.4 & 26/15 & 13/7.7 & 50/27 & 133/129 \\
+flexible & 23/0.0 & 11/0.6 & 36/14 & 14/7.8 & 47/26 & 133/129 \\
+ridge & 28/0.4 & 12/0.3 & 33/9.6 & 15/4.9 & 50/21 & 133/128 \\
+quantile loss & 18/0.0 & 11/0.5 & 30/18 & 15/8.5 & 50/27 & 133/129 \\
+selected & 16/0.3 & 11/0.6 & 26/17 & 13/8.2 & 47/26 & 133/129 \\
+\botrule
+\end{tabular}
+\footnotetext{Reference: histogram gradient boosting, depth 3, 200 iterations, rate 0.08. Regularised: depth 2, 100 iterations, rate 0.05, L2 penalty 1. Flexible: depth 6, 400 iterations, rate 0.1. Ridge: linear regression on the standardised inputs. Quantile loss: boosting of the 95th percentile, no resampled residuals. Selected: the boosting setting with the smallest leave-one-out error over the calibration alternatives.}
+\end{table}
+%% END GENERATED tuning
+
+%% BEGIN GENERATED gp
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{5pt}
+\caption{Gaussian-process fits with a hyperparameter at a bound}\label{tab:gp}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+ & \multicolumn{3}{c}{M5} & \multicolumn{3}{c}{M5n} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Scope & fits & noise (\%) & length (\%) & fits & noise (\%) & length (\%) \\
+\midrule
+New variant & 126 & 38 & 48 & 126 & 35 & 28 \\
+New setting & 42 & 45 & 60 & 42 & 38 & 62 \\
+Pooled variant & 126 & 21 & 57 & 126 & 2 & 56 \\
+New family & 14 & 36 & 36 & 14 & 36 & 21 \\
+\botrule
+\end{tabular}
+\footnotetext{Share of the fits (calibration set and characteristic) whose noise level sits at its lower bound, the sampling variance of the calibration alternatives' $q_{95}$, and with at least one length scale at a bound (0.1 or 100 in units of 100\,kN or one lubrication step).}
+\end{table}
+%% END GENERATED gp
+
+%% BEGIN GENERATED scan
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{6pt}
+\caption{Redundancy of the scans: ranges over the nine series of each geometry}\label{tab:scan}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Quantity & Concave & Convex \\
+\midrule
+Flange width $W_x$, SD (mm) & 0.07--0.15 & 0.05--0.11 \\
+Flange width $W_y$, SD (mm) & 0.27--0.54 & 0.43--0.92 \\
+Correlation of $W_x$ and $W_y$ & $-$0.14 to 0.20 & $-$0.21 to 0.09 \\
+$W_y-W_x$ (mm) & 2.5--3.5 & 2.3--3.5 \\
+Wall angle, mean of E and W, SD ($^\circ$) & 0.04--0.10 & 0.06--0.13 \\
+Wall angle N, SD ($^\circ$) & 0.31--0.35 & 0.35--0.38 \\
+Wall angle N minus mean of E and W ($^\circ$) & 0.0--0.4 & $-$1.6 to $-$0.9 \\
+Correlation of the E and W wall angles & $-$0.10 to 0.27 & $-$0.71 to $-$0.49 \\
+\botrule
+\end{tabular}
+\footnotetext{$W_x$, $W_y$: flange width across the cup centre, across and along the scan lines; E, W, N: east, west and north walls; SD: standard deviation over the parts of a series; correlation over the parts of a series.}
+\end{table}
+%% END GENERATED scan
+
+%% BEGIN GENERATED simnoise
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{6pt}
+\caption{Extraction noise of the simulated characteristics (floors)}\label{tab:simnoise}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+ & \multicolumn{2}{c}{Concave} & \multicolumn{2}{c}{Convex} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Characteristic & noise & envelope & noise & envelope \\
+\midrule
+Draw-in, mid-side & 0.1 & 0.8 & 0.1 & 0.7 \\
+Draw-in, corner & 0.1 & 0.5 & 0.2 & 1.3 \\
+Flange waviness & 0.4 & 2.9 & 4.0 & 4.2 \\
+Wall angle & 3.1 & 2.0 & 1.7 & 1.5 \\
+Arm angle, cut & 0.9 & 1.5 & 0.9 & 2.5 \\
+Cup depth & 0.8 & 1.5 & 0.7 & 1.6 \\
+Bottom dome, cut & 9.8 & 20.9 & 2.4 & 9.9 \\
+\botrule
+\end{tabular}
+\footnotetext{Noise: standard deviation of the second difference of the simulated value along the friction grid over $\sqrt{1.5}$ (white noise of the extraction). Envelope: largest difference between the maximum of the simulated values of a geometry and force and the maximum of a quadratic response surface over thickness and friction.}
+\end{table}
+%% END GENERATED simnoise
+
+\FloatBarrier
+\end{appendices}
+
+
+{\makeatletter\def\bibfont{\reset@font\fontfamily{\rmdefault}\footnotesize\selectfont}\makeatother
+\setlength{\bibsep}{0.05em}
+\bibliography{refs}}
+
+\end{document}

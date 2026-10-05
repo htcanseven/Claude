@@ -26,7 +26,8 @@ failing alternatives, false rejects among adequate ones) and stratified by the d
 the truth in floors. The expected cost per decision, c_FA * P(false accept) + c_FR * P(false reject) +
 c_T * P(trial), is compared between rules over a range of trial costs.
 
-Outputs: results/scen_truth.csv, scen_scores.csv, scen_strata.csv, scen_cost.csv, summary_scenarios.md
+Outputs: results/scen_truth.csv, scen_scores.csv, scen_strata.csv, scen_cost.csv, scen_cost_map.csv,
+summary_scenarios.md
 """
 
 from __future__ import annotations
@@ -47,6 +48,7 @@ ARM_LEG_MM = {"concave": 18.0, "convex": 8.8}                 # measured flat le
 STRATA = [(0, 5), (5, 10), (10, np.inf)]
 C_FA, C_FR = 1.0, 0.5                                          # costs relative to a false accept
 C_TRIAL = [0.02, 0.05, 0.1, 0.2, 0.3, 0.5]
+C_FR_MAP = [0.25, 0.5, 1.0, 2.0]                               # sensitivity map over the false-reject cost
 
 
 def row_of(qc: str, geometry: str) -> str:
@@ -120,6 +122,17 @@ def main() -> None:
                          "cost": C_FA * r["false_accept"] + C_FR * r["false_reject"] + ct * r["uncertain"]})
     cost = pd.DataFrame(cost)
     cost.to_csv(RESULTS / "scen_cost.csv", index=False)
+    cmap = []                                       # cheapest rule(s) over false-reject and trial costs
+    core = sc[sc["scope"].isin(["within", "setting", "transfer"])]
+    for scope, g in core.groupby("scope"):
+        for cfr in C_FR_MAP:
+            for ct in C_TRIAL:
+                c = C_FA * g["false_accept"] + cfr * g["false_reject"] + ct * g["uncertain"]
+                best_rules = g.loc[np.isclose(c, c.min()), "method"]
+                cmap.append({"scope": scope, "c_fr": cfr, "c_trial": ct, "cost": float(c.min()),
+                             "cheapest": "/".join(sorted(best_rules))})
+    cmap = pd.DataFrame(cmap)
+    cmap.to_csv(RESULTS / "scen_cost_map.csv", index=False)
     best = cost.loc[cost.groupby(["scope", "c_trial"])["cost"].idxmin()]
     n_dec = len(truth)
     changed = int((truth["meets"] != truth["worst_side_meets"]).sum())
@@ -134,7 +147,10 @@ def main() -> None:
              "## Rates by the distance of the limit from the truth (floors)", "",
              st[st["scope"].isin(["within", "setting", "transfer"])].round(3).to_markdown(index=False), "",
              f"## Expected cost per decision (c_FA = {C_FA:g}, c_FR = {C_FR:g}): cheapest rule per trial cost", "",
-             best.round(4).to_markdown(index=False)]
+             best.round(4).to_markdown(index=False), "",
+             "## Cheapest rule(s) over false-reject and trial costs (c_FA = 1)", "",
+             cmap.pivot_table(index=["scope", "c_fr"], columns="c_trial", values="cheapest", aggfunc="first")
+             .to_markdown()]
     (RESULTS / "summary_scenarios.md").write_text("\n".join(lines) + "\n")
     print("\n".join(lines[:12]))
 

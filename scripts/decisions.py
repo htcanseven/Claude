@@ -26,6 +26,10 @@ M0  nominal simulation: meets if the simulation at nominal sheet thickness and
     friction is within R, otherwise fails;
 M1  bias-corrected simulation: as M0 after adding the median offset between
     the parts' q95 and the nominal simulation of the calibration alternatives;
+M1s scaled simulation: q95 = a + b s0, a straight line fitted by least squares
+    to the calibration alternatives' q95 against their nominal simulation s0,
+    so that a simulated trend of the wrong size is rescaled (a linear
+    multi-fidelity correction);
 M2  envelope with a calibrated margin: the upper end of the simulation envelope
     over plausible incoming conditions (all DDACS sheet thicknesses and friction
     coefficients at the geometry and blank-holder force) plus the median offset,
@@ -40,18 +44,21 @@ M3  simulation corrected by machine learning: a gradient-boosting model learns,
     the incoming conditions are drawn from calibration parts with the same
     lubrication pattern (none of its own measurements are used); its
     simulation plus the predicted discrepancy and a resampled residual give
-    the predicted parts, whose q95 gets an offset and a conformal margin from
-    a nested leave-one-out over the calibration alternatives. Verdicts as M2;
+    the predicted parts. A leave-one-out over the calibration alternatives
+    gives residuals and, from the same fits, predictions of the new
+    alternative; the interval is the jackknife+ interval (Barber et al. 2021)
+    of these, centred by the median residual. Verdicts as M2;
 M4  machine learning without simulation: as M3 with the measured QC itself as
     the target, so the prediction rests on the produced alternatives alone.
     The difference between M3 and M4 is what the simulation adds;
-M5  Gaussian-process calibration (Kennedy-O'Hagan discrepancy): the offset
-    between the parts' q95 and the upper end of the simulation envelope is a
-    Gaussian process over the alternative descriptors (geometry, blank-holder
-    force, lubrication rank) fitted on the calibration alternatives; the
-    verdict interval is its central CONF_LEVEL predictive interval. Unlike M2
-    the offset may vary with the descriptors, and the margin comes from the
-    model instead of a conformal rank.
+M5  Gaussian-process correction of the envelope: the offset between the
+    parts' q95 and the upper end of the simulation envelope is a Gaussian
+    process over the alternative descriptors (geometry, blank-holder force,
+    lubrication rank) fitted on the calibration alternatives; the verdict
+    interval is its central CONF_LEVEL predictive interval. The noise variance
+    is bounded below by the variation between the produced series of one
+    geometry and force (noise_floor). Unlike M2 the offset may vary with the
+    descriptors, and the margin comes from the model instead of a rank.
 Practice baseline and ablations:
 M0w worst case over the process window: the simulation envelope itself
     (lowest to highest simulated value over the DDACS sheet thicknesses and
@@ -87,7 +94,7 @@ rules have paired intervals (dec_paired.csv).
 
 Outputs: results/dec_alternatives.csv, dec_margins.csv, dec_intervals.csv,
 dec_verdicts.csv.gz, dec_scores.csv, dec_resolution.csv, dec_curve.csv,
-dec_paired.csv, dec_reliability.csv, summary_decisions.md
+dec_paired.csv, dec_coverage.csv, dec_gp.csv, dec_reliability.csv, summary_decisions.md
 """
 
 from __future__ import annotations
@@ -292,8 +299,9 @@ _CTX: dict = {}
 
 
 @lru_cache(maxsize=None)
-def m3_nested(calib: tuple[str, ...], qc: str, use_sim: bool = True) -> tuple[float, float]:
-    """Offset and conformal margin of M3 (M4) from a leave-one-out over the calibration alternatives."""
+def m3_nested(calib: tuple[str, ...], qc: str, use_sim: bool = True) -> tuple[float, float, tuple]:
+    """Offset, plain jackknife margin and signed residuals (in the order of calib) of M3 (M4) from a
+    leave-one-out over the calibration alternatives."""
     t = _CTX["t"]
     real = t[t["qc"] == qc].set_index("alternative")["real_q95"]
     tag = "nested" if use_sim else "nested-nosim"
@@ -302,18 +310,36 @@ def m3_nested(calib: tuple[str, ...], qc: str, use_sim: bool = True) -> tuple[fl
         if b in real.index:
             rng = np.random.default_rng(stable_seed(tag, b, qc, *calib))
             res.append(real[b] - m3_q95([c for c in calib if c != b], b, qc, rng, use_sim))
-    res = np.array(res)
-    off = float(np.nanmedian(res)) if res.size else np.nan
-    return off, conformal_margin(np.abs(res - off), CONF_LEVEL)
+        else:
+            res.append(np.nan)
+    res = np.array(res, dtype=float)
+    off = float(np.nanmedian(res)) if np.isfinite(res).any() else np.nan
+    return off, conformal_margin(np.abs(res - off), CONF_LEVEL), tuple(res)
 
 
-def m3_calibrated(calib: list[str], target: str, qc: str, use_sim: bool = True) -> tuple[float, float, float]:
-    """(predicted q95, offset, margin) of M3 (M4 without simulation) for a new alternative."""
-    tag = "target" if use_sim else "target-nosim"
-    rng = np.random.default_rng(stable_seed(tag, target, qc, *sorted(calib)))
-    q_target = m3_q95(calib, target, qc, rng, use_sim)
-    off, marg = m3_nested(tuple(sorted(calib)), qc, use_sim)
-    return q_target, off, marg
+def jackknife_plus(preds: np.ndarray, res: np.ndarray, off: float, level: float = CONF_LEVEL) -> tuple[float, float]:
+    """Jackknife+ interval (Barber et al. 2021): the leave-one-out models' predictions of the target, shifted by
+    the median leave-one-out residual, minus and plus the centred absolute residuals; the bounds are the
+    floor(alpha (n+1))-th and ceil((1-alpha)(n+1))-th smallest values, the extreme ones when n is too small."""
+    ok = np.isfinite(preds) & np.isfinite(res)
+    p, r = preds[ok], np.abs(res[ok] - off)
+    n = p.size
+    if n == 0:
+        return np.nan, np.nan
+    k_hi = min(int(np.ceil((n + 1) * level)), n)
+    k_lo = max(int(np.floor((n + 1) * (1 - level))), 1)
+    return float(np.sort(p + off - r)[k_lo - 1]), float(np.sort(p + off + r)[k_hi - 1])
+
+
+def m3_calibrated(calib: list[str], target: str, qc: str, use_sim: bool = True) -> tuple[float, float]:
+    """Jackknife+ interval of M3 (M4 without simulation) for a new alternative. The leave-one-out fits that
+    give the residuals also predict the target, so the interval needs no further fits."""
+    key = tuple(sorted(calib))
+    off, _, res = m3_nested(key, qc, use_sim)
+    tag = "jkplus" if use_sim else "jkplus-nosim"
+    preds = np.array([m3_q95([c for c in key if c != b], target, qc,
+                             np.random.default_rng(stable_seed(tag, target, b, qc, *key)), use_sim) for b in key])
+    return jackknife_plus(preds, np.array(res), off)
 
 
 # ── M5: Gaussian-process discrepancy on the alternatives ─────────────────────
@@ -332,6 +358,22 @@ def descriptors(alts) -> np.ndarray:
 LS_BOUNDS = (1e-1, 1e2)
 
 
+def noise_floor(calib, y: np.ndarray, se: np.ndarray, between: bool = True) -> float:
+    """Lower bound of the GP noise variance: the larger of the mean sampling variance of the calibration
+    alternatives' q95 (block bootstrap within a series) and, with between, the pooled variance between the
+    series of one geometry and force (the quasi-replicate lubrication series), which bounds the variation
+    between runs from above. A new series of a produced setting is then not predicted more precisely than
+    the produced series of that setting reproduce each other."""
+    sampling = float(np.mean(se ** 2))
+    if not between:
+        return sampling
+    cells = pd.Series(y, index=[(a.split("/")[0], bhf_of(a)) for a in calib])
+    g = cells.groupby(level=0)
+    ss = float(sum(((v - v.mean()) ** 2).sum() for _, v in g if len(v) >= 2))
+    dof = int(sum(len(v) - 1 for _, v in g if len(v) >= 2))
+    return max(sampling, ss / dof) if dof > 0 else sampling
+
+
 @lru_cache(maxsize=None)
 def m5_fit(calib: tuple[str, ...], qc: str, use_sim: bool = True):
     """GP of the offset real_q95 - sim_env_hi (M5) or of real_q95 itself (M5n) over the calibration
@@ -343,8 +385,9 @@ def m5_fit(calib: tuple[str, ...], qc: str, use_sim: bool = True):
     keep = X.std(axis=0) > 0                     # a descriptor constant over the calibration set carries nothing
     y = (c["real_q95"] - c["sim_env_hi"] if use_sim else c["real_q95"]).to_numpy()
     var = float(np.var(y))
-    lb = float(np.clip(np.mean(c["real_q95_se"].to_numpy() ** 2) / var, 1e-6, 1e2)) if var > 0 else 1e-6
     variant = _CTX.get("gp_variant", "reference")         # robustness.py varies the specification
+    floor_var = noise_floor(calib, y, c["real_q95_se"].to_numpy(), between=variant != "se_floor")
+    lb = float(np.clip(floor_var / var, 1e-6, 1e2)) if var > 0 else 1e-6
     nk = int(keep.sum())
     if variant == "matern":
         corr = Matern(np.ones(nk), LS_BOUNDS, nu=2.5)
@@ -369,7 +412,8 @@ def gp_info(calib: list[str], qc: str, use_sim: bool) -> dict:
     names = np.array(["geometry", "bhf", "lubrication"])[keep]
     out = {f"gp_ls_{n}": float(v) for n, v in zip(names, ls)}
     nb = k.k2.hyperparameter_noise_level.bounds[0]
-    out.update({"gp_noise": float(k.k2.noise_level), "gp_noise_at_bound": bool(np.isclose(k.k2.noise_level, nb[0])),
+    out.update({"gp_noise": float(k.k2.noise_level), "gp_noise_lb": float(nb[0]),
+                "gp_noise_at_bound": bool(np.isclose(k.k2.noise_level, nb[0])),
                 "gp_ls_at_bound": int(np.sum(np.isclose(ls, LS_BOUNDS[0]) | np.isclose(ls, LS_BOUNDS[1])))})
     return out
 
@@ -435,8 +479,12 @@ def calibration_stats(c: pd.DataFrame) -> dict[str, float]:
     """Offsets and conformal margins of M1, M2, M1n and M2n from the calibration alternatives' rows."""
     r2 = (c["real_q95"] - c["sim_env_hi"]).to_numpy()
     q = c["real_q95"].to_numpy()
+    s0 = c["sim_nominal"].to_numpy()
+    off1 = float(np.median(q - s0))
     off2, med_q = float(np.median(r2)), float(np.median(q))
-    return {"off1": float(np.median(c["real_q95"] - c["sim_nominal"])), "off2": off2,
+    # M1s: q95 = a + b s0 by least squares (the bias correction with the simulated trend rescaled)
+    b1, a1 = np.polyfit(s0, q, 1) if np.ptp(s0) > 0 and len(q) >= 2 else (1.0, off1)
+    return {"off1": off1, "off2": off2, "a1s": float(a1), "b1s": float(b1),
             "marg2": conformal_margin(np.abs(r2 - off2), CONF_LEVEL),
             "med_q": med_q, "marg_q": conformal_margin(np.abs(q - med_q), CONF_LEVEL)}
 
@@ -449,6 +497,7 @@ def rule_intervals(a: pd.Series, calib: list[str], qc: str, stats: dict[str, flo
     iv = {"M0": (a["sim_nominal"], a["sim_nominal"]),
           "M0w": (a["sim_env_lo"], a["sim_env_hi"]),
           "M1": (a["sim_nominal"] + s["off1"], a["sim_nominal"] + s["off1"]),
+          "M1s": (s["a1s"] + s["b1s"] * a["sim_nominal"],) * 2,
           "M2": (a["sim_env_hi"] + s["off2"] - s["marg2"], a["sim_env_hi"] + s["off2"] + s["marg2"]),
           "M5": m5_interval(calib, target, qc, a["sim_env_hi"]),
           "Mc": (mc_point(calib, target, qc),) * 2,
@@ -457,10 +506,8 @@ def rule_intervals(a: pd.Series, calib: list[str], qc: str, stats: dict[str, flo
           "M2n": (s["med_q"] - s["marg_q"], s["med_q"] + s["marg_q"]),
           "M5n": m5_interval(calib, target, qc, 0.0, use_sim=False)}
     if with_m3:
-        q3, off3, marg3 = m3_calibrated(calib, target, qc)
-        iv["M3"] = (q3 + off3 - marg3, q3 + off3 + marg3)
-        q4, off4, marg4 = m3_calibrated(calib, target, qc, use_sim=False)
-        iv["M4"] = (q4 + off4 - marg4, q4 + off4 + marg4)
+        iv["M3"] = m3_calibrated(calib, target, qc)
+        iv["M4"] = m3_calibrated(calib, target, qc, use_sim=False)
     return {k: (float(lo), float(hi)) for k, (lo, hi) in iv.items()}
 
 
@@ -534,7 +581,8 @@ def beyond_rows(rates: np.ndarray, ad: np.ndarray, target: float = RESOLUTION_TA
 
 #: rule pairs whose differences in the two distances get paired bootstrap intervals
 PAIRS = [("M5", "M2"), ("M5", "M1"), ("M5", "M4"), ("M5", "M3"), ("M3", "M4"), ("M1", "M1n"), ("M2", "M2n"),
-         ("M5", "M5n"), ("M5", "NN"), ("M5n", "NN"), ("Mc", "M1"), ("M2", "M0w")]
+         ("M5", "M5n"), ("M5", "NN"), ("M5n", "NN"), ("Mc", "M1"), ("M2", "M0w"), ("M1s", "M1"), ("M1s", "M1n"),
+         ("M1s", "NN"), ("M2", "NN"), ("M2n", "NN")]
 
 
 def exclusion(iv: pd.DataFrame, q: np.ndarray | None = None) -> tuple[np.ndarray, np.ndarray, np.ndarray]:

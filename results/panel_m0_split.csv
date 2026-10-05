@@ -1,0 +1,3 @@
+variant,resolution_floors,safe_floors,resolution_adequate,safe_adequate,resolution_failing,safe_failing
+nominal simulation,108.35,108.35,109.4,109.4,17.0,17.0
+cup-depth reference offset removed (-0.936 mm),64.85,64.85,99.1,99.1,19.85,19.85
