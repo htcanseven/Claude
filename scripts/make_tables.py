@@ -28,6 +28,8 @@ RULE = {"M0": "M0 nominal simulation", "M1": "M1 bias-corrected", "M2": "M2 enve
         "M5": "M5 Gaussian-process calibration", "M3": "M3 simulation + learned discrepancy",
         "M4": "M4 learned, no simulation"}
 RULES = ["M0", "M1", "M2", "M5", "M3", "M4"]
+RULE_SHORT = {"M0": "M0 nominal", "M1": "M1 bias-corrected", "M2": "M2 envelope", "M5": "M5 GP calibration",
+              "M3": "M3 simulation + ML", "M4": "M4 ML only"}
 
 
 def write_block(name: str, body: str) -> None:
@@ -180,13 +182,13 @@ def t_distci() -> str:
             x = r.loc[(scope, m)]
             cells.append(f"{num(x['resolution_lo'])}--{num(x['resolution_hi'])} & "
                          f"{num(x['safe_lo'])}--{num(x['safe_hi'])}")
-        rows.append(f"{RULE[m]} & " + " & ".join(cells))
+        rows.append(f"{RULE_SHORT[m]} & " + " & ".join(cells))
     head = (r" & \multicolumn{2}{c}{Within family} & \multicolumn{2}{c}{Pooled} & \multicolumn{2}{c}{Transfer} \\"
             "\n" r"\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}" "\n"
             r"Rule & $\delta_\mathrm{d}$ & $\delta_\mathrm{s}$ & $\delta_\mathrm{d}$ & $\delta_\mathrm{s}$ & "
             r"$\delta_\mathrm{d}$ & $\delta_\mathrm{s}$")
     return table(rows, r"Bootstrap 95\,\% intervals of the decisive and safe distances (floors)", "tab:distci",
-                 "lrrrrrr", head, colsep="5pt",
+                 "lrrrrrr", head, colsep="4pt",
                  note=r"1000 resamples of the held-out alternatives; interval ends on the distance grid.")
 
 
@@ -279,7 +281,7 @@ def t_design() -> str:
             for k in [2, 3, 4, 5]:
                 x = d.loc[(m, cls, k)]
                 cells.append(f"{num(x['safe_floors'])} & {pct(x['error_at_10'])}")
-            rows.append(f"{RULE[m]} & {name} & " + " & ".join(cells))
+            rows.append(f"{RULE_SHORT[m]} & {name} & " + " & ".join(cells))
     head = ("Rule & Calibration set & " + " & ".join(f"\\multicolumn{{2}}{{c}}{{$k={k}$}}" for k in [2, 3, 4, 5])
             + r" \\" "\n" r"\cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}" "\n"
             r" & & $\delta_\mathrm{s}$ & wrong & $\delta_\mathrm{s}$ & wrong & $\delta_\mathrm{s}$ & wrong & "
