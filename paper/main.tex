@@ -267,13 +267,13 @@ Table~\ref{tab:components} shows what the floor contains. Part-to-part noise tha
 %% BEGIN GENERATED floors
 \begin{table}[t]
 \tabsize
-\setlength{\tabcolsep}{4pt}
+\setlength{\tabcolsep}{2.6pt}
 \caption{Production floor per characteristic, pooled and per geometry}\label{tab:floors}
 \begin{tabular}{@{}lrrrrrrr@{}}
 \toprule
  & & \multicolumn{2}{c}{95\,\% interval} & & & & \\
 \cmidrule(lr){3-4}
-Characteristic & Floor $F$ & batches & alternatives & Concave & Convex & Part SD & Drift factor \\
+Characteristic & $F$ & batches & alternatives & Concave & Convex & Part SD & Drift \\
 \midrule
 Draw-in, mid-side (mm) & 0.051 & 0.045--0.061 & 0.042--0.061 & 0.050 & 0.052 & 0.039 & 3.3 \\
 Draw-in, corner (mm) & 0.046 & 0.035--0.052 & 0.032--0.053 & 0.053 & 0.030 & 0.027 & 4.5 \\
@@ -388,27 +388,29 @@ Table~\ref{tab:distances} and Fig.~\ref{fig:decisions} score the twelve rules. T
 %% BEGIN GENERATED distances
 \begin{table}[t]
 \tabsize
-\setlength{\tabcolsep}{4.5pt}
+\setlength{\tabcolsep}{3.5pt}
 \caption{Decisive and safe distances (floors) by the relation of the new design to the produced evidence}\label{tab:distances}
 \begin{tabular}{@{}lrrrrr@{}}
 \toprule
-Rule & New variant & New setting & Interpolation & Extrapolation & New family \\
+ & New & \multicolumn{3}{c}{New process setting} & New \\
+\cmidrule(lr){3-5}
+Rule & variant & all & interpolation & extrapolation & family \\
 \midrule
 \multicolumn{6}{@{}l}{\emph{Simulation only}} \\
 M0 nominal simulation & 108 & 108 & 109 & 106 & 108 \\
-M0w worst case of the process window & 119/94 & 119/94 & 119/94 & 119/77 & 119/94 \\
+M0w process-window worst case & 119/94 & 119/94 & 119/94 & 119/77 & 119/94 \\
 \multicolumn{6}{@{}l}{\emph{Simulation and production record}} \\
-M1 bias-corrected simulation & 15 & 24 & 11 & 25 & 35 \\
-Mc friction-calibrated simulation & 27 & 38 & 14 & 40 & 38 \\
-M2 envelope + residual margin & 23/0.1 & 18/8.1 & 18/2.7 & 18/9.9 & 51/16 \\
+M1 bias-corrected & 15 & 24 & 11 & 25 & 35 \\
+Mc friction-calibrated & 27 & 39 & 14 & 40 & 38 \\
+M2 envelope + margin & 23/0.2 & 18/8.1 & 18/2.7 & 18/9.9 & 51/16 \\
 M3 simulation + boosting & 17/0.0 & 32/16 & 31/15 & 32/16 & 48/22 \\
-M5 GP correction of the envelope & 6.7/1.4 & 18/7.3 & 19/2.9 & 18/8.9 & 38/30 \\
+M5 GP correction & 6.7/1.4 & 18/7.4 & 19/2.9 & 18/8.9 & 38/30 \\
 \multicolumn{6}{@{}l}{\emph{Production record only}} \\
-M1n median of the produced & 9.1 & 10 & 4.8 & 12 & 131 \\
-NN nearest produced setting & 3.4 & 8.4 & 4.7 & 9.4 & 130 \\
-M2n median + residual margin & 19/0.0 & 15/5.8 & 13/0.0 & 16/9.1 & 132/129 \\
-M4 boosting, no simulation & 11/0.6 & 13/7.9 & 15/8.4 & 13/7.5 & 133/128 \\
-M5n GP of $q_{95}$, no simulation & 6.0/0.9 & 18/5.3 & 16/1.2 & 18/8.4 & 131/131 \\
+M1n median & 9.1 & 10 & 4.8 & 12 & 131 \\
+NN nearest setting & 3.4 & 8.5 & 4.7 & 9.5 & 131 \\
+M2n median + margin & 19/0.0 & 15/5.9 & 13/0.0 & 16/9.1 & 132/129 \\
+M4 boosting & 11/0.6 & 13/7.9 & 15/8.5 & 13/7.6 & 133/128 \\
+M5n GP of $q_{95}$ & 6.1/1.0 & 18/5.4 & 16/1.3 & 18/8.5 & 131/131 \\
 \botrule
 \end{tabular}
 \footnotetext{Decisive/safe distance $\delta_\mathrm{d}/\delta_\mathrm{s}$ over all seven characteristics; one number for rules that always decide ($\delta_\mathrm{d}=\delta_\mathrm{s}$). New variant: a sibling at the same blank-holder force is produced (leave one alternative out within the family); new setting: all alternatives of one force are held out (interpolation at 300\,kN, extrapolation at 100 or 500\,kN); new family: calibration on the other geometry. 126 cases per rule (42 for interpolation, 84 for extrapolation). Intervals in Table~\ref{tab:distci}.}
@@ -455,10 +457,10 @@ A guard is useful only where it can fire, which within this design means a new p
 \cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}
 Scope & Guard & Guarded & $\delta_\mathrm{d}/\delta_\mathrm{s}$ & wrong & $\delta_\mathrm{d}/\delta_\mathrm{s}$ & wrong & $\delta_\mathrm{d}$ & wrong \\
 \midrule
-New setting & none & 0 & 18/8.1 & 6/239 & 18/7.3 & 4/239 & 8.4 & 6/239 \\
- & range & 84 & $\infty$/0.0 & 0/80 & $\infty$/0.8 & 0/80 & $\infty$ & 0/80 \\
+New setting & none & 0 & 18/8.1 & 6/239 & 18/7.4 & 4/239 & 8.5 & 6/239 \\
+ & range & 84 & $\infty$/0.0 & 0/80 & $\infty$/0.9 & 0/80 & $\infty$ & 0/80 \\
  & novelty & 84 & $\infty$/0.0 & 2/80 & $\infty$/0.1 & 2/80 & $\infty$ & 0/80 \\
-New family & none & 0 & 51/16 & 23/239 & 38/30 & 47/239 & 130 & 106/239 \\
+New family & none & 0 & 51/16 & 23/239 & 38/30 & 47/239 & 131 & 106/239 \\
  & range & 126 & $\infty$/0.0 & 0/0 & $\infty$/0.0 & 0/0 & $\infty$ & 0/0 \\
  & novelty & 114 & $\infty$/0.0 & 0/24 & $\infty$/0.0 & 6/24 & $\infty$ & 6/24 \\
 \botrule
@@ -630,12 +632,12 @@ M1 & 12--18 & 12--18 & 21--25 & 21--25 & 33--37 & 33--37 \\
 Mc & 24--29 & 24--29 & 34--40 & 34--40 & 36--45 & 36--45 \\
 M2 & 22--23 & 0.0--0.7 & 17--18 & 6.4--9.9 & 50--52 & 14--23 \\
 M3 & 16--21 & 0.0--0.3 & 25--34 & 14--17 & 43--50 & 18--23 \\
-M5 & 6.1--7.6 & 0.3--3.5 & 18--20 & 5.3--8.9 & 35--38 & 27--32 \\
-M1n & 5.5--10 & 5.5--10 & 8.9--12 & 8.9--12 & 129--131 & 129--131 \\
-NN & 1.9--4.5 & 1.9--4.5 & 5.5--10 & 5.5--10 & 129--131 & 129--131 \\
-M2n & 15--21 & 0.0--0.7 & 15--16 & 3.3--9.2 & 131--133 & 127--129 \\
+M5 & 6.1--7.6 & 0.4--3.5 & 18--20 & 5.3--8.9 & 35--38 & 27--32 \\
+M1n & 5.5--10 & 5.5--10 & 9.0--12 & 9.0--12 & 129--131 & 129--131 \\
+NN & 2.0--4.5 & 2.0--4.5 & 5.5--10 & 5.5--10 & 129--131 & 129--131 \\
+M2n & 15--21 & 0.0--0.7 & 15--16 & 3.3--9.3 & 131--133 & 127--129 \\
 M4 & 9.7--12 & 0.0--1.6 & 12--15 & 5.7--9.2 & 132--133 & 127--129 \\
-M5n & 5.3--6.5 & 0.3--2.6 & 17--18 & 3.7--9.0 & 130--132 & 129--131 \\
+M5n & 5.3--6.6 & 0.4--2.6 & 17--18 & 3.7--9.0 & 130--132 & 129--131 \\
 \botrule
 \end{tabular}
 \footnotetext{1000 resamples of the held-out alternatives within each geometry, each with a block-bootstrap replicate of the true $q_{95}$; the fits are held fixed (refitting: Table~\ref{tab:robust}). A new family rests on two calibrations, one per direction.}
@@ -657,10 +659,10 @@ M0 & 17 & 109 & 17 & 109 & 17 & 109 \\
 M1 & 15 & 12 & 24 & 23 & 33 & 36 \\
 M2 & 0.3 & 0.0 & 8.3 & 6.7 & 11 & 23 \\
 M3 & 0.0 & 0.0 & 12 & 17 & 18 & 23 \\
-M5 & 1.1 & 1.4 & 7.5 & 7.3 & 32 & 29 \\
+M5 & 1.1 & 1.4 & 7.5 & 7.4 & 32 & 29 \\
 NN & 2.8 & 3.4 & 10 & 5.3 & 169 & 128 \\
 M4 & 0.5 & 0.6 & 9.1 & 6.8 & 165 & 126 \\
-M5n & 0.8 & 0.9 & 9.1 & 2.2 & 168 & 128 \\
+M5n & 0.9 & 1.0 & 9.1 & 2.3 & 168 & 128 \\
 \botrule
 \end{tabular}
 \footnotetext{FA side: smallest distance beyond which at most 5\,\% of the verdicts on failing alternatives ($d<0$) are false accepts; FR side: the same for false rejects of adequate alternatives ($d\ge0$). Requirements below zero are left out.}
@@ -683,7 +685,7 @@ M2 & 89 & 7.6 & 8.6 & 53 & 5.1 & 12 & 47 & 7.5 & 34 \\
 M3 & 93 & 8.4 & 7.5 & 40 & 7.4 & 21 & 40 & 7.1 & 36 \\
 M5 & 72 & 1.2 & 3.4 & 56 & 5.0 & 12 & 0 & 0.8 & 32 \\
 M2n & 90 & 5.9 & 9.1 & 53 & 4.1 & 10 & 12 & 5.5 & 131 \\
-M4 & 86 & 2.4 & 4.8 & 39 & 2.3 & 9.8 & 6 & 3.0 & 131 \\
+M4 & 86 & 2.4 & 4.8 & 39 & 2.3 & 9.9 & 6 & 3.0 & 131 \\
 M5n & 71 & 1.1 & 2.8 & 52 & 4.3 & 11 & 0 & 0.6 & 131 \\
 \botrule
 \end{tabular}
@@ -725,13 +727,13 @@ Mc $-$ M1 & +11.5 (+8.8, +12.9) & +14.8 (+13.4, +16.2) & +2.4 (+0.9, +9.1) \\
 \cmidrule(lr){2-6}\cmidrule(lr){7-11}
 Characteristic & M1 & M2 & M5 & NN & M5n & M1 & M2 & M5 & NN & M5n \\
 \midrule
-Draw-in, mid-side & 21 & 20/0.0 & 2.8/1.0 & 1.9 & 2.7/0.6 & 27 & 18/8.3 & 19/6.8 & 6.5 & 11/4.2 \\
-Draw-in, corner & 12 & 6.0/0.5 & 2.6/0.3 & 4.5 & 2.1/0.3 & 16 & 6.5/2.1 & 6.4/2.0 & 6.7 & 18/4.8 \\
-Flange waviness & 8.1 & 23/0.1 & 1.4/0.2 & 0.8 & 1.4/0.2 & 9.7 & 16/11 & 18/11 & 11 & 18/10 \\
-Wall angle & 11 & 9.3/0.1 & 2.0/0.8 & 3.4 & 3.5/0.9 & 14 & 7.6/3.2 & 7.7/3.0 & 1.9 & 3.1/1.6 \\
-Arm angle, cut & 8.4 & 27/0.3 & 6.2/2.1 & 2.8 & 6.1/1.6 & 22 & 27/8.1 & 34/8.1 & 5.8 & 8.1/4.4 \\
-Cup depth & 18 & 28/0.3 & 5.0/2.7 & 3.2 & 5.2/3.1 & 24 & 15/13 & 16/13 & 15 & 22/13 \\
-Bottom dome, cut & 14 & 15/0.6 & 11/9.2 & 7.0 & 10/5.8 & 14 & 18/2.8 & 15/4.8 & 4.5 & 8.8/2.9 \\
+Draw-in, mid-side & 21 & 20/0.0 & 2.8/1.0 & 2.0 & 2.7/0.6 & 27 & 18/8.3 & 19/6.8 & 6.5 & 11/4.2 \\
+Draw-in, corner & 12 & 6.1/0.5 & 2.6/0.4 & 4.5 & 2.1/0.3 & 16 & 6.6/2.2 & 6.4/2.0 & 6.7 & 18/4.9 \\
+Flange waviness & 8.1 & 23/0.1 & 1.4/0.2 & 0.9 & 1.4/0.2 & 9.7 & 16/11 & 19/11 & 11 & 18/10 \\
+Wall angle & 11 & 9.3/0.2 & 2.0/0.9 & 3.4 & 3.5/0.9 & 14 & 7.6/3.2 & 7.7/3.1 & 1.9 & 3.2/1.6 \\
+Arm angle, cut & 8.4 & 27/0.3 & 6.2/2.1 & 2.8 & 6.1/1.6 & 22 & 27/8.1 & 34/8.1 & 5.9 & 8.1/4.4 \\
+Cup depth & 19 & 28/0.3 & 5.1/2.7 & 3.3 & 5.2/3.1 & 24 & 15/13 & 16/13 & 15 & 22/13 \\
+Bottom dome, cut & 14 & 15/0.6 & 11/9.3 & 7.0 & 10/5.8 & 14 & 18/2.8 & 15/4.8 & 4.5 & 8.9/2.9 \\
 \botrule
 \end{tabular}
 \footnotetext{18 held-out alternatives per characteristic and scope (36 verdicts per distance and side); one wrong verdict moves a share by 2.8 percentage points.}

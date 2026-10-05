@@ -33,6 +33,10 @@ RULES = ["M0", "M0w", "M1", "Mc", "M2", "M3", "M5", "M1n", "NN", "M2n", "M4", "M
 GROUPS = [("Simulation only", ["M0", "M0w"]), ("Simulation and production record", ["M1", "Mc", "M2", "M3", "M5"]),
           ("Production record only", ["M1n", "NN", "M2n", "M4", "M5n"])]
 POINT = {"M0", "M1", "Mc", "M1n", "NN"}
+RULE_MED = {"M0": "M0 nominal simulation", "M0w": "M0w process-window worst case", "M1": "M1 bias-corrected",
+            "Mc": "Mc friction-calibrated", "M2": "M2 envelope + margin", "M3": "M3 simulation + boosting",
+            "M5": "M5 GP correction", "M1n": "M1n median", "NN": "NN nearest setting", "M2n": "M2n median + margin",
+            "M4": "M4 boosting", "M5n": "M5n GP of $q_{95}$"}
 RULE_SHORT = {"M0": "M0", "M0w": "M0w", "M1": "M1", "Mc": "Mc", "M2": "M2", "M3": "M3", "M5": "M5", "M1n": "M1n",
               "NN": "NN", "M2n": "M2n", "M4": "M4", "M5n": "M5n"}
 SCOPES = [("within", "New variant"), ("setting", "New setting"), ("setting/interpolation", "Interpolation"),
@@ -83,6 +87,7 @@ def dist(x: float) -> str:
         return "--"
     if not np.isfinite(x):
         return r"$\infty$"
+    x = x + 1e-9                                  # distances lie on a 0.05 grid: round halves up
     return f"{x:.1f}" if x < 10 else f"{x:.0f}"
 
 
@@ -101,9 +106,9 @@ def t_floors() -> str:
                     f"{sig(f['floor_lo_alt'])}--{sig(f['floor_hi_alt'])} & {sig(f['floor_concave'])} & "
                     f"{sig(f['floor_convex'])} & {sig(f['sd_within'])} & {dr.loc[c, 'drift_inflation']:.1f}")
     head = (r" & & \multicolumn{2}{c}{95\,\% interval} & & & & \\" "\n" r"\cmidrule(lr){3-4}" "\n"
-            r"Characteristic & Floor $F$ & batches & alternatives & Concave & Convex & Part SD & Drift factor")
+            r"Characteristic & $F$ & batches & alternatives & Concave & Convex & Part SD & Drift")
     return table(rows, "Production floor per characteristic, pooled and per geometry", "tab:floors",
-                 "lrrrrrrr", head, colsep="4pt",
+                 "lrrrrrrr", head, colsep="2.6pt",
                  note=r"Batches of 50 consecutive parts, 95\,\% quantile of the difference of batch centres. "
                       r"Intervals: 2000 resamples of the batches within the alternatives, and of whole alternatives "
                       r"(clusters). Part SD: median within-alternative standard deviation of single parts. Drift "
@@ -197,12 +202,13 @@ def t_distances() -> str:
     for gname, rules in GROUPS:
         rows.append(rf"\multicolumn{{6}}{{@{{}}l}}{{\emph{{{gname}}}}}")
         for m in rules:
-            rows.append(f"{RULE[m]} & " + " & ".join(pair(r.loc[(s, m)], m) if (s, m) in r.index else "--"
-                                                      for s, _ in SCOPES))
-    head = ("Rule & " + " & ".join(n for _, n in SCOPES))
+            rows.append(f"{RULE_MED[m]} & " + " & ".join(pair(r.loc[(s, m)], m) if (s, m) in r.index else "--"
+                                                          for s, _ in SCOPES))
+    head = (r" & New & \multicolumn{3}{c}{New process setting} & New \\" "\n" r"\cmidrule(lr){3-5}" "\n"
+            r"Rule & variant & all & interpolation & extrapolation & family")
     n = r.loc[("within", "M1"), "n_cases"]
     return table(rows, "Decisive and safe distances (floors) by the relation of the new design to the produced "
-                       "evidence", "tab:distances", "lrrrrr", head, colsep="4.5pt",
+                       "evidence", "tab:distances", "lrrrrr", head, colsep="3.5pt",
                  note=r"Decisive/safe distance $\delta_\mathrm{d}/\delta_\mathrm{s}$ over all seven characteristics; "
                       r"one number for rules that always decide ($\delta_\mathrm{d}=\delta_\mathrm{s}$). New variant: a "
                       r"sibling at the same blank-holder force is produced (leave one alternative out within the "
