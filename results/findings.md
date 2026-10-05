@@ -21,9 +21,9 @@ the code) use jackknife+ intervals. A scaled simulation rule M1s is added (13 ru
 |---|---|---|---|---|---|
 | NN nearest produced setting | 3.4 (2.0–4.5) | 8.5 (5.5–10.2) | 4.7 | 9.5 | 131 |
 | M1s scaled simulation | 4.9 | 19 (false accepts up to 164) | 19 | 19 | 122 |
-| M5 GP correction of the envelope | 7.2/0.8 | 19/6.8 | 19/2.8 | 19/8.9 | 38/28 |
-| M5n GP without simulation | 7.2/0.6 | 17/6.1 | 16/0.0 | 18/8.6 | 132/130 |
-| M2 envelope + residual margin | 23/0.2 | 18/8.1 | 18/2.7 | 18/9.9 | 51/16 |
+| M5 GP correction of the envelope | 7.2/0.75 | 19/6.8 | 19/2.8 | 19/8.9 | 38/28 |
+| M5n GP without simulation | 7.2/0.55 | 17/6.1 | 16/0 | 18/8.6 | 132/130 |
+| M2 envelope + residual margin | 23/0.15 | 18/8.1 | 18/2.7 | 18/9.9 | 51/16 |
 | M1 bias-corrected simulation | 15 | 24 | | | 35 |
 | M0 nominal simulation | 108 (101–115) | 108 | | | 108 |
 

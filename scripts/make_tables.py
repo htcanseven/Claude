@@ -89,13 +89,16 @@ def rng(lo: float, hi: float, d: int = 2) -> str:
 
 
 def dist(x: float) -> str:
-    """A distance in floors: one decimal below 10, whole floors above; infinity when a rule never qualifies."""
+    """A distance in floors: two decimals below one (the 0.05 grid), one decimal below 10, whole floors above;
+    infinity when a rule never qualifies."""
     if x is None or (isinstance(x, float) and np.isnan(x)):
         return "--"
     if not np.isfinite(x):
         return r"$\infty$"
+    if abs(x) < 1e-6:
+        return "0"
     x = x + 1e-9                                  # distances lie on a 0.05 grid: round halves up
-    return f"{x:.1f}" if x < 10 else f"{x:.0f}"
+    return f"{x:.2f}" if x < 1 else (f"{x:.1f}" if x < 10 else f"{x:.0f}")
 
 
 def pair(x, m: str) -> str:
