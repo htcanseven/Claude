@@ -190,7 +190,7 @@ def fig_decisions_compare(src: Path) -> None:
     res = res[res["qc"] == "all"].set_index(["scope", "method"])
     methods = ["M2", "M5", "M5n", "NN"]
     scopes = [("within", "new variant"), ("setting", "new setting"), ("transfer", "new family")]
-    fig, axs = plt.subplots(len(scopes), len(methods), figsize=(WIDTH_IN, 6.1), sharey=True, squeeze=False)
+    fig, axs = plt.subplots(len(scopes), len(methods), figsize=(WIDTH_IN, 4.75), sharey=True, squeeze=False)
     letters = iter("abcdefghijkl")
     for i, (scope, sname) in enumerate(scopes):
         for j, m in enumerate(methods):
@@ -211,6 +211,7 @@ def fig_decisions_compare(src: Path) -> None:
             ax.set_ylim(0, 1)
             ax.set_xticks([-100, -10, 0, 10, 100], ["", "$-10$", "0", "10", "100"], fontsize=8)
             ax.set_xticks([-50, -30, -20, -5, 5, 20, 30, 50], minor=True)
+            ax.set_yticks([0, 0.5, 1], ["0", "0.5", "1"])
             ax.tick_params(axis="y", labelsize=8)
             ax.axvline(0, color=INK, lw=0.6)
             subcaption(ax, next(letters), m, "$d$ (floors)" if i == len(scopes) - 1 else "")
@@ -257,7 +258,7 @@ def fig_budget(src: Path) -> None:
     r = pd.read_csv(src / "budget_design.csv").replace([np.inf, -np.inf], np.nan)
     rels = [("sibling", "sibling produced"), ("interpolation", "interpolation"), ("extrapolation", "extrapolation")]
     kinds = [("resolution", "decisive"), ("safe", "safe")]
-    fig, axs = plt.subplots(2, 3, figsize=(WIDTH_IN, 4.4), sharex=True, sharey="row", squeeze=False)
+    fig, axs = plt.subplots(2, 3, figsize=(WIDTH_IN, 3.7), sharex=True, sharey="row", squeeze=False)
     letters = iter("abcdef")
     for i, (col, kname) in enumerate(kinds):
         for j, (rel, rname) in enumerate(rels):

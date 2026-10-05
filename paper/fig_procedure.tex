@@ -14,12 +14,12 @@
 \node[stage] (s2) at (2.67,0) {\stagetext{\textbf{2 Floor}\\ batches of consecutive parts of the produced
   alternatives\\[3pt] \emph{out:} $F$ per characteristic}};
 \node[stage] (s3) at (5.34,0) {\stagetext{\textbf{3 Resolve}\\ effect-to-scatter ratios; minimum resolvable
-  changes\\[3pt] \emph{out:} questions production can answer;\\ \emph{below $F$: no design question}}};
+  changes\\[3pt] \emph{out:} questions production can answer;\\ \emph{below $F$: not confirmable in production}}};
 \node[stage] (s4) at (8.01,0) {\stagetext{\textbf{4 Calibrate}\\ rules on the produced alternatives, with and
   without the simulation\\[3pt] \emph{out:} intervals for $q_p$}};
 \node[stage] (s5) at (10.68,0) {\stagetext{\textbf{5 Qualify}\\ held out by evidence relation; budget,
-  guard\\[3pt] \emph{out:} $\delta_\mathrm{d}$, $\delta_\mathrm{s}$ per rule and relation;\\ \emph{too large:
-  produce another variant}}};
+  guards\\[3pt] \emph{out:} $\delta_\mathrm{d}$, $\delta_\mathrm{s}$, guard band $g$ per rule and relation;\\
+  \emph{too large: produce another variant}}};
 \foreach \a/\b in {s1/s2, s2/s3, s3/s4, s4/s5} \draw[arr] (\a.east) -- (\b.west);
 \node[io, anchor=south] (prod) at (4.005,0.42) {produced alternatives: parts, scans};
 \node[io, anchor=south] (sim) at (8.01,0.42) {simulations of every alternative};
@@ -27,9 +27,9 @@
 \draw[arr, dashed] (prod.south -| s3.north) -- (s3.north);
 \draw[arr, dashed] (sim.south) -- (s4.north);
 \node[decide, anchor=north east] (s6) at ([yshift=-0.45cm]s5.south east) {\textbf{6 Decide} (every new
-  design)\quad relation of the design to the produced evidence $\to$ rule qualified for that relation $\to$ guard
-  $\to$ interval for $q_p$\\[2pt]
-  \emph{out:} meets, fails or trial, with the margin of the requirement in floors; \emph{guard fires or margin
-  below $\delta_\mathrm{s}$: physical trial}};
+  design)\quad relation of the design to the produced evidence $\to$ rule qualified for that relation (new family:
+  floor of the produced family) $\to$ guards $\to$ interval for $q_p$ widened by $g$ floors\\[2pt]
+  \emph{out:} meets or fails, with the margin of the requirement in floors; \emph{trial when a guard fires, no rule
+  is qualified or the requirement lies inside the widened interval}};
 \draw[arr] (s5.south) -- (s5.south |- s6.north);
 \end{tikzpicture}

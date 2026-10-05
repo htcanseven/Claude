@@ -314,6 +314,18 @@ def run_metadata(q: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def force_effect(t: pd.DataFrame) -> pd.DataFrame:
+    """Blank-holder force effect (100 to 500 kN) of the nominal simulation over the measured one, for the
+    draw-ins: the simulated trend that M1 adds to the produced offset."""
+    rows = []
+    for qc in ("drawin_mid", "drawin_corner"):
+        for geo in ("concave", "convex"):
+            a = t[(t["qc"] == qc) & (t["geometry"] == geo)].groupby("bhf_kN")[["real_centre", "sim_nominal"]].mean()
+            real, sim = a.loc[500] - a.loc[100]
+            rows.append({"qc": qc, "geometry": geo, "real_effect": real, "sim_effect": sim, "ratio": sim / real})
+    return pd.DataFrame(rows)
+
+
 def main() -> None:
     iv = pd.read_csv(RESULTS / "dec_intervals.csv")
     ivr = D.with_relation_scopes(iv)
@@ -335,6 +347,7 @@ def main() -> None:
     out["variogram"], out["floor_protocol"] = floor_protocol(q, floors)
     out["resolution_steps"] = resolution_steps(q, floors, t)
     out["runs"] = run_metadata(q)
+    out["force_effect"] = force_effect(t)
     for name, frame in out.items():
         frame.to_csv(RESULTS / f"panel_{name}.csv", index=False)
 

@@ -132,19 +132,16 @@ def t_floors() -> str:
         f = fl.loc[c]
         ratio = "/".join(f"{fp.loc[(c, g), 'floor_over_sigma_lt']:.1f}" for g in ("concave", "convex"))
         step = st.loc[c, "step_over_floor"]
+        step = f"{step:.2f}" if step >= 0.01 else "${<}$0.01"
         rows.append(f"{LABEL[c]} ({UNIT[c]}) & {sig(f['floor'])} & {sig(f['floor_lo'])}--{sig(f['floor_hi'])} & "
                     f"{sig(f['floor_lo_alt'])}--{sig(f['floor_hi_alt'])} & {sig(f['floor_concave'])} & "
-                    f"{sig(f['floor_convex'])} & {ratio} & {dr.loc[c, 'drift_inflation']:.1f} & "
-                    f"{step:.2f}" if step >= 0.01 else
-                    f"{LABEL[c]} ({UNIT[c]}) & {sig(f['floor'])} & {sig(f['floor_lo'])}--{sig(f['floor_hi'])} & "
-                    f"{sig(f['floor_lo_alt'])}--{sig(f['floor_hi_alt'])} & {sig(f['floor_concave'])} & "
-                    f"{sig(f['floor_convex'])} & {ratio} & {dr.loc[c, 'drift_inflation']:.1f} & ${{<}}$0.01")
+                    f"{sig(f['floor_convex'])} & {ratio} & {dr.loc[c, 'drift_inflation']:.1f} & {step}")
     head = (r" & & \multicolumn{2}{c}{95\,\% interval} & & & & & \\" "\n" r"\cmidrule(lr){3-4}" "\n"
-            r"Characteristic & $F$ & batches & alternatives & Concave & Convex & $F/\sigma_\mathrm{LT}$ & Drift & Step")
+            r"Characteristic & $F$ & batches & series & Concave & Convex & $F/\sigma_\mathrm{LT}$ & Drift & Step")
     return table(rows, "Production floor per characteristic, pooled and per geometry", "tab:floors",
-                 "lrrrrrrrr", head, colsep="2.4pt",
+                 "lrrrrrrrr", head, colsep="1.8pt",
                  note=r"Batches of 50 consecutive parts, 95\,\% quantile of the difference of batch centres. Intervals: "
-                      r"2000 resamples of batches within alternatives, and of whole alternatives. $F/\sigma_\mathrm{LT}$: "
+                      r"2000 resamples of batches within series, and of whole series. $F/\sigma_\mathrm{LT}$: "
                       r"floor over the median long-term standard deviation of the parts (concave/convex). Drift: floor "
                       r"over the floor of randomly permuted series. Step: measurement resolution in floors.")
 
@@ -200,7 +197,7 @@ def t_drivers() -> str:
                        "the cases", "tab:drivers", "lrrrrr", head, colsep="5pt",
                  note=r"Siblings resolvably different: effect-to-scatter ratio of at least one between the held-out "
                       r"alternative and its sibling. Pooled: the alternatives of the other geometry are added to the "
-                      r"calibration set (Section~\ref{sec:evaldesign}).")
+                      r"calibration set (Section~\ref{M-sec:evaldesign}).")
 
 
 def t_design() -> str:
@@ -228,6 +225,29 @@ def t_design() -> str:
 
 
 # ── ESM ───────────────────────────────────────────────────────────────────────
+QC_DEFINITIONS = [
+    ("drawin_mid", "process indicator", r"$(210 - W_x)/2$; $W_x$: flange width across the cup centre, across the scan lines"),
+    ("drawin_corner", "process indicator", r"$(2\sqrt{2}\cdot 210 - L_1 - L_2)/4$; $L$: distance between opposite corner tips "
+                                           r"of the flange"),
+    ("waviness", "process indicator", "robust standard deviation of the flange about a fitted quadratic surface"),
+    ("wall_op10", "drawing", r"inclination of the wall from the punch axis between 10 and 20\,mm depth, mean of the east "
+                             r"and west walls (design angle 20$^\circ$ concave, 10$^\circ$ convex)"),
+    ("arm_op20", "drawing", "inclination of the flat segment of the cut arms, mean of four arms (requirement on its "
+                            "absolute value)"),
+    ("depth_op10", "drawing", "median depth of the flange below the plane of the cup bottom after drawing"),
+    ("dome_op20", "drawing", r"sag of the bottom at 40\,mm radius from a fitted paraboloid (requirement on its absolute "
+                             r"value)"),
+]
+
+
+def t_qcs() -> str:
+    rows = [f"{LABEL[c]} & {UNIT[c]} & {role} & {text}" for c, role, text in QC_DEFINITIONS]
+    return table(rows, "Quality characteristics, extracted with the same definitions from the scans and the simulated "
+                       "nodes", "tab:qcs", "L{2.5cm}L{0.6cm}L{1.6cm}L{7.0cm}",
+                 "Characteristic & Unit & Role & Definition", colsep="4pt", place="h",
+                 note="All depths are referred to the plane of the cup bottom; definitions of the extraction in "
+                      "Section~S1.")
+
 def t_components() -> str:
     m = read("meas_floor.csv").set_index("qc")
     rows = []
@@ -272,7 +292,6 @@ def t_lags() -> str:
     v = read("panel_variogram.csv")
     w = v.groupby(["lag_batches", "qc"])["q95_floors"].mean().unstack()
     rows = [f"{lag} ({50 * lag}) & " + " & ".join(f"{w.loc[lag, c]:.2f}" for c in SHARED) for lag in w.index]
-    head = r"Lag, batches (parts) & " + " & ".join(LABEL[c].replace(", ", ",\\newline ") for c in SHARED)
     head = r"Lag (parts) & " + " & ".join(["DM", "DC", "Wav", "Wall", "Arm", "Depth", "Dome"])
     return table(rows, "The floor by the time between the batches compared, in floors", "tab:lags",
                  "lrrrrrrr", head, colsep="5pt", place="h",
@@ -397,13 +416,15 @@ def t_resolution() -> str:
 
 def t_runs() -> str:
     r = read("panel_runs.csv")
-    rows = [f"{a} & {x:.1f} & {y:.1f} & {z:.1f} & {s / 1000:.3f} & {v:.0f}" for a, x, y, z, s, v in
-            zip(r["alternative"], r["start_temp_C"], r["rise_first_150_K"], r["rise_series_K"], r["sheet_median_um"],
-                r["stroke_speed_mm_s"])]
-    head = (r"Alternative & Start ($^\circ$C) & Rise, 150 parts (K) & Rise, series (K) & Sheet (mm) & "
-            r"Stroke speed (mm/s)")
-    return table(rows, "Run metadata of the 18 series", "tab:runs", "lrrrrr", head, colsep="5pt", place="h",
-                 note=r"Punch temperature at the start (median of the first ten parts) and its rise; median sheet "
+    rows = [" & ".join(a.split("/")) + f" & {x:.1f} & {y:.1f} & {z:.1f} & {s / 1000:.3f} & {v:.0f}"
+            for a, x, y, z, s, v in zip(r["alternative"], r["start_temp_C"], r["rise_first_150_K"], r["rise_series_K"],
+                                        r["sheet_median_um"], r["stroke_speed_mm_s"])]
+    head = (r" & & & \multicolumn{3}{c}{Punch temperature} & & \\" "\n" r"\cmidrule(lr){4-6}" "\n"
+            r"Geometry & Force (kN) & Oiling & start ($^\circ$C) & rise, 150 (K) & rise, all (K) & Sheet (mm) & "
+            r"Speed (mm/s)")
+    return table(rows, "Run metadata of the 18 series", "tab:runs", "llrrrrrr", head, colsep="2.8pt", place="h",
+                 note=r"Punch temperature at the start (median of the first ten parts) and its rise over the first 150 "
+                      r"parts and over the series; median sheet "
                       r"thickness; median forming speed. The order and dates of the series are not documented.")
 
 
@@ -414,7 +435,7 @@ def t_weights() -> str:
     return table(rows, "Weight of the failing side at given distances", "tab:weights", "rrr",
                  r"$\delta$ (floors) & Feasible failing requirements & Weight of the failing side", colsep="8pt",
                  place="h", note=r"A requirement $q_{95}-\delta F$ below zero is no requirement for a non-negative "
-                                 r"characteristic; every feasible verdict has equal weight (Section~3.4).")
+                                 r"characteristic; every feasible verdict has equal weight (Section~\ref{M-sec:distances} of the paper).")
 
 
 def t_alldist() -> str:
@@ -731,6 +752,18 @@ def t_costmap() -> str:
                  note=r"Costs relative to a false accept; columns: cost of a trial $c_\mathrm{T}$. Ties joined by a slash.")
 
 
+def t_inline() -> str:
+    d = read("inline_drift.csv").set_index("qc")
+    rows = [f"{LABEL[c]} ({UNIT[c]}) & {int(d.loc[c, 'n_batches'])} & {signed(d.loc[c, 'r2_oof_batch'], 2, plus=False)} & "
+            f"{sig(d.loc[c, 'floor'])} & {sig(d.loc[c, 'floor_drift_removed'])} & "
+            f"{signed(-100 * d.loc[c, 'floor_reduction'], 0)}" for c in SHARED]
+    head = r"Characteristic & Batches & $R^2$, out of fold & $F$ & $F$, drift removed & Change (\%)"
+    return table(rows, "Drift of the batch centres explained by the process signals", "tab:inline", "lrrrrr", head,
+                 colsep="5pt", place="h",
+                 note=r"Ridge regression of the batch centres on the batch centres of press force, punch temperature, sheet "
+                      r"thickness and oil film, folds by alternative; $F$ recomputed after removing the predicted drift.")
+
+
 def t_robust() -> str:
     r = read("rob_decisions.csv").set_index(["variant", "scope", "method"])
     order = [("reference", "Reference"), ("temperature-adjusted", "Temperature-adjusted"),
@@ -783,12 +816,12 @@ def t_robust() -> str:
 
 
 TABLES = {"floors": t_floors, "distances": t_distances, "drivers": t_drivers, "design": t_design,
-          "components": t_components, "protocol": t_protocol, "lags": t_lags, "resolve": t_resolve,
+          "qcs": t_qcs, "components": t_components, "protocol": t_protocol, "lags": t_lags, "resolve": t_resolve,
           "offsets": t_offsets, "simnoise": t_simnoise, "scan": t_scan, "resolution": t_resolution, "runs": t_runs,
           "weights": t_weights, "alldist": t_alldist, "distci": t_distci, "onesided": t_onesided, "paired": t_paired,
           "coverage": t_coverage, "qcdist": t_qcdist, "units": t_units, "transfer": t_transfer, "tuning": t_tuning,
           "gp": t_gp, "step6": t_step6, "guard": t_guard, "capability": t_capability, "scenarios": t_scenarios,
-          "costmap": t_costmap, "robust": t_robust}
+          "costmap": t_costmap, "inline": t_inline, "robust": t_robust}
 
 
 def main() -> None:
