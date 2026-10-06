@@ -376,3 +376,31 @@ table of contents says "Owner: J. Saari of Upheat"; make it Upheat Solutions.
 He will choose co-authors after the section structure exists, not before, so Chapter 2 goes
 into the proposal with one named owner and co-authors to be named. That is the honest
 position and does not weaken it.
+
+## Specific speed belongs to the Introduction (6 October 2026)
+
+Ahti Jaatinen-Värri's specific-speed text goes into Chapter 1 in full, as a new §1.1.2. It is
+the book's only treatment of the subject.
+
+**Chapter 2 stays Juha Saari's entire**, as agreed with him. Its §2.2 was "Why the driven
+machine sets the speed: specific speed and the turbomachinery optimum" and would have
+duplicated the derivation; it is retitled "From duty to speed: where the industrial
+applications fall in the specific-speed bands", takes (1.1) as given from §1.1.2, and asks
+instead where each industrial duty falls against it. The owner note no longer asks Saari to
+recruit a co-author for that section — he does not need one now.
+
+That is the better division in any case. Deriving Ns is not what Saari brings to the book;
+knowing which duty lands where, and what it costs in machine terms, is.
+
+**Ahti's own section is Chapter 13**, held jointly with Jonna Tiainen. The §1.1.2
+contribution is separate from it and additional to it, and he is named at the head of
+Chapter 1 for it. The owners table carries both rows.
+
+Chapter 1 goes from 26 to 28 pages and from 4 to 5 tables; the book total from 452 to 454.
+
+Two things to carry forward. Saari holds a table of contents with the old §2.2 title, so the
+detailed section structure he is waiting for must carry the new wording and the covering note
+should say so — nothing starts before a contract, so nothing is at risk, but he should see
+the change rather than find it. And the turbine convention for the volume flow in (1.1) is
+still unanswered by Ahti; §1.1.2 needs it, because the book applies (1.1) to ORC turbines and
+turbo-expanders as well as to compressors.
