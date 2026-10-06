@@ -192,8 +192,8 @@ def t_distances() -> str:
                        "evidence", "tab:distances", "l" + "r" * 10, head, colsep="1.9pt",
                  note=r"Over all seven characteristics; one number for rules that always decide. FA: safe distance on "
                       r"the false-accept side (failing alternatives). Interval: bootstrap 95\,\% interval of the decisive "
-                      r"distance and, for a new family, of the safe distance (fits fixed). 126 cases per relation (42 "
-                      r"interpolated, interp.; 84 extrapolated, extrap.); a new family rests on two transfers and is scored in the floor of "
+                      r"distance and, for a new family, of the safe distance (fits fixed). 126 cases per relation (interp.: "
+                      r"42 interpolated; extrap.: 84 extrapolated); a new family rests on two transfers and is scored in the floor of "
                       r"the produced family (Section~\ref{sec:floor}). Pooled: the other geometry's alternatives added to "
                       r"the calibration set. Below the line, the further rules (M1sn: the force trend, the counterpart of "
                       r"M1s without the simulation) and, as a robustness variant, M6 (the M5 mean with a conformal margin "
@@ -242,7 +242,7 @@ def t_robust() -> str:
                  "l" + "r" * 10, head, colsep="1.6pt", place="!ht",
                  note=r"Rules refitted for every variant; empty cells: the variant does not affect the rule; a new family in "
                       r"its own floor. The floor between series contains the lubrication effect and, for a new variant, the "
-                      r"series that NN averages. Warm-up: first 150 parts. Calibration: calibration $q_{95}$ from the first $n$ "
+                      r"series that NN averages, which makes it close to circular there. Warm-up: first 150 parts. Calibration: calibration $q_{95}$ from the first $n$ "
                       r"parts, truths and floors from the full series. Response surface: simulations from a quadratic fit over thickness and "
                       r"friction; other GP kernels and descriptors move M5 by at most 0.4 floors. Unit: the $q_{95}$ "
                       r"floor, 95\,\% quantile of the difference between the $q_{95}$ of two batches of 100 parts. "

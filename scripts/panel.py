@@ -439,7 +439,7 @@ def q95_unit(iv: pd.DataFrame) -> pd.DataFrame:
     between the 95th percentiles of two batches of 100 parts) instead of the floor of batch centres."""
     unit = pd.read_csv(RESULTS / "meas_floor.csv").set_index("qc")["q95_floor_b100"]
     rows = []
-    for (scope, m), g in iv[iv["scope"].isin(SCOPES) & iv["method"].isin(CORE)].groupby(["scope", "method"]):
+    for (scope, m), g in iv[iv["scope"].isin(SCOPES) & iv["method"].isin(CORE + ["M1sn"])].groupby(["scope", "method"]):
         rows.append({"scope": scope, "method": m, **dist(g, g["qc"].map(unit).to_numpy(float), sides=False)})
     return pd.DataFrame(rows)
 
