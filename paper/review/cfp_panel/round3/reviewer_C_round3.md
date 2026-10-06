@@ -11,21 +11,7 @@
 
 ## 1. Summary of the revision
 
-The author has made the editor's required changes in my remit carefully and, with three exceptions, completely:
-
-- the new-family results are scored in the produced family's floor, with intervals, and no rule is named the safest;
-- the strata and the force split are given wherever the abstract, Sections 5.4 and 6.1, Table 5 and the conclusions quote the headline distances;
-- Table 3 uses one consistent aggregate;
-- the capability-anchored test is declared one-sided;
-- the guard bands have a table (Table A4), a stated prior and a conditional reading for the new family.
-
-Every number I re-derived from the released files reproduces. Three things remain:
-
-- the archive DOI, on which the editor made acceptance depend, is still "[DOI pending]";
-- the short-series analysis is still summarised beyond what it tests, in one surviving clause (Sect. 5.6) and one new clause (Sect. 6.5);
-- the abstract and the conclusions have dropped the performance index of 1.33, to which Section 5.8 now restricts the release-level statement.
-
-Apart from the DOI, each of these is a change of a clause or two.
+The author has made the editor's required changes in my remit carefully and, with few exceptions, completely: the new family is scored in the produced family's floor, with intervals and no rule named the safest; the strata and the force split stand wherever the abstract, Sections 5.4 and 6.1, Table 5 and the conclusions quote the headline distances; Table 3 uses one consistent aggregate; the capability-anchored test is declared one-sided; and the guard bands have a table (Table A4), a stated prior and a conditional reading for the new family. Every number I re-derived from the released files reproduces. Three things still matter: the archive DOI, on which the editor made acceptance depend, is still "[DOI pending]"; the short-series analysis is still summarised beyond what it tests, in one surviving clause (Sect. 5.6) and one new clause (Sect. 6.5); and the abstract and the conclusions have dropped the performance index of 1.33, to which Section 5.8 now restricts the release-level statement. Two further one-clause corrections concern Section 6.4 and Table 5, and apart from the DOI every remaining item is a change of a clause or two.
 
 ## 2. Status of my second-round points
 
@@ -78,7 +64,7 @@ Apart from the DOI, each of these is a change of a clause or two.
 
 **C4. The within-family headline in stratified terms: resolved, to the standard the editor set (S4).**
 
-- The abstract gives "3.4 floors from the truth (0.85 for near-replicates, 4.9 for resolvable siblings)" and "4.7 floors interpolating, 4.9 extrapolating to 500 kN and 8.9 to 100 kN, with a stroke-speed change". Section 6.1 (p. 19, l. 872 – p. 20, l. 905), Table 5 and the conclusions (p. 23, ll. 1044–1049) do the same.
+- The abstract gives "3.4 floors from the truth (0.85 for near-replicates, 4.9 for resolvable siblings)" and "4.7 floors interpolating, 4.9 extrapolating to 500 kN and 8.9 to 100 kN, with a stroke-speed change". Section 6.1 (p. 19, l. 872 – p. 20, l. 905), Table 5 and the conclusions (p. 23, ll. 1045–1050) do the same.
 - Section 5.4:
   - gives all three strata;
   - offers my reading as an observation with the right caveat: "Taken together, the nearest setting decided at about 5 floors whenever the new design differed resolvably and force and speed did not change together, though each stratum has 34 to 58 cases …" (p. 15, ll. 674–677);
@@ -89,8 +75,8 @@ Apart from the DOI, each of these is a change of a clause or two.
 
 **C5. How representative the simulation is: resolved.**
 
-- (a) The envelope now varies "sheet thickness and friction but not material properties" (p. 7, ll. 291–292).
-- (b) Section 6.3 now speaks of "The simulated force trend of the two draw-ins" (p. 21, l. 934).
+- (a) The envelope now varies "sheet thickness and friction but not material properties" (p. 7, ll. 292–293).
+- (b) Section 6.3 now speaks of "The simulated force trend of the two draw-ins" (p. 21, l. 935).
 - (c) The editor reversed the direction of my point (S1). The abstract and the conclusions now say "offset or rescaled", and I confirmed the M1s − M1sn intervals.
 
 **C6. What a design or process-planning team would need: partly resolved, through (a) only.**
@@ -98,7 +84,7 @@ Apart from the DOI, each of these is a change of a clause or two.
 - **(a) Short runs: partly resolved.** See N1.
 - **(b) Placement at production part approval: resolved.**
   - The text reads: "production part approval, whose initial process study covers the released setting, supplies the floor but not the variants". It also names the evidence relation that each source supports (p. 21, ll. 926–930).
-  - *Optional precision.* An initial process study under PPAP measures subgroups (at least 100 readings in at least 25 subgroups) from a run of at least 300 consecutive parts. The floor it supplies is therefore one of its own sampling protocol: the subgroup factor of Section 5.1 applies, and the longest lag is shorter. "Supplies a floor in its own sampling protocol (Section 5.1)" would make the sentence exact.
+  - *Optional precision.* An initial process study under PPAP typically measures subgroups (at least 100 readings in at least 25 subgroups) from a significant production run of at least 300 consecutive parts. The floor it supplies is therefore one of its own sampling protocol: the subgroup factor of Section 5.1 applies, and the longest lag is shorter. "Supplies a floor in its own sampling protocol (Section 5.1)" would make the sentence exact.
 - **(c) Sampled measurement: resolved.** The figures (p. 12, ll. 537–538) reproduce from the corrected components.
 
 **C7. Transfer to other processes: resolved.**
@@ -108,7 +94,7 @@ Apart from the DOI, each of these is a change of a clause or two.
 - The text says that distances in floors are comparable within a protocol, not across processes (p. 23, ll. 1013–1016).
 - The two further columns were suggestions, so leaving them out is acceptable.
 
-**C8. Contribution: resolved.** The sharper practical statement is adopted (p. 20, l. 920 – p. 21, l. 924).
+**C8. Contribution: resolved.** The sharper practical statement is adopted (p. 20, l. 919 – p. 21, l. 924).
 
 ### New issues of the second round
 
@@ -122,7 +108,7 @@ Apart from the DOI, each of these is a change of a clause or two.
 - *What is new in this revision.* Section 6.5 now reads "here rules calibrated on about 50 parts per variant scored as well as with full series, and only the floor needed long runs" (p. 22, ll. 990–991). This replaces the second-round caveat "how many long runs a floor needs was not tested".
 - *Why this is still a problem.*
   - Both clauses state, as a finding, that only the floor needs long runs. Yet every held-out truth in the variant came from the full series.
-  - This contradicts the letter's own account of the variant: "the truths and the floors are those of the full series".
+  - The clauses therefore go beyond the variant as the letter describes it: "the truths and the floors are those of the full series". Whether truths from short runs would do was never put to the test.
   - By the paper's own figure, the 95th percentiles of two batches of 100 parts differ by 0.92–1.49 floors (p. 12, ll. 546–548). That is more than the near-replicate distance (0.85 floors) and more than the nearest setting's guard band with a sibling (0.25 floors).
   - The Section 6.5 sentence sits in the list of prerequisites that a team will read before it plans its runs.
 - *What would resolve it.* In both places write, for example: "the floor and the held-out truths came from the full 500-part series; whether truths from short runs suffice for qualification was not tested". No new analysis is needed.
@@ -173,7 +159,7 @@ Apart from the DOI, each of these is a change of a clause or two.
 
 | Point | Status | Evidence |
 |---|---|---|
-| 1. "Within a family" in two senses | resolved | "with a produced sibling" for the sibling relation; each remaining "within a family" covers both within-family relations (e.g. p. 15, l. 684; p. 19, l. 851; p. 23, l. 1049) |
+| 1. "Within a family" in two senses | resolved | "with a produced sibling" for the sibling relation; each remaining "within a family" covers both within-family relations (e.g. p. 15, l. 684; p. 19, l. 852; p. 23, l. 1050) |
 | 2. Note to Table A2 (floor between series) | resolved | "contains the lubrication effect and, for a new variant, the series that NN averages, which makes it close to circular there" (p. 26) |
 | 3. Lag ranges | resolved | "(averages over the two geometries)" (p. 12, ll. 535–536) |
 | 4. "The distances are exact" | resolved | "exact up to the 0.05-floor grid" (p. 9, l. 369) |
@@ -204,7 +190,7 @@ Apart from the DOI, each of these is a change of a clause or two.
 
 **Major: none.**
 
-**A. The abstract and the conclusions drop the index to which Section 5.8 restricts the release-level statement** (abstract; p. 23, ll. 1049–1051).
+**A. The abstract and the conclusions drop the index to which Section 5.8 restricts the release-level statement** (abstract; p. 23, ll. 1050–1052).
 
 - *What changed.* The second-round abstract said "requirements at a performance index of 1.33". The revised abstract and conclusions write "Release-level requirements lay inside every decisive distance except a near-replicate's". But Section 5.8 restricts the statement: "up to an index of 1.33 they lie inside every decisive distance except a near-replicate sibling's" (p. 18, ll. 826–828).
 - *Why the restriction is needed.* At indices of 1.67 and 2.0 the limits lie 2.46 and 3.14 floors above the 95th percentile. That is at, and then beyond, the 2.45 floors at which the nearest setting decides with one resolvable sibling (34 cases; `panel_sibling_strata.csv`).
@@ -283,4 +269,4 @@ I do not need to see the manuscript again.
 
 ## 7. Confidential comments to the editor
 
-The revision is careful and honest, and I found no computational error: Table 3, Table A4, the new-family column of Table 4, the capability shares, the worked example and the short-series bounds all reproduce. The only unmet condition is the one you set yourself. The DOI is still a placeholder, although the response says that the manuscript would not be resubmitted without it, and I would not issue acceptance until the deposit exists and matches the result files. Beyond that, the short-series clause (N1) matters most to me. The revision removed the caveat in Section 6.5 on which I had relied, and put a stronger claim in its place, in the paragraph a team reads for prerequisites. The other items are one-clause fixes. My second-round doubt about the ISO editions was mistaken; the author was right, and I say so in the report.
+The revision is careful and honest, and I found no computational error: Table 3, Table A4, the new-family column of Table 4, the capability shares, the worked example and the short-series bounds all reproduce. The only unmet condition is the one your letter made decisive: the DOI is still a placeholder, although the response says that the manuscript would not be resubmitted without it. I would not issue acceptance until the deposit exists and matches the result files. Beyond that, the short-series clause (N1) matters most to me. The revision removed the caveat in Section 6.5 on which I had relied, and put a stronger claim in its place, in the paragraph a team reads for prerequisites. The other items are one-clause fixes. My second-round doubt about the ISO editions was mistaken; the author was right, and I say so in the report.
