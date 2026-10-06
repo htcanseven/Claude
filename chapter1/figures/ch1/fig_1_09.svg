@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="451.275591pt" height="310.393701pt" viewBox="0 0 451.275591 310.393701" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-06T12:43:24.186678</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 310.393701 
+L 451.275591 310.393701 
+L 451.275591 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 225.637795 28.346457 
+L 43.937008 260.787402 
+L 407.338583 260.787402 
+z
+" clip-path="url(#pf9e92b11e7)" style="fill: #f7f7f5; stroke: #1a1a1a; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 225.637795 165.11811 
+C 247.688106 165.11811 268.838262 163.251384 284.430187 159.929057 
+C 300.022111 156.60673 308.782792 152.100055 308.782792 147.401575 
+C 308.782792 142.703095 300.022111 138.19642 284.430187 134.874092 
+C 268.838262 131.551765 247.688106 129.685039 225.637795 129.685039 
+C 203.587484 129.685039 182.437328 131.551765 166.845404 134.874092 
+C 151.25348 138.19642 142.492798 142.703095 142.492798 147.401575 
+C 142.492798 152.100055 151.25348 156.60673 166.845404 159.929057 
+C 182.437328 163.251384 203.587484 165.11811 225.637795 165.11811 
+z
+" clip-path="url(#pf9e92b11e7)" style="fill: #dbe6f0; stroke: #1f4e79; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 225.637795 241.653543 
+C 260.171853 241.653543 293.296135 239.786817 317.715402 236.46449 
+C 342.134668 233.142163 355.855195 228.635488 355.855195 223.937008 
+C 355.855195 219.238528 342.134668 214.731853 317.715402 211.409526 
+C 293.296135 208.087198 260.171853 206.220472 225.637795 206.220472 
+C 191.103737 206.220472 157.979456 208.087198 133.560189 211.409526 
+C 109.140922 214.731853 95.420396 219.238528 95.420396 223.937008 
+C 95.420396 228.635488 109.140922 233.142163 133.560189 236.46449 
+C 157.979456 239.786817 191.103737 241.653543 225.637795 241.653543 
+z
+" clip-path="url(#pf9e92b11e7)" style="fill: #f3e1d8; stroke: #a6350f; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 11px; font-family:'Times New Roman', 'Liberation Serif', serif, serif; text-anchor: middle" x="225.637795" y="13.216528" transform="rotate(-0 225.637795 13.216528)">Mechanical integrity</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family:'Times New Roman', 'Liberation Serif', serif, serif" transform="translate(3.647149 278.838886)">Electromagnetic</text>
+    <text style="font-size: 11px; font-family:'Times New Roman', 'Liberation Serif', serif, serif" transform="translate(17.800196 289.89582)">efficiency</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 11px; font-family:'Times New Roman', 'Liberation Serif', serif, serif" transform="translate(392.96102 279.971542)">Thermal</text>
+    <text style="font-size: 11px; font-family:'Times New Roman', 'Liberation Serif', serif, serif" transform="translate(383.490707 289.119804)">management</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family:'Times New Roman', 'Liberation Serif', serif, serif" transform="translate(33.391168 122.736192)">thicker sleeve</text>
+    <text style="font-size: 11px; font-family:'Times New Roman', 'Liberation Serif', serif, serif" transform="translate(27.688356 133.104658)">→ larger air gap</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 11px; font-family:'Times New Roman', 'Liberation Serif', serif, serif" transform="translate(350.380516 121.603535)">cooling channels</text>
+    <text style="font-size: 11px; font-family:'Times New Roman', 'Liberation Serif', serif, serif" transform="translate(348.49075 134.293174)">→ lower stiffness</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 11px; font-family:'Times New Roman', 'Liberation Serif', serif, serif; text-anchor: middle" x="225.637795" y="295.50423" transform="rotate(-0 225.637795 295.50423)">more poles, higher frequency → more loss in less volume</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 11px; font-family:'Times New Roman', 'Liberation Serif', serif, serif" transform="translate(192.800217 93.562963)">feasible design</text>
+    <text style="font-size: 11px; font-family:'Times New Roman', 'Liberation Serif', serif, serif" transform="translate(207.915764 105.640834)">window</text>
+   </g>
+   <g id="patch_5">
+    <path d="M 174.722225 73.399548 
+Q 107.775799 127.197468 72.388081 203.730818 
+" clip-path="url(#pf9e92b11e7)" style="fill: none; stroke: #a6350f; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 76.930405 200.102141 
+L 72.388081 203.730818 
+L 72.210533 197.919753 
+z
+" clip-path="url(#pf9e92b11e7)" style="fill: #a6350f; stroke: #a6350f; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 154.904908 272.587105 
+Q 225.63771 289.108119 294.84629 272.943156 
+" clip-path="url(#pf9e92b11e7)" style="fill: none; stroke: #a6350f; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 289.191217 271.594025 
+L 294.84629 272.943156 
+L 290.373942 276.657736 
+z
+" clip-path="url(#pf9e92b11e7)" style="fill: #a6350f; stroke: #a6350f; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 379.543798 205.150179 
+Q 343.498891 127.196316 277.772308 74.379078 
+" clip-path="url(#pf9e92b11e7)" style="fill: none; stroke: #a6350f; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 280.197077 79.663063 
+L 277.772308 74.379078 
+L 283.454357 75.609653 
+z
+" clip-path="url(#pf9e92b11e7)" style="fill: #a6350f; stroke: #a6350f; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 110.85193 184.251969 
+L 340.42366 184.251969 
+" clip-path="url(#pf9e92b11e7)" style="fill: none; stroke: #4a7c1f; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 110.85193 189.354331 
+L 110.85193 179.149606 
+" clip-path="url(#pf9e92b11e7)" style="fill: none; stroke: #4a7c1f; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 340.42366 189.354331 
+L 340.42366 179.149606 
+" clip-path="url(#pf9e92b11e7)" style="fill: none; stroke: #4a7c1f; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 11px; font-family:'Times New Roman', 'Liberation Serif', serif, serif" transform="translate(163.005686 144.530725)">low-pole industrial topology</text>
+    <text style="font-size: 11px; font-family:'Times New Roman', 'Liberation Serif', serif, serif" transform="translate(163.170686 156.664456)">reachable with silicon IGBT</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 11px; font-family:'Times New Roman', 'Liberation Serif', serif, serif" transform="translate(166.977717 221.066158)">high-pole mobile topology</text>
+    <text style="font-size: 11px; font-family:'Times New Roman', 'Liberation Serif', serif, serif" transform="translate(158.882405 232.123092)">feasible only with SiC or GaN</text>
+   </g>
+   <g id="text_10">
+    <g id="patch_8">
+     <path d="M 131.41678 190.961324 
+L 319.858811 190.961324 
+L 319.858811 177.542613 
+L 131.41678 177.542613 
+z
+" style="fill: #f7f7f5"/>
+    </g>
+    <text style="font-size: 11px; font-family:'Times New Roman', 'Liberation Serif', serif, serif; text-anchor: middle" x="225.637795" y="186.937301" transform="rotate(-0 225.637795 186.937301)">power-electronic interface: the gatekeeper</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pf9e92b11e7">
+   <rect x="0" y="0" width="451.275591" height="310.393701"/>
+  </clipPath>
+ </defs>
+</svg>
