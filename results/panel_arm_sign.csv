@@ -1,0 +1,7 @@
+geometry,bhf_kN,simulations,sims_downward,parts,parts_downward
+concave,100,66,0.8939393939393939,1498,0.0
+concave,300,66,1.0,1500,0.0
+concave,500,66,1.0,1500,0.0
+convex,100,66,1.0,1500,1.0
+convex,300,66,1.0,1496,1.0
+convex,500,66,1.0,1496,1.0

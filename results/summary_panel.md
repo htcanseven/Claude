@@ -447,18 +447,18 @@
 | setting/interpolation | M5       |         0.5  |            19.05 |         2.8  |            0.612 |            0     |            0.388 |            0.958 |            0     |            0.042 |            19.55 |         2.3  |            0.6   |            0     |            0.4   |            0.958 |                0 |            0.042 |
 | setting/interpolation | M5n      |         0    |            15.6  |         0    |            0.75  |            0     |            0.25  |            1     |            0     |            0     |            15.6  |         0    |            0.75  |            0     |            0.25  |            1     |                0 |            0     |
 | setting/interpolation | NN       |         2    |             4.65 |         4.65 |            1     |            0     |            0     |            1     |            0     |            0     |             6.65 |         2.65 |            1     |            0     |            0     |            1     |                0 |            0     |
-| transfer              | M0       |       inf    |           108.35 |       108.35 |            0.653 |            0.347 |            0     |            0.731 |            0.269 |            0     |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
-| transfer              | M1       |       inf    |            35.3  |        35.3  |            0.72  |            0.28  |            0     |            0.858 |            0.142 |            0     |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
-| transfer              | M1n      |       inf    |           130.7  |       130.7  |            0.556 |            0.444 |            0     |            0.598 |            0.402 |            0     |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
-| transfer              | M1s      |       inf    |           122.3  |       122.3  |            0.565 |            0.435 |            0     |            0.662 |            0.338 |            0     |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
-| transfer              | M1sn     |       inf    |           130.35 |       130.35 |            0.569 |            0.431 |            0     |            0.635 |            0.365 |            0     |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
-| transfer              | M2       |       inf    |            50.65 |        15.8  |            0.649 |            0.096 |            0.255 |            0.836 |            0.041 |            0.123 |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
-| transfer              | M2n      |       inf    |           132.35 |       129.05 |            0.473 |            0.36  |            0.167 |            0.521 |            0.306 |            0.174 |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
-| transfer              | M3       |       inf    |            48.75 |        20.5  |            0.594 |            0.113 |            0.293 |            0.767 |            0.055 |            0.178 |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
-| transfer              | M4       |       inf    |           133.1  |       128.45 |            0.523 |            0.377 |            0.1   |            0.589 |            0.329 |            0.082 |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
-| transfer              | M5       |       inf    |            38.4  |        27.5  |            0.774 |            0.184 |            0.042 |            0.881 |            0.082 |            0.037 |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
-| transfer              | M5n      |       inf    |           132.15 |       129.55 |            0.548 |            0.389 |            0.063 |            0.589 |            0.329 |            0.082 |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
-| transfer              | NN       |       inf    |           130.5  |       130.5  |            0.556 |            0.444 |            0     |            0.639 |            0.361 |            0     |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
+| transfer              | M0       |       inf    |           103.75 |       103.75 |            0.624 |            0.376 |            0     |            0.724 |            0.276 |            0     |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
+| transfer              | M1       |       inf    |            32.9  |        32.9  |            0.744 |            0.256 |            0     |            0.816 |            0.184 |            0     |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
+| transfer              | M1n      |       inf    |           130.5  |       130.5  |            0.556 |            0.444 |            0     |            0.627 |            0.373 |            0     |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
+| transfer              | M1s      |       inf    |           120.65 |       120.65 |            0.547 |            0.453 |            0     |            0.706 |            0.294 |            0     |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
+| transfer              | M1sn     |       inf    |           130.5  |       130.5  |            0.564 |            0.436 |            0     |            0.654 |            0.346 |            0     |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
+| transfer              | M2       |       inf    |            40.75 |        26.4  |            0.59  |            0.06  |            0.35  |            0.772 |            0.057 |            0.171 |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
+| transfer              | M2n      |       inf    |           133.15 |       127.85 |            0.462 |            0.41  |            0.128 |            0.575 |            0.316 |            0.11  |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
+| transfer              | M3       |       inf    |            40.15 |        17.1  |            0.581 |            0.124 |            0.295 |            0.746 |            0.031 |            0.224 |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
+| transfer              | M4       |       inf    |           134.85 |       125.95 |            0.526 |            0.419 |            0.056 |            0.601 |            0.325 |            0.075 |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
+| transfer              | M5       |       inf    |            35.2  |        31.3  |            0.748 |            0.179 |            0.073 |            0.86  |            0.092 |            0.048 |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
+| transfer              | M5n      |       inf    |           132.5  |       128.1  |            0.526 |            0.423 |            0.051 |            0.605 |            0.333 |            0.061 |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
+| transfer              | NN       |       inf    |           130.4  |       130.4  |            0.564 |            0.436 |            0     |            0.654 |            0.346 |            0     |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
 | within                | M0       |       inf    |           108.35 |       108.35 |            0.653 |            0.347 |            0     |            0.731 |            0.269 |            0     |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
 | within                | M1       |       inf    |            15.2  |        15.2  |            0.879 |            0.121 |            0     |            0.991 |            0.009 |            0     |           nan    |       nan    |          nan     |          nan     |          nan     |          nan     |              nan |          nan     |
 | within                | M1n      |         5.25 |             9.05 |         9.05 |            0.971 |            0.029 |            0     |            1     |            0     |            0     |            14.45 |         3.8  |            0.879 |            0     |            0.121 |            0.991 |                0 |            0.009 |
@@ -581,11 +581,11 @@
 | transfer              | M0       | grid within 3              |       inf    |                inf    |
 | transfer              | M0       | uniform within 20          |       inf    |                inf    |
 | transfer              | M0       | uniform within 50          |       inf    |                inf    |
-| transfer              | M1       | grid within 20 (reference) |       inf    |                 52.75 |
-| transfer              | M1       | grid within 5              |       inf    |                 54.25 |
-| transfer              | M1       | grid within 3              |       inf    |                 54.75 |
-| transfer              | M1       | uniform within 20          |       inf    |                 52    |
-| transfer              | M1       | uniform within 50          |       inf    |                 26    |
+| transfer              | M1       | grid within 20 (reference) |       inf    |                inf    |
+| transfer              | M1       | grid within 5              |       inf    |                inf    |
+| transfer              | M1       | grid within 3              |       inf    |                inf    |
+| transfer              | M1       | uniform within 20          |       inf    |                 59.75 |
+| transfer              | M1       | uniform within 50          |       inf    |                 31.75 |
 | transfer              | M1s      | grid within 20 (reference) |       inf    |                inf    |
 | transfer              | M1s      | grid within 5              |       inf    |                inf    |
 | transfer              | M1s      | grid within 3              |       inf    |                inf    |
@@ -596,26 +596,26 @@
 | transfer              | M1sn     | grid within 3              |       inf    |                inf    |
 | transfer              | M1sn     | uniform within 20          |       inf    |                inf    |
 | transfer              | M1sn     | uniform within 50          |       inf    |                inf    |
-| transfer              | M2       | grid within 20 (reference) |       inf    |                 28.5  |
-| transfer              | M2       | grid within 5              |       inf    |                 28.75 |
-| transfer              | M2       | grid within 3              |       inf    |                 29    |
-| transfer              | M2       | uniform within 20          |       inf    |                 27.25 |
-| transfer              | M2       | uniform within 50          |         3.75 |                  3.75 |
-| transfer              | M3       | grid within 20 (reference) |       inf    |                 35.25 |
-| transfer              | M3       | grid within 5              |       inf    |                 36.25 |
-| transfer              | M3       | grid within 3              |       inf    |                 36.25 |
-| transfer              | M3       | uniform within 20          |       inf    |                 32.5  |
-| transfer              | M3       | uniform within 50          |         7.25 |                  7.25 |
+| transfer              | M2       | grid within 20 (reference) |       inf    |                 41.75 |
+| transfer              | M2       | grid within 5              |       inf    |                 42.75 |
+| transfer              | M2       | grid within 3              |       inf    |                 43.25 |
+| transfer              | M2       | uniform within 20          |       inf    |                 40.25 |
+| transfer              | M2       | uniform within 50          |         6.25 |                  6.25 |
+| transfer              | M3       | grid within 20 (reference) |       inf    |                 42.25 |
+| transfer              | M3       | grid within 5              |       inf    |                 42.25 |
+| transfer              | M3       | grid within 3              |       inf    |                 42.25 |
+| transfer              | M3       | uniform within 20          |       inf    |                 41.5  |
+| transfer              | M3       | uniform within 50          |         6.5  |                  6.5  |
 | transfer              | M4       | grid within 20 (reference) |       inf    |                inf    |
 | transfer              | M4       | grid within 5              |       inf    |                inf    |
 | transfer              | M4       | grid within 3              |       inf    |                inf    |
 | transfer              | M4       | uniform within 20          |       inf    |                inf    |
 | transfer              | M4       | uniform within 50          |       inf    |                inf    |
-| transfer              | M5       | grid within 20 (reference) |       inf    |                 33.25 |
-| transfer              | M5       | grid within 5              |       inf    |                 34    |
-| transfer              | M5       | grid within 3              |       inf    |                 34.25 |
-| transfer              | M5       | uniform within 20          |       inf    |                 32    |
-| transfer              | M5       | uniform within 50          |        11.75 |                 11.75 |
+| transfer              | M5       | grid within 20 (reference) |       inf    |                 42.25 |
+| transfer              | M5       | grid within 5              |       inf    |                 44.25 |
+| transfer              | M5       | grid within 3              |       inf    |                 44.75 |
+| transfer              | M5       | uniform within 20          |       inf    |                 39.75 |
+| transfer              | M5       | uniform within 50          |        15    |                 15    |
 | transfer              | M5n      | grid within 20 (reference) |       inf    |                inf    |
 | transfer              | M5n      | grid within 5              |       inf    |                inf    |
 | transfer              | M5n      | grid within 3              |       inf    |                inf    |
@@ -837,15 +837,15 @@
 
 | method           |   cases |   resolution_floors |   safe_floors |   median_abs_error |   abs_error_p90 |
 |:-----------------|--------:|--------------------:|--------------:|-------------------:|----------------:|
-| nominal + offset |      18 |                1.95 |          1.95 |              0.326 |           1.754 |
-| M0               |      18 |               27.5  |         27.5  |             13.977 |          27.075 |
-| M1               |      18 |               16.35 |         16.35 |              5.336 |          15.942 |
-| M1s              |      18 |              123.2  |        123.2  |            121.147 |         122.969 |
-| Mc               |      18 |               18.9  |         18.9  |             15.257 |          18.29  |
-| M2               |      18 |                9.95 |          0.05 |              1.015 |           4.487 |
-| M5               |      18 |                7.3  |          3.15 |              3.601 |           4.592 |
-| M1n              |      18 |              129.1  |        129.1  |            126.024 |         129.041 |
-| NN               |      18 |              129.95 |        129.95 |            125.907 |         129.762 |
+| nominal + offset |      18 |                1.9  |          1.9  |              0.318 |           1.776 |
+| M0               |      18 |               28.5  |         28.5  |             13.963 |          28.06  |
+| M1               |      18 |               16.95 |         16.95 |              5.366 |          16.522 |
+| M1s              |      18 |              125.4  |        125.4  |            122.153 |         125.165 |
+| Mc               |      18 |               18.7  |         18.7  |             15.188 |          18.599 |
+| M2               |      18 |               10.15 |          0.05 |              1.052 |           4.65  |
+| M5               |      18 |                7.45 |          3.05 |              3.597 |           4.759 |
+| M1n              |      18 |              130.15 |        130.15 |            127.094 |         129.438 |
+| NN               |      18 |              130.1  |        130.1  |            126.829 |         129.305 |
 
 ## variogram
 
@@ -1040,6 +1040,17 @@
 | drawin_mid    | convex     |        -0.418 |       -2.034 |   4.871 |
 | drawin_corner | concave    |        -0.342 |       -1.175 |   3.437 |
 | drawin_corner | convex     |        -0.335 |       -0.896 |   2.673 |
+
+## arm_sign
+
+| geometry   |   bhf_kN |   simulations |   sims_downward |   parts |   parts_downward |
+|:-----------|---------:|--------------:|----------------:|--------:|-----------------:|
+| concave    |      100 |            66 |           0.894 |    1498 |                0 |
+| concave    |      300 |            66 |           1     |    1500 |                0 |
+| concave    |      500 |            66 |           1     |    1500 |                0 |
+| convex     |      100 |            66 |           1     |    1500 |                1 |
+| convex     |      300 |            66 |           1     |    1496 |                1 |
+| convex     |      500 |            66 |           1     |    1496 |                1 |
 
 ## q95_unit
 

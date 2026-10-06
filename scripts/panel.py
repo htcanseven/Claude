@@ -8,8 +8,9 @@
  3. Force levels: the new-setting cases split by the held-out force (100 kN: extrapolation at a slower stroke; 500 kN:
     extrapolation at the same speed; 300 kN: interpolation).
  4. New family in the source family's floor: transfer cases rescored with the floor of the produced family, which a
-    design team would have, with the bootstrap intervals and paired differences of decisions.py (fits fixed); and
-    every scope per characteristic in the characteristic's unit (exact, evaluated in steps of 0.05 pooled floors).
+    design team would have, with the bootstrap intervals and paired differences of decisions.py (fits fixed) and the
+    verdict shares against the requirement distance (Fig. 2); and every scope per characteristic in the
+    characteristic's unit (exact, evaluated in steps of 0.05 pooled floors).
  5. Weight of the failing side: feasible failing-side requirements at given distances (a limit below zero on a
     non-negative characteristic is no requirement).
  6. The procedure's decision rule (step 6): a guard band g on the observable margin between the predicted interval
@@ -19,14 +20,14 @@
     distributed. The reference prior is the evaluation grid of decisions.py within 20 floors of the truth (0,
     +-0.5, ..., +-10, +-12, +-15, +-20 floors; 47 points, 41 of them within 10 floors), every feasible point and case
     weighted equally; guard_priors gives g under other priors (the grid within 5 or 3 floors, uniform within 20 or
-    50 floors), with and without the cap.
+    50 floors), with and without the cap. A new family is scored in the produced family's floor, as step 6 prescribes.
  7. Capability-anchored requirements: upper limits at which each alternative has Ppk = 1.0, 1.33, 1.67 and 2.0
     (centre + 3 Ppk sd of its parts); every alternative meets them, so a verdict is right (meets), a false reject or
     a trial.
  8. The nominal simulation without the definitional offset of the cup depth (reference surface and drawing depth):
     the median matched centre difference of the cup depth is added to its nominal simulation.
  9. A production-informed baseline for a new family where a drawing nominal exists (wall angle): the target's design
-    angle plus the median deviation q95 - design angle of the produced family.
+    angle plus the median deviation q95 - design angle of the produced family, scored in the produced family's floor.
 10. Floor protocol: batch-centre differences by time lag (a variogram of the floor), the within-batch and
     between-batch standard deviations, and the floor in units of the long- and short-term standard deviations. All
     components are classical (means, standard deviations with n - 1) and pooled over the series of a geometry as
@@ -34,6 +35,8 @@
     that subgroups of five parts would give under the normal model is reported against the batch-of-50 one.
 11. Measurement resolution: the step between adjacent values of each characteristic relative to its floor.
 12. Run metadata: start temperature, warm-up rise, sheet thickness and stroke speed per series.
+13. Arm sign: share of the matched simulations and of the parts whose cut arms bend downwards (negative arm
+    angle), per geometry and force.
 
 Outputs: results/panel_*.csv, summary_panel.md
 """
@@ -50,7 +53,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import decisions as D  # noqa: E402
 from alternatives import BATCH, batch_centres, batches  # noqa: E402
 from common import RESULTS  # noqa: E402
-from qc import SHARED, parts_qc  # noqa: E402
+from qc import SHARED, parts_qc, sims_qc  # noqa: E402
 
 CAL_RULES = ["M1", "M1s", "Mc", "M2", "M3", "M5", "M1n", "NN", "M2n", "M4", "M5n"]
 CORE = ["M0", "M1", "M1s", "M2", "M5", "M5n", "NN"]
@@ -86,7 +89,7 @@ def outcomes(g: pd.DataFrame, d: float, band: float = 0.0) -> dict:
 def decomposition(res: pd.DataFrame, src: pd.DataFrame) -> pd.DataFrame:
     """Shares of relation and rule in the log distances, with the new family scored in the new family's floor
     (dec_resolution) and in the produced family's floor (source_floor), as the procedure prescribes."""
-    produced = src[src["floor"] == "source family"]
+    produced = src[(src["floor"] == "source family") & (src["qc"] == "all")]
     in_produced = pd.concat([res[res["scope"] != "transfer"], produced[res.columns]], ignore_index=True)
     rows = []
     for frame, unit in ((res, "new family's floor"), (in_produced, "produced family's floor")):
@@ -146,8 +149,9 @@ def force_levels(iv: pd.DataFrame) -> pd.DataFrame:
 # 4 ─────────────────────────────────────────────────────────────────────────────
 def source_floor(iv: pd.DataFrame, floors: dict, reps: np.ndarray, t: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     """New-family distances in the floor of the unproduced target family and in that of the produced (source)
-    family, with the bootstrap intervals of decisions.distances (same resamples, fits fixed) and paired
-    differences of the rule pairs in decisions.PAIRS; M6 (robustness.py) is added for completeness."""
+    family, over all characteristics with the bootstrap intervals of decisions.distances (same resamples, fits
+    fixed) and per characteristic as point estimates, and paired differences of the rule pairs in
+    decisions.PAIRS; M6 (robustness.py) is added for completeness."""
     from robustness import m6_intervals
 
     m6 = m6_intervals(t, floors)
@@ -159,9 +163,19 @@ def source_floor(iv: pd.DataFrame, floors: dict, reps: np.ndarray, t: pd.DataFra
     rows, pairs = [], []
     for label, g in (("target family", tr), ("source family", tr.assign(floor=f_src))):
         paired = []
-        rows.append(D.distances(g, reps, paired=paired, per_qc=False).assign(floor=label))
+        rows.append(D.distances(g, reps, paired=paired).assign(floor=label))
         pairs.append(pd.DataFrame(paired).assign(floor=label))
     return pd.concat(rows, ignore_index=True), pd.concat(pairs, ignore_index=True)
+
+
+def source_floor_curve(iv: pd.DataFrame, floors: dict) -> pd.DataFrame:
+    """Verdict shares against the requirement distance for a new family in the produced family's floor (the
+    new-family row of Fig. 2), from the stored intervals with decisions.verdict_frame and decisions.score."""
+    other = {"concave": "convex", "convex": "concave"}
+    tr = iv[iv["scope"] == "transfer"]
+    tr = tr.assign(floor=[floors[(q, other[g])] for q, g in zip(tr["qc"], tr["geometry"])])
+    d = D.verdict_frame(tr).assign(scope="transfer")
+    return D.score(d, ["scope", "method", "d"]).reset_index()
 
 
 def physical_units(iv: pd.DataFrame) -> pd.DataFrame:
@@ -233,6 +247,15 @@ def guard_priors(ivr: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def in_produced_floor(ivr: pd.DataFrame, floors: dict) -> pd.DataFrame:
+    """The new-family cases in the floor of the produced (source) family, the floor that step 6 uses."""
+    other = {"concave": "convex", "convex": "concave"}
+    tr = (ivr["scope"] == "transfer").to_numpy()
+    out = ivr.copy()
+    out.loc[tr, "floor"] = [floors[(q, other[g])] for q, g in zip(ivr.loc[tr, "qc"], ivr.loc[tr, "geometry"])]
+    return out
+
+
 def step6(ivr: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     rows, curves = [], []
     scopes = SCOPES + ["setting/interpolation", "setting/extrapolation"]
@@ -286,10 +309,13 @@ def m0_split(iv: pd.DataFrame, t: pd.DataFrame) -> pd.DataFrame:
 
 
 # 9 ─────────────────────────────────────────────────────────────────────────────
-def nominal_offset(iv: pd.DataFrame, t: pd.DataFrame) -> pd.DataFrame:
+def nominal_offset(iv: pd.DataFrame, t: pd.DataFrame, floors: dict) -> pd.DataFrame:
+    """Wall angle of a new family: the design angle plus the produced family's median deviation from its own
+    design angle, against the rules, all scored in the produced family's floor."""
     w = t[t["qc"] == "wall_op10"].set_index("alternative")
     other = {"concave": "convex", "convex": "concave"}
     tr = iv[(iv["scope"] == "transfer") & (iv["qc"] == "wall_op10")]
+    tr = tr.assign(floor=[floors[("wall_op10", other[g])] for g in tr["geometry"]])
     rows = []
     base = tr[tr["method"] == "NN"].copy()
     dev = {g: float(np.median(w.loc[w["geometry"] == g, "real_q95"] - DESIGN_WALL_DEG[g])) for g in DESIGN_WALL_DEG}
@@ -392,6 +418,22 @@ def force_effect(t: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def arm_sign(q: pd.DataFrame) -> pd.DataFrame:
+    """Share of downward-bending cut arms (negative arm angle) in the simulations of the RDDAC tools and in the
+    parts, per geometry and blank-holder force."""
+    raw = pd.read_csv(RESULTS / "features_ddacs_rddac.csv")
+    s = sims_qc(raw)
+    s = s.assign(geometry=raw.loc[s.index, "geometry"], bhf_kN=(raw.loc[s.index, "blankholder_force"] / 1e3).round())
+    rows = []
+    for (geo, bhf), g in s.groupby(["geometry", "bhf_kN"]):
+        parts = q[(q["geometry"] == geo) & (q["bhf_kN"] == bhf)]["arm_op20"].dropna()
+        arms = g["arm_op20"].dropna()
+        rows.append({"geometry": geo, "bhf_kN": int(bhf), "simulations": len(arms),
+                     "sims_downward": float((arms < 0).mean()), "parts": len(parts),
+                     "parts_downward": float((parts < 0).mean())})
+    return pd.DataFrame(rows)
+
+
 def q95_unit(iv: pd.DataFrame) -> pd.DataFrame:
     """Distances in another unit: the reproducibility of the decided quantile (95 % quantile of the difference
     between the 95th percentiles of two batches of 100 parts) instead of the floor of batch centres."""
@@ -416,28 +458,33 @@ def main() -> None:
     out["sibling_strata"], counts = sibling_strata(iv)
     out["force_levels"] = force_levels(iv)
     out["source_floor"], out["source_floor_paired"] = src, src_paired
+    out["source_floor_curve"] = source_floor_curve(iv, floors)
     out["physical_units"] = physical_units(iv)
     out["failing_weight"] = failing_weight(iv)
-    out["step6"], out["step6_curves"] = step6(ivr)
-    out["guard_priors"] = guard_priors(ivr)
+    ivs = in_produced_floor(ivr, floors)
+    out["step6"], out["step6_curves"] = step6(ivs)
+    out["guard_priors"] = guard_priors(ivs)
     out["capability"] = capability(iv, t)
     out["m0_split"] = m0_split(iv, t)
-    out["nominal_offset"] = nominal_offset(iv, t)
+    out["nominal_offset"] = nominal_offset(iv, t, floors)
     out["variogram"], out["floor_protocol"] = floor_protocol(q, floors)
     out["resolution_steps"] = resolution_steps(q, floors, t)
     out["runs"] = run_metadata(q)
     out["force_effect"] = force_effect(t)
+    out["arm_sign"] = arm_sign(q)
     out["q95_unit"] = q95_unit(iv)
     for name, frame in out.items():
         frame.to_csv(RESULTS / f"panel_{name}.csv", index=False)
 
     lines = ["# Analyses requested in review", ""]
     for name, frame in out.items():
-        if name == "step6_curves":
+        if name in ("step6_curves", "source_floor_curve"):
             continue
         show = frame
         if name in ("sibling_strata", "force_levels", "source_floor", "step6", "capability", "guard_priors"):
             show = frame[frame["method"].isin(CORE + ["M3", "M4", "M2n", "M1n", "M1sn"])]
+            if "qc" in show:
+                show = show[show["qc"] == "all"]
         lines += [f"## {name}", "", show.round(3).to_markdown(index=False), ""]
     lines += ["## sibling strata: cases", "", counts.to_markdown(index=False)]
     (RESULTS / "summary_panel.md").write_text("\n".join(lines) + "\n")

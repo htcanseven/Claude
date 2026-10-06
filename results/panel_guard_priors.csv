@@ -104,11 +104,11 @@ transfer,M0,grid within 5,inf,inf
 transfer,M0,grid within 3,inf,inf
 transfer,M0,uniform within 20,inf,inf
 transfer,M0,uniform within 50,inf,inf
-transfer,M1,grid within 20 (reference),inf,52.75
-transfer,M1,grid within 5,inf,54.25
-transfer,M1,grid within 3,inf,54.75
-transfer,M1,uniform within 20,inf,52.0
-transfer,M1,uniform within 50,inf,26.0
+transfer,M1,grid within 20 (reference),inf,inf
+transfer,M1,grid within 5,inf,inf
+transfer,M1,grid within 3,inf,inf
+transfer,M1,uniform within 20,inf,59.75
+transfer,M1,uniform within 50,inf,31.75
 transfer,M1s,grid within 20 (reference),inf,inf
 transfer,M1s,grid within 5,inf,inf
 transfer,M1s,grid within 3,inf,inf
@@ -119,26 +119,26 @@ transfer,M1sn,grid within 5,inf,inf
 transfer,M1sn,grid within 3,inf,inf
 transfer,M1sn,uniform within 20,inf,inf
 transfer,M1sn,uniform within 50,inf,inf
-transfer,M2,grid within 20 (reference),inf,28.5
-transfer,M2,grid within 5,inf,28.75
-transfer,M2,grid within 3,inf,29.0
-transfer,M2,uniform within 20,inf,27.25
-transfer,M2,uniform within 50,3.75,3.75
-transfer,M3,grid within 20 (reference),inf,35.25
-transfer,M3,grid within 5,inf,36.25
-transfer,M3,grid within 3,inf,36.25
-transfer,M3,uniform within 20,inf,32.5
-transfer,M3,uniform within 50,7.25,7.25
+transfer,M2,grid within 20 (reference),inf,41.75
+transfer,M2,grid within 5,inf,42.75
+transfer,M2,grid within 3,inf,43.25
+transfer,M2,uniform within 20,inf,40.25
+transfer,M2,uniform within 50,6.25,6.25
+transfer,M3,grid within 20 (reference),inf,42.25
+transfer,M3,grid within 5,inf,42.25
+transfer,M3,grid within 3,inf,42.25
+transfer,M3,uniform within 20,inf,41.5
+transfer,M3,uniform within 50,6.5,6.5
 transfer,M4,grid within 20 (reference),inf,inf
 transfer,M4,grid within 5,inf,inf
 transfer,M4,grid within 3,inf,inf
 transfer,M4,uniform within 20,inf,inf
 transfer,M4,uniform within 50,inf,inf
-transfer,M5,grid within 20 (reference),inf,33.25
-transfer,M5,grid within 5,inf,34.0
-transfer,M5,grid within 3,inf,34.25
-transfer,M5,uniform within 20,inf,32.0
-transfer,M5,uniform within 50,11.75,11.75
+transfer,M5,grid within 20 (reference),inf,42.25
+transfer,M5,grid within 5,inf,44.25
+transfer,M5,grid within 3,inf,44.75
+transfer,M5,uniform within 20,inf,39.75
+transfer,M5,uniform within 50,15.0,15.0
 transfer,M5n,grid within 20 (reference),inf,inf
 transfer,M5n,grid within 5,inf,inf
 transfer,M5n,grid within 3,inf,inf

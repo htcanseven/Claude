@@ -183,14 +183,19 @@ RULE_MARKER = {"M1": "s", "M2": "o", "M5": "^", "NN": "D", "M5n": "v"}
 
 
 def fig_decisions_compare(src: Path) -> None:
-    """Verdict shares of four rules for a new variant, a new process setting and a new family, with the decisive
-    (solid) and safe (dashed) distances marked."""
+    """Verdict shares of four rules for a new variant, a new process setting and a new family (in the produced
+    family's floor), with the decisive (solid) and safe (dashed) distances marked."""
     c = pd.read_csv(src / "dec_curve.csv")
     res = pd.read_csv(src / "dec_resolution.csv")
     res = res[res["qc"] == "all"].set_index(["scope", "method"])
+    # a new family in the produced family's floor, as the procedure prescribes
+    c = pd.concat([c[c["scope"] != "transfer"], pd.read_csv(src / "panel_source_floor_curve.csv")])
+    sf = pd.read_csv(src / "panel_source_floor.csv")
+    sf = sf[(sf["qc"] == "all") & (sf["floor"] == "source family")].set_index(["scope", "method"])
+    res = pd.concat([res.drop(index="transfer", level=0), sf[res.columns.intersection(sf.columns)]])
     methods = ["M2", "M5", "M5n", "NN"]
     scopes = [("within", "new variant"), ("setting", "new setting"), ("transfer", "new family")]
-    fig, axs = plt.subplots(len(scopes), len(methods), figsize=(WIDTH_IN, 4.45), sharey=True, squeeze=False)
+    fig, axs = plt.subplots(len(scopes), len(methods), figsize=(WIDTH_IN, 3.8), sharey=True, squeeze=False)
     letters = iter("abcdefghijkl")
     for i, (scope, sname) in enumerate(scopes):
         for j, m in enumerate(methods):
@@ -215,7 +220,7 @@ def fig_decisions_compare(src: Path) -> None:
             ax.tick_params(axis="y", labelsize=8)
             ax.axvline(0, color=INK, lw=0.6)
             subcaption(ax, next(letters), m, "$d$ (floors)" if i == len(scopes) - 1 else "")
-        axs[i, 0].set_ylabel(f"{sname}\nshare of verdicts", fontsize=9)
+        axs[i, 0].set_ylabel(f"{sname}\nshare of verdicts", fontsize=8)
     labels = {"correct": "correct", "abstain": "trial", "false_reject": "false reject", "false_accept": "false accept"}
     handles = [plt.Rectangle((0, 0), 1, 1, color=OUTCOME_COLOUR[k], label=labels[k]) for k in labels]
     handles += [plt.Line2D([], [], color=INK, lw=0.9, ls="-", label=r"$\pm\delta_\mathrm{d}$"),
@@ -266,7 +271,7 @@ def fig_budget(src: Path) -> None:
     r = pd.read_csv(src / "budget_design.csv").replace([np.inf, -np.inf], np.nan)
     rels = [("sibling", "sibling produced"), ("interpolation", "interpolation"), ("extrapolation", "extrapolation")]
     kinds = [("resolution", "decisive"), ("safe", "safe")]
-    fig, axs = plt.subplots(2, 3, figsize=(WIDTH_IN, 3.2), sharex=True, sharey="row", squeeze=False)
+    fig, axs = plt.subplots(2, 3, figsize=(WIDTH_IN, 2.9), sharex=True, sharey="row", squeeze=False)
     letters = iter("abcdef")
     for i, (col, kname) in enumerate(kinds):
         for j, (rel, rname) in enumerate(rels):

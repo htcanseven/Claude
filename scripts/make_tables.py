@@ -73,6 +73,16 @@ def dist(x: float) -> str:
     return f"{x:.2f}" if x < 1 else (f"{x:.1f}" if x < 10 else f"{x:.0f}")
 
 
+def band(x: float) -> str:
+    """A guard band on its 0.25-floor grid: quarters keep two decimals; 'none' when no band qualifies."""
+    if x is None or not np.isfinite(x):
+        return "none"
+    if abs(x) < 1e-6:
+        return "0"
+    q = round(4 * x) % 4
+    return f"{x:.2f}" if q in (1, 3) else (f"{x:.1f}" if x < 10 else f"{x:.0f}")
+
+
 def pair(x, m: str) -> str:
     """decisive/safe; a point rule (always decides) shows one number."""
     return dist(x["resolution_floors"]) if m in POINT else f"{dist(x['resolution_floors'])}/{dist(x['safe_floors'])}"
@@ -132,7 +142,7 @@ def t_distances() -> str:
     rob = read("rob_decisions.csv")
     m6 = rob[rob["variant"] == "M6 conformalised GP"].set_index("scope")
     src = read("panel_source_floor.csv")
-    src = src[src["floor"] == "source family"].set_index("method")     # a new family in the produced family's floor
+    src = src[(src["floor"] == "source family") & (src["qc"] == "all")].set_index("method")   # produced family's floor
 
     def get(s, m):
         if s == "transfer":
@@ -150,54 +160,62 @@ def t_distances() -> str:
                 out.append("--" if x is None else dist(x["safe_failing"]))
         return out
 
+    def interval(m):
+        """Bootstrap intervals of the decisive distance and, for a new family and the rules with an interval,
+        of the safe distance."""
+        ci = []
+        for s in scopes:
+            x = get(s, m)
+            cell = "" if s in ("pooled", "pooled-setting") else f"{dist(x['resolution_lo'])}--{dist(x['resolution_hi'])}"
+            if s == "transfer" and m not in POINT:
+                cell += f"/{dist(x['safe_lo'])}--{dist(x['safe_hi'])}"
+            ci.append(cell)
+            if s in with_fa:
+                ci.append("")
+        return r"\quad interval & " + " & ".join(ci)
+
     rows = []
     for m in CORE:
         rows.append(f"{SHORT[m]} & " + " & ".join(cells(m)))
-        if m in ("M1s", "M5", "M5n", "NN"):
-            ci = []
-            for s in scopes:
-                x = get(s, m)
-                ci.append(f"{dist(x['resolution_lo'])}--{dist(x['resolution_hi'])}"
-                          if s not in ("pooled", "pooled-setting") else "")
-                if s in with_fa:
-                    ci.append("")
-            rows.append(r"\quad interval & " + " & ".join(ci))
+        if m in ("M1s", "M2", "M5", "M5n", "NN"):
+            rows.append(interval(m))
     for k, m in enumerate(FURTHER + ["M6"]):
         lead = r"\midrule " if k == 0 else ""
         rows.append(f"{lead}{SHORT[m]} & " + " & ".join(cells(m)))
+        if m == "M3":
+            rows.append(interval(m))
     head = (r" & \multicolumn{2}{c}{New variant} & \multicolumn{4}{c}{New process setting} & "
             r"\multicolumn{2}{c}{New family} & \multicolumn{2}{c}{Pooled} \\" "\n"
             r"\cmidrule(lr){2-3}\cmidrule(lr){4-7}\cmidrule(lr){8-9}\cmidrule(lr){10-11}" "\n"
-            f"Rule & {DD} & FA & {DD} & FA & interpolated & extrapolated & {DD} & FA & variant & setting")
+            f"Rule & {DD} & FA & {DD} & FA & interp. & extrap. & {DD} & FA & variant & setting")
     return table(rows, "Decisive and safe distances (floors) by the relation of the new design to the produced "
-                       "evidence", "tab:distances", "l" + "r" * 10, head, colsep="2.2pt",
+                       "evidence", "tab:distances", "l" + "r" * 10, head, colsep="1.9pt",
                  note=r"Over all seven characteristics; one number for rules that always decide. FA: safe distance on "
                       r"the false-accept side (failing alternatives). Interval: bootstrap 95\,\% interval of the decisive "
-                      r"distance (fits fixed). 126 cases per relation (42 interpolated, 84 extrapolated); a new family "
-                      r"rests on two transfers and is scored in the floor of the produced family (Section~\ref{sec:floor}). "
-                      r"Pooled: the other geometry's alternatives added to the calibration set. Below the line, the further "
-                      r"rules and, as a robustness variant, M6 (the M5 mean with a conformal margin on standardised "
-                      r"leave-one-out residuals).")
+                      r"distance and, for a new family, of the safe distance (fits fixed). 126 cases per relation (42 "
+                      r"interpolated, interp.; 84 extrapolated, extrap.); a new family rests on two transfers and is scored in the floor of "
+                      r"the produced family (Section~\ref{sec:floor}). Pooled: the other geometry's alternatives added to "
+                      r"the calibration set. Below the line, the further rules (M1sn: the force trend, the counterpart of "
+                      r"M1s without the simulation) and, as a robustness variant, M6 (the M5 mean with a conformal margin "
+                      r"on standardised leave-one-out residuals).")
 
 
 def t_robust() -> str:
     r = read("rob_decisions.csv").set_index(["variant", "scope", "method"])
     order = [("reference", "Reference"), ("temperature-adjusted", "Temperature-adjusted"),
-             ("first 150 parts dropped", "First 150 parts dropped"),
+             ("first 150 parts dropped", "Warm-up dropped"),
              ("floor between series", "Floor between series"),
              ("floor with batch 25 and quantile 0.95", "Floor: batches of 25"),
              ("floor with batch 100 and quantile 0.95", "Floor: batches of 100"),
              ("floor with batch 50 and quantile 0.90", r"Floor: 90\,\% quantile"),
              ("floor with batch 50 and quantile 0.99", r"Floor: 99\,\% quantile"),
-             ("calibration series of 50 parts", "Calibration series of 50"),
-             ("calibration series of 100 parts", "Calibration series of 100"),
-             ("calibration series of 250 parts", "Calibration series of 250"),
+             ("calibration series of 50 parts", "Calibration: 50 parts"),
+             ("calibration series of 250 parts", "Calibration: 250 parts"),
              ("adequacy share 0.90", r"Conformance $p=0.90$"), ("adequacy share 0.99", r"Conformance $p=0.99$"),
              ("interval level 0.80", "Interval level 0.80"), ("interval level 0.95", "Interval level 0.95"),
-             ("smoothed simulation", "Response surface"),
-             ("GP se_floor", "GP: sampling noise floor"), ("GP no_noise_floor", "GP: no noise floor")]
+             ("smoothed simulation", "Response surface"), ("GP se_floor", "GP: sampling bound")]
     cols = [("within", "M1s"), ("within", "M2"), ("within", "M5"), ("within", "NN"), ("setting", "M2"),
-            ("setting", "M5"), ("setting", "NN"), ("transfer", "M2"), ("transfer", "M5")]
+            ("setting", "M5"), ("setting", "NN"), ("setting", "M1sn"), ("transfer", "M2"), ("transfer", "M5")]
 
     def cell(v, scope, m):
         key = (v, scope, m)
@@ -206,7 +224,7 @@ def t_robust() -> str:
     rows = [f"{name} & " + " & ".join(cell(v, s, m) for s, m in cols) for v, name in order
             if any((v, s, m) in r.index for s, m in cols)]
     u = read("panel_q95_unit.csv").set_index(["scope", "method"])
-    rows.append(r"Unit: $q_{95}$ reproducibility & " + " & ".join(pair(u.loc[(s, m)], m) if (s, m) in u.index else ""
+    rows.append(r"Unit: $q_{95}$ floor & " + " & ".join(pair(u.loc[(s, m)], m) if (s, m) in u.index else ""
                                                                 for s, m in cols))
     ref = read("rob_refit.csv").set_index(["scope", "method"])
 
@@ -216,27 +234,24 @@ def t_robust() -> str:
         x = ref.loc[(scope, m)]
         return f"{dist(x['resolution_lo'])}--{dist(x['resolution_hi'])}"
 
-    rows.append(r"\midrule Refit bootstrap, $\delta_\mathrm{d}$ & " + " & ".join(ci(s, m) for s, m in cols))
-    head = (r" & \multicolumn{4}{c}{New variant} & \multicolumn{3}{c}{New setting} & \multicolumn{2}{c}{New family} \\"
-            "\n" r"\cmidrule(lr){2-5}\cmidrule(lr){6-8}\cmidrule(lr){9-10}" "\n"
-            r"Variant & M1s & M2 & M5 & NN & M2 & M5 & NN & M2 & M5")
+    rows.append(r"\midrule Refit, $\delta_\mathrm{d}$ & " + " & ".join(ci(s, m) for s, m in cols))
+    head = (r" & \multicolumn{4}{c}{New variant} & \multicolumn{4}{c}{New setting} & \multicolumn{2}{c}{New family} \\"
+            "\n" r"\cmidrule(lr){2-5}\cmidrule(lr){6-9}\cmidrule(lr){10-11}" "\n"
+            r"Variant & M1s & M2 & M5 & NN & M2 & M5 & NN & M1sn & M2 & M5")
     return table(rows, "Decisive/safe distances (floors) under the robustness variants", "tab:robust",
-                 "l" + "r" * 9, head, colsep="2.4pt", place="h",
-                 note=r"Rules refitted for every variant; empty cells: the variant does not affect the rule. Floor variants "
-                      r"and the unit of $q_{95}$ reproducibility (95\,\% quantile of the difference between the $q_{95}$ of "
-                      r"two batches of 100 parts) rescale the distances. The floor between series contains the lubrication "
-                      r"effect and, for a new variant, the series that NN averages. Calibration series of $n$: the "
-                      r"calibration alternatives' $q_{95}$ from their first $n$ parts; truths and floors from the full series. "
-                      r"Conformance $p$: the decided statistic is the $p$-quantile. Response surface: nominal simulation and "
-                      r"envelope from a quadratic fit over thickness and friction. Other kernels and descriptors of the GPs "
-                      r"move M5 by at most 0.4 floors. Refit bootstrap: 95\,\% interval over 200 draws of each geometry's "
-                      r"lubrication patterns with replacement (48 of the 49 distinct configurations), every rule refitted; a "
-                      r"duplicated pattern leaves a new variant one distinct sibling, so the interval shows the effect of "
-                      r"losing a pattern, not sampling uncertainty.")
+                 "l" + "r" * 10, head, colsep="1.6pt", place="!ht",
+                 note=r"Rules refitted for every variant; empty cells: the variant does not affect the rule; a new family in "
+                      r"its own floor. The floor between series contains the lubrication effect and, for a new variant, the "
+                      r"series that NN averages. Warm-up: first 150 parts. Calibration: calibration $q_{95}$ from the first $n$ "
+                      r"parts, truths and floors from the full series. Response surface: simulations from a quadratic fit over thickness and "
+                      r"friction; other GP kernels and descriptors move M5 by at most 0.4 floors. Unit: the $q_{95}$ "
+                      r"floor, 95\,\% quantile of the difference between the $q_{95}$ of two batches of 100 parts. "
+                      r"Refit: 95\,\% interval of the decisive distance over 200 draws of each geometry's lubrication patterns with "
+                      r"replacement, every rule refitted (Section~\ref{sec:evaldesign}).")
 
 
 
-STEP6_RULES = ["M1", "M1s", "M2", "M5", "M5n", "NN", "M3", "M4"]
+STEP6_RULES = ["M1", "M1s", "M2", "M5", "M5n", "NN", "M3", "M4", "M1sn"]
 RELATIONS = [("within", "Sibling produced"), ("setting/interpolation", "Interpolated setting"),
              ("setting/extrapolation", "Extrapolated setting")]
 
@@ -252,20 +267,20 @@ def t_step6() -> str:
             if not np.isfinite(x["guard_band"]):
                 cells += ["none", "--", "100", "100"]
                 continue
-            cells += [dist(x["guard_band"]), f"{dist(x['decisive_step6'])}/{dist(x['safe_step6'])}",
+            cells += [band(x["guard_band"]), f"{dist(x['decisive_step6'])}/{dist(x['safe_step6'])}",
                       pct(x["trial_10_step6"]), pct(x["trial_20_step6"])]
         rows.append(f"{SHORT[m]} & " + " & ".join(cells))
     head = (" & " + " & ".join(rf"\multicolumn{{4}}{{c}}{{{lab}}}" for _, lab in RELATIONS) + r" \\" "\n"
             r"\cmidrule(lr){2-5}\cmidrule(lr){6-9}\cmidrule(lr){10-13}" "\n"
             "Rule" + rf" & $g$ & {DD} & $T_{{10}}$ & $T_{{20}}$" * len(RELATIONS))
     return table(rows, "The procedure's decision rule (step 6) by relation: guard band, distances and trial shares",
-                 "tab:step6", "l" + "r" * 12, head, colsep="2.2pt", place="h",
+                 "tab:step6", "l" + "r" * 12, head, colsep="2.2pt", place="!ht",
                  note=r"$g$: guard band (floors) under the reference prior (Section~\ref{sec:procedure}); "
                       r"$\delta_\mathrm{d}/\delta_\mathrm{s}$: distances of the rule with its interval widened by $g$; "
                       r"$T_{10}$, $T_{20}$: share of verdicts sent to trial (\%) at requirements 10 and 20 floors from the "
                       r"truth. None: no band up to 20 floors reaches 95\,\%, so the procedure sends every design to trial; "
-                      r"so also M0 and M0w in every relation, Mc with a sibling and for an extrapolated setting, and every "
-                      r"rule for a new family.")
+                      r"so also M0 and M0w in every relation, Mc with a sibling and for an extrapolated setting (for an "
+                      r"interpolated one $g=18$), and every rule for a new family, scored in the produced family's floor.")
 
 
 def t_intervals() -> str:
@@ -294,7 +309,7 @@ def t_intervals() -> str:
     gp = read("dec_gp.csv").set_index(["scope", "method"])
     bound = [gp.loc[("within", m), "noise_at_bound"] for m in ("M5", "M5n")]
     return table(rows, "Interval rules by relation: coverage, half-width and the interval centre as a point rule",
-                 "tab:intervals", "l" + "r" * 12, head, colsep="2.6pt", place="h",
+                 "tab:intervals", "l" + "r" * 12, head, colsep="2.6pt", place="!ht",
                  note=rf"Cov: share of cases whose true $q_{{95}}$ lies in the interval (\%; nominal 90). HW: median "
                       rf"half-width (floors). Ctr: decisive distance of the interval centre used as a point rule (floors). "
                       rf"A new family in the floor of the produced family. The GP noise variance sits at its lower bound in "
