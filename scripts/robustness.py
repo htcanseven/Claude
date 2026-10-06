@@ -1,6 +1,6 @@
 """Robustness of the findings to the known weaknesses of the data and to the analysis constants.
 
-The alternative-level rules (M0, M0w, M1, M2, M5, and without the simulation M1n, NN, M2n, M5n) are refitted
+The alternative-level rules (M0, M0w, M1, M1s, M2, M5, and without the simulation M1sn, M1n, NN, M2n, M5n) are refitted
 for every variant and scored exactly as in decisions.py (point estimates). Scopes: within (a sibling at the
 target's force is produced), setting (a new process setting; interpolation and extrapolation), transfer
 (a new family) and, in variant 9, lubricant.
@@ -27,8 +27,11 @@ target's force is produced), setting (a new process setting; interpolation and e
 12. Refitting bootstrap: the lubrication patterns of each geometry are resampled with replacement (at least two
     distinct patterns, so that every target keeps a sibling; copies of the target never calibrate it), and every
     fast rule is refitted and rescored on each resample (within, setting, transfer). The forces are kept, so
-    every case keeps its evidence relation. The interval includes the variability of the calibration sets,
-    which the intervals of decisions.py hold fixed; paired refit intervals are given for key rule pairs.
+    every case keeps its evidence relation. There are seven distinct draws per geometry (49 configurations, the
+    original one among them); in a draw with a duplicated pattern a new variant keeps one distinct sibling, the
+    calibration set has fewer distinct alternatives, and the duplicated series enter the GP noise floor as
+    identical pairs. The interval therefore shows how the distances change when a pattern is lost, not the
+    sampling uncertainty around the reported values; paired refit intervals are given for key rule pairs.
 13. The GP noise floor of the first version (the sampling variance of q95 alone; GP variant 'se_floor').
 14. Thermal transient: the first 150 parts of every series (the punch warm-up) are dropped; floors, truths and
     rules are recomputed from parts 151-500.
@@ -58,16 +61,16 @@ from alternatives import analyse, batch_centres, batches, floor_from, within_slo
 from common import RESULTS, centre  # noqa: E402
 from qc import QCS, SHARED, parts_qc, sims_qc  # noqa: E402
 
-FAST = ["M0", "M0w", "M1", "M1s", "M2", "M5", "M1n", "NN", "M2n", "M5n"]
+FAST = ["M0", "M0w", "M1", "M1s", "M2", "M5", "M1sn", "M1n", "NN", "M2n", "M5n"]
 SCOPES = ("within", "setting", "transfer")
 CONF_LEVELS = [0.80, 0.95]
 RESOLUTION_TARGETS = [0.90, 0.99]
 ADEQUACY = [0.90, 0.99]
 GP_VARIANTS = ["matern", "linear", "onehot", "ls_floor", "no_noise_floor", "se_floor"]
 N_REFIT = 200
-REFIT_RULES = ["M1", "M1s", "M2", "M5", "NN", "M5n", "M2n", "M1n"]
+REFIT_RULES = ["M1", "M1s", "M2", "M5", "NN", "M5n", "M2n", "M1n", "M1sn"]
 REFIT_PAIRS = [("NN", "M5"), ("NN", "M5n"), ("M5", "M5n"), ("M2", "M2n"), ("M1s", "NN"), ("M1", "M1n"),
-               ("M1s", "M1")]
+               ("M1s", "M1"), ("M1s", "M1sn"), ("M1sn", "NN")]
 WARM_UP = 150                  # parts dropped at the start of every series (thermal transient)
 SHORT_SERIES = [50, 100, 250]  # parts per calibration series in the short-series variant
 
@@ -111,6 +114,8 @@ def fast_intervals(t: pd.DataFrame, floors: dict, scopes=SCOPES, level: float = 
             off1 = float(np.median(c["real_q95"] - c["sim_nominal"]))
             s0 = c["sim_nominal"].to_numpy()
             b1, a1 = np.polyfit(s0, qv, 1) if np.ptp(s0) > 0 and len(qv) >= 2 else (1.0, off1)
+            fv = c["bhf_kN"].to_numpy(float)
+            bf, af = np.polyfit(fv, qv, 1) if np.ptp(fv) > 0 and len(qv) >= 2 else (0.0, float(np.mean(qv)))
             gps = {}
             for name, use_sim in (("M5", True), ("M5n", False)):
                 if name in rules and len(set(calib)) >= 2:
@@ -120,6 +125,7 @@ def fast_intervals(t: pd.DataFrame, floors: dict, scopes=SCOPES, level: float = 
                 iv = {"M0": (s["sim_nominal"],) * 2, "M0w": (s["sim_env_lo"], s["sim_env_hi"]),
                       "M1": (s["sim_nominal"] + off1,) * 2, "M1s": (a1 + b1 * s["sim_nominal"],) * 2,
                       "M2": (s["sim_env_hi"] + off2 - m2, s["sim_env_hi"] + off2 + m2),
+                      "M1sn": (af + bf * float(s["bhf_kN"]),) * 2,
                       "M1n": (med, med), "NN": (D.nn_point(calib, a, qc),) * 2, "M2n": (med - m2n, med + m2n)}
                 for name, (gp, keep) in gps.items():
                     mu, sd = gp.predict(D.descriptors([a])[:, keep], return_std=True)

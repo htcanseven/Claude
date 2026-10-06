@@ -4,6 +4,7 @@ bhf_kN,relation,method,cases,resolution_floors,safe_floors,resolution_adequate,s
 100,extrapolation,M1,42,24.6,24.6,26.6,26.6,11.0,11.0
 100,extrapolation,M1n,42,12.6,12.6,3.75,3.75,17.1,17.1
 100,extrapolation,M1s,42,14.7,14.7,5.65,5.65,21.05,21.05
+100,extrapolation,M1sn,42,8.85,8.85,7.35,7.35,9.85,9.85
 100,extrapolation,M2,42,16.75,8.1,16.75,6.7,14.85,12.95
 100,extrapolation,M2n,42,15.5,9.9,7.2,0.75,20.35,13.8
 100,extrapolation,M3,42,40.05,18.2,40.4,18.5,22.15,3.0
@@ -17,6 +18,7 @@ bhf_kN,relation,method,cases,resolution_floors,safe_floors,resolution_adequate,s
 300,interpolation,M1,42,11.25,11.25,11.3,11.3,9.2,9.2
 300,interpolation,M1n,42,4.8,4.8,4.8,4.8,5.8,5.8
 300,interpolation,M1s,42,19.25,19.25,18.7,18.7,30.4,30.4
+300,interpolation,M1sn,42,4.65,4.65,4.65,4.65,3.1,3.1
 300,interpolation,M2,42,17.75,2.7,24.95,2.4,15.45,3.65
 300,interpolation,M2n,42,13.3,0.0,15.05,0.0,10.0,0.0
 300,interpolation,M3,42,29.05,13.35,30.65,13.35,22.6,13.2
@@ -30,6 +32,7 @@ bhf_kN,relation,method,cases,resolution_floors,safe_floors,resolution_adequate,s
 500,extrapolation,M1,42,23.8,23.8,21.75,21.75,25.35,25.35
 500,extrapolation,M1n,42,9.8,9.8,10.85,10.85,2.75,2.75
 500,extrapolation,M1s,42,19.15,19.15,18.35,18.35,165.1,165.1
+500,extrapolation,M1sn,42,8.85,8.85,6.3,6.3,9.0,9.0
 500,extrapolation,M2,42,18.65,9.95,26.85,10.75,17.9,8.3
 500,extrapolation,M2n,42,17.65,3.6,19.6,5.85,7.6,0.0
 500,extrapolation,M3,42,24.75,15.15,25.35,10.25,22.2,15.15

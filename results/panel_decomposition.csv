@@ -1,5 +1,17 @@
-distance,relations,rules,share_relation,share_rule,share_interaction,best_rule_range
-resolution_floors,all relations,11,0.6859336068083671,0.05963613427887877,0.25443025891275406,"[8.45, 35.3, 3.35]"
-resolution_floors,within the family,11,0.14839946230093373,0.681463842281218,0.17013669541784837,"[8.45, 3.35]"
-safe_floors,all relations,11,0.6584122943676861,0.15270944768342395,0.1888782579488899,
-safe_floors,within the family,11,0.3532397448249714,0.517106883029997,0.1296533721450316,
+rule_set,distance,relations,rules,share_relation,share_rule,share_interaction,best_rule_range,new_family_floor
+eleven calibrated rules,resolution_floors,all relations,11,0.6859336068083671,0.05963613427887877,0.25443025891275406,"[8.45, 35.3, 3.35]",new family's floor
+eleven calibrated rules,resolution_floors,within the family,11,0.14839946230093373,0.681463842281218,0.17013669541784837,"[8.45, 3.35]",new family's floor
+eleven calibrated rules,safe_floors,all relations,11,0.6584122943676861,0.15270944768342395,0.1888782579488899,,new family's floor
+eleven calibrated rules,safe_floors,within the family,11,0.3532397448249714,0.517106883029997,0.1296533721450316,,new family's floor
+with M1sn,resolution_floors,all relations,12,0.696008959924591,0.06331417424641839,0.24067686582899062,"[8.15, 35.3, 3.35]",new family's floor
+with M1sn,resolution_floors,within the family,12,0.14652434118907245,0.7120609455452711,0.14141471326565647,"[8.15, 3.35]",new family's floor
+with M1sn,safe_floors,all relations,12,0.6775264229941874,0.14265244679349434,0.17982113021231827,,new family's floor
+with M1sn,safe_floors,within the family,12,0.35239186073152784,0.5125562529311947,0.1350518863372775,,new family's floor
+eleven calibrated rules,resolution_floors,all relations,11,0.6652506439123911,0.06191352656825193,0.27283582951935703,"[8.45, 32.9, 3.35]",produced family's floor
+eleven calibrated rules,resolution_floors,within the family,11,0.14839946230093373,0.681463842281218,0.17013669541784837,"[8.45, 3.35]",produced family's floor
+eleven calibrated rules,safe_floors,all relations,11,0.6730694688699179,0.14446150415394135,0.18246902697614065,,produced family's floor
+eleven calibrated rules,safe_floors,within the family,11,0.3532397448249714,0.517106883029997,0.1296533721450316,,produced family's floor
+with M1sn,resolution_floors,all relations,12,0.6781898055475253,0.06436921337899112,0.25744098107348357,"[8.15, 32.9, 3.35]",produced family's floor
+with M1sn,resolution_floors,within the family,12,0.14652434118907245,0.7120609455452711,0.14141471326565647,"[8.15, 3.35]",produced family's floor
+with M1sn,safe_floors,all relations,12,0.6914872665038576,0.1349177402196908,0.17359499327645156,,produced family's floor
+with M1sn,safe_floors,within the family,12,0.35239186073152784,0.5125562529311947,0.1350518863372775,,produced family's floor

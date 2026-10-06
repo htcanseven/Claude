@@ -25,9 +25,10 @@ LABEL = {"drawin_mid": "Draw-in, mid-side", "drawin_corner": "Draw-in, corner", 
          "dome_op20": "Bottom dome, cut"}
 UNIT = {"drawin_mid": "mm", "drawin_corner": "mm", "waviness": "mm", "wall_op10": r"$^\circ$",
         "arm_op20": r"$^\circ$", "depth_op10": "mm", "dome_op20": "mm"}
-RULES = ["M0", "M0w", "M1", "M1s", "Mc", "M2", "M3", "M5", "M1n", "NN", "M2n", "M4", "M5n"]
 CORE = ["M0", "M1", "M1s", "M2", "M5", "M5n", "NN"]
-POINT = {"M0", "M1", "M1s", "Mc", "M1n", "NN"}
+FURTHER = ["M0w", "Mc", "M3", "M4", "M1n", "M1sn", "M2n"]          # the order of Table 2
+RULES = CORE + FURTHER
+POINT = {"M0", "M1", "M1s", "Mc", "M1n", "M1sn", "NN"}
 SHORT = {r: r for r in RULES} | {"M4": "M3n", "M6": "M6"}
 DD = r"$\delta_\mathrm{d}/\delta_\mathrm{s}$"
 
@@ -52,6 +53,11 @@ def sig(x: float, n: int = 2) -> str:
         return "0"
     d = max(n - int(np.floor(np.log10(abs(x)))) - 1, 0)
     return f"{x:.{d}f}"
+
+
+def pct(x: float) -> str:
+    """A share as a whole percentage."""
+    return "--" if x is None or not np.isfinite(x) else f"{100 * x + 1e-9:.0f}"
 
 
 def dist(x: float) -> str:
@@ -109,11 +115,12 @@ def t_floors() -> str:
             r"$\sigma_\mathrm{b}/F$ & $\sigma_\mathrm{w}/F$ & Drift")
     return table(rows, "Production floor per characteristic, pooled and per geometry, with its components",
                  "tab:floors", "lrrrrrrrr", head, colsep="2.0pt",
-                 note=r"Batches of 50 consecutive parts, 95\,\% quantile of the difference of batch centres; interval from "
-                      r"2000 resamples of batches within series. Ratios per geometry (concave/convex): $\sigma_\mathrm{LT}$, "
-                      r"median long-term standard deviation of the parts; $\sigma_\mathrm{b}$, standard deviation between "
-                      r"batch means corrected for $\sigma_\mathrm{w}^2/50$; $\sigma_\mathrm{w}$, within batches. Drift: floor "
-                      r"over the floor of randomly permuted series.")
+                 note=r"Batches of 50 consecutive parts, 95\,\% quantile of the difference of their 10\,\% trimmed "
+                      r"means; interval from 2000 resamples of batches within series. Ratios per geometry (concave/convex), "
+                      r"classical statistics pooled over the series as root mean squares: $\sigma_\mathrm{LT}$, standard "
+                      r"deviation of the parts of a series; $\sigma_\mathrm{b}$, between batch means, corrected for "
+                      r"$\sigma_\mathrm{w}^2/50$; $\sigma_\mathrm{w}$, within batches. Drift: floor over the floor of "
+                      r"randomly permuted series.")
 
 
 def t_distances() -> str:
@@ -124,11 +131,20 @@ def t_distances() -> str:
     with_fa = ("within", "setting", "transfer")
     rob = read("rob_decisions.csv")
     m6 = rob[rob["variant"] == "M6 conformalised GP"].set_index("scope")
+    src = read("panel_source_floor.csv")
+    src = src[src["floor"] == "source family"].set_index("method")     # a new family in the produced family's floor
 
-    def cells(get, m):
+    def get(s, m):
+        if s == "transfer":
+            return src.loc[m] if m in src.index else None
+        if m == "M6":
+            return m6.loc[s] if s in m6.index else None
+        return r.loc[(s, m)] if (s, m) in r.index else None
+
+    def cells(m):
         out = []
         for s in scopes:
-            x = get(s)
+            x = get(s, m)
             out.append("--" if x is None else pair(x, m))
             if s in with_fa:
                 out.append("--" if x is None else dist(x["safe_failing"]))
@@ -136,22 +152,19 @@ def t_distances() -> str:
 
     rows = []
     for m in CORE:
-        rows.append(f"{SHORT[m]} & " + " & ".join(cells(lambda s: r.loc[(s, m)] if (s, m) in r.index else None, m)))
+        rows.append(f"{SHORT[m]} & " + " & ".join(cells(m)))
         if m in ("M1s", "M5", "M5n", "NN"):
             ci = []
             for s in scopes:
-                x = r.loc[(s, m)]
+                x = get(s, m)
                 ci.append(f"{dist(x['resolution_lo'])}--{dist(x['resolution_hi'])}"
                           if s not in ("pooled", "pooled-setting") else "")
                 if s in with_fa:
                     ci.append("")
             rows.append(r"\quad interval & " + " & ".join(ci))
-    further = [m for m in RULES if m not in CORE]
-    for k, m in enumerate(further):
+    for k, m in enumerate(FURTHER + ["M6"]):
         lead = r"\midrule " if k == 0 else ""
-        rows.append(f"{lead}{SHORT[m]} & " + " & ".join(cells(lambda s: r.loc[(s, m)] if (s, m) in r.index else None, m)))
-    if len(m6):
-        rows.append("M6 & " + " & ".join(cells(lambda s: m6.loc[s] if s in m6.index else None, "M6")))
+        rows.append(f"{lead}{SHORT[m]} & " + " & ".join(cells(m)))
     head = (r" & \multicolumn{2}{c}{New variant} & \multicolumn{4}{c}{New process setting} & "
             r"\multicolumn{2}{c}{New family} & \multicolumn{2}{c}{Pooled} \\" "\n"
             r"\cmidrule(lr){2-3}\cmidrule(lr){4-7}\cmidrule(lr){8-9}\cmidrule(lr){10-11}" "\n"
@@ -161,9 +174,10 @@ def t_distances() -> str:
                  note=r"Over all seven characteristics; one number for rules that always decide. FA: safe distance on "
                       r"the false-accept side (failing alternatives). Interval: bootstrap 95\,\% interval of the decisive "
                       r"distance (fits fixed). 126 cases per relation (42 interpolated, 84 extrapolated); a new family "
-                      r"rests on two transfers. Pooled: the other geometry's alternatives added to the calibration set. "
-                      r"Below the line, the further rules; M6, the M5 mean with a conformal margin on standardised "
-                      r"leave-one-out residuals, appears only in the robustness analysis.")
+                      r"rests on two transfers and is scored in the floor of the produced family (Section~\ref{sec:floor}). "
+                      r"Pooled: the other geometry's alternatives added to the calibration set. Below the line, the further "
+                      r"rules and, as a robustness variant, M6 (the M5 mean with a conformal margin on standardised "
+                      r"leave-one-out residuals).")
 
 
 def t_robust() -> str:
@@ -210,15 +224,84 @@ def t_robust() -> str:
                  "l" + "r" * 9, head, colsep="2.4pt", place="h",
                  note=r"Rules refitted for every variant; empty cells: the variant does not affect the rule. Floor variants "
                       r"and the unit of $q_{95}$ reproducibility (95\,\% quantile of the difference between the $q_{95}$ of "
-                      r"two batches of 100 parts) rescale the distances. Calibration series of $n$: the calibration "
-                      r"alternatives' $q_{95}$ from their first $n$ parts. Conformance $p$: the decided statistic is the $p$-quantile. "
-                      r"Response surface: nominal simulation and envelope from a quadratic fit over thickness and friction. "
-                      r"Other kernels and descriptors of the GPs move M5 "
-                      r"by at most 0.4 floors. Refit bootstrap: 95\,\% interval when the lubrication patterns of each "
-                      r"geometry are resampled and every rule is refitted (200 resamples).")
+                      r"two batches of 100 parts) rescale the distances. The floor between series contains the lubrication "
+                      r"effect and, for a new variant, the series that NN averages. Calibration series of $n$: the "
+                      r"calibration alternatives' $q_{95}$ from their first $n$ parts; truths and floors from the full series. "
+                      r"Conformance $p$: the decided statistic is the $p$-quantile. Response surface: nominal simulation and "
+                      r"envelope from a quadratic fit over thickness and friction. Other kernels and descriptors of the GPs "
+                      r"move M5 by at most 0.4 floors. Refit bootstrap: 95\,\% interval over 200 draws of each geometry's "
+                      r"lubrication patterns with replacement (48 of the 49 distinct configurations), every rule refitted; a "
+                      r"duplicated pattern leaves a new variant one distinct sibling, so the interval shows the effect of "
+                      r"losing a pattern, not sampling uncertainty.")
 
 
-TABLES = {"floors": t_floors, "distances": t_distances, "robust": t_robust}
+
+STEP6_RULES = ["M1", "M1s", "M2", "M5", "M5n", "NN", "M3", "M4"]
+RELATIONS = [("within", "Sibling produced"), ("setting/interpolation", "Interpolated setting"),
+             ("setting/extrapolation", "Extrapolated setting")]
+
+
+def t_step6() -> str:
+    """The procedure's decision rule (step 6) by relation: guard band, distances and trial shares."""
+    s6 = read("panel_step6.csv").set_index(["scope", "method"])
+    rows = []
+    for m in STEP6_RULES:
+        cells = []
+        for scope, _ in RELATIONS:
+            x = s6.loc[(scope, m)]
+            if not np.isfinite(x["guard_band"]):
+                cells += ["none", "--", "100", "100"]
+                continue
+            cells += [dist(x["guard_band"]), f"{dist(x['decisive_step6'])}/{dist(x['safe_step6'])}",
+                      pct(x["trial_10_step6"]), pct(x["trial_20_step6"])]
+        rows.append(f"{SHORT[m]} & " + " & ".join(cells))
+    head = (" & " + " & ".join(rf"\multicolumn{{4}}{{c}}{{{lab}}}" for _, lab in RELATIONS) + r" \\" "\n"
+            r"\cmidrule(lr){2-5}\cmidrule(lr){6-9}\cmidrule(lr){10-13}" "\n"
+            "Rule" + rf" & $g$ & {DD} & $T_{{10}}$ & $T_{{20}}$" * len(RELATIONS))
+    return table(rows, "The procedure's decision rule (step 6) by relation: guard band, distances and trial shares",
+                 "tab:step6", "l" + "r" * 12, head, colsep="2.2pt", place="h",
+                 note=r"$g$: guard band (floors) under the reference prior (Section~\ref{sec:procedure}); "
+                      r"$\delta_\mathrm{d}/\delta_\mathrm{s}$: distances of the rule with its interval widened by $g$; "
+                      r"$T_{10}$, $T_{20}$: share of verdicts sent to trial (\%) at requirements 10 and 20 floors from the "
+                      r"truth. None: no band up to 20 floors reaches 95\,\%, so the procedure sends every design to trial; "
+                      r"so also M0 and M0w in every relation, Mc with a sibling and for an extrapolated setting, and every "
+                      r"rule for a new family.")
+
+
+def t_intervals() -> str:
+    """Coverage, half-width and centre of the interval rules by relation; a new family in the produced
+    family's floor (computed here from the stored intervals with decisions.coverage)."""
+    import decisions as D
+
+    cov = read("dec_coverage.csv").set_index(["scope", "method"])
+    iv = read("dec_intervals.csv")
+    floors = D.load_floors()
+    other = {"concave": "convex", "convex": "concave"}
+    tr = iv[iv["scope"] == "transfer"]
+    tr = tr.assign(floor=[floors[(q, other[g])] for q, g in zip(tr["qc"], tr["geometry"])])
+    src = D.coverage(tr).set_index(["scope", "method"])
+    rels = RELATIONS + [("transfer", "New family")]
+    rows = []
+    for m in ["M2", "M2n", "M3", "M4", "M5", "M5n"]:
+        cells = []
+        for scope, _ in rels:
+            x = (src if scope == "transfer" else cov).loc[(scope, m)]
+            cells += [pct(x["coverage"]), dist(x["half_width_floors"]), dist(x["centre_decisive"])]
+        rows.append(f"{SHORT[m]} & " + " & ".join(cells))
+    head = (" & " + " & ".join(rf"\multicolumn{{3}}{{c}}{{{lab}}}" for _, lab in rels) + r" \\" "\n"
+            r"\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}\cmidrule(lr){11-13}" "\n"
+            "Rule" + r" & Cov & HW & Ctr" * len(rels))
+    gp = read("dec_gp.csv").set_index(["scope", "method"])
+    bound = [gp.loc[("within", m), "noise_at_bound"] for m in ("M5", "M5n")]
+    return table(rows, "Interval rules by relation: coverage, half-width and the interval centre as a point rule",
+                 "tab:intervals", "l" + "r" * 12, head, colsep="2.6pt", place="h",
+                 note=rf"Cov: share of cases whose true $q_{{95}}$ lies in the interval (\%; nominal 90). HW: median "
+                      rf"half-width (floors). Ctr: decisive distance of the interval centre used as a point rule (floors). "
+                      rf"A new family in the floor of the produced family. The GP noise variance sits at its lower bound in "
+                      rf"{pct(bound[0])} and {pct(bound[1])}\,\% of the M5 and M5n fits with a sibling and in every other fit.")
+
+TABLES = {"floors": t_floors, "distances": t_distances, "robust": t_robust, "step6": t_step6,
+          "intervals": t_intervals}
 
 
 def main() -> None:

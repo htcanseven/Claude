@@ -1,0 +1,5 @@
+rule,source,resolution_floors,safe_floors
+M0,simulation,108.35,108.35
+M1 (sibling produced),simulation,15.2,15.2
+M0,surrogate,108.65,108.65
+M1 (sibling produced),surrogate,15.05,15.05

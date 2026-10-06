@@ -95,3 +95,12 @@ Simulations used: 396 (material scaling 1.0; thickness [0.98, 0.99]).
 | convex     | arm_op20      |     0.1781 |  66 |  0.0999 |            1.7826 |
 | convex     | depth_op10    |     0.0141 |  66 |  0.0123 |            1.1484 |
 | convex     | dome_op20     |     0.0137 |  66 |  0.0082 |            1.6682 |
+
+## The surrogate as a decision rule (in place of the nominal simulation; floors)
+
+| rule                  | source     |   resolution_floors |   safe_floors |
+|:----------------------|:-----------|--------------------:|--------------:|
+| M0                    | simulation |              108.35 |        108.35 |
+| M1 (sibling produced) | simulation |               15.2  |         15.2  |
+| M0                    | surrogate  |              108.65 |        108.65 |
+| M1 (sibling produced) | surrogate  |               15.05 |         15.05 |

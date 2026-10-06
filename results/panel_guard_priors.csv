@@ -1,0 +1,201 @@
+scope,method,prior,guard_band,guard_band_uncapped
+setting/extrapolation,M0,grid within 20 (reference),inf,inf
+setting/extrapolation,M0,grid within 5,inf,inf
+setting/extrapolation,M0,grid within 3,inf,inf
+setting/extrapolation,M0,uniform within 20,inf,inf
+setting/extrapolation,M0,uniform within 50,inf,inf
+setting/extrapolation,M1,grid within 20 (reference),inf,32.0
+setting/extrapolation,M1,grid within 5,inf,34.25
+setting/extrapolation,M1,grid within 3,inf,34.75
+setting/extrapolation,M1,uniform within 20,inf,24.5
+setting/extrapolation,M1,uniform within 50,13.5,13.5
+setting/extrapolation,M1s,grid within 20 (reference),inf,inf
+setting/extrapolation,M1s,grid within 5,inf,inf
+setting/extrapolation,M1s,grid within 3,inf,inf
+setting/extrapolation,M1s,uniform within 20,inf,inf
+setting/extrapolation,M1s,uniform within 50,4.5,inf
+setting/extrapolation,M1sn,grid within 20 (reference),6.0,6.0
+setting/extrapolation,M1sn,grid within 5,8.5,8.5
+setting/extrapolation,M1sn,grid within 3,9.0,9.0
+setting/extrapolation,M1sn,uniform within 20,3.5,3.5
+setting/extrapolation,M1sn,uniform within 50,0.0,0.0
+setting/extrapolation,M2,grid within 20 (reference),inf,23.25
+setting/extrapolation,M2,grid within 5,inf,24.25
+setting/extrapolation,M2,grid within 3,inf,24.5
+setting/extrapolation,M2,uniform within 20,6.0,6.0
+setting/extrapolation,M2,uniform within 50,0.0,0.0
+setting/extrapolation,M3,grid within 20 (reference),16.75,16.75
+setting/extrapolation,M3,grid within 5,19.25,19.25
+setting/extrapolation,M3,grid within 3,19.75,19.75
+setting/extrapolation,M3,uniform within 20,14.75,14.75
+setting/extrapolation,M3,uniform within 50,4.0,4.0
+setting/extrapolation,M4,grid within 20 (reference),6.5,6.5
+setting/extrapolation,M4,grid within 5,13.5,13.5
+setting/extrapolation,M4,grid within 3,13.5,13.5
+setting/extrapolation,M4,uniform within 20,1.5,1.5
+setting/extrapolation,M4,uniform within 50,0.0,0.0
+setting/extrapolation,M5,grid within 20 (reference),inf,23.0
+setting/extrapolation,M5,grid within 5,inf,24.0
+setting/extrapolation,M5,grid within 3,inf,24.5
+setting/extrapolation,M5,uniform within 20,5.0,5.0
+setting/extrapolation,M5,uniform within 50,0.0,0.0
+setting/extrapolation,M5n,grid within 20 (reference),6.75,6.75
+setting/extrapolation,M5n,grid within 5,12.5,12.5
+setting/extrapolation,M5n,grid within 3,13.0,13.0
+setting/extrapolation,M5n,uniform within 20,2.5,2.5
+setting/extrapolation,M5n,uniform within 50,0.0,0.0
+setting/extrapolation,NN,grid within 20 (reference),7.0,7.0
+setting/extrapolation,NN,grid within 5,14.25,14.25
+setting/extrapolation,NN,grid within 3,14.75,14.75
+setting/extrapolation,NN,uniform within 20,3.5,3.5
+setting/extrapolation,NN,uniform within 50,0.0,0.0
+setting/interpolation,M0,grid within 20 (reference),inf,inf
+setting/interpolation,M0,grid within 5,inf,inf
+setting/interpolation,M0,grid within 3,inf,inf
+setting/interpolation,M0,uniform within 20,inf,inf
+setting/interpolation,M0,uniform within 50,inf,inf
+setting/interpolation,M1,grid within 20 (reference),8.75,8.75
+setting/interpolation,M1,grid within 5,11.25,11.25
+setting/interpolation,M1,grid within 3,11.5,11.5
+setting/interpolation,M1,uniform within 20,6.0,6.0
+setting/interpolation,M1,uniform within 50,1.0,1.0
+setting/interpolation,M1s,grid within 20 (reference),inf,29.5
+setting/interpolation,M1s,grid within 5,inf,30.0
+setting/interpolation,M1s,grid within 3,inf,30.5
+setting/interpolation,M1s,uniform within 20,inf,27.5
+setting/interpolation,M1s,uniform within 50,4.5,4.5
+setting/interpolation,M1sn,grid within 20 (reference),2.0,2.0
+setting/interpolation,M1sn,grid within 5,4.25,4.25
+setting/interpolation,M1sn,grid within 3,5.0,5.0
+setting/interpolation,M1sn,uniform within 20,0.25,0.25
+setting/interpolation,M1sn,uniform within 50,0.0,0.0
+setting/interpolation,M2,grid within 20 (reference),0.75,0.75
+setting/interpolation,M2,grid within 5,2.75,2.75
+setting/interpolation,M2,grid within 3,3.25,3.25
+setting/interpolation,M2,uniform within 20,0.0,0.0
+setting/interpolation,M2,uniform within 50,0.0,0.0
+setting/interpolation,M3,grid within 20 (reference),17.75,17.75
+setting/interpolation,M3,grid within 5,19.0,19.0
+setting/interpolation,M3,grid within 3,19.5,19.5
+setting/interpolation,M3,uniform within 20,12.75,12.75
+setting/interpolation,M3,uniform within 50,1.25,1.25
+setting/interpolation,M4,grid within 20 (reference),6.0,6.0
+setting/interpolation,M4,grid within 5,9.25,9.25
+setting/interpolation,M4,grid within 3,10.25,10.25
+setting/interpolation,M4,uniform within 20,3.0,3.0
+setting/interpolation,M4,uniform within 50,0.0,0.0
+setting/interpolation,M5,grid within 20 (reference),0.5,0.5
+setting/interpolation,M5,grid within 5,2.75,2.75
+setting/interpolation,M5,grid within 3,3.5,3.5
+setting/interpolation,M5,uniform within 20,0.0,0.0
+setting/interpolation,M5,uniform within 50,0.0,0.0
+setting/interpolation,M5n,grid within 20 (reference),0.0,0.0
+setting/interpolation,M5n,grid within 5,1.0,1.0
+setting/interpolation,M5n,grid within 3,1.5,1.5
+setting/interpolation,M5n,uniform within 20,0.0,0.0
+setting/interpolation,M5n,uniform within 50,0.0,0.0
+setting/interpolation,NN,grid within 20 (reference),2.0,2.0
+setting/interpolation,NN,grid within 5,4.25,4.25
+setting/interpolation,NN,grid within 3,5.0,5.0
+setting/interpolation,NN,uniform within 20,0.25,0.25
+setting/interpolation,NN,uniform within 50,0.0,0.0
+transfer,M0,grid within 20 (reference),inf,inf
+transfer,M0,grid within 5,inf,inf
+transfer,M0,grid within 3,inf,inf
+transfer,M0,uniform within 20,inf,inf
+transfer,M0,uniform within 50,inf,inf
+transfer,M1,grid within 20 (reference),inf,52.75
+transfer,M1,grid within 5,inf,54.25
+transfer,M1,grid within 3,inf,54.75
+transfer,M1,uniform within 20,inf,52.0
+transfer,M1,uniform within 50,inf,26.0
+transfer,M1s,grid within 20 (reference),inf,inf
+transfer,M1s,grid within 5,inf,inf
+transfer,M1s,grid within 3,inf,inf
+transfer,M1s,uniform within 20,inf,inf
+transfer,M1s,uniform within 50,inf,inf
+transfer,M1sn,grid within 20 (reference),inf,inf
+transfer,M1sn,grid within 5,inf,inf
+transfer,M1sn,grid within 3,inf,inf
+transfer,M1sn,uniform within 20,inf,inf
+transfer,M1sn,uniform within 50,inf,inf
+transfer,M2,grid within 20 (reference),inf,28.5
+transfer,M2,grid within 5,inf,28.75
+transfer,M2,grid within 3,inf,29.0
+transfer,M2,uniform within 20,inf,27.25
+transfer,M2,uniform within 50,3.75,3.75
+transfer,M3,grid within 20 (reference),inf,35.25
+transfer,M3,grid within 5,inf,36.25
+transfer,M3,grid within 3,inf,36.25
+transfer,M3,uniform within 20,inf,32.5
+transfer,M3,uniform within 50,7.25,7.25
+transfer,M4,grid within 20 (reference),inf,inf
+transfer,M4,grid within 5,inf,inf
+transfer,M4,grid within 3,inf,inf
+transfer,M4,uniform within 20,inf,inf
+transfer,M4,uniform within 50,inf,inf
+transfer,M5,grid within 20 (reference),inf,33.25
+transfer,M5,grid within 5,inf,34.0
+transfer,M5,grid within 3,inf,34.25
+transfer,M5,uniform within 20,inf,32.0
+transfer,M5,uniform within 50,11.75,11.75
+transfer,M5n,grid within 20 (reference),inf,inf
+transfer,M5n,grid within 5,inf,inf
+transfer,M5n,grid within 3,inf,inf
+transfer,M5n,uniform within 20,inf,inf
+transfer,M5n,uniform within 50,inf,inf
+transfer,NN,grid within 20 (reference),inf,inf
+transfer,NN,grid within 5,inf,inf
+transfer,NN,grid within 3,inf,inf
+transfer,NN,uniform within 20,inf,inf
+transfer,NN,uniform within 50,inf,inf
+within,M0,grid within 20 (reference),inf,inf
+within,M0,grid within 5,inf,inf
+within,M0,grid within 3,inf,inf
+within,M0,uniform within 20,inf,inf
+within,M0,uniform within 50,inf,inf
+within,M1,grid within 20 (reference),inf,29.5
+within,M1,grid within 5,inf,31.0
+within,M1,grid within 3,inf,31.25
+within,M1,uniform within 20,14.25,14.25
+within,M1,uniform within 50,3.25,3.25
+within,M1s,grid within 20 (reference),2.0,2.0
+within,M1s,grid within 5,7.25,7.25
+within,M1s,grid within 3,8.5,8.5
+within,M1s,uniform within 20,0.5,0.5
+within,M1s,uniform within 50,0.0,0.0
+within,M1sn,grid within 20 (reference),0.75,0.75
+within,M1sn,grid within 5,2.75,2.75
+within,M1sn,grid within 3,4.5,4.5
+within,M1sn,uniform within 20,0.0,0.0
+within,M1sn,uniform within 50,0.0,0.0
+within,M2,grid within 20 (reference),0.0,0.0
+within,M2,grid within 5,0.0,0.0
+within,M2,grid within 3,0.5,0.5
+within,M2,uniform within 20,0.0,0.0
+within,M2,uniform within 50,0.0,0.0
+within,M3,grid within 20 (reference),0.0,0.0
+within,M3,grid within 5,0.0,0.0
+within,M3,grid within 3,4.0,4.0
+within,M3,uniform within 20,0.0,0.0
+within,M3,uniform within 50,0.0,0.0
+within,M4,grid within 20 (reference),0.0,0.0
+within,M4,grid within 5,0.0,0.0
+within,M4,grid within 3,3.5,3.5
+within,M4,uniform within 20,0.0,0.0
+within,M4,uniform within 50,0.0,0.0
+within,M5,grid within 20 (reference),0.0,0.0
+within,M5,grid within 5,0.0,0.0
+within,M5,grid within 3,6.5,6.5
+within,M5,uniform within 20,0.0,0.0
+within,M5,uniform within 50,0.0,0.0
+within,M5n,grid within 20 (reference),0.0,0.0
+within,M5n,grid within 5,0.0,0.0
+within,M5n,grid within 3,4.0,4.0
+within,M5n,uniform within 20,0.0,0.0
+within,M5n,uniform within 50,0.0,0.0
+within,NN,grid within 20 (reference),0.25,0.25
+within,NN,grid within 5,2.0,2.0
+within,NN,grid within 3,8.0,8.0
+within,NN,uniform within 20,0.0,0.0
+within,NN,uniform within 50,0.0,0.0

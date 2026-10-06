@@ -227,28 +227,36 @@ def fig_decisions_compare(src: Path) -> None:
 
 
 def fig_reliability(src: Path) -> None:
-    """Share of correct verdicts among the decided ones against the observable margin between the predicted interval
-    and the requirement (requirements on the grid within 20 floors of the truth), by evidence relation."""
+    """Share of correct verdicts among the decided ones whose observable margin between the predicted interval and
+    the requirement is at least the value on the axis (reference prior: the requirement grid within 20 floors of
+    the truth), by evidence relation, with each rule's guard band g marked where one qualifies."""
     c = pd.read_csv(src / "panel_step6_curves.csv")
-    scopes = [("within", "new variant"), ("setting", "new setting"), ("transfer", "new family")]
-    fig, axs = plt.subplots(1, 3, figsize=(WIDTH_IN, 2.35), sharey=True, squeeze=False)
-    letters = iter("abc")
+    bands = pd.read_csv(src / "panel_step6.csv").set_index(["scope", "method"])["guard_band"]
+    scopes = [("within", "sibling"), ("setting/interpolation", "interpolated"),
+              ("setting/extrapolation", "extrapolated"), ("transfer", "new family")]
+    fig, axs = plt.subplots(1, len(scopes), figsize=(WIDTH_IN, 2.35), sharey=True, squeeze=False)
+    letters = iter("abcd")
     for j, (scope, sname) in enumerate(scopes):
         ax = axs[0, j]
         for m in ("M1", "M2", "M5", "M5n", "NN"):
             g = c[(c["scope"] == scope) & (c["method"] == m)].sort_values("margin")
             ax.plot(g["margin"], g["correct_when_decided"], "-", color=RULE_COLOUR[m], lw=1.1, label=m,
-                    marker=RULE_MARKER[m], markevery=8, ms=3.5, mfc="white", mew=1.0)
+                    marker=RULE_MARKER[m], markevery=16, ms=3.0, mfc="white", mew=0.9)
+            band = bands.get((scope, m), np.inf)
+            if np.isfinite(band):
+                y = np.interp(band, g["margin"], g["correct_when_decided"])
+                ax.plot([band], [y], marker=RULE_MARKER[m], color=RULE_COLOUR[m], ms=5.0, mec="white", mew=0.6,
+                        zorder=5)
         ax.axhline(0.95, color=MUTED, lw=0.8, ls=":")
         ax.set_xlim(0, 20)
         ax.set_ylim(0.5, 1.005)
-        ax.set_xticks([0, 5, 10, 15, 20])
+        ax.set_xticks([0, 10, 20])
         ax.tick_params(labelsize=8)
-        subcaption(ax, next(letters), sname, "margin $g$ (floors)" if j == 1 else "")
+        subcaption(ax, next(letters), sname, "margin (floors)")
     axs[0, 0].set_ylabel("correct among\ndecided verdicts", fontsize=9)
     h, lab = axs[0, 0].get_legend_handles_labels()
     fig.legend(h, lab, loc="upper center", ncol=5, frameon=False, bbox_to_anchor=(0.5, 1.04), fontsize=9)
-    fig.tight_layout(rect=(0, 0, 1, 0.92), w_pad=0.6)
+    fig.tight_layout(rect=(0, 0, 1, 0.92), w_pad=1.0)
     save(fig, "F5_reliability")
 
 
@@ -265,6 +273,8 @@ def fig_budget(src: Path) -> None:
             ax = axs[i, j]
             for m in ("M1", "M2", "M5", "NN"):
                 g = r[(r["relation"] == rel) & (r["method"] == m)].sort_values("k")
+                if m == "M5":                          # a GP needs more than two points for its hyperparameters
+                    g = g[g["k"] >= 3]
                 if g.empty:
                     continue
                 ax.fill_between(g["k"], g[f"{col}_lo"], g[f"{col}_hi"], color=RULE_COLOUR[m], alpha=0.12, lw=0)

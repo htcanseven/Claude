@@ -2,19 +2,24 @@
 
  1. Decomposition: two-way partition of the sums of squares of the log decisive distances of the calibrated rules
     by evidence relation and rule, over all three relations and within the family only (without replication, so
-    the interaction is the residual).
+    the interaction is the residual), with the new family in the new family's and in the produced family's floor.
  2. Sibling strata: the new-variant cases split by how many of the two siblings production resolves from the held-out
     alternative (effect-to-scatter ratio >= 1, alt_effects.csv).
  3. Force levels: the new-setting cases split by the held-out force (100 kN: extrapolation at a slower stroke; 500 kN:
     extrapolation at the same speed; 300 kN: interpolation).
  4. New family in the source family's floor: transfer cases rescored with the floor of the produced family, which a
-    design team would have, and every scope per characteristic in the characteristic's unit.
+    design team would have, with the bootstrap intervals and paired differences of decisions.py (fits fixed); and
+    every scope per characteristic in the characteristic's unit (exact, evaluated in steps of 0.05 pooled floors).
  5. Weight of the failing side: feasible failing-side requirements at given distances (a limit below zero on a
     non-negative characteristic is no requirement).
  6. The procedure's decision rule (step 6): a guard band g on the observable margin between the predicted interval
-    and the requirement, the smallest margin beyond which at least 95 % of the decided verdicts are correct for
-    requirements on the grid within 20 floors of the truth (the prior of decisions.reliability), and the operating
-    characteristics of the rule with that guard band (its interval widened by g floors on both sides).
+    and the requirement, the smallest margin (steps of 0.25 floors, at most 20) beyond which at least 95 % of the
+    decided verdicts are correct, and the operating characteristics of the rule with that guard band (its interval
+    widened by g floors on both sides). g is a posterior quantity: it depends on how the requirement distances are
+    distributed. The reference prior is the evaluation grid of decisions.py within 20 floors of the truth (0,
+    +-0.5, ..., +-10, +-12, +-15, +-20 floors; 47 points, 41 of them within 10 floors), every feasible point and case
+    weighted equally; guard_priors gives g under other priors (the grid within 5 or 3 floors, uniform within 20 or
+    50 floors), with and without the cap.
  7. Capability-anchored requirements: upper limits at which each alternative has Ppk = 1.0, 1.33, 1.67 and 2.0
     (centre + 3 Ppk sd of its parts); every alternative meets them, so a verdict is right (meets), a false reject or
     a trial.
@@ -23,7 +28,10 @@
  9. A production-informed baseline for a new family where a drawing nominal exists (wall angle): the target's design
     angle plus the median deviation q95 - design angle of the produced family.
 10. Floor protocol: batch-centre differences by time lag (a variogram of the floor), the within-batch and
-    between-batch standard deviations, and the floor in units of the long- and short-term standard deviations.
+    between-batch standard deviations, and the floor in units of the long- and short-term standard deviations. All
+    components are classical (means, standard deviations with n - 1) and pooled over the series of a geometry as
+    root mean squares, so that they can be combined; the floor itself uses 10 % trimmed batch centres. The floor
+    that subgroups of five parts would give under the normal model is reported against the batch-of-50 one.
 11. Measurement resolution: the step between adjacent values of each characteristic relative to its floor.
 12. Run metadata: start temperature, warm-up rise, sheet thickness and stroke speed per series.
 
@@ -75,9 +83,21 @@ def outcomes(g: pd.DataFrame, d: float, band: float = 0.0) -> dict:
 
 
 # 1 ─────────────────────────────────────────────────────────────────────────────
-def decomposition(res: pd.DataFrame) -> pd.DataFrame:
+def decomposition(res: pd.DataFrame, src: pd.DataFrame) -> pd.DataFrame:
+    """Shares of relation and rule in the log distances, with the new family scored in the new family's floor
+    (dec_resolution) and in the produced family's floor (source_floor), as the procedure prescribes."""
+    produced = src[src["floor"] == "source family"]
+    in_produced = pd.concat([res[res["scope"] != "transfer"], produced[res.columns]], ignore_index=True)
     rows = []
-    r = res[(res["qc"] == "all") & res["method"].isin(CAL_RULES)]
+    for frame, unit in ((res, "new family's floor"), (in_produced, "produced family's floor")):
+        for rules, label in ((CAL_RULES, "eleven calibrated rules"), (CAL_RULES + ["M1sn"], "with M1sn")):
+            part = decomposition_of(frame[(frame["qc"] == "all") & frame["method"].isin(rules)], label)
+            rows += [{**r, "new_family_floor": unit} for r in part]
+    return pd.DataFrame(rows)
+
+
+def decomposition_of(r: pd.DataFrame, label: str) -> list[dict]:
+    rows = []
     for kind, tf in (("resolution_floors", np.log), ("safe_floors", np.log1p)):
         for name, scopes in (("all relations", SCOPES), ("within the family", SCOPES[:2])):
             m = r[r["scope"].isin(scopes)].pivot(index="method", columns="scope", values=kind)
@@ -87,10 +107,11 @@ def decomposition(res: pd.DataFrame) -> pd.DataFrame:
             ss_t = ((y - grand) ** 2).sum()
             ss_rel = y.shape[0] * ((y.mean(axis=0) - grand) ** 2).sum()
             ss_rule = y.shape[1] * ((y.mean(axis=1) - grand) ** 2).sum()
-            rows.append({"distance": kind, "relations": name, "rules": len(m), "share_relation": ss_rel / ss_t,
+            rows.append({"rule_set": label, "distance": kind, "relations": name, "rules": len(m),
+                         "share_relation": ss_rel / ss_t,
                          "share_rule": ss_rule / ss_t, "share_interaction": 1 - (ss_rel + ss_rule) / ss_t,
                          "best_rule_range": f"{np.exp(y.min(axis=0)).round(2).tolist()}" if kind.startswith("res") else ""})
-    return pd.DataFrame(rows)
+    return rows
 
 
 # 2 ─────────────────────────────────────────────────────────────────────────────
@@ -123,22 +144,38 @@ def force_levels(iv: pd.DataFrame) -> pd.DataFrame:
 
 
 # 4 ─────────────────────────────────────────────────────────────────────────────
-def source_floor(iv: pd.DataFrame, floors: dict) -> pd.DataFrame:
-    tr = iv[iv["scope"] == "transfer"]
+def source_floor(iv: pd.DataFrame, floors: dict, reps: np.ndarray, t: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """New-family distances in the floor of the unproduced target family and in that of the produced (source)
+    family, with the bootstrap intervals of decisions.distances (same resamples, fits fixed) and paired
+    differences of the rule pairs in decisions.PAIRS; M6 (robustness.py) is added for completeness."""
+    from robustness import m6_intervals
+
+    m6 = m6_intervals(t, floors)
+    ref_row = {(a, q): i for i, (a, q) in enumerate(zip(t["alternative"], t["qc"]))}
+    m6 = m6[m6["scope"] == "transfer"].assign(ref_row=lambda d: [ref_row[(a, q)] for a, q in zip(d["alternative"], d["qc"])])
+    tr = pd.concat([iv[iv["scope"] == "transfer"], m6], ignore_index=True)
     other = {"concave": "convex", "convex": "concave"}
-    rows = []
-    for m, g in tr.groupby("method"):
-        f_src = np.array([floors[(q, other[geo])] for q, geo in zip(g["qc"], g["geometry"])])
-        rows.append({"method": m, "floor": "target family", **dist(g)})
-        rows.append({"method": m, "floor": "source family", **dist(g, f_src)})
-    return pd.DataFrame(rows)
+    f_src = np.array([floors[(q, other[geo])] for q, geo in zip(tr["qc"], tr["geometry"])])
+    rows, pairs = [], []
+    for label, g in (("target family", tr), ("source family", tr.assign(floor=f_src))):
+        paired = []
+        rows.append(D.distances(g, reps, paired=paired, per_qc=False).assign(floor=label))
+        pairs.append(pd.DataFrame(paired).assign(floor=label))
+    return pd.concat(rows, ignore_index=True), pd.concat(pairs, ignore_index=True)
 
 
 def physical_units(iv: pd.DataFrame) -> pd.DataFrame:
+    """Distances per characteristic in its unit: the cases of both geometries scored with the characteristic's
+    pooled floor, so that one unit holds for all of them (exact up to steps of 0.05 pooled floors)."""
+    fl = pd.read_csv(RESULTS / "alt_floor.csv").set_index("qc")["floor"]
     rows = []
-    for (scope, m, qc), g in iv[iv["scope"].isin(SCOPES) & iv["method"].isin(CORE + ["M3", "M4"])].groupby(
+    for (scope, m, qc), g in iv[iv["scope"].isin(SCOPES) & iv["method"].isin(CORE + ["M3", "M4", "M1sn"])].groupby(
             ["scope", "method", "qc"]):
-        rows.append({"scope": scope, "method": m, "qc": qc, **dist(g, np.ones(len(g)), sides=False)})
+        Fp = float(fl.loc[qc])
+        r = dist(g, np.full(len(g), Fp), sides=False)
+        rows.append({"scope": scope, "method": m, "qc": qc, "pooled_floor": Fp,
+                     "resolution_units": r["resolution_floors"] * Fp, "safe_units": r["safe_floors"] * Fp,
+                     "resolution_pooled_floors": r["resolution_floors"], "safe_pooled_floors": r["safe_floors"]})
     return pd.DataFrame(rows)
 
 
@@ -152,9 +189,19 @@ def failing_weight(iv: pd.DataFrame) -> pd.DataFrame:
 
 
 # 6 ─────────────────────────────────────────────────────────────────────────────
-def guard_band(g: pd.DataFrame) -> tuple[float, pd.DataFrame]:
-    """Smallest observable margin g beyond which >= 95 % of the decided verdicts are correct (grid prior)."""
-    grid = D.D_GRID[np.abs(D.D_GRID) <= 20.0]
+PRIORS = {"grid within 20 (reference)": D.D_GRID[np.abs(D.D_GRID) <= 20.0],
+          "grid within 5": D.D_GRID[np.abs(D.D_GRID) <= 5.0],
+          "grid within 3": D.D_GRID[np.abs(D.D_GRID) <= 3.0],
+          "uniform within 20": np.round(np.arange(-20.0, 20.0 + 1e-9, 0.05), 2),
+          "uniform within 50": np.round(np.arange(-50.0, 50.0 + 1e-9, 0.05), 2)}
+WIDE_BANDS = np.round(np.arange(0.0, 60.0 + 1e-9, 0.25), 2)
+
+
+def guard_band(g: pd.DataFrame, grid: np.ndarray | None = None,
+               bands: np.ndarray = GUARD_GRID) -> tuple[float, pd.DataFrame]:
+    """Smallest observable margin g beyond which >= 95 % of the decided verdicts are correct, for requirements
+    at the distances of grid (every feasible distance and case weighted equally; default: the reference prior)."""
+    grid = PRIORS["grid within 20 (reference)"] if grid is None else grid
     lo, hi = g["lo"].to_numpy()[:, None], g["hi"].to_numpy()[:, None]
     F = g["floor"].to_numpy()[:, None]
     reqs = g["real_q95"].to_numpy()[:, None] + grid[None, :] * F
@@ -163,21 +210,34 @@ def guard_band(g: pd.DataFrame) -> tuple[float, pd.DataFrame]:
     margin = np.where(meets, (reqs - hi) / F, np.where(fails, (lo - reqs) / F, np.nan)).ravel()
     correct = ((meets & (grid >= 0)[None, :]) | (fails & (grid < 0)[None, :])).ravel()
     share = []
-    for b in GUARD_GRID:
+    for b in bands:
         sel = np.isfinite(margin) & (margin >= b)
         share.append(correct[sel].mean() if sel.any() else np.nan)
     share = np.array(share)
     ok = np.where(np.isnan(share), True, share >= D.RESOLUTION_TARGET)
     bad = np.flatnonzero(~ok)
-    band = 0.0 if bad.size == 0 else (float(GUARD_GRID[bad[-1] + 1]) if bad[-1] + 1 < GUARD_GRID.size else np.inf)
-    return band, pd.DataFrame({"margin": GUARD_GRID, "correct_when_decided": share})
+    band = 0.0 if bad.size == 0 else (float(bands[bad[-1] + 1]) if bad[-1] + 1 < bands.size else np.inf)
+    return band, pd.DataFrame({"margin": bands, "correct_when_decided": share})
+
+
+def guard_priors(ivr: pd.DataFrame) -> pd.DataFrame:
+    """Guard bands of the core rules, M3/M4 and M1sn under other requirement priors, capped at 20 floors as in the
+    procedure and uncapped (search up to 60 floors)."""
+    rows = []
+    scopes = ["within", "setting/interpolation", "setting/extrapolation", "transfer"]
+    for (scope, m), g in ivr[ivr["scope"].isin(scopes) & ivr["method"].isin(CORE + ["M3", "M4", "M1sn"])].groupby(
+            ["scope", "method"]):
+        for name, grid in PRIORS.items():
+            rows.append({"scope": scope, "method": m, "prior": name, "guard_band": guard_band(g, grid)[0],
+                         "guard_band_uncapped": guard_band(g, grid, WIDE_BANDS)[0]})
+    return pd.DataFrame(rows)
 
 
 def step6(ivr: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     rows, curves = [], []
     scopes = SCOPES + ["setting/interpolation", "setting/extrapolation"]
-    for (scope, m), g in ivr[ivr["scope"].isin(scopes) & ivr["method"].isin(CAL_RULES + ["M0", "M0w"])].groupby(
-            ["scope", "method"]):
+    rules = CAL_RULES + ["M1sn", "M0", "M0w"]
+    for (scope, m), g in ivr[ivr["scope"].isin(scopes) & ivr["method"].isin(rules)].groupby(["scope", "method"]):
         band, curve = guard_band(g)
         curves.append(curve.assign(scope=scope, method=m))
         base = {"scope": scope, "method": m, "guard_band": band}
@@ -265,22 +325,28 @@ def floor_protocol(q: pd.DataFrame, floors: dict) -> tuple[pd.DataFrame, pd.Data
                 vario.append({"qc": c, "geometry": geo, "lag_batches": lag, "pairs": len(dd),
                               "q95_floors": float(np.quantile(dd, 0.95)) / F})
             parts = q[q["geometry"] == geo]
-            lt, st, wb, bm = [], [], [], []
+            lt, st, wb, bm = [], [], [], []           # per-series variances (classical, n - 1)
             for _, g in parts.groupby("alternative"):
                 y = g[c].to_numpy(float)
-                ok = np.isfinite(y)
-                lt.append(np.nanstd(y))
+                lt.append(np.nanvar(y, ddof=1))
                 sub5 = pd.Series(y).groupby(np.arange(len(y)) // 5)
-                st.append(np.sqrt(np.nanmean(sub5.var(ddof=1))))
+                st.append(np.nanmean(sub5.var(ddof=1)))
                 bw = pd.Series(y).groupby(np.arange(len(y)) // BATCH)
                 wb.append(np.nanmean(bw.var(ddof=1)))
                 bm.append(np.nanvar(bw.mean(), ddof=1))
-            sw = float(np.sqrt(np.mean(wb)))
+            # one aggregate for all components: root mean squares over the series of the geometry
+            slt, sst, sw = (float(np.sqrt(np.mean(v))) for v in (lt, st, wb))
             sb = float(np.sqrt(max(np.mean(bm) - sw ** 2 / BATCH, 0.0)))
-            prot.append({"qc": c, "geometry": geo, "floor": F, "sigma_lt": float(np.median(lt)),
-                         "sigma_st": float(np.median(st)), "sigma_within_batch": sw, "sigma_between_batch": sb,
-                         "floor_over_sigma_lt": F / float(np.median(lt)), "floor_over_sigma_st": F / float(np.median(st)),
-                         "normal_model_floor": 1.96 * np.sqrt(2) * np.sqrt(sb ** 2 + sw ** 2 / BATCH)})
+            model = 1.96 * np.sqrt(2) * np.sqrt(sb ** 2 + sw ** 2 / BATCH)
+            prot.append({"qc": c, "geometry": geo, "floor": F, "sigma_lt": slt, "sigma_st": sst,
+                         "sigma_within_batch": sw, "sigma_between_batch": sb,
+                         "floor_over_sigma_lt": F / slt, "floor_over_sigma_st": F / sst,
+                         "normal_model_floor": model,
+                         "series_with_sigma_w_above_sigma_lt": int(np.sum(np.sqrt(wb) > np.sqrt(lt))),
+                         "max_excess_sigma_w_over_sigma_lt": float(np.max(np.sqrt(np.array(wb) / np.array(lt))) - 1),
+                         "sigma_lt_median_series": float(np.median(np.sqrt(lt))),
+                         "model_floor_subgroups_of_5": 1.96 * np.sqrt(2) * np.sqrt(sb ** 2 + sw ** 2 / 5),
+                         "subgroup5_over_batch50": float(np.sqrt(sb ** 2 + sw ** 2 / 5) / np.sqrt(sb ** 2 + sw ** 2 / BATCH))})
     return pd.DataFrame(vario), pd.DataFrame(prot)
 
 
@@ -339,18 +405,21 @@ def q95_unit(iv: pd.DataFrame) -> pd.DataFrame:
 def main() -> None:
     iv = pd.read_csv(RESULTS / "dec_intervals.csv")
     ivr = D.with_relation_scopes(iv)
+    reps = np.load(RESULTS / "dec_q95_reps.npy")
     res = pd.read_csv(RESULTS / "dec_resolution.csv")
     t = pd.read_csv(RESULTS / "dec_alternatives.csv")
     floors = D.load_floors()
     q = parts_qc(pd.read_csv(RESULTS / "features_rddac.csv", low_memory=False))
 
-    out = {"decomposition": decomposition(res)}
+    src, src_paired = source_floor(iv, floors, reps, t)
+    out = {"decomposition": decomposition(res, src)}
     out["sibling_strata"], counts = sibling_strata(iv)
     out["force_levels"] = force_levels(iv)
-    out["source_floor"] = source_floor(iv, floors)
+    out["source_floor"], out["source_floor_paired"] = src, src_paired
     out["physical_units"] = physical_units(iv)
     out["failing_weight"] = failing_weight(iv)
     out["step6"], out["step6_curves"] = step6(ivr)
+    out["guard_priors"] = guard_priors(ivr)
     out["capability"] = capability(iv, t)
     out["m0_split"] = m0_split(iv, t)
     out["nominal_offset"] = nominal_offset(iv, t)
@@ -367,8 +436,8 @@ def main() -> None:
         if name == "step6_curves":
             continue
         show = frame
-        if name in ("sibling_strata", "force_levels", "source_floor", "step6", "capability"):
-            show = frame[frame["method"].isin(CORE + ["M3", "M4", "M2n", "M1n"])]
+        if name in ("sibling_strata", "force_levels", "source_floor", "step6", "capability", "guard_priors"):
+            show = frame[frame["method"].isin(CORE + ["M3", "M4", "M2n", "M1n", "M1sn"])]
         lines += [f"## {name}", "", show.round(3).to_markdown(index=False), ""]
     lines += ["## sibling strata: cases", "", counts.to_markdown(index=False)]
     (RESULTS / "summary_panel.md").write_text("\n".join(lines) + "\n")

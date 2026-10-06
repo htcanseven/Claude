@@ -4,6 +4,7 @@ reference,setting,M0w,118.7,94.25,119.0,100.1,33.1,9.2
 reference,setting,M1,23.75,23.75,22.55,22.55,23.75,23.75
 reference,setting,M1n,10.3,10.3,9.2,9.2,11.8,11.8
 reference,setting,M1s,19.15,19.15,12.2,12.2,164.05,164.05
+reference,setting,M1sn,8.15,8.15,5.65,5.65,9.0,9.0
 reference,setting,M2,17.5,8.1,18.35,6.7,16.75,8.3
 reference,setting,M2n,15.25,5.85,15.1,3.25,15.3,9.2
 reference,setting,M5,18.65,6.8,20.05,5.45,18.5,7.6
@@ -14,6 +15,7 @@ reference,setting/extrapolation,M0w,118.75,77.45,119.45,96.85,33.0,8.95
 reference,setting/extrapolation,M1,24.6,24.6,24.6,24.6,23.8,23.8
 reference,setting/extrapolation,M1n,11.75,11.75,9.8,9.8,12.6,12.6
 reference,setting/extrapolation,M1s,19.1,19.1,7.9,7.9,164.75,164.75
+reference,setting/extrapolation,M1sn,8.85,8.85,7.35,7.35,9.25,9.25
 reference,setting/extrapolation,M2,17.5,9.9,17.9,9.95,17.5,8.7
 reference,setting/extrapolation,M2n,15.5,9.1,15.3,3.6,15.5,9.9
 reference,setting/extrapolation,M5,18.5,8.9,19.25,9.65,17.95,8.4
@@ -24,6 +26,7 @@ reference,setting/interpolation,M0w,118.6,94.25,118.7,100.1,33.5,12.75
 reference,setting/interpolation,M1,11.25,11.25,11.3,11.3,9.2,9.2
 reference,setting/interpolation,M1n,4.8,4.8,4.8,4.8,5.8,5.8
 reference,setting/interpolation,M1s,19.25,19.25,18.7,18.7,30.4,30.4
+reference,setting/interpolation,M1sn,4.65,4.65,4.65,4.65,3.1,3.1
 reference,setting/interpolation,M2,17.75,2.7,24.95,2.4,15.45,3.65
 reference,setting/interpolation,M2n,13.3,0.0,15.05,0.0,10.0,0.0
 reference,setting/interpolation,M5,19.05,2.8,32.6,3.1,18.65,2.4
@@ -34,6 +37,7 @@ reference,transfer,M0w,118.7,94.25,119.0,100.1,33.1,9.2
 reference,transfer,M1,35.3,35.3,35.65,35.65,32.6,32.6
 reference,transfer,M1n,130.7,130.7,128.5,128.5,172.65,172.65
 reference,transfer,M1s,122.3,122.3,122.45,122.45,122.2,122.2
+reference,transfer,M1sn,130.35,130.35,128.7,128.7,169.55,169.55
 reference,transfer,M2,50.65,15.8,51.55,23.2,48.6,11.05
 reference,transfer,M2n,132.35,129.05,130.15,126.85,180.7,164.55
 reference,transfer,M5,38.4,27.5,44.0,27.05,35.4,31.75
@@ -44,6 +48,7 @@ reference,within,M0w,118.7,94.25,119.0,100.1,33.1,9.2
 reference,within,M1,15.2,15.2,11.95,11.95,15.2,15.2
 reference,within,M1n,9.05,9.05,5.2,5.2,10.25,10.25
 reference,within,M1s,4.85,4.85,4.85,4.85,4.65,4.65
+reference,within,M1sn,3.5,3.5,3.55,3.55,3.45,3.45
 reference,within,M2,22.65,0.15,22.65,0.0,20.4,0.3
 reference,within,M2n,18.75,0.0,15.3,0.0,22.1,0.2
 reference,within,M5,7.15,0.75,6.8,0.85,8.5,0.15
@@ -54,6 +59,7 @@ temperature-adjusted,setting,M0w,121.5,94.7,122.6,109.0,33.25,9.05
 temperature-adjusted,setting,M1,24.2,24.2,22.6,22.6,24.2,24.2
 temperature-adjusted,setting,M1n,11.4,11.4,9.35,9.35,11.7,11.7
 temperature-adjusted,setting,M1s,19.95,19.95,13.5,13.5,182.35,182.35
+temperature-adjusted,setting,M1sn,8.9,8.9,5.75,5.75,9.65,9.65
 temperature-adjusted,setting,M2,17.2,7.6,19.95,6.9,16.65,8.1
 temperature-adjusted,setting,M2n,16.8,6.05,16.7,3.3,16.9,9.65
 temperature-adjusted,setting,M5,18.65,6.8,19.15,5.55,18.4,7.0
@@ -64,6 +70,7 @@ temperature-adjusted,setting/extrapolation,M0w,121.5,85.9,121.7,107.7,33.2,8.9
 temperature-adjusted,setting/extrapolation,M1,24.85,24.85,25.15,25.15,24.25,24.25
 temperature-adjusted,setting/extrapolation,M1n,11.75,11.75,10.8,10.8,12.4,12.4
 temperature-adjusted,setting/extrapolation,M1s,19.85,19.85,7.9,7.9,182.9,182.9
+temperature-adjusted,setting/extrapolation,M1sn,9.4,9.4,7.35,7.35,10.05,10.05
 temperature-adjusted,setting/extrapolation,M2,17.2,9.75,17.2,10.5,17.2,8.4
 temperature-adjusted,setting/extrapolation,M2n,17.15,9.2,16.7,3.6,17.15,9.75
 temperature-adjusted,setting/extrapolation,M5,18.4,9.3,18.6,9.6,17.65,8.4
@@ -74,6 +81,7 @@ temperature-adjusted,setting/interpolation,M0w,120.2,94.7,131.85,111.3,33.75,12.
 temperature-adjusted,setting/interpolation,M1,10.25,10.25,10.6,10.6,9.0,9.0
 temperature-adjusted,setting/interpolation,M1n,5.0,5.0,5.0,5.0,5.8,5.8
 temperature-adjusted,setting/interpolation,M1s,20.0,20.0,19.55,19.55,30.55,30.55
+temperature-adjusted,setting/interpolation,M1sn,4.85,4.85,4.85,4.85,3.4,3.4
 temperature-adjusted,setting/interpolation,M2,19.3,2.65,24.95,2.0,16.0,3.8
 temperature-adjusted,setting/interpolation,M2n,14.95,0.0,16.7,0.0,10.15,0.0
 temperature-adjusted,setting/interpolation,M5,19.65,2.5,32.6,2.5,19.3,2.35
@@ -84,6 +92,7 @@ temperature-adjusted,transfer,M0w,121.5,94.7,122.6,109.0,33.25,9.05
 temperature-adjusted,transfer,M1,35.35,35.35,35.65,35.65,32.75,32.75
 temperature-adjusted,transfer,M1n,128.25,128.25,126.15,126.15,173.45,173.45
 temperature-adjusted,transfer,M1s,121.05,121.05,120.3,120.3,122.65,122.65
+temperature-adjusted,transfer,M1sn,127.95,127.95,126.35,126.35,170.4,170.4
 temperature-adjusted,transfer,M2,48.1,15.1,46.2,19.6,48.8,12.0
 temperature-adjusted,transfer,M2n,129.85,126.7,127.7,124.6,181.85,165.05
 temperature-adjusted,transfer,M5,36.7,27.35,37.1,26.95,35.55,31.85
@@ -94,6 +103,7 @@ temperature-adjusted,within,M0w,121.5,94.7,122.6,109.0,33.25,9.05
 temperature-adjusted,within,M1,15.3,15.3,13.15,13.15,15.3,15.3
 temperature-adjusted,within,M1n,9.75,9.75,5.4,5.4,10.6,10.6
 temperature-adjusted,within,M1s,5.0,5.0,5.0,5.0,4.35,4.35
+temperature-adjusted,within,M1sn,3.8,3.8,3.7,3.7,3.8,3.8
 temperature-adjusted,within,M2,23.25,0.1,23.25,0.05,19.1,0.3
 temperature-adjusted,within,M2n,20.9,0.1,16.8,0.0,21.65,0.25
 temperature-adjusted,within,M5,7.2,0.65,6.5,0.9,9.0,0.25
@@ -144,6 +154,7 @@ resolution target 0.90,pooled,M0w,91.95,61.25,118.45,77.45,28.0,8.25
 resolution target 0.90,pooled,M1,19.7,19.7,26.15,26.15,15.9,15.9
 resolution target 0.90,pooled,M1n,123.35,123.35,91.15,91.15,162.85,162.85
 resolution target 0.90,pooled,M1s,11.85,11.85,10.1,10.1,13.85,13.85
+resolution target 0.90,pooled,M1sn,71.4,71.4,55.55,55.55,90.85,90.85
 resolution target 0.90,pooled,M2,35.25,0.0,49.85,0.0,33.95,0.0
 resolution target 0.90,pooled,M2n,246.4,0.0,185.9,0.0,335.35,0.0
 resolution target 0.90,pooled,M3,23.1,0.0,23.95,0.0,19.35,0.0
@@ -157,6 +168,7 @@ resolution target 0.90,pooled-setting,M0w,91.95,61.25,118.45,77.45,28.0,8.25
 resolution target 0.90,pooled-setting,M1,20.95,20.95,26.55,26.55,15.95,15.95
 resolution target 0.90,pooled-setting,M1n,125.45,125.45,92.95,92.95,163.45,163.45
 resolution target 0.90,pooled-setting,M1s,15.4,15.4,14.4,14.4,17.05,17.05
+resolution target 0.90,pooled-setting,M1sn,102.85,102.85,77.75,77.75,108.15,108.15
 resolution target 0.90,pooled-setting,M2,35.25,0.0,49.85,0.0,33.95,0.3
 resolution target 0.90,pooled-setting,M2n,249.65,1.0,188.65,0.0,332.75,2.6
 resolution target 0.90,pooled-setting,M3,26.7,3.15,30.75,4.0,22.8,2.1
@@ -170,6 +182,7 @@ resolution target 0.90,pooled-setting/extrapolation,M0w,87.7,61.25,116.05,76.4,2
 resolution target 0.90,pooled-setting/extrapolation,M1,21.15,21.15,24.55,24.55,16.8,16.8
 resolution target 0.90,pooled-setting/extrapolation,M1n,125.45,125.45,95.1,95.1,160.3,160.3
 resolution target 0.90,pooled-setting/extrapolation,M1s,15.4,15.4,13.65,13.65,18.2,18.2
+resolution target 0.90,pooled-setting/extrapolation,M1sn,107.85,107.85,82.25,82.25,143.65,143.65
 resolution target 0.90,pooled-setting/extrapolation,M2,33.95,0.3,44.8,0.0,33.95,1.7
 resolution target 0.90,pooled-setting/extrapolation,M2n,249.65,2.6,188.05,1.55,332.85,4.45
 resolution target 0.90,pooled-setting/extrapolation,M3,28.55,3.4,31.5,8.3,23.0,2.6
@@ -183,6 +196,7 @@ resolution target 0.90,pooled-setting/interpolation,M0w,92.25,56.25,118.55,93.6,
 resolution target 0.90,pooled-setting/interpolation,M1,15.95,15.95,28.05,28.05,10.85,10.85
 resolution target 0.90,pooled-setting/interpolation,M1n,124.0,124.0,92.05,92.05,164.1,164.1
 resolution target 0.90,pooled-setting/interpolation,M1s,16.8,16.8,16.85,16.85,12.35,12.35
+resolution target 0.90,pooled-setting/interpolation,M1sn,74.5,74.5,56.95,56.95,101.6,101.6
 resolution target 0.90,pooled-setting/interpolation,M2,39.35,0.0,56.95,0.0,34.25,0.0
 resolution target 0.90,pooled-setting/interpolation,M2n,249.45,0.0,188.7,0.0,331.95,0.0
 resolution target 0.90,pooled-setting/interpolation,M3,25.9,0.95,29.2,1.25,18.6,0.0
@@ -196,6 +210,7 @@ resolution target 0.90,setting,M0w,91.95,61.25,118.45,77.45,28.0,8.25
 resolution target 0.90,setting,M1,15.75,15.75,13.15,13.15,18.55,18.55
 resolution target 0.90,setting,M1n,7.4,7.4,6.1,6.1,9.3,9.3
 resolution target 0.90,setting,M1s,12.15,12.15,6.95,6.95,14.6,14.6
+resolution target 0.90,setting,M1sn,5.85,5.85,4.25,4.25,7.75,7.75
 resolution target 0.90,setting,M2,15.85,5.15,16.75,5.0,14.85,5.15
 resolution target 0.90,setting,M2n,13.85,3.2,13.7,1.95,13.95,5.45
 resolution target 0.90,setting,M3,23.95,11.05,29.05,13.35,20.55,8.75
@@ -209,6 +224,7 @@ resolution target 0.90,setting/extrapolation,M0w,87.7,61.25,116.05,76.4,28.0,7.2
 resolution target 0.90,setting/extrapolation,M1,22.55,22.55,21.75,21.75,23.7,23.7
 resolution target 0.90,setting/extrapolation,M1n,9.6,9.6,8.9,8.9,10.4,10.4
 resolution target 0.90,setting/extrapolation,M1s,9.65,9.65,5.65,5.65,14.7,14.7
+resolution target 0.90,setting/extrapolation,M1sn,7.35,7.35,2.8,2.8,8.85,8.85
 resolution target 0.90,setting/extrapolation,M2,16.35,6.7,16.75,6.7,14.95,6.4
 resolution target 0.90,setting/extrapolation,M2n,14.9,5.4,14.0,2.85,15.25,9.1
 resolution target 0.90,setting/extrapolation,M3,24.75,11.8,31.95,16.0,20.4,8.75
@@ -222,6 +238,7 @@ resolution target 0.90,setting/interpolation,M0w,92.25,56.25,118.55,93.6,33.1,9.
 resolution target 0.90,setting/interpolation,M1,9.2,9.2,10.85,10.85,7.3,7.3
 resolution target 0.90,setting/interpolation,M1n,3.75,3.75,3.9,3.9,1.2,1.2
 resolution target 0.90,setting/interpolation,M1s,12.25,12.25,12.15,12.15,12.3,12.3
+resolution target 0.90,setting/interpolation,M1sn,4.2,4.2,4.25,4.25,1.9,1.9
 resolution target 0.90,setting/interpolation,M2,14.1,2.1,14.1,0.8,11.75,2.55
 resolution target 0.90,setting/interpolation,M2n,11.35,0.0,13.0,0.0,9.5,0.0
 resolution target 0.90,setting/interpolation,M3,23.65,7.5,26.05,6.3,21.35,10.6
@@ -235,6 +252,7 @@ resolution target 0.90,transfer,M0w,91.95,61.25,118.45,77.45,28.0,8.25
 resolution target 0.90,transfer,M1,28.05,28.05,28.35,28.35,22.3,22.3
 resolution target 0.90,transfer,M1n,125.9,125.9,96.75,96.75,168.0,168.0
 resolution target 0.90,transfer,M1s,120.5,120.5,59.95,59.95,121.3,121.3
+resolution target 0.90,transfer,M1sn,125.85,125.85,95.85,95.85,168.4,168.4
 resolution target 0.90,transfer,M2,44.6,9.55,39.8,14.6,44.6,7.3
 resolution target 0.90,transfer,M2n,128.15,123.35,102.35,91.15,176.1,159.95
 resolution target 0.90,transfer,M3,38.0,11.2,42.05,16.15,25.95,7.15
@@ -248,6 +266,7 @@ resolution target 0.90,within,M0w,91.95,61.25,118.45,77.45,28.0,8.25
 resolution target 0.90,within,M1,11.75,11.75,7.6,7.6,14.05,14.05
 resolution target 0.90,within,M1n,5.4,5.4,4.15,4.15,9.05,9.05
 resolution target 0.90,within,M1s,4.3,4.3,4.5,4.5,3.9,3.9
+resolution target 0.90,within,M1sn,2.85,2.85,3.05,3.05,2.65,2.65
 resolution target 0.90,within,M2,17.05,0.0,17.9,0.0,15.3,0.0
 resolution target 0.90,within,M2n,15.1,0.0,14.0,0.0,18.75,0.0
 resolution target 0.90,within,M3,16.15,0.0,21.25,0.0,14.75,0.0
@@ -261,6 +280,7 @@ resolution target 0.99,pooled,M0w,121.1,108.95,121.1,108.95,34.0,12.75
 resolution target 0.99,pooled,M1,43.8,43.8,44.3,44.3,22.05,22.05
 resolution target 0.99,pooled,M1n,167.55,167.55,128.4,128.4,168.05,168.05
 resolution target 0.99,pooled,M1s,24.95,24.95,25.45,25.45,20.5,20.5
+resolution target 0.99,pooled,M1sn,97.9,97.9,75.55,75.55,100.85,100.85
 resolution target 0.99,pooled,M2,58.15,0.8,58.15,0.35,40.3,0.8
 resolution target 0.99,pooled,M2n,335.4,1.1,258.35,1.55,335.55,0.55
 resolution target 0.99,pooled,M3,31.95,1.25,31.95,2.0,33.35,0.0
@@ -274,6 +294,7 @@ resolution target 0.99,pooled-setting,M0w,121.1,108.95,121.1,108.95,34.0,12.75
 resolution target 0.99,pooled-setting,M1,44.2,44.2,44.7,44.7,22.3,22.3
 resolution target 0.99,pooled-setting,M1n,168.15,168.15,128.65,128.65,168.65,168.65
 resolution target 0.99,pooled-setting,M1s,28.9,28.9,29.35,29.35,23.25,23.25
+resolution target 0.99,pooled-setting,M1sn,144.25,144.25,111.25,111.25,146.8,146.8
 resolution target 0.99,pooled-setting,M2,58.1,4.15,58.1,1.75,40.3,5.35
 resolution target 0.99,pooled-setting,M2n,332.85,6.9,258.85,4.8,333.3,7.0
 resolution target 0.99,pooled-setting,M3,43.9,13.8,44.45,14.0,31.35,5.05
@@ -287,6 +308,7 @@ resolution target 0.99,pooled-setting/extrapolation,M0w,121.1,108.95,122.05,109.
 resolution target 0.99,pooled-setting/extrapolation,M1,44.7,44.7,46.8,46.8,22.3,22.3
 resolution target 0.99,pooled-setting/extrapolation,M1n,168.15,168.15,130.25,130.25,168.65,168.65
 resolution target 0.99,pooled-setting/extrapolation,M1s,29.35,29.35,29.7,29.7,23.25,23.25
+resolution target 0.99,pooled-setting/extrapolation,M1sn,144.25,144.25,112.0,112.0,146.8,146.8
 resolution target 0.99,pooled-setting/extrapolation,M2,56.9,5.35,57.25,1.85,40.3,6.4
 resolution target 0.99,pooled-setting/extrapolation,M2n,333.3,7.0,258.85,5.5,333.3,7.2
 resolution target 0.99,pooled-setting/extrapolation,M3,43.9,14.0,45.6,15.95,31.35,7.7
@@ -300,6 +322,7 @@ resolution target 0.99,pooled-setting/interpolation,M0w,119.65,100.2,119.65,100.
 resolution target 0.99,pooled-setting/interpolation,M1,44.2,44.2,44.2,44.2,16.8,16.8
 resolution target 0.99,pooled-setting/interpolation,M1n,164.7,164.7,128.6,128.6,164.7,164.7
 resolution target 0.99,pooled-setting/interpolation,M1s,21.85,21.85,21.85,21.85,18.8,18.8
+resolution target 0.99,pooled-setting/interpolation,M1sn,102.85,102.85,77.75,77.75,102.85,102.85
 resolution target 0.99,pooled-setting/interpolation,M2,58.45,0.0,58.45,0.0,39.35,0.0
 resolution target 0.99,pooled-setting/interpolation,M2n,331.95,2.6,258.8,0.0,331.95,2.6
 resolution target 0.99,pooled-setting/interpolation,M3,44.45,6.3,44.45,6.3,23.55,5.05
@@ -313,6 +336,7 @@ resolution target 0.99,setting,M0w,121.1,108.95,121.1,108.95,34.0,12.75
 resolution target 0.99,setting,M1,26.6,26.6,27.35,27.35,26.15,26.15
 resolution target 0.99,setting,M1n,12.85,12.85,11.75,11.75,17.4,17.4
 resolution target 0.99,setting,M1s,164.75,164.75,19.15,19.15,165.1,165.1
+resolution target 0.99,setting,M1sn,9.65,9.65,8.85,8.85,9.85,9.85
 resolution target 0.99,setting,M2,26.85,11.2,27.3,10.8,18.65,12.95
 resolution target 0.99,setting,M2n,20.35,9.95,19.95,6.0,20.65,13.8
 resolution target 0.99,setting,M3,40.4,19.4,40.55,19.55,24.75,17.15
@@ -326,6 +350,7 @@ resolution target 0.99,setting/extrapolation,M0w,121.1,108.95,122.05,109.05,34.0
 resolution target 0.99,setting/extrapolation,M1,27.35,27.35,28.15,28.15,26.15,26.15
 resolution target 0.99,setting/extrapolation,M1n,17.1,17.1,12.15,12.15,17.4,17.4
 resolution target 0.99,setting/extrapolation,M1s,164.75,164.75,19.15,19.15,165.1,165.1
+resolution target 0.99,setting/extrapolation,M1sn,9.85,9.85,9.45,9.45,10.15,10.15
 resolution target 0.99,setting/extrapolation,M2,27.3,12.95,27.65,11.2,18.65,13.25
 resolution target 0.99,setting/extrapolation,M2n,20.65,13.8,20.65,9.25,20.65,14.1
 resolution target 0.99,setting/extrapolation,M3,40.55,19.55,44.1,20.25,24.75,17.15
@@ -339,6 +364,7 @@ resolution target 0.99,setting/interpolation,M0w,119.65,100.2,119.65,100.2,33.65
 resolution target 0.99,setting/interpolation,M1,11.55,11.55,11.55,11.55,9.25,9.25
 resolution target 0.99,setting/interpolation,M1n,6.3,6.3,5.9,5.9,6.3,6.3
 resolution target 0.99,setting/interpolation,M1s,30.9,30.9,19.25,19.25,30.9,30.9
+resolution target 0.99,setting/interpolation,M1sn,5.85,5.85,5.3,5.3,5.85,5.85
 resolution target 0.99,setting/interpolation,M2,25.9,4.2,25.9,2.75,15.9,4.2
 resolution target 0.99,setting/interpolation,M2n,15.15,2.6,15.15,1.05,10.45,2.6
 resolution target 0.99,setting/interpolation,M3,32.45,19.4,32.45,19.4,23.45,14.95
@@ -352,6 +378,7 @@ resolution target 0.99,transfer,M0w,121.1,108.95,121.1,108.95,34.0,12.75
 resolution target 0.99,transfer,M1,52.6,52.6,52.6,52.6,38.7,38.7
 resolution target 0.99,transfer,M1n,172.7,172.7,129.1,129.1,173.2,173.2
 resolution target 0.99,transfer,M1s,123.2,123.2,123.2,123.2,122.8,122.8
+resolution target 0.99,transfer,M1sn,170.15,170.15,129.8,129.8,171.2,171.2
 resolution target 0.99,transfer,M2,59.8,28.45,59.8,28.9,53.0,16.15
 resolution target 0.99,transfer,M2n,180.8,164.65,130.75,127.45,181.3,165.15
 resolution target 0.99,transfer,M3,75.0,29.9,75.0,34.8,53.0,29.4
@@ -365,6 +392,7 @@ resolution target 0.99,within,M0w,121.1,108.95,121.1,108.95,34.0,12.75
 resolution target 0.99,within,M1,19.95,19.95,20.75,20.75,19.85,19.85
 resolution target 0.99,within,M1n,11.1,11.1,7.25,7.25,14.85,14.85
 resolution target 0.99,within,M1s,7.8,7.8,7.7,7.7,9.0,9.0
+resolution target 0.99,within,M1sn,5.1,5.1,4.9,4.9,5.1,5.1
 resolution target 0.99,within,M2,27.65,1.4,27.3,1.35,27.65,1.4
 resolution target 0.99,within,M2n,25.7,1.1,19.95,2.15,29.95,0.8
 resolution target 0.99,within,M3,35.75,1.35,51.1,2.2,17.5,0.0
@@ -378,6 +406,7 @@ floor with batch 25 and quantile 0.95,pooled,M0w,103.2,80.4,104.65,92.85,27.4,7.
 floor with batch 25 and quantile 0.95,pooled,M1,23.05,23.05,29.2,29.2,17.05,17.05
 floor with batch 25 and quantile 0.95,pooled,M1n,108.6,108.6,106.75,106.75,142.8,142.8
 floor with batch 25 and quantile 0.95,pooled,M1s,13.7,13.7,13.65,13.65,13.7,13.7
+floor with batch 25 and quantile 0.95,pooled,M1sn,64.3,64.3,57.3,57.3,83.0,83.0
 floor with batch 25 and quantile 0.95,pooled,M2,47.1,0.0,47.85,0.0,30.85,0.0
 floor with batch 25 and quantile 0.95,pooled,M2n,276.95,0.0,215.3,0.0,286.15,0.0
 floor with batch 25 and quantile 0.95,pooled,M3,22.35,0.0,22.9,0.0,19.4,0.0
@@ -391,6 +420,7 @@ floor with batch 25 and quantile 0.95,pooled-setting,M0w,103.2,80.4,104.65,92.85
 floor with batch 25 and quantile 0.95,pooled-setting,M1,23.8,23.8,30.1,30.1,17.4,17.4
 floor with batch 25 and quantile 0.95,pooled-setting,M1n,108.8,108.8,106.95,106.95,143.35,143.35
 floor with batch 25 and quantile 0.95,pooled-setting,M1s,16.2,16.2,16.2,16.2,17.05,17.05
+floor with batch 25 and quantile 0.95,pooled-setting,M1sn,92.35,92.35,80.25,80.25,122.6,122.6
 floor with batch 25 and quantile 0.95,pooled-setting,M2,47.4,0.85,48.05,0.2,30.85,2.05
 floor with batch 25 and quantile 0.95,pooled-setting,M2n,276.95,3.6,215.65,1.5,283.85,5.55
 floor with batch 25 and quantile 0.95,pooled-setting,M3,30.05,4.75,35.4,10.3,23.9,3.15
@@ -404,6 +434,7 @@ floor with batch 25 and quantile 0.95,pooled-setting/extrapolation,M0w,103.2,74.
 floor with batch 25 and quantile 0.95,pooled-setting/extrapolation,M1,22.75,22.75,29.8,29.8,18.85,18.85
 floor with batch 25 and quantile 0.95,pooled-setting/extrapolation,M1n,108.8,108.8,106.85,106.85,143.4,143.4
 floor with batch 25 and quantile 0.95,pooled-setting/extrapolation,M1s,17.05,17.05,14.45,14.45,17.2,17.2
+floor with batch 25 and quantile 0.95,pooled-setting/extrapolation,M1sn,93.55,93.55,91.75,91.75,122.8,122.8
 floor with batch 25 and quantile 0.95,pooled-setting/extrapolation,M2,44.75,1.65,45.85,0.2,30.85,2.65
 floor with batch 25 and quantile 0.95,pooled-setting/extrapolation,M2n,274.15,4.25,214.45,2.55,284.25,6.3
 floor with batch 25 and quantile 0.95,pooled-setting/extrapolation,M3,30.05,7.8,35.4,11.65,24.1,3.15
@@ -417,6 +448,7 @@ floor with batch 25 and quantile 0.95,pooled-setting/interpolation,M0w,102.05,80
 floor with batch 25 and quantile 0.95,pooled-setting/interpolation,M1,23.9,23.9,39.05,39.05,15.25,15.25
 floor with batch 25 and quantile 0.95,pooled-setting/interpolation,M1n,107.4,107.4,106.95,106.95,140.45,140.45
 floor with batch 25 and quantile 0.95,pooled-setting/interpolation,M1s,16.2,16.2,17.65,17.65,14.55,14.55
+floor with batch 25 and quantile 0.95,pooled-setting/interpolation,M1sn,64.95,64.95,64.45,64.45,87.2,87.2
 floor with batch 25 and quantile 0.95,pooled-setting/interpolation,M2,48.3,0.0,51.85,0.0,30.9,0.0
 floor with batch 25 and quantile 0.95,pooled-setting/interpolation,M2n,282.05,0.0,215.75,0.0,283.1,0.6
 floor with batch 25 and quantile 0.95,pooled-setting/interpolation,M3,24.85,2.15,34.3,2.15,17.75,0.0
@@ -430,6 +462,7 @@ floor with batch 25 and quantile 0.95,setting,M0w,103.2,80.4,104.65,92.85,27.4,7
 floor with batch 25 and quantile 0.95,setting,M1,21.0,21.0,19.05,19.05,21.9,21.9
 floor with batch 25 and quantile 0.95,setting,M1n,9.75,9.75,8.65,8.65,11.05,11.05
 floor with batch 25 and quantile 0.95,setting,M1s,16.15,16.15,11.7,11.7,157.25,157.25
+floor with batch 25 and quantile 0.95,setting,M1sn,7.3,7.3,5.05,5.05,7.8,7.8
 floor with batch 25 and quantile 0.95,setting,M2,15.75,6.85,17.5,6.0,15.0,7.1
 floor with batch 25 and quantile 0.95,setting,M2n,14.4,5.35,14.4,3.05,14.35,8.55
 floor with batch 25 and quantile 0.95,setting,M3,27.5,13.5,31.6,15.55,19.85,11.15
@@ -443,6 +476,7 @@ floor with batch 25 and quantile 0.95,setting/extrapolation,M0w,103.2,74.25,104.
 floor with batch 25 and quantile 0.95,setting/extrapolation,M1,21.9,21.9,21.0,21.0,22.35,22.35
 floor with batch 25 and quantile 0.95,setting/extrapolation,M1n,10.4,10.4,9.4,9.4,11.85,11.85
 floor with batch 25 and quantile 0.95,setting/extrapolation,M1s,16.1,16.1,7.4,7.4,157.95,157.95
+floor with batch 25 and quantile 0.95,setting/extrapolation,M1sn,7.5,7.5,5.85,5.85,8.3,8.3
 floor with batch 25 and quantile 0.95,setting/extrapolation,M2,15.75,8.35,16.45,9.05,15.0,8.35
 floor with batch 25 and quantile 0.95,setting/extrapolation,M2n,14.6,7.7,14.35,3.4,14.6,9.3
 floor with batch 25 and quantile 0.95,setting/extrapolation,M3,30.25,14.7,33.85,15.65,19.8,11.15
@@ -456,6 +490,7 @@ floor with batch 25 and quantile 0.95,setting/interpolation,M0w,102.05,80.4,113.
 floor with batch 25 and quantile 0.95,setting/interpolation,M1,9.5,9.5,9.75,9.75,8.6,8.6
 floor with batch 25 and quantile 0.95,setting/interpolation,M1n,4.05,4.05,4.05,4.05,2.4,2.4
 floor with batch 25 and quantile 0.95,setting/interpolation,M1s,16.25,16.25,15.8,15.8,24.2,24.2
+floor with batch 25 and quantile 0.95,setting/interpolation,M1sn,4.1,4.1,4.1,4.1,2.95,2.95
 floor with batch 25 and quantile 0.95,setting/interpolation,M2,16.95,2.4,21.05,2.15,13.05,3.05
 floor with batch 25 and quantile 0.95,setting/interpolation,M2n,12.5,0.0,14.4,0.0,8.75,0.0
 floor with batch 25 and quantile 0.95,setting/interpolation,M3,26.05,12.15,27.35,11.25,20.8,12.15
@@ -469,6 +504,7 @@ floor with batch 25 and quantile 0.95,transfer,M0w,103.2,80.4,104.65,92.85,27.4,
 floor with batch 25 and quantile 0.95,transfer,M1,29.8,29.8,30.95,30.95,25.95,25.95
 floor with batch 25 and quantile 0.95,transfer,M1n,109.15,109.15,107.35,107.35,147.25,147.25
 floor with batch 25 and quantile 0.95,transfer,M1s,102.65,102.65,102.3,102.3,104.2,104.2
+floor with batch 25 and quantile 0.95,transfer,M1sn,108.9,108.9,107.5,107.5,144.6,144.6
 floor with batch 25 and quantile 0.95,transfer,M2,42.7,14.45,46.3,20.8,38.65,10.55
 floor with batch 25 and quantile 0.95,transfer,M2n,110.55,107.8,108.7,105.95,154.1,140.35
 floor with batch 25 and quantile 0.95,transfer,M3,41.15,18.5,44.2,19.65,37.95,15.8
@@ -482,6 +518,7 @@ floor with batch 25 and quantile 0.95,within,M0w,103.2,80.4,104.65,92.85,27.4,7.
 floor with batch 25 and quantile 0.95,within,M1,13.15,13.15,11.25,11.25,13.15,13.15
 floor with batch 25 and quantile 0.95,within,M1n,7.6,7.6,4.7,4.7,9.65,9.65
 floor with batch 25 and quantile 0.95,within,M1s,4.55,4.55,4.55,4.55,4.2,4.2
+floor with batch 25 and quantile 0.95,within,M1sn,3.1,3.1,3.1,3.1,3.2,3.2
 floor with batch 25 and quantile 0.95,within,M2,21.05,0.15,21.25,0.0,18.75,0.25
 floor with batch 25 and quantile 0.95,within,M2n,17.6,0.0,14.55,0.0,20.75,0.2
 floor with batch 25 and quantile 0.95,within,M3,19.95,0.0,23.55,0.0,14.05,0.0
@@ -495,6 +532,7 @@ floor with batch 50 and quantile 0.90,pooled,M0w,142.1,110.7,143.35,127.4,48.55,
 floor with batch 50 and quantile 0.90,pooled,M1,33.75,33.75,42.9,42.9,24.0,24.0
 floor with batch 50 and quantile 0.90,pooled,M1n,180.65,180.65,159.85,159.85,196.65,196.65
 floor with batch 50 and quantile 0.90,pooled,M1s,18.6,18.6,18.6,18.6,20.05,20.05
+floor with batch 50 and quantile 0.90,pooled,M1sn,106.55,106.55,85.85,85.85,114.3,114.3
 floor with batch 50 and quantile 0.90,pooled,M2,68.25,0.0,70.35,0.0,45.25,0.0
 floor with batch 50 and quantile 0.90,pooled,M2n,377.55,0.0,322.45,0.0,393.9,0.0
 floor with batch 50 and quantile 0.90,pooled,M3,32.15,0.0,34.1,0.0,29.45,0.0
@@ -508,6 +546,7 @@ floor with batch 50 and quantile 0.90,pooled-setting,M0w,142.1,110.7,143.35,127.
 floor with batch 50 and quantile 0.90,pooled-setting,M1,34.8,34.8,44.2,44.2,24.65,24.65
 floor with batch 50 and quantile 0.90,pooled-setting,M1n,183.75,183.75,160.2,160.2,197.4,197.4
 floor with batch 50 and quantile 0.90,pooled-setting,M1s,22.45,22.45,22.1,22.1,23.45,23.45
+floor with batch 50 and quantile 0.90,pooled-setting,M1sn,156.1,156.1,99.1,99.1,168.8,168.8
 floor with batch 50 and quantile 0.90,pooled-setting,M2,68.25,1.2,70.55,0.25,45.25,2.65
 floor with batch 50 and quantile 0.90,pooled-setting,M2n,377.55,4.65,322.9,2.15,390.9,8.15
 floor with batch 50 and quantile 0.90,pooled-setting,M3,45.15,5.95,52.0,14.0,32.9,4.25
@@ -521,6 +560,7 @@ floor with batch 50 and quantile 0.90,pooled-setting/extrapolation,M0w,142.1,101
 floor with batch 50 and quantile 0.90,pooled-setting/extrapolation,M1,32.75,32.75,43.8,43.8,24.75,24.75
 floor with batch 50 and quantile 0.90,pooled-setting/extrapolation,M1n,183.75,183.75,160.05,160.05,197.5,197.5
 floor with batch 50 and quantile 0.90,pooled-setting/extrapolation,M1s,23.45,23.45,18.8,18.8,24.6,24.6
+floor with batch 50 and quantile 0.90,pooled-setting/extrapolation,M1sn,158.8,158.8,137.4,137.4,169.1,169.1
 floor with batch 50 and quantile 0.90,pooled-setting/extrapolation,M2,64.45,2.3,66.0,0.25,45.25,3.65
 floor with batch 50 and quantile 0.90,pooled-setting/extrapolation,M2n,377.55,5.8,321.15,3.1,390.9,8.25
 floor with batch 50 and quantile 0.90,pooled-setting/extrapolation,M3,45.15,10.05,52.0,15.3,33.75,4.25
@@ -534,6 +574,7 @@ floor with batch 50 and quantile 0.90,pooled-setting/interpolation,M0w,140.5,110
 floor with batch 50 and quantile 0.90,pooled-setting/interpolation,M1,35.15,35.15,56.2,56.2,18.75,18.75
 floor with batch 50 and quantile 0.90,pooled-setting/interpolation,M1n,182.05,182.05,160.2,160.2,193.4,193.4
 floor with batch 50 and quantile 0.90,pooled-setting/interpolation,M1s,22.1,22.1,25.9,25.9,21.35,21.35
+floor with batch 50 and quantile 0.90,pooled-setting/interpolation,M1sn,109.4,109.4,96.55,96.55,120.1,120.1
 floor with batch 50 and quantile 0.90,pooled-setting/interpolation,M2,70.95,0.0,74.6,0.0,45.3,0.0
 floor with batch 50 and quantile 0.90,pooled-setting/interpolation,M2n,388.4,0.0,323.05,0.0,389.85,0.75
 floor with batch 50 and quantile 0.90,pooled-setting/interpolation,M3,35.45,3.1,49.35,3.1,26.4,0.0
@@ -547,6 +588,7 @@ floor with batch 50 and quantile 0.90,setting,M0w,142.1,110.7,143.35,127.4,48.55
 floor with batch 50 and quantile 0.90,setting,M1,28.05,28.05,28.0,28.0,28.05,28.05
 floor with batch 50 and quantile 0.90,setting,M1n,12.8,12.8,12.65,12.65,16.45,16.45
 floor with batch 50 and quantile 0.90,setting,M1s,23.05,23.05,15.95,15.95,214.5,214.5
+floor with batch 50 and quantile 0.90,setting,M1sn,10.4,10.4,6.65,6.65,11.15,11.15
 floor with batch 50 and quantile 0.90,setting,M2,20.8,10.05,22.55,8.2,20.6,10.4
 floor with batch 50 and quantile 0.90,setting,M2n,20.2,6.95,19.85,3.9,21.05,12.5
 floor with batch 50 and quantile 0.90,setting,M3,39.6,19.85,43.3,22.3,28.35,14.85
@@ -560,6 +602,7 @@ floor with batch 50 and quantile 0.90,setting/extrapolation,M0w,142.1,101.3,142.
 floor with batch 50 and quantile 0.90,setting/extrapolation,M1,28.95,28.95,28.95,28.95,29.7,29.7
 floor with batch 50 and quantile 0.90,setting/extrapolation,M1n,14.2,14.2,13.2,13.2,17.55,17.55
 floor with batch 50 and quantile 0.90,setting/extrapolation,M1s,23.05,23.05,10.95,10.95,215.45,215.45
+floor with batch 50 and quantile 0.90,setting/extrapolation,M1sn,10.8,10.8,8.55,8.55,11.6,11.6
 floor with batch 50 and quantile 0.90,setting/extrapolation,M2,21.55,11.95,21.55,12.9,20.65,11.35
 floor with batch 50 and quantile 0.90,setting/extrapolation,M2n,21.3,10.85,20.85,4.5,21.3,13.8
 floor with batch 50 and quantile 0.90,setting/extrapolation,M3,41.45,20.2,49.7,22.3,26.75,14.85
@@ -573,6 +616,7 @@ floor with batch 50 and quantile 0.90,setting/interpolation,M0w,140.5,110.7,155.
 floor with batch 50 and quantile 0.90,setting/interpolation,M1,14.0,14.0,14.3,14.3,12.8,12.8
 floor with batch 50 and quantile 0.90,setting/interpolation,M1n,5.8,5.8,5.8,5.8,2.9,2.9
 floor with batch 50 and quantile 0.90,setting/interpolation,M1s,23.2,23.2,22.55,22.55,35.45,35.45
+floor with batch 50 and quantile 0.90,setting/interpolation,M1sn,5.7,5.7,5.7,5.7,3.6,3.6
 floor with batch 50 and quantile 0.90,setting/interpolation,M2,20.8,3.75,30.95,2.9,18.65,4.4
 floor with batch 50 and quantile 0.90,setting/interpolation,M2n,16.35,0.0,19.65,0.0,11.9,0.0
 floor with batch 50 and quantile 0.90,setting/interpolation,M3,37.5,16.65,39.1,16.55,28.5,16.65
@@ -586,6 +630,7 @@ floor with batch 50 and quantile 0.90,transfer,M0w,142.1,110.7,143.35,127.4,48.5
 floor with batch 50 and quantile 0.90,transfer,M1,43.2,43.2,44.55,44.55,38.05,38.05
 floor with batch 50 and quantile 0.90,transfer,M1n,184.85,184.85,160.75,160.75,202.75,202.75
 floor with batch 50 and quantile 0.90,transfer,M1s,156.4,156.4,153.2,153.2,176.55,176.55
+floor with batch 50 and quantile 0.90,transfer,M1sn,184.85,184.85,161.0,161.0,199.15,199.15
 floor with batch 50 and quantile 0.90,transfer,M2,61.1,19.95,66.65,29.95,56.75,12.95
 floor with batch 50 and quantile 0.90,transfer,M2n,188.55,180.65,162.8,158.7,212.25,193.25
 floor with batch 50 and quantile 0.90,transfer,M3,60.45,24.8,63.65,26.8,55.65,23.2
@@ -599,6 +644,7 @@ floor with batch 50 and quantile 0.90,within,M0w,142.1,110.7,143.35,127.4,48.55,
 floor with batch 50 and quantile 0.90,within,M1,18.8,18.8,14.1,14.1,18.8,18.8
 floor with batch 50 and quantile 0.90,within,M1n,10.9,10.9,6.4,6.4,13.85,13.85
 floor with batch 50 and quantile 0.90,within,M1s,6.2,6.2,6.75,6.75,6.05,6.05
+floor with batch 50 and quantile 0.90,within,M1sn,4.25,4.25,4.3,4.3,4.1,4.1
 floor with batch 50 and quantile 0.90,within,M2,30.6,0.2,31.6,0.0,25.7,0.4
 floor with batch 50 and quantile 0.90,within,M2n,22.25,0.0,20.1,0.0,30.85,0.25
 floor with batch 50 and quantile 0.90,within,M3,30.55,0.0,32.4,0.0,20.1,0.0
@@ -612,6 +658,7 @@ floor with batch 50 and quantile 0.99,pooled,M0w,75.95,61.7,79.05,67.85,20.55,6.
 floor with batch 50 and quantile 0.99,pooled,M1,17.3,17.3,17.95,17.95,13.1,13.1
 floor with batch 50 and quantile 0.99,pooled,M1n,90.85,90.85,89.3,89.3,102.1,102.1
 floor with batch 50 and quantile 0.99,pooled,M1s,11.5,11.5,10.05,10.05,13.7,13.7
+floor with batch 50 and quantile 0.99,pooled,M1sn,53.75,53.75,49.9,49.9,60.55,60.55
 floor with batch 50 and quantile 0.99,pooled,M2,31.35,0.0,33.0,0.0,30.9,0.0
 floor with batch 50 and quantile 0.99,pooled,M2n,202.1,0.0,180.1,0.0,208.8,0.0
 floor with batch 50 and quantile 0.99,pooled,M3,17.0,0.0,18.1,0.0,17.0,0.0
@@ -625,6 +672,7 @@ floor with batch 50 and quantile 0.99,pooled-setting,M0w,75.95,61.7,79.05,67.85,
 floor with batch 50 and quantile 0.99,pooled-setting,M1,17.55,17.55,18.5,18.5,13.6,13.6
 floor with batch 50 and quantile 0.99,pooled-setting,M1n,91.0,91.0,89.5,89.5,104.6,104.6
 floor with batch 50 and quantile 0.99,pooled-setting,M1s,14.6,14.6,12.25,12.25,16.05,16.05
+floor with batch 50 and quantile 0.99,pooled-setting,M1sn,77.25,77.25,73.1,73.1,89.45,89.45
 floor with batch 50 and quantile 0.99,pooled-setting,M2,31.35,0.55,33.0,0.15,30.9,1.9
 floor with batch 50 and quantile 0.99,pooled-setting,M2n,202.1,2.9,180.4,1.15,207.15,2.9
 floor with batch 50 and quantile 0.99,pooled-setting,M3,21.8,3.8,23.1,6.55,18.2,2.25
@@ -638,6 +686,7 @@ floor with batch 50 and quantile 0.99,pooled-setting/extrapolation,M0w,75.75,61.
 floor with batch 50 and quantile 0.99,pooled-setting/extrapolation,M1,17.55,17.55,18.35,18.35,14.15,14.15
 floor with batch 50 and quantile 0.99,pooled-setting/extrapolation,M1n,91.0,91.0,89.4,89.4,104.6,104.6
 floor with batch 50 and quantile 0.99,pooled-setting/extrapolation,M1s,15.15,15.15,12.7,12.7,17.05,17.05
+floor with batch 50 and quantile 0.99,pooled-setting/extrapolation,M1sn,78.25,78.25,76.75,76.75,89.6,89.6
 floor with batch 50 and quantile 0.99,pooled-setting/extrapolation,M2,31.85,1.4,32.45,0.15,30.9,1.95
 floor with batch 50 and quantile 0.99,pooled-setting/extrapolation,M2n,200.1,3.2,179.4,2.3,207.45,3.55
 floor with batch 50 and quantile 0.99,pooled-setting/extrapolation,M3,21.8,5.7,22.8,7.2,21.05,2.25
@@ -651,6 +700,7 @@ floor with batch 50 and quantile 0.99,pooled-setting/interpolation,M0w,76.5,58.6
 floor with batch 50 and quantile 0.99,pooled-setting/interpolation,M1,14.7,14.7,28.75,28.75,11.4,11.4
 floor with batch 50 and quantile 0.99,pooled-setting/interpolation,M1n,89.85,89.85,89.5,89.5,102.15,102.15
 floor with batch 50 and quantile 0.99,pooled-setting/interpolation,M1s,12.2,12.2,12.15,12.15,14.6,14.6
+floor with batch 50 and quantile 0.99,pooled-setting/interpolation,M1sn,54.3,54.3,53.95,53.95,63.65,63.65
 floor with batch 50 and quantile 0.99,pooled-setting/interpolation,M2,31.35,0.0,38.2,0.0,30.95,0.0
 floor with batch 50 and quantile 0.99,pooled-setting/interpolation,M2n,205.8,0.0,180.45,0.0,206.55,0.45
 floor with batch 50 and quantile 0.99,pooled-setting/interpolation,M3,21.3,1.3,25.25,1.3,14.65,3.15
@@ -664,6 +714,7 @@ floor with batch 50 and quantile 0.99,setting,M0w,75.95,61.7,79.05,67.85,20.55,6
 floor with batch 50 and quantile 0.99,setting,M1,16.2,16.2,15.95,15.95,16.85,16.85
 floor with batch 50 and quantile 0.99,setting,M1n,7.1,7.1,6.5,6.5,8.55,8.55
 floor with batch 50 and quantile 0.99,setting,M1s,12.95,12.95,8.85,8.85,118.75,118.75
+floor with batch 50 and quantile 0.99,setting,M1sn,6.1,6.1,3.8,3.8,6.4,6.4
 floor with batch 50 and quantile 0.99,setting,M2,11.35,4.35,12.95,4.35,11.0,4.5
 floor with batch 50 and quantile 0.99,setting,M2n,11.35,4.55,11.05,2.0,12.6,6.1
 floor with batch 50 and quantile 0.99,setting,M3,20.8,9.8,22.45,10.15,16.05,9.45
@@ -677,6 +728,7 @@ floor with batch 50 and quantile 0.99,setting/extrapolation,M0w,75.75,61.7,75.95
 floor with batch 50 and quantile 0.99,setting/extrapolation,M1,16.85,16.85,16.35,16.35,17.35,17.35
 floor with batch 50 and quantile 0.99,setting/extrapolation,M1n,7.9,7.9,7.35,7.35,8.8,8.8
 floor with batch 50 and quantile 0.99,setting/extrapolation,M1s,11.15,11.15,4.2,4.2,119.3,119.3
+floor with batch 50 and quantile 0.99,setting/extrapolation,M1sn,6.4,6.4,5.85,5.85,6.55,6.55
 floor with batch 50 and quantile 0.99,setting/extrapolation,M2,11.35,5.75,11.9,5.75,11.35,6.0
 floor with batch 50 and quantile 0.99,setting/extrapolation,M2n,12.7,5.25,12.5,2.75,12.7,6.35
 floor with batch 50 and quantile 0.99,setting/extrapolation,M3,21.15,10.8,22.9,11.05,16.3,9.8
@@ -690,6 +742,7 @@ floor with batch 50 and quantile 0.99,setting/interpolation,M0w,76.5,58.65,85.85
 floor with batch 50 and quantile 0.99,setting/interpolation,M1,6.05,6.05,7.45,7.45,4.9,4.9
 floor with batch 50 and quantile 0.99,setting/interpolation,M1n,3.35,3.35,3.35,3.35,4.6,4.6
 floor with batch 50 and quantile 0.99,setting/interpolation,M1s,13.35,13.35,12.95,12.95,24.25,24.25
+floor with batch 50 and quantile 0.99,setting/interpolation,M1sn,3.25,3.25,3.25,3.25,4.25,4.25
 floor with batch 50 and quantile 0.99,setting/interpolation,M2,12.7,1.8,12.95,1.6,10.7,2.55
 floor with batch 50 and quantile 0.99,setting/interpolation,M2n,10.9,0.0,10.95,0.0,7.55,0.0
 floor with batch 50 and quantile 0.99,setting/interpolation,M3,20.25,9.25,20.3,6.95,15.05,9.25
@@ -703,6 +756,7 @@ floor with batch 50 and quantile 0.99,transfer,M0w,75.95,61.7,79.05,67.85,20.55,
 floor with batch 50 and quantile 0.99,transfer,M1,26.0,26.0,22.8,22.8,26.0,26.0
 floor with batch 50 and quantile 0.99,transfer,M1n,91.3,91.3,89.8,89.8,107.45,107.45
 floor with batch 50 and quantile 0.99,transfer,M1s,76.4,76.4,85.55,85.55,76.05,76.05
+floor with batch 50 and quantile 0.99,transfer,M1sn,91.1,91.1,89.95,89.95,105.5,105.5
 floor with batch 50 and quantile 0.99,transfer,M2,36.5,10.8,34.9,14.3,38.75,7.9
 floor with batch 50 and quantile 0.99,transfer,M2n,93.15,90.2,91.3,88.65,112.45,100.3
 floor with batch 50 and quantile 0.99,transfer,M3,37.65,14.85,32.55,14.75,38.0,15.85
@@ -716,6 +770,7 @@ floor with batch 50 and quantile 0.99,within,M0w,75.95,61.7,79.05,67.85,20.55,6.
 floor with batch 50 and quantile 0.99,within,M1,10.35,10.35,9.9,9.9,10.45,10.45
 floor with batch 50 and quantile 0.99,within,M1n,5.85,5.85,3.9,3.9,7.65,7.65
 floor with batch 50 and quantile 0.99,within,M1s,3.35,3.35,3.35,3.35,3.6,3.6
+floor with batch 50 and quantile 0.99,within,M1sn,2.5,2.5,2.5,2.5,2.5,2.5
 floor with batch 50 and quantile 0.99,within,M2,13.55,0.1,13.45,0.0,13.55,0.2
 floor with batch 50 and quantile 0.99,within,M2n,13.0,0.0,10.9,0.0,15.55,0.2
 floor with batch 50 and quantile 0.99,within,M3,14.05,0.0,17.35,0.0,11.35,0.0
@@ -729,6 +784,7 @@ floor with batch 100 and quantile 0.95,pooled,M0w,129.35,101.15,131.0,112.25,32.
 floor with batch 100 and quantile 0.95,pooled,M1,28.4,28.4,36.25,36.25,21.05,21.05
 floor with batch 100 and quantile 0.95,pooled,M1n,144.15,144.15,141.7,141.7,179.7,179.7
 floor with batch 100 and quantile 0.95,pooled,M1s,18.05,18.05,15.95,15.95,19.05,19.05
+floor with batch 100 and quantile 0.95,pooled,M1sn,85.3,85.3,76.1,76.1,104.4,104.4
 floor with batch 100 and quantile 0.95,pooled,M2,55.5,0.0,59.45,0.0,47.2,0.0
 floor with batch 100 and quantile 0.95,pooled,M2n,348.45,0.0,285.8,0.0,360.05,0.0
 floor with batch 100 and quantile 0.95,pooled,M3,27.05,0.0,28.1,0.0,26.1,0.0
@@ -742,6 +798,7 @@ floor with batch 100 and quantile 0.95,pooled-setting,M0w,129.35,101.15,131.0,11
 floor with batch 100 and quantile 0.95,pooled-setting,M1,29.4,29.4,37.35,37.35,21.95,21.95
 floor with batch 100 and quantile 0.95,pooled-setting,M1n,144.4,144.4,142.0,142.0,180.35,180.35
 floor with batch 100 and quantile 0.95,pooled-setting,M1s,22.3,22.3,18.95,18.95,22.9,22.9
+floor with batch 100 and quantile 0.95,pooled-setting,M1sn,122.55,122.55,94.05,94.05,154.25,154.25
 floor with batch 100 and quantile 0.95,pooled-setting,M2,55.5,1.0,59.65,0.25,47.2,2.45
 floor with batch 100 and quantile 0.95,pooled-setting,M2n,348.45,4.25,286.25,1.85,357.15,4.75
 floor with batch 100 and quantile 0.95,pooled-setting,M3,35.15,5.4,43.95,11.6,27.05,3.95
@@ -755,6 +812,7 @@ floor with batch 100 and quantile 0.95,pooled-setting/extrapolation,M0w,129.35,8
 floor with batch 100 and quantile 0.95,pooled-setting/extrapolation,M1,27.55,27.55,37.0,37.0,22.35,22.35
 floor with batch 100 and quantile 0.95,pooled-setting/extrapolation,M1n,144.4,144.4,141.85,141.85,180.45,180.45
 floor with batch 100 and quantile 0.95,pooled-setting/extrapolation,M1s,22.2,22.2,16.35,16.35,23.7,23.7
+floor with batch 100 and quantile 0.95,pooled-setting/extrapolation,M1sn,124.2,124.2,121.8,121.8,154.5,154.5
 floor with batch 100 and quantile 0.95,pooled-setting/extrapolation,M2,54.25,2.05,55.5,0.25,47.2,3.25
 floor with batch 100 and quantile 0.95,pooled-setting/extrapolation,M2n,345.0,5.0,284.65,2.95,357.7,7.1
 floor with batch 100 and quantile 0.95,pooled-setting/extrapolation,M3,35.15,8.85,43.95,13.05,28.2,3.95
@@ -768,6 +826,7 @@ floor with batch 100 and quantile 0.95,pooled-setting/interpolation,M0w,128.4,10
 floor with batch 100 and quantile 0.95,pooled-setting/interpolation,M1,29.7,29.7,47.3,47.3,16.15,16.15
 floor with batch 100 and quantile 0.95,pooled-setting/interpolation,M1n,142.6,142.6,142.0,142.0,176.75,176.75
 floor with batch 100 and quantile 0.95,pooled-setting/interpolation,M1s,22.3,22.3,21.9,21.9,22.3,22.3
+floor with batch 100 and quantile 0.95,pooled-setting/interpolation,M1sn,86.2,86.2,85.6,85.6,109.75,109.75
 floor with batch 100 and quantile 0.95,pooled-setting/interpolation,M2,59.95,0.0,62.8,0.0,47.25,0.0
 floor with batch 100 and quantile 0.95,pooled-setting/interpolation,M2n,354.9,0.0,286.35,0.0,356.2,0.65
 floor with batch 100 and quantile 0.95,pooled-setting/interpolation,M3,32.5,2.65,41.55,2.65,23.25,0.0
@@ -781,6 +840,7 @@ floor with batch 100 and quantile 0.95,setting,M0w,129.35,101.15,131.0,112.25,32
 floor with batch 100 and quantile 0.95,setting,M1,25.4,25.4,23.65,23.65,25.4,25.4
 floor with batch 100 and quantile 0.95,setting,M1n,11.1,11.1,9.8,9.8,12.45,12.45
 floor with batch 100 and quantile 0.95,setting,M1s,18.7,18.7,13.7,13.7,184.0,184.0
+floor with batch 100 and quantile 0.95,setting,M1sn,8.9,8.9,6.1,6.1,9.05,9.05
 floor with batch 100 and quantile 0.95,setting,M2,18.9,8.5,20.7,7.55,18.75,8.8
 floor with batch 100 and quantile 0.95,setting,M2n,16.3,6.3,16.85,3.45,16.2,9.6
 floor with batch 100 and quantile 0.95,setting,M3,33.3,16.8,39.15,18.9,23.35,13.5
@@ -794,6 +854,7 @@ floor with batch 100 and quantile 0.95,setting/extrapolation,M0w,129.35,86.85,12
 floor with batch 100 and quantile 0.95,setting/extrapolation,M1,26.35,26.35,26.35,26.35,26.8,26.8
 floor with batch 100 and quantile 0.95,setting/extrapolation,M1n,12.45,12.45,11.0,11.0,13.3,13.3
 floor with batch 100 and quantile 0.95,setting/extrapolation,M1s,18.65,18.65,8.3,8.3,184.75,184.75
+floor with batch 100 and quantile 0.95,setting/extrapolation,M1sn,9.35,9.35,8.95,8.95,9.7,9.7
 floor with batch 100 and quantile 0.95,setting/extrapolation,M2,18.9,10.45,19.8,10.45,18.75,9.75
 floor with batch 100 and quantile 0.95,setting/extrapolation,M2n,16.5,8.9,16.2,3.8,16.5,10.45
 floor with batch 100 and quantile 0.95,setting/extrapolation,M3,39.15,17.85,42.0,19.5,22.95,13.5
@@ -807,6 +868,7 @@ floor with batch 100 and quantile 0.95,setting/interpolation,M0w,128.4,101.15,13
 floor with batch 100 and quantile 0.95,setting/interpolation,M1,11.8,11.8,12.2,12.2,9.7,9.7
 floor with batch 100 and quantile 0.95,setting/interpolation,M1n,4.7,4.7,4.7,4.7,7.05,7.05
 floor with batch 100 and quantile 0.95,setting/interpolation,M1s,18.8,18.8,18.25,18.25,37.0,37.0
+floor with batch 100 and quantile 0.95,setting/interpolation,M1sn,4.8,4.8,4.8,4.8,6.5,6.5
 floor with batch 100 and quantile 0.95,setting/interpolation,M2,17.9,2.65,26.15,2.5,15.1,3.55
 floor with batch 100 and quantile 0.95,setting/interpolation,M2n,14.2,0.0,16.85,0.0,11.55,0.0
 floor with batch 100 and quantile 0.95,setting/interpolation,M3,31.7,15.3,31.7,14.0,26.2,15.3
@@ -820,6 +882,7 @@ floor with batch 100 and quantile 0.95,transfer,M0w,129.35,101.15,131.0,112.25,3
 floor with batch 100 and quantile 0.95,transfer,M1,39.7,39.7,37.45,37.45,39.7,39.7
 floor with batch 100 and quantile 0.95,transfer,M1n,144.9,144.9,142.5,142.5,185.25,185.25
 floor with batch 100 and quantile 0.95,transfer,M1s,131.75,131.75,135.8,135.8,131.15,131.15
+floor with batch 100 and quantile 0.95,transfer,M1sn,144.55,144.55,142.7,142.7,181.95,181.95
 floor with batch 100 and quantile 0.95,transfer,M2,57.4,16.75,56.1,25.2,59.2,11.15
 floor with batch 100 and quantile 0.95,transfer,M2n,146.75,143.1,144.3,140.65,193.9,176.6
 floor with batch 100 and quantile 0.95,transfer,M3,57.5,24.2,53.55,23.0,58.05,24.2
@@ -833,6 +896,7 @@ floor with batch 100 and quantile 0.95,within,M0w,129.35,101.15,131.0,112.25,32.
 floor with batch 100 and quantile 0.95,within,M1,16.35,16.35,12.7,12.7,17.0,17.0
 floor with batch 100 and quantile 0.95,within,M1n,8.8,8.8,5.55,5.55,10.8,10.8
 floor with batch 100 and quantile 0.95,within,M1s,5.25,5.25,5.45,5.45,5.05,5.05
+floor with batch 100 and quantile 0.95,within,M1sn,3.75,3.75,3.8,3.8,3.65,3.65
 floor with batch 100 and quantile 0.95,within,M2,23.85,0.15,23.85,0.0,23.65,0.35
 floor with batch 100 and quantile 0.95,within,M2n,19.9,0.0,16.9,0.0,23.3,0.25
 floor with batch 100 and quantile 0.95,within,M3,22.7,0.0,28.35,0.0,16.8,0.0
@@ -846,6 +910,7 @@ adequacy share 0.90,setting,M0w,118.8,94.6,119.35,100.25,32.8,8.7
 adequacy share 0.90,setting,M1,23.7,23.7,22.55,22.55,23.7,23.7
 adequacy share 0.90,setting,M1n,10.25,10.25,9.25,9.25,11.75,11.75
 adequacy share 0.90,setting,M1s,18.55,18.55,11.95,11.95,160.9,160.9
+adequacy share 0.90,setting,M1sn,8.1,8.1,5.6,5.6,8.85,8.85
 adequacy share 0.90,setting,M2,17.5,7.5,18.35,6.7,16.75,8.0
 adequacy share 0.90,setting,M2n,15.15,5.95,15.15,3.25,15.2,9.0
 adequacy share 0.90,setting,M5,18.2,6.35,19.3,5.2,18.0,7.15
@@ -856,6 +921,7 @@ adequacy share 0.90,setting/extrapolation,M0w,118.85,77.6,119.65,97.05,32.8,8.55
 adequacy share 0.90,setting/extrapolation,M1,24.6,24.6,24.6,24.6,23.8,23.8
 adequacy share 0.90,setting/extrapolation,M1n,11.75,11.75,9.55,9.55,12.5,12.5
 adequacy share 0.90,setting/extrapolation,M1s,18.55,18.55,7.8,7.8,161.65,161.65
+adequacy share 0.90,setting/extrapolation,M1sn,8.85,8.85,7.35,7.35,9.2,9.2
 adequacy share 0.90,setting/extrapolation,M2,17.5,9.6,17.9,9.9,17.1,8.15
 adequacy share 0.90,setting/extrapolation,M2n,15.5,8.8,15.2,3.65,15.5,9.85
 adequacy share 0.90,setting/extrapolation,M5,17.95,8.45,18.55,9.25,17.95,8.0
@@ -866,6 +932,7 @@ adequacy share 0.90,setting/interpolation,M0w,118.75,94.6,118.8,100.25,33.25,12.
 adequacy share 0.90,setting/interpolation,M1,11.1,11.1,11.25,11.25,9.3,9.3
 adequacy share 0.90,setting/interpolation,M1n,4.7,4.7,4.7,4.7,5.75,5.75
 adequacy share 0.90,setting/interpolation,M1s,18.75,18.75,18.2,18.2,30.95,30.95
+adequacy share 0.90,setting/interpolation,M1sn,4.55,4.55,4.55,4.55,3.1,3.1
 adequacy share 0.90,setting/interpolation,M2,17.8,2.8,24.9,2.6,15.4,3.75
 adequacy share 0.90,setting/interpolation,M2n,13.25,0.0,14.95,0.0,10.1,0.0
 adequacy share 0.90,setting/interpolation,M5,18.75,2.7,32.65,3.1,18.45,2.15
@@ -876,6 +943,7 @@ adequacy share 0.90,transfer,M0w,118.8,94.6,119.35,100.25,32.8,8.7
 adequacy share 0.90,transfer,M1,35.25,35.25,35.65,35.65,32.6,32.6
 adequacy share 0.90,transfer,M1n,130.95,130.95,128.9,128.9,172.65,172.65
 adequacy share 0.90,transfer,M1s,121.95,121.95,123.85,123.85,121.45,121.45
+adequacy share 0.90,transfer,M1sn,130.7,130.7,129.25,129.25,169.55,169.55
 adequacy share 0.90,transfer,M2,50.7,15.4,51.75,22.75,48.35,11.0
 adequacy share 0.90,transfer,M2n,132.6,129.3,130.55,127.2,181.05,164.3
 adequacy share 0.90,transfer,M5,38.3,27.5,44.05,27.05,35.35,31.8
@@ -886,6 +954,7 @@ adequacy share 0.90,within,M0w,118.8,94.6,119.35,100.25,32.8,8.7
 adequacy share 0.90,within,M1,15.3,15.3,12.05,12.05,15.3,15.3
 adequacy share 0.90,within,M1n,8.8,8.8,5.25,5.25,10.05,10.05
 adequacy share 0.90,within,M1s,4.9,4.9,4.9,4.9,4.4,4.4
+adequacy share 0.90,within,M1sn,3.5,3.5,3.45,3.45,3.5,3.5
 adequacy share 0.90,within,M2,22.7,0.2,22.7,0.1,19.65,0.2
 adequacy share 0.90,within,M2n,18.45,0.0,15.15,0.0,21.8,0.1
 adequacy share 0.90,within,M5,7.2,0.7,6.9,0.95,8.45,0.15
@@ -896,6 +965,7 @@ adequacy share 0.99,setting,M0w,118.4,93.85,118.5,99.6,33.35,10.15
 adequacy share 0.99,setting,M1,24.05,24.05,22.4,22.4,24.05,24.05
 adequacy share 0.99,setting,M1n,10.2,10.2,9.05,9.05,11.95,11.95
 adequacy share 0.99,setting,M1s,19.85,19.85,12.7,12.7,170.05,170.05
+adequacy share 0.99,setting,M1sn,8.35,8.35,5.3,5.3,9.25,9.25
 adequacy share 0.99,setting,M2,17.9,8.3,19.45,7.45,17.5,8.55
 adequacy share 0.99,setting,M2n,15.1,5.45,15.15,2.95,15.0,9.6
 adequacy share 0.99,setting,M5,19.5,6.9,21.15,6.2,18.9,8.45
@@ -906,6 +976,7 @@ adequacy share 0.99,setting/extrapolation,M0w,118.4,77.2,119.2,96.0,33.35,9.8
 adequacy share 0.99,setting/extrapolation,M1,25.3,25.3,25.3,25.3,24.2,24.2
 adequacy share 0.99,setting/extrapolation,M1n,11.35,11.35,10.3,10.3,12.75,12.75
 adequacy share 0.99,setting/extrapolation,M1s,19.65,19.65,7.6,7.6,170.75,170.75
+adequacy share 0.99,setting/extrapolation,M1sn,9.05,9.05,7.35,7.35,9.4,9.4
 adequacy share 0.99,setting/extrapolation,M2,18.25,9.65,18.3,10.1,17.55,9.5
 adequacy share 0.99,setting/extrapolation,M2n,15.1,9.2,15.1,3.2,15.1,10.35
 adequacy share 0.99,setting/extrapolation,M5,19.5,9.4,19.6,9.75,18.2,8.9
@@ -916,6 +987,7 @@ adequacy share 0.99,setting/interpolation,M0w,118.4,93.85,118.4,99.6,33.9,13.15
 adequacy share 0.99,setting/interpolation,M1,11.25,11.25,11.6,11.6,8.95,8.95
 adequacy share 0.99,setting/interpolation,M1n,4.95,4.95,4.95,4.95,2.45,2.45
 adequacy share 0.99,setting/interpolation,M1s,20.15,20.15,19.45,19.45,30.6,30.6
+adequacy share 0.99,setting/interpolation,M1sn,4.7,4.7,4.7,4.7,3.1,3.1
 adequacy share 0.99,setting/interpolation,M2,17.9,2.75,24.95,1.9,15.8,2.9
 adequacy share 0.99,setting/interpolation,M2n,13.75,0.0,15.15,0.0,9.55,0.0
 adequacy share 0.99,setting/interpolation,M5,19.45,2.9,32.5,2.9,19.05,2.5
@@ -926,6 +998,7 @@ adequacy share 0.99,transfer,M0w,118.4,93.85,118.5,99.6,33.35,10.15
 adequacy share 0.99,transfer,M1,35.6,35.6,35.65,35.65,33.0,33.0
 adequacy share 0.99,transfer,M1n,130.0,130.0,127.9,127.9,172.45,172.45
 adequacy share 0.99,transfer,M1s,120.95,120.95,120.45,120.45,126.05,126.05
+adequacy share 0.99,transfer,M1sn,129.55,129.55,128.05,128.05,169.3,169.3
 adequacy share 0.99,transfer,M2,50.8,16.4,52.9,23.85,49.15,11.1
 adequacy share 0.99,transfer,M2n,131.7,128.3,129.6,126.15,179.4,165.45
 adequacy share 0.99,transfer,M5,38.4,27.8,44.55,27.3,35.9,31.95
@@ -936,6 +1009,7 @@ adequacy share 0.99,within,M0w,118.4,93.85,118.5,99.6,33.35,10.15
 adequacy share 0.99,within,M1,15.35,15.35,11.65,11.65,15.35,15.35
 adequacy share 0.99,within,M1n,9.4,9.4,5.25,5.25,10.55,10.55
 adequacy share 0.99,within,M1s,5.1,5.1,5.1,5.1,5.0,5.0
+adequacy share 0.99,within,M1sn,3.55,3.55,3.5,3.5,3.95,3.95
 adequacy share 0.99,within,M2,23.3,0.0,23.3,0.0,21.95,0.0
 adequacy share 0.99,within,M2n,19.15,0.0,15.4,0.0,22.5,0.1
 adequacy share 0.99,within,M5,7.5,0.7,7.25,0.8,8.55,0.2
@@ -946,6 +1020,7 @@ smoothed simulation,setting,M0w,118.4,94.5,119.65,101.35,26.5,10.6
 smoothed simulation,setting,M1,23.85,23.85,23.25,23.25,23.85,23.85
 smoothed simulation,setting,M1n,10.3,10.3,9.2,9.2,11.8,11.8
 smoothed simulation,setting,M1s,15.15,15.15,7.95,7.95,190.85,190.85
+smoothed simulation,setting,M1sn,8.15,8.15,5.65,5.65,9.0,9.0
 smoothed simulation,setting,M2,17.9,7.55,18.7,6.9,17.7,8.1
 smoothed simulation,setting,M2n,15.25,5.85,15.1,3.25,15.3,9.2
 smoothed simulation,setting,M5,19.55,6.9,21.1,5.45,18.9,7.6
@@ -956,6 +1031,7 @@ smoothed simulation,setting/extrapolation,M0w,119.6,75.65,120.55,97.2,33.9,10.3
 smoothed simulation,setting/extrapolation,M1,24.6,24.6,24.6,24.6,23.85,23.85
 smoothed simulation,setting/extrapolation,M1n,11.75,11.75,9.8,9.8,12.6,12.6
 smoothed simulation,setting/extrapolation,M1s,14.45,14.45,6.45,6.45,191.55,191.55
+smoothed simulation,setting/extrapolation,M1sn,8.85,8.85,7.35,7.35,9.25,9.25
 smoothed simulation,setting/extrapolation,M2,18.4,11.2,17.9,12.05,18.4,9.1
 smoothed simulation,setting/extrapolation,M2n,15.5,9.1,15.3,3.6,15.5,9.9
 smoothed simulation,setting/extrapolation,M5,19.55,11.15,20.3,11.85,18.9,8.4
@@ -966,6 +1042,7 @@ smoothed simulation,setting/interpolation,M0w,117.15,94.5,118.4,101.35,25.75,14.
 smoothed simulation,setting/interpolation,M1,10.05,10.05,11.05,11.05,10.05,10.05
 smoothed simulation,setting/interpolation,M1n,4.8,4.8,4.8,4.8,5.8,5.8
 smoothed simulation,setting/interpolation,M1s,15.5,15.5,12.25,12.25,16.5,16.5
+smoothed simulation,setting/interpolation,M1sn,4.65,4.65,4.65,4.65,3.1,3.1
 smoothed simulation,setting/interpolation,M2,15.45,1.6,24.15,0.0,15.0,1.95
 smoothed simulation,setting/interpolation,M2n,13.3,0.0,15.05,0.0,10.0,0.0
 smoothed simulation,setting/interpolation,M5,19.3,1.4,31.65,1.1,18.9,1.7
@@ -976,6 +1053,7 @@ smoothed simulation,transfer,M0w,118.4,94.5,119.65,101.35,26.5,10.6
 smoothed simulation,transfer,M1,35.85,35.85,37.15,37.15,34.55,34.55
 smoothed simulation,transfer,M1n,130.7,130.7,128.5,128.5,172.65,172.65
 smoothed simulation,transfer,M1s,120.05,120.05,119.6,119.6,122.15,122.15
+smoothed simulation,transfer,M1sn,130.35,130.35,128.7,128.7,169.55,169.55
 smoothed simulation,transfer,M2,48.8,24.7,49.15,25.65,48.6,12.95
 smoothed simulation,transfer,M2n,132.35,129.05,130.15,126.85,180.7,164.55
 smoothed simulation,transfer,M5,37.25,26.65,45.55,26.4,33.75,30.1
@@ -986,6 +1064,7 @@ smoothed simulation,within,M0w,118.4,94.5,119.65,101.35,26.5,10.6
 smoothed simulation,within,M1,15.15,15.15,12.5,12.5,15.15,15.15
 smoothed simulation,within,M1n,9.05,9.05,5.2,5.2,10.25,10.25
 smoothed simulation,within,M1s,4.8,4.8,5.55,5.55,3.95,3.95
+smoothed simulation,within,M1sn,3.5,3.5,3.55,3.55,3.45,3.45
 smoothed simulation,within,M2,24.75,0.3,25.5,0.05,20.5,0.3
 smoothed simulation,within,M2n,18.75,0.0,15.3,0.0,22.1,0.2
 smoothed simulation,within,M5,7.2,0.7,6.6,0.95,7.5,0.1
@@ -1056,6 +1135,7 @@ leave one pattern out,lubricant,M0w,118.7,94.25,119.0,100.1,33.1,9.2
 leave one pattern out,lubricant,M1,14.95,14.95,11.95,11.95,14.95,14.95
 leave one pattern out,lubricant,M1n,8.0,8.0,5.2,5.2,10.25,10.25
 leave one pattern out,lubricant,M1s,4.9,4.9,4.85,4.85,4.9,4.9
+leave one pattern out,lubricant,M1sn,3.45,3.45,3.25,3.25,3.45,3.45
 leave one pattern out,lubricant,M2,22.15,0.3,22.5,0.05,19.65,0.3
 leave one pattern out,lubricant,M2n,18.4,0.0,15.25,0.0,21.75,0.2
 leave one pattern out,lubricant,M5,7.0,0.8,7.0,1.15,7.2,0.45
@@ -1066,6 +1146,7 @@ first 150 parts dropped,setting,M0w,128.75,105.1,147.5,110.35,35.0,11.6
 first 150 parts dropped,setting,M1,27.55,27.55,24.05,24.05,30.35,30.35
 first 150 parts dropped,setting,M1n,13.45,13.45,11.2,11.2,14.65,14.65
 first 150 parts dropped,setting,M1s,24.8,24.8,16.75,16.75,222.95,222.95
+first 150 parts dropped,setting,M1sn,8.8,8.8,6.35,6.35,12.5,12.5
 first 150 parts dropped,setting,M2,20.8,8.7,22.75,8.3,20.15,9.05
 first 150 parts dropped,setting,M2n,20.6,7.9,20.25,3.9,21.4,11.5
 first 150 parts dropped,setting,M5,24.0,8.7,25.5,6.2,23.45,9.05
@@ -1076,6 +1157,7 @@ first 150 parts dropped,setting/extrapolation,M0w,123.45,105.1,141.85,110.35,34.
 first 150 parts dropped,setting/extrapolation,M1,30.35,30.35,27.55,27.55,32.3,32.3
 first 150 parts dropped,setting/extrapolation,M1n,14.65,14.65,12.9,12.9,15.05,15.05
 first 150 parts dropped,setting/extrapolation,M1s,24.15,24.15,9.3,9.3,224.25,224.25
+first 150 parts dropped,setting/extrapolation,M1sn,12.25,12.25,7.0,7.0,13.05,13.05
 first 150 parts dropped,setting/extrapolation,M2,21.0,11.65,21.75,12.4,20.35,11.5
 first 150 parts dropped,setting/extrapolation,M2n,21.8,11.2,21.1,4.35,21.8,11.95
 first 150 parts dropped,setting/extrapolation,M5,23.9,11.55,24.5,11.55,20.45,10.05
@@ -1086,6 +1168,7 @@ first 150 parts dropped,setting/interpolation,M0w,128.75,95.4,160.45,135.4,35.0,
 first 150 parts dropped,setting/interpolation,M1,11.85,11.85,13.3,13.3,10.65,10.65
 first 150 parts dropped,setting/interpolation,M1n,6.2,6.2,6.45,6.45,3.1,3.1
 first 150 parts dropped,setting/interpolation,M1s,25.3,25.3,24.8,24.8,30.3,30.3
+first 150 parts dropped,setting/interpolation,M1sn,6.0,6.0,6.15,6.15,3.75,3.75
 first 150 parts dropped,setting/interpolation,M2,20.15,2.9,26.5,2.35,19.8,4.25
 first 150 parts dropped,setting/interpolation,M2n,18.2,0.0,20.2,0.0,12.05,0.0
 first 150 parts dropped,setting/interpolation,M5,24.0,2.95,34.55,3.2,23.8,2.1
@@ -1096,6 +1179,7 @@ first 150 parts dropped,transfer,M0w,128.75,105.1,147.5,110.35,35.0,11.6
 first 150 parts dropped,transfer,M1,37.9,37.9,41.7,41.7,32.55,32.55
 first 150 parts dropped,transfer,M1n,166.5,166.5,165.45,165.45,171.35,171.35
 first 150 parts dropped,transfer,M1s,124.25,124.25,159.1,159.1,123.7,123.7
+first 150 parts dropped,transfer,M1sn,167.35,167.35,165.95,165.95,171.1,171.1
 first 150 parts dropped,transfer,M2,63.0,18.35,64.75,27.8,48.45,12.65
 first 150 parts dropped,transfer,M2n,169.75,163.6,167.3,163.6,180.2,162.5
 first 150 parts dropped,transfer,M5,38.75,29.2,53.7,28.6,35.8,31.7
@@ -1106,6 +1190,7 @@ first 150 parts dropped,within,M0w,128.75,105.1,147.5,110.35,35.0,11.6
 first 150 parts dropped,within,M1,16.8,16.8,16.35,16.35,20.35,20.35
 first 150 parts dropped,within,M1n,11.65,11.65,6.65,6.65,12.95,12.95
 first 150 parts dropped,within,M1s,6.45,6.45,6.45,6.45,5.85,5.85
+first 150 parts dropped,within,M1sn,4.5,4.5,4.6,4.6,4.4,4.4
 first 150 parts dropped,within,M2,27.3,0.2,27.5,0.15,26.95,0.2
 first 150 parts dropped,within,M2n,25.7,0.0,20.2,0.0,26.25,0.2
 first 150 parts dropped,within,M5,9.0,0.45,7.95,1.3,9.75,0.1
@@ -1116,6 +1201,7 @@ floor between series,pooled,M0w,21.7,17.25,34.8,17.6,15.55,4.15
 floor between series,pooled,M1,7.85,7.85,8.35,8.35,7.25,7.25
 floor between series,pooled,M1n,56.85,56.85,47.2,47.2,57.3,57.3
 floor between series,pooled,M1s,5.25,5.25,6.0,6.0,5.15,5.15
+floor between series,pooled,M1sn,30.4,30.4,27.35,27.35,33.85,33.85
 floor between series,pooled,M2,14.75,0.0,20.8,0.0,13.1,0.0
 floor between series,pooled,M2n,114.8,0.0,97.9,0.0,115.6,0.0
 floor between series,pooled,M3,9.55,0.0,10.65,0.0,8.9,0.0
@@ -1129,6 +1215,7 @@ floor between series,pooled-setting,M0w,21.7,17.25,34.8,17.6,15.55,4.15
 floor between series,pooled-setting,M1,7.95,7.95,8.7,8.7,7.5,7.5
 floor between series,pooled-setting,M1n,57.8,57.8,48.2,48.2,58.3,58.3
 floor between series,pooled-setting,M1s,7.3,7.3,7.3,7.3,7.25,7.25
+floor between series,pooled-setting,M1sn,43.9,43.9,30.95,30.95,50.1,50.1
 floor between series,pooled-setting,M2,15.8,0.45,20.8,0.1,14.9,0.5
 floor between series,pooled-setting,M2n,116.7,0.9,99.85,0.75,117.15,1.7
 floor between series,pooled-setting,M3,14.9,2.0,16.95,2.9,12.85,1.2
@@ -1142,6 +1229,7 @@ floor between series,pooled-setting/extrapolation,M0w,20.75,17.25,34.25,17.55,15
 floor between series,pooled-setting/extrapolation,M1,8.4,8.4,8.7,8.7,7.65,7.65
 floor between series,pooled-setting/extrapolation,M1n,57.8,57.8,47.85,47.85,58.75,58.75
 floor between series,pooled-setting/extrapolation,M1s,7.25,7.25,7.3,7.3,7.2,7.2
+floor between series,pooled-setting/extrapolation,M1sn,44.5,44.5,43.8,43.8,50.65,50.65
 floor between series,pooled-setting/extrapolation,M2,15.8,0.5,20.75,0.1,15.25,0.75
 floor between series,pooled-setting/extrapolation,M2n,116.25,1.7,99.55,0.8,117.15,1.7
 floor between series,pooled-setting/extrapolation,M3,14.9,2.8,15.95,5.85,14.7,1.7
@@ -1155,6 +1243,7 @@ floor between series,pooled-setting/interpolation,M0w,21.8,16.4,35.15,26.25,15.7
 floor between series,pooled-setting/interpolation,M1,7.5,7.5,11.6,11.6,7.5,7.5
 floor between series,pooled-setting/interpolation,M1n,57.95,57.95,49.2,49.2,58.2,58.2
 floor between series,pooled-setting/interpolation,M1s,8.5,8.5,8.85,8.85,8.5,8.5
+floor between series,pooled-setting/interpolation,M1sn,30.95,30.95,30.45,30.45,34.9,34.9
 floor between series,pooled-setting/interpolation,M2,15.15,0.0,23.8,0.0,14.9,0.0
 floor between series,pooled-setting/interpolation,M2n,116.8,0.0,100.9,0.0,117.05,0.1
 floor between series,pooled-setting/interpolation,M3,13.05,0.65,17.9,0.65,12.85,0.0
@@ -1168,6 +1257,7 @@ floor between series,setting,M0w,21.7,17.25,34.8,17.6,15.55,4.15
 floor between series,setting,M1,9.0,9.0,9.35,9.35,8.9,8.9
 floor between series,setting,M1n,3.2,3.2,3.1,3.1,6.2,6.2
 floor between series,setting,M1s,12.05,12.05,5.7,5.7,14.5,14.5
+floor between series,setting,M1sn,4.45,4.45,1.8,1.8,5.7,5.7
 floor between series,setting,M2,9.9,2.6,10.25,2.55,8.25,2.6
 floor between series,setting,M2n,6.55,2.05,6.6,1.4,6.5,5.9
 floor between series,setting,M3,15.1,6.5,15.45,7.05,11.25,4.8
@@ -1181,6 +1271,7 @@ floor between series,setting/extrapolation,M0w,20.75,17.25,34.25,17.55,15.5,3.4
 floor between series,setting/extrapolation,M1,9.35,9.35,9.4,9.4,9.0,9.0
 floor between series,setting/extrapolation,M1n,6.0,6.0,3.4,3.4,6.25,6.25
 floor between series,setting/extrapolation,M1s,12.3,12.3,5.45,5.45,26.85,26.85
+floor between series,setting/extrapolation,M1sn,5.05,5.05,1.4,1.4,5.7,5.7
 floor between series,setting/extrapolation,M2,8.3,3.45,10.2,6.85,7.3,3.1
 floor between series,setting/extrapolation,M2n,6.55,2.35,6.55,1.5,6.55,5.95
 floor between series,setting/extrapolation,M3,15.15,6.75,16.95,7.05,13.25,3.45
@@ -1194,6 +1285,7 @@ floor between series,setting/interpolation,M0w,21.8,16.4,35.15,26.25,15.75,6.0
 floor between series,setting/interpolation,M1,4.9,4.9,4.5,4.5,6.35,6.35
 floor between series,setting/interpolation,M1n,2.65,2.65,2.85,2.85,0.35,0.35
 floor between series,setting/interpolation,M1s,8.5,8.5,12.05,12.05,8.45,8.45
+floor between series,setting/interpolation,M1sn,2.6,2.6,2.75,2.75,0.4,0.4
 floor between series,setting/interpolation,M2,10.25,1.2,10.55,0.35,9.95,2.45
 floor between series,setting/interpolation,M2n,6.55,0.0,7.85,0.0,3.05,0.0
 floor between series,setting/interpolation,M3,11.25,5.65,11.0,5.8,11.25,4.95
@@ -1207,6 +1299,7 @@ floor between series,transfer,M0w,21.7,17.25,34.8,17.6,15.55,4.15
 floor between series,transfer,M1,9.5,9.5,10.95,10.95,7.9,7.9
 floor between series,transfer,M1n,58.05,58.05,50.2,50.2,58.5,58.5
 floor between series,transfer,M1s,56.05,56.05,32.15,32.15,56.65,56.65
+floor between series,transfer,M1sn,57.9,57.9,51.0,51.0,58.35,58.35
 floor between series,transfer,M2,15.7,3.8,22.8,7.55,12.5,3.4
 floor between series,transfer,M2n,59.25,56.85,53.2,47.2,59.7,57.3
 floor between series,transfer,M3,17.85,5.65,20.85,12.0,10.1,4.05
@@ -1220,6 +1313,7 @@ floor between series,within,M0w,21.7,17.25,34.8,17.6,15.55,4.15
 floor between series,within,M1,5.7,5.7,4.3,4.3,5.7,5.7
 floor between series,within,M1n,2.5,2.5,1.65,1.65,6.05,6.05
 floor between series,within,M1s,2.9,2.9,2.9,2.9,2.7,2.7
+floor between series,within,M1sn,1.25,1.25,1.25,1.25,1.15,1.15
 floor between series,within,M2,10.85,0.0,11.7,0.0,8.25,0.1
 floor between series,within,M2n,7.7,0.0,6.5,0.0,12.1,0.0
 floor between series,within,M3,10.45,0.0,11.45,0.0,8.0,0.0
@@ -1233,6 +1327,7 @@ calibration series of 50 parts,setting,M0w,118.7,94.25,119.0,100.1,33.1,9.2
 calibration series of 50 parts,setting,M1,23.5,23.5,22.7,22.7,23.5,23.5
 calibration series of 50 parts,setting,M1n,9.8,9.8,8.85,8.85,11.55,11.55
 calibration series of 50 parts,setting,M1s,18.0,18.0,11.55,11.55,163.05,163.05
+calibration series of 50 parts,setting,M1sn,7.65,7.65,6.05,6.05,7.8,7.8
 calibration series of 50 parts,setting,M2,17.9,7.5,18.65,7.3,17.1,8.1
 calibration series of 50 parts,setting,M2n,15.1,5.8,15.2,2.95,14.65,9.55
 calibration series of 50 parts,setting,M5,18.7,6.15,19.65,6.0,18.55,6.85
@@ -1243,6 +1338,7 @@ calibration series of 50 parts,setting/extrapolation,M0w,118.75,77.45,119.45,96.
 calibration series of 50 parts,setting/extrapolation,M1,24.95,24.95,24.95,24.95,23.85,23.85
 calibration series of 50 parts,setting/extrapolation,M1n,11.25,11.25,9.1,9.1,12.4,12.4
 calibration series of 50 parts,setting/extrapolation,M1s,17.6,17.6,7.8,7.8,163.75,163.75
+calibration series of 50 parts,setting/extrapolation,M1sn,7.8,7.8,6.85,6.85,9.1,9.1
 calibration series of 50 parts,setting/extrapolation,M2,17.9,9.1,18.25,9.5,17.85,8.4
 calibration series of 50 parts,setting/extrapolation,M2n,15.7,7.95,15.7,3.1,14.9,10.35
 calibration series of 50 parts,setting/extrapolation,M5,18.15,8.4,18.9,8.9,18.15,8.4
@@ -1253,6 +1349,7 @@ calibration series of 50 parts,setting/interpolation,M0w,118.6,94.25,118.7,100.1
 calibration series of 50 parts,setting/interpolation,M1,10.45,10.45,10.8,10.8,9.4,9.4
 calibration series of 50 parts,setting/interpolation,M1n,4.45,4.45,4.45,4.45,6.05,6.05
 calibration series of 50 parts,setting/interpolation,M1s,18.55,18.55,18.0,18.0,34.0,34.0
+calibration series of 50 parts,setting/interpolation,M1sn,4.4,4.4,4.4,4.4,2.9,2.9
 calibration series of 50 parts,setting/interpolation,M2,18.2,4.0,24.25,3.6,15.8,4.0
 calibration series of 50 parts,setting/interpolation,M2n,13.05,0.0,15.1,0.0,11.1,0.0
 calibration series of 50 parts,setting/interpolation,M5,19.1,2.75,31.6,3.9,18.7,2.3
@@ -1263,6 +1360,7 @@ calibration series of 50 parts,transfer,M0w,118.7,94.25,119.0,100.1,33.1,9.2
 calibration series of 50 parts,transfer,M1,35.0,35.0,35.35,35.35,32.4,32.4
 calibration series of 50 parts,transfer,M1n,130.65,130.65,128.45,128.45,173.6,173.6
 calibration series of 50 parts,transfer,M1s,126.3,126.3,123.8,123.8,133.55,133.55
+calibration series of 50 parts,transfer,M1sn,130.5,130.5,128.7,128.7,169.35,169.35
 calibration series of 50 parts,transfer,M2,50.4,16.25,51.9,24.05,48.6,10.9
 calibration series of 50 parts,transfer,M2n,132.55,128.75,130.35,126.6,180.4,166.85
 calibration series of 50 parts,transfer,M5,37.4,27.9,43.95,27.5,34.5,31.6
@@ -1273,6 +1371,7 @@ calibration series of 50 parts,within,M0w,118.7,94.25,119.0,100.1,33.1,9.2
 calibration series of 50 parts,within,M1,15.1,15.1,11.3,11.3,15.1,15.1
 calibration series of 50 parts,within,M1n,8.6,8.6,4.8,4.8,10.15,10.15
 calibration series of 50 parts,within,M1s,5.0,5.0,5.05,5.05,4.85,4.85
+calibration series of 50 parts,within,M1sn,3.5,3.5,3.55,3.55,3.45,3.45
 calibration series of 50 parts,within,M2,21.65,0.2,22.2,0.0,18.85,0.25
 calibration series of 50 parts,within,M2n,19.6,0.55,15.4,0.2,21.2,0.75
 calibration series of 50 parts,within,M5,6.75,0.7,6.05,0.95,8.1,0.25
@@ -1283,6 +1382,7 @@ calibration series of 100 parts,setting,M0w,118.7,94.25,119.0,100.1,33.1,9.2
 calibration series of 100 parts,setting,M1,23.7,23.7,22.6,22.6,23.7,23.7
 calibration series of 100 parts,setting,M1n,10.3,10.3,9.05,9.05,11.6,11.6
 calibration series of 100 parts,setting,M1s,18.3,18.3,11.75,11.75,163.75,163.75
+calibration series of 100 parts,setting,M1sn,7.8,7.8,6.2,6.2,8.35,8.35
 calibration series of 100 parts,setting,M2,17.9,7.5,18.45,7.3,17.5,8.1
 calibration series of 100 parts,setting,M2n,15.05,6.0,15.15,3.2,14.9,9.4
 calibration series of 100 parts,setting,M5,18.6,6.15,19.4,5.8,18.5,6.85
@@ -1293,6 +1393,7 @@ calibration series of 100 parts,setting/extrapolation,M0w,118.75,77.45,119.45,96
 calibration series of 100 parts,setting/extrapolation,M1,24.95,24.95,24.95,24.95,23.95,23.95
 calibration series of 100 parts,setting/extrapolation,M1n,11.2,11.2,9.25,9.25,12.4,12.4
 calibration series of 100 parts,setting/extrapolation,M1s,18.25,18.25,7.8,7.8,164.5,164.5
+calibration series of 100 parts,setting/extrapolation,M1sn,8.35,8.35,7.5,7.5,9.05,9.05
 calibration series of 100 parts,setting/extrapolation,M2,17.9,9.1,17.9,9.4,17.9,8.4
 calibration series of 100 parts,setting/extrapolation,M2n,15.35,8.45,15.35,3.45,15.2,10.25
 calibration series of 100 parts,setting/extrapolation,M5,18.15,8.45,18.6,9.2,18.15,8.4
@@ -1303,6 +1404,7 @@ calibration series of 100 parts,setting/interpolation,M0w,118.6,94.25,118.7,100.
 calibration series of 100 parts,setting/interpolation,M1,10.75,10.75,11.25,11.25,9.35,9.35
 calibration series of 100 parts,setting/interpolation,M1n,4.55,4.55,4.55,4.55,5.85,5.85
 calibration series of 100 parts,setting/interpolation,M1s,18.85,18.85,18.3,18.3,33.0,33.0
+calibration series of 100 parts,setting/interpolation,M1sn,4.55,4.55,4.55,4.55,2.9,2.9
 calibration series of 100 parts,setting/interpolation,M2,18.25,3.15,24.45,2.75,15.6,4.05
 calibration series of 100 parts,setting/interpolation,M2n,13.2,0.0,15.0,0.0,10.2,0.0
 calibration series of 100 parts,setting/interpolation,M5,19.05,2.8,31.8,3.65,18.6,2.35
@@ -1313,6 +1415,7 @@ calibration series of 100 parts,transfer,M0w,118.7,94.25,119.0,100.1,33.1,9.2
 calibration series of 100 parts,transfer,M1,34.95,34.95,35.3,35.3,32.6,32.6
 calibration series of 100 parts,transfer,M1n,130.7,130.7,128.5,128.5,173.6,173.6
 calibration series of 100 parts,transfer,M1s,124.95,124.95,122.9,122.9,125.9,125.9
+calibration series of 100 parts,transfer,M1sn,130.4,130.4,128.7,128.7,169.55,169.55
 calibration series of 100 parts,transfer,M2,50.4,16.15,52.3,23.65,48.6,10.9
 calibration series of 100 parts,transfer,M2n,132.65,128.75,130.45,126.55,180.25,167.0
 calibration series of 100 parts,transfer,M5,37.55,27.85,44.15,27.4,34.7,31.85
@@ -1323,6 +1426,7 @@ calibration series of 100 parts,within,M0w,118.7,94.25,119.0,100.1,33.1,9.2
 calibration series of 100 parts,within,M1,14.95,14.95,11.1,11.1,14.95,14.95
 calibration series of 100 parts,within,M1n,8.85,8.85,5.2,5.2,10.25,10.25
 calibration series of 100 parts,within,M1s,4.9,4.9,5.0,5.0,4.7,4.7
+calibration series of 100 parts,within,M1sn,3.5,3.5,3.6,3.6,3.45,3.45
 calibration series of 100 parts,within,M2,22.15,0.4,22.5,0.0,18.9,0.5
 calibration series of 100 parts,within,M2n,19.6,0.25,15.35,0.0,21.55,0.5
 calibration series of 100 parts,within,M5,6.75,0.4,5.95,1.2,8.25,0.2
@@ -1333,6 +1437,7 @@ calibration series of 250 parts,setting,M0w,118.7,94.25,119.0,100.1,33.1,9.2
 calibration series of 250 parts,setting,M1,23.7,23.7,22.5,22.5,23.7,23.7
 calibration series of 250 parts,setting,M1n,10.35,10.35,9.05,9.05,11.8,11.8
 calibration series of 250 parts,setting,M1s,19.15,19.15,11.9,11.9,161.9,161.9
+calibration series of 250 parts,setting,M1sn,8.3,8.3,5.95,5.95,8.65,8.65
 calibration series of 250 parts,setting,M2,17.5,7.5,18.45,7.3,16.75,8.1
 calibration series of 250 parts,setting,M2n,15.1,5.75,15.1,3.2,15.1,9.35
 calibration series of 250 parts,setting,M5,18.7,6.15,19.55,5.55,18.55,6.85
@@ -1343,6 +1448,7 @@ calibration series of 250 parts,setting/extrapolation,M0w,118.75,77.45,119.45,96
 calibration series of 250 parts,setting/extrapolation,M1,24.6,24.6,24.6,24.6,23.85,23.85
 calibration series of 250 parts,setting/extrapolation,M1n,11.65,11.65,9.5,9.5,12.65,12.65
 calibration series of 250 parts,setting/extrapolation,M1s,18.85,18.85,7.75,7.75,162.6,162.6
+calibration series of 250 parts,setting/extrapolation,M1sn,8.6,8.6,7.55,7.55,8.95,8.95
 calibration series of 250 parts,setting/extrapolation,M2,17.5,9.0,17.9,9.85,17.5,8.4
 calibration series of 250 parts,setting/extrapolation,M2n,15.3,8.75,15.25,3.3,15.3,10.15
 calibration series of 250 parts,setting/extrapolation,M5,18.0,8.85,18.75,9.45,17.95,8.4
@@ -1353,6 +1459,7 @@ calibration series of 250 parts,setting/interpolation,M0w,118.6,94.25,118.7,100.
 calibration series of 250 parts,setting/interpolation,M1,10.7,10.7,11.2,11.2,9.4,9.4
 calibration series of 250 parts,setting/interpolation,M1n,4.85,4.85,4.85,4.85,5.9,5.9
 calibration series of 250 parts,setting/interpolation,M1s,19.25,19.25,18.7,18.7,31.85,31.85
+calibration series of 250 parts,setting/interpolation,M1sn,4.65,4.65,4.65,4.65,2.95,2.95
 calibration series of 250 parts,setting/interpolation,M2,18.0,2.85,24.55,2.6,15.45,3.55
 calibration series of 250 parts,setting/interpolation,M2n,13.2,0.0,15.05,0.0,10.45,0.0
 calibration series of 250 parts,setting/interpolation,M5,19.1,2.85,32.0,3.4,18.7,2.4
@@ -1363,6 +1470,7 @@ calibration series of 250 parts,transfer,M0w,118.7,94.25,119.0,100.1,33.1,9.2
 calibration series of 250 parts,transfer,M1,35.35,35.35,35.7,35.7,32.6,32.6
 calibration series of 250 parts,transfer,M1n,130.55,130.55,128.4,128.4,173.2,173.2
 calibration series of 250 parts,transfer,M1s,123.25,123.25,122.8,122.8,123.8,123.8
+calibration series of 250 parts,transfer,M1sn,130.35,130.35,128.65,128.65,169.65,169.65
 calibration series of 250 parts,transfer,M2,50.4,16.15,51.75,23.7,48.6,11.1
 calibration series of 250 parts,transfer,M2n,132.5,128.65,130.3,126.45,180.3,166.1
 calibration series of 250 parts,transfer,M5,37.95,27.7,44.1,27.2,34.85,32.15
@@ -1373,6 +1481,7 @@ calibration series of 250 parts,within,M0w,118.7,94.25,119.0,100.1,33.1,9.2
 calibration series of 250 parts,within,M1,15.1,15.1,11.65,11.65,15.1,15.1
 calibration series of 250 parts,within,M1n,8.95,8.95,5.15,5.15,10.35,10.35
 calibration series of 250 parts,within,M1s,4.85,4.85,4.85,4.85,4.6,4.6
+calibration series of 250 parts,within,M1sn,3.6,3.6,3.6,3.6,3.45,3.45
 calibration series of 250 parts,within,M2,22.3,0.45,22.4,0.0,18.85,0.5
 calibration series of 250 parts,within,M2n,19.05,0.15,15.25,0.0,21.65,0.55
 calibration series of 250 parts,within,M5,6.95,0.45,6.8,0.95,8.25,0.35

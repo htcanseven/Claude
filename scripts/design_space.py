@@ -18,9 +18,12 @@ friction values) this script estimates, per quality characteristic (QC):
   simulation's own uncertainty (the calibrated margin of decisions.py) is
   added to the floor;
 * the accuracy of a Gaussian-process surrogate of the simulations
-  (leave-one-out over process conditions) relative to the production floor.
+  (leave-one-out over process conditions) relative to the production floor;
+* the surrogate scored as a decision rule: its leave-one-out prediction at the
+  nominal sheet thickness and friction of every alternative replaces the
+  nominal simulation in M0 and, with a produced sibling, in M1 (decisions.py).
 
-Outputs: results/ds_sensitivity.csv, ds_surrogate.csv, summary_design_space.md
+Outputs: results/ds_sensitivity.csv, ds_surrogate.csv, ds_surrogate_rule.csv, summary_design_space.md
 """
 
 from __future__ import annotations
@@ -81,24 +84,59 @@ def process_slope(s: pd.DataFrame, geo: str, qc: str, x: str) -> float:
     return num / den if den else np.nan
 
 
-def surrogate_loo(s: pd.DataFrame, geo: str, qc: str) -> dict:
+def surrogate_loo(s: pd.DataFrame, geo: str, qc: str) -> tuple[dict, dict]:
+    """Leave-one-out RMSE of a GP surrogate of the simulations over force, friction and sheet thickness at the
+    tool geometry, and its leave-one-out predictions at the nominal thickness and friction of each force."""
     from sklearn.gaussian_process import GaussianProcessRegressor
     from sklearn.gaussian_process.kernels import RBF, ConstantKernel, WhiteKernel
+
+    from decisions import NOMINAL_FRICTION, NOMINAL_THICKNESS
 
     g = s[(s["geometry"] == geo) & (s["point"] == "tool")].dropna(subset=[qc])
     X = g[["bhf_kN", "friction_coefficient", "sheet_metal_thickness"]].to_numpy(float)
     X = (X - X.mean(0)) / X.std(0)
     y = g[qc].to_numpy(float)
     if len(y) < 10:
-        return {"rmse_loo": np.nan, "n": len(y)}
+        return {"rmse_loo": np.nan, "n": len(y)}, {}
+    nominal = np.isclose(g["sheet_metal_thickness"], NOMINAL_THICKNESS) & \
+        np.isclose(g["friction_coefficient"], NOMINAL_FRICTION)
     kern = ConstantKernel(1.0) * RBF([1.0, 1.0, 1.0]) + WhiteKernel(1e-3)
-    err = []
+    err, at_nominal = [], {}
     for i in range(len(y)):
         m = np.ones(len(y), bool)
         m[i] = False
         gp = GaussianProcessRegressor(kern, normalize_y=True, random_state=GP_SEED).fit(X[m], y[m])
-        err.append(gp.predict(X[i:i + 1])[0] - y[i])
-    return {"rmse_loo": float(np.sqrt(np.mean(np.square(err)))), "n": len(y)}
+        pred = gp.predict(X[i:i + 1])[0]
+        err.append(pred - y[i])
+        if nominal[i]:
+            at_nominal[int(g["bhf_kN"].iloc[i])] = float(pred)
+    return {"rmse_loo": float(np.sqrt(np.mean(np.square(err)))), "n": len(y)}, at_nominal
+
+
+def surrogate_rule(pred: dict) -> pd.DataFrame:
+    """The surrogate in place of the nominal simulation: M0 (no production evidence) and M1 with a produced
+    sibling (median offset of the other alternatives of the geometry), scored with the exact distances of
+    decisions.py against the same truths and floors as the simulation."""
+    import decisions as D
+    from qc import QCS
+
+    t = pd.read_csv(RESULTS / "dec_alternatives.csv")
+    floors = D.load_floors()
+    t["surrogate"] = [abs(pred[(g, int(b), q)]) if QCS[q][2] == "abs" else pred[(g, int(b), q)]
+                      for g, b, q in zip(t["geometry"], t["bhf_kN"], t["qc"])]
+    t["floor"] = [floors[(q, g)] for q, g in zip(t["qc"], t["geometry"])]
+    rows = []
+    for col, label in (("sim_nominal", "simulation"), ("surrogate", "surrogate")):
+        rows.append({"rule": "M0", "source": label, **D.distance_pair(*D.exclusion(t.assign(lo=t[col], hi=t[col])))})
+        m1 = []
+        for (geo, qc), g in t.groupby(["geometry", "qc"]):
+            for a in g["alternative"]:
+                c = g[g["alternative"] != a]
+                v = float(g.loc[g["alternative"] == a, col].iloc[0] + np.median(c["real_q95"] - c[col]))
+                m1.append({**g[g["alternative"] == a].iloc[0].to_dict(), "lo": v, "hi": v})
+        rows.append({"rule": "M1 (sibling produced)", "source": label,
+                     **D.distance_pair(*D.exclusion(pd.DataFrame(m1)))})
+    return pd.DataFrame(rows)
 
 
 def main() -> None:
@@ -108,7 +146,7 @@ def main() -> None:
     if (RESULTS / "dec_margins.csv").exists():
         margin = pd.read_csv(RESULTS / "dec_margins.csv").set_index("qc")["margin"]
     parts = parts_qc(pd.read_csv(RESULTS / "features_rddac.csv", low_memory=False))
-    rows, surr = [], []
+    rows, surr, nominal_pred = [], [], {}
     for geo in GEOM_POINTS:
         pg = parts[parts["geometry"] == geo]
         cell = group_centres(pg, ["bhf_kN", "oil_type"], SHARED).reset_index()
@@ -144,17 +182,22 @@ def main() -> None:
                              "mrc_real_floor": F / abs(rs) if rs and np.isfinite(rs) else np.nan,
                              "mrc_sim_floor": F / abs(ss) if ss else np.nan,
                              "mrc_sim_floor_plus_margin": (F + E) / abs(ss) if ss and np.isfinite(E) else np.nan})
-            res = surrogate_loo(s, geo, qc)
+            res, at_nominal = surrogate_loo(s, geo, qc)
             surr.append({"geometry": geo, "qc": qc, **res, "floor": F, "rmse_over_floor": res["rmse_loo"] / F})
+            nominal_pred.update({(geo, bhf, qc): v for bhf, v in at_nominal.items()})
     sens = pd.DataFrame(rows)
     sens.to_csv(RESULTS / "ds_sensitivity.csv", index=False)
     sg = pd.DataFrame(surr)
     sg.to_csv(RESULTS / "ds_surrogate.csv", index=False)
+    rule = surrogate_rule(nominal_pred)
+    rule.to_csv(RESULTS / "ds_surrogate_rule.csv", index=False)
     lines = ["# Design space from the DDACS corners", "",
              f"Simulations used: {len(s)} (material scaling 1.0; thickness {THICKNESS}).", "",
              "## Sensitivities and minimum resolvable change", "", sens.round(4).to_markdown(index=False), "",
              "## Gaussian-process surrogate, leave-one-out error over process conditions", "",
-             sg.round(4).to_markdown(index=False)]
+             sg.round(4).to_markdown(index=False), "",
+             "## The surrogate as a decision rule (in place of the nominal simulation; floors)", "",
+             rule.round(2).to_markdown(index=False)]
     (RESULTS / "summary_design_space.md").write_text("\n".join(lines) + "\n")
     print("\n".join(lines))
 

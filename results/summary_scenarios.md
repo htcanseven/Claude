@@ -18,6 +18,7 @@ Alternatives meeting the limit:
 | pooled         | M1       |     0.694 |          0.083 |          0.222 |       0     | 108 |                      0.13  |                      0.615 |          69 |
 | pooled         | M1n      |     0.306 |          0.417 |          0.278 |       0     | 108 |                      0.652 |                      0.769 |          69 |
 | pooled         | M1s      |     0.731 |          0.074 |          0.194 |       0     | 108 |                      0.116 |                      0.538 |          69 |
+| pooled         | M1sn     |     0.472 |          0.25  |          0.278 |       0     | 108 |                      0.391 |                      0.769 |          69 |
 | pooled         | M2       |     0.389 |          0     |          0     |       0.611 | 108 |                      0     |                      0     |          69 |
 | pooled         | M2n      |     0.25  |          0     |          0     |       0.75  | 108 |                      0     |                      0     |          69 |
 | pooled         | M3       |     0.333 |          0     |          0.009 |       0.657 | 108 |                      0     |                      0.026 |          69 |
@@ -31,6 +32,7 @@ Alternatives meeting the limit:
 | pooled-setting | M1       |     0.694 |          0.083 |          0.222 |       0     | 108 |                      0.13  |                      0.615 |          69 |
 | pooled-setting | M1n      |     0.306 |          0.417 |          0.278 |       0     | 108 |                      0.652 |                      0.769 |          69 |
 | pooled-setting | M1s      |     0.667 |          0.139 |          0.194 |       0     | 108 |                      0.217 |                      0.538 |          69 |
+| pooled-setting | M1sn     |     0.444 |          0.278 |          0.278 |       0     | 108 |                      0.435 |                      0.769 |          69 |
 | pooled-setting | M2       |     0.389 |          0     |          0.028 |       0.583 | 108 |                      0     |                      0.077 |          69 |
 | pooled-setting | M2n      |     0.25  |          0     |          0.028 |       0.722 | 108 |                      0     |                      0.077 |          69 |
 | pooled-setting | M3       |     0.463 |          0     |          0.065 |       0.472 | 108 |                      0     |                      0.179 |          69 |
@@ -44,6 +46,7 @@ Alternatives meeting the limit:
 | setting        | M1       |     0.75  |          0.083 |          0.167 |       0     | 108 |                      0.13  |                      0.462 |          69 |
 | setting        | M1n      |     0.944 |          0.028 |          0.028 |       0     | 108 |                      0.043 |                      0.077 |          69 |
 | setting        | M1s      |     0.889 |          0.056 |          0.056 |       0     | 108 |                      0.087 |                      0.154 |          69 |
+| setting        | M1sn     |     1     |          0     |          0     |       0     | 108 |                      0     |                      0     |          69 |
 | setting        | M2       |     0.722 |          0.028 |          0     |       0.25  | 108 |                      0.043 |                      0     |          69 |
 | setting        | M2n      |     0.917 |          0     |          0     |       0.083 | 108 |                      0     |                      0     |          69 |
 | setting        | M3       |     0.657 |          0     |          0.148 |       0.194 | 108 |                      0     |                      0.41  |          69 |
@@ -57,6 +60,7 @@ Alternatives meeting the limit:
 | transfer       | M1       |     0.611 |          0.194 |          0.194 |       0     | 108 |                      0.304 |                      0.538 |          69 |
 | transfer       | M1n      |     0.306 |          0.417 |          0.278 |       0     | 108 |                      0.652 |                      0.769 |          69 |
 | transfer       | M1s      |     0.306 |          0.417 |          0.278 |       0     | 108 |                      0.652 |                      0.769 |          69 |
+| transfer       | M1sn     |     0.306 |          0.417 |          0.278 |       0     | 108 |                      0.652 |                      0.769 |          69 |
 | transfer       | M2       |     0.444 |          0     |          0.167 |       0.389 | 108 |                      0     |                      0.462 |          69 |
 | transfer       | M2n      |     0.306 |          0.417 |          0.278 |       0     | 108 |                      0.652 |                      0.769 |          69 |
 | transfer       | M3       |     0.444 |          0.056 |          0.157 |       0.343 | 108 |                      0.087 |                      0.436 |          69 |
@@ -70,6 +74,7 @@ Alternatives meeting the limit:
 | within         | M1       |     0.833 |          0.056 |          0.111 |       0     | 108 |                      0.087 |                      0.308 |          69 |
 | within         | M1n      |     0.972 |          0     |          0.028 |       0     | 108 |                      0     |                      0.077 |          69 |
 | within         | M1s      |     1     |          0     |          0     |       0     | 108 |                      0     |                      0     |          69 |
+| within         | M1sn     |     1     |          0     |          0     |       0     | 108 |                      0     |                      0     |          69 |
 | within         | M2       |     0.667 |          0     |          0     |       0.333 | 108 |                      0     |                      0     |          69 |
 | within         | M2n      |     0.917 |          0     |          0     |       0.083 | 108 |                      0     |                      0     |          69 |
 | within         | M3       |     0.574 |          0     |          0     |       0.426 | 108 |                      0     |                      0     |          69 |
@@ -98,6 +103,9 @@ Alternatives meeting the limit:
 | setting  | M1s      | 0-5       |     0.719 |          0.094 |          0.188 |       0     |  32 |                      0.5   |                      0.231 |           6 |
 | setting  | M1s      | 5-10      |     1     |          0     |          0     |       0     |  23 |                      0     |                      0     |          17 |
 | setting  | M1s      | 10-inf    |     0.943 |          0.057 |          0     |       0     |  53 |                      0.065 |                      0     |          46 |
+| setting  | M1sn     | 0-5       |     1     |          0     |          0     |       0     |  32 |                      0     |                      0     |           6 |
+| setting  | M1sn     | 5-10      |     1     |          0     |          0     |       0     |  23 |                      0     |                      0     |          17 |
+| setting  | M1sn     | 10-inf    |     1     |          0     |          0     |       0     |  53 |                      0     |                      0     |          46 |
 | setting  | M2       | 0-5       |     0.375 |          0.094 |          0     |       0.531 |  32 |                      0.5   |                      0     |           6 |
 | setting  | M2       | 5-10      |     0.826 |          0     |          0     |       0.174 |  23 |                      0     |                      0     |          17 |
 | setting  | M2       | 10-inf    |     0.887 |          0     |          0     |       0.113 |  53 |                      0     |                      0     |          46 |
@@ -137,6 +145,9 @@ Alternatives meeting the limit:
 | transfer | M1s      | 0-5       |     0.438 |          0     |          0.562 |       0     |  32 |                      0     |                      0.692 |           6 |
 | transfer | M1s      | 5-10      |     0.391 |          0.391 |          0.217 |       0     |  23 |                      0.529 |                      0.833 |          17 |
 | transfer | M1s      | 10-inf    |     0.189 |          0.679 |          0.132 |       0     |  53 |                      0.783 |                      1     |          46 |
+| transfer | M1sn     | 0-5       |     0.438 |          0     |          0.562 |       0     |  32 |                      0     |                      0.692 |           6 |
+| transfer | M1sn     | 5-10      |     0.391 |          0.391 |          0.217 |       0     |  23 |                      0.529 |                      0.833 |          17 |
+| transfer | M1sn     | 10-inf    |     0.189 |          0.679 |          0.132 |       0     |  53 |                      0.783 |                      1     |          46 |
 | transfer | M2       | 0-5       |     0.469 |          0     |          0.312 |       0.219 |  32 |                      0     |                      0.385 |           6 |
 | transfer | M2       | 5-10      |     0.609 |          0     |          0.087 |       0.304 |  23 |                      0     |                      0.333 |          17 |
 | transfer | M2       | 10-inf    |     0.358 |          0     |          0.113 |       0.528 |  53 |                      0     |                      0.857 |          46 |
@@ -176,6 +187,9 @@ Alternatives meeting the limit:
 | within   | M1s      | 0-5       |     1     |          0     |          0     |       0     |  32 |                      0     |                      0     |           6 |
 | within   | M1s      | 5-10      |     1     |          0     |          0     |       0     |  23 |                      0     |                      0     |          17 |
 | within   | M1s      | 10-inf    |     1     |          0     |          0     |       0     |  53 |                      0     |                      0     |          46 |
+| within   | M1sn     | 0-5       |     1     |          0     |          0     |       0     |  32 |                      0     |                      0     |           6 |
+| within   | M1sn     | 5-10      |     1     |          0     |          0     |       0     |  23 |                      0     |                      0     |          17 |
+| within   | M1sn     | 10-inf    |     1     |          0     |          0     |       0     |  53 |                      0     |                      0     |          46 |
 | within   | M2       | 0-5       |     0.25  |          0     |          0     |       0.75  |  32 |                      0     |                      0     |           6 |
 | within   | M2       | 5-10      |     0.739 |          0     |          0     |       0.261 |  23 |                      0     |                      0     |          17 |
 | within   | M2       | 10-inf    |     0.887 |          0     |          0     |       0.113 |  53 |                      0     |                      0     |          46 |
@@ -217,12 +231,12 @@ Alternatives meeting the limit:
 | pooled-setting | NN       |      0.2  | 0.0139 |
 | pooled-setting | NN       |      0.3  | 0.0139 |
 | pooled-setting | NN       |      0.5  | 0.0139 |
-| setting        | M2n      |      0.02 | 0.0017 |
-| setting        | M2n      |      0.05 | 0.0042 |
-| setting        | M2n      |      0.1  | 0.0083 |
-| setting        | NN       |      0.2  | 0.0139 |
-| setting        | NN       |      0.3  | 0.0139 |
-| setting        | NN       |      0.5  | 0.0139 |
+| setting        | M1sn     |      0.02 | 0      |
+| setting        | M1sn     |      0.05 | 0      |
+| setting        | M1sn     |      0.1  | 0      |
+| setting        | M1sn     |      0.2  | 0      |
+| setting        | M1sn     |      0.3  | 0      |
+| setting        | M1sn     |      0.5  | 0      |
 | transfer       | M2       |      0.02 | 0.0911 |
 | transfer       | M2       |      0.05 | 0.1028 |
 | transfer       | M2       |      0.1  | 0.1222 |
@@ -238,17 +252,17 @@ Alternatives meeting the limit:
 
 ## Cheapest rule(s) over false-reject and trial costs (c_FA = 1)
 
-|                    | 0.02   | 0.05   | 0.1    | 0.2    | 0.3    | 0.5    |
-|:-------------------|:-------|:-------|:-------|:-------|:-------|:-------|
-| ('setting', 0.25)  | M2n/M4 | M2n/M4 | NN     | NN     | NN     | NN     |
-| ('setting', 0.5)   | M2n/M4 | M2n/M4 | M2n/M4 | NN     | NN     | NN     |
-| ('setting', 1.0)   | M2n/M4 | M2n/M4 | M2n/M4 | M2n/M4 | M2n/M4 | NN     |
-| ('setting', 2.0)   | M2n/M4 | M2n/M4 | M2n/M4 | M2n/M4 | M2n/M4 | M2n/M4 |
-| ('transfer', 0.25) | trial  | trial  | M2     | M2     | M5     | M5     |
-| ('transfer', 0.5)  | trial  | trial  | trial  | M2     | M5     | M5     |
-| ('transfer', 1.0)  | trial  | trial  | trial  | trial  | M5     | M5     |
-| ('transfer', 2.0)  | trial  | trial  | trial  | trial  | trial  | M5     |
-| ('within', 0.25)   | M1s/NN | M1s/NN | M1s/NN | M1s/NN | M1s/NN | M1s/NN |
-| ('within', 0.5)    | M1s/NN | M1s/NN | M1s/NN | M1s/NN | M1s/NN | M1s/NN |
-| ('within', 1.0)    | M1s/NN | M1s/NN | M1s/NN | M1s/NN | M1s/NN | M1s/NN |
-| ('within', 2.0)    | M1s/NN | M1s/NN | M1s/NN | M1s/NN | M1s/NN | M1s/NN |
+|                    | 0.02        | 0.05        | 0.1         | 0.2         | 0.3         | 0.5         |
+|:-------------------|:------------|:------------|:------------|:------------|:------------|:------------|
+| ('setting', 0.25)  | M1sn        | M1sn        | M1sn        | M1sn        | M1sn        | M1sn        |
+| ('setting', 0.5)   | M1sn        | M1sn        | M1sn        | M1sn        | M1sn        | M1sn        |
+| ('setting', 1.0)   | M1sn        | M1sn        | M1sn        | M1sn        | M1sn        | M1sn        |
+| ('setting', 2.0)   | M1sn        | M1sn        | M1sn        | M1sn        | M1sn        | M1sn        |
+| ('transfer', 0.25) | trial       | trial       | M2          | M2          | M5          | M5          |
+| ('transfer', 0.5)  | trial       | trial       | trial       | M2          | M5          | M5          |
+| ('transfer', 1.0)  | trial       | trial       | trial       | trial       | M5          | M5          |
+| ('transfer', 2.0)  | trial       | trial       | trial       | trial       | trial       | M5          |
+| ('within', 0.25)   | M1s/M1sn/NN | M1s/M1sn/NN | M1s/M1sn/NN | M1s/M1sn/NN | M1s/M1sn/NN | M1s/M1sn/NN |
+| ('within', 0.5)    | M1s/M1sn/NN | M1s/M1sn/NN | M1s/M1sn/NN | M1s/M1sn/NN | M1s/M1sn/NN | M1s/M1sn/NN |
+| ('within', 1.0)    | M1s/M1sn/NN | M1s/M1sn/NN | M1s/M1sn/NN | M1s/M1sn/NN | M1s/M1sn/NN | M1s/M1sn/NN |
+| ('within', 2.0)    | M1s/M1sn/NN | M1s/M1sn/NN | M1s/M1sn/NN | M1s/M1sn/NN | M1s/M1sn/NN | M1s/M1sn/NN |

@@ -30,6 +30,10 @@ M1s scaled simulation: q95 = a + b s0, a straight line fitted by least squares
     to the calibration alternatives' q95 against their nominal simulation s0,
     so that a simulated trend of the wrong size is rescaled (a linear
     multi-fidelity correction);
+M1sn M1s without the simulation: q95 = a + b f, the same least-squares line
+    against the blank-holder force f. Within a geometry the nominal simulation
+    depends on the force only, so M1s - M1sn isolates what the simulated trend
+    adds once it is rescaled;
 M2  envelope with a calibrated margin: the upper end of the simulation envelope
     over plausible incoming conditions (all DDACS sheet thicknesses and friction
     coefficients at the geometry and blank-holder force) plus the median offset,
@@ -95,6 +99,11 @@ rules have paired intervals (dec_paired.csv).
 Outputs: results/dec_alternatives.csv, dec_margins.csv, dec_intervals.csv,
 dec_verdicts.csv.gz, dec_scores.csv, dec_resolution.csv, dec_curve.csv,
 dec_paired.csv, dec_coverage.csv, dec_gp.csv, dec_reliability.csv, summary_decisions.md
+
+Usage: python decisions.py            fit every rule and score them (hours: M3/M4)
+       python decisions.py --no-m3    without the part-level rules
+       python decisions.py --rescore  add the cheap point rules missing from the stored intervals (POINT_EXTRA)
+                                      and rescore every rule from dec_intervals.csv; the fitted rules are kept
 """
 
 from __future__ import annotations
@@ -484,9 +493,23 @@ def calibration_stats(c: pd.DataFrame) -> dict[str, float]:
     off2, med_q = float(np.median(r2)), float(np.median(q))
     # M1s: q95 = a + b s0 by least squares (the bias correction with the simulated trend rescaled)
     b1, a1 = np.polyfit(s0, q, 1) if np.ptp(s0) > 0 and len(q) >= 2 else (1.0, off1)
-    return {"off1": off1, "off2": off2, "a1s": float(a1), "b1s": float(b1),
+    # M1sn: the same line against the blank-holder force (no simulation); one force level gives its mean
+    f = c["bhf_kN"].to_numpy(float)
+    bf, af = np.polyfit(f, q, 1) if np.ptp(f) > 0 and len(q) >= 2 else (0.0, float(np.mean(q)))
+    return {"off1": off1, "off2": off2, "a1s": float(a1), "b1s": float(b1), "a1f": float(af), "b1f": float(bf),
             "marg2": conformal_margin(np.abs(r2 - off2), CONF_LEVEL),
             "med_q": med_q, "marg_q": conformal_margin(np.abs(q - med_q), CONF_LEVEL)}
+
+
+#: point rules that need only the calibration statistics; --rescore adds them to stored intervals
+POINT_EXTRA = ("M1sn",)
+
+
+def point_extra(name: str, a, s: dict[str, float]) -> float:
+    """Prediction of a cheap point rule for the target row a from the calibration statistics s."""
+    if name == "M1sn":
+        return float(s["a1f"] + s["b1f"] * float(a["bhf_kN"]))
+    raise KeyError(name)
 
 
 def rule_intervals(a: pd.Series, calib: list[str], qc: str, stats: dict[str, float],
@@ -498,6 +521,7 @@ def rule_intervals(a: pd.Series, calib: list[str], qc: str, stats: dict[str, flo
           "M0w": (a["sim_env_lo"], a["sim_env_hi"]),
           "M1": (a["sim_nominal"] + s["off1"], a["sim_nominal"] + s["off1"]),
           "M1s": (s["a1s"] + s["b1s"] * a["sim_nominal"],) * 2,
+          "M1sn": (point_extra("M1sn", a, s),) * 2,
           "M2": (a["sim_env_hi"] + s["off2"] - s["marg2"], a["sim_env_hi"] + s["off2"] + s["marg2"]),
           "M5": m5_interval(calib, target, qc, a["sim_env_hi"]),
           "Mc": (mc_point(calib, target, qc),) * 2,
@@ -582,7 +606,8 @@ def beyond_rows(rates: np.ndarray, ad: np.ndarray, target: float = RESOLUTION_TA
 #: rule pairs whose differences in the two distances get paired bootstrap intervals
 PAIRS = [("M5", "M2"), ("M5", "M1"), ("M5", "M4"), ("M5", "M3"), ("M3", "M4"), ("M1", "M1n"), ("M2", "M2n"),
          ("M5", "M5n"), ("M5", "NN"), ("M5n", "NN"), ("Mc", "M1"), ("M2", "M0w"), ("M1s", "M1"), ("M1s", "M1n"),
-         ("M1s", "NN"), ("M2", "NN"), ("M2n", "NN")]
+         ("M1s", "NN"), ("M2", "NN"), ("M2n", "NN"), ("M1s", "M1sn"), ("M1sn", "NN"), ("M1sn", "M1n"),
+         ("M3", "M2"), ("M3", "M5")]
 
 
 def exclusion(iv: pd.DataFrame, q: np.ndarray | None = None) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
@@ -849,6 +874,68 @@ def main(with_m3: bool = True) -> None:
     iv["scope"] = iv["calibration"].map(scope_of)
     ref_row = {(a, q): i for i, (a, q) in enumerate(zip(t["alternative"], t["qc"]))}
     iv["ref_row"] = [ref_row[(a, q)] for a, q in zip(iv["alternative"], iv["qc"])]
+    summarise(t, reps, iv, d)
+
+
+def calibration_of(label: str, target: str, alts: list[str]) -> list[str]:
+    """The calibration alternatives behind a calibration label of qc_records for one target."""
+    geo_of = {a: a.split("/")[0] for a in alts}
+    if label == "within":
+        return [b for b in alts if b != target and geo_of[b] == geo_of[target]]
+    if label == "pooled":
+        return [b for b in alts if b != target]
+    if "->" in label:
+        return [b for b in alts if geo_of[b] == label.split("->")[0]]
+    kind, cell = label.split(":")
+    geo, bhf = cell.split("/")
+    held = [b for b in alts if geo_of[b] == geo and bhf_of(b) == int(bhf)]
+    return [b for b in alts if b not in held and (kind == "pooled-setting" or geo_of[b] == geo)]
+
+
+def add_point_rules(t: pd.DataFrame, iv: pd.DataFrame, names=POINT_EXTRA) -> pd.DataFrame:
+    """Rows of the cheap point rules for every calibration and target of the stored intervals (copies of the
+    NN rows with the rule's prediction); rows of these rules already present are replaced."""
+    iv = iv[~iv["method"].isin(names)]
+    alts = sorted(t["alternative"].unique())
+    tq = {(a, q): r for a, q, r in zip(t["alternative"], t["qc"], t.to_dict("records"))}
+    stats = {}
+    new = []
+    for r in iv[iv["method"] == "NN"].to_dict("records"):
+        calib = calibration_of(r["calibration"], r["alternative"], alts)
+        key = (tuple(calib), r["qc"])
+        if key not in stats:
+            stats[key] = calibration_stats(t[t["alternative"].isin(calib) & (t["qc"] == r["qc"])])
+        for name in names:
+            v = point_extra(name, tq[(r["alternative"], r["qc"])], stats[key])
+            new.append({**r, "method": name, "lo": v, "hi": v})
+    return pd.concat([iv, pd.DataFrame(new)], ignore_index=True)
+
+
+def verdict_frame(iv: pd.DataFrame) -> pd.DataFrame:
+    """The verdicts of decide() at every feasible requirement of the grid, rebuilt from stored intervals."""
+    out = []
+    for r in iv.to_dict("records"):
+        F, q = r["floor"], r["real_q95"]
+        grid = D_GRID[q + D_GRID * F >= 0]
+        reqs = q + grid * F
+        out.append(pd.DataFrame({"calibration": r["calibration"], "relation": r["relation"],
+                                 "alternative": r["alternative"], "geometry": r["geometry"], "qc": r["qc"],
+                                 "method": r["method"], "d": grid, "R": reqs,
+                                 "verdict": verdicts(r["lo"], r["hi"], reqs), "adequate": grid >= 0}))
+    return pd.concat(out, ignore_index=True)
+
+
+def rescore() -> None:
+    """Add the point rules of POINT_EXTRA to the stored intervals and rescore every rule; the fitted rules
+    (M2-M5, M3/M4 and the Gaussian processes) are taken from dec_intervals.csv unchanged."""
+    t = pd.read_csv(RESULTS / "dec_alternatives.csv")
+    reps = np.load(RESULTS / "dec_q95_reps.npy")
+    iv = add_point_rules(t, pd.read_csv(RESULTS / "dec_intervals.csv"))
+    summarise(t, reps, iv, verdict_frame(iv))
+
+
+def summarise(t: pd.DataFrame, reps: np.ndarray, iv: pd.DataFrame, d: pd.DataFrame) -> None:
+    """Write the intervals and verdicts and every score derived from them."""
     iv.to_csv(RESULTS / "dec_intervals.csv", index=False)
     d.to_csv(RESULTS / "dec_verdicts.csv.gz", index=False)
     sc = score(d, ["calibration", "qc", "method"]).reset_index()
@@ -907,4 +994,7 @@ def main(with_m3: bool = True) -> None:
 
 
 if __name__ == "__main__":
-    main(with_m3="--no-m3" not in sys.argv)
+    if "--rescore" in sys.argv:
+        rescore()
+    else:
+        main(with_m3="--no-m3" not in sys.argv)
