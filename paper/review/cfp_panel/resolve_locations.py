@@ -1,10 +1,9 @@
 """Write the response to the panel with page and line numbers of the revised manuscript.
 
-Reads response_to_panel.src.md, compiles a line-numbered copy of paper/main.tex in a temporary directory and replaces
-every {{loc:phrase}} by "p. N, l. L" of the first place where the phrase occurs in the compiled PDF, {{esm:name}} by the
-number of the ESM table written from block <name> (paper/esm_labels.tex), {{mainpages}} by the
-number of pages from the abstract to the end of the conclusions and {{totalpages}} by the page count. Writes
-response_to_panel.md and lists phrases that could not be found.
+Reads response_to_panel.src.md, compiles a line-numbered copy of paper/main.tex (a single file with no supplementary
+material) in a temporary directory and replaces every {{loc:phrase}} by "p. N, l. L" of the first place where the
+phrase occurs in the compiled PDF, {{mainpages}} by the page on which the conclusions end and {{totalpages}} by the
+page count. Writes response_to_panel.md and lists phrases that could not be found.
 
 Usage: python paper/review/cfp_panel/resolve_locations.py
 """
@@ -22,6 +21,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 PAPER = HERE.parents[1]
 SRC, OUT = HERE / "response_to_panel.src.md", HERE / "response_to_panel.md"
+END_OF_CONCLUSIONS = "The released code, which reproduces every result"
 
 
 def norm(s: str) -> str:
@@ -31,7 +31,7 @@ def norm(s: str) -> str:
 
 
 def compile_numbered(tmp: Path) -> Path:
-    for f in ["main.tex", "sn-jnl.cls", "sn-basic.bst", "refs.bib", "fig_procedure.tex", "esm_labels.tex", "main.bbl"]:
+    for f in ["main.tex", "sn-jnl.cls", "sn-basic.bst", "refs.bib", "fig_procedure.tex", "main.bbl"]:
         shutil.copy(PAPER / f, tmp / f)
     shutil.copytree(PAPER / "figures", tmp / "figures")
     tex = (tmp / "main.tex").read_text()
@@ -94,8 +94,10 @@ def main() -> None:
         pdf = compile_numbered(Path(d))
         pages = page_lines(pdf)
     total = len(pages)
-    concl = locate(pages, "Supplementary information")
-    main_pages = concl[0] if concl else total
+    concl = locate(pages, END_OF_CONCLUSIONS)
+    if concl is None:
+        sys.exit(f"end of the conclusions not found: {END_OF_CONCLUSIONS!r}")
+    main_pages = concl[0]
     missing = []
 
     def rep(m):
@@ -105,16 +107,9 @@ def main() -> None:
             return "(location not found)"
         return f"p. {hit[0]}, l. {hit[1]}"
 
-    labels = dict(re.findall(r"esm@(\w+)\\endcsname\{(S\d+)\}", (PAPER / "esm_labels.tex").read_text()))
-
-    def esm(m):
-        if m.group(1) not in labels:
-            missing.append("esm:" + m.group(1))
-            return "S?"
-        return labels[m.group(1)]
-
     out = re.sub(r"\{\{loc:(.*?)\}\}", rep, src)
-    out = re.sub(r"\{\{esm:(\w+)\}\}", esm, out)
+    unknown = re.findall(r"\{\{[^}]*\}\}", out.replace("{{mainpages}}", "").replace("{{totalpages}}", ""))
+    missing += [f"unknown placeholder {x}" for x in unknown]
     out = out.replace("{{mainpages}}", str(main_pages)).replace("{{totalpages}}", str(total))
     OUT.write_text(out)
     print(f"{OUT.name}: {total} pages, main text {main_pages}")

@@ -6,8 +6,8 @@ Research in Engineering Design
 Dear Editors,
 
 Please find enclosed the manuscript "Evaluating design-stage manufacturability decisions against the resolution of
-production", submitted to the special collection *AI in Design for Manufacturing*, with its Electronic
-Supplementary Material.
+production", submitted to the special collection *AI in Design for Manufacturing*. The manuscript is a single
+file of 30 pages, including its appendix and references, with no supplementary material.
 
 Design-stage manufacturability decisions increasingly rest on simulation and machine learning. Yet whether a
 prediction is fit to decide is rarely evaluated against production. The manuscript proposes a framework whose unit is

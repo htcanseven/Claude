@@ -23,7 +23,7 @@ python3 panel.py             # analyses for the review panel: strata, guard band
 python3 budget.py            # decisions against the number and choice of calibration alternatives
 python3 robustness.py        # data weaknesses, constants, GP specification, refitting bootstrap
 python3 tuning.py            # learner and settings of the part-level rules M3 and M4
-python3 design_space.py      # DDACS corners and sensitivities (not in the paper); surrogate accuracy (ESM)
-python3 inline.py            # in-line signals: drift of the batch centres (ESM), part-level verifiability
+python3 design_space.py      # DDACS corners and sensitivities (not in the paper); surrogate accuracy (Sect. 5.5)
+python3 inline.py            # in-line signals: drift of the batch centres (Sect. 5.1), part-level verifiability
 python3 figs.py              # figures in the paper's style (results/figures)
-python3 make_tables.py       # tables of paper/main.tex and paper/esm.tex from the CSVs
+python3 make_tables.py       # tables of paper/main.tex from the CSVs

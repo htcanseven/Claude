@@ -12,12 +12,12 @@ Manuscript: *Evaluating design-stage manufacturability decisions against the res
       DOI where the manuscript says "[DOI pending]" (Code availability) and in the cover letter. Optionally rename
       the repository to a descriptive name and update the URL in the Code availability statement.
 - [ ] **ORCID and funding** in the editorial system; check the Funding declaration ("No specific funding").
-- [ ] **Affiliation.** Check the department line of the author block in `paper/main.tex` and `paper/esm.tex`.
+- [ ] **Affiliation.** Check the department line of the author block in `paper/main.tex`.
 - [ ] **Outreach.** Send (or not) the drafts in this folder: `presubmission_enquiry.md` (guest editor) and
       `note_to_dataset_authors.md` (RDDAC/DDACS authors). If sent, wait for the answers before submitting; the
       dataset authors' answers on tolerances, repeat scans, scanning order and run dates could change Sections 4.1,
       4.3, 5.8 and 6.6.
-- [ ] **Blinded copy.** If the system asks for one, set `\anontrue` in `paper/main.tex` and `paper/esm.tex`.
+- [ ] **Blinded copy.** If the system asks for one, set `\anontrue` in `paper/main.tex`.
 - [ ] **Line numbers.** The review copy is compiled with line numbers (class option `lineno`); remove the option for
       the final version.
 - [ ] **Internal review documents.** `paper/review/` holds two simulated reviews, both written by AI agents: a
@@ -29,16 +29,13 @@ Manuscript: *Evaluating design-stage manufacturability decisions against the res
 
 - [x] Pipeline results regenerated (`bash scripts/run_all.sh` or the individual scripts), tables written by
       `python scripts/make_tables.py`, figures copied from `results/figures/` to `paper/figures/`.
-- [x] `paper/main.tex` compiles: zero errors, no undefined references or citations, no overfull boxes; 32
-      pages in all, the main text (abstract to conclusions) ending on page 24; five tables and four figures in
-      the main text, two tables in the appendix.
-- [x] `paper/esm.tex` compiles after `main.tex` (it reads the paper's labels through `xr-hyper`): 20 pages,
-      thirty tables and one figure, numbered S1, S2, ... automatically.
+- [x] Single file, no supplementary material: `paper/main.tex` compiles with zero errors, no undefined references
+      or citations and no overfull boxes; 30 pages in all, the main text (abstract to conclusions) ending on page
+      23; six tables and four figures in the main text, two tables in the appendix; references from page 25.
 - [x] Abstract 250 words; six keywords; captions of at most two lines; no first person; British spelling.
-- [x] Every cited key (77, of which 76 in the paper) is in `refs.bib`; the references added in the revision were checked against the
+- [x] Every cited key (69) is in `refs.bib`; the references added in the revision were checked against the
       publisher, DBLP, Crossref or the ISO catalogue, and ISO standards are cited in their current editions.
 - [x] Every number in the text checked against the result CSVs; tables are generated, not typed.
-- [x] The upload zip (`bash paper/submission/make_zip.sh`: main.tex, esm.tex, esm_labels.tex, class and style files,
-      refs.bib, figures, fig_procedure.tex) compiles in an empty directory; `esm.pdf` is copied next to it for upload
-      as Electronic Supplementary Material.
+- [x] The upload zip (`bash paper/submission/make_zip.sh`: main.tex, fig_procedure.tex, refs.bib, class and style
+      files, figures) compiles in an empty directory to the same 30 pages.
 - [x] Cover letter (`cover_letter.md`) and outreach drafts updated from the final abstract and results.

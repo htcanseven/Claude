@@ -190,7 +190,7 @@ def fig_decisions_compare(src: Path) -> None:
     res = res[res["qc"] == "all"].set_index(["scope", "method"])
     methods = ["M2", "M5", "M5n", "NN"]
     scopes = [("within", "new variant"), ("setting", "new setting"), ("transfer", "new family")]
-    fig, axs = plt.subplots(len(scopes), len(methods), figsize=(WIDTH_IN, 4.75), sharey=True, squeeze=False)
+    fig, axs = plt.subplots(len(scopes), len(methods), figsize=(WIDTH_IN, 4.45), sharey=True, squeeze=False)
     letters = iter("abcdefghijkl")
     for i, (scope, sname) in enumerate(scopes):
         for j, m in enumerate(methods):
@@ -258,7 +258,7 @@ def fig_budget(src: Path) -> None:
     r = pd.read_csv(src / "budget_design.csv").replace([np.inf, -np.inf], np.nan)
     rels = [("sibling", "sibling produced"), ("interpolation", "interpolation"), ("extrapolation", "extrapolation")]
     kinds = [("resolution", "decisive"), ("safe", "safe")]
-    fig, axs = plt.subplots(2, 3, figsize=(WIDTH_IN, 3.4), sharex=True, sharey="row", squeeze=False)
+    fig, axs = plt.subplots(2, 3, figsize=(WIDTH_IN, 3.2), sharex=True, sharey="row", squeeze=False)
     letters = iter("abcdef")
     for i, (col, kname) in enumerate(kinds):
         for j, (rel, rname) in enumerate(rels):

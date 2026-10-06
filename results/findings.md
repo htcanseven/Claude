@@ -13,7 +13,7 @@ characteristic unless stated; "floors" means multiples of that characteristic's 
 The simulated review panel (`paper/review/cfp_panel/`, AI agents) led to three changes of the rules and to new
 analyses. The GP noise floor is now the variance between the series of one geometry and force. M3 and M3n (M4 in
 the code) use jackknife+ intervals. A scaled simulation rule M1s is added (13 rules in all). The manuscript
-(`paper/main.tex`, `paper/esm.tex`) reports these numbers.
+(`paper/main.tex`, a single file with its appendix) reports these numbers.
 
 **P1 Distances by relation** (decisive/safe, floors; one number for rules that always decide) [dec_resolution.csv]:
 
