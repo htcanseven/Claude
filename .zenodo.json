@@ -1,0 +1,37 @@
+{
+  "title": "Code, feature tables and results for \"Evaluating design-stage manufacturability decisions against the resolution of production\"",
+  "upload_type": "software",
+  "version": "3",
+  "language": "eng",
+  "description": "<p>Analysis pipeline, extracted feature tables and result files of the paper <em>Evaluating design-stage manufacturability decisions against the resolution of production</em> (H. T. Canseven, submitted to Research in Engineering Design, special collection AI in Design for Manufacturing). Version 3 holds exactly the code and results of the revision that answers the second-round decision.</p><p>The pipeline (<code>scripts/run_all.sh</code>) extracts seven quality characteristics from the 9,000 scanned parts of the Real Deep Drawing and Cutting dataset (RDDAC) and from the matched simulations of the Deep Drawing and Cutting Simulations dataset (DDACS), computes the production floor, scores fourteen design-stage decision rules by their decisive and safe distances for each evidence relation, and writes every table and figure of the paper. <code>results/findings.md</code> traces the numbers to the result files, and Table A5 of the paper maps every quoted number to its script and file. The raw datasets are not included; the scripts fetch them from DaRUS.</p>",
+  "creators": [
+    {
+      "name": "Canseven, Hüseyin Tayyer",
+      "affiliation": "LUT University"
+    }
+  ],
+  "keywords": [
+    "design for manufacturing",
+    "machine learning",
+    "design decision making",
+    "verification and validation",
+    "operating characteristic",
+    "deep drawing",
+    "production floor"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.18419/DARUS-5589",
+      "relation": "isDerivedFrom",
+      "scheme": "doi",
+      "resource_type": "dataset"
+    },
+    {
+      "identifier": "10.18419/DARUS-4801",
+      "relation": "isDerivedFrom",
+      "scheme": "doi",
+      "resource_type": "dataset"
+    }
+  ],
+  "notes": "Data sources: RDDAC version 2.0 (doi:10.18419/DARUS-5589) and DDACS version 3.0 (doi:10.18419/DARUS-4801), both CC BY 4.0. Python 3.11; package versions in requirements.txt."
+}

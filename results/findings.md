@@ -8,6 +8,54 @@ Every number below comes from the CSV named in brackets, written by `bash script
 4 cores from the cached feature tables). Distances and floors are in the units of each quality
 characteristic unless stated; "floors" means multiples of that characteristic's production floor.
 
+## Q Findings of the second review round (supersede Section P where they differ)
+
+The second round of the simulated panel (`paper/review/cfp_panel/round2/`, AI agents) led to one new rule, the
+force trend M1sn (14 rules in all, M6 a robustness variant), to scoring a new family in the produced family's floor,
+and to the guard band's prior being stated and varied. The manuscript (`paper/main.tex`) reports these numbers.
+
+**Q1 The force trend M1sn, the counterpart of M1s without the simulation** [dec_resolution.csv, dec_paired.csv,
+rob_refit_paired.csv, panel_sibling_strata.csv, panel_force_levels.csv, panel_decomposition.csv]: decisive distance
+3.5 floors with a sibling, 8.2 for a new setting (4.7 interpolated, 8.9 extrapolated), 131 for a new family.
+M1s − M1sn = +1.35 (+0.65 to +2.95) with a sibling and +11.0 (+5.3 to +13.8) for a new setting with the fits fixed,
++1.35 (+1.35 to +3.6) and +11.0 (+8.8 to +12.05) with refitting; M1s is never the more decisive. With two resolvable
+siblings: M1sn 4.45, M1s 4.6, NN 4.85 floors. By force: M1sn 8.85 at 100 and at 500 kN; NN 11.0 and 4.85. Within a
+family the rule explains 71 % and the relation 15 % with M1sn (68 and 15 % without). The simulation, offset or
+rescaled, adds no information within a family.
+
+**Q2 A new family in the produced family's floor** [panel_source_floor.csv, panel_source_floor_paired.csv]: M1 33,
+M2 41/26 (decisive 39–42, safe 9.8–32), M3 40/17 (36–45, 15–19), M5 35/31 (31–39, 28–32), Mc 43 floors; in the new
+family's own floor M2 51/16, M3 49/21, M5 38/28. The best rule is safe at 16–17 floors in either floor, but the
+safest is not resolved: M3 − M2 safe = −9.3 (−16.1 to +6.9) in the produced family's floor, M3 smaller in 83 % of
+resamples; +4.7 (−3.4 to +8.0) in the new family's, 25 %. Decomposition over all relations in the produced
+family's floor: relation 67 %, rule 6 % (69 and 6 % in the new family's own floor) [panel_decomposition.csv].
+
+**Q3 Guard bands and their prior** [panel_guard_priors.csv, panel_step6.csv]: the reference prior weights the 47
+grid distances within ±20 floors equally (87 % of the weight within ±10). Under it the nearest setting needs 0.25
+floors with a sibling, 2.0 interpolating and 7.0 extrapolating; M2 and M5 need 0.75 and 0.5 interpolating but send
+31 and 40 % to trial at 10 floors; M2 and M5 never qualify extrapolating, and no rule qualifies for a new family
+(cap 20 floors). Grid within ±5: nearest setting 2.0, 4.25 and 14.25. Uniform within ±20: 0, 0.25 and 3.5, with M2
+and M5 extrapolating at 6.0 and 5.0. Uniform within ±50: new family M2 6.25, M3 6.5, M5 15. Uncapped under the
+reference prior: M2 and M5 extrapolating 23.25 and 23.0; new family M2 41.75, M3 42.25, M5 42.25.
+
+**Q4 Capability-anchored requirements are a one-sided test** [panel_capability.csv]: at Ppk 1.33 the shares of
+right verdicts, false rejects and trials are 91/9/0 (nearest setting) and 44/2/53 % (M5) with a sibling, 65/35/0
+and 32/16/52 % for a new setting, and 81/19/0 and 79/21/0 % for M1s; for a new family no rule is right in more than
+54 % (M1).
+
+**Q5 Table 3 with consistent aggregates** [panel_floor_protocol.csv]: σLT, σb and σw pooled over the series as root
+mean squares; one floor is 0.7–1.7 σLT; σw < σLT in every row; series by series σw > σLT in 5 of 126 cases, by at
+most 0.3 %. Subgroups of five parts give floors 1.1–2.1 times the reference (median 1.3).
+
+**Q6 Coverage by relation** [dec_coverage.csv; new family computed in make_tables.py]: with a sibling 85–96 %;
+interpolated M2n and M5n 93 %, M2 and M5 71 %, M3 43 %, M3n 36 %; extrapolated 33–48 %; new family M2 47 %, M3 40 %,
+M2n and M5 12 %, M3n 7 %, M5n 0 %.
+
+**Q7 Other corrections**: short calibration series move no distance within a family by more than 1.5 floors and
+for a new family by at most 4.0 [rob_decisions.csv]; the surrogate scored as a rule decides at 108.65 against
+108.35 floors as M0 and 15.05 against 15.20 as M1 with a sibling [ds_surrogate_rule.csv]; distances in units are
+exact up to 0.05 pooled floors [panel_physical_units.csv].
+
 ## P Findings of the revision for the review panel (supersede Section R where they differ)
 
 The simulated review panel (`paper/review/cfp_panel/`, AI agents) led to three changes of the rules and to new
