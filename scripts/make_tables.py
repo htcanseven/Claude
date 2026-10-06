@@ -126,10 +126,10 @@ def t_floors() -> str:
     return table(rows, "Production floor per characteristic, pooled and per geometry, with its components",
                  "tab:floors", "lrrrrrrrr", head, colsep="2.0pt",
                  note=r"Batches of 50 consecutive parts, 95\,\% quantile of the difference of their 10\,\% trimmed "
-                      r"means; interval from 2000 resamples of batches within series. Ratios per geometry (concave/convex), "
+                      r"means; interval from 2000 batch resamples. Ratios per geometry (concave/convex), "
                       r"classical statistics pooled over the series as root mean squares: $\sigma_\mathrm{LT}$, standard "
                       r"deviation of the parts of a series; $\sigma_\mathrm{b}$, between batch means, corrected for "
-                      r"$\sigma_\mathrm{w}^2/50$; $\sigma_\mathrm{w}$, within batches. Drift: floor over the floor of "
+                      r"$\sigma_\mathrm{w}^2/50$; $\sigma_\mathrm{w}$, within batches. Drift: floor over that of "
                       r"randomly permuted series.")
 
 
