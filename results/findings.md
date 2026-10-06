@@ -54,7 +54,14 @@ M2n and M5 12 %, M3n 7 %, M5n 0 %.
 **Q7 Other corrections**: short calibration series move no distance within a family by more than 1.5 floors and
 for a new family by at most 4.0 [rob_decisions.csv]; the surrogate scored as a rule decides at 108.65 against
 108.35 floors as M0 and 15.05 against 15.20 as M1 with a sibling [ds_surrogate_rule.csv]; distances in units are
-exact up to 0.05 pooled floors [panel_physical_units.csv].
+exact up to 0.05 pooled floors [panel_physical_units.csv]. The Gaussian-process specifications move the decisive
+distances by at most 1.2 floors and the safe distances by at most 2.1 [rob_decisions.csv].
+
+**Q8 Cost comparison on the ISO 2768-1 scenario** (supersedes P8) [scen_cost_map.csv]: with a false reject at half
+the cost of a false accept, the cheapest rule is, with a produced sibling, the nearest setting, M1s and M1sn tied at
+zero cost; for a new setting, M1sn at every trial cost; for a new family, a trial of every design while a trial costs
+at most a tenth of a false accept, M2 at a fifth and M5 beyond. Only 32 of the scenario's 108 decisions lie within 5
+floors of the limit, 6 of them on failing alternatives [scen_strata.csv].
 
 ## P Findings of the revision for the review panel (supersede Section R where they differ)
 

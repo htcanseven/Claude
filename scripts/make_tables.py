@@ -210,6 +210,7 @@ def t_robust() -> str:
              ("floor with batch 50 and quantile 0.90", r"Floor: 90\,\% quantile"),
              ("floor with batch 50 and quantile 0.99", r"Floor: 99\,\% quantile"),
              ("calibration series of 50 parts", "Calibration: 50 parts"),
+             ("calibration series of 100 parts", "Calibration: 100 parts"),
              ("calibration series of 250 parts", "Calibration: 250 parts"),
              ("adequacy share 0.90", r"Conformance $p=0.90$"), ("adequacy share 0.99", r"Conformance $p=0.99$"),
              ("interval level 0.80", "Interval level 0.80"), ("interval level 0.95", "Interval level 0.95"),
@@ -313,7 +314,7 @@ def t_intervals() -> str:
                  note=rf"Cov: share of cases whose true $q_{{95}}$ lies in the interval (\%; nominal 90). HW: median "
                       rf"half-width (floors). Ctr: decisive distance of the interval centre used as a point rule (floors). "
                       rf"A new family in the floor of the produced family. The GP noise variance sits at its lower bound in "
-                      rf"{pct(bound[0])} and {pct(bound[1])}\,\% of the M5 and M5n fits with a sibling and in every other fit.")
+                      rf"{pct(bound[0])} and {pct(bound[1])}\,\% of the M5 and M5n fits with a sibling and in every new-setting and new-family fit.")
 
 TABLES = {"floors": t_floors, "distances": t_distances, "robust": t_robust, "step6": t_step6,
           "intervals": t_intervals}

@@ -402,6 +402,7 @@ def run_metadata(q: pd.DataFrame) -> pd.DataFrame:
                      "rise_first_150_K": float(np.nanmedian(T[140:150]) - np.nanmedian(T[:10])),
                      "rise_series_K": float(np.nanmedian(T[-10:]) - np.nanmedian(T[:10])),
                      "sheet_median_um": float(np.nanmedian(g["sheet_um"])),
+                     "oil_median_gm2": float(np.nanmedian(g["oil_gm2"])),
                      "stroke_speed_mm_s": float(np.nanmedian(g["v_form_mm_s"]))})
     return pd.DataFrame(rows)
 
