@@ -34,7 +34,7 @@ RIGHTS = f'© {YEAR} {AUTHORS}. All rights reserved.'
 JOBS = [
     ('incoming/Annotated_Table_of_Contents_v2.docx', 'to_send/Annotated_Table_of_Contents.docx',
      'This annotated table of contents', 4),   # after the title block
-    ('incoming/Chapter_1_final.docx', 'to_send/Chapter_1.docx',
+    ('Chapter_1_house_style.docx', 'to_send/Chapter_1.docx',
      'This draft chapter', 0),                 # the chapter opens straight into §1.1
 ]
 
@@ -72,6 +72,10 @@ def stamp(src, dst, what, after):
 
 
 if __name__ == '__main__':
+    import sys
+    only = sys.argv[1:]                        # e.g. 'chapter' or 'toc'; default both
     for src, dst, what, after in JOBS:
+        if only and not any(k in dst.lower() for k in only):
+            continue
         out = stamp(src, dst, what, after)
         print(f'{out}  {os.path.getsize(out) / 1024:.0f} kB   ({what.lower()})')
