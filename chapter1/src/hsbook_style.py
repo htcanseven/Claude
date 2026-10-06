@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import os
 import re
+import numpy as np
 import matplotlib
 
 matplotlib.use('Agg')
@@ -69,19 +70,21 @@ GREY = '#6e6e6e'
 CYCLE_COLOURS = [BLUE, RUST, GREEN, INK]
 CYCLE_STYLES = ['-', '--', '-.', ':']
 
-# Fills for illustrations: light, so labels and hatching stay legible on them.
+# Fills for illustrations: flat and light, so labels stay legible on them. No
+# hatching and no gradients: a cut is shown by the darker 'section' tone, a
+# laminated stack by thin lines across it (laminated()).
 FILL = dict(
-    housing='#f2f2ef',          # cast or fabricated housings, with cross-hatching
-    steel='#cfcfcf',            # shafts and solid steel parts
-    rotor='#a6a6a6',            # solid rotor bodies
-    lamination='#ffffff',       # laminated cores, shown by section hatching
+    housing='#f2f2ef',          # housings and casings seen from outside
+    section='#dcdcd6',          # housing walls where a section or cut-away cuts them
+    steel='#cfcfcf',            # shafts, discs and other solid steel parts
+    rotor='#a6a6a6',            # rotor active parts drawn as one body
+    lamination='#ffffff',       # laminated cores, with thin lines across the stack
     copper='#c9a227',           # windings and end windings
     coolant='#d7e4f0',          # cooling jackets and coolant
     oil='#f4e6d8',              # oil and lubrication equipment
     ground='#f5f5f5',           # floors, foundations
-    bearing='#ffffff',          # bearings, shown by section hatching
+    bearing='#ffffff',          # bearings and bearing stators
 )
-HATCH = dict(section_a='///', section_b='\\\\\\', housing='xx')
 
 LEADER = dict(arrowstyle='-', lw=LW_THIN, color=GREY, shrinkA=1, shrinkB=1)
 
@@ -135,6 +138,7 @@ def setup() -> str:
         'figure.dpi': 100, 'savefig.dpi': 600, 'savefig.bbox': None,
         'savefig.pad_inches': 0, 'savefig.facecolor': 'white',
         'svg.fonttype': 'none', 'pdf.fonttype': 42, 'ps.fonttype': 42,
+        'svg.hashsalt': 'hsbook',     # stable ids: an unchanged figure rewrites identically
         'figure.constrained_layout.use': False,
     })
     return RENDER_FONT
@@ -188,24 +192,49 @@ def panel_label(ax, text: str, y: float = -0.16):
     ax.text(0.5, y, text, transform=ax.transAxes, ha='center', va='top', fontsize=SIZE)
 
 
-def leader(ax, text: str, xy, xytext, **kw):
-    """A label joined to the part it names by a thin grey line without an arrowhead."""
+def leader(ax, text: str, xy, xytext, dot: bool = False, **kw):
+    """A label joined to the part it names by a thin grey line without an arrowhead.
+
+    A leader that ends inside a part, rather than on its outline, ends in a dot.
+    """
     opts = dict(fontsize=SIZE, color=INK, ha='center', va='center',
                 arrowprops=dict(LEADER), zorder=20)
     opts.update(kw)
+    if dot:
+        ax.plot(*xy, 'o', ms=2.6, mfc=GREY, mec='none', zorder=21)
     return ax.annotate(text, xy=xy, xytext=xytext, **opts)
+
+
+def laminated(ax, x0, x1, y0, y1, pitch: float = 0.12, z: float = 4, lw: float = LW_OUTLINE):
+    """A laminated stack seen from the side: white, with thin lines across it.
+
+    Coordinates are those of a canvas (cm); the lines run across the stack,
+    perpendicular to the shaft, one every `pitch` cm.
+    """
+    from matplotlib.patches import Rectangle
+    ax.add_patch(Rectangle((x0, y0), x1 - x0, y1 - y0, fc=FILL['lamination'], ec='none',
+                           zorder=z))
+    n = max(1, int(round((x1 - x0) / pitch)))
+    for x in x0 + (x1 - x0) * (0.5 + np.arange(n)) / n:
+        ax.plot([x, x], [y0, y1], color=GREY, lw=LW_THIN * 0.8, zorder=z + 0.1,
+                solid_capstyle='butt')
+    ax.add_patch(Rectangle((x0, y0), x1 - x0, y1 - y0, fc='none', ec=INK, lw=lw,
+                           zorder=z + 0.2))
 
 
 NNBSP = '\u202f'                # narrow no-break space, the thousands separator
 
 
 def number(v: float) -> str:
-    """A tick number in the house form: 0.5, 1, 1500, 30 000 (grouped from five digits)."""
+    """A tick number in the house form: 0.5, 1, 1500, 30 000 (grouped from five digits),
+    with a true minus sign."""
     if v == 0:
         return '0'
     if abs(v) >= 1e4 and float(v).is_integer():
-        return f'{int(round(v)):,}'.replace(',', NNBSP)
-    return f'{v:g}'
+        s = f'{int(round(v)):,}'.replace(',', NNBSP)
+    else:
+        s = f'{v:g}'
+    return s.replace('-', '\u2212')
 
 
 def plain_log(axis, ticks=None):
@@ -244,8 +273,9 @@ def save(fig, stem: str) -> str:
     if abs(w - W_IN) > 1e-6:
         raise ValueError(f'{stem}: width {w * 2.54:.2f} cm, house width is {W_CM} cm')
     os.makedirs(os.path.dirname(stem) or '.', exist_ok=True)
+    no_date = {'png': None, 'pdf': {'CreationDate': None}, 'svg': {'Date': None}}
     for ext in ('png', 'pdf', 'svg'):
-        fig.savefig(f'{stem}.{ext}')
+        fig.savefig(f'{stem}.{ext}', metadata=no_date[ext])
     # In the SVG the labels stay text; name the house font first so the file opens
     # in Times New Roman, with the substitute it was laid out in as fallback.
     svg = open(f'{stem}.svg', encoding='utf-8').read()

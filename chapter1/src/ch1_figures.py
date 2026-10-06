@@ -4,8 +4,9 @@ Each figure is built at the full text width with all text at the body size, so
 it is inserted in the manuscript at 100 % and prints exactly as drawn.
 
 usage:  python3 src/ch1_figures.py [1.1 1.3 ...]      (run from chapter1/)
-Writes figures/ch1/fig_1_NN.{png,pdf,svg}.  Figure 1.4 is the authors' MATLAB
-rotor model and is restyled with src/hsbook_style.m from its own data.
+Writes figures/ch1/fig_1_NN.{png,pdf,svg}.  Figure 1.4 plots the mode shapes in
+data/fig_1_04_modes.csv, traced from the authors' MATLAB figure by
+src/trace_fig_1_04.py until the model's own output replaces them.
 """
 import sys
 import numpy as np
@@ -14,7 +15,7 @@ from matplotlib.patches import Polygon, Rectangle, FancyBboxPatch, Ellipse, Fanc
 
 sys.path.insert(0, 'src')
 import hsbook_style as hs
-from hsbook_style import INK, BLUE, RUST, GREEN, GREY, FILL, HATCH, SIZE
+from hsbook_style import INK, BLUE, RUST, GREEN, GREY, FILL, SIZE
 
 hs.setup()
 OUT = 'figures/ch1/fig_'
@@ -70,6 +71,81 @@ def stress_vs_tipspeed():
     ax.set_xlim(0, 350); ax.set_ylim(0, 700)
     ax.set_xlabel(hs.label('Peripheral speed', 'v_tip', 'm/s'))
     ax.set_ylabel(hs.label('Maximum tangential stress', None, 'MPa'))
+    return f
+
+
+# ───────────────────────────────────────────────────────────────── Fig. 1.4
+# The rotor of the authors' model as the original MATLAB figure draws it, read
+# off that figure at its own scale (z along the rotor from the NDE, r radius, m).
+R_SHAFT = [(0.000, 0.103, 0.031), (0.103, 0.155, 0.057), (0.155, 0.172, 0.065),
+           (0.172, 0.191, 0.069), (0.191, 0.331, 0.070), (0.331, 0.369, 0.085),
+           (0.369, 0.409, 0.088), (0.409, 0.430, 0.121), (0.430, 0.993, 0.043),
+           (0.993, 1.014, 0.121), (1.014, 1.053, 0.088), (1.053, 1.092, 0.085),
+           (1.092, 1.437, 0.070), (1.437, 1.508, 0.057), (1.508, 1.516, 0.040),
+           (1.516, 1.565, 0.057), (1.565, 1.582, 0.064), (1.598, 1.618, 0.061),
+           (1.618, 1.661, 0.057), (1.661, 1.678, 0.0236), (1.678, 1.765, 0.0195),
+           (1.765, 1.781, 0.0227), (1.781, 1.796, 0.085), (1.796, 2.041, 0.067),
+           (2.041, 2.111, 0.057), (2.111, 2.141, 0.035)]
+R_AMB = [(0.191, 0.331, 0.085), (1.092, 1.412, 0.085), (1.796, 2.008, 0.085)]  # laminated sleeves
+R_ACTIVE = (0.430, 0.993, 0.128)
+R_DISCS = [(0.000, 0.103, 0.044), (0.054, 0.066, 0.090), (0.102, 0.112, 0.067),
+           (0.172, 0.191, 0.087), (1.412, 1.432, 0.087), (1.582, 1.598, 0.084),
+           (2.008, 2.030, 0.087), (2.112, 2.132, 0.150)]
+Z_ACTUATOR = (0.290, 1.313, 1.930)          # radial AMB actuator planes in the model
+MODE_FREQ = (55.9, 293, 590.1, 905.8)       # Hz
+
+
+@fig('1.4')
+def rotor_modes():
+    """The rotor drawn to scale above its first four bending mode shapes, which
+    share its axial scale, so each deflection sits under the part it belongs to.
+    The curves were traced from the original MATLAB figure (src/trace_fig_1_04.py)."""
+    data = np.genfromtxt('data/fig_1_04_modes.csv', delimiter=',', skip_header=3, names=True)
+    H, L, R = 9.15, 1.30, 0.25                  # canvas height; graph margins (cm)
+    zmin, zmax = -0.03, 2.17
+    S = (hs.W_CM - L - R) / (zmax - zmin)       # cm per metre, both drawing and graph
+    gb, gh = 1.30, 4.55                          # graph bottom and height (cm)
+    ya = gb + gh + 0.32 + 0.150 * S              # rotor axis
+    f, ax = hs.canvas(H)
+    X = lambda z: L + (z - zmin) * S
+
+    def body(z0, z1, r, fc, z=3, lw=hs.LW_OUTLINE):
+        ax.add_patch(Rectangle((X(z0), ya - r * S), (z1 - z0) * S, 2 * r * S, fc=fc, ec=INK,
+                               lw=lw, zorder=z))
+
+    for z0, z1, r in R_SHAFT:
+        body(z0, z1, r, FILL['steel'])
+    for z0, z1, r in R_DISCS:
+        body(z0, z1, r, FILL['steel'], z=4, lw=hs.LW_THIN * 1.4)
+    for z0, z1, r in R_AMB:
+        hs.laminated(ax, X(z0), X(z1), ya - r * S, ya + r * S, pitch=0.11, z=4)
+    body(*R_ACTIVE, FILL['rotor'], z=4)
+    ax.plot([X(-0.02), X(2.16)], [ya, ya], color=GREY, lw=hs.LW_THIN,
+            ls=(0, (9, 2.5, 1.5, 2.5)), zorder=6)
+
+    yl = ya + 0.150 * S + 0.55                   # the row of labels
+    for z, dx in zip(Z_ACTUATOR, (0, 0, -0.70)):    # the DE label kept clear of 'DE'
+        hs.leader(ax, 'radial AMB', xy=(X(z), ya + 0.085 * S), xytext=(X(z) + dx, yl))
+    hs.leader(ax, 'active part', xy=(X(0.71), ya + 0.128 * S), xytext=(X(0.71), yl))
+    ax.text(X(0.0), yl, 'NDE', ha='center', va='center')
+    ax.text(X(2.122), yl, 'DE', ha='center', va='center')
+
+    g = f.add_axes((L / hs.W_CM, gb / H, (hs.W_CM - L - R) / hs.W_CM, gh / H))
+    for z in Z_ACTUATOR:                         # bearing planes, from the AMB down
+        g.axvline(z, color=GREY, lw=hs.LW_THIN, zorder=1)
+        ax.plot([X(z), X(z)], [gb + gh, ya - 0.085 * S], color=GREY, lw=hs.LW_THIN, zorder=2)
+    g.axhline(0, color=INK, lw=hs.LW_THIN, zorder=1)
+    for k, (col, ls) in enumerate(zip(hs.CYCLE_COLOURS, hs.CYCLE_STYLES)):
+        g.plot(data['z_m'], data[f'mode{k + 1}'], color=col, ls=ls,
+               label=f'mode {k + 1}, $f$ = {MODE_FREQ[k]:g} Hz')
+    g.legend(loc='lower center', ncols=2, bbox_to_anchor=(0.41, 0.0), columnspacing=1.6)
+    g.set_xlim(zmin, zmax); g.set_ylim(-1.18, 1.18)
+    g.set_xticks([0, 0.5, 1, 1.5, 2]); g.set_yticks([-1, -0.5, 0, 0.5, 1])
+    g.xaxis.set_minor_locator(plt.MultipleLocator(0.1))
+    g.xaxis.set_major_formatter(plt.FuncFormatter(lambda v, _: hs.number(v)))
+    g.yaxis.set_major_formatter(plt.FuncFormatter(lambda v, _: hs.number(v)))
+    g.set_xlabel(hs.label('Axial position', 'z', 'm'))
+    g.set_ylabel('Normalised deflection')
     return f
 
 
@@ -254,16 +330,17 @@ def geared_vs_directdrive():
     """(a) The geared train in elevation: finned motor, a closed gearbox (no gearing
     shown, so nothing can be drawn facing the wrong way), a compressor with bearing
     pedestal, volute, axial inlet and discharge, and below the floor the lubrication
-    skid with tank, pump and oil cooler. (b) The integrated unit in axial section:
-    radial AMBs inside the housing, the impeller overhung outboard of the drive end.
-    Drawn in centimetres of the printed page."""
+    skid with tank, pump and oil cooler. (b) The same compressor flanged onto a
+    high-speed motor, drawn in the same manner with the upper half in section: the
+    AMBs, the motor and the impeller on the motor shaft are seen inside, and the
+    floor below is empty. Drawn in centimetres of the printed page."""
     H, DA = 17.0, 0.30                       # canvas height; lift of panel (a)
     f, ax = hs.canvas(H)
     OL = dict(ec=INK, lw=hs.LW_OUTLINE)
 
-    def rect(x0, x1, y0, y1, fc, z=3, hatch=None, **kw):
+    def rect(x0, x1, y0, y1, fc, z=3, **kw):
         o = dict(OL); o.update(kw)
-        ax.add_patch(Rectangle((x0, y0), x1 - x0, y1 - y0, fc=fc, hatch=hatch, zorder=z, **o))
+        ax.add_patch(Rectangle((x0, y0), x1 - x0, y1 - y0, fc=fc, zorder=z, **o))
 
     def rrect(x0, x1, y0, y1, fc, r=0.15, z=3, **kw):
         o = dict(OL); o.update(kw)
@@ -356,54 +433,121 @@ def geared_vs_directdrive():
     hs.leader(ax, 'coupling', xy=(9.51, yc + 0.36), xytext=(9.51, a(15.85)))
     ax.text(7.96, a(8.40), '(a) Geared train', ha='center', va='center')
 
-    # ═══════════════════════════════════ (b) integrated direct drive, section ══
-    yb = 4.35
-    ax.plot([0.45, 13.25], [yb, yb], color=GREY, lw=hs.LW_THIN, ls=(0, (9, 2.5, 1.5, 2.5)), z=1) \
-        if False else ax.plot([0.45, 13.25], [yb, yb], color=GREY, lw=hs.LW_THIN,
-                              ls=(0, (9, 2.5, 1.5, 2.5)), zorder=1)
-    x0, x1, Hh, w = 1.50, 11.00, 2.35, 0.30
-    for sg in (1, -1):
-        ax.add_patch(Polygon([(x0, yb + sg * 0.50), (x0, yb + sg * Hh), (x1, yb + sg * Hh),
-                              (x1, yb + sg * 0.50), (x1 - w, yb + sg * 0.50),
-                              (x1 - w, yb + sg * (Hh - w)), (x0 + w, yb + sg * (Hh - w)),
-                              (x0 + w, yb + sg * 0.50)], closed=True, fc=FILL['housing'],
-                             hatch=HATCH['housing'], ec=INK, lw=hs.LW_OUTLINE, zorder=3))
+    # ═══════════════════════════════════ (b) integrated direct drive ═══════════
+    # The compressor of (a), unchanged, now flanged straight onto a high-speed motor.
+    # Upper half in section, lower half seen from outside, as a drafter draws a
+    # half section; below the floor nothing is left, because the oil system is gone.
+    FB, yb = 1.95, 4.25                                   # floor and shaft line of (b)
+    u = lambda r: yb + r                                  # height of radius r above the shaft line
+    X0, XD, R, T = 6.42, 11.25, 1.15, 0.12                # motor: NDE face, DE flange, radius, wall
+    rect(0.15, 15.77, 0.85, FB, FILL['ground'], z=0, ec='none')
+    ax.plot([0.15, 15.77], [FB, FB], color=INK, lw=hs.LW_OUTLINE * 1.3, zorder=1)
+    rect(6.05, 14.60, FB, FB + 0.32, FILL['steel'], z=2)              # baseplate
+    ax.text(15.60, FB - 0.32, 'machine floor', ha='right', va='center')
 
-        def band(xa, xb, r0, r1, fc, z=5, hatch=None, lw=hs.LW_OUTLINE):
-            lo = yb + r0 if sg > 0 else yb - r1
-            ax.add_patch(Rectangle((xa, lo), xb - xa, r1 - r0, fc=fc, hatch=hatch, ec=INK,
-                                   lw=lw, zorder=z))
-        band(4.55, 7.95, 1.85, 2.05, FILL['coolant'], lw=hs.LW_THIN)      # cooling jacket
-        band(4.75, 7.75, 1.25, 1.85, FILL['lamination'], hatch=HATCH['section_a'])  # stator
-        band(4.90, 7.60, 0.32, 1.12, FILL['rotor'])                       # solid rotor
-        for xa in (2.35, 8.95):                                           # radial AMBs
-            band(xa, xa + 1.20, 0.72, 1.42, FILL['bearing'], hatch=HATCH['section_b'])
-            band(xa + 0.08, xa + 1.12, 0.32, 0.62, '#dedede', lw=hs.LW_THIN)
-        for xa in (1.85, 10.35):                                          # touchdown bearings
-            band(xa, xa + 0.30, 0.32, 0.55, '#e3b4a3', z=6, lw=hs.LW_THIN)
-        for xa in (4.30, 7.75):                                           # end windings
-            lo = yb + 1.32 if sg > 0 else yb - 1.78
-            ax.add_patch(FancyBboxPatch((xa, lo), 0.45, 0.46, fc=FILL['copper'], ec=INK,
-                                        lw=hs.LW_THIN, zorder=6,
-                                        boxstyle='round,pad=0,rounding_size=0.14'))
-        ax.add_patch(Polygon([(11.25, yb + sg * 0.33), (12.30, yb + sg * 1.80),
-                              (12.58, yb + sg * 1.58), (11.62, yb + sg * 0.30)],
-                             fc=BLUE, ec=INK, lw=hs.LW_THIN, zorder=6))   # impeller blades
-        ax.add_patch(Polygon([(11.22, yb + sg * 0.24), (11.98, yb + sg * 1.02),
-                              (12.24, yb + sg * 0.84), (11.50, yb + sg * 0.20)],
-                             fc='#5a7fa3', ec=INK, lw=hs.LW_THIN, zorder=6))
-    rect(0.90, 12.60, yb - 0.32, yb + 0.32, FILL['steel'], z=4)            # shaft
-    ax.text(6.25, yb + 0.72, 'solid rotor', ha='center', va='center', zorder=8)
+    def fill(pts, fc, z, edges=None):
+        """A filled outline in (x, radius) whose ink edge leaves out the shaft line."""
+        ax.add_patch(Polygon([(x, u(r)) for x, r in pts], closed=True, fc=fc, ec='none',
+                             zorder=z))
+        for run in edges if edges is not None else [pts]:
+            ax.plot([x for x, r in run], [u(r) for x, r in run], color=INK,
+                    lw=hs.LW_OUTLINE, zorder=z + 0.05, solid_joinstyle='miter')
 
-    hs.leader(ax, 'end winding', xy=(4.50, yb + 1.78), xytext=(2.90, 7.40))
-    hs.leader(ax, 'cooling jacket', xy=(6.25, yb + 2.05), xytext=(6.25, 7.40))
-    hs.leader(ax, 'stator core', xy=(7.35, yb + 1.70), xytext=(9.40, 7.40))
-    hs.leader(ax, 'impeller, overhung on the\nshaft end, outboard of the\ndrive-end bearing',
-              xy=(12.20, yb + 1.45), xytext=(13.65, 7.15), linespacing=1.1)
-    for xc in (2.95, 9.55):
-        hs.leader(ax, 'radial AMB', xy=(xc, yb - 1.42), xytext=(xc, 1.30))
-    hs.leader(ax, 'touchdown bearing', xy=(10.50, yb - 0.55), xytext=(13.30, 1.30))
-    ax.text(7.96, 0.45, '(b) Integrated direct drive, axial section', ha='center', va='center')
+    def half(x0, x1, r0, r1, fc, z):
+        """A rectangle standing on the shaft line (r0 = 0) or hanging from it (r1 = 0)."""
+        on = r0 if r1 == 0 else r1
+        fill([(x0, r0), (x0, r1), (x1, r1), (x1, r0)], fc, z,
+             [[(x0, 0), (x0, on), (x1, on), (x1, 0)]])
+
+    # motor, lower half from outside: housing with its end-shield joints, DE flange, feet
+    for x0 in (6.80, 10.20):
+        rect(x0, x0 + 0.70, FB + 0.32, u(-R) + 0.02, FILL['housing'], z=2)
+    half(X0, XD, -R, 0, FILL['housing'], 3)
+    half(XD, 11.37, -1.30, 0, FILL['housing'], 3)
+    for x in (8.10, 10.20):
+        ax.plot([x, x], [u(-R), yb], color=INK, lw=hs.LW_THIN, zorder=3.5)
+
+    # motor, upper half in section: housing and end shields cut, the parts inside
+    fill([(X0, 0), (X0, R), (XD, R), (XD, 1.30), (11.37, 1.30), (11.37, 0)], FILL['section'], 3)
+    cav = [(X0 + 0.14, 0), (X0 + 0.14, R - T), (11.08, R - T), (11.08, 0.20), (11.37, 0.20)]
+    fill(cav + [(11.37, 0)], 'white', 3.2, [cav])
+    rect(X0 + 0.14, 8.10, u(0.80), u(R - T), FILL['section'], z=4)    # end shields
+    rect(10.20, 11.08, u(0.80), u(R - T), FILL['section'], z=4)
+    rect(6.62, 6.82, u(0.34), u(0.80), FILL['section'], z=4)          # touchdown bearing seats
+    rect(10.84, 11.08, u(0.34), u(0.80), FILL['section'], z=4)
+    half(6.58, 12.02, 0, 0.16, FILL['steel'], 4.6)                    # shaft
+    for x0 in (6.64, 10.88):                                          # touchdown bearings
+        rect(x0, x0 + 0.16, u(0.16), u(0.34), FILL['bearing'], z=5)
+        ax.add_patch(plt.Circle((x0 + 0.08, u(0.25)), 0.055, fc='white', ec=INK,
+                                lw=hs.LW_THIN, zorder=5.2))
+    for x0 in (6.88, 7.28):                                           # axial AMB stators
+        rect(x0, x0 + 0.22, u(0.24), u(0.80), FILL['bearing'], z=5)
+    for x0 in (6.98, 7.28):
+        rect(x0, x0 + 0.12, u(0.40), u(0.62), FILL['copper'], z=5.3, lw=hs.LW_THIN)
+    rect(7.14, 7.24, u(0.16), u(0.72), FILL['steel'], z=5)            # thrust disc
+    for xa in (7.62, 10.30):                                          # radial AMBs
+        hs.laminated(ax, xa, xa + 0.40, u(0.27), u(0.80), pitch=0.08, z=5)
+        for xc in (xa - 0.06, xa + 0.40):
+            rect(xc, xc + 0.06, u(0.36), u(0.66), FILL['copper'], z=5.4, lw=hs.LW_THIN)
+        hs.laminated(ax, xa - 0.04, xa + 0.44, u(0.16), u(0.23), pitch=0.08, z=5)
+    rect(8.18, 10.12, u(0.90), u(R - T), FILL['coolant'], z=4.2, lw=hs.LW_THIN)
+    for x in np.linspace(8.18, 10.12, 8)[1:-1]:                       # cooling channels
+        ax.plot([x, x], [u(0.90), u(R - T)], color=INK, lw=hs.LW_THIN, zorder=4.3)
+    hs.laminated(ax, 8.40, 9.90, u(0.52), u(0.90), pitch=0.10, z=5)   # stator core
+    for x0 in (8.12, 9.90):                                           # end windings
+        rrect(x0, x0 + 0.28, u(0.56), u(0.84), FILL['copper'], r=0.08, z=5.3, lw=hs.LW_THIN)
+    half(8.35, 9.95, 0, 0.47, FILL['rotor'], 5)                       # rotor
+    ax.text(9.15, u(0.235), 'rotor', ha='center', va='center', zorder=8)
+
+    # compressor, the same as in (a): support, volute, discharge, inlet
+    rect(11.55, 12.55, FB + 0.32, u(-1.65), FILL['housing'])          # volute support
+    for fc, y0, h in ((FILL['housing'], 0, yb), (FILL['section'], yb, 10)):
+        v = FancyBboxPatch((11.37, u(-1.70)), 1.40, 3.40, fc=fc, ec=INK, lw=hs.LW_OUTLINE,
+                           zorder=4, boxstyle='round,pad=0,rounding_size=0.55')
+        ax.add_patch(v)
+        v.set_clip_path(Rectangle((0, y0), hs.W_CM, h, transform=ax.transData))
+    rect(11.62, 12.52, u(1.62), u(2.05), FILL['housing'], z=4)        # discharge
+    rect(11.47, 12.67, u(2.05), u(2.20), FILL['housing'], z=4)
+    half(12.77, 14.10, -0.55, 0, FILL['housing'], 4)                  # inlet pipe and flange
+    half(14.10, 14.27, -0.78, 0, FILL['housing'], 4)
+    half(12.77, 14.10, 0, 0.55, FILL['section'], 4)
+    half(14.10, 14.27, 0, 0.78, FILL['section'], 4)
+    ax.add_patch(FancyArrowPatch((15.55, yb), (14.45, yb), arrowstyle='-|>',
+                                 mutation_scale=12, lw=1.2, color=INK, zorder=5))
+    # inside the volute: scroll, diffuser, the cavity round the impeller, the inlet
+    sx, sr, so = 11.82, 1.28, 0.30                                    # scroll centre and radius
+    ax.add_patch(plt.Circle((sx, u(sr)), so, fc='white', ec=INK, lw=hs.LW_OUTLINE, zorder=5))
+    gap = [(11.50, 0.19), (11.50, 0.90), (11.60, 0.90)]
+    shroud = [(11.74, 0.90), (11.74, 0.80), (11.78, 0.69), (11.86, 0.61), (11.95, 0.575),
+              (12.08, 0.565), (12.40, 0.53), (12.77, 0.47), (14.27, 0.47)]
+    fill(gap + shroud + [(14.27, 0), (11.37, 0), (11.37, 0.19)], 'white', 5, [gap, shroud])
+    meet = lambda x: sr - np.sqrt(so ** 2 - (x - sx) ** 2)            # diffuser wall meets scroll
+    fill([(11.60, 0.86), (11.60, 1.12), (11.74, 1.12), (11.74, 0.86)], 'white', 5.1,
+         [[(11.60, 0.90), (11.60, meet(11.60))], [(11.74, 0.90), (11.74, meet(11.74))]])
+    half(11.37, 12.05, 0, 0.16, FILL['steel'], 5.2)                   # shaft end
+    imp = [(11.56, 0.16), (11.56, 0.86), (11.68, 0.86), (11.70, 0.76), (11.75, 0.66),
+           (11.83, 0.58), (11.93, 0.535), (12.05, 0.52), (12.05, 0.16)]
+    fill(imp, FILL['steel'], 5.5, [imp + [imp[0]]])
+    ax.plot([12.05, 11.90, 11.76, 11.66, 11.605, 11.59],
+            [u(0.22), u(0.25), u(0.33), u(0.47), u(0.66), u(0.86)], color=INK,
+            lw=hs.LW_THIN, zorder=5.6)                                # hub line under the blades
+    half(12.05, 12.15, 0, 0.13, FILL['steel'], 5.5)                   # impeller nut
+    ax.plot([6.07, 14.45], [yb, yb], color=GREY, lw=hs.LW_THIN, ls=(0, (9, 2.5, 1.5, 2.5)),
+            zorder=15)
+
+    # labels: names and speeds above, as in (a); the parts inside by leaders
+    yr, yn = u(2.55), u(2.95)
+    hs.leader(ax, 'radial AMB', xy=(7.82, u(0.66)), xytext=(7.40, yr), dot=True)
+    hs.leader(ax, 'stator', xy=(9.15, u(0.74)), xytext=(9.15, yr), dot=True)
+    hs.leader(ax, 'radial AMB', xy=(10.50, u(0.66)), xytext=(10.90, yr), dot=True)
+    hs.leader(ax, 'axial AMB', xy=(6.99, u(0.70)), xytext=(5.45, u(1.30)), dot=True, ha='right')
+    hs.leader(ax, 'touchdown bearing', xy=(6.66, u(0.30)), xytext=(5.45, u(0.30)), dot=True,
+              ha='right')
+    hs.leader(ax, 'impeller, on the\nmotor shaft', xy=(11.86, u(0.56)), xytext=(14.40, u(1.40)),
+              dot=True, linespacing=1.1)
+    ax.text(8.90, yn, 'high-speed motor\n30 000 r/min', ha='center', va='bottom', linespacing=1.1)
+    ax.text(13.90, yn, 'compressor\n30 000 r/min', ha='center', va='bottom', linespacing=1.1)
+    ax.text(7.96, 0.45, '(b) Integrated direct drive', ha='center', va='center')
     return f
 
 if __name__ == '__main__':

@@ -46,24 +46,30 @@ The publisher will rescale the book to its own trim size. Because every figure i
 
 ## 4. Illustrations
 
-- **Two-dimensional engineering drawings only**: an elevation or a section, drawn as a drafter would draw it. No perspective, no 3-D rendering, no shading gradients, no photorealism. No AI-generated imagery (see §8).
-- **Line weights**: part outlines 1.0 pt; leader, centre and dimension lines 0.5 pt; hatching 0.4 pt.
-- **Sections**: cut material is hatched at 45°. Adjacent parts are hatched in opposite directions, and cast or fabricated housings are cross-hatched. Surfaces seen in elevation are never hatched.
-- **Centre lines**: thin, grey, dash-dot.
-- **Labels**: horizontal, sentence case, 11 pt. Each label is joined to its part by a thin grey leader line *without* an arrowhead. Arrows are kept for flow, motion and dimensions.
-- **Fills** come from one material palette, light enough for labels and hatching to stay legible:
+Figure 1.2 is the reference. Both of its panels are drawn the same way, and every illustration in the book should look as if the same hand drew it.
 
-  | Material | Fill | Shown with |
-  |---|---|---|
-  | Housing, casing | #f2f2ef | cross-hatching in section |
-  | Shaft, solid steel | #cfcfcf | — |
-  | Solid rotor body | #a6a6a6 | — |
-  | Laminated core | white | 45° section hatching |
-  | Bearings, AMBs | white | opposite 45° hatching |
-  | Windings | #c9a227 | — |
-  | Coolant, cooling jacket | #d7e4f0 | — |
-  | Oil, lubrication | #f4e6d8 | — |
-  | Floor, foundation | #f5f5f5 | — |
+- **Two-dimensional engineering drawings only**: an elevation, a half section or a section, drawn as a drafter would draw it. No perspective, no 3-D rendering, no shading gradients, no photorealism. No AI-generated imagery (see §8).
+- **Flat fills, no hatching.** Every part is drawn as a flat, light fill from the palette below, with an ink outline. Nothing is hatched.
+- **Showing the inside**: draw a *half section*. The upper half is cut and the lower half is seen from outside, with the centre line between them. Cut housing walls take the darker *section* tone. Shafts, rotors and other solid parts on the axis are never cut. A laminated stack is shown by thin grey lines across it, perpendicular to the shaft.
+- **Machines in their setting** stand on a floor: a heavy floor line with a light band below it and a baseplate above it, as in Figure 1.2. Anything below floor level, such as an oil skid, is drawn in that band.
+- **Line weights**: part outlines 1.0 pt. Leader lines, centre lines, dimension lines, lamination lines and small details 0.5 pt.
+- **Centre lines**: thin, grey, dash-dot.
+- **Labels**: horizontal, sentence case, 11 pt. Main units are named above them, with the speed under the name where it matters ("compressor / 30 000 r/min"). Every other label is joined to its part by a thin grey leader line *without* an arrowhead. A leader that ends inside a part ends in a small dot. Arrows are kept for flow, motion and dimensions.
+- **Scale**: where the scale carries meaning, keep it. A rotor drawn above its mode shapes shares their axial scale (Figure 1.4).
+- **Fills** come from one material palette, light enough for labels to stay legible:
+
+  | Material | Fill |
+  |---|---|
+  | Housing, casing, seen from outside | #f2f2ef |
+  | Housing wall where a section cuts it | #dcdcd6 |
+  | Shaft, disc, solid steel | #cfcfcf |
+  | Rotor active part, drawn as one body | #a6a6a6 |
+  | Laminated core | white, with thin grey lines across the stack |
+  | Bearings, AMB stators | white |
+  | Windings | #c9a227 |
+  | Coolant, cooling jacket | #d7e4f0 |
+  | Oil, lubrication | #f4e6d8 |
+  | Floor, foundation | #f5f5f5 |
 
 ## 5. Colour and greyscale
 
@@ -118,6 +124,8 @@ ax.set_ylabel(hs.label('Loss', 'P_loss', 'kW'))
 hs.save(fig, 'figures/fig_4_07')   # .png, .pdf and .svg
 
 fig, ax = hs.canvas(12.0)          # an illustration, in cm
+hs.laminated(ax, 2.0, 5.0, 3.1, 4.2)          # a laminated stack
+hs.leader(ax, 'stator', (3.5, 3.6), (3.5, 6.0), dot=True)
 ```
 
 **MATLAB.** `hsbook_style.m` takes a finished figure and puts it into this style: width, font, size, line weights, ticks, grid, series colours and styles, no title, no legend box. It then exports it at exactly that size.
@@ -138,7 +146,7 @@ The MATLAB function was written without access to MATLAB. Check the first figure
 2. All text in figures and tables is Times New Roman 11 pt, with symbols in italic.
 3. No titles inside figures; panels lettered (a), (b) below the panels.
 4. Every graph reads in greyscale.
-5. Illustrations are 2-D drawings, with no AI imagery and no photorealism.
+5. Illustrations are 2-D drawings in flat fills from the palette, with no hatching, no AI imagery and no photorealism.
 6. Tables use *HS Book Table*, with the caption above.
 7. Captions use *Caption*, labels "Figure c.n." and "Table c.n." in bold.
 8. Units in SI, r/min not rpm, × not x, thin space in 30 000.

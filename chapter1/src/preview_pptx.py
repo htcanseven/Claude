@@ -12,12 +12,14 @@ import sys
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from matplotlib.patches import Rectangle, Polygon, FancyBboxPatch
+from matplotlib.patches import Rectangle, Polygon, FancyBboxPatch, Ellipse
 from pptx import Presentation
 from pptx.enum.shapes import MSO_SHAPE_TYPE
 from pptx.oxml.ns import qn
 
 EMU = 914400.0
+_names = {f.name for f in matplotlib.font_manager.fontManager.ttflist}
+SERIF = next((n for n in ('Times New Roman', 'Liberation Serif') if n in _names), 'serif')
 PAT = {'ltUpDiag': '///', 'ltDnDiag': '\\\\\\', 'diagCross': 'xx'}
 DASH = {'dashDot': (0, (9, 3, 1.5, 3)), 'dash': (0, (5, 3)), 'sysDot': (0, (1, 2))}
 
@@ -107,10 +109,16 @@ def render(path, out):
             x0, x1 = (x + w, x) if flipH else (x, x + w)
             y0, y1 = (y + h, y) if flipV else (y, y + h)
             ax.plot([x0, x1], [y0, y1], color=ec, lw=lw, ls=dash or '-')
+            if spPr.find(qn('a:ln')).find(qn('a:tailEnd')) is not None:      # arrowhead
+                ax.annotate('', xy=(x1, y1), xytext=(x0 + 0.9 * (x1 - x0), y0 + 0.9 * (y1 - y0)),
+                            arrowprops=dict(arrowstyle='-|>', color=ec, lw=lw,
+                                            mutation_scale=8 + 2 * lw))
         elif prst is not None and prst.get('prst') == 'roundRect':
             ax.add_patch(FancyBboxPatch((x + h * .12, y + h * .12), w - h * .24, h - h * .24,
                                         boxstyle=f'round,pad={h * .12:.4f}',
                                         fc=fc, ec=ec, lw=lw, hatch=hatch))
+        elif prst is not None and prst.get('prst') == 'ellipse':
+            ax.add_patch(Ellipse((x + w / 2, y + h / 2), w, h, fc=fc, ec=ec, lw=lw))
         elif prst is not None:
             ax.add_patch(Rectangle((x, y), w, h, fc=fc, ec=ec, lw=lw, hatch=hatch))
 
@@ -120,7 +128,7 @@ def render(path, out):
             paras = [p for p in tf.paragraphs]
             r0 = paras[0].runs[0]
             fs = r0.font.size.pt if r0.font.size else 10
-            ha = {None: 'left', 1: 'center', 2: 'right', 3: 'left'}.get(
+            ha = {1: 'left', 2: 'center', 3: 'right'}.get(       # PP_ALIGN values
                 paras[0].alignment and paras[0].alignment.value or None, 'left')
             va = {'t': 'top', 'ctr': 'center', 'b': 'bottom'}[anch]
             tx = {'left': x, 'center': x + w / 2, 'right': x + w}[ha]
@@ -130,7 +138,7 @@ def render(path, out):
                     color=str(r0.font.color.rgb) and '#' + str(r0.font.color.rgb),
                     fontweight='bold' if r0.font.bold else 'normal',
                     style='italic' if r0.font.italic else 'normal',
-                    family='serif',
+                    family=SERIF,
                     linespacing=(paras[0].line_spacing.pt / fs
                                  if hasattr(paras[0].line_spacing, 'pt') else 1.2))
 

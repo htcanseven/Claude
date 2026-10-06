@@ -2,8 +2,8 @@
 
 The document doubles as the Word template for contributors: it defines the
 Caption paragraph style and the HS Book Table table style, its own tables are
-set in that table style, and it ends with an example figure and caption taken
-from Chapter 1.
+set in that table style, and it ends with two examples from Chapter 1, a graph
+and an illustration, each with its caption as it stands in the chapter.
 
 usage:  python3 src/make_style_guide.py      (run from chapter1/)
 """
@@ -20,10 +20,16 @@ from apply_house_style import add_styles, house_table, child, ppr, rpr, q, TEXT_
 SRC, DST = 'House_Style.md', 'House_Style.docx'
 TNR = 'Times New Roman'
 INK = RGBColor(0x1a, 0x1a, 0x1a)
-EXAMPLE_FIG = 'figures/ch1/fig_1_05.png'
-EXAMPLE_CAP = ('Figure 1.5.', ' Loss components against rotational speed at fixed machine geometry: '
-               'copper loss approximately constant, iron loss rising roughly with the square of '
-               'speed and windage with its cube. The loss values are illustrative.')
+CHAPTER = 'Chapter_1_house_style.docx'
+EXAMPLES = [('a graph', '1.5'), ('an illustration', '1.2')]
+
+
+def chapter_caption(num):
+    """The caption of Figure `num` exactly as it stands in the house-style chapter."""
+    for p in Document(CHAPTER).paragraphs:
+        if p.text.startswith(f'Figure {num}.'):
+            return f'Figure {num}.', p.text[len(f'Figure {num}.'):]
+    raise ValueError(f'no caption for Figure {num} in {CHAPTER}')
 
 
 def runs(par, text, size=None, font=None):
@@ -125,17 +131,21 @@ def main():
             p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         i += 1
 
-    # an example figure and caption, exactly as they stand in Chapter 1
-    doc.add_paragraph('Example: a figure and its caption as they stand in Chapter 1',
-                      style='Heading 1')
-    p = doc.add_paragraph()
-    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p.paragraph_format.keep_with_next = True
-    p.add_run().add_picture(EXAMPLE_FIG, width=Emu(TEXT_EMU))
-    cap = doc.add_paragraph()
-    child(ppr(cap._p), 'pStyle', {'val': 'Caption'})
-    r = cap.add_run(EXAMPLE_CAP[0]); r.bold = True
-    cap.add_run(EXAMPLE_CAP[1])
+    # examples: figures and captions exactly as they stand in Chapter 1
+    for what, num in EXAMPLES:
+        h = doc.add_paragraph(f'Example: {what} and its caption, as in Chapter 1',
+                              style='Heading 1')
+        h.paragraph_format.page_break_before = True
+        p = doc.add_paragraph()
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p.paragraph_format.keep_with_next = True
+        p.add_run().add_picture(f'figures/ch1/fig_{num.replace(".", "_0")}.png',
+                                width=Emu(TEXT_EMU))
+        label, rest = chapter_caption(num)
+        cap = doc.add_paragraph()
+        child(ppr(cap._p), 'pStyle', {'val': 'Caption'})
+        r = cap.add_run(label); r.bold = True
+        cap.add_run(rest)
 
     add_styles(doc.styles.element)
     zoom = doc.settings.element.find(q('zoom'))   # python-docx's template omits the

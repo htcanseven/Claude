@@ -3,9 +3,8 @@
 Reads the authors' final chapter and writes Chapter_1_house_style.docx, changing
 presentation only:
 
-* figures 1.1-1.3 and 1.5-1.9 are replaced by the house-style drawings of
-  src/ch1_figures.py, each placed at exactly the text width so that its 11 pt
-  text prints at 11 pt; Figure 1.4, the authors' MATLAB plot, is left in place;
+* every figure is replaced by its house-style drawing from src/ch1_figures.py,
+  placed at exactly the text width so that its 11 pt text prints at 11 pt;
 * every caption gets one paragraph style, Caption: Times New Roman 11 pt,
   justified like the body, with the label "Figure 1.x." or "Table 1.x." in bold;
   figure captions below the figure, table captions above the table;
@@ -15,11 +14,10 @@ presentation only:
   new page, sentence case;
 * the alternative text of each figure is set to its caption.
 
-Text is touched in five places only, each listed in the change log printed at
+Text is touched in a few places only, each listed in the change log printed at
 the end: missing full stops after three table numbers, sentence case in two
-tables, "4x" written as "4×", "Left/Right" in the Figure 1.2 caption made
-"(a)/(b)" to match the stacked panels, and one sentence added to the Figure 1.5
-caption saying its loss values are illustrative.
+tables, "4x" written as "4×", and the captions of Figures 1.2, 1.4 and 1.5,
+which are brought into line with the redrawn figures.
 
 usage:  python3 src/apply_house_style.py      (run from chapter1/)
 """
@@ -34,7 +32,7 @@ from PIL import Image
 
 SRC = 'incoming/Chapter_1_final.docx'
 DST = 'Chapter_1_house_style.docx'
-NEW_FIG = {1: '01', 2: '02', 3: '03', 5: '05', 6: '06', 7: '07', 8: '08', 9: '09'}
+NEW_FIG = {n: f'{n:02d}' for n in range(1, 10)}
 TEXT_EMU = 5731510               # 9026 twips: the text-block width of the manuscript
 TEXT_TWIPS = 9026
 
@@ -468,6 +466,15 @@ def main():
             replace_text(cap, 'Right:', '(b)')
             LOG.append('Figure 1.2 caption: "Left:" and "Right:" made "(a)" and "(b)", '
                        'since the panels are stacked')
+            replace_text(cap, 'active magnetic bearings,', 'active magnetic bearings (AMBs),')
+            append_sentence(cap, ' In (b) the upper half of the unit is drawn in section.')
+            LOG.append('Figure 1.2 caption: "(AMBs)" added, the abbreviation the drawing uses, '
+                       'and one sentence saying that the upper half of (b) is drawn in section')
+        if num == 4:
+            append_sentence(cap, ' The rotor is drawn to scale above the mode shapes, on the '
+                                 'same axial scale; the vertical lines mark its radial AMBs.')
+            LOG.append('Figure 1.4 caption: one sentence added explaining the rotor drawing '
+                       'above the mode shapes and the lines marking the radial AMBs')
         if num == 5:
             append_sentence(cap, ' The loss values are illustrative (copper 2.8 %, iron 1.0 % and '
                                  'windage 0.4 % of rated output at rated speed); the efficiency '

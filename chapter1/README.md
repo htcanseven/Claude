@@ -37,13 +37,32 @@ They differ in structure and depth only.
 - `original_draft_text.json` — the original draft's text, recovered from the redlines
 - `src/verify_scaling.py` — numerical check of every scaling relation in §1.4 / §1.5
 - `src/make_figures.py`, `src/fix_figures.py`, `src/fix_figures2.py` — analytical figures
-- `src/make_schematics.py` — the two schematic figures
+- `src/make_schematics.py` — the two schematic figures of the first revision (superseded by `src/ch1_figures.py`)
 - `src/recover_original.py` — rebuilds original_draft_text.json from a redline
 - `src/md2docx.py` — Word conversion
 - `src/make_redline.py` — tracked-changes redline generation
 - `src/verify_redline.py` — checks that Accept All reproduces the revised text and Reject All the original
 
-## Regenerating
+## House style: the current figures and chapter
+
+- `House_Style.md`, `House_Style.docx` — the rules for every chapter; the .docx is also the Word template
+- `src/hsbook_style.py`, `src/hsbook_style.m` — the house style as code, for Python and MATLAB
+- `src/ch1_figures.py` — all nine Chapter 1 figures, written to `figures/ch1/`
+- `src/trace_fig_1_04.py` — the mode shapes of Figure 1.4, traced from the original picture into `data/fig_1_04_modes.csv`; replace that file with the model's own export
+- `src/apply_house_style.py` — `incoming/Chapter_1_final.docx` to `Chapter_1_house_style.docx`; what it changed is in `Chapter_1_house_style_CHANGES.md`
+- `src/add_confidentiality.py` — the stamped copies in `to_send/`
+- `src/make_style_guide.py` — `House_Style.docx`
+- `src/mpl_to_pptx.py`, `src/preview_pptx.py` — Figure 1.2 as editable PowerPoint, SVG and PDF in `figures/editable/`
+
+```
+pip install matplotlib numpy scipy pillow lxml python-docx python-pptx
+python3 src/ch1_figures.py
+python3 src/apply_house_style.py && python3 src/add_confidentiality.py chapter
+python3 src/make_style_guide.py
+python3 src/mpl_to_pptx.py
+```
+
+## Regenerating the first revision
 
 ```
 pip install matplotlib numpy python-docx

@@ -4,10 +4,10 @@
 
 ## Presentation
 
-- **Figures 1.1–1.3 and 1.5–1.9** replaced by house-style drawings (`src/ch1_figures.py`), each placed at exactly the text width, 15.92 cm, so that its 11 pt Times text prints at 11 pt. Before, the same nominal 9 pt label printed anywhere from 7 to 12 pt, because each figure had been drawn at one width and placed at another.
+- **All nine figures** replaced by house-style drawings (`src/ch1_figures.py`), each placed at exactly the text width, 15.92 cm, so that its 11 pt Times text prints at 11 pt. Before, the same nominal 9 pt label printed anywhere from 7 to 12 pt, because each figure had been drawn at one width and placed at another.
 - **Figure 1.5** was an AI-generated chart (its legend read "Copper losses — orange", at 96 dpi, wider than the text block). It is now a graph of the scaling laws its caption states.
-- **Figure 1.2**: the geared train is drawn in elevation with a closed gearbox, so no gearing can face the wrong way, and the lubrication skid shows tank, pump and **oil cooler**; the direct drive keeps the axial section, AMBs inside, impeller overhung (Juha, 14–15 September).
-- **Figure 1.4**, the authors' MATLAB rotor model, is left as it was: restyling it needs its data. Run `src/hsbook_style.m` on the figure and replace the picture.
+- **Figure 1.2**: the geared train is drawn in elevation with a closed gearbox, so no gearing can face the wrong way, and the lubrication skid shows tank, pump and **oil cooler** (Juha, 14–15 September). Panel (b) is drawn the same way as (a): the same floor, baseplate and compressor, with the compressor directly below the one in (a), flanged onto a high-speed motor whose upper half is drawn in section. Inside are the radial and axial AMBs, a touchdown bearing, the stator in its cooling jacket, the rotor, and the impeller on the motor shaft. The floor below is empty, since the oil system is gone.
+- **Figure 1.4** is redrawn in the same manner: the rotor of the authors' model drawn to scale in flat fills, with the first four mode shapes plotted below it on the same axial scale. The vertical lines carry the three radial-AMB planes down from the drawing into the graph. **The curves were traced from the picture of the MATLAB figure** (`src/trace_fig_1_04.py`, to within about half a pixel of the original lines) because the model data are not in the repository. Before publication, export the four mode shapes from the model into `data/fig_1_04_modes.csv` and rerun `src/ch1_figures.py 1.4`. The part names (radial AMB, active part) are read from the model drawing; the authors should confirm them.
 - **Captions**: one paragraph style, *Caption* (Times New Roman 11 pt, justified), label in bold; figure captions below, table captions above and kept with their table.
 - **Tables**: one style, *HS Book Table*: full text width, horizontal rules only (1 pt above and below, 0.5 pt under the header), Times New Roman 11 pt, header bold and repeated across pages, body regular, text left and numbers centred, rows not split across pages.
 - Every figure carries its caption as alternative text.
@@ -24,6 +24,8 @@
 ## Wording — the only text changes
 
 - Figure 1.2 caption: "Left:" and "Right:" made "(a)" and "(b)", since the panels are stacked
+- Figure 1.2 caption: "(AMBs)" added, the abbreviation the drawing uses, and one sentence saying that the upper half of (b) is drawn in section
+- Figure 1.4 caption: one sentence added explaining the rotor drawing above the mode shapes and the lines marking the radial AMBs
 - Figure 1.5 caption: one sentence added stating that its loss values are illustrative and how the efficiency maximum is found
 - Table 1.2: full stop added after the number ("Table 1.2." as in every other caption)
 - Table 1.2: headings and entries set in sentence case, as in Table 1.4

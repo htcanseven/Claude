@@ -1,20 +1,24 @@
 """Re-emit Figure 1.2 as native PowerPoint shapes.
 
 The drawing is neither rasterised nor embedded as a picture: every rectangle,
-polygon, centre line and label built by `src/make_schematics.py` is walked out
-of the matplotlib figure and written again as an editable PowerPoint shape, so
-the figure can be moved, recoloured and relabelled in PowerPoint without going
-back to Python.  Section hatching becomes a PowerPoint pattern fill, dash-dot
-centre lines become dash-dot connectors, and every text label stays text.
+polygon, line and label that `geared_vs_directdrive()` in src/ch1_figures.py
+draws is walked out of the matplotlib figure and written again as an editable
+PowerPoint shape, so the figure can be moved, recoloured and relabelled in
+PowerPoint without going back to Python. Dash-dot centre lines become dash-dot
+connectors, arrows keep their heads, a part cut in half by the half section is
+cut the same way, and every label stays text in Times New Roman.
+
+The slide is the figure's printed size, 15.92 cm wide, so the labels are 11 pt.
+The same drawing is written beside it as .svg, .pdf and .png.
 
 usage:  python3 src/mpl_to_pptx.py          (run from chapter1/)
 """
-import runpy
+import sys
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.colors as mcolors
-from matplotlib.patches import Rectangle, Polygon, FancyBboxPatch, Circle
+from matplotlib.patches import Rectangle, Polygon, FancyBboxPatch, Circle, FancyArrowPatch
 from matplotlib.text import Annotation, Text
 
 from pptx import Presentation
@@ -27,7 +31,8 @@ from pptx.oxml.ns import qn
 
 OUT = 'figures/editable/Figure_1_2.pptx'
 PANELS = ('(a)', '(b)')
-SLIDE_W_IN = 10.0                 # the 6.6 in figure is enlarged to a 10 in slide
+PANEL_SPLIT = 8.3                 # cm up the canvas: panel (a) above, (b) below
+SLIDE_W_IN = 15.92 / 2.54         # the printed size: the labels stay 11 pt
 FONT = 'Times New Roman'
 HATCH = {'///': MSO_PATTERN.LIGHT_UPWARD_DIAGONAL,
          '\\\\\\': MSO_PATTERN.LIGHT_DOWNWARD_DIAGONAL,
@@ -56,15 +61,46 @@ def set_alpha(fill, alpha):
 
 
 # ───────────────────────────────────────────────────── the figure to convert
-def load_panels():
-    """Run make_schematics.py and pick the two axes of Figure 1.2 out of it."""
-    ns = runpy.run_path('src/make_schematics.py')
-    ax1, ax2 = ns['ax1'], ns['ax2']
-    fig = ax1.figure
+def load_figure():
+    """Draw Figure 1.2 exactly as the manuscript gets it; return its one canvas."""
+    sys.path.insert(0, 'src')
+    import ch1_figures
+    fig = ch1_figures.FIGS['1.2']()
     from matplotlib.backends.backend_agg import FigureCanvasAgg
-    FigureCanvasAgg(fig)                 # plt.close() took the old canvas away
+    FigureCanvasAgg(fig)
     fig.canvas.draw()
-    return fig, (ax1, ax2), fig.canvas.get_renderer()
+    return fig, fig.axes[0], fig.canvas.get_renderer()
+
+
+def height_of(a):
+    """Where an artist sits on the canvas (cm up from the bottom), to sort it into a panel."""
+    if isinstance(a, FancyArrowPatch):
+        return float(np.mean([p[1] for p in a._posA_posB]))
+    if isinstance(a, Text):
+        return a.get_position()[1]
+    if hasattr(a, 'get_ydata'):
+        return float(np.mean(a.get_ydata()))
+    return float(np.mean(a.get_path().transformed(a.get_patch_transform()).vertices[:, 1]))
+
+
+def clip_polygon(pts, box):
+    """Sutherland-Hodgman: the part of a polygon inside an axis-aligned box."""
+    (x0, y0), (x1, y1) = box
+    for inside, cut in ((lambda p: p[0] >= x0, lambda p, q: (x0, p[1] + (q[1] - p[1]) * (x0 - p[0]) / (q[0] - p[0]))),
+                        (lambda p: p[0] <= x1, lambda p, q: (x1, p[1] + (q[1] - p[1]) * (x1 - p[0]) / (q[0] - p[0]))),
+                        (lambda p: p[1] >= y0, lambda p, q: (p[0] + (q[0] - p[0]) * (y0 - p[1]) / (q[1] - p[1]), y0)),
+                        (lambda p: p[1] <= y1, lambda p, q: (p[0] + (q[0] - p[0]) * (y1 - p[1]) / (q[1] - p[1]), y1))):
+        out = []
+        for i, q in enumerate(pts):
+            p = pts[i - 1]
+            if inside(q):
+                if not inside(p):
+                    out.append(cut(p, q))
+                out.append(q)
+            elif inside(p):
+                out.append(cut(p, q))
+        pts = out
+    return pts
 
 
 class Sheet:
@@ -167,10 +203,54 @@ def name_of(p):
     return f'sectioned {kind}' if h else kind
 
 
+def emit_clipped(sheet, p):
+    """A patch the drawing clips (one half of the volute): the fill is the clipped
+    outline, the ink edge leaves out the cut, as matplotlib draws it."""
+    box = p.get_clip_path().get_fully_transformed_path().get_extents().get_points()
+    path = p.get_path().transformed(p.get_transform())
+    pts = clip_polygon([tuple(v) for v in path.to_polygons(closed_only=True)[0][:-1]], box)
+    shape = sheet.poly(pts, close=True)
+    style_fill(shape, p.get_facecolor(), None, p.get_edgecolor())
+    style_line(shape, (0, 0, 0, 0), 0, sheet)
+    on_cut = [abs(pt[1] - box[0][1]) < 0.5 or abs(pt[1] - box[1][1]) < 0.5 for pt in pts]
+    k = next(i for i in range(len(pts)) if on_cut[i] and on_cut[i - 1])   # the cut edge
+    edge = sheet.poly(pts[k:] + pts[:k], close=False)
+    edge.fill.background()
+    style_line(edge, p.get_edgecolor(), p.get_linewidth(), sheet)
+    return shape
+
+
+def emit_arrow(sheet, ax, a):
+    (xa, ya), (xb, yb) = a._posA_posB
+    shape = sheet.line(sheet.px(ax, xa, ya), sheet.px(ax, xb, yb))
+    col = a.get_edgecolor() if a.get_linewidth() > 0 else a.get_facecolor()
+    style_line(shape, col, max(a.get_linewidth(), 1.0), sheet)
+    size = 'med' if a.get_mutation_scale() >= 12 else 'sm'
+    ln = shape.line._get_or_add_ln()
+    ln.append(ln.makeelement(qn('a:tailEnd'), {'type': 'triangle', 'w': size, 'len': size}))
+    return shape
+
+
+def emit_dot(sheet, ax, ln):
+    """A marker on its own: a leader's end dot, as a small filled circle."""
+    x, y = ln.get_xdata()[0], ln.get_ydata()[0]
+    c = sheet.px(ax, x, y)
+    r = ln.get_markersize() / 2 * sheet.dpi / 72.0
+    shape = sheet.rect((c[0] - r, c[1] - r), (c[0] + r, c[1] + r))
+    shape._element.find(qn('p:spPr')).find(qn('a:prstGeom')).set('prst', 'ellipse')
+    style_fill(shape, mcolors.to_rgba(ln.get_markerfacecolor()), None, (0, 0, 0, 0))
+    style_line(shape, (0, 0, 0, 0), 0, sheet)
+    return shape
+
+
 def emit_patch(sheet, ax, p):
     fc, ec = p.get_facecolor(), p.get_edgecolor()
     lw, hatch = p.get_linewidth(), p.get_hatch()
 
+    if isinstance(p, FancyArrowPatch):
+        return emit_arrow(sheet, ax, p)
+    if p.get_clip_path() is not None:
+        return emit_clipped(sheet, p)
     if isinstance(p, FancyBboxPatch):
         (x0, y0), (x1, y1) = p.get_path().get_extents().get_points()
         shape = sheet.rect(sheet.px(ax, x0, y0), sheet.px(ax, x1, y1), rounded=True)
@@ -201,6 +281,8 @@ def emit_patch(sheet, ax, p):
 
 def emit_line(sheet, ax, ln):
     xs, ys = ln.get_xdata(), ln.get_ydata()
+    if len(xs) == 1 and ln.get_marker() not in (None, 'None', '', ' '):
+        return emit_dot(sheet, ax, ln)
     if len(xs) < 2:
         return
     col = mcolors.to_rgba(ln.get_color(), ln.get_alpha())
@@ -296,7 +378,7 @@ def emit_leader(sheet, ax, ann, renderer):
 
 # ──────────────────────────────────────────────────────────────── the walk
 def convert():
-    fig, panels, renderer = load_panels()
+    fig, ax, renderer = load_figure()
 
     prs = Presentation()
     prs.slide_width = Inches(SLIDE_W_IN)
@@ -311,33 +393,34 @@ def convert():
 
     counts = {'patch': 0, 'line': 0, 'text': 0, 'leader': 0}
     skipped = []
-    for panel, ax in zip(PANELS, panels):
+    # PowerPoint stacks in insertion order, matplotlib in zorder: sort first.
+    items = ([(a.get_zorder(), i, 'patch', a) for i, a in enumerate(ax.patches)] +
+             [(a.get_zorder(), i, 'line', a) for i, a in enumerate(ax.lines)] +
+             [(a.get_zorder(), i, 'text', a) for i, a in enumerate(ax.texts)])
+    items.sort(key=lambda it: (it[0], it[2] == 'text', it[1]))
+    for panel in PANELS:
         # Each panel is its own group, so it can be moved or scaled as one part
         # and its pieces are still reachable by double-clicking into the group.
         group = slide.shapes.add_group_shape()
         group.name = f'Figure 1.2 {panel}'
         sheet.shapes = group.shapes
         n = 0
-
-        # PowerPoint stacks in insertion order, matplotlib in zorder: sort first.
-        items = ([(a.get_zorder(), i, 'patch', a) for i, a in enumerate(ax.patches)] +
-                 [(a.get_zorder(), i, 'line', a) for i, a in enumerate(ax.lines)] +
-                 [(a.get_zorder(), i, 'text', a) for i, a in enumerate(ax.texts)])
-        items.sort(key=lambda it: (it[0], it[2] == 'text', it[1]))
         for _, _, kind, a in items:
+            if (height_of(a) > PANEL_SPLIT) != (panel == '(a)'):
+                continue
             if kind == 'patch':
                 shape = emit_patch(sheet, ax, a)
                 if shape is None:
                     skipped.append(type(a).__name__)
                     continue
                 n += 1
-                shape.name = f'{panel} {name_of(a)} {n:02d}'
+                shape.name = f'{panel} {"arrow" if isinstance(a, FancyArrowPatch) else name_of(a)} {n:02d}'
                 counts['patch'] += 1
             elif kind == 'line':
                 shape = emit_line(sheet, ax, a)
                 n += 1
                 if shape is not None:
-                    shape.name = f'{panel} centre line {n:02d}'
+                    shape.name = f'{panel} {"dot" if len(a.get_xdata()) == 1 else "line"} {n:02d}'
                 counts['line'] += 1
             else:
                 if isinstance(a, Annotation):
@@ -354,16 +437,16 @@ def convert():
 
     sheet.shapes = slide.shapes
     slide.notes_slide.notes_text_frame.text = (
-        'Figure 1.2 of Chapter 1, drawn as native PowerPoint shapes — no picture is '
-        'embedded, so every part, hatch and label can be edited here.\n\n'
-        'Source of truth: chapter1/src/make_schematics.py. Regenerate this file with '
-        '`python3 src/mpl_to_pptx.py`; the PNG that goes into the manuscript comes from '
-        'make_schematics.py itself, so edits made here do not travel back.\n\n'
-        'Section hatching is a PowerPoint pattern fill: `///` and `\\\\\\` on adjacent '
-        'parts, cross-hatch on the housing castings.')
+        'Figure 1.2 of Chapter 1, drawn as native PowerPoint shapes; no picture is '
+        'embedded, so every part and label can be edited here.\n\n'
+        'Source of truth: chapter1/src/ch1_figures.py, geared_vs_directdrive(). Regenerate '
+        'this file with `python3 src/mpl_to_pptx.py`. The PNG in the manuscript comes from '
+        'ch1_figures.py itself, so edits made here do not travel back.')
     prs.save(OUT)
+    import hsbook_style as hs                  # the same drawing as vector files, beside it
+    hs.save(fig, OUT[:-len('.pptx')])
     print(f'{OUT}: {sum(counts.values())} shapes on one '
-          f'{prs.slide_width.inches:.1f} × {prs.slide_height.inches:.1f} in slide')
+          f'{prs.slide_width.inches:.2f} × {prs.slide_height.inches:.2f} in slide')
     print('   ' + '  '.join(f'{k} {v}' for k, v in counts.items()))
     if skipped:
         print('   NOT converted:', ', '.join(sorted(set(skipped))))
