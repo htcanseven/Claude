@@ -289,7 +289,11 @@ def sentence_case(cell):
 
 
 def style_table(tbl, num):
-    head = HEADER[num]
+    house_table(tbl, COLS[num], HEADER[num], num in SENTENCE_CASE, num == 3, f'Table 1.{num}')
+
+
+def house_table(tbl, aligns, head=True, sentence=False, factor_x=False, label='table'):
+    """Put one table into the house style. `aligns` gives L or C per logical column."""
     # table properties, rebuilt in schema order
     tp = tbl.find(q('tblPr'))
     keep = [c for c in tp if ET.QName(c).localname in ('tblCaption', 'tblDescription')]
@@ -349,7 +353,7 @@ def style_table(tbl, num):
                 ET.SubElement(bd, q('bottom'), {q('val'): 'single', q('sz'): '4',
                                                  q('space'): '0', q('color'): '000000'})
             child(tcp, 'vAlign', {'val': 'center'})
-            align = {'L': 'left', 'C': 'center'}[COLS[num][min(col, len(COLS[num]) - 1)]]
+            align = {'L': 'left', 'C': 'center'}[aligns[min(col, len(aligns) - 1)]]
             for p in tc.findall(q('p')):
                 pp = ppr(p)
                 child(pp, 'spacing', {'before': '0', 'after': '0', 'line': '240',
@@ -367,17 +371,17 @@ def style_table(tbl, num):
                                 rp.remove(el)
                                 unbold[0] = True
                     t = r.find(q('t'))
-                    if num == 3 and t is not None and t.text and re.search(r'\dx\b', t.text):
+                    if factor_x and t is not None and t.text and re.search(r'\dx\b', t.text):
                         t.text = re.sub(r'(\d)x\b', '\\1×', t.text)
-                        LOG.append('Table 1.3: "4x", "8x" written as "4×", "8×"') \
+                        LOG.append(f'{label}: "4x", "8x" written as "4×", "8×"') \
                             if not any('4×' in l for l in LOG) else None
-            if num in SENTENCE_CASE:
+            if sentence:
                 cased |= sentence_case(tc)
             col += span
     if cased:
-        LOG.append(f'Table 1.{num}: headings and entries set in sentence case, as in Table 1.4')
+        LOG.append(f'{label}: headings and entries set in sentence case, as in Table 1.4')
     if unbold[0]:
-        LOG.append(f'Table 1.{num}: bold removed from the body rows; only the header is bold')
+        LOG.append(f'{label}: bold removed from the body rows; only the header is bold')
 
 
 # ───────────────────────────────────────────── figures
