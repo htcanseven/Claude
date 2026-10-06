@@ -11,18 +11,7 @@
 
 ## 1. Summary of the revision
 
-The second revision answers the decision letter point by point. For the three items the editor asked me to examine in depth (S1–S3), it does what the letter required:
-
-- **S1.** The force trend M1sn is added as the paired counterpart of the scaled simulation, and the claim that a rescaled simulation adds information within a family is withdrawn throughout.
-- **S2.** The requirement prior of the guard band is stated exactly, and its influence is shown under four further priors. The procedure's operating characteristics are tabulated by rule and relation (Table A4).
-- **S3.** The new family is reported in the produced family's floor, with both floors and their intervals in the text.
-
-I re-derived every S1–S3 figure quoted below from the released result files. For the paired bootstrap and the guard bands I also used the author's own code. All of them reproduce, and the response describes them accurately.
-
-Three kinds of item remain:
-- the archive DOI, which the editor made a condition of acceptance and which is still pending;
-- two small inaccuracies that the new figures have introduced into the abstract, Sect. 6.1 and the conclusions;
-- a few editorial points.
+The second revision answers the decision letter point by point and, for the three items the editor asked me to examine in depth, does what the letter required: the force trend M1sn is added as the paired counterpart of the scaled simulation and the claim that a rescaled simulation adds information within a family is withdrawn throughout (S1); the prior of the guard band is stated exactly, its influence is shown under four further priors, and the procedure's operating characteristics are tabulated by rule and relation in Table A4 (S2); and the new family is reported in the produced family's floor, with both floors and their intervals in the text (S3). I re-derived every S1–S3 figure quoted below from the released result files, and the paired bootstrap and the guard bands also with the author's own code; all of them reproduce, and the response describes them accurately. The other required changes within my remit are met, except that the archive DOI, which the editor made a condition of acceptance, is still pending. The new figures have also introduced two small inaccuracies into headline sentences of the abstract, Sect. 6.1 and the conclusions, and a few editorial points remain.
 
 ## 2. Status of my second-round points
 
@@ -231,7 +220,7 @@ There are no major issues.
   - The 4.9 floors at 500 kN belong to the nearest setting, whose own split is 4.65, 4.85 and 11.0 floors and which pools to 8.45.
 - **The two readings.**
   - Read as a decomposition of the 8.2 floors, the parenthesis credits one rule with deciding at 4.9 floors when extrapolating to 500 kN and at 8.9 at 100 kN. No rule did.
-  - Read as the best rule in each stratum, it picks a different rule in each stratum after the results were seen.
+  - Read as the best rule in each stratum, it picks the rule separately for each stratum, after the results were seen.
 
 *Why it matters.* These are now the paper's headline figures for a new process setting, and this is where S1 and S4 meet.
 
@@ -260,7 +249,7 @@ There are no major issues.
 
 The sibling band of the nearest setting thus moves by a factor of four between two near-truth priors. The paper does not show this; it uses the ±3 grid only in the worked example.
 
-*Why it matters.* With a band of 8.0 floors, step 6 releases almost nothing at release level. I placed requirements 1.75 floors above each alternative's 95th percentile, the median position at an index of 1.33. Step 6 with the nearest setting then sends the following share of sibling cases to trial:
+*Why it matters.* With a band of 8.0 floors, step 6 with the nearest setting releases almost nothing at release level, even with a sibling. I placed requirements 1.75 floors above each alternative's 95th percentile, the median position at an index of 1.33. Step 6 with the nearest setting then sends the following share of sibling cases to trial:
 - 6 % with g = 0.25;
 - 54 % with g = 2.0;
 - 99 % with g = 8.0.
@@ -285,7 +274,7 @@ I checked every statement that concerns my points against the manuscript and the
 - Part 4;
 - Part 7.
 
-Apart from the three below, they are exact, and the page and line locations given in Part 1 are correct.
+Apart from the two statements and the one weak reason below, they are exact, and the page and line locations given in Part 1 are correct.
 
 1. **The DOI.** The response says three times that the DOI would be in place before resubmission:
    - the preamble: it "is minted when the archive is deposited, before resubmission";
