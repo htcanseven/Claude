@@ -12,7 +12,7 @@
   - In writing: Juha Saari (Chapter 2), Anouar Belahcen (Chapter 8; his letter names both loss chapters, see decision 1), Rafał Wróbel (Chapter 10), Pasi Peltoniemi (Chapter 11), Lassi Aarniovuori (§11.2 and §13.4) and Jouni Ikäheimo (Chapter 3's induction machines, §13.3 and §13.5).
   - Paavo Rasilo declined Chapter 9 on 20 September.
   - Jussi Sopanen agreed in principle and was invited on 3 September; his letter has not come back.
-  - Marko Hinkkanen was invited on 4 September, for the control side of the drive chapter, three days before it became Chapter 12. He has not replied.
+  - Marko Hinkkanen was invited on 4 September, for the control side of the drive chapter, three days before it became Chapter 12. No reply is on file.
   - Tiainen and Jaatinen-Värri, and Pippuri-Mäkeläinen, have been invited, with no answer recorded.
 - **Letters of support:** six of ten are back: Saari, Aarniovuori, Wróbel, Peltoniemi, Belahcen and Ikäheimo. Wróbel's must be fixed before it goes to Wiley.
 - **Not yet started for the package:** the partial Chapter 7, the biographies, the competing-titles analysis and Wiley's proposal form.
@@ -104,7 +104,7 @@
 | 9 | Core, rotor and aerodynamic losses | open: decide today | Rasilo declined 20 Sep; not yet discussed with Belahcen | — |
 | 10 | Thermal | R. Wróbel, independent consultant | accepted | received 21 Sep; unsigned, email line unfilled |
 | 11 | Converter | P. Peltoniemi | accepted; Aarniovuori on §11.2 | received 22 Sep; Aarniovuori's scanned 7 Sep |
-| 12 | Control | M. Hinkkanen | invited 4 Sep, for the control side of the drive chapter; no reply | after he says yes; draft needs fixing |
+| 12 | Control | M. Hinkkanen | invited 4 Sep, for the control side of the drive chapter; no reply on file | after he says yes; draft needs fixing |
 | 13 | Industrial case studies | J. Tiainen and A. Jaatinen-Värri | invited with Chapter 1 and the table of contents; no answer recorded; §13.3 offered to Jonna, now in Ikäheimo's letter | drafted (Ahti) |
 | 14 | Mobile case studies | J. Pippuri-Mäkeläinen, VTT | invited; no answer recorded; Voltcar permission pending | drafted |
 
