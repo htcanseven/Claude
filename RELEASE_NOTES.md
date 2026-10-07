@@ -47,7 +47,7 @@ unpacked deposit, `sha256sum -c SHA256SUMS` checks them all. The main result fil
 - `results/summary_panel.md` shows the two new columns.
 - `scripts/panel.py` writes the two columns. `scripts/make_tables.py` writes the new rows of the paper's Tables 4
   and A2: intervals for M1 and the force trend M1sn, and the refit intervals of the safe distances. It also sets
-  Table A2 on a float page with Table A1, at 7.5 pt.
+  Tables A2–A4 on float pages, at 7 pt, with Tables A3 and A4 at the full text width.
 - `scripts/write_checksums.sh` writes `SHA256SUMS`.
 - Every other result file is byte-identical to the third-round version.
 

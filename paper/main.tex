@@ -32,11 +32,13 @@
 \makeatletter
 \setlength{\@fptop}{0pt}
 \setlength{\@fpsep}{12pt plus 2fil}
+% the appendix tables fill two float pages, which are built after the appendix ends: hence global
+\newcommand{\appendixfloatpages}{\global\@fpsep=6pt plus 2fil\relax}
 \setlength{\@fpbot}{0pt plus 1fil}
 \makeatother
 %% Table body size: the class's own 8 bp table font (its \footnotesize is 7 pt and its \scriptsize 9 pt).
 \newcommand{\tabsize}{\fontsize{8}{9.5}\selectfont}
-\newcommand{\tabsizesmall}{\fontsize{7.5}{9}\selectfont}% Tables A1 and A2, which share a float page
+\newcommand{\tabsizesmall}{\footnotesize}% the appendix tables (7/8 pt), set on two float pages
 %% Reference list: the class sets it at normal size with entries 1em apart; the 8 bp table font with
 %% hanging indents keeps the entries distinct on fewer pages.
 \setlength{\bibsep}{0pt}
@@ -468,11 +470,12 @@ The evidence is one process and two geometries, and the comparison of rules is e
 \FloatBarrier
 \begin{appendices}
 \renewcommand{\floatpagefraction}{0.4}
+\appendixfloatpages% Tables A1--A2 and A3--A5 each fill a float page
 \renewcommand{\theHtable}{\thetable}% distinct hyperlink targets for Tables A1 and A2
 
 \section{Notation, further results and computation details}\label{app:appendix}
 
-Table~\ref{tab:notation} summarises the notation of Section~\ref{sec:method}, Table~\ref{tab:robust} gives the distances under the robustness variants, Table~\ref{tab:intervals} the coverage, width and centre of the interval rules, and Table~\ref{tab:step6} the procedure's decision rule by relation. Table~\ref{tab:mapping} traces every other number quoted in the text to the script that computes it and the result file that holds it in the archived release \citep{canseven2026archive}.
+Table~\ref{tab:notation} summarises the notation of Section~\ref{sec:method}, Table~\ref{tab:robust} gives the distances under the robustness variants, Table~\ref{tab:intervals} the coverage, width and centre of the interval rules, and Table~\ref{tab:step6} the procedure's decision rule by relation. Table~\ref{tab:mapping} traces every other number quoted in the text to the script that computes it and the result file that holds it in the archived release \citep{canseven2026archive}, in which \texttt{scripts/run\_all.sh} runs the scripts in order and \texttt{make\_tables.py} and \texttt{figs.py} write every table and figure from the result files.
 
 
 
@@ -549,11 +552,11 @@ Refit, $\delta_\mathrm{s}$ & 4.9--7.3 & 0.15--1.4 & 0.75--3.0 & 2.3--4.6 & 6.8--
 %% END GENERATED robust
 
 %% BEGIN GENERATED intervals
-\begin{table}[!ht]
-\tabsize
+\begin{table}[p]
+\tabsizesmall
 \setlength{\tabcolsep}{2.6pt}
 \caption{Interval rules by relation: coverage, half-width and the interval centre as a point rule}\label{tab:intervals}
-\begin{tabular}{@{}lrrrrrrrrrrrr@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrrrrrrrrr@{}}
 \toprule
  & \multicolumn{3}{c}{Sibling produced} & \multicolumn{3}{c}{Interpolated setting} & \multicolumn{3}{c}{Extrapolated setting} & \multicolumn{3}{c}{New family} \\
 \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}\cmidrule(lr){11-13}
@@ -566,17 +569,17 @@ M3n & 89 & 3.0 & 3.7 & 36 & 3.4 & 11 & 48 & 2.3 & 9.9 & 7 & 3.3 & 130 \\
 M5 & 86 & 2.2 & 3.3 & 71 & 6.4 & 9.8 & 46 & 4.6 & 13 & 12 & 2.3 & 34 \\
 M5n & 85 & 2.3 & 3.1 & 93 & 5.8 & 4.7 & 36 & 3.7 & 12 & 0 & 2.2 & 130 \\
 \botrule
-\end{tabular}
+\end{tabular*}
 \footnotetext{Cov: share of cases whose true $q_{95}$ lies in the interval (\%; nominal 90). HW: median half-width (floors). Ctr: decisive distance of the interval centre used as a point rule (floors). A new family in the floor of the produced family. The GP noise variance sits at its lower bound in 97 and 99\,\% of the M5 and M5n fits with a sibling and in every new-setting and new-family fit.}
 \end{table}
 %% END GENERATED intervals
 
 %% BEGIN GENERATED step6
-\begin{table}[!ht]
-\tabsize
+\begin{table}[p]
+\tabsizesmall
 \setlength{\tabcolsep}{2.2pt}
 \caption{The procedure's decision rule (step 6) by relation: guard band, distances and trial shares}\label{tab:step6}
-\begin{tabular}{@{}lrrrrrrrrrrrr@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrrrrrrrrr@{}}
 \toprule
  & \multicolumn{4}{c}{Sibling produced} & \multicolumn{4}{c}{Interpolated setting} & \multicolumn{4}{c}{Extrapolated setting} \\
 \cmidrule(lr){2-5}\cmidrule(lr){6-9}\cmidrule(lr){10-13}
@@ -592,16 +595,16 @@ M3 & 0 & 23/0 & 45 & 6 & 17.75 & 47/0 & 94 & 69 & 16.75 & 51/0.05 & 85 & 69 \\
 M3n & 0 & 11/0.05 & 9 & 0 & 6.0 & 21/1.0 & 55 & 6 & 6.5 & 19/1.3 & 47 & 3 \\
 M1sn & 0.75 & 4.3/2.8 & 0 & 0 & 2.0 & 6.7/2.7 & 0 & 0 & 6.0 & 15/2.9 & 21 & 0 \\
 \botrule
-\end{tabular}
+\end{tabular*}
 \footnotetext{$g$: guard band (floors) under the reference prior (Section~\ref{sec:procedure}); no applicability guard is applied; $\delta_\mathrm{d}/\delta_\mathrm{s}$: distances of the rule with its interval widened by $g$; $T_{10}$, $T_{20}$: share of verdicts sent to trial (\%) at requirements 10 and 20 floors from the truth. None: no band up to 20 floors reaches 95\,\%, so the procedure sends every design to trial; so also M0 and M0w in every relation, Mc with a sibling and for an extrapolated setting (for an interpolated one $g=18$), and every rule for a new family, scored in the produced family's floor.}
 \end{table}
 %% END GENERATED step6
 
-\begin{table}[!ht]
-\footnotesize
+\begin{table}[p]% float page with Tables A3 and A4
+\tabsizesmall
 \setlength{\tabcolsep}{3pt}
 \caption{Where the numbers quoted in the text come from: scripts and result files (\texttt{results/*.csv})}\label{tab:mapping}
-\begin{tabular}{@{}L{1.0cm}L{4.1cm}L{7.2cm}@{}}
+\begin{tabular}{@{}L{0.95cm}L{4.2cm}L{7.5cm}@{}}
 \toprule
 Section & Results & Script: result files \\
 \midrule
@@ -616,7 +619,6 @@ Section & Results & Script: result files \\
 6.5 & PA12 attempt & case2\_pa12.py: case2\_floor, case2\_effects \\
 \botrule
 \end{tabular}
-\footnotetext{\texttt{scripts/run\_all.sh} runs the scripts in order; \texttt{make\_tables.py} writes every table and \texttt{figs.py} every figure from the result files.}
 \end{table}
 
 \end{appendices}

@@ -88,13 +88,17 @@ def pair(x, m: str) -> str:
     return dist(x["resolution_floors"]) if m in POINT else f"{dist(x['resolution_floors'])}/{dist(x['safe_floors'])}"
 
 
-def table(rows, caption, label, cols, head, colsep=None, note=None, place="t", size=r"\tabsize"):
+def table(rows, caption, label, cols, head, colsep=None, note=None, place="t", size=r"\tabsize", full=False):
+    """A table float; full=True stretches it to the text width (tabular*), so that its caption and note run
+    full width too."""
     sep = f"\\setlength{{\\tabcolsep}}{{{colsep}}}\n" if colsep else ""
     foot = f"\\footnotetext{{{note}}}\n" if note else ""
     body = " \\\\\n".join(r.rstrip().rstrip("\\").rstrip() for r in rows)
+    begin, end = ((f"\\begin{{tabular*}}{{\\textwidth}}{{@{{\\extracolsep{{\\fill}}}}{cols}@{{}}}}", "\\end{tabular*}") if full
+                  else (f"\\begin{{tabular}}{{@{{}}{cols}@{{}}}}", "\\end{tabular}"))
     return (f"\\begin{{table}}[{place}]\n{size}\n{sep}\\caption{{{caption.rstrip('.')}}}\\label{{{label}}}\n"
-            f"\\begin{{tabular}}{{@{{}}{cols}@{{}}}}\n\\toprule\n{head} \\\\\n\\midrule\n{body} \\\\\n"
-            f"\\botrule\n\\end{{tabular}}\n{foot}\\end{{table}}\n")
+            f"{begin}\n\\toprule\n{head} \\\\\n\\midrule\n{body} \\\\\n"
+            f"\\botrule\n{end}\n{foot}\\end{{table}}\n")
 
 
 def read(name: str, **kw) -> pd.DataFrame:
@@ -276,7 +280,7 @@ def t_step6() -> str:
             r"\cmidrule(lr){2-5}\cmidrule(lr){6-9}\cmidrule(lr){10-13}" "\n"
             "Rule" + rf" & $g$ & {DD} & $T_{{10}}$ & $T_{{20}}$" * len(RELATIONS))
     return table(rows, "The procedure's decision rule (step 6) by relation: guard band, distances and trial shares",
-                 "tab:step6", "l" + "r" * 12, head, colsep="2.2pt", place="!ht",
+                 "tab:step6", "l" + "r" * 12, head, colsep="2.2pt", place="p", size=r"\tabsizesmall", full=True,  # float page with A3, A5
                  note=r"$g$: guard band (floors) under the reference prior (Section~\ref{sec:procedure}); no applicability guard is applied; "
                       r"$\delta_\mathrm{d}/\delta_\mathrm{s}$: distances of the rule with its interval widened by $g$; "
                       r"$T_{10}$, $T_{20}$: share of verdicts sent to trial (\%) at requirements 10 and 20 floors from the "
@@ -311,7 +315,7 @@ def t_intervals() -> str:
     gp = read("dec_gp.csv").set_index(["scope", "method"])
     bound = [gp.loc[("within", m), "noise_at_bound"] for m in ("M5", "M5n")]
     return table(rows, "Interval rules by relation: coverage, half-width and the interval centre as a point rule",
-                 "tab:intervals", "l" + "r" * 12, head, colsep="2.6pt", place="!ht",
+                 "tab:intervals", "l" + "r" * 12, head, colsep="2.6pt", place="p", size=r"\tabsizesmall", full=True,  # float page with A4, A5
                  note=rf"Cov: share of cases whose true $q_{{95}}$ lies in the interval (\%; nominal 90). HW: median "
                       rf"half-width (floors). Ctr: decisive distance of the interval centre used as a point rule (floors). "
                       rf"A new family in the floor of the produced family. The GP noise variance sits at its lower bound in "

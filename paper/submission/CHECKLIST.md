@@ -83,9 +83,9 @@ Per the decision letter, the final version is due by 20 October 2026. It consist
 - [x] Single file with no supplementary material. `paper/main.tex` compiles with zero errors, no undefined references
       or citations and no overfull boxes. The paper has 30 pages, and the main text (abstract to conclusions) ends at
       the top of page 24, after the conclusions were extended by eight lines. The main text has six tables and four
-      figures; the appendix has five tables. Tables A1 and A2 share page 25, a float page (placement `[p]`, set at
-      7.5 pt by `\tabsizesmall`; Table A2's placement and size are written by `make_tables.py`). References start on
-      page 27.
+      figures; the appendix has five tables. Tables A1 and A2 fill page 25 and Tables A3–A5 page 26, as float pages
+      (placement `[p]`, 7 pt by `\tabsizesmall`, a float gap of 6 pt; `make_tables.py` writes the placement and size of
+      Tables A2–A4). References start on page 27.
 - [x] Abstract within 250 words; six keywords; captions of at most two lines; no first person; British spelling.
 - [x] Every cited key is in `refs.bib`. The references were checked against the publisher, DBLP, Crossref or the ISO
       catalogue.
