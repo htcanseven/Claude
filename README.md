@@ -14,6 +14,18 @@ Working repository for a paper aimed at the *Research in Engineering Design* spe
 Nothing is downloaded in bulk: the scripts read single files from the DaRUS archives through HTTP range
 requests and keep only the extracted features. Raw data are never committed.
 
+The extracted feature tables and the result files in `results/` are derived from RDDAC and DDACS (S. Baum and
+P. Heinzelmann), both licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); they were changed by
+extracting quality characteristics from the scans and the simulations and computing the statistics the paper
+describes.
+
+## Archive
+
+The paper cites version 4 of this repository on Zenodo, which holds the code, feature tables and result files of the
+paper's final version (deposit metadata: `.zenodo.json`, `CITATION.cff`). [`RELEASE_NOTES.md`](RELEASE_NOTES.md) lists the changes since the version reviewed
+in the third round and the checksums of the main result files; `SHA256SUMS` holds the SHA-256 checksums of every script
+and result file (`sha256sum -c SHA256SUMS` checks them; `bash scripts/write_checksums.sh` rewrites the file).
+
 ## Pipeline
 
 | Script | Output |
@@ -55,4 +67,6 @@ submission checklist. `paper/review/` holds the simulated referee reports on the
 them, and `paper/review/cfp_panel/` a simulated review panel for the collection: three reviewers and a guest editor,
 all AI agents, with the response to them (`response_to_panel.md`) and a marked-up comparison with the reviewed
 version (`main_diff.pdf`); its second round is in `paper/review/cfp_panel/round2/` (reports, decision, the response
-`response_round2.md` with page and line numbers, and `main_diff.pdf` against the second-round version).
+`response_round2.md` with page and line numbers, and `main_diff.pdf` against the second-round version), and its third
+round in `paper/review/cfp_panel/round3/` (reports, the decision to accept in principle, the response
+`response_round3.md` and `main_diff.pdf` against the third-round version).

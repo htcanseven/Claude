@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this code or the extracted feature tables, please cite the paper and the datasets below."
 title: "Code, feature tables and results for \"Evaluating design-stage manufacturability decisions against the resolution of production\""
-version: "3"
+version: "4"
 authors:
   - family-names: Canseven
     given-names: Hüseyin Tayyer

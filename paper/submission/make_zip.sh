@@ -20,3 +20,7 @@ mv "$TMP/manuscript_source.zip" submission/
 echo "ok: submission/manuscript_source.zip ($(unzip -l submission/manuscript_source.zip | tail -1 | awk '{print $2}') files),"\
      "clean build: $PAGES pages"
 rm -rf "$TMP"
+# condition C1 of the third-round decision: the archive must be cited with its DOI before the final upload
+if grep -q '\\pending{DOI}' refs.bib; then
+  echo "WARNING: refs.bib still cites the archive DOI as pending (canseven2026archive); insert the DOI before uploading."
+fi
