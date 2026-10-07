@@ -16,6 +16,7 @@ letters. A letter that cannot be read without that sheet is still usable.
 | Rafał Wróbel, independent | 10 | 21 Sep | **no** | yes | **fill the "[insert preferred professional email]" line and sign**; ask how he wants his affiliation listed | `Support_Letter_Wrobel_RETURNED.md` |
 | Pasi Peltoniemi, LUT | 11 | 22 Sep | yes | no | nothing essential | `Support_Letter_Peltoniemi_SIGNED.md` |
 | Anouar Belahcen, Aalto | 8; the letter names 8 and 9 | 3 Sep | yes, Aalto letterhead | yes | its chapter sentence depends on the Chapter 9 decision | `Support_Letter_Belahcen_SIGNED.md` |
+| Jouni Ikäheimo, ABB | 3, §13.3, §13.5 | scanned 5 Oct | yes, plain paper | no | ABB's agreement for photographs; §13.3 was also offered to Jonna Tiainen | `Support_Letter_Ikaheimo_SIGNED.md` |
 
 Anouar signed on 3 September, four days before the restructure gave Chapter 9 to Paavo
 Rasilo. His letter keeps the draft's chapter sentence, which names both loss chapters,
@@ -28,7 +29,6 @@ owner; otherwise its chapter sentence must change, after he has heard why from u
 | Writer | Chapter | Draft sent |
 |---|---|---|
 | Jussi Sopanen | 4–6 | with the invitation, 3 Sep |
-| Jouni Ikäheimo | 3, 13 | with the confirmation email |
 | Ahti Jaatinen-Värri | 13 | with the Chapter 13 invitation |
 | Jonna Tiainen | 13 | invited to write a second, manufacturer's letter |
 | Jenni Pippuri-Mäkeläinen | 14 | with the invitation |

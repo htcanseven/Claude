@@ -2,19 +2,19 @@
 
 *High-Speed Electrical Machines and Drives* · Hüseyin Canseven, Ilya Petrov, Juha Pyrhönen
 
-*Internal note for the three of us. It records contributors' answers, so it is not for circulation. Updated at mid-morning with the letters from Wróbel, Peltoniemi, Aarniovuori and Belahcen and the invitations sent to Sopanen and Hinkkanen. Anything else that has arrived by email is not in it, so correct the tables in the meeting.*
+*Internal note for the three of us. It records contributors' answers, so it is not for circulation. Updated at mid-morning with the letters from Wróbel, Peltoniemi, Aarniovuori, Belahcen and Ikäheimo and the invitations sent to Sopanen and Hinkkanen. Anything else that has arrived by email is not in it, so correct the tables in the meeting.*
 
 ## Where we are
 
 - **Chapter 1** is written and is now in the house style throughout: all nine figures are redrawn, and every table and caption uses one style. It is 24 pages. Five items remain to be folded in before the version that goes to Wiley.
 - **The annotated table of contents** has 14 chapters and 454 pages: 414 of chapters plus 40 of front and back matter, against a target of 450 and a ceiling of 500. It cannot go to anyone new until Chapter 9 has an owner, because every copy still names Paavo Rasilo.
 - **Contributors.**
-  - In writing: Juha Saari (Chapter 2), Anouar Belahcen (Chapter 8; his letter names both loss chapters, see decision 1), Rafał Wróbel (Chapter 10), Pasi Peltoniemi (Chapter 11) and Lassi Aarniovuori (§11.2 and §13.4).
+  - In writing: Juha Saari (Chapter 2), Anouar Belahcen (Chapter 8; his letter names both loss chapters, see decision 1), Rafał Wróbel (Chapter 10), Pasi Peltoniemi (Chapter 11), Lassi Aarniovuori (§11.2 and §13.4) and Jouni Ikäheimo (Chapter 3's induction machines, §13.3 and §13.5).
   - Paavo Rasilo declined Chapter 9 on 20 September.
   - Jussi Sopanen agreed in principle and was invited on 3 September; his letter has not come back.
   - Marko Hinkkanen was invited on 4 September, for the control side of the drive chapter, three days before it became Chapter 12. He has not replied.
-  - Tiainen and Jaatinen-Värri, Pippuri-Mäkeläinen and Ikäheimo have been invited, with no answer recorded.
-- **Letters of support:** five of ten are back: Saari, Aarniovuori, Wróbel, Peltoniemi and Belahcen. Wróbel's must be fixed before it goes to Wiley.
+  - Tiainen and Jaatinen-Värri, and Pippuri-Mäkeläinen, have been invited, with no answer recorded.
+- **Letters of support:** six of ten are back: Saari, Aarniovuori, Wróbel, Peltoniemi, Belahcen and Ikäheimo. Wróbel's must be fixed before it goes to Wiley.
 - **Not yet started for the package:** the partial Chapter 7, the biographies, the competing-titles analysis and Wiley's proposal form.
 - **Wiley:** Juha's question of 15 September, whether he should send the first letter to Wiley, is still unanswered.
 
@@ -87,8 +87,9 @@
 - **Belahcen** signed on 3 September, on Aalto letterhead, dated and with a subject line. Its chapter sentence is the one we drafted, so it names both loss chapters: see decision 1.
 - **Wróbel** takes Chapter 10 entire, but his letter cannot go to Wiley as it stands. Its letterhead still reads "Email: [insert preferred professional email]", and it is not signed. He also now writes as an independent researcher and engineering consultant, not as Newcastle University. Ask how he wants to be listed, including whether with diacritics, Rafał Wróbel.
 - **Peltoniemi** describes his chapter as "power-electronic constraints and converter–machine interaction in high-speed electrical drives". He treats insulation, bearing currents and EMC through the converter-generated stresses, not their full physics. The Chapter 11 abstract should say the same, because Wiley's reviewers read the letters beside the table of contents.
-- **Aarniovuori** takes §11.2 and §13.4, as offered, and adds service on IEC and CENELEC standardisation committees. That makes him a candidate for §13.5, qualification against the standards, too.
-- **Most letters name neither the book nor us** (Saari, Aarniovuori, Peltoniemi), and three are undated. Rather than send them back, bundle the letters behind a cover sheet that gives the title and the editors and lists them.
+- **Aarniovuori** takes §11.2 and §13.4, as offered, and adds service on IEC and CENELEC standardisation committees.
+- **Ikäheimo** takes the induction machines in Chapter 3, manufacture and tolerance control (§13.3), and qualification against international standards (§13.5). He offers photographs "subject to my employer's agreement", so ABB still has to be asked. One overlap to settle: our Chapter 13 email offered §13.3 to Jonna first, with "a colleague at ABB" as the fallback, and Jouni's letter now takes it. Settle it with the chapter's owners once they answer.
+- **Most letters name neither the book nor us** (Saari, Aarniovuori, Peltoniemi, Ikäheimo), and four are undated. Rather than send them back, bundle the letters behind a cover sheet that gives the title and the editors and lists them.
 
 ## Status by chapter
 
@@ -96,7 +97,7 @@
 |---|---|---|---|---|
 | 1 | Introduction | editors; §1.1.2 A. Jaatinen-Värri | written; house style done; five items to fold in | — |
 | 2 | Applications | J. Saari, Upheat Solutions | accepted; waiting for the detailed section structure | received 21 Sep |
-| 3 | Topologies | editors; J. Ikäheimo for §3.2–3.3 | Ikäheimo agreed through Juha; ABB clearance for photographs still to ask | drafted |
+| 3 | Topologies | editors; J. Ikäheimo for §3.2–3.3 | Ikäheimo in writing; ABB's agreement for photographs still to ask | received, scanned 5 Oct |
 | 4–6 | Rotor mechanics, rotordynamics, bearings | J. Sopanen | agreed in principle; invited 3 Sep; he names the bearing specialist | awaited |
 | 7 | Sizing | editors | partial chapter promised in the package | — |
 | 8 | Winding losses | A. Belahcen | in writing | received 3 Sep; names both loss chapters |
@@ -104,23 +105,23 @@
 | 10 | Thermal | R. Wróbel, independent consultant | accepted | received 21 Sep; unsigned, email line unfilled |
 | 11 | Converter | P. Peltoniemi | accepted; Aarniovuori on §11.2 | received 22 Sep; Aarniovuori's scanned 7 Sep |
 | 12 | Control | M. Hinkkanen | invited 4 Sep, for the control side of the drive chapter; no reply | after he says yes; draft needs fixing |
-| 13 | Industrial case studies | J. Tiainen and A. Jaatinen-Värri | invited with Chapter 1 and the table of contents; no answer recorded | drafted (Ahti) |
+| 13 | Industrial case studies | J. Tiainen and A. Jaatinen-Värri | invited with Chapter 1 and the table of contents; no answer recorded; §13.3 offered to Jonna, now in Ikäheimo's letter | drafted (Ahti) |
 | 14 | Mobile case studies | J. Pippuri-Mäkeläinen, VTT | invited; no answer recorded; Voltcar permission pending | drafted |
 
 ## Letters of support
 
-- **Back, five:**
+- **Back, six:**
   - Saari, 21 Sep;
   - Aarniovuori, scanned 7 Sep;
   - Wróbel, 21 Sep;
   - Peltoniemi, 22 Sep;
-  - Belahcen, 3 Sep.
+  - Belahcen, 3 Sep;
+  - Ikäheimo, scanned 5 Oct.
 
   The register is in `letters/received/README.md`.
 - **Must be fixed:** Wróbel's, which needs a signature and the email line in its letterhead.
 - **Awaited:**
   - Sopanen, who had the draft with his invitation on 3 Sep;
-  - Ikäheimo;
   - Jaatinen-Värri, and a second letter from Tiainen if she will write one;
   - Pippuri-Mäkeläinen.
 - **Not yet asked:** Hinkkanen, whose letter is the second step. His draft still offers "the control sections of the chapter on the drive" and needs the Chapter 12 offer and the pulse-ratio wording.
@@ -136,6 +137,8 @@
 | Ask Rafał to sign, fill the email line, and say how to list him | | |
 | Follow up Marko Hinkkanen with the Chapter 12 offer | | |
 | Chase Jussi Sopanen's letter and his co-authors | | |
+| Settle §13.3, Jonna or Jouni, with the Chapter 13 owners | | |
+| ABB's agreement for Jouni's photographs | | |
 | Export the Figure 1.4 mode shapes | | |
 | Partial Chapter 7, or drop it | | |
 | Biographies, competing titles, Wiley's form | | |

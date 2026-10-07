@@ -205,7 +205,12 @@ BR, Hüseyin
 ## Jouni Ikäheimo — solid-rotor machines, manufacture, qualification, photographs
 
 *Juha has already pitched the book to him and he has agreed, so this is short: it names
-the sections, separates "material" from "writing", and raises the ABB clearance.*
+the sections, separates "material" from "writing", and raises the ABB clearance.
+Letter returned signed, in a scan dated 5 October
+(`letters/received/Support_Letter_Ikaheimo_SIGNED.md`). It takes the induction machines in
+Chapter 3, §13.3 and §13.5, and the photographs "subject to my employer's agreement".
+§13.3 was also offered to Jonna in the Chapter 13 email, so settle it with the chapter's
+owners.*
 
 Hello Jouni,
 
