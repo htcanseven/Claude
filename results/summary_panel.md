@@ -474,208 +474,208 @@
 
 ## guard_priors
 
-| scope                 | method   | prior                      |   guard_band |   guard_band_uncapped |
-|:----------------------|:---------|:---------------------------|-------------:|----------------------:|
-| setting/extrapolation | M0       | grid within 20 (reference) |       inf    |                inf    |
-| setting/extrapolation | M0       | grid within 5              |       inf    |                inf    |
-| setting/extrapolation | M0       | grid within 3              |       inf    |                inf    |
-| setting/extrapolation | M0       | uniform within 20          |       inf    |                inf    |
-| setting/extrapolation | M0       | uniform within 50          |       inf    |                inf    |
-| setting/extrapolation | M1       | grid within 20 (reference) |       inf    |                 32    |
-| setting/extrapolation | M1       | grid within 5              |       inf    |                 34.25 |
-| setting/extrapolation | M1       | grid within 3              |       inf    |                 34.75 |
-| setting/extrapolation | M1       | uniform within 20          |       inf    |                 24.5  |
-| setting/extrapolation | M1       | uniform within 50          |        13.5  |                 13.5  |
-| setting/extrapolation | M1s      | grid within 20 (reference) |       inf    |                inf    |
-| setting/extrapolation | M1s      | grid within 5              |       inf    |                inf    |
-| setting/extrapolation | M1s      | grid within 3              |       inf    |                inf    |
-| setting/extrapolation | M1s      | uniform within 20          |       inf    |                inf    |
-| setting/extrapolation | M1s      | uniform within 50          |         4.5  |                inf    |
-| setting/extrapolation | M1sn     | grid within 20 (reference) |         6    |                  6    |
-| setting/extrapolation | M1sn     | grid within 5              |         8.5  |                  8.5  |
-| setting/extrapolation | M1sn     | grid within 3              |         9    |                  9    |
-| setting/extrapolation | M1sn     | uniform within 20          |         3.5  |                  3.5  |
-| setting/extrapolation | M1sn     | uniform within 50          |         0    |                  0    |
-| setting/extrapolation | M2       | grid within 20 (reference) |       inf    |                 23.25 |
-| setting/extrapolation | M2       | grid within 5              |       inf    |                 24.25 |
-| setting/extrapolation | M2       | grid within 3              |       inf    |                 24.5  |
-| setting/extrapolation | M2       | uniform within 20          |         6    |                  6    |
-| setting/extrapolation | M2       | uniform within 50          |         0    |                  0    |
-| setting/extrapolation | M3       | grid within 20 (reference) |        16.75 |                 16.75 |
-| setting/extrapolation | M3       | grid within 5              |        19.25 |                 19.25 |
-| setting/extrapolation | M3       | grid within 3              |        19.75 |                 19.75 |
-| setting/extrapolation | M3       | uniform within 20          |        14.75 |                 14.75 |
-| setting/extrapolation | M3       | uniform within 50          |         4    |                  4    |
-| setting/extrapolation | M4       | grid within 20 (reference) |         6.5  |                  6.5  |
-| setting/extrapolation | M4       | grid within 5              |        13.5  |                 13.5  |
-| setting/extrapolation | M4       | grid within 3              |        13.5  |                 13.5  |
-| setting/extrapolation | M4       | uniform within 20          |         1.5  |                  1.5  |
-| setting/extrapolation | M4       | uniform within 50          |         0    |                  0    |
-| setting/extrapolation | M5       | grid within 20 (reference) |       inf    |                 23    |
-| setting/extrapolation | M5       | grid within 5              |       inf    |                 24    |
-| setting/extrapolation | M5       | grid within 3              |       inf    |                 24.5  |
-| setting/extrapolation | M5       | uniform within 20          |         5    |                  5    |
-| setting/extrapolation | M5       | uniform within 50          |         0    |                  0    |
-| setting/extrapolation | M5n      | grid within 20 (reference) |         6.75 |                  6.75 |
-| setting/extrapolation | M5n      | grid within 5              |        12.5  |                 12.5  |
-| setting/extrapolation | M5n      | grid within 3              |        13    |                 13    |
-| setting/extrapolation | M5n      | uniform within 20          |         2.5  |                  2.5  |
-| setting/extrapolation | M5n      | uniform within 50          |         0    |                  0    |
-| setting/extrapolation | NN       | grid within 20 (reference) |         7    |                  7    |
-| setting/extrapolation | NN       | grid within 5              |        14.25 |                 14.25 |
-| setting/extrapolation | NN       | grid within 3              |        14.75 |                 14.75 |
-| setting/extrapolation | NN       | uniform within 20          |         3.5  |                  3.5  |
-| setting/extrapolation | NN       | uniform within 50          |         0    |                  0    |
-| setting/interpolation | M0       | grid within 20 (reference) |       inf    |                inf    |
-| setting/interpolation | M0       | grid within 5              |       inf    |                inf    |
-| setting/interpolation | M0       | grid within 3              |       inf    |                inf    |
-| setting/interpolation | M0       | uniform within 20          |       inf    |                inf    |
-| setting/interpolation | M0       | uniform within 50          |       inf    |                inf    |
-| setting/interpolation | M1       | grid within 20 (reference) |         8.75 |                  8.75 |
-| setting/interpolation | M1       | grid within 5              |        11.25 |                 11.25 |
-| setting/interpolation | M1       | grid within 3              |        11.5  |                 11.5  |
-| setting/interpolation | M1       | uniform within 20          |         6    |                  6    |
-| setting/interpolation | M1       | uniform within 50          |         1    |                  1    |
-| setting/interpolation | M1s      | grid within 20 (reference) |       inf    |                 29.5  |
-| setting/interpolation | M1s      | grid within 5              |       inf    |                 30    |
-| setting/interpolation | M1s      | grid within 3              |       inf    |                 30.5  |
-| setting/interpolation | M1s      | uniform within 20          |       inf    |                 27.5  |
-| setting/interpolation | M1s      | uniform within 50          |         4.5  |                  4.5  |
-| setting/interpolation | M1sn     | grid within 20 (reference) |         2    |                  2    |
-| setting/interpolation | M1sn     | grid within 5              |         4.25 |                  4.25 |
-| setting/interpolation | M1sn     | grid within 3              |         5    |                  5    |
-| setting/interpolation | M1sn     | uniform within 20          |         0.25 |                  0.25 |
-| setting/interpolation | M1sn     | uniform within 50          |         0    |                  0    |
-| setting/interpolation | M2       | grid within 20 (reference) |         0.75 |                  0.75 |
-| setting/interpolation | M2       | grid within 5              |         2.75 |                  2.75 |
-| setting/interpolation | M2       | grid within 3              |         3.25 |                  3.25 |
-| setting/interpolation | M2       | uniform within 20          |         0    |                  0    |
-| setting/interpolation | M2       | uniform within 50          |         0    |                  0    |
-| setting/interpolation | M3       | grid within 20 (reference) |        17.75 |                 17.75 |
-| setting/interpolation | M3       | grid within 5              |        19    |                 19    |
-| setting/interpolation | M3       | grid within 3              |        19.5  |                 19.5  |
-| setting/interpolation | M3       | uniform within 20          |        12.75 |                 12.75 |
-| setting/interpolation | M3       | uniform within 50          |         1.25 |                  1.25 |
-| setting/interpolation | M4       | grid within 20 (reference) |         6    |                  6    |
-| setting/interpolation | M4       | grid within 5              |         9.25 |                  9.25 |
-| setting/interpolation | M4       | grid within 3              |        10.25 |                 10.25 |
-| setting/interpolation | M4       | uniform within 20          |         3    |                  3    |
-| setting/interpolation | M4       | uniform within 50          |         0    |                  0    |
-| setting/interpolation | M5       | grid within 20 (reference) |         0.5  |                  0.5  |
-| setting/interpolation | M5       | grid within 5              |         2.75 |                  2.75 |
-| setting/interpolation | M5       | grid within 3              |         3.5  |                  3.5  |
-| setting/interpolation | M5       | uniform within 20          |         0    |                  0    |
-| setting/interpolation | M5       | uniform within 50          |         0    |                  0    |
-| setting/interpolation | M5n      | grid within 20 (reference) |         0    |                  0    |
-| setting/interpolation | M5n      | grid within 5              |         1    |                  1    |
-| setting/interpolation | M5n      | grid within 3              |         1.5  |                  1.5  |
-| setting/interpolation | M5n      | uniform within 20          |         0    |                  0    |
-| setting/interpolation | M5n      | uniform within 50          |         0    |                  0    |
-| setting/interpolation | NN       | grid within 20 (reference) |         2    |                  2    |
-| setting/interpolation | NN       | grid within 5              |         4.25 |                  4.25 |
-| setting/interpolation | NN       | grid within 3              |         5    |                  5    |
-| setting/interpolation | NN       | uniform within 20          |         0.25 |                  0.25 |
-| setting/interpolation | NN       | uniform within 50          |         0    |                  0    |
-| transfer              | M0       | grid within 20 (reference) |       inf    |                inf    |
-| transfer              | M0       | grid within 5              |       inf    |                inf    |
-| transfer              | M0       | grid within 3              |       inf    |                inf    |
-| transfer              | M0       | uniform within 20          |       inf    |                inf    |
-| transfer              | M0       | uniform within 50          |       inf    |                inf    |
-| transfer              | M1       | grid within 20 (reference) |       inf    |                inf    |
-| transfer              | M1       | grid within 5              |       inf    |                inf    |
-| transfer              | M1       | grid within 3              |       inf    |                inf    |
-| transfer              | M1       | uniform within 20          |       inf    |                 59.75 |
-| transfer              | M1       | uniform within 50          |       inf    |                 31.75 |
-| transfer              | M1s      | grid within 20 (reference) |       inf    |                inf    |
-| transfer              | M1s      | grid within 5              |       inf    |                inf    |
-| transfer              | M1s      | grid within 3              |       inf    |                inf    |
-| transfer              | M1s      | uniform within 20          |       inf    |                inf    |
-| transfer              | M1s      | uniform within 50          |       inf    |                inf    |
-| transfer              | M1sn     | grid within 20 (reference) |       inf    |                inf    |
-| transfer              | M1sn     | grid within 5              |       inf    |                inf    |
-| transfer              | M1sn     | grid within 3              |       inf    |                inf    |
-| transfer              | M1sn     | uniform within 20          |       inf    |                inf    |
-| transfer              | M1sn     | uniform within 50          |       inf    |                inf    |
-| transfer              | M2       | grid within 20 (reference) |       inf    |                 41.75 |
-| transfer              | M2       | grid within 5              |       inf    |                 42.75 |
-| transfer              | M2       | grid within 3              |       inf    |                 43.25 |
-| transfer              | M2       | uniform within 20          |       inf    |                 40.25 |
-| transfer              | M2       | uniform within 50          |         6.25 |                  6.25 |
-| transfer              | M3       | grid within 20 (reference) |       inf    |                 42.25 |
-| transfer              | M3       | grid within 5              |       inf    |                 42.25 |
-| transfer              | M3       | grid within 3              |       inf    |                 42.25 |
-| transfer              | M3       | uniform within 20          |       inf    |                 41.5  |
-| transfer              | M3       | uniform within 50          |         6.5  |                  6.5  |
-| transfer              | M4       | grid within 20 (reference) |       inf    |                inf    |
-| transfer              | M4       | grid within 5              |       inf    |                inf    |
-| transfer              | M4       | grid within 3              |       inf    |                inf    |
-| transfer              | M4       | uniform within 20          |       inf    |                inf    |
-| transfer              | M4       | uniform within 50          |       inf    |                inf    |
-| transfer              | M5       | grid within 20 (reference) |       inf    |                 42.25 |
-| transfer              | M5       | grid within 5              |       inf    |                 44.25 |
-| transfer              | M5       | grid within 3              |       inf    |                 44.75 |
-| transfer              | M5       | uniform within 20          |       inf    |                 39.75 |
-| transfer              | M5       | uniform within 50          |        15    |                 15    |
-| transfer              | M5n      | grid within 20 (reference) |       inf    |                inf    |
-| transfer              | M5n      | grid within 5              |       inf    |                inf    |
-| transfer              | M5n      | grid within 3              |       inf    |                inf    |
-| transfer              | M5n      | uniform within 20          |       inf    |                inf    |
-| transfer              | M5n      | uniform within 50          |       inf    |                inf    |
-| transfer              | NN       | grid within 20 (reference) |       inf    |                inf    |
-| transfer              | NN       | grid within 5              |       inf    |                inf    |
-| transfer              | NN       | grid within 3              |       inf    |                inf    |
-| transfer              | NN       | uniform within 20          |       inf    |                inf    |
-| transfer              | NN       | uniform within 50          |       inf    |                inf    |
-| within                | M0       | grid within 20 (reference) |       inf    |                inf    |
-| within                | M0       | grid within 5              |       inf    |                inf    |
-| within                | M0       | grid within 3              |       inf    |                inf    |
-| within                | M0       | uniform within 20          |       inf    |                inf    |
-| within                | M0       | uniform within 50          |       inf    |                inf    |
-| within                | M1       | grid within 20 (reference) |       inf    |                 29.5  |
-| within                | M1       | grid within 5              |       inf    |                 31    |
-| within                | M1       | grid within 3              |       inf    |                 31.25 |
-| within                | M1       | uniform within 20          |        14.25 |                 14.25 |
-| within                | M1       | uniform within 50          |         3.25 |                  3.25 |
-| within                | M1s      | grid within 20 (reference) |         2    |                  2    |
-| within                | M1s      | grid within 5              |         7.25 |                  7.25 |
-| within                | M1s      | grid within 3              |         8.5  |                  8.5  |
-| within                | M1s      | uniform within 20          |         0.5  |                  0.5  |
-| within                | M1s      | uniform within 50          |         0    |                  0    |
-| within                | M1sn     | grid within 20 (reference) |         0.75 |                  0.75 |
-| within                | M1sn     | grid within 5              |         2.75 |                  2.75 |
-| within                | M1sn     | grid within 3              |         4.5  |                  4.5  |
-| within                | M1sn     | uniform within 20          |         0    |                  0    |
-| within                | M1sn     | uniform within 50          |         0    |                  0    |
-| within                | M2       | grid within 20 (reference) |         0    |                  0    |
-| within                | M2       | grid within 5              |         0    |                  0    |
-| within                | M2       | grid within 3              |         0.5  |                  0.5  |
-| within                | M2       | uniform within 20          |         0    |                  0    |
-| within                | M2       | uniform within 50          |         0    |                  0    |
-| within                | M3       | grid within 20 (reference) |         0    |                  0    |
-| within                | M3       | grid within 5              |         0    |                  0    |
-| within                | M3       | grid within 3              |         4    |                  4    |
-| within                | M3       | uniform within 20          |         0    |                  0    |
-| within                | M3       | uniform within 50          |         0    |                  0    |
-| within                | M4       | grid within 20 (reference) |         0    |                  0    |
-| within                | M4       | grid within 5              |         0    |                  0    |
-| within                | M4       | grid within 3              |         3.5  |                  3.5  |
-| within                | M4       | uniform within 20          |         0    |                  0    |
-| within                | M4       | uniform within 50          |         0    |                  0    |
-| within                | M5       | grid within 20 (reference) |         0    |                  0    |
-| within                | M5       | grid within 5              |         0    |                  0    |
-| within                | M5       | grid within 3              |         6.5  |                  6.5  |
-| within                | M5       | uniform within 20          |         0    |                  0    |
-| within                | M5       | uniform within 50          |         0    |                  0    |
-| within                | M5n      | grid within 20 (reference) |         0    |                  0    |
-| within                | M5n      | grid within 5              |         0    |                  0    |
-| within                | M5n      | grid within 3              |         4    |                  4    |
-| within                | M5n      | uniform within 20          |         0    |                  0    |
-| within                | M5n      | uniform within 50          |         0    |                  0    |
-| within                | NN       | grid within 20 (reference) |         0.25 |                  0.25 |
-| within                | NN       | grid within 5              |         2    |                  2    |
-| within                | NN       | grid within 3              |         8    |                  8    |
-| within                | NN       | uniform within 20          |         0    |                  0    |
-| within                | NN       | uniform within 50          |         0    |                  0    |
+| scope                 | method   | prior                      |   guard_band |   guard_band_uncapped |   trial_10_uncapped |   trial_20_uncapped |
+|:----------------------|:---------|:---------------------------|-------------:|----------------------:|--------------------:|--------------------:|
+| setting/extrapolation | M0       | grid within 20 (reference) |       inf    |                inf    |             nan     |             nan     |
+| setting/extrapolation | M0       | grid within 5              |       inf    |                inf    |             nan     |             nan     |
+| setting/extrapolation | M0       | grid within 3              |       inf    |                inf    |             nan     |             nan     |
+| setting/extrapolation | M0       | uniform within 20          |       inf    |                inf    |             nan     |             nan     |
+| setting/extrapolation | M0       | uniform within 50          |       inf    |                inf    |             nan     |             nan     |
+| setting/extrapolation | M1       | grid within 20 (reference) |       inf    |                 32    |               0.893 |               0.769 |
+| setting/extrapolation | M1       | grid within 5              |       inf    |                 34.25 |               0.925 |               0.81  |
+| setting/extrapolation | M1       | grid within 3              |       inf    |                 34.75 |               0.943 |               0.823 |
+| setting/extrapolation | M1       | uniform within 20          |       inf    |                 24.5  |               0.83  |               0.612 |
+| setting/extrapolation | M1       | uniform within 50          |        13.5  |                 13.5  |               0.535 |               0.381 |
+| setting/extrapolation | M1s      | grid within 20 (reference) |       inf    |                inf    |             nan     |             nan     |
+| setting/extrapolation | M1s      | grid within 5              |       inf    |                inf    |             nan     |             nan     |
+| setting/extrapolation | M1s      | grid within 3              |       inf    |                inf    |             nan     |             nan     |
+| setting/extrapolation | M1s      | uniform within 20          |       inf    |                inf    |             nan     |             nan     |
+| setting/extrapolation | M1s      | uniform within 50          |         4.5  |                inf    |             nan     |             nan     |
+| setting/extrapolation | M1sn     | grid within 20 (reference) |         6    |                  6    |               0.214 |               0     |
+| setting/extrapolation | M1sn     | grid within 5              |         8.5  |                  8.5  |               0.352 |               0     |
+| setting/extrapolation | M1sn     | grid within 3              |         9    |                  9    |               0.39  |               0     |
+| setting/extrapolation | M1sn     | uniform within 20          |         3.5  |                  3.5  |               0.126 |               0     |
+| setting/extrapolation | M1sn     | uniform within 50          |         0    |                  0    |               0     |               0     |
+| setting/extrapolation | M2       | grid within 20 (reference) |       inf    |                 23.25 |               0.981 |               0.83  |
+| setting/extrapolation | M2       | grid within 5              |       inf    |                 24.25 |               0.981 |               0.837 |
+| setting/extrapolation | M2       | grid within 3              |       inf    |                 24.5  |               0.981 |               0.844 |
+| setting/extrapolation | M2       | uniform within 20          |         6    |                  6    |               0.541 |               0.163 |
+| setting/extrapolation | M2       | uniform within 50          |         0    |                  0    |               0.245 |               0.02  |
+| setting/extrapolation | M3       | grid within 20 (reference) |        16.75 |                 16.75 |               0.849 |               0.687 |
+| setting/extrapolation | M3       | grid within 5              |        19.25 |                 19.25 |               0.887 |               0.714 |
+| setting/extrapolation | M3       | grid within 3              |        19.75 |                 19.75 |               0.893 |               0.721 |
+| setting/extrapolation | M3       | uniform within 20          |        14.75 |                 14.75 |               0.811 |               0.646 |
+| setting/extrapolation | M3       | uniform within 50          |         4    |                  4    |               0.541 |               0.34  |
+| setting/extrapolation | M4       | grid within 20 (reference) |         6.5  |                  6.5  |               0.472 |               0.027 |
+| setting/extrapolation | M4       | grid within 5              |        13.5  |                 13.5  |               0.906 |               0.293 |
+| setting/extrapolation | M4       | grid within 3              |        13.5  |                 13.5  |               0.906 |               0.293 |
+| setting/extrapolation | M4       | uniform within 20          |         1.5  |                  1.5  |               0.233 |               0     |
+| setting/extrapolation | M4       | uniform within 50          |         0    |                  0    |               0.189 |               0     |
+| setting/extrapolation | M5       | grid within 20 (reference) |       inf    |                 23    |               0.969 |               0.823 |
+| setting/extrapolation | M5       | grid within 5              |       inf    |                 24    |               0.981 |               0.857 |
+| setting/extrapolation | M5       | grid within 3              |       inf    |                 24.5  |               0.981 |               0.857 |
+| setting/extrapolation | M5       | uniform within 20          |         5    |                  5    |               0.484 |               0.17  |
+| setting/extrapolation | M5       | uniform within 50          |         0    |                  0    |               0.258 |               0.027 |
+| setting/extrapolation | M5n      | grid within 20 (reference) |         6.75 |                  6.75 |               0.478 |               0.15  |
+| setting/extrapolation | M5n      | grid within 5              |        12.5  |                 12.5  |               0.855 |               0.347 |
+| setting/extrapolation | M5n      | grid within 3              |        13    |                 13    |               0.862 |               0.347 |
+| setting/extrapolation | M5n      | uniform within 20          |         2.5  |                  2.5  |               0.333 |               0.054 |
+| setting/extrapolation | M5n      | uniform within 50          |         0    |                  0    |               0.189 |               0.034 |
+| setting/extrapolation | NN       | grid within 20 (reference) |         7    |                  7    |               0.264 |               0.014 |
+| setting/extrapolation | NN       | grid within 5              |        14.25 |                 14.25 |               0.811 |               0.122 |
+| setting/extrapolation | NN       | grid within 3              |        14.75 |                 14.75 |               0.836 |               0.163 |
+| setting/extrapolation | NN       | uniform within 20          |         3.5  |                  3.5  |               0.094 |               0     |
+| setting/extrapolation | NN       | uniform within 50          |         0    |                  0    |               0     |               0     |
+| setting/interpolation | M0       | grid within 20 (reference) |       inf    |                inf    |             nan     |             nan     |
+| setting/interpolation | M0       | grid within 5              |       inf    |                inf    |             nan     |             nan     |
+| setting/interpolation | M0       | grid within 3              |       inf    |                inf    |             nan     |             nan     |
+| setting/interpolation | M0       | uniform within 20          |       inf    |                inf    |             nan     |             nan     |
+| setting/interpolation | M0       | uniform within 50          |       inf    |                inf    |             nan     |             nan     |
+| setting/interpolation | M1       | grid within 20 (reference) |         8.75 |                  8.75 |               0.438 |               0.042 |
+| setting/interpolation | M1       | grid within 5              |        11.25 |                 11.25 |               0.612 |               0.097 |
+| setting/interpolation | M1       | grid within 3              |        11.5  |                 11.5  |               0.612 |               0.097 |
+| setting/interpolation | M1       | uniform within 20          |         6    |                  6    |               0.25  |               0     |
+| setting/interpolation | M1       | uniform within 50          |         1    |                  1    |               0.062 |               0     |
+| setting/interpolation | M1s      | grid within 20 (reference) |       inf    |                 29.5  |               0.962 |               0.833 |
+| setting/interpolation | M1s      | grid within 5              |       inf    |                 30    |               0.962 |               0.833 |
+| setting/interpolation | M1s      | grid within 3              |       inf    |                 30.5  |               0.962 |               0.833 |
+| setting/interpolation | M1s      | uniform within 20          |       inf    |                 27.5  |               0.925 |               0.833 |
+| setting/interpolation | M1s      | uniform within 50          |         4.5  |                  4.5  |               0.088 |               0.042 |
+| setting/interpolation | M1sn     | grid within 20 (reference) |         2    |                  2    |               0     |               0     |
+| setting/interpolation | M1sn     | grid within 5              |         4.25 |                  4.25 |               0.012 |               0     |
+| setting/interpolation | M1sn     | grid within 3              |         5    |                  5    |               0.038 |               0     |
+| setting/interpolation | M1sn     | uniform within 20          |         0.25 |                  0.25 |               0     |               0     |
+| setting/interpolation | M1sn     | uniform within 50          |         0    |                  0    |               0     |               0     |
+| setting/interpolation | M2       | grid within 20 (reference) |         0.75 |                  0.75 |               0.312 |               0.042 |
+| setting/interpolation | M2       | grid within 5              |         2.75 |                  2.75 |               0.425 |               0.056 |
+| setting/interpolation | M2       | grid within 3              |         3.25 |                  3.25 |               0.462 |               0.056 |
+| setting/interpolation | M2       | uniform within 20          |         0    |                  0    |               0.25  |               0.042 |
+| setting/interpolation | M2       | uniform within 50          |         0    |                  0    |               0.25  |               0.042 |
+| setting/interpolation | M3       | grid within 20 (reference) |        17.75 |                 17.75 |               0.938 |               0.694 |
+| setting/interpolation | M3       | grid within 5              |        19    |                 19    |               0.95  |               0.75  |
+| setting/interpolation | M3       | grid within 3              |        19.5  |                 19.5  |               0.95  |               0.764 |
+| setting/interpolation | M3       | uniform within 20          |        12.75 |                 12.75 |               0.825 |               0.556 |
+| setting/interpolation | M3       | uniform within 50          |         1.25 |                  1.25 |               0.45  |               0.222 |
+| setting/interpolation | M4       | grid within 20 (reference) |         6    |                  6    |               0.55  |               0.056 |
+| setting/interpolation | M4       | grid within 5              |         9.25 |                  9.25 |               0.712 |               0.222 |
+| setting/interpolation | M4       | grid within 3              |        10.25 |                 10.25 |               0.712 |               0.292 |
+| setting/interpolation | M4       | uniform within 20          |         3    |                  3    |               0.338 |               0.042 |
+| setting/interpolation | M4       | uniform within 50          |         0    |                  0    |               0.238 |               0.014 |
+| setting/interpolation | M5       | grid within 20 (reference) |         0.5  |                  0.5  |               0.4   |               0.042 |
+| setting/interpolation | M5       | grid within 5              |         2.75 |                  2.75 |               0.45  |               0.083 |
+| setting/interpolation | M5       | grid within 3              |         3.5  |                  3.5  |               0.462 |               0.139 |
+| setting/interpolation | M5       | uniform within 20          |         0    |                  0    |               0.388 |               0.042 |
+| setting/interpolation | M5       | uniform within 50          |         0    |                  0    |               0.388 |               0.042 |
+| setting/interpolation | M5n      | grid within 20 (reference) |         0    |                  0    |               0.25  |               0     |
+| setting/interpolation | M5n      | grid within 5              |         1    |                  1    |               0.3   |               0.042 |
+| setting/interpolation | M5n      | grid within 3              |         1.5  |                  1.5  |               0.338 |               0.042 |
+| setting/interpolation | M5n      | uniform within 20          |         0    |                  0    |               0.25  |               0     |
+| setting/interpolation | M5n      | uniform within 50          |         0    |                  0    |               0.25  |               0     |
+| setting/interpolation | NN       | grid within 20 (reference) |         2    |                  2    |               0     |               0     |
+| setting/interpolation | NN       | grid within 5              |         4.25 |                  4.25 |               0.012 |               0     |
+| setting/interpolation | NN       | grid within 3              |         5    |                  5    |               0.038 |               0     |
+| setting/interpolation | NN       | uniform within 20          |         0.25 |                  0.25 |               0     |               0     |
+| setting/interpolation | NN       | uniform within 50          |         0    |                  0    |               0     |               0     |
+| transfer              | M0       | grid within 20 (reference) |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M0       | grid within 5              |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M0       | grid within 3              |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M0       | uniform within 20          |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M0       | uniform within 50          |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M1       | grid within 20 (reference) |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M1       | grid within 5              |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M1       | grid within 3              |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M1       | uniform within 20          |       inf    |                 59.75 |               0.974 |               0.961 |
+| transfer              | M1       | uniform within 50          |       inf    |                 31.75 |               0.842 |               0.807 |
+| transfer              | M1s      | grid within 20 (reference) |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M1s      | grid within 5              |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M1s      | grid within 3              |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M1s      | uniform within 20          |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M1s      | uniform within 50          |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M1sn     | grid within 20 (reference) |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M1sn     | grid within 5              |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M1sn     | grid within 3              |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M1sn     | uniform within 20          |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M1sn     | uniform within 50          |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M2       | grid within 20 (reference) |       inf    |                 41.75 |               0.987 |               0.969 |
+| transfer              | M2       | grid within 5              |       inf    |                 42.75 |               0.987 |               0.974 |
+| transfer              | M2       | grid within 3              |       inf    |                 43.25 |               0.987 |               0.974 |
+| transfer              | M2       | uniform within 20          |       inf    |                 40.25 |               0.987 |               0.969 |
+| transfer              | M2       | uniform within 50          |         6.25 |                  6.25 |               0.615 |               0.268 |
+| transfer              | M3       | grid within 20 (reference) |       inf    |                 42.25 |               1     |               0.991 |
+| transfer              | M3       | grid within 5              |       inf    |                 42.25 |               1     |               0.991 |
+| transfer              | M3       | grid within 3              |       inf    |                 42.25 |               1     |               0.991 |
+| transfer              | M3       | uniform within 20          |       inf    |                 41.5  |               1     |               0.991 |
+| transfer              | M3       | uniform within 50          |         6.5  |                  6.5  |               0.568 |               0.338 |
+| transfer              | M4       | grid within 20 (reference) |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M4       | grid within 5              |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M4       | grid within 3              |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M4       | uniform within 20          |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M4       | uniform within 50          |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M5       | grid within 20 (reference) |       inf    |                 42.25 |               0.979 |               0.943 |
+| transfer              | M5       | grid within 5              |       inf    |                 44.25 |               0.979 |               0.943 |
+| transfer              | M5       | grid within 3              |       inf    |                 44.75 |               0.979 |               0.947 |
+| transfer              | M5       | uniform within 20          |       inf    |                 39.75 |               0.97  |               0.934 |
+| transfer              | M5       | uniform within 50          |        15    |                 15    |               0.735 |               0.373 |
+| transfer              | M5n      | grid within 20 (reference) |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M5n      | grid within 5              |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M5n      | grid within 3              |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M5n      | uniform within 20          |       inf    |                inf    |             nan     |             nan     |
+| transfer              | M5n      | uniform within 50          |       inf    |                inf    |             nan     |             nan     |
+| transfer              | NN       | grid within 20 (reference) |       inf    |                inf    |             nan     |             nan     |
+| transfer              | NN       | grid within 5              |       inf    |                inf    |             nan     |             nan     |
+| transfer              | NN       | grid within 3              |       inf    |                inf    |             nan     |             nan     |
+| transfer              | NN       | uniform within 20          |       inf    |                inf    |             nan     |             nan     |
+| transfer              | NN       | uniform within 50          |       inf    |                inf    |             nan     |             nan     |
+| within                | M0       | grid within 20 (reference) |       inf    |                inf    |             nan     |             nan     |
+| within                | M0       | grid within 5              |       inf    |                inf    |             nan     |             nan     |
+| within                | M0       | grid within 3              |       inf    |                inf    |             nan     |             nan     |
+| within                | M0       | uniform within 20          |       inf    |                inf    |             nan     |             nan     |
+| within                | M0       | uniform within 50          |       inf    |                inf    |             nan     |             nan     |
+| within                | M1       | grid within 20 (reference) |       inf    |                 29.5  |               0.971 |               0.854 |
+| within                | M1       | grid within 5              |       inf    |                 31    |               0.983 |               0.863 |
+| within                | M1       | grid within 3              |       inf    |                 31.25 |               0.983 |               0.863 |
+| within                | M1       | uniform within 20          |        14.25 |                 14.25 |               0.72  |               0.237 |
+| within                | M1       | uniform within 50          |         3.25 |                  3.25 |               0.105 |               0.037 |
+| within                | M1s      | grid within 20 (reference) |         2    |                  2    |               0.008 |               0     |
+| within                | M1s      | grid within 5              |         7.25 |                  7.25 |               0.159 |               0     |
+| within                | M1s      | grid within 3              |         8.5  |                  8.5  |               0.226 |               0     |
+| within                | M1s      | uniform within 20          |         0.5  |                  0.5  |               0     |               0     |
+| within                | M1s      | uniform within 50          |         0    |                  0    |               0     |               0     |
+| within                | M1sn     | grid within 20 (reference) |         0.75 |                  0.75 |               0     |               0     |
+| within                | M1sn     | grid within 5              |         2.75 |                  2.75 |               0     |               0     |
+| within                | M1sn     | grid within 3              |         4.5  |                  4.5  |               0.008 |               0     |
+| within                | M1sn     | uniform within 20          |         0    |                  0    |               0     |               0     |
+| within                | M1sn     | uniform within 50          |         0    |                  0    |               0     |               0     |
+| within                | M2       | grid within 20 (reference) |         0    |                  0    |               0.331 |               0.078 |
+| within                | M2       | grid within 5              |         0    |                  0    |               0.331 |               0.078 |
+| within                | M2       | grid within 3              |         0.5  |                  0.5  |               0.347 |               0.078 |
+| within                | M2       | uniform within 20          |         0    |                  0    |               0.331 |               0.078 |
+| within                | M2       | uniform within 50          |         0    |                  0    |               0.331 |               0.078 |
+| within                | M3       | grid within 20 (reference) |         0    |                  0    |               0.452 |               0.064 |
+| within                | M3       | grid within 5              |         0    |                  0    |               0.452 |               0.064 |
+| within                | M3       | grid within 3              |         4    |                  4    |               0.703 |               0.1   |
+| within                | M3       | uniform within 20          |         0    |                  0    |               0.452 |               0.064 |
+| within                | M3       | uniform within 50          |         0    |                  0    |               0.452 |               0.064 |
+| within                | M4       | grid within 20 (reference) |         0    |                  0    |               0.088 |               0     |
+| within                | M4       | grid within 5              |         0    |                  0    |               0.088 |               0     |
+| within                | M4       | grid within 3              |         3.5  |                  3.5  |               0.218 |               0     |
+| within                | M4       | uniform within 20          |         0    |                  0    |               0.088 |               0     |
+| within                | M4       | uniform within 50          |         0    |                  0    |               0.088 |               0     |
+| within                | M5       | grid within 20 (reference) |         0    |                  0    |               0.013 |               0     |
+| within                | M5       | grid within 5              |         0    |                  0    |               0.013 |               0     |
+| within                | M5       | grid within 3              |         6.5  |                  6.5  |               0.305 |               0.005 |
+| within                | M5       | uniform within 20          |         0    |                  0    |               0.013 |               0     |
+| within                | M5       | uniform within 50          |         0    |                  0    |               0.013 |               0     |
+| within                | M5n      | grid within 20 (reference) |         0    |                  0    |               0.004 |               0     |
+| within                | M5n      | grid within 5              |         0    |                  0    |               0.004 |               0     |
+| within                | M5n      | grid within 3              |         4    |                  4    |               0.084 |               0     |
+| within                | M5n      | uniform within 20          |         0    |                  0    |               0.004 |               0     |
+| within                | M5n      | uniform within 50          |         0    |                  0    |               0.004 |               0     |
+| within                | NN       | grid within 20 (reference) |         0.25 |                  0.25 |               0     |               0     |
+| within                | NN       | grid within 5              |         2    |                  2    |               0     |               0     |
+| within                | NN       | grid within 3              |         8    |                  8    |               0.092 |               0     |
+| within                | NN       | uniform within 20          |         0    |                  0    |               0     |               0     |
+| within                | NN       | uniform within 50          |         0    |                  0    |               0     |               0     |
 
 ## capability
 

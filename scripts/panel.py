@@ -242,8 +242,13 @@ def guard_priors(ivr: pd.DataFrame) -> pd.DataFrame:
     for (scope, m), g in ivr[ivr["scope"].isin(scopes) & ivr["method"].isin(CORE + ["M3", "M4", "M1sn"])].groupby(
             ["scope", "method"]):
         for name, grid in PRIORS.items():
-            rows.append({"scope": scope, "method": m, "prior": name, "guard_band": guard_band(g, grid)[0],
-                         "guard_band_uncapped": guard_band(g, grid, WIDE_BANDS)[0]})
+            row = {"scope": scope, "method": m, "prior": name, "guard_band": guard_band(g, grid)[0],
+                   "guard_band_uncapped": guard_band(g, grid, WIDE_BANDS)[0]}
+            # trial shares of step 6 with the uncapped band: what a band beyond the cap of 20 floors would cost
+            if np.isfinite(row["guard_band_uncapped"]):
+                for d in CHECK:
+                    row[f"trial_{d:g}_uncapped"] = outcomes(g, d, row["guard_band_uncapped"])[f"trial_{d:g}"]
+            rows.append(row)
     return pd.DataFrame(rows)
 
 
