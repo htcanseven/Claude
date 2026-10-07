@@ -119,6 +119,13 @@ They add no number. The sentences that C3 and C4 quote are unchanged.
 
 **In the abstract**, "A framework is proposed whose unit" now reads "The proposed framework's unit", and "The framework gives" now reads "This gives", to make room for the index of C4.
 
+**Tables A1 and A2.** They now share page 25, a page of their own, and are set at 7.5 pt instead of 8 pt. To fit, rows of Table A1 that wrapped by a word or two were shortened without changing their meaning. Two changes go beyond layout:
+
+- **The guard.** Table A1 defined a guard as a check that "send[s] a design outside the calibration to trial". It now reads "family, range and novelty checks that flag a design outside the calibration", in line with C2.
+- **Table A2's note.** The clause "every rule refitted" left the refit sentence, since the note opens with "Rules refitted for every variant".
+
+The prior in the row for *g* is unchanged.
+
 **For production.** The `lineno` option will be removed once the paper is accepted.
 
 Yours sincerely,

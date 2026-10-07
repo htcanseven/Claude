@@ -36,6 +36,7 @@
 \makeatother
 %% Table body size: the class's own 8 bp table font (its \footnotesize is 7 pt and its \scriptsize 9 pt).
 \newcommand{\tabsize}{\fontsize{8}{9.5}\selectfont}
+\newcommand{\tabsizesmall}{\fontsize{7.5}{9}\selectfont}% Tables A1 and A2, which share a float page
 %% Reference list: the class sets it at normal size with entries 1em apart; the 8 bp table font with
 %% hanging indents keeps the entries distinct on fewer pages.
 \setlength{\bibsep}{0pt}
@@ -482,37 +483,37 @@ Table~\ref{tab:notation} summarises the notation of Section~\ref{sec:method}, Ta
 
 \emph{Computation details.} Batches need at least 80\,\% valid values. M5 and M5n are Gaussian-process regressions (constant times anisotropic squared-exponential kernel plus white noise, normalised targets, hyperparameters by maximum marginal likelihood without hyperpriors, three restarts, length scales in $[0.1, 100]$) on a geometry indicator, the force in 100\,kN and the lubrication rank; the lower bound of the noise variance, the larger of the mean sampling variance of the calibration alternatives' $q_{95}$ and the pooled variance between their series of one geometry and force, is expressed on the normalised scale. NN takes the mean $q_{95}$ at the nearest force of the family, both neighbours when equally near; M1sn fits $q_{95}=a+b\,$force by least squares. Mc calibrates, per lubrication pattern, the friction coefficient whose simulated draw-ins are closest to the calibration centres. M3 and M3n use histogram gradient boosting (depth 3, 200 iterations, rate 0.08) on geometry, force, lubrication, sheet thickness and oil film, with 500 incoming conditions drawn from calibration parts of the same pattern; their jackknife+ interval takes the leave-one-out predictions for the new alternative, shifted by the median leave-one-out residual, minus and plus the absolute residuals about that median, with its bounds at the extreme order statistics when $n$ is too small for the 0.9 quantiles. Guard bands lie on a grid of 0.25 floors. The refitting bootstrap draws the three lubrication patterns of each geometry with replacement 200 times, at least two of them distinct, and does not restrict the noise floor to distinct series. Software: Python 3.11 with NumPy, pandas, SciPy, scikit-learn \citep{pedregosa2011scikit} and Matplotlib.
 
-\begin{table}[!ht]
-\tabsize
+\begin{table}[p]% float page with Table A2
+\tabsizesmall
 \setlength{\tabcolsep}{4pt}
 \caption{Notation and terms}\label{tab:notation}
-\begin{tabular}{@{}L{2.55cm}L{10.2cm}@{}}
+\begin{tabular}{@{}L{3.0cm}L{9.75cm}@{}}
 \toprule
 Symbol, term & Meaning \\
 \midrule
-$a$, $c$, $q_p(a,c)$ & alternative (design--process combination), characteristic, $p$-quantile of the parts of $a$ ($p=0.95$) \\
-$R$, $d$ & requirement (upper limit on $c$ or $|c|$); its distance from the truth in floors, $R=q_p+dF_c$ \\
+$a$, $c$, $q_p(a,c)$ & design--process alternative, characteristic, $p$-quantile ($p=0.95$) of its parts \\
+$R$, $d$ & requirement (upper limit on $c$ or $|c|$), $d$ floors from the truth: $R=q_p+dF_c$ \\
 $[L_r,U_r]$, $V_r$ & interval of rule $r$ for $q_p$; verdict meets, fails or trial (Eq.~\ref{eq:verdict}) \\
 $B$, $m$, $F_c$ & batch size (50); batch centre (10\,\% trimmed mean); production floor (Eq.~\ref{eq:floor}) \\
 $\sigma_\mathrm{b}$, $\sigma_\mathrm{w}$ & standard deviation between batch means and between parts within a batch \\
 ESR, MRC & effect-to-scatter ratio (Eq.~\ref{eq:esr}); minimum resolvable change, $F_c/|s_c|$ \\
-$u$, $v$ & distances in floors by which an interval excludes the truth from above and below \\
+$u$, $v$ & distances in floors by which an interval lies above or below the truth \\
 $\kappa(\delta)$, $\omega(\delta)$ & shares of correct and wrong verdicts among the feasible verdicts at $|d|=\delta$ \\
 $\delta_\mathrm{d}$, $\delta_\mathrm{s}$ & decisive distance ($\kappa\ge0.95$ beyond it) and safe distance ($\omega\le0.05$ beyond it) \\
-FA, FR side & one-sided distances for failing alternatives (false accepts) and adequate ones (false rejects) \\
-$g$ & guard band: observable margin beyond which at least 95\,\% of the decided verdicts were correct, for a stated prior of requirement distances, here the 47 grid distances within $\pm20$ floors with equal weights (Section~\ref{sec:procedure}); not a property of rule and relation alone \\
+FA, FR side & distances on the false-accept (failing) and false-reject (adequate) side \\
+$g$ & guard band: observable margin beyond which ${\ge}95$\,\% of decided verdicts were correct, under a stated prior of requirement distances, here the 47 grid distances within $\pm20$ floors, equal weights (Section~\ref{sec:procedure}); not a property of rule and relation alone \\
 Calibration alternatives & produced alternatives whose record calibrates a rule \\
-Evidence relation & sibling (same setting produced), new process setting (interpolated, extrapolated), new family \\
+Evidence relation & sibling (same setting), new setting (interpolated, extrapolated), new family \\
 Calibration budget & distances against the number $k$ of produced alternatives, by relation \\
-Guard & family, range and novelty checks that send a design outside the calibration to trial \\
+Guard & family, range and novelty checks that flag a design outside the calibration \\
 Measurement resolution & step between adjacent values that the measuring system reports (gauge sense) \\
 \botrule
 \end{tabular}
 \end{table}
 
 %% BEGIN GENERATED robust
-\begin{table}[!ht]
-\tabsize
+\begin{table}[p]
+\tabsizesmall
 \setlength{\tabcolsep}{1.4pt}
 \caption{Decisive/safe distances (floors) under the robustness variants}\label{tab:robust}
 \begin{tabular}{@{}lrrrrrrrrrr@{}}
@@ -543,7 +544,7 @@ Unit: $q_{95}$ floor & 5.3 & 17/0.15 & 6.9/0.40 & 2.8 & 15/6.0 & 18/6.2 & 6.9 & 
 Refit, $\delta_\mathrm{s}$ & 4.9--7.3 & 0.15--1.4 & 0.75--3.0 & 2.3--4.6 & 6.8--8.4 & 6.2--7.8 & 6.9--9.2 & 7.3--10 & 15--22 & 27--33 \\
 \botrule
 \end{tabular}
-\footnotetext{Rules refitted for every variant; empty cells: the variant does not affect the rule; a new family in its own floor (in the produced family's floor in Table~\ref{tab:distances}). The floor between series contains the lubrication effect and, for a new variant, the series that NN averages, which makes it close to circular there. Warm-up: first 150 parts. Calibration: calibration $q_{95}$ from the first $n$ parts, truths and floors from the full series. Response surface: simulations from a quadratic fit over thickness and friction; other GP kernels and descriptors move M5 by at most 0.4 floors. Unit: the $q_{95}$ floor, 95\,\% quantile of the difference between the $q_{95}$ of two batches of 100 parts. Refit: 95\,\% intervals of the decisive and safe distances over 200 draws of each geometry's lubrication patterns with replacement, every rule refitted (Section~\ref{sec:evaldesign}).}
+\footnotetext{Rules refitted for every variant; empty cells: the variant does not affect the rule; a new family in its own floor (in the produced family's floor in Table~\ref{tab:distances}). The floor between series contains the lubrication effect and, for a new variant, the series that NN averages, which makes it close to circular there. Warm-up: first 150 parts. Calibration: calibration $q_{95}$ from the first $n$ parts, truths and floors from the full series. Response surface: simulations from a quadratic fit over thickness and friction; other GP kernels and descriptors move M5 by at most 0.4 floors. Unit: the $q_{95}$ floor, 95\,\% quantile of the difference between the $q_{95}$ of two batches of 100 parts. Refit: 95\,\% intervals of the decisive and safe distances over 200 draws of each geometry's lubrication patterns with replacement (Section~\ref{sec:evaldesign}).}
 \end{table}
 %% END GENERATED robust
 

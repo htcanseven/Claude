@@ -241,7 +241,7 @@ def t_robust() -> str:
             "\n" r"\cmidrule(lr){2-5}\cmidrule(lr){6-9}\cmidrule(lr){10-11}" "\n"
             r"Variant & M1s & M2 & M5 & NN & M2 & M5 & NN & M1sn & M2 & M5")
     return table(rows, "Decisive/safe distances (floors) under the robustness variants", "tab:robust",
-                 "l" + "r" * 10, head, colsep="1.4pt", place="!ht",
+                 "l" + "r" * 10, head, colsep="1.4pt", place="p", size=r"\tabsizesmall",  # float page with Table A1
                  note=r"Rules refitted for every variant; empty cells: the variant does not affect the rule; a new family in "
                       r"its own floor (in the produced family's floor in Table~\ref{tab:distances}). The floor between series contains the lubrication effect and, for a new variant, the "
                       r"series that NN averages, which makes it close to circular there. Warm-up: first 150 parts. Calibration: calibration $q_{95}$ from the first $n$ "
@@ -249,7 +249,7 @@ def t_robust() -> str:
                       r"friction; other GP kernels and descriptors move M5 by at most 0.4 floors. Unit: the $q_{95}$ "
                       r"floor, 95\,\% quantile of the difference between the $q_{95}$ of two batches of 100 parts. "
                       r"Refit: 95\,\% intervals of the decisive and safe distances over 200 draws of each geometry's lubrication patterns with "
-                      r"replacement, every rule refitted (Section~\ref{sec:evaldesign}).")
+                      r"replacement (Section~\ref{sec:evaldesign}).")
 
 
 
