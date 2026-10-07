@@ -37,8 +37,8 @@ limit.
      "[DOI to be inserted after deposit]";
    - `paper/submission/cover_letter.md`: replace "[DOI to be inserted after deposit]".
 5. **Rebuild.**
-   - The paper: `latexmk -pdf main.tex` in `paper/`. Check that it still has 30 pages and that the main text ends on
-     page 23.
+   - The paper: `latexmk -pdf main.tex` in `paper/`. Check that it still has 30 pages and that the main text ends at
+     the top of page 24.
    - The response: `python paper/review/cfp_panel/round3/resolve_locations.py`.
    - The upload zip: `bash paper/submission/make_zip.sh`. It warns while the DOI is still pending.
 6. **Check** that the DOI resolves and that `sha256sum -c SHA256SUMS` passes in the unpacked deposit.
@@ -81,8 +81,8 @@ Per the decision letter, the final version is due by 20 October 2026. It consist
       `results/figures/` to `paper/figures/`. Since the third round only `panel_guard_priors.csv` changed: two columns
       were added (`RELEASE_NOTES.md`).
 - [x] Single file with no supplementary material. `paper/main.tex` compiles with zero errors, no undefined references
-      or citations and no overfull boxes. The paper has 30 pages, and the main text (abstract to conclusions) ends on
-      page 23. The main text has six tables and four figures; the appendix has five tables. References start on
+      or citations and no overfull boxes. The paper has 30 pages, and the main text (abstract to conclusions) ends at
+      the top of page 24, after the conclusions were extended by eight lines. The main text has six tables and four figures; the appendix has five tables. References start on
       page 28.
 - [x] Abstract within 250 words; six keywords; captions of at most two lines; no first person; British spelling.
 - [x] Every cited key is in `refs.bib`. The references were checked against the publisher, DBLP, Crossref or the ISO

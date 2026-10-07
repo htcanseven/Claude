@@ -9,7 +9,7 @@
 
 **Archive.** Zenodo, version 4, DOI **[DOI to be inserted after deposit]**. `RELEASE_NOTES.md` in the deposit gives the SHA-256 checksums of the seven files your letter names. `SHA256SUMS` gives those of every script and result file, so `sha256sum -c SHA256SUMS` in the unpacked deposit checks them all.
 
-**Locations.** Page and line numbers refer to the final manuscript, `paper/main.pdf`, which is compiled with line numbers. The abstract, the tables, the captions and the boxes of Fig. 1 carry no line numbers and are named. The version marked up against the third-round manuscript is `paper/review/cfp_panel/round3/main_diff.pdf`. In it, latexdiff shows changed tables and captions in their new form without markup, and it does not mark Fig. 1, which is drawn in `fig_procedure.tex`. Their changes are therefore listed below. The main text still ends on page {{mainpages}}, and the paper still has {{totalpages}} pages.
+**Locations.** Page and line numbers refer to the final manuscript, `paper/main.pdf`, which is compiled with line numbers. The abstract, the tables, the captions and the boxes of Fig. 1 carry no line numbers and are named. The version marked up against the third-round manuscript is `paper/review/cfp_panel/round3/main_diff.pdf`. In it, latexdiff shows changed tables and captions in their new form without markup, and it does not mark Fig. 1, which is drawn in `fig_procedure.tex`. Their changes are therefore listed below. The paper still has {{totalpages}} pages. The main text now ends at the top of page {{mainpages}}, because the conclusions were extended by eight lines (Part 6).
 
 Dear Guest Editor,
 
@@ -100,7 +100,14 @@ No number of the third-round version has changed. One result file gained two col
 
 ## Part 6. Other changes
 
-**For length.** To keep the main text on 23 pages, the following were cut. No result on which a conclusion rests was removed.
+**The conclusions.** They were extended by eight lines, which is within the growth of about half a page that your second-round letter allowed the main text:
+
+- a paragraph on what the results imply for design practice and for AI-based manufacturability support ({{loc:For design practice, the production record carried the decision}});
+- a sentence on the limits of the evidence, before the four extensions ({{loc:The evidence is one process and two geometries}}).
+
+They add no number. The sentences that C3 and C4 quote are unchanged.
+
+**For length.** To make room for C2–C7, the following were cut. No result on which a conclusion rests was removed.
 
 - **Sect. 3.6:** "If the distances are too large for the requirements of coming designs, another variant is produced." Fig. 1 keeps this loop in step 5.
 - **Sect. 5.6:** the sentence on why the distances shrink with the budget when averaged over all subsets (the share of subsets that contain a sibling).

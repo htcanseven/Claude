@@ -12,7 +12,7 @@ Thank you for your decision of 6 October 2026 to accept the manuscript in princi
 
 **What is enclosed.** As your letter asks:
 
-- **The clean manuscript.** `paper/main.pdf` has 30 pages, and its main text ends on page 23. Line numbers are kept for your check; the LaTeX source is `paper/submission/manuscript_source.zip`.
+- **The clean manuscript.** `paper/main.pdf` has 30 pages. Its main text ends at the top of page 24, because the conclusions were extended by eight lines. Line numbers are kept for your check; the LaTeX source is `paper/submission/manuscript_source.zip`.
 - **The marked-up version.** `paper/review/cfp_panel/round3/main_diff.pdf` compares it with the third-round manuscript.
 - **A short response.** `paper/review/cfp_panel/round3/response_round3.md` maps C1–C7 and the editorial corrections to page and line, and gives the DOI. It also corrects the statements of the second-round response that your letter lists.
 
