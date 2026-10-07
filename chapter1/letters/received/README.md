@@ -28,10 +28,10 @@ owner; otherwise its chapter sentence must change, after he has heard why from u
 
 | Writer | Chapter | Draft sent |
 |---|---|---|
-| Jussi Sopanen | 4–6 | with the invitation, 3 Sep |
+| Jussi Sopanen | 4–6 | with the invitation, 3 Sep; on 9 Sep he said he would edit it and send it "later" |
 | Ahti Jaatinen-Värri | 13 | with the Chapter 13 invitation |
 | Jonna Tiainen | 13 | invited to write a second, manufacturer's letter |
 | Jenni Pippuri-Mäkeläinen | 14 | with the invitation |
-| Marko Hinkkanen | 12 | not yet: the letter is the second step, after he says yes |
+| Marko Hinkkanen | 12 | 8 Sep, with Chapter 1 and the table of contents, after he said he was interested |
 
 Paavo Rasilo's draft is void; he declined Chapter 9 on 20 September.

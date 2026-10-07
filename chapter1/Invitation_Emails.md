@@ -70,9 +70,8 @@ Best regards,
 
 *Sent 3 September 2026 (Hüseyin's version), with Ilya and Juha in copy and
 `letters/Support_Letter_Sopanen.docx` attached. The original is
-`incoming/emails/2026-09-03_Sopanen_invitation_sent.msg`. No letter back yet. The sent
-version does not ask him to name his co-authors, and does not mention the bearing specialist
-for Chapter 6, so ask both when the letter is chased.*
+`incoming/emails/2026-09-03_Sopanen_invitation_sent.msg`. He replied on 9 September
+and has had the table of contents and Chapter 1 since then; the thread follows.*
 
 Hello Jussi,
 
@@ -87,6 +86,58 @@ Could you write us a short letter of support? We would send it to the publisher 
 Looking forward to hearing from you.
 
 BR, Hüseyin
+
+### His reply — 9 September
+
+*He copied in Charles Nutakor (LUT). Transcribed from a screenshot of the thread.*
+
+> Hi,
+>
+> Thanks! This is a great idea and I'm interested on it. Do you have a preliminary ToC of book proposal? Would be good to see the content of the book, because the scope of rotordynamic chapters depend on it. I mean, there are quite many su-topics under these chapters
+>
+> i) rotor stress and magnet retention,
+> - Content depends heavily on which type of rotor is analyzed (induction, PM, SynRM) and their specific construction (e.g. solid/laminated, squirrel cage.
+> - Is the book focused on some types of EMs? Chapter content depends on it.
+>
+> ii) rotordynamics and vibration, and
+> - This is quite clear, general rotordynamic analysis theory
+>
+> iii) the bearings, lubrication and seals of high-speed rotors.
+> - Content depends very much on which type of bearing is used: rolling element bearing, AMB, gas bearing, hydrodynamic journal bearing. I believe there is on space for describing them all in detail, some delimination should be done.
+> - Charles could contribute on lubrication and seals
+>
+> I'll edit the support letter later and send it you.
+> Jussi
+
+### Our reply — 9 September
+
+*Sent with `Annotated_Table_of_Contents.docx` and Chapter 1 attached.*
+
+> Hello Jussi,
+>
+> Thank you for your reply and interest.
+>
+> The annotated table of contents that shows the summary of each chapter is attached. I attach the completed introductory chapter as well. You are free to make any modifications on them.
+>
+> Both attachments are unpublished drafts, and the proposal has not yet gone to Wiley, so please treat them as confidential: not forwarded, circulated or quoted outside your own reading, though of course you may show them to a co-author you would want to bring in.
+>
+> BR, Hüseyin
+
+### Still open — 7 October
+
+*Three things.*
+
+1. *His two scope questions are not answered in the thread, and the table of contents
+   answers them only in part. Chapter 4 is written around sleeved and interior-magnet PM
+   rotors, although the industrial running machine is a slitted solid-rotor induction
+   machine. Chapter 6 promises rolling-element, fluid-film, gas, air-foil and magnetic
+   bearings in thirty pages, which is the delimitation he says is needed.*
+2. *He proposed Charles Nutakor (LUT) for lubrication and seals, the remit the table of
+   contents had left to "an industrial bearing application specialist".*
+3. *The letter he promised on 9 September has not come back.*
+
+*Answer the questions once the editors have settled them, and ask for the letter in the
+same email.*
 
 ---
 
@@ -371,8 +422,8 @@ from Juha or from Anouar Belahcen at the same university would help.*
 *Sent 4 September 2026 (Hüseyin's version), with Ilya and Juha in copy and nothing attached.
 The original is `incoming/emails/2026-09-04_Hinkkanen_invitation_sent.msg`. It went out three
 days before the drive chapter was split, so it offers "the control side" of the drive chapter
-rather than a chapter of his own. It puts the pulse ratio at "ten or below" and "eight". No
-reply recorded as of 7 October.*
+rather than a chapter of his own. It puts the pulse ratio at "ten or below" and "eight". He
+replied on 8 September; the thread follows.*
 
 Dear Professor Hinkkanen,
 
@@ -388,18 +439,54 @@ Nothing is binding at this stage: the publisher has not yet seen the proposal, a
 
 Best Regards, Hüseyin
 
-### Follow-up — not yet sent
+### His reply — 8 September
 
-*Five weeks without a reply. A short follow-up can carry the one piece of news: the control
-side is now a chapter of its own, Chapter 12, about eighteen pages, and it would be his.
-That is a larger offer than the one he has not answered, so it gives him a reason to reply.
-An introduction from Juha, or from Anouar at Aalto, would still help. Settle the pulse-ratio
-wording with Juha first; he reads it as "nine or eleven".*
+*Ilya and Juha in copy. Transcribed from a screenshot of the thread.*
 
-### Second email — after he has said yes
+> Hi Hüseyin,
+>
+> Thank you for the message.
+>
+> In general, I would be interested in joining this project. Potentially, a postdoc from my group could also join. A bottleneck is the limited time, so I can't yet promise 100% sure.
+>
+> We would be interested in seeing the introductory chapter and the table of contents.
+>
+> Best regards,
+> Marko
 
-*Attach the clean Chapter 1, `Annotated_TOC_for_contributors.docx` and the draft letter.
-Offer to put him in touch with Peltoniemi, so that Chapters 11 and 12 are planned together.*
+### Our reply — 8 September
+
+*Sent with three attachments: `Support_Letter_Hinkkanen.docx`, Chapter 1 and the annotated
+table of contents.*
+
+> Hello Marko,
+>
+> Thank you very much for your reply and interest.
+>
+> I supposed to be at the ICEM but unfortunately, I couldn't attend due to some issues with my residence permit card.
+>
+> The annotated table of contents that shows the summary of each chapter is attached. I attach the completed introductory chapter as well.
+>
+> Both attachments are unpublished drafts, and the proposal has not yet gone to Wiley, so please treat them as confidential: not forwarded, circulated or quoted outside your own reading, though of course you may show them to a co-author you would want to bring in.
+>
+> Whenever you have had a chance to read, one further thing. We are collecting short letters of support to send to Wiley with the proposal. Letters from named contributors carry real weight with a publisher's reviewers, because they show that the people listed exist and see the need for the book from their own field. I attach a draft only to show what such a letter usually contains. Please rewrite it as you see fit, or write something quite different.
+>
+> BR, Hüseyin
+
+### Still open — 7 October
+
+*He is interested but not committed, and time is his stated constraint. He has had
+everything for a month, and no letter has come back. The table of contents he holds (the
+stamped copy of 7 September) already names him as owner of Chapter 12, "Marko Hinkkanen and
+his group or network". The draft letter in our files, however, offers "the control sections
+of the chapter on the drive", which predates the split. If that is the draft he received,
+say so when chasing, so that his letter names Chapter 12. The postdoc he mentions is welcome
+as co-author, and naming them would help the proposal. Settle the pulse-ratio wording with
+Juha first; he reads it as "nine or eleven".*
+
+### Not yet done
+
+*Offer to put him in touch with Peltoniemi, so that Chapters 11 and 12 are planned together.*
 
 ---
 

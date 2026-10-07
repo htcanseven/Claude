@@ -2,7 +2,7 @@
 
 *High-Speed Electrical Machines and Drives* · Hüseyin Canseven, Ilya Petrov, Juha Pyrhönen
 
-*Internal note for the three of us. It records contributors' answers, so it is not for circulation. Updated at mid-morning with the letters from Wróbel, Peltoniemi, Aarniovuori, Belahcen and Ikäheimo and the invitations sent to Sopanen and Hinkkanen. Anything else that has arrived by email is not in it, so correct the tables in the meeting.*
+*Internal note for the three of us. It records contributors' answers, so it is not for circulation. Updated at mid-morning with the letters from Wróbel, Peltoniemi, Aarniovuori, Belahcen and Ikäheimo and the email threads with Sopanen and Hinkkanen. Anything else that has arrived by email is not in it, so correct the tables in the meeting.*
 
 ## Where we are
 
@@ -11,8 +11,8 @@
 - **Contributors.**
   - In writing: Juha Saari (Chapter 2), Anouar Belahcen (Chapter 8; his letter names both loss chapters, see decision 1), Rafał Wróbel (Chapter 10), Pasi Peltoniemi (Chapter 11), Lassi Aarniovuori (§11.2 and §13.4) and Jouni Ikäheimo (Chapter 3's induction machines, §13.3 and §13.5).
   - Paavo Rasilo declined Chapter 9 on 20 September.
-  - Jussi Sopanen agreed in principle and was invited on 3 September; his letter has not come back.
-  - Marko Hinkkanen was invited on 4 September, for the control side of the drive chapter, three days before it became Chapter 12. No reply is on file.
+  - Jussi Sopanen replied on 9 September that he is interested. He asked two scope questions (decision 7) and proposed Charles Nutakor (LUT) for lubrication and seals. He promised his letter "later"; it has not come back.
+  - Marko Hinkkanen replied on 8 September: interested in general, perhaps with a postdoc from his group, but short of time and not yet committed. He has had Chapter 1, the table of contents and the draft letter since 8 September, and no letter has come back.
   - Tiainen and Jaatinen-Värri, and Pippuri-Mäkeläinen, have been invited, with no answer recorded.
 - **Letters of support:** six of ten are back: Saari, Aarniovuori, Wróbel, Peltoniemi, Belahcen and Ikäheimo. Wróbel's must be fixed before it goes to Wiley.
 - **Not yet started for the package:** the partial Chapter 7, the biographies, the competing-titles analysis and Wiley's proposal form.
@@ -48,6 +48,16 @@
 6. **Running-machine data.**
    - **Industrial:** the 2 MW solid-rotor machine of Chong Di's dissertation was built and tested, but the results are unpublished. Decide what may appear, and whether anyone outside LUT must agree.
    - **Mobile:** nine chapters rest on Voltcar, and the consortium's permission to publish has not yet been obtained. Jenni's draft letter says she will obtain it. A late refusal would cost the mobile half of the book, so this should be settled before submission.
+
+7. **The scope of Jussi's chapters.** On 9 September he asked two things the thread does not answer:
+   - **Rotor types.** Which ones must the rotor-stress chapter cover: induction, PM or SynRM, and solid, laminated or caged? Is the book focused on some machine types?
+   - **Bearing types.** Chapter 6 promises rolling-element, fluid-film, gas, air-foil and magnetic bearings in thirty pages. He doubts there is room for all of them in detail and asks for a delimitation.
+
+   Suggested answer: let the two running machines set the depth. The industrial machine is a slitted solid-rotor induction machine on magnetic bearings, and the mobile one a PM machine on rolling-element bearings. So:
+   - Chapter 4 treats solid and laminated induction rotors and sleeved PM rotors in full, and SynRM briefly. As written, its abstract covers only the PM rotors.
+   - Chapter 6 treats rolling-element and magnetic bearings in full, and the others at the level needed to choose between them.
+
+   Charles Nutakor, whom Jussi proposed, would take lubrication and seals. That was the remit of the "industrial bearing application specialist" in the table of contents, so decide whether that slot is still wanted.
 
 ## Chapter 1 and the figures
 
@@ -98,13 +108,13 @@
 | 1 | Introduction | editors; §1.1.2 A. Jaatinen-Värri | written; house style done; five items to fold in | — |
 | 2 | Applications | J. Saari, Upheat Solutions | accepted; waiting for the detailed section structure | received 21 Sep |
 | 3 | Topologies | editors; J. Ikäheimo for §3.2–3.3 | Ikäheimo in writing; ABB's agreement for photographs still to ask | received, scanned 5 Oct |
-| 4–6 | Rotor mechanics, rotordynamics, bearings | J. Sopanen | agreed in principle; invited 3 Sep; he names the bearing specialist | awaited |
+| 4–6 | Rotor mechanics, rotordynamics, bearings | J. Sopanen; C. Nutakor proposed for lubrication and seals | interested (9 Sep); two scope questions open | promised 9 Sep, not back |
 | 7 | Sizing | editors | partial chapter promised in the package | — |
 | 8 | Winding losses | A. Belahcen | in writing | received 3 Sep; names both loss chapters |
 | 9 | Core, rotor and aerodynamic losses | open: decide today | Rasilo declined 20 Sep; not yet discussed with Belahcen | — |
 | 10 | Thermal | R. Wróbel, independent consultant | accepted | received 21 Sep; unsigned, email line unfilled |
 | 11 | Converter | P. Peltoniemi | accepted; Aarniovuori on §11.2 | received 22 Sep; Aarniovuori's scanned 7 Sep |
-| 12 | Control | M. Hinkkanen | invited 4 Sep, for the control side of the drive chapter; no reply on file | after he says yes; draft needs fixing |
+| 12 | Control | M. Hinkkanen | interested but not committed (8 Sep); perhaps with a postdoc | draft sent 8 Sep, not back |
 | 13 | Industrial case studies | J. Tiainen and A. Jaatinen-Värri | invited with Chapter 1 and the table of contents; no answer recorded; §13.3 offered to Jonna, now in Ikäheimo's letter | drafted (Ahti) |
 | 14 | Mobile case studies | J. Pippuri-Mäkeläinen, VTT | invited; no answer recorded; Voltcar permission pending | drafted |
 
@@ -121,10 +131,11 @@
   The register is in `letters/received/README.md`.
 - **Must be fixed:** Wróbel's, which needs a signature and the email line in its letterhead.
 - **Awaited:**
-  - Sopanen, who had the draft with his invitation on 3 Sep;
+  - Sopanen, who promised it on 9 Sep;
+  - Hinkkanen, who has had the draft since 8 Sep;
   - Jaatinen-Värri, and a second letter from Tiainen if she will write one;
   - Pippuri-Mäkeläinen.
-- **Not yet asked:** Hinkkanen, whose letter is the second step. His draft still offers "the control sections of the chapter on the drive" and needs the Chapter 12 offer and the pulse-ratio wording.
+- **Hinkkanen's draft predates the split.** The draft in our files offers "the control sections of the chapter on the drive", while the table of contents he holds already names him as owner of Chapter 12. If that is the draft he received, say so when chasing, so that his letter names Chapter 12. Settle the pulse-ratio wording with Juha first.
 - **Chasing:** once the submission month is fixed, give everyone a reply-by date.
 
 ## Actions
@@ -135,8 +146,8 @@
 | Settle Chapter 9 and tell Anouar, whichever way it goes | | |
 | Merge and correct the table of contents | | |
 | Ask Rafał to sign, fill the email line, and say how to list him | | |
-| Follow up Marko Hinkkanen with the Chapter 12 offer | | |
-| Chase Jussi Sopanen's letter and his co-authors | | |
+| Chase Marko's letter: Chapter 12 wording, postdoc welcome | | |
+| Answer Jussi's two scope questions and chase his letter | | |
 | Settle §13.3, Jonna or Jouni, with the Chapter 13 owners | | |
 | ABB's agreement for Jouni's photographs | | |
 | Export the Figure 1.4 mode shapes | | |

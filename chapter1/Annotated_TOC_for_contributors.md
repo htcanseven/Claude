@@ -222,7 +222,7 @@ short biography, and in the preface.
 | Jouni Ikäheimo | ABB, high-speed motors | 3, the induction machines; 13, manufacture and qualification; photographs and machine material throughout | the authors |
 | Lassi Aarniovuori | LUT University, loss and efficiency measurement | 11, harmonic losses; 13, the test rig and loss segregation | P. Peltoniemi and the Chapter 13 owners |
 | Ilya Petrov | LUT University, author | 13, the electrical machine of §13.1 | the Chapter 13 owners |
-| a bearing application specialist | industry | 6 | J. Sopanen, from his network |
+| Charles Nutakor | LUT University, lubrication and seals | 6 | J. Sopanen, proposed 9 Sep |
 | a windage co-author | to be settled | 9, §9.8 | P. Rasilo; J. Saari is the natural name |
 | an aerospace contributor | to be identified | 14, §14.2 | J. Pippuri-Mäkeläinen |
 | an e-turbocharger contributor | to be identified | 14, §14.3 | J. Pippuri-Mäkeläinen |
