@@ -9,7 +9,7 @@
 - **Chapter 1** is written and is now in the house style throughout: all nine figures are redrawn, and every table and caption uses one style. It is 24 pages. Five items remain to be folded in before the version that goes to Wiley.
 - **The annotated table of contents** has 14 chapters and 454 pages: 414 of chapters plus 40 of front and back matter, against a target of 450 and a ceiling of 500. It cannot go to anyone new until Chapter 9 has an owner, because every copy still names Paavo Rasilo.
 - **Contributors.**
-  - In writing: Juha Saari (Chapter 2), Anouar Belahcen (Chapter 8, and Chapter 9 if his letter is the draft he was sent), Rafał Wróbel (Chapter 10), Pasi Peltoniemi (Chapter 11) and Lassi Aarniovuori (§11.2 and §13.4).
+  - In writing: Juha Saari (Chapter 2), Anouar Belahcen (Chapter 8; his letter names both loss chapters, see decision 1), Rafał Wróbel (Chapter 10), Pasi Peltoniemi (Chapter 11) and Lassi Aarniovuori (§11.2 and §13.4).
   - Paavo Rasilo declined Chapter 9 on 20 September.
   - Jussi Sopanen agreed in principle and was invited on 3 September; his letter has not come back.
   - Marko Hinkkanen was invited on 4 September, for the control side of the drive chapter, three days before it became Chapter 12. He has not replied.
@@ -20,7 +20,16 @@
 
 ## Decisions needed today
 
-1. **Who owns Chapter 9.** Paavo Rasilo declined on 20 September and suggested Anouar Belahcen and Floran Martin. Anouar was offered "one or two chapters" on the losses. The draft letter he was sent says he will contribute "the loss chapters of the book, on AC winding losses and conductor design and on the core, rotor and aerodynamic losses", and he has now signed it. If he signed it unchanged, Chapter 9 is already his in writing, and the decision is only to confirm it, with Floran as his co-author if he wants one. Check the signed copy's wording first. The table of contents must then name him for Chapter 9 before his letter and the table of contents go to Wiley together. Until then, no table of contents goes out.
+1. **Who replaces Paavo Rasilo on Chapter 9.** Paavo declined on 20 September and suggested Anouar Belahcen and Floran Martin. Chapter 9 has not been discussed with Anouar.
+
+   One fact bears on every option. Anouar signed his letter on 3 September, four days before the restructure gave Chapter 9 to Paavo, and its chapter sentence is ours word for word: he will contribute "the loss chapters of the book, on AC winding losses and conductor design and on the core, rotor and aerodynamic losses". That matched our invitation, which offered him "one or two chapters" on the losses.
+
+   The options:
+   - **A. Anouar takes Chapter 9 as well as Chapter 8**, with Floran as co-author if he wants one. His letter stands as written. One owner for both loss chapters removes the seam between their loss budgets. The cost is 58 pages for one person, though Sopanen already carries 96.
+   - **B. Floran Martin owns Chapter 9**, introduced with Paavo's name. We asked Paavo whether we may use it, and no answer is recorded. This puts a new name on the proposal and spreads the load, but it is a cold approach at a late stage.
+   - **C. We take Chapter 9 ourselves.** Ilya is already down for its rotor losses, and the solid-rotor loss modelling of Chong Di's dissertation belongs there. This raises our own share of the book and adds to our writing.
+
+   Under B or C, Anouar's letter stays accurate only if he still writes part of Chapter 9. Otherwise its chapter sentence must change. Whichever we choose, Anouar should hear it from us before the table of contents is fixed. The windage section, §9.8, still needs its writer under every option, and Juha Saari is the natural name.
 2. **Authored book or edited volume.** Juha's revision of the table of contents reads "Editors", and Juha has described the book that way to contributors since 9 September. Everything else still says "authors": the byline, the confidentiality notice and its copyright line, the invitations and the letters. Contributors own 11 of the 14 chapters, so "edited" is the honest description. It does change the Wiley contract, the contributor agreements and royalties, and how reviewers read the book. Decide, then change every document at once.
 3. **Wiley: who writes, and what we ask.** First, answer Juha's question; recommended: Juha writes, given his history with Wiley. The questions to put to them:
    - Does the book print in colour or greyscale?
@@ -75,6 +84,7 @@
 
 ## What the returned letters change
 
+- **Belahcen** signed on 3 September, on Aalto letterhead, dated and with a subject line. Its chapter sentence is the one we drafted, so it names both loss chapters: see decision 1.
 - **Wróbel** takes Chapter 10 entire, but his letter cannot go to Wiley as it stands. Its letterhead still reads "Email: [insert preferred professional email]", and it is not signed. He also now writes as an independent researcher and engineering consultant, not as Newcastle University. Ask how he wants to be listed, including whether with diacritics, Rafał Wróbel.
 - **Peltoniemi** describes his chapter as "power-electronic constraints and converter–machine interaction in high-speed electrical drives". He treats insulation, bearing currents and EMC through the converter-generated stresses, not their full physics. The Chapter 11 abstract should say the same, because Wiley's reviewers read the letters beside the table of contents.
 - **Aarniovuori** takes §11.2 and §13.4, as offered, and adds service on IEC and CENELEC standardisation committees. That makes him a candidate for §13.5, qualification against the standards, too.
@@ -89,8 +99,8 @@
 | 3 | Topologies | editors; J. Ikäheimo for §3.2–3.3 | Ikäheimo agreed through Juha; ABB clearance for photographs still to ask | drafted |
 | 4–6 | Rotor mechanics, rotordynamics, bearings | J. Sopanen | agreed in principle; invited 3 Sep; he names the bearing specialist | awaited |
 | 7 | Sizing | editors | partial chapter promised in the package | — |
-| 8 | Winding losses | A. Belahcen | in writing | signed; covers Chapters 8 and 9 if unchanged |
-| 9 | Core, rotor and aerodynamic losses | Belahcen, to confirm | Rasilo declined 20 Sep | see Chapter 8 |
+| 8 | Winding losses | A. Belahcen | in writing | received 3 Sep; names both loss chapters |
+| 9 | Core, rotor and aerodynamic losses | open: decide today | Rasilo declined 20 Sep; not yet discussed with Belahcen | — |
 | 10 | Thermal | R. Wróbel, independent consultant | accepted | received 21 Sep; unsigned, email line unfilled |
 | 11 | Converter | P. Peltoniemi | accepted; Aarniovuori on §11.2 | received 22 Sep; Aarniovuori's scanned 7 Sep |
 | 12 | Control | M. Hinkkanen | invited 4 Sep, for the control side of the drive chapter; no reply | after he says yes; draft needs fixing |
@@ -104,7 +114,7 @@
   - Aarniovuori, scanned 7 Sep;
   - Wróbel, 21 Sep;
   - Peltoniemi, 22 Sep;
-  - Belahcen, by 7 Oct, not yet filed.
+  - Belahcen, 3 Sep.
 
   The register is in `letters/received/README.md`.
 - **Must be fixed:** Wróbel's, which needs a signature and the email line in its letterhead.
@@ -121,10 +131,9 @@
 | Action | Who | By |
 |---|---|---|
 | Answer Juha's question; write to Wiley | | |
-| Offer Chapter 9 | | |
+| Settle Chapter 9 and tell Anouar, whichever way it goes | | |
 | Merge and correct the table of contents | | |
 | Ask Rafał to sign, fill the email line, and say how to list him | | |
-| File Anouar's signed letter; check its chapter paragraph | | |
 | Follow up Marko Hinkkanen with the Chapter 12 offer | | |
 | Chase Jussi Sopanen's letter and his co-authors | | |
 | Export the Figure 1.4 mode shapes | | |

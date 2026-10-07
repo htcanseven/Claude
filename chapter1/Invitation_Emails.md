@@ -41,10 +41,13 @@ Say who "we" is at least once if the recipient does not know all three authors.
 
 ## Anouar Belahcen — losses (proofread)
 
-*Sent. He was offered "one or two chapters" on the losses. His signed letter came back by
-7 October; a copy is still to be filed in `letters/received/`. The draft he was sent commits
-him to both loss chapters, Chapter 8 and Chapter 9, so if he signed it unchanged, Chapter 9
-is his in writing already.*
+*Sent. He was offered "one or two chapters" on the losses. He signed the draft letter on
+3 September, with small changes of wording but the chapter sentence as drafted
+(`letters/received/Support_Letter_Belahcen_SIGNED.md`). That was four days before the
+restructure gave Chapter 9 to Paavo Rasilo, so it names both loss chapters.
+Chapter 9 has not been discussed with him since, neither the move to Paavo nor Paavo's
+decline. Who replaces Paavo is the editors' decision of 7 October, and Anouar should hear
+the outcome from us before the table of contents is fixed.*
 
 Hello Anouar,
 

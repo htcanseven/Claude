@@ -15,12 +15,13 @@ letters. A letter that cannot be read without that sheet is still usable.
 | Lassi Aarniovuori, LUT | §11.2, §13.4 | scanned 7 Sep | yes, LUT letterhead | no | nothing essential | `Support_Letter_Aarniovuori_SIGNED.md` |
 | Rafał Wróbel, independent | 10 | 21 Sep | **no** | yes | **fill the "[insert preferred professional email]" line and sign**; ask how he wants his affiliation listed | `Support_Letter_Wrobel_RETURNED.md` |
 | Pasi Peltoniemi, LUT | 11 | 22 Sep | yes | no | nothing essential | `Support_Letter_Peltoniemi_SIGNED.md` |
-| Anouar Belahcen, Aalto | 8, and 9 if the draft stands | by 7 Oct | yes, per Hüseyin | ? | file a copy here; check the chapter paragraph | — |
+| Anouar Belahcen, Aalto | 8; the letter names 8 and 9 | 3 Sep | yes, Aalto letterhead | yes | its chapter sentence depends on the Chapter 9 decision | `Support_Letter_Belahcen_SIGNED.md` |
 
-The draft sent to Anouar commits him to "the loss chapters of the book, on AC winding losses
-and conductor design and on the core, rotor and aerodynamic losses". If he signed it
-unchanged, his letter already covers Chapter 9, and the table of contents must name him there
-before the two go to Wiley together.
+Anouar signed on 3 September, four days before the restructure gave Chapter 9 to Paavo
+Rasilo. His letter keeps the draft's chapter sentence, which names both loss chapters,
+although Chapter 9 has never been discussed with him. Who replaces Paavo is for the editors to decide. The
+letter stands as written if Chapter 9 is Anouar's, or if he writes part of it under another
+owner; otherwise its chapter sentence must change, after he has heard why from us.
 
 ## Still to come
 

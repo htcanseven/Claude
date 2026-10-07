@@ -404,3 +404,22 @@ should say so — nothing starts before a contract, so nothing is at risk, but h
 the change rather than find it. And the turbine convention for the volume flow in (1.1) is
 still unanswered by Ahti; §1.1.2 needs it, because the book applies (1.1) to ORC turbines and
 turbo-expanders as well as to compressors.
+
+## Chapter 9 is open, and Anouar's letter names it (7 October 2026)
+
+Anouar Belahcen's signed letter is dated 3 September, four days before the fourteen-chapter
+restructure gave Chapter 9 to Paavo Rasilo. It keeps our draft's chapter sentence word for
+word: "the loss chapters of the book, on AC winding losses and conductor design and on the
+core, rotor and aerodynamic losses". That matched the invitation, which offered him "one or two
+chapters" on the losses.
+
+Chapter 9 has never been discussed with him: not its move to Paavo, and not, since Paavo's
+decline, who replaces him. That is for the editors to decide on 7 October, among three options:
+
+- **A.** Anouar takes Chapter 9 as well as Chapter 8, with Floran Martin as his co-author if he wants one.
+- **B.** Floran Martin owns Chapter 9, introduced with Paavo's name.
+- **C.** The editors take Chapter 9, with Ilya on the rotor losses.
+
+The letter stands as written under A, or under B or C if Anouar still writes part of Chapter 9.
+Otherwise its chapter sentence must change. Whichever is chosen, he should hear it from us
+before the table of contents is fixed.

@@ -208,7 +208,7 @@ short biography, and in the preface.
 | 1, §1.1.2 — specific speed and the turbomachinery optimum | Ahti Jaatinen-Värri | LUT, Laboratory of Fluid Dynamics | drafted |
 | 2 — Applications and system architectures | Juha Saari | Upheat Solutions, high-temperature heat pumps | accepted; letter received |
 | 4, 5, 6 — the whole of Part II | Jussi Sopanen | LUT, machine dynamics | agreed in principle; invited 3 Sep; letter awaited |
-| 8 — AC winding losses and conductor design | Anouar Belahcen | Aalto University | letter signed; the draft covers Chapters 8 and 9 |
+| 8 — AC winding losses and conductor design | Anouar Belahcen | Aalto University | letter signed 3 Sep; it names both loss chapters |
 | 9 — Core, rotor and aerodynamic losses | Paavo Rasilo | Tampere University | declined 20 Sep; owner to be settled |
 | 10 — Thermal management and cooling | Rafal Wrobel | independent researcher and engineering consultant | accepted; letter received, to be signed |
 | 11 — The drive: the converter interface | Pasi Peltoniemi | LUT, power electronics | accepted; letter received |
