@@ -206,15 +206,15 @@ short biography, and in the preface.
 | Chapters | Owner | Affiliation | Status |
 |---|---|---|---|
 | 1, §1.1.2 — specific speed and the turbomachinery optimum | Ahti Jaatinen-Värri | LUT, Laboratory of Fluid Dynamics | drafted |
-| 2 — Applications and system architectures | Juha Saari | Upheat Solutions, high-temperature heat pumps | accepted |
-| 4, 5, 6 — the whole of Part II | Jussi Sopanen | LUT, machine dynamics | agreed in principle |
-| 8 — AC winding losses and conductor design | Anouar Belahcen | Aalto University | expected |
-| 9 — Core, rotor and aerodynamic losses | Paavo Rasilo | Tampere University | to be invited |
-| 10 — Thermal management and cooling | Rafal Wrobel | Newcastle University | interested; considering the chapter |
-| 11 — The drive: the converter interface | Pasi Peltoniemi | LUT, power electronics | agreed in principle |
-| 12 — Control at high fundamental frequency | Marko Hinkkanen | Aalto University, electric drives | to be invited |
-| 13 — Industrial case studies | Jonna Tiainen and Ahti Jaatinen-Värri | The Switch; LUT, turbomachinery | to be invited |
-| 14 — Mobile case studies | Jenni Pippuri-Mäkeläinen | VTT, manager of the Voltcar project | to be invited |
+| 2 — Applications and system architectures | Juha Saari | Upheat Solutions, high-temperature heat pumps | accepted; letter received |
+| 4, 5, 6 — the whole of Part II | Jussi Sopanen | LUT, machine dynamics | agreed in principle; invited 3 Sep; letter awaited |
+| 8 — AC winding losses and conductor design | Anouar Belahcen | Aalto University | letter signed; the draft covers Chapters 8 and 9 |
+| 9 — Core, rotor and aerodynamic losses | Paavo Rasilo | Tampere University | declined 20 Sep; owner to be settled |
+| 10 — Thermal management and cooling | Rafal Wrobel | independent researcher and engineering consultant | accepted; letter received, to be signed |
+| 11 — The drive: the converter interface | Pasi Peltoniemi | LUT, power electronics | accepted; letter received |
+| 12 — Control at high fundamental frequency | Marko Hinkkanen | Aalto University, electric drives | invited 4 Sep, for the control side of the drive chapter; no reply |
+| 13 — Industrial case studies | Jonna Tiainen and Ahti Jaatinen-Värri | The Switch; LUT, turbomachinery | invited; no answer recorded |
+| 14 — Mobile case studies | Jenni Pippuri-Mäkeläinen | VTT, manager of the Voltcar project | invited; no answer recorded |
 | 1, 3, 7 | the authors | LUT University | — |
 
 **Co-authors, recruited by the owner of the chapter**
@@ -222,7 +222,7 @@ short biography, and in the preface.
 | Contributor | Affiliation | Chapter | Brought in by |
 |---|---|---|---|
 | Jouni Ikäheimo | ABB, high-speed motors | 3, the induction machines; 13, manufacture and qualification; photographs and machine material throughout | the authors |
-| Lassi Aarniovuori | drive loss measurement | 11, harmonic losses; 13, the test rig and loss segregation | P. Peltoniemi and the Chapter 13 owners |
+| Lassi Aarniovuori | LUT University, loss and efficiency measurement | 11, harmonic losses; 13, the test rig and loss segregation | P. Peltoniemi and the Chapter 13 owners |
 | Ilya Petrov | LUT University, author | 13, the electrical machine of §13.1 | the Chapter 13 owners |
 | a bearing application specialist | industry | 6 | J. Sopanen, from his network |
 | a windage co-author | to be settled | 9, §9.8 | P. Rasilo; J. Saari is the natural name |

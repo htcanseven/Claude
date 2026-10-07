@@ -41,6 +41,11 @@ Say who "we" is at least once if the recipient does not know all three authors.
 
 ## Anouar Belahcen — losses (proofread)
 
+*Sent. He was offered "one or two chapters" on the losses. His signed letter came back by
+7 October; a copy is still to be filed in `letters/received/`. The draft he was sent commits
+him to both loss chapters, Chapter 8 and Chapter 9, so if he signed it unchanged, Chapter 9
+is his in writing already.*
+
 Hello Anouar,
 
 We are preparing a proposal to Wiley-IEEE Press for a new book on high-speed electrical machines together with Ilya Petrov and Juha Pyrhönen, and we would like you to contribute to it.
@@ -60,17 +65,21 @@ Best regards,
 
 ## Jussi Sopanen — rotor mechanics, rotordynamics, bearings
 
-*He agreed to contribute at the CoE meeting, so this confirms rather than asks.*
+*Sent 3 September 2026 (Hüseyin's version), with Ilya and Juha in copy and
+`letters/Support_Letter_Sopanen.docx` attached. The original is
+`incoming/emails/2026-09-03_Sopanen_invitation_sent.msg`. No letter back yet. The sent
+version does not ask him to name his co-authors, and does not mention the bearing specialist
+for Chapter 6, so ask both when the letter is chased.*
 
 Hello Jussi,
 
-Thank you again for supporting the book idea at the last CoE meeting and for agreeing to contribute. We are now putting the proposal to Wiley-IEEE Press together with Ilya Petrov and Juha Pyrhönen, and I would like to confirm the part we hope you will take.
+Thank you again for supporting the book idea at the last CoE meeting and for agreeing to contribute. We are now putting the proposal to Wiley-IEEE Press together with Ilya and Juha, and I would like to confirm the part we hope you will take.
 
 We started outlining the book, but we will wait for the publisher's approval before we start writing it. For the book proposal, we will initially submit a complete introductory chapter and an annotated table of contents.
 
-The mechanical part is the part of the book that no competing title has, and we would like it to be yours: rotor stress and magnet retention, rotordynamics and vibration, and the bearings, lubrication and seals of high-speed rotors. That is three chapters, and we certainly do not expect you to write them alone. We would like you to put the team together as you see fit, from your own group and from your wider network of experts. The bearing chapter in particular needs someone with industrial experience of lubrication, bearing life and seals, which is knowledge none of us has and which would make that chapter the one an industrial reader opens first. Everyone who contributes is named at the head of the chapter. Once the publisher has approved the proposal, we will send you the detailed structure and settle the division of work with you.
+The mechanical part is the part of the book that no competing title has, and we would like it to be yours: i) rotor stress and magnet retention, ii) rotordynamics and vibration, and iii) the bearings, lubrication and seals of high-speed rotors. That is three chapters, and we imagine them written with members of your group or experts in the field from your network. Everyone who contributes is named at the head of the chapter. Once the publisher has approved the proposal, we will send you the detailed structure and settle the division of work with you.
 
-Two things would help now. Could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A draft is attached, which you are free to change as you wish. And could you tell us whom you would bring in, whether from your group or from outside it? Naming them in the proposal would strengthen it further.
+Could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A draft is attached, which you are free to change as you wish.
 
 Looking forward to hearing from you.
 
@@ -282,6 +291,14 @@ Yours sincerely,
 Hüseyin Canseven
 LUT University
 
+### Outcome — 21 September
+
+*He accepted Chapter 10 entire and returned his letter on 21 September (see
+`letters/received/Support_Letter_Wrobel_RETURNED.md`). Two things must be fixed before it
+goes to Wiley: the letterhead still reads "[insert preferred professional email]", and the
+letter is unsigned. He now writes as an independent researcher and engineering consultant,
+not as Newcastle University, so ask how he wants to be listed.*
+
 ---
 
 ## Janne Nerg — not approached
@@ -293,7 +310,9 @@ that is his invitation to make, not ours. Nothing to send.*
 
 ## Pasi Peltoniemi — the drive
 
-*He has already agreed to contribute, so this confirms rather than asks. Sent version.*
+*He has already agreed to contribute, so this confirms rather than asks. Sent version.
+Letter returned signed on 22 September; see
+`letters/received/Support_Letter_Peltoniemi_SIGNED.md`.*
 
 Hello Pasi,
 
@@ -313,8 +332,9 @@ BR, Hüseyin
 
 ## Lassi Aarniovuori — harmonic losses and high-speed measurement
 
-*A colleague, but nobody has raised the book with him yet. A word in person first would
-be more natural than a cold mail, with this then recording what was agreed.*
+*Done: his letter came back signed on LUT letterhead, in a scan dated 7 September. It
+takes §11.2 and §13.4, as offered; see
+`letters/received/Support_Letter_Aarniovuori_SIGNED.md`.*
 
 Hello Lassi,
 
@@ -338,24 +358,35 @@ BR, Hüseyin
 his own rather than sections inside Peltoniemi's. Cold approach, two steps; an introduction
 from Juha or from Anouar Belahcen at the same university would help.*
 
-### First email — is the subject of interest?
+### First email — sent 4 September
+
+*Sent 4 September 2026 (Hüseyin's version), with Ilya and Juha in copy and nothing attached.
+The original is `incoming/emails/2026-09-04_Hinkkanen_invitation_sent.msg`. It went out three
+days before the drive chapter was split, so it offers "the control side" of the drive chapter
+rather than a chapter of his own. It puts the pulse ratio at "ten or below" and "eight". No
+reply recorded as of 7 October.*
 
 Dear Professor Hinkkanen,
 
-I am a researcher at LUT University working on high-speed electrical machines, and together with Ilya Petrov and Juha Pyrhönen I am preparing a proposal to Wiley-IEEE Press for a book on high-speed electrical machines and drives, written as a companion to *Design of Rotating Electrical Machines*.
+I am Hüseyin Canseven from LUT University. We met with you in CoE project meetings a few times, but maybe you might not recognise my name. Let me introduce myself. I am a post-doctoral researcher and working on high-speed electrical machines. We are preparing a proposal to Wiley-IEEE Press for a book together with Juha Pyrhönen and Ilya Petrov on high-speed machines and drives. We believe the topic of the book is strongly aligned with CoE project.
 
-The book is organised so that each chapter has a single author who is responsible for it. One of them is Chapter 12, Control at high fundamental frequency, about eighteen pages, and we would like to offer it to you.
+One of its chapters treats the drive as the element that decides which machines can be built at all. The converter side of that chapter is being written by Pasi Peltoniemi at LUT, and the part we would like to ask you for is the control side. What changes when the fundamental frequency is high enough that the pulse ratio falls to ten or below. Current regulation and overmodulation at low pulse ratios, position sensing and sensorless operation at kilohertz fundamental frequency, and run-up through the critical speeds together with field weakening and protection.
 
-Its subject is what happens when the fundamental frequency is high enough that only eight or ten pulses fall in a period. Current regulation, overmodulation and six-step operation on that basis; position sensing and sensorless operation where the back-EMF is generous but the sampling is not; run-up through the critical speeds; field weakening and protection. Chapter 11, on the converter itself, is written by Pasi Peltoniemi at LUT and hands the pulse ratio to you.
+We ask because that material does not seem to be set out anywhere for a designer. Control methods are usually developed and demonstrated where the converter can still be treated as a continuous voltage source, and whether they survive at a pulse ratio of eight is left open.
 
-We ask because that material does not seem to be set out anywhere for a designer. Control methods are usually developed and demonstrated where the converter can still be treated as a continuous voltage source, and whether they survive at a pulse ratio of eight is left open. Owning the chapter would mean you decide what it contains, and whether to write it alone or with colleagues of your own choosing; everyone who contributes is named at the head of the chapter. The book will also carry companion Python notebooks reproducing its figures and design calculations, and if that overlaps with your group's own simulation work, so much the better.
+You would certainly not need to write it alone. Colleagues from your group or your wider network would be very welcome, and everyone who contributes is named at the head of the chapter.
 
-Nothing is binding at this stage: the publisher has not yet seen the proposal, and no writing would begin before a contract. For now I would simply like to know whether the subject interests you. I would gladly send you the completed introductory chapter and the annotated table of contents, or talk it through in a video call, whichever is easier.
+Nothing is binding at this stage: the publisher has not yet seen the proposal, and no writing would begin before a contract. For now I would simply like to know whether the subject interests you. I would send you the completed introductory chapter and the annotated table of contents if you wish to see.
 
-Yours sincerely,
+Best Regards, Hüseyin
 
-Hüseyin Canseven
-LUT University
+### Follow-up — not yet sent
+
+*Five weeks without a reply. A short follow-up can carry the one piece of news: the control
+side is now a chapter of its own, Chapter 12, about eighteen pages, and it would be his.
+That is a larger offer than the one he has not answered, so it gives him a reason to reply.
+An introduction from Juha, or from Anouar at Aalto, would still help. Settle the pulse-ratio
+wording with Juha first; he reads it as "nine or eleven".*
 
 ### Second email — after he has said yes
 

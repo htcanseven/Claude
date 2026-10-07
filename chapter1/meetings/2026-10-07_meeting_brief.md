@@ -2,26 +2,25 @@
 
 *High-Speed Electrical Machines and Drives* · Hüseyin Canseven, Ilya Petrov, Juha Pyrhönen
 
-*Internal note for the three of us. It records contributors' answers, so it is not for circulation. It reflects what is filed in the project as of this morning; anything that has arrived by email since then is not in it, so correct the tables in the meeting.*
+*Internal note for the three of us. It records contributors' answers, so it is not for circulation. Updated at mid-morning with the letters from Wróbel, Peltoniemi, Aarniovuori and Belahcen and the invitations sent to Sopanen and Hinkkanen. Anything else that has arrived by email is not in it, so correct the tables in the meeting.*
 
 ## Where we are
 
 - **Chapter 1** is written and is now in the house style throughout: all nine figures are redrawn, and every table and caption uses one style. It is 24 pages. Five items remain to be folded in before the version that goes to Wiley.
 - **The annotated table of contents** has 14 chapters and 454 pages: 414 of chapters plus 40 of front and back matter, against a target of 450 and a ceiling of 500. It cannot go to anyone new until Chapter 9 has an owner, because every copy still names Paavo Rasilo.
 - **Contributors.**
-  - Juha Saari has accepted Chapter 2.
+  - In writing: Juha Saari (Chapter 2), Anouar Belahcen (Chapter 8, and Chapter 9 if his letter is the draft he was sent), Rafał Wróbel (Chapter 10), Pasi Peltoniemi (Chapter 11) and Lassi Aarniovuori (§11.2 and §13.4).
   - Paavo Rasilo declined Chapter 9 on 20 September.
-  - Jussi Sopanen and Pasi Peltoniemi agreed in principle.
-  - Rafal Wrobel is interested and has the whole of Chapter 10 on offer.
-  - Belahcen, Tiainen and Jaatinen-Värri, and Pippuri-Mäkeläinen have been invited, with no answer recorded yet.
-  - Hinkkanen's invitation is not recorded as sent, and Aarniovuori has not been approached.
-- **Letters of support:** one of ten is back (Juha Saari's).
+  - Jussi Sopanen agreed in principle and was invited on 3 September; his letter has not come back.
+  - Marko Hinkkanen was invited on 4 September, for the control side of the drive chapter, three days before it became Chapter 12. He has not replied.
+  - Tiainen and Jaatinen-Värri, Pippuri-Mäkeläinen and Ikäheimo have been invited, with no answer recorded.
+- **Letters of support:** five of ten are back: Saari, Aarniovuori, Wróbel, Peltoniemi and Belahcen. Wróbel's must be fixed before it goes to Wiley.
 - **Not yet started for the package:** the partial Chapter 7, the biographies, the competing-titles analysis and Wiley's proposal form.
 - **Wiley:** Juha's question of 15 September, whether he should send the first letter to Wiley, is still unanswered.
 
 ## Decisions needed today
 
-1. **Who owns Chapter 9.** Paavo Rasilo declined on 20 September and suggested Anouar Belahcen and Floran Martin. Recommended: offer Chapter 9 to Anouar alongside Chapter 8, with Floran as his co-author. Anouar's draft letter already argues Chapter 9's case: loss models fitted at mains frequency do not extrapolate, and the damage from cutting and stacking depends on frequency. So the letter becomes correct as written. The alternative is Floran as owner, introduced with Paavo's name; we asked Paavo whether we may use it. Until this is settled, no table of contents goes out.
+1. **Who owns Chapter 9.** Paavo Rasilo declined on 20 September and suggested Anouar Belahcen and Floran Martin. Anouar was offered "one or two chapters" on the losses. The draft letter he was sent says he will contribute "the loss chapters of the book, on AC winding losses and conductor design and on the core, rotor and aerodynamic losses", and he has now signed it. If he signed it unchanged, Chapter 9 is already his in writing, and the decision is only to confirm it, with Floran as his co-author if he wants one. Check the signed copy's wording first. The table of contents must then name him for Chapter 9 before his letter and the table of contents go to Wiley together. Until then, no table of contents goes out.
 2. **Authored book or edited volume.** Juha's revision of the table of contents reads "Editors", and Juha has described the book that way to contributors since 9 September. Everything else still says "authors": the byline, the confidentiality notice and its copyright line, the invitations and the letters. Contributors own 11 of the 14 chapters, so "edited" is the honest description. It does change the Wiley contract, the contributor agreements and royalties, and how reviewers read the book. Decide, then change every document at once.
 3. **Wiley: who writes, and what we ask.** First, answer Juha's question; recommended: Juha writes, given his history with Wiley. The questions to put to them:
    - Does the book print in colour or greyscale?
@@ -74,6 +73,13 @@
   - Chapter 14's title, which says "traction" although the chapter also has aerospace and e-turbocharger sections;
   - no Status column in the contributors' copy.
 
+## What the returned letters change
+
+- **Wróbel** takes Chapter 10 entire, but his letter cannot go to Wiley as it stands. Its letterhead still reads "Email: [insert preferred professional email]", and it is not signed. He also now writes as an independent researcher and engineering consultant, not as Newcastle University. Ask how he wants to be listed, including whether with diacritics, Rafał Wróbel.
+- **Peltoniemi** describes his chapter as "power-electronic constraints and converter–machine interaction in high-speed electrical drives". He treats insulation, bearing currents and EMC through the converter-generated stresses, not their full physics. The Chapter 11 abstract should say the same, because Wiley's reviewers read the letters beside the table of contents.
+- **Aarniovuori** takes §11.2 and §13.4, as offered, and adds service on IEC and CENELEC standardisation committees. That makes him a candidate for §13.5, qualification against the standards, too.
+- **Most letters name neither the book nor us** (Saari, Aarniovuori, Peltoniemi), and three are undated. Rather than send them back, bundle the letters behind a cover sheet that gives the title and the editors and lists them.
+
 ## Status by chapter
 
 | Ch. | Subject | Owner | Status | Support letter |
@@ -81,22 +87,33 @@
 | 1 | Introduction | editors; §1.1.2 A. Jaatinen-Värri | written; house style done; five items to fold in | — |
 | 2 | Applications | J. Saari, Upheat Solutions | accepted; waiting for the detailed section structure | received 21 Sep |
 | 3 | Topologies | editors; J. Ikäheimo for §3.2–3.3 | Ikäheimo agreed through Juha; ABB clearance for photographs still to ask | drafted |
-| 4–6 | Rotor mechanics, rotordynamics, bearings | J. Sopanen | agreed in principle; he names the bearing specialist | drafted |
+| 4–6 | Rotor mechanics, rotordynamics, bearings | J. Sopanen | agreed in principle; invited 3 Sep; he names the bearing specialist | awaited |
 | 7 | Sizing | editors | partial chapter promised in the package | — |
-| 8 | Winding losses | A. Belahcen | invited; no answer recorded | drafted; it argues Chapter 9's case |
-| 9 | Core, rotor and aerodynamic losses | open | Rasilo declined 20 Sep | — |
-| 10 | Thermal | R. Wrobel, Newcastle | interested; whole chapter offered; answer pending | drafted |
-| 11 | Converter | P. Peltoniemi | agreed in principle; Aarniovuori (§11.2) not yet approached | drafted |
-| 12 | Control | M. Hinkkanen | invitation not recorded as sent; an introduction from Juha or Anouar would help | drafted; needs fixing |
+| 8 | Winding losses | A. Belahcen | in writing | signed; covers Chapters 8 and 9 if unchanged |
+| 9 | Core, rotor and aerodynamic losses | Belahcen, to confirm | Rasilo declined 20 Sep | see Chapter 8 |
+| 10 | Thermal | R. Wróbel, independent consultant | accepted | received 21 Sep; unsigned, email line unfilled |
+| 11 | Converter | P. Peltoniemi | accepted; Aarniovuori on §11.2 | received 22 Sep; Aarniovuori's scanned 7 Sep |
+| 12 | Control | M. Hinkkanen | invited 4 Sep, for the control side of the drive chapter; no reply | after he says yes; draft needs fixing |
 | 13 | Industrial case studies | J. Tiainen and A. Jaatinen-Värri | invited with Chapter 1 and the table of contents; no answer recorded | drafted (Ahti) |
 | 14 | Mobile case studies | J. Pippuri-Mäkeläinen, VTT | invited; no answer recorded; Voltcar permission pending | drafted |
 
 ## Letters of support
 
-- **Back:** Juha Saari's, signed. It still needs a date, and the book's title or our names, because Wiley's reviewers receive the letters as a bundle. We asked him for both.
-- **To fix before they go out:**
-  - Hinkkanen's still offers "the control sections of the chapter on the drive", where he would now own Chapter 12, and needs the pulse-ratio wording.
-  - Belahcen's depends on decision 1.
+- **Back, five:**
+  - Saari, 21 Sep;
+  - Aarniovuori, scanned 7 Sep;
+  - Wróbel, 21 Sep;
+  - Peltoniemi, 22 Sep;
+  - Belahcen, by 7 Oct, not yet filed.
+
+  The register is in `letters/received/README.md`.
+- **Must be fixed:** Wróbel's, which needs a signature and the email line in its letterhead.
+- **Awaited:**
+  - Sopanen, who had the draft with his invitation on 3 Sep;
+  - Ikäheimo;
+  - Jaatinen-Värri, and a second letter from Tiainen if she will write one;
+  - Pippuri-Mäkeläinen.
+- **Not yet asked:** Hinkkanen, whose letter is the second step. His draft still offers "the control sections of the chapter on the drive" and needs the Chapter 12 offer and the pulse-ratio wording.
 - **Chasing:** once the submission month is fixed, give everyone a reply-by date.
 
 ## Actions
@@ -106,8 +123,10 @@
 | Answer Juha's question; write to Wiley | | |
 | Offer Chapter 9 | | |
 | Merge and correct the table of contents | | |
-| Talk to Lassi Aarniovuori | | |
-| Introduce and invite Marko Hinkkanen | | |
+| Ask Rafał to sign, fill the email line, and say how to list him | | |
+| File Anouar's signed letter; check its chapter paragraph | | |
+| Follow up Marko Hinkkanen with the Chapter 12 offer | | |
+| Chase Jussi Sopanen's letter and his co-authors | | |
 | Export the Figure 1.4 mode shapes | | |
 | Partial Chapter 7, or drop it | | |
 | Biographies, competing titles, Wiley's form | | |
