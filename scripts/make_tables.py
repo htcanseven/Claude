@@ -177,12 +177,12 @@ def t_distances() -> str:
     rows = []
     for m in CORE:
         rows.append(f"{SHORT[m]} & " + " & ".join(cells(m)))
-        if m in ("M1s", "M2", "M5", "M5n", "NN"):
+        if m in ("M1", "M1s", "M2", "M5", "M5n", "NN"):
             rows.append(interval(m))
     for k, m in enumerate(FURTHER + ["M6"]):
         lead = r"\midrule " if k == 0 else ""
         rows.append(f"{lead}{SHORT[m]} & " + " & ".join(cells(m)))
-        if m == "M3":
+        if m in ("M3", "M1sn"):
             rows.append(interval(m))
     head = (r" & \multicolumn{2}{c}{New variant} & \multicolumn{4}{c}{New process setting} & "
             r"\multicolumn{2}{c}{New family} & \multicolumn{2}{c}{Pooled} \\" "\n"
@@ -229,25 +229,26 @@ def t_robust() -> str:
                                                                 for s, m in cols))
     ref = read("rob_refit.csv").set_index(["scope", "method"])
 
-    def ci(scope, m):
+    def ci(scope, m, kind="resolution"):
         if (scope, m) not in ref.index:
             return ""
         x = ref.loc[(scope, m)]
-        return f"{dist(x['resolution_lo'])}--{dist(x['resolution_hi'])}"
+        return f"{dist(x[kind + '_lo'])}--{dist(x[kind + '_hi'])}"
 
     rows.append(r"\midrule Refit, $\delta_\mathrm{d}$ & " + " & ".join(ci(s, m) for s, m in cols))
+    rows.append(r"Refit, $\delta_\mathrm{s}$ & " + " & ".join(ci(s, m, "safe") for s, m in cols))
     head = (r" & \multicolumn{4}{c}{New variant} & \multicolumn{4}{c}{New setting} & \multicolumn{2}{c}{New family} \\"
             "\n" r"\cmidrule(lr){2-5}\cmidrule(lr){6-9}\cmidrule(lr){10-11}" "\n"
             r"Variant & M1s & M2 & M5 & NN & M2 & M5 & NN & M1sn & M2 & M5")
     return table(rows, "Decisive/safe distances (floors) under the robustness variants", "tab:robust",
-                 "l" + "r" * 10, head, colsep="1.6pt", place="!ht",
+                 "l" + "r" * 10, head, colsep="1.4pt", place="!ht",
                  note=r"Rules refitted for every variant; empty cells: the variant does not affect the rule; a new family in "
-                      r"its own floor. The floor between series contains the lubrication effect and, for a new variant, the "
+                      r"its own floor (in the produced family's floor in Table~\ref{tab:distances}). The floor between series contains the lubrication effect and, for a new variant, the "
                       r"series that NN averages, which makes it close to circular there. Warm-up: first 150 parts. Calibration: calibration $q_{95}$ from the first $n$ "
                       r"parts, truths and floors from the full series. Response surface: simulations from a quadratic fit over thickness and "
                       r"friction; other GP kernels and descriptors move M5 by at most 0.4 floors. Unit: the $q_{95}$ "
                       r"floor, 95\,\% quantile of the difference between the $q_{95}$ of two batches of 100 parts. "
-                      r"Refit: 95\,\% interval of the decisive distance over 200 draws of each geometry's lubrication patterns with "
+                      r"Refit: 95\,\% intervals of the decisive and safe distances over 200 draws of each geometry's lubrication patterns with "
                       r"replacement, every rule refitted (Section~\ref{sec:evaldesign}).")
 
 
@@ -276,7 +277,7 @@ def t_step6() -> str:
             "Rule" + rf" & $g$ & {DD} & $T_{{10}}$ & $T_{{20}}$" * len(RELATIONS))
     return table(rows, "The procedure's decision rule (step 6) by relation: guard band, distances and trial shares",
                  "tab:step6", "l" + "r" * 12, head, colsep="2.2pt", place="!ht",
-                 note=r"$g$: guard band (floors) under the reference prior (Section~\ref{sec:procedure}); "
+                 note=r"$g$: guard band (floors) under the reference prior (Section~\ref{sec:procedure}); no applicability guard is applied; "
                       r"$\delta_\mathrm{d}/\delta_\mathrm{s}$: distances of the rule with its interval widened by $g$; "
                       r"$T_{10}$, $T_{20}$: share of verdicts sent to trial (\%) at requirements 10 and 20 floors from the "
                       r"truth. None: no band up to 20 floors reaches 95\,\%, so the procedure sends every design to trial; "

@@ -28,8 +28,9 @@
 \draw[arr, dashed] (sim.south) -- (s4.north);
 \node[decide, anchor=north east] (s6) at ([yshift=-0.45cm]s5.south east) {\textbf{6 Decide} (every new
   design)\quad relation of the design to the produced evidence $\to$ rule qualified for that relation (new family:
-  floor of the produced family) $\to$ guards $\to$ interval for $q_p$ widened by $g$ floors\\[2pt]
-  \emph{out:} meets or fails, with the margin of the requirement in floors; \emph{trial when a guard fires, no rule
-  is qualified or the requirement lies inside the widened interval}};
+  floor of the produced family) $\to$ interval for $q_p$ widened by the relation's guard band $g$, in place of the
+  range and family guards\\[2pt]
+  \emph{out:} meets or fails, with the margin of the requirement in floors; \emph{trial when no rule is qualified or
+  the requirement lies inside the widened interval}};
 \draw[arr] (s5.south) -- (s5.south |- s6.north);
 \end{tikzpicture}
