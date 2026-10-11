@@ -591,6 +591,51 @@ BR, Hüseyin
 
 ---
 
+## Ion Boldea — sent by Ilya Petrov
+
+*Ilya's suggestion. Boldea was the opponent at Ilya's doctoral defence and they have kept in
+touch, so Ilya writes, with Juha and Hüseyin in copy. The approach has two steps.*
+
+- *The first email asks only whether he would like to contribute. It says that some chapters
+  fit his expertise, and names none of them.*
+- *If he says yes, the second email sends Chapter 1 and the annotated table of contents. It
+  offers him a choice between Chapter 3 and Chapter 9, with the boundaries stated, and the
+  editors write whichever chapter he does not take:*
+  - *Chapter 3, machine topologies. Ikäheimo writes the induction-machine section.*
+  - *Chapter 9, core and rotor losses. Saari writes the windage section.*
+
+### First email — draft
+
+Subject: Wiley book proposal on high-speed electrical machines and drives
+
+Dear Ion,
+
+I hope you are well. Juha Pyrhönen, Hüseyin Canseven and I are preparing a book proposal to Wiley-IEEE Press on high-speed electrical machines and drives, written as a companion to *Design of Rotating Electrical Machines*.
+
+It is a design book. Its chapters cover the applications of high-speed machines and the choice of machine topology; rotor mechanics, rotordynamics and bearings; electromagnetic sizing; winding, core and rotor losses and thermal management; the power electronics and control; and industrial and mobile case studies.
+
+We would be delighted if you would contribute a chapter. Some of them fit your area of expertise very closely, and if the idea interests you, we would be glad to discuss which one would suit you best.
+
+Nothing is binding at this stage: the publisher has not yet seen the proposal, and no writing would begin before a contract is signed. If you are interested, I will send you the completed introductory chapter and the annotated table of contents.
+
+Best regards,
+Ilya
+
+### Before the second email
+
+*Settle the boundaries of each option.*
+
+- *Chapter 3. Ikäheimo's signed letter covers the induction-machine section only, so the
+  reluctance and PM sections would be Boldea's.*
+- *Chapter 9. The table of contents gives Ilya the rotor losses, so decide whether Ilya
+  writes them under Boldea or Boldea takes them. Decide also who writes the materials
+  sections, §9.1–9.4.*
+
+*Anouar's signed letter names Chapter 9, which under this plan goes to Boldea or to the
+editors, so he needs to hear from us before the table of contents goes out.*
+
+---
+
 ## Bearing application specialist — lubrication, life and seals
 
 *Identify the person first; Jussi Sopanen is the natural person to ask for a name.*
