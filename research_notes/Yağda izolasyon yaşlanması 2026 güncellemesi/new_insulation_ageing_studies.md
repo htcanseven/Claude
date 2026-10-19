@@ -1,6 +1,6 @@
 # New studies (Jan 2025 – Oct 2026) on ageing of winding insulation in ATF, e-fluids and other lubricating oils
 
-Scope and method. Search cut-off: 19 Oct 2026. I used Crossref keyword and author queries filtered to 2024-10-01 onwards (about 1,900 records screened), plus web searches in English and Chinese, the RWTH IEM publication server, Chalmers research, DOAJ and Semantic Scholar. OpenAlex and part of Semantic Scholar were rate-limited. Before searching I read the References section of `reports/Hairpin insulation oil aging and corrosion review.md` and extracted every URL and DOI in `research_notes/Yağda hairpin izolasyon yaşlanması ve korozyon/`. Sources listed there are not repeated below unless a new version appeared.
+Scope and method. Search cut-off: 19 Oct 2026. I used Crossref keyword and author queries filtered to 2024-10-01 onwards (about 1,900 raw records screened by title), plus web searches in English and Chinese, the RWTH IEM publication server, Chalmers research, the DOAJ API and Semantic Scholar DOI look-ups. OpenAlex and Semantic Scholar keyword search were rate-limited. Before searching I read the References section of `reports/Hairpin insulation oil aging and corrosion review.md` and extracted every URL and DOI in `research_notes/Yağda hairpin izolasyon yaşlanması ve korozyon/`. Sources listed there are not repeated below unless a new version appeared.
 
 Access tags:
 - **[FULL TEXT]**: I read the whole document.
@@ -13,7 +13,7 @@ All numbers come from the cited source. Values marked "≈ (read from chart)" ar
 ## 1. What new studies exist, and what were their specimens, materials, fluids, ageing set-ups, measurements and results?
 
 ### Takeaway
-I found 7 new studies that age winding insulation in ATF, e-fluid, transmission oil or a water-based e-motor lubricant and re-measure electrical or chemical properties. Two are 2024 items the existing review missed. Two more test PDIV under hot ATF spray or in an oil-immersed winding model.
+Six new studies age winding insulation in ATF, transmission oil or a water-based e-motor lubricant and re-measure electrical or chemical properties. Three are from 2025 (N1–N3) and three are 2024 items the existing review missed (N4, N5, N7). One more (N6) tests PDIV with hot ATF leaked onto conductors, and a further paper tests PD in an oil-immersed winding model.
 - **Most informative new datasets.** The Chalmers/Polestar technical report (2025) aged flat-wire formettes in transmission oil for 1000 h at 150 °C. PDIV fell from ≈2.6–3.8 kV to ≈2.0–2.4 kV and converged across insulation types. The RWTH/TotalEnergies IEMDC 2025 paper compared PEEK and PAI-overcoated ("Damid") twisted pairs and Nomex in water-based lubricants at 70 and 100 °C, with XPS showing lubricant elements and Cu entering PAI more deeply than PEEK.
 - **Xi'an Jiaotong (2024, missing from the review).** It introduced a "dual-temperature" motorette test: current-heated conductors at 200 °C, ATF at 100 °C. ATF *vapour* was more damaging than submersion, and a lower oil temperature was more severe.
 - **Dongfeng/Sichuan (CEIDP 2025).** Water in ATF drives PAI hydrolysis and oil acidification.
@@ -137,8 +137,8 @@ I found 7 new studies that age winding insulation in ATF, e-fluid, transmission 
   - Aim: use winding-cooling lubricating oil as insulation in electric-aircraft motors.
   - AC BDV of stationary oil was measured at moisture content of 8–52 % (as given in the abstract), with an electrode volume effect of 10⁰–10⁵ mm³. The volume effect dominates over the moisture effect.
   - Streaming oil (0–38 L/min, 23–65 °C, coaxial cylinders): BDV at 30 L/min was 24–42 % higher than stationary. At low flow, BDV decreased with temperature.
-- **Journal version: Hayakawa et al., IEEE TDEI 2026, vol. pp. 2345–2352 [ABSTRACT]**, with an open-access copy in the Nagoya repository — [DOI 10.1109/TDEI.2026.3672099](https://doi.org/10.1109/TDEI.2026.3672099); [Nagoya repository](https://nagoya.repo.nii.ac.jp/records/2015031):
-  - Adds cold-start and thermal ageing of the oil.
+- **Journal version: Hayakawa et al., IEEE TDEI 2026, pp. 2345–2352 (Aug 2026) [ABSTRACT]**, with an open-access copy in the Nagoya repository — [DOI 10.1109/TDEI.2026.3672099](https://doi.org/10.1109/TDEI.2026.3672099); [Nagoya repository](https://nagoya.repo.nii.ac.jp/records/2015031):
+  - Its scope adds cold-start and long-term thermal-ageing conditions of the oil. Those results were beyond the part of the abstract I read.
   - Streaming BDV is 24–55 % higher than stationary.
 - **Umemoto, Tsuboi, Tanaka, Sato, Kumada (Univ. Tokyo + JAXA), IEEE EIC 2026 [ABSTRACT]** — [DOI 10.1109/EIC68788.2026.11642508](https://doi.org/10.1109/EIC68788.2026.11642508):
   - Aircraft lubricating oil as coolant and insulation: BDV in a sphere gap, and PD in an "oil-immersed arrow-pair winding model" from sea-level pressure to 40,000 ft.
@@ -178,7 +178,7 @@ I found 7 new studies that age winding insulation in ATF, e-fluid, transmission 
   - No abstract was retrievable: IEEE Xplore returned a bot challenge and Semantic Scholar had none. Fluid, varnish and application (oil-cooled machine vs transformer) are unknown.
 
 ### Inferences
-- **The evidence base is still small but has grown.** It went from about six academic oil-ageing sources to about 13. The newest contributors are Chinese OEM, academic and rail-supplier groups (Dongfeng/Sichuan, XJTU, CRRC Zhuzhou) and Chalmers/Polestar, alongside the established RWTH and Bologna groups. Mitsubishi Electric appears on two 2025 papers (N6 and the humidity RPDIV paper).
+- **The evidence base is still small but has roughly doubled.** The existing review counted about six academic sources that age insulation in oil and re-measure electrical properties; N1–N5 and N7 add about six more. The newest contributors are Chinese OEM, academic and rail-supplier groups (Dongfeng/Sichuan, XJTU, CRRC Zhuzhou) and Chalmers/Polestar, alongside the established RWTH and Bologna groups. Mitsubishi Electric appears on two 2025 papers (N6 and the humidity RPDIV paper).
 - **Three new methodological themes:**
   - Vapour or headspace exposure and dual-temperature (hot conductor, cooler oil) testing, which may be harsher than full submersion or isothermal oven immersion (N4, N5).
   - Water-driven hydrolysis of PAI and ingress of additive elements (S, P) into enamel (N2, N3).
@@ -210,12 +210,12 @@ I found 7 new studies that age winding insulation in ATF, e-fluid, transmission 
 - **Two temperatures, water-based lubricants.** At 70 °C, Damid (PAI) and PEEK twisted pairs and Nomex were stable for 8 weeks. At 100 °C, the Damid enamel detached in WBL1 within 6 weeks and PEEK failed in WBL1 after 6 weeks. This is a threshold-like temperature effect, not an Arrhenius series — [Peng et al. IEMDC 2025](http://bib.iem.rwth-aachen.de/IEMpublications/2025HP_Compatibility.pdf)
 - **Two oil temperatures, dual-temperature test.** The lower oil temperature was more challenging for insulation reliability. Values are not in the abstract — [Sun et al. CMD 2024](https://doi.org/10.23919/CMD62064.2024.10766334)
 - **Dual-temperature conditions.** Conductor 200 °C (Joule-heated) and ATF 100 °C; vapour exposure was worse than submersion — [Sun et al. CEIDP 2024](https://doi.org/10.1109/CEIDP61745.2024.10907300)
-- **Single oil temperature (150 °C) at two durations**, with an air control at a different temperature (180 °C, 100 h). Oil at 150 °C reduced formette PDIV by about 20–40 % (≈, read from chart). Air at 180 °C for 100 h did not significantly change motorette PDIV — [Chalmers TR 2025:1](https://research.chalmers.se/publication/553400/file/553400_Fulltext.pdf)
+- **Single oil temperature (150 °C) at two durations**, with an air control at a different temperature (180 °C, 100 h). After 1000 h, oil at 150 °C had reduced formette PDIV by ≈13–41 % (read from chart). Air at 180 °C for 100 h did not significantly change motorette PDIV — [Chalmers TR 2025:1](https://research.chalmers.se/publication/553400/file/553400_Fulltext.pdf)
 - **Fluid-only temperature dependence.** Lubricating-oil BDV at low flow decreased with temperature over 23–65 °C — [Hayakawa et al. ICDL 2025](https://doi.org/10.1109/ICDL63868.2025.11068276). PEEK breakdown strength in synthetic ester was stable over 20–80 °C — [Guana et al. 2026](https://doi.org/10.1049/ema3.70030)
 - **Hairpin geometry with ATF, no ageing.** Rectangular conductors at up to 180 °C with an end-winding-like gap, ATF leaked on: PDIV −10 to −15 % — [Seri et al. CEIDP 2025](https://doi.org/10.1109/CEIDP61707.2025.11218465)
 - **Hairpin ageing, dry.** DoE electrical and thermal ageing under PWM; RPDIV does not track ageing degree — [He et al., Energies 2025](https://doi.org/10.3390/en18061376)
 - **Bend-zone metrology, dry.** Insulation-thickness measurement in bent zones of hairpins, comparing bending techniques and die designs — [Gerner et al. EPTS 2025](https://doi.org/10.1109/EPTS67931.2025.11547393)
-- **Dry phase-to-phase PDIV modelling of hairpin machines** [METADATA only] — [Diagnostika 2026, DOI 10.1109/DIAGNOSTIKA70212.2026.11717818](https://doi.org/10.1109/DIAGNOSTIKA70212.2026.11717818); [ICD 2026, DOI 10.1109/ICD64907.2026.11665346](https://doi.org/10.1109/ICD64907.2026.11665346)
+- **Phase-to-phase PDIV measurement and prediction in hairpin machines** (Bologna/Cavallini group; the titles do not mention oil) [METADATA only] — [Diagnostika 2026, DOI 10.1109/DIAGNOSTIKA70212.2026.11717818](https://doi.org/10.1109/DIAGNOSTIKA70212.2026.11717818); [ICD 2026, DOI 10.1109/ICD64907.2026.11665346](https://doi.org/10.1109/ICD64907.2026.11665346)
 - **Closest to an application-method or material comparison:**
   - PEEK-coated wire vs PAI-overcoated (Damid) enamelled wire, in the same water-based-lubricant protocol. PEEK showed lower permeability by XPS and kept its PDIV in WBL2 at 100 °C. It still failed in WBL1 at 100 °C — [Peng et al. 2025](http://bib.iem.rwth-aachen.de/IEMpublications/2025HP_Compatibility.pdf)
   - Four flat-wire insulations of different build (85–160 µm, types not named) with four slot liners, in one oil protocol — [Chalmers TR 2025:1](https://research.chalmers.se/publication/553400/file/553400_Fulltext.pdf)
@@ -238,7 +238,7 @@ No new dedicated review (2025 – Oct 2026) on insulation for oil-cooled machine
 
 ### Cited Findings
 - **XJTU problem statement.** "Currently, there is no established methods for evaluating the long-term reliability of electrical insulation systems for drive motors in the presence of cooling oil" — [Sun et al. CMD 2024](https://doi.org/10.23919/CMD62064.2024.10766334)
-- **RWTH/TotalEnergies.** They cite only the Afton/Lubrizol-led "Lubricant concepts for electrified vehicle transmissions and axles" (Tribology Online) as a broad overview, and call for tests under realistic spray or motorette conditions — [Peng et al. 2025](http://bib.iem.rwth-aachen.de/IEMpublications/2025HP_Compatibility.pdf)
+- **RWTH/TotalEnergies.** For background they cite an industry-authored overview: Beyer, Brown, Gahagan, … Hunt, … Newcomb et al., "Lubricant concepts for electrified vehicle transmissions and axles," Tribology Online. They call for future tests under realistic spray or motorette conditions — [Peng et al. 2025](http://bib.iem.rwth-aachen.de/IEMpublications/2025HP_Compatibility.pdf)
 - **Chalmers.** The report says a literature survey and market analysis preceded material selection, but it does not present them — [Chalmers TR 2025:1](https://research.chalmers.se/publication/553400/file/553400_Fulltext.pdf)
 - **Chinese industry, 2026 [SNIPPET].** Drive-motor insulation validation is said to be expanding to PDIV, corona resistance, thermal ageing and oil ageing, and the article cites a 2026 IEEE TTE FE-based PD prediction model for flat-wire motors — [AI汽车网 2026](https://auto.jgvogel.cn/c1600023.shtml)
 - **Chinese industry, 2025 [SNIPPET].** Two technical routes are named for 800 V flat-wire motors: thick enamel, or thin enamel plus PEEK film wrap — [OFweek, Mar 2025](https://instrument.ofweek.com/2025-03/ART-8320087-8500-30658794.html)
