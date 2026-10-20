@@ -23,6 +23,8 @@ Group A (K, KC, C, E, FC) is in stock. Group B (PX, PT, PS, EP, PA) will be requ
 
 Specimen types:
 
+![Specimen types](specimen_types.png)
+
 - **Straight specimen:** 300 mm. One end is stripped 15 mm for connection; the other end and the insulation edge at the stripped end are sealed with oil-resistant epoxy. Photographs, mass/thickness and BDV are done on these specimens.
 - **Back-to-back pair:** two straight specimens are laid with their wide faces together, offset by 150 mm; the contact length is 150 mm and the stripped ends point outward. The pair is joined with PTFE tape or a clamp only during measurement; during aging the specimens are kept apart. At every measurement the same two specimens are joined in the same position. Used for insulation resistance and PDIV.
 - **Open-end specimen:** 300 mm; one end left open and stripped 20 mm. Used to photograph corrosion at the cut end.

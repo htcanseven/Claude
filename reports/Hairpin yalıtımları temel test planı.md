@@ -23,6 +23,8 @@ A grubu (K, KC, C, E, FC) stokta vardır. B grubu (PX, PT, PS, EP, PA) talep edi
 
 Numune tipleri:
 
+![Numune tipleri](numune_tipleri.png)
+
 - **Düz numune:** 300 mm. Bir ucu bağlantı için 15 mm soyulur; diğer uç ve soyulan uçtaki yalıtım kenarı yağa dayanıklı epoksiyle kapatılır. Fotoğraf, kütle/kalınlık ve BDV bu numunelerde yapılır.
 - **Sırt sırta çift:** iki düz numune 150 mm kaydırılarak geniş yüzleri üst üste gelecek şekilde konur; temas boyu 150 mm'dir ve soyulmuş uçlar dışa bakar. Çift yalnız ölçüm sırasında PTFE bant veya kelepçeyle birleştirilir; yaşlandırmada numuneler ayrıdır. Her ölçümde aynı iki numune aynı konumda birleştirilir. Yalıtım direnci ve PDIV için.
 - **Açık uçlu numune:** 300 mm; bir ucu açık ve 20 mm soyulmuş. Kesik uçta korozyonu fotoğraflamak için.
