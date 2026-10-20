@@ -1,13 +1,16 @@
 # DC-bus voltage (800 / 1200 / 1600 V) → winding-insulation stresses and standard requirements for inverter-fed traction motors
 
-*Conventions: Vpp = peak-to-peak; Vp = peak (0-to-peak); P/P = phase-to-phase; P/G = phase-to-ground; T/T = turn-to-turn (conductor-to-conductor); Udc = Vdc = DC-link voltage; OF = overshoot factor (terminal peak ÷ Udc); WF = winding factor; EF = enhancement factor; Uj = jump voltage; a = fraction of Uj across the turn insulation. "Calculation" marks my own arithmetic (scripted, reproducible); everything else is cited. All sources were opened on 2026-10-20 unless flagged "search-result extract" (only a search-engine summary was readable) or "preview only" (only cover, contents, foreword, introduction, scope and early definitions of a standard were readable). This file builds on the 800 V calculation in `reports/Hairpin izolasyon malzemeleri ve yöntemleri.md` (lines 18–46) and on `research_notes/Hairpin izolasyon malzemeleri ve yöntemleri/requirements_and_tests.md` §1; those numbers are reproduced exactly below and extended, not repeated.*
+*Conventions: Vpp = peak-to-peak; Vp = peak (0-to-peak); P/P = phase-to-phase; P/G = phase-to-ground; T/T = turn-to-turn (conductor-to-conductor); Udc = Vdc = DC-link voltage; OF = overshoot factor (terminal peak ÷ Udc); WF = winding factor; EF = enhancement factor; Uj = jump voltage; a = fraction of Uj across the turn insulation. "Calculation" marks my own arithmetic (scripted, reproducible); everything else is cited. All sources were opened on 2026-10-20 unless flagged:
+- "search-result extract": only a search-engine summary was readable;
+- "preview only": only the cover, contents, foreword, introduction, scope and early definitions of a standard were readable;
+- "earlier notes": taken from the 2026-10-10 notes, not re-opened today. This file builds on the 800 V calculation in `reports/Hairpin izolasyon malzemeleri ve yöntemleri.md` (lines 18–46) and on `research_notes/Hairpin izolasyon malzemeleri ve yöntemleri/requirements_and_tests.md` §1; those numbers are reproduced exactly below and extended, not repeated.*
 
 ---
 
 ## 1. How DC-bus voltage, topology, switching device, rise time, switching frequency, cable length and surge impedance set the P/G, P/P and T/T voltages (including uneven first-turn distribution in hairpin windings)
 
 ### Takeaway
-For a 2-level inverter, the IEC 60034-18-41 framework gives operating peak-to-peak stresses of P/P = 2·OF·Udc, P/G ≈ 1.4·OF·Udc and T/T = 2·a·Uj (with Uj ≈ OF·Udc). All three scale linearly with the DC bus, so 1200 V and 1600 V buses raise every stress by ×1.5 and ×2 relative to 800 V. OF is set by the reflection coefficient Γ = (Zm − Zc)/(Zm + Zc) and by whether the rise time is shorter than the cable's round-trip time (critical length ≈ v·tr/2, v ≈ 150–180 m/µs). With SiC rise times (10–50 ns) the critical length shrinks to about 1–2.5 m, so a cabled SiC drive must be assumed to reach OF ≈ 2, and ringing or double pulsing can push it to 3–4 p.u. The fraction a falls hardest on the first turns: 30–90 % of the incident peak, and up to 1.47 p.u. of Udc measured on adjacent first/last turns. A 3-level (NPC/ANPC/T-type) inverter halves each switching step and therefore the jump voltage and T/T stress, but not the P/P peak-to-peak envelope.
+For a 2-level inverter, the IEC 60034-18-41 framework gives operating peak-to-peak stresses of P/P = 2·OF·Udc and P/G ≈ 1.4·OF·Udc (both reconstructed from the standard's tables), and T/T = 2·a·Uj (Uj ≈ OF·Udc is my assumption). All three scale linearly with the DC bus, so 1200 V and 1600 V buses raise every stress by ×1.5 and ×2 relative to 800 V. OF is set by the reflection coefficient Γ = (Zm − Zc)/(Zm + Zc) and by whether the rise time is shorter than the cable's round-trip time (critical length ≈ v·tr/2, v ≈ 150–180 m/µs). With SiC rise times (10–50 ns) the critical length shrinks to about 1–2.5 m, so a cabled SiC drive must be assumed to reach OF ≈ 2, and ringing or double pulsing can push it to 3–4 p.u. The fraction a falls hardest on the first turns: 30–90 % of the incident peak, and up to 1.47 p.u. of Udc measured on adjacent first/last turns. A 3-level (NPC/ANPC/T-type) inverter halves each switching step and therefore the jump voltage and T/T stress, but not the P/P peak-to-peak envelope.
 
 ### Cited Findings
 
@@ -48,7 +51,7 @@ For a 2-level inverter, the IEC 60034-18-41 framework gives operating peak-to-pe
 
 **Reflection, cable length and surge impedance**
 - **Reflection basics.** The cable characteristic impedance is "a few tens of Ohms", while the machine's is "generally hundreds of Ohms". The reflection coefficient Γ = (Zm − Zc)/(Zm + Zc) "is often close to unity, and the peak voltage of the surge is doubled at the winding termination". The inverter acts as a short circuit, so the wave reflects back with negative Γ. Propagation speed is 160–180 m/µs. "If the switch closes and opens in a very short time ... the total overvoltage can reach about three times the DC bus voltage." — [CIGRE WG D1.43 TB](https://cigre.cz/dokumenty_komise/d1/WG%20D1.43_TB_Final.pdf)
-- **Measured Si-IGBT examples (GAMBICA/BEAMA guide, 4th ed., 2016).**
+- **Measured industrial PWM-drive examples (GAMBICA/BEAMA guide, 4th ed., 2016; device type not stated, IGBT era).**
   - Propagation speed in a typical PVC cable is about 1.7 × 10⁸ m/s ("in 100 ns the pulse travels only 17 m").
   - "With 20 m of cable ... any pulse with a rise-time less than 235 ns can be expected to increase by nearly 100%", i.e. critical length = v·tr/2.
   - Measured at a 460 V supply: "Even with 4 m of cable some overshoot is apparent. With 42 m the overshoot is virtually 100%."
@@ -247,7 +250,7 @@ IEC 60034-18-41 Ed. 1.1 (CSV 2014+AMD1:2019+COR1:2020) remains the current Type 
 - **What Type II insulation looks like.**
   - Inorganic filler and micaceous materials (VPI or resin-rich). Machines above 3 kV add semiconductive slot coatings and end-winding stress grading — [Stone & Lloyd 2014](https://irispower.com/wp-content/uploads/2018/06/IEC-Standards-for-Variable-Speed-Drives-and-Motor-Winding-Insulation.pdf)
   - "For stators operating above 700 volts, there may be slot corona protection present" — [CIGRE WG D1.43](https://cigre.cz/dokumenty_komise/d1/WG%20D1.43_TB_Final.pdf)
-- **Corona-resistant enamel does not raise PDIV.** In bipolar 20 kHz, 45 kV/µs tests, a grade-2 PD-resistant (Cr₂O₃-filled) enamel had a lower PDIV (mean 787 V) than standard enamel (975 V). Its lifetime advantage existed "only below a frequency threshold" — [Pauli et al. 2020](http://bib.iem.rwth-aachen.de/IEMpublications/2020FPLow.pdf)
+- **Corona-resistant enamel does not raise PDIV.** In bipolar 20 kHz, 45 kV/µs tests, a PD-resistant enamel (PAI topcoat with inorganic nano/micro-fillers; Cr₂O₃ named) had a lower PDIV (mean 787 V) than standard enamel (975 V). The paper's grade label for this wire is inconsistent: grade 2 in Table 4, grade 3 in the Fig. 12 caption. Its lifetime advantage existed "only below a frequency threshold" — [Pauli et al. 2020](http://bib.iem.rwth-aachen.de/IEMpublications/2020FPLow.pdf)
 
 ### Inferences
 - **Line voltages of the three buses (calculation, fundamental line-to-line r.m.s.).**
@@ -263,7 +266,7 @@ IEC 60034-18-41 Ed. 1.1 (CSV 2014+AMD1:2019+COR1:2020) remains the current Type 
   - At 1600 V (2-level, OF 1.2–1.5) these targets are about 2.6–3.3 kVpp T/T, 4.4–5.5 kVpp P/G and 7.5–9.4 kVpp P/P.
   - If this cannot be shown, the system is Type II. It must then pass 18-42 life-curve qualification, i.e. PD-resistant (mica or inorganic-filled) materials, a different and destructive test programme.
 - **Practical consequence for the oil-ageing study.** At 1600 V, the PD-free margin (RPDIV ÷ target) after oil ageing is the deciding metric. Corona-resistant enamels should be judged by endurance under PD, not by PDIV, because they do not raise PDIV.
-- **Category D for SiC.** With SiC (tr < 0.1 µs), Pauli et al.'s reading puts any SiC drive in category D, whose OF upper bound is 2.5, unless the integrator measures and declares a lower OF. IVIC classes are then specified separately for P/P and P/G (IVIC S).
+- **Category D for SiC.** With SiC (tr < 0.1 µs), Pauli et al.'s reading puts any SiC drive in category D, whose OF upper bound is 2.5, unless the integrator measures and declares a lower OF. AMD1 C.2 / IVIC S allows the manufacturer to set independent P/P (X) and P/G (Y) limits matched to the measured terminal voltages, which suits a characterised integrated e-axle.
 
 ### Gaps
 - The verbatim Table 4, Table B.2 (all enhancement factors), Table B.6 (twisted-pair T/T test levels) and Figure 7 (a vs tr) of 18-41 were not readable. The Table 4 rise-time columns conflict between reproductions.

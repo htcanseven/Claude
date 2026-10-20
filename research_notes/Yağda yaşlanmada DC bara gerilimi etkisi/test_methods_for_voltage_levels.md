@@ -156,7 +156,7 @@ The voltage a specimen must reach without PD comes from the IEC 60034-18-41 enha
 
 ### Takeaway
 Commercial impulse PD testers fall into two groups:
-- Surge testers (6–15 kV, up to 40 kV with power packs) that report RPDIV/RPDEV but produce damped surges with typical rise times of about 100 ns or more.
+- Surge testers (6–15 kV, up to 40 kV with power packs) that report RPDIV/RPDEV but produce damped, oscillating surges. None of the vendor pages read publishes a rise time.
 - PWM-type "pulse" sources limited to about ±2.5 kV with 150/500 ns rise times.
 
 Published laboratory SiC sources reach 70–100 ns at 3–7 kV, or about 48 ns at 5 kV. None of the verified sources gives ≥±4 kV bipolar with ≤50 ns, which is what IEC-style phase-to-phase targets for a 1600 V bus would need (about 4.6–7.8 kV pk-pk; see Q5). This makes AC PDIV the practical route for high-voltage P/P and P/G margin checks.
@@ -235,7 +235,7 @@ For hipot, the formulas in use are of the form 2·U + 1000 V for 1 min: IEC 6003
   - 1200 V class: about 2.9–5.9 kV pk-pk, beyond ±2.5 kV pulse sources.
   - 1600 V class: about 3.8–7.8 kV pk-pk, needing at least ±4 kV bipolar plus headroom to locate the actual RPDIV.
 
-  Among the verified sources, only surge testers (non-SiC-like edges) or a custom generator of the Hu et al. class (≤7 kV pk-pk at ≥100 ns) reach this. A 5 kV rms AC PD source (≈14 kV pk-pk) covers every class for AC PDIV.
+  Among the verified sources, only surge testers (rise time unpublished, oscillatory waveform) or a custom generator of the Hu et al. class (≤7 kV pk-pk at ≥100 ns) reach this. A 5 kV rms AC PD source (≈14 kV pk-pk) covers every class for AC PDIV.
 - *Inference.* A practical equipment set:
   - (a) an AC PD system (IEC 60270, pC) of about 5 kV rms with HFCT or coupling capacitor, for all P/P and P/G margin tests and for screening;
   - (b) a bipolar SiC impulse source of about ±1.5–2.5 kV, ≤100 ns, with a UHF antenna, for T/T RPDIV and for confirming 800 V-class P/P;
