@@ -279,7 +279,7 @@ IEC 60034-18-41 Ed. 1.1 (CSV 2014+AMD1:2019+COR1:2020) remains the current Type 
 
 ### Takeaway
 Most generic LV insulation-coordination standards stop at 1500 V DC: IEC 60664-1 (≤ AC 1000 V / DC 1500 V, ≤ 30 kHz) and IEC 61800-5-1 (LV PDS ≤ 1.5 kV DC). IEC 61800-5-1 also explicitly excludes traction and EV drive modules. A 1600 V bus is therefore outside "low voltage" in the IEC sense.
-- **Motor hipot.** Comes from IEC 60034-1:2022 (Table 17, with new Table 18 IVIC test-voltage factors). Under IEC 60034-18-41 AMD1 Annex D, routine test ≈ 1 kV + 2·TVF·U_N, never below the line-fed 1 kV + 2·U_N value: 2 kV r.m.s. at U_N = 500 V.
+- **Motor hipot.** Comes from IEC 60034-1:2022 (Table 17, with new Table 18 IVIC test-voltage factors). IEC 60034-18-41 AMD1 Annex D raises it per IVIC and never below the line-fed value (2 kV r.m.s. at U_N = 500 V). My reconstruction of its formula is ≈ 1 kV + 2·TVF·U_N.
 - **Rail.** IEC 60349-2:2010 covers converter-fed AC traction motors for rail and road vehicles, but its dielectric levels were not readable.
 - **Vehicle standards.** ISO 6469-3, ISO 21498-1/-2, GB/T 18488-2024 and SAE J3271 were identified but their numerical withstand and insulation-resistance clauses could not be read. LV 123/124 are not public.
 
@@ -352,13 +352,14 @@ Most generic LV insulation-coordination standards stop at 1500 V DC: IEC 60664-1
 ## 4. Which applications use 800, 1200 and 1600 V buses (announced or in service), and their maximum bus voltages
 
 ### Takeaway
-- **Passenger cars.** Already ship at "800 V class", and BYD's 2025 platform is a "full-domain 1000V" architecture with SiC chips rated up to 1500 V.
+- **Passenger cars.** 800 V-class hairpin traction motors are the current reference: the earlier notes cite a PAI hairpin wire specified "rated 800 V". BYD's 2025 platform has moved to a "full-domain 1000V" architecture with SiC chips rated up to 1500 V.
 - **Heavy-duty charging.** The Megawatt Charging System is specified to about 1250 V DC (one source says 1500 V).
 - **Rail and mining.** Rail DC-catenary traction is the established 1500–1950 V case: the 1500 V DC system runs 1000–1800 V permanently and 1950 V temporarily. Mining haul trucks are reported at 1800–2100 V DC.
 - **Power devices.** 2300 V SiC modules are marketed for 1500 V DC buses.
 - **Mapping to the study.** 800 V maps to current EVs (maximum ≈ 900–1000 V), 1200 V to MCS-class trucks/buses and next-generation cars, and 1600 V to rail/mining/industrial 1500 V-class drives. I found no verified product using exactly a 1200 V or 1600 V nominal traction bus in road vehicles.
 
 ### Cited Findings
+- **800 V-class reference specification.** A hairpin-in-slot study used PAI Grade 3 wire of about 100 µm, "rated 800 V", TI ≥ 220 °C (earlier notes) — [He, Tenbohlen, Beltle, *Energies* 2025, 18, 1376](https://d-nb.info/1376542846/34)
 - **BYD Super e-Platform.** Launched "On March 17, 2025", with a "full-domain 1000V high-voltage architecture" and SiC power chips rated "up to 1500V". It has the "world's first mass-produced 30,000 RPM motor" and a "single-module single-motor power of 580 kW". Charging current "reaches 1000A" (10C) and charging power is "1 megawatt (1000 kW)". First models: Han L and Tang L — [BYD press release](https://www.byd.com/en/news-list/BYD-Unveils-Super-e-Platform-Megawatt-Flash-Charging-Electric-Vehicles-Matching-Refueling-Speeds.html)
 - **Megawatt Charging System (trucks and buses).**
   - SAE J3271 (MCS) was issued 2025-03 as a TIR — [SAE Mobilus](https://saemobilus.sae.org/standards/j3271_202503-sae-megawatt-charging-system-electric-vehicles)
@@ -414,7 +415,7 @@ Most generic LV insulation-coordination standards stop at 1500 V DC: IEC 60664-1
 | 1200 V | 1.97–2.46 kVpp | 3.44 kVpp | 3.33–4.16 kVpp | 5.62–7.02 kVpp |
 | 1600 V | 2.62–3.28 kVpp | 4.59 kVpp | 4.44–5.54 kVpp | 7.49–9.36 kVpp |
 
-A cabled SiC drive (OF 2.0) adds a further one-third, and the maximum-voltage case (×1.125) another 12.5 %. A 3-level inverter roughly halves the T/T target: 1600 V 3-level T/T ≈ 1.31–1.64 kVpp, the same as 800 V 2-level. As wire-pair AC-r.m.s. equivalents (÷ 2√2), the 1600 V T/T default target is about 0.93–1.16 kV r.m.s. at the operating temperature, if EF_T is retained.
+A cabled SiC drive (OF 2.0) adds a further one-third, and the maximum-voltage case (×1.125) another 12.5 %. A 3-level inverter roughly halves the T/T target: 1600 V 3-level T/T ≈ 1.31–1.64 kVpp, the same as 800 V 2-level. As wire-pair AC-r.m.s. equivalents (÷ 2√2), the 1600 V T/T default target is about 0.93–1.16 kV r.m.s. for a room-temperature test with EF_T = 1.3 retained.
 
 ### Cited Findings
 - **Equation and factors.** Vc = Vdc·OF·WF·EF_PD·EF_T·EF_Aging, with WF = 2 / 1.4 / 0.7 (P/P, P/G, T/T); EF_PD = 1.25; EF_T = 1.3 (T/T, P/P) and 1.1 (P/G); EF_Aging = max(1; 1.2·Ts/Tc) in verification tests and 1 in qualification tests on aged specimens. OF = terminal peak ÷ DC-bus voltage — [Lusuardi et al., Part III, IEEE Access 2021](https://zenodo.org/records/4562202)
@@ -509,7 +510,7 @@ This is the relevant table for "after oil ageing" measurements: the specimen is 
   | 1200 V | ≥ 1.6–2.1 kVpp | — |
   | 1600 V | ≥ 2.2–2.7 kVpp | ≈ 1.1–1.4 kVpp |
 
-  Add ≈ +40 % (OF 2.0 / OF 1.5 ≈ 1.33, plus margin) if the motor will be cable-fed.
+  Multiply by 2.0/1.5 = 1.33 if the motor will be cable-fed (OF 2.0 instead of 1.5).
 - **Conductor-to-plate or slot mock-up (P/G).** At 1600 V the level is about 3.7–4.6 kVpp, i.e. about 1.3–1.6 kV r.m.s. AC. This is a slot-liner-plus-wire system requirement, not a wire-only one.
 - **Feasibility vs reported values.**
   - The highest rectangular-wire PDIV in the earlier notes is 2.7 kV (Essex, conditions not stated), and bipolar-pulse PDIV of thin enamel was only 0.8–1.0 kV (Pauli).
