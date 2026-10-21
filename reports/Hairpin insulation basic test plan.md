@@ -27,8 +27,10 @@ Specimen types:
 
 - **Straight specimen:** 300 mm. One end is stripped 15 mm for connection; the other end and the insulation edge at the stripped end are sealed with oil-resistant epoxy. Photographs, mass/thickness and BDV are done on these specimens.
 - **Back-to-back pair:** two straight specimens are laid with their wide faces together, offset by 150 mm; the contact length is 150 mm and the stripped ends point outward. The pair is joined with PTFE tape or a clamp only during measurement; during aging the specimens are kept apart. At every measurement the same two specimens are joined in the same position. Used for insulation resistance and PDIV.
-- **Open-end specimen:** 300 mm; one end left open and stripped 20 mm. Used to photograph corrosion at the cut end.
+- **Open-end specimen:** 300 mm. One end is stripped 20 mm and its insulation edge is left open; the other end is sealed with epoxy. Represents the stripped weld end in the motor; corrosion at the cut end is photographed.
 - **Copper witness strip:** bare copper, 6 × 25 mm; 3 pairs in each oil vessel, with one strip of each pair in the oil and one above it. Shows how corrosive the oil is.
+
+**Why are the ends sealed?** A specimen is cut from wire, so its ends expose the copper and the insulation's cross-section; in the motor's winding the insulation is continuous. Oil gets under the insulation at an open cut end (especially with tape and glass), and the results then reflect the cut end, not the insulation. The straight specimen's ends are therefore sealed with epoxy that withstands oil and 150 °C; the 15 mm stripped part only connects the test lead. In the motor, the insulation ends in the open where hairpin ends are stripped for welding. The open-end specimen represents that region: it shows whether oil enters at the insulation edge and attacks the copper.
 
 Preparation: specimens are handled with nitrile gloves, wiped with isopropanol in the same way for all families, and marked with an oil-resistant code. Before measurement they are kept at 23 ± 2 °C and 50 ± 5% relative humidity for at least 24 h.
 
@@ -73,6 +75,7 @@ Measurements are done in the same order at the start and at every measurement po
 
 - Insulated thickness and width are measured with a micrometer (0.001 mm) at 5 marked points on the specimen; the same points are measured at every measurement point.
 - The specimen is weighed on a balance with 0.1 mg resolution.
+- The epoxy's own mass change is corrected for: 3 small epoxy pieces age with the specimens in each vessel and in the oven, and are weighed.
 - Results are given as percentage change. A mass gain mostly shows oil uptake; a loss shows material loss.
 
 ### 3.3 Insulation resistance
@@ -98,7 +101,7 @@ Measurements are done in the same order at the start and at every measurement po
 ### 3.6 Oil and witness strips
 
 - The water content of the oil is measured by Karl Fischer titration: in fresh oil, and at each measurement point from the oil vessels. The sample is taken into a dry, closed bottle once the vessel has cooled.
-- After 2000 h, 100 mL of oil from each vessel is kept in a dark glass bottle; acidity or metal analysis can be ordered later if needed.
+- After 2000 h, 100 mL of oil per vessel is kept in a dark glass bottle for possible later analysis.
 - One pair of witness strips is removed at each measurement point. The strips are rinsed with a sulfur-free solvent (e.g., isooctane), dried and compared with the ASTM D130 tarnish scale. The strip in the oil and the strip above it are rated separately and photographed.
 
 ## 4. Aging conditions
@@ -110,7 +113,7 @@ Measurements are done in the same order at the start and at every measurement po
 
 - The 1000 h point matches the oil-resistance duration of IEC 60851-4 Test 20; 500 and 2000 h show the trend. 150 °C is the upper limit of this test.
 - Each family ages in its own vessel, so products released by one insulation do not affect another. All vessels use the same batch of e-oil.
-- Each vessel has pressure relief and a PTFE gasket. Oil fills 65–75% of the vessel; specimens take up at most 5% of the vessel volume.
+- Each vessel has pressure relief and a PTFE gasket. Oil fills 65–75% of it; specimens take up at most 5% of its volume.
 - The temperature must be at least 20 K below the flash/fire point of the oil; otherwise it is lowered.
 - Vessels are cooled to room temperature before opening. While measurements are running, the vessels stay closed at room temperature and the oven is switched off; aging time counts only the time spent at 150 °C.
 - The oil is not changed or topped up during aging.
@@ -146,7 +149,7 @@ Limitation: PDIV is measured only at room temperature and on specimens wiped fre
 
 The four Group A families (K, KC, C, E) need about 245 specimens; adding FC takes 61 more. At least 20 m of each Group B material should be requested (61 specimens ≈ 18 m, plus spare).
 
-Phase 1 takes about 2 weeks. In Phase 2, 2000 h of aging takes about 12 weeks, and the three measurement points add about 3 weeks. The total is about 17 weeks (≈4 months). Group B follows the same schedule once its materials arrive.
+Phase 1 takes about 2 weeks. In Phase 2, 2000 h of aging takes about 12 weeks and the three measurement points add about 3 weeks. The total is about 17 weeks (≈4 months); Group B follows the same schedule.
 
 ## 7. Eliminated tests
 
@@ -154,12 +157,12 @@ The following tests were removed from the basic plan; they can be added back if 
 
 | Eliminated | Reason | If needed |
 | --- | --- | --- |
-| Capacitance, tan δ | Needs extra equipment; PDIV and insulation resistance show the basic change | With an LCR meter on the same pairs |
+| Capacitance, tan δ | Extra equipment; PDIV and resistance show the basic change | LCR meter, same pairs |
 | Impulse PDIV (RPDIV) | Needs a dedicated impulse generator; for a two-conductor model, AC PDIV is taken as roughly equivalent in Vpp | To verify 800 V |
 | PDIV at 150 °C | Needs an oven with high-voltage feedthroughs | Stated as a limitation |
-| Phase-to-ground and gapped phase-to-phase PDIV | The back-to-back pair covers the basic need | With a grounded plate |
-| Wet-oil and vapor-phase arms | Need extra vessels and specimens | Witness strips partly track the vapor phase |
-| Re-measurement after drying | Needs an extra measurement round | To see whether oil uptake is reversible |
+| Phase-to-ground and gapped P/P PDIV | The back-to-back pair covers the basic need | With a grounded plate |
+| Wet-oil and vapor-phase arms | Need extra vessels and specimens | Witness strips partly cover it |
+| Re-measurement after drying | Needs an extra measurement round | Checks if uptake reverses |
 | Oil acidity, resistivity, metal analysis | Need an external lab | Using the retained oil sample |
 | Bending, adhesion, FTIR, SEM/EDS, cross-sections | Need extra preparation and external services | Only if visible damage appears |
 | Aging and corrosion under voltage | Out of scope | In a separate study |

@@ -27,8 +27,10 @@ Numune tipleri:
 
 - **Düz numune:** 300 mm. Bir ucu bağlantı için 15 mm soyulur; diğer uç ve soyulan uçtaki yalıtım kenarı yağa dayanıklı epoksiyle kapatılır. Fotoğraf, kütle/kalınlık ve BDV bu numunelerde yapılır.
 - **Sırt sırta çift:** iki düz numune 150 mm kaydırılarak geniş yüzleri üst üste gelecek şekilde konur; temas boyu 150 mm'dir ve soyulmuş uçlar dışa bakar. Çift yalnız ölçüm sırasında PTFE bant veya kelepçeyle birleştirilir; yaşlandırmada numuneler ayrıdır. Her ölçümde aynı iki numune aynı konumda birleştirilir. Yalıtım direnci ve PDIV için.
-- **Açık uçlu numune:** 300 mm; bir ucu açık ve 20 mm soyulmuş. Kesik uçta korozyonu fotoğraflamak için.
+- **Açık uçlu numune:** 300 mm. Bir ucu 20 mm soyulur ve yalıtım kenarı açık bırakılır; diğer ucu epoksiyle kapatılır. Motordaki kaynak ucunu temsil eder; kesik uçtaki korozyon fotoğraflanır.
 - **Bakır tanık şerit:** 6 × 25 mm çıplak bakır; her yağ kabında 3 çift, her çiftte biri yağda, biri yağın üstünde. Yağın korozifliğini gösterir.
+
+**Uçlar neden kapatılır?** Numune telden kesildiği için uçlarında bakır ve yalıtımın kesiti açıkta kalır; motordaki sargıda ise yalıtım kesintisizdir. Açık kesik uçtan yağ yalıtımın altına girer (özellikle bant ve cam yalıtımda) ve sonuçlar yalıtımın kendisini değil kesik ucu yansıtır. Bu yüzden düz numunenin uçları 150 °C'ye ve yağa dayanıklı epoksiyle kapatılır; soyulmuş 15 mm yalnız ölçüm kablosunun bağlantısı içindir. Motorda yalıtımın açıkta bittiği yer, kaynak için soyulan hairpin uçlarıdır. Açık uçlu numune bu bölgeyi temsil eder: yağın yalıtım kenarından girip bakırı aşındırıp aşındırmadığını gösterir.
 
 Hazırlık: numuneler nitril eldivenle tutulur, tüm ailelerde aynı şekilde izopropanolle silinir ve yağa dayanıklı bir kodla işaretlenir. Ölçümlerden önce 23 ± 2 °C ve %50 ± 5 bağıl nemde en az 24 h bekletilir.
 
@@ -73,6 +75,7 @@ Hazırlık: numuneler nitril eldivenle tutulur, tüm ailelerde aynı şekilde iz
 
 - Yalıtımlı kalınlık ve genişlik, numunede işaretli 5 noktada mikrometreyle (0,001 mm) ölçülür; her ölçüm noktasında aynı noktalar ölçülür.
 - Numune 0,1 mg hassasiyetli terazide tartılır.
+- Epoksinin kendi kütle değişimi düzeltilir: her kapta ve fırında numunelerle birlikte 3 küçük epoksi parçası yaşlandırılır ve tartılır.
 - Sonuç yüzde değişim olarak verilir. Kütle artışı çoğunlukla yağ emilimini, azalma malzeme kaybını gösterir.
 
 ### 3.3 Yalıtım direnci
