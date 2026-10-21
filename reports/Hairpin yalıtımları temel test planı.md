@@ -21,7 +21,7 @@ Plan beş temel testle sınırlıdır: fotoğraf, kütle/kalınlık, yalıtım d
 
 A grubu (K, KC, C, E, FC) stokta vardır. B grubu (PX, PT, PS, EP, PA) talep edilecektir; her biri için en az 20 m gerekir (Bölüm 6). B grubu malzemeleri geldiğinde aynı planla test edilir.
 
-Numune tipleri:
+Numune tipleri (Şekil 1):
 
 ![Numune tipleri](numune_tipleri.png)
 
@@ -49,6 +49,10 @@ Hazırlık: numuneler nitril eldivenle tutulur, tüm ailelerde aynı şekilde iz
 4. Yaşlandırma: izlenen numunelerin yarısı kapalı kapta e-yağa (YK), yarısı hava fırınına (HK) konur; ikisi de 150 °C'de. BDV setleri de aynı kollara girer. Taze yağın su içeriği ölçülür; her yağ kabına 3 çift tanık şerit konur.
 5. Ölçüm noktaları (500, 1000 ve 2000 h): kaplar oda sıcaklığına soğutulur; izlenen numuneler çıkarılır, yüzey yağı emici kâğıtla alınır ve numuneler 24 h kondisyonlanır. Aşama 1'deki ölçümler aynı sırayla tekrarlanır ve o noktanın BDV seti ölçülür (her kolda 5). Yağ örneği alınır ve bir çift tanık şerit çıkarılır. 500 ve 1000 h'te izlenen numuneler aynı kaba veya fırına geri konur.
 6. Değerlendirme: korunum, yağ etkisi ve 800/1200/1600 V hükmü (Bölüm 5).
+
+Bir ölçüm noktasındaki iş sırası Şekil 3'te gösterilmiştir:
+
+![Bir ölçüm noktasındaki iş sırası (500, 1000 ve 2000 h)](olcum_noktasi_is_sirasi.png)
 
 ## 3. Testler ve nasıl yapılır
 
@@ -78,15 +82,17 @@ Hazırlık: numuneler nitril eldivenle tutulur, tüm ailelerde aynı şekilde iz
 - Epoksinin kendi kütle değişimi düzeltilir: her kapta ve fırında numunelerle birlikte 3 küçük epoksi parçası yaşlandırılır ve tartılır.
 - Sonuç yüzde değişim olarak verilir. Kütle artışı çoğunlukla yağ emilimini, azalma malzeme kaybını gösterir.
 
+![Elektriksel ölçüm düzenleri](elektriksel_olcum_duzenleri.png)
+
 ### 3.3 Yalıtım direnci
 
-- Çiftin bir iletkeni megohmmetrenin yüksek gerilim ucuna, diğeri dönüş ucuna bağlanır.
+- Çiftin bir iletkeni megohmmetrenin yüksek gerilim ucuna, diğeri dönüş ucuna bağlanır (Şekil 4a).
 - 500 V DC uygulanır ve 60 s sonundaki değer (R60) okunur. Ölçümden sonra numune deşarj edilir.
 
 ### 3.4 PDIV ve PDEV
 
 - Kısmi deşarj ölçüm sistemi her oturumun başında yük kalibratörüyle kalibre edilir. Arka plan gürültüsü 5 pC'nin altında olmalıdır.
-- 50 Hz AC gerilim çiftin iki iletkeni arasına uygulanır ve sıfırdan yaklaşık 50 V/s hızla artırılır.
+- 50 Hz AC gerilim çiftin iki iletkeni arasına uygulanır ve sıfırdan yaklaşık 50 V/s hızla artırılır (devre Şekil 4b, profil Şekil 4c).
 - Kısmi deşarj 10 pC'yi aştığında gerilim PDIV olarak okunur. Ardından gerilim aynı hızla düşürülür; deşarj 10 pC'nin altına indiğinde gerilim PDEV olarak okunur.
 - Gerilim en çok 3,5 kV rms'ye (≈9,9 kVpp) çıkarılır; bu, en yüksek hedefi (1600 V, P/P) kapsar. Bu değere kadar deşarj yoksa sonuç "> 3,5 kV rms" olarak yazılır.
 - Her çiftte 60 s arayla 3 okuma yapılır; ortalama ve en düşük değer kaydedilir. Değerler Vrms ve Vpp (= Vrms × 2√2) olarak raporlanır.
@@ -94,7 +100,7 @@ Hazırlık: numuneler nitril eldivenle tutulur, tüm ailelerde aynı şekilde iz
 ### 3.5 Delinme gerilimi (BDV)
 
 - Tahribatlı testtir; ölçülen numune yeniden kullanılmaz.
-- Düz numune IEC 60851-5'teki dikdörtgen tel düzeniyle test edilir: numune metal bilye içine gömülür ya da orta bölümü metal folyoyla sarılır. Uçlar elektrodun dışında kalır.
+- Düz numune IEC 60851-5'teki dikdörtgen tel düzeniyle test edilir: numune metal bilye içine gömülür ya da orta bölümü metal folyoyla sarılır. Uçlar elektrodun dışında kalır (Şekil 4d).
 - 50 Hz AC gerilim iletken ile bilye veya folyo arasına uygulanır ve standarttaki hızla (ör. 500 V/s) delinmeye kadar artırılır.
 - Başta 5 numune, her ölçüm noktasında ise her kolda 5 numune ölçülür; ortalama, en düşük değer ve delinme yeri kaydedilir.
 
@@ -120,7 +126,7 @@ Hazırlık: numuneler nitril eldivenle tutulur, tüm ailelerde aynı şekilde iz
 
 ## 5. Değerlendirme
 
-Ana ölçüt korunumdur: ölçüm noktasındaki değer / yağsız değer, aynı numunede. Yağın etkisi, aynı süredeki YK korunumu ile HK korunumu arasındaki farktır. Korunum 500, 1000 ve 2000 h'e karşı çizilerek eğilim gösterilir.
+Ana ölçüt korunumdur: ölçüm noktasındaki değer / yağsız değer, aynı numunede. Yağın etkisi, aynı süredeki YK korunumu ile HK korunumu arasındaki farktır. Korunum 500, 1000 ve 2000 h'e karşı çizilerek eğilim gösterilir (Şekil 5a).
 
 PDIV ayrıca DC bara sınıflarına göre değerlendirilir. Sırt sırta çift hem dönüş-dönüş (T/T) hem de sıfır aralıklı faz-faz (P/P) yolunu temsil eder. Hedefler oda sıcaklığı içindir (kVpp; iki seviyeli evirici, aşma faktörü 1,2–1,5; IEC 60034-18-41 yaklaşımı):
 
@@ -134,8 +140,10 @@ PDIV ayrıca DC bara sınıflarına göre değerlendirilir. Sırt sırta çift h
 Önerilen kabul ölçütleri:
 
 - PDIV korunumu 2000 h'te en az %50.
-- Ölçüm noktalarındaki en düşük PDIV, ilgili sınıfın yaşlanmış hedefini karşılamalı.
+- Ölçüm noktalarındaki en düşük PDIV, ilgili sınıfın yaşlanmış hedefini karşılamalı (okuma örneği: Şekil 5b).
 - BDV korunumu ve görsel bulgular (renk, çatlak, kabarma, kesik uçta korozyon) raporlanır.
+
+![Değerlendirmenin okunuşu (şematik örnek)](degerlendirme.png)
 
 Sınırlama: PDIV yalnız oda sıcaklığında ve yağ silinmiş numunede ölçülür. Literatüre göre sıcak ve yağla ıslak yüzeyde PDIV daha düşük olabilir.
 
@@ -149,11 +157,13 @@ Sınırlama: PDIV yalnız oda sıcaklığında ve yağ silinmiş numunede ölç�
 
 A grubunun dört ailesi (K, KC, C, E) için yaklaşık 245 numune gerekir; FC eklenirse 61 numune daha. B grubundaki her malzeme için en az 20 m talep edilmelidir (61 numune ≈ 18 m, artı yedek).
 
-Aşama 1 yaklaşık 2 hafta sürer. Aşama 2'de 2000 h yaşlandırma yaklaşık 12 hafta sürer; üç ölçüm noktası yaklaşık 3 hafta ekler. Toplam süre yaklaşık 17 haftadır (≈4 ay). B grubu, malzemeler geldiğinde aynı takvimle yürür.
+Aşama 1 yaklaşık 2 hafta sürer. Aşama 2'de 2000 h yaşlandırma yaklaşık 12 hafta sürer; üç ölçüm noktası yaklaşık 3 hafta ekler. Toplam süre yaklaşık 17 haftadır (≈4 ay). B grubu, malzemeler geldiğinde aynı takvimle yürür (Şekil 6).
+
+![Test takvimi](takvim.png)
 
 ## 7. Elenen testler
 
-Aşağıdaki testler temel plandan çıkarıldı; kaynak ve zaman olursa eklenebilir.
+Aşağıdaki testler temel plandan çıkarıldı; kaynak ve zaman olursa eklenebilir:
 
 | Elenen | Neden | Gerekirse |
 | --- | --- | --- |

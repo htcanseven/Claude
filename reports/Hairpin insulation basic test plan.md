@@ -21,7 +21,7 @@ The plan is limited to five basic tests: photographs, mass/thickness, insulation
 
 Group A (K, KC, C, E, FC) is in stock. Group B (PX, PT, PS, EP, PA) will be requested; each material needs at least 20 m (Section 6). Group B materials are tested with the same plan when they arrive.
 
-Specimen types:
+Specimen types (Figure 1):
 
 ![Specimen types](specimen_types.png)
 
@@ -49,6 +49,10 @@ Preparation: specimens are handled with nitrile gloves, wiped with isopropanol i
 4. Aging: half of the tracked specimens go into e-oil in a closed vessel (oil arm) and half into an air oven (air arm), both at 150 °C. The BDV sets go into the same arms. The water content of the fresh oil is measured; 3 pairs of witness strips are placed in each oil vessel.
 5. Measurement points (500, 1000 and 2000 h): the vessels are cooled to room temperature; tracked specimens are removed, surface oil is taken off with absorbent paper, and the specimens are conditioned for 24 h. The Phase 1 measurements are repeated in the same order, and that point's BDV set is tested (5 per arm). An oil sample is taken and one pair of witness strips is removed. At 500 and 1000 h the tracked specimens go back into the same vessel or oven.
 6. Evaluation: retention, oil effect and the 800/1200/1600 V verdict (Section 5).
+
+The work sequence at a measurement point is shown in Figure 3:
+
+![Work sequence at a measurement point (500, 1000 and 2000 h)](measurement_point_workflow.png)
 
 ## 3. Tests and how to run them
 
@@ -78,15 +82,17 @@ Measurements are done in the same order at the start and at every measurement po
 - The epoxy's own mass change is corrected for: 3 small epoxy pieces age with the specimens in each vessel and in the oven, and are weighed.
 - Results are given as percentage change. A mass gain mostly shows oil uptake; a loss shows material loss.
 
+![Electrical test set-ups](electrical_setups.png)
+
 ### 3.3 Insulation resistance
 
-- One conductor of the pair is connected to the high-voltage terminal of the megohmmeter and the other to the return terminal.
+- One conductor of the pair is connected to the high-voltage terminal of the megohmmeter and the other to the return terminal (Figure 4a).
 - 500 V DC is applied and the value at 60 s (R60) is read. The specimen is discharged after the measurement.
 
 ### 3.4 PDIV and PDEV
 
 - The partial discharge measuring system is calibrated with a charge calibrator at the start of each session. Background noise must be below 5 pC.
-- A 50 Hz AC voltage is applied between the two conductors of the pair and raised from zero at about 50 V/s.
+- A 50 Hz AC voltage is applied between the two conductors of the pair and raised from zero at about 50 V/s (circuit Figure 4b, profile Figure 4c).
 - The voltage at which partial discharge exceeds 10 pC is read as PDIV. The voltage is then lowered at the same rate; the voltage at which discharge falls below 10 pC is read as PDEV.
 - The voltage is raised to at most 3.5 kV rms (≈9.9 kVpp), which covers the highest target (1600 V, P/P). If there is no discharge up to this value, the result is recorded as "> 3.5 kV rms".
 - Three readings are taken on each pair, 60 s apart; the mean and the lowest value are recorded. Values are reported in Vrms and Vpp (= Vrms × 2√2).
@@ -94,9 +100,9 @@ Measurements are done in the same order at the start and at every measurement po
 ### 3.5 Breakdown voltage (BDV)
 
 - This is a destructive test; a tested specimen is not reused.
-- The straight specimen is tested with the rectangular-wire arrangement of IEC 60851-5: it is embedded in metal shot, or its middle section is wrapped in metal foil. The ends stay outside the electrode.
+- The straight specimen is tested with the rectangular-wire arrangement of IEC 60851-5: it is embedded in metal shot, or its middle section is wrapped in metal foil. The ends stay outside the electrode (Figure 4d).
 - A 50 Hz AC voltage is applied between the conductor and the shot or foil and raised at the rate given in the standard (e.g., 500 V/s) until breakdown.
-- Five specimens are tested at the start, and five per arm at each measurement point; the mean, the lowest value and the breakdown location are recorded.
+- Five specimens are tested at the start and five per arm at each point; the mean, lowest value and failure site are recorded.
 
 ### 3.6 Oil and witness strips
 
@@ -111,16 +117,16 @@ Measurements are done in the same order at the start and at every measurement po
 | Oil arm | Full immersion in e-oil, closed stainless steel vessel | 150 °C | 500 / 1000 / 2000 h |
 | Air arm | Air-circulating oven | 150 °C | 500 / 1000 / 2000 h |
 
-- The 1000 h point matches the oil-resistance duration of IEC 60851-4 Test 20; 500 and 2000 h show the trend. 150 °C is the upper limit of this test.
-- Each family ages in its own vessel, so products released by one insulation do not affect another. All vessels use the same batch of e-oil.
-- Each vessel has pressure relief and a PTFE gasket. Oil fills 65–75% of it; specimens take up at most 5% of its volume.
+- The 1000 h point is the oil-resistance duration of IEC 60851-4 Test 20 (max. 150 °C); 500 and 2000 h show the trend.
+- Each family ages in its own vessel so products from one insulation do not affect another; all use one e-oil batch.
+- Each vessel has pressure relief and a PTFE gasket; oil fills 65–75% of it, specimens at most 5% of its volume.
 - The temperature must be at least 20 K below the flash/fire point of the oil; otherwise it is lowered.
 - Vessels are cooled to room temperature before opening. While measurements are running, the vessels stay closed at room temperature and the oven is switched off; aging time counts only the time spent at 150 °C.
 - The oil is not changed or topped up during aging.
 
 ## 5. Evaluation
 
-The main criterion is retention: the value at a measurement point divided by the dry value, on the same specimen. The oil effect is the difference between oil-arm and air-arm retention at the same aging time. Retention is plotted against 500, 1000 and 2000 h to show the trend.
+The main criterion is retention: the value at a measurement point divided by the dry value, on the same specimen. The oil effect is the difference between oil-arm and air-arm retention at the same aging time. Retention is plotted against 500, 1000 and 2000 h to show the trend (Figure 5a).
 
 PDIV is also assessed against the DC bus voltage classes. The back-to-back pair represents both the turn-to-turn (T/T) path and the zero-gap phase-to-phase (P/P) path. Targets apply at room temperature (kVpp; two-level inverter, overshoot factor 1.2–1.5; IEC 60034-18-41 approach):
 
@@ -134,8 +140,10 @@ PDIV is also assessed against the DC bus voltage classes. The back-to-back pair 
 Proposed acceptance criteria:
 
 - PDIV retention of at least 50% at 2000 h.
-- The lowest PDIV across the measurement points meets the aged target of the class.
+- The lowest PDIV across the measurement points meets the aged target of the class (reading example: Figure 5b).
 - BDV retention and visual findings (color, cracks, blisters, corrosion at the cut end) are reported.
+
+![How the evaluation is read (schematic example)](evaluation.png)
 
 Limitation: PDIV is measured only at room temperature and on specimens wiped free of oil. According to the literature, PDIV can be lower on a hot, oil-wet surface.
 
@@ -149,11 +157,13 @@ Limitation: PDIV is measured only at room temperature and on specimens wiped fre
 
 The four Group A families (K, KC, C, E) need about 245 specimens; adding FC takes 61 more. At least 20 m of each Group B material should be requested (61 specimens ≈ 18 m, plus spare).
 
-Phase 1 takes about 2 weeks. In Phase 2, 2000 h of aging takes about 12 weeks and the three measurement points add about 3 weeks. The total is about 17 weeks (≈4 months); Group B follows the same schedule.
+Phase 1 takes about 2 weeks. In Phase 2, 2000 h of aging takes about 12 weeks and the three measurement points add about 3 weeks. The total is about 17 weeks (≈4 months); Group B follows the same schedule (Figure 6).
+
+![Test schedule](schedule.png)
 
 ## 7. Eliminated tests
 
-The following tests were removed from the basic plan; they can be added back if resources and time allow.
+The following tests were removed from the basic plan; they can be added back if resources and time allow:
 
 | Eliminated | Reason | If needed |
 | --- | --- | --- |
