@@ -1,8 +1,7 @@
-# Evaluating design-stage manufacturability decisions against the resolution of production
+# Evaluating AI-based manufacturability decisions against the resolution of production
 
-Working repository for a paper aimed at the *Research in Engineering Design* special collection
-**AI in Design for Manufacturing** (deadline 31 December 2026). The dataset survey that led here is in
-[`dataset-survey-DFM.md`](dataset-survey-DFM.md).
+Working repository for the paper, submitted to the *Journal of Intelligent Manufacturing*. The dataset survey
+that led here is in [`dataset-survey-DFM.md`](dataset-survey-DFM.md).
 
 ## Data
 
@@ -21,10 +20,10 @@ describes.
 
 ## Archive
 
-The paper cites version 4 of this repository on Zenodo, which holds the code, feature tables and result files of the
-paper's final version (deposit metadata: `.zenodo.json`, `CITATION.cff`). [`RELEASE_NOTES.md`](RELEASE_NOTES.md) lists the changes since the version reviewed
-in the third round and the checksums of the main result files; `SHA256SUMS` holds the SHA-256 checksums of every script
-and result file (`sha256sum -c SHA256SUMS` checks them; `bash scripts/write_checksums.sh` rewrites the file).
+The paper cites version 1 of this repository on Zenodo, which holds the code, feature tables and result files of the
+paper as submitted (deposit metadata: `.zenodo.json`, `CITATION.cff`). [`RELEASE_NOTES.md`](RELEASE_NOTES.md) gives
+the checksums of the main result files; `SHA256SUMS` holds the SHA-256 checksums of every script and result file
+(`sha256sum -c SHA256SUMS` checks them; `bash scripts/write_checksums.sh` rewrites the file).
 
 ## Pipeline
 
@@ -64,9 +63,9 @@ material. Results that the paper does not tabulate are in the result files of `r
 between `%% BEGIN GENERATED` markers are written by `scripts/make_tables.py`; figures are copied from
 `results/figures/`. `paper/submission/` holds the cover letter, outreach drafts, the upload script and the
 submission checklist. `paper/review/` holds the simulated referee reports on the first version and the response to
-them, and `paper/review/cfp_panel/` a simulated review panel for the collection: three reviewers and a guest editor,
+them, and `paper/review/cfp_panel/` a simulated review panel: three reviewers and a guest editor,
 all AI agents, with the response to them (`response_to_panel.md`) and a marked-up comparison with the reviewed
 version (`main_diff.pdf`); its second round is in `paper/review/cfp_panel/round2/` (reports, decision, the response
 `response_round2.md` with page and line numbers, and `main_diff.pdf` against the second-round version), and its third
-round in `paper/review/cfp_panel/round3/` (reports, the decision to accept in principle, the response
+round in `paper/review/cfp_panel/round3/` (reports, the simulated decision to accept in principle, the response
 `response_round3.md` and `main_diff.pdf` against the third-round version).

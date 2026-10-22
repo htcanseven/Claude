@@ -1,14 +1,12 @@
 # Release notes
 
-Code, feature tables and result files of the paper *Evaluating design-stage manufacturability decisions against the
-resolution of production* (H. T. Canseven; Research in Engineering Design, special collection "AI in Design for
-Manufacturing").
+Code, feature tables and result files of the paper *Evaluating AI-based manufacturability decisions against the
+resolution of production* (H. T. Canseven).
 
-## Version 4 (October 2026): final version of the paper
+## Version 1 (October 2026)
 
-Version 4 holds exactly the code, feature tables and result files that produce the numbers of the final version of
-the paper, which answers the third-round decision of 6 October 2026. It is the first deposited version: version 3 was
-prepared for the second revision but not deposited.
+Version 1 holds exactly the code, feature tables and result files that produce the numbers of the paper as submitted
+for publication. It is the first deposited version.
 
 **Contents.**
 
@@ -31,25 +29,6 @@ unpacked deposit, `sha256sum -c SHA256SUMS` checks them all. The main result fil
 | `results/panel_guard_priors.csv` | `a4366a9ec1abad9acc714068e04ceebc131159e904cf89d96822606fa34a849c` |
 | `results/panel_step6.csv` | `733329987119679ee1cfa8a2bf6c31d553abe9edb76432b53e215e6ad3ac6fef` |
 | `results/rob_refit.csv` | `d244fb64230e75f18806e5716270e7355282e9108bc3d7573c8db195be3e6c18` |
-
-**Changes since the version reviewed in the third round** (repository commit `18930d0`, 6 October 2026):
-
-- `results/panel_guard_priors.csv` gained two columns, `trial_10_uncapped` and `trial_20_uncapped`. They hold the
-  trial shares of step 6 when the guard band is not capped at 20 floors, which Section 3.6 of the paper cites. The
-  other five columns are unchanged: without the two new columns the file is byte-identical to the third-round file,
-  whose SHA-256 is `fa1d032f1e68d381147228f1a1f37ec1ba4afd060c3434efe279011cff8c1366`. To check, run in the root of
-  the deposit (pandas 3.0.6, as in `requirements.txt`):
-
-  ```
-  python3 -c "import pandas as pd, hashlib; d = pd.read_csv('results/panel_guard_priors.csv').drop(columns=['trial_10_uncapped', 'trial_20_uncapped']); print(hashlib.sha256(d.to_csv(index=False).encode()).hexdigest())"
-  ```
-
-- `results/summary_panel.md` shows the two new columns.
-- `scripts/panel.py` writes the two columns. `scripts/make_tables.py` writes the new rows of the paper's Tables 4
-  and A2: intervals for M1 and the force trend M1sn, and the refit intervals of the safe distances. It also sets
-  Tables A2–A4 on float pages, at 7 pt, with Tables A3 and A4 at the full text width.
-- `scripts/write_checksums.sh` writes `SHA256SUMS`.
-- Every other result file is byte-identical to the third-round version.
 
 **Licence and attribution.** For the licence of the code, see `LICENSE`. The feature tables and the result files are
 derived from two datasets by S. Baum and P. Heinzelmann, both licensed under CC BY 4.0
