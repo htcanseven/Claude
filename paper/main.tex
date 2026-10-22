@@ -1,19 +1,29 @@
-%% Research in Engineering Design -- Springer Nature template (sn-jnl), author-year references.
-\documentclass[pdflatex,sn-basic]{sn-jnl}
+%% Mechanical Systems and Signal Processing -- Elsevier elsarticle class (CTAN), numbered references.
+%% Single-column 12 pt preprint layout with line numbers for review; the journal layout is the typesetter's.
+\documentclass[preprint,12pt]{elsarticle}
 
-\usepackage{graphicx}
-\usepackage{multirow}
 \usepackage{amsmath,amssymb,amsfonts}
-\usepackage{amsthm}
 \usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{threeparttable}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,shapes.geometric,calc,decorations.pathreplacing,decorations.pathmorphing}
-\usepackage{siunitx}
-\usepackage{adjustbox}
-\usepackage{manyfoot}   % the class's begin-document footnote hook expects this package to be loaded
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\usepackage{lineno}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+\hypersetup{pdftitle={A signal-to-drift ratio for quantifying winding-fault detectability and selecting condition monitoring across three wind-turbine generator types},
+            pdfauthor={Hüseyin Tayyer Canseven}}
+\usepackage{xurl}      % URLs and DOIs may break at any character (loaded after hyperref)
+\urlstyle{same}
 \graphicspath{{figures/}}
 
-\raggedbottom
+\journal{Mechanical Systems and Signal Processing}
+\biboptions{sort&compress}
+%% References print the DOI as a resolvable link (Elsevier style) instead of the bst's `doi:' prefix.
+\providecommand{\DOIprefix}{}
+\newcommand{\doi}[1]{\href{https://doi.org/#1}{\nolinkurl{https://doi.org/#1}}}
 
 %% Float placement: allow figures and tables to share pages with text and with each other.
 \renewcommand{\topfraction}{0.9}
@@ -22,36 +32,37 @@
 \renewcommand{\floatpagefraction}{0.8}
 \setcounter{topnumber}{3}
 \setcounter{totalnumber}{4}
-\setlength{\textfloatsep}{10pt plus 3pt minus 2pt}
-\setlength{\floatsep}{10pt plus 3pt minus 2pt}
-\setlength{\intextsep}{10pt plus 3pt minus 2pt}
-\setlength{\belowcaptionskip}{3pt}
-%% Table body size: the class's own 8 bp table font (its \footnotesize is 7 pt and its \scriptsize 9 pt).
-\newcommand{\tabsize}{\fontsize{8}{9.5}\selectfont}
-
-%% Set \anontrue to produce an anonymised copy (no author block, no identifying declarations)
-%% if the journal's editorial system asks for a blinded manuscript.
-\newif\ifanon
-\anonfalse
+%% Table body size (the class sets captions in \footnotesize, 10 pt at this base size).
+\newcommand{\tabsize}{\fontsize{9}{11}\selectfont}
+%% The class leaves \emergencystretch at zero; a small allowance lets TeX set the few paragraphs in which
+%% inline mathematics leaves no feasible break at the default tolerance.
+\setlength{\emergencystretch}{1.5em}
 
 \begin{document}
 
-\title[Detectability-driven design of condition monitoring]{Detectability-driven design of condition monitoring for three types of wind-turbine generators under identical winding faults}
+\begin{frontmatter}
 
-\ifanon
-\author*[1]{\fnm{Anonymised} \sur{for review}}
-\affil*[1]{\orgname{Affiliation withheld for review}}
-\else
-\author*[1]{\fnm{H\"useyin Tayyer} \sur{Canseven}}\email{huseyin.canseven@lut.fi}
+\title{A signal-to-drift ratio for quantifying winding-fault detectability and selecting condition monitoring across three wind-turbine generator types}
 
-\affil*[1]{\orgdiv{Department of Electrical Engineering, LUT School of Energy Systems}, \orgname{LUT University}, \orgaddress{\street{Yliopistonkatu 34}, \city{Lappeenranta}, \postcode{53850}, \country{Finland}}}
-\fi
+\author{H\"useyin Tayyer Canseven}
+\ead{huseyin.canseven@lut.fi}
+\affiliation{organization={Department of Electrical Engineering, LUT School of Energy Systems, LUT University},
+             city={Lappeenranta},
+             postcode={53850},
+             country={Finland}}
 
-\abstract{Whether the failures that matter in service will be observable is rarely a criterion when an engineered system's architecture is chosen; condition monitoring is specified later. This paper treats diagnosability as a property of the triple (architecture, control structure, observation suite) and evaluates it with one scale-free statistic, the signal-to-drift ratio: the relative change of an observable feature under a failure mode of known extent, divided by the relative change the healthy system exhibits on its own. From it follow a minimum detectable extent and a detectable share per alternative, observation suite and failure-mode class, a decision table over the required extent and false-alarm level, and a six-step, detectability-driven procedure that co-selects architecture and condition-monitoring suite and tests whether a monitoring design transfers across a product family. The method is demonstrated on three types of wind-turbine generator under identical winding short-circuits on open benchmark data. The same design-level fault produces different physical severities; where a fault becomes visible depends on the machine--drive combination, and the detectability difference between two machines on one bench comes from their healthy non-stationarity, not the signature; the cheapest suite depends on the alternative and on the requirement, voltage transducers lowering the permanent-magnet machine's detectable extent and adding nothing for the induction machine; and a learned detector transfers across architectures only when its features are referenced to each trial's own preceding healthy behaviour. Results carry bootstrap uncertainty, are limited to one machine per alternative, and are reproducible from the public data with released code.}
+\begin{abstract}
+Detection methods for incipient stator-winding faults are developed one machine at a time, so how the generator type changes the problem is not quantified, and the detectability measures of fault-detection theory presuppose a model or a trained detector. A detector-free statistic is proposed, the signal-to-drift ratio (SDR): the relative change of a feature between a healthy reference interval and a faulted interval, divided by a quantile of its changes between adjacent healthy intervals. The SDR is the known-onset mean-shift test as a standardised effect size, calibrated on each machine's own healthy non-stationarity and comparable across features, operating points and machines. From it a minimum detectable extent, a detectable share and a signature location follow per machine type, sensor suite and fault class; a decision table selects the cheapest adequate suite with bootstrap confidence; and a transfer test fixes the referencing rule under which a detector transfers between machine types. It is demonstrated on open benchmark data from permanent-magnet, squirrel-cage induction and wound-field synchronous generators under identical inter-turn and inter-winding short-circuits. The same design-level fault is three different physical events; the signature relocates between terminal voltage, controller states and field current with the machine--drive combination, and the two machines on one bench differ through their healthy nulls; voltage transducers lower the permanent-magnet machine's detectable extent and add nothing for the induction machine; and a detector transfers only when referenced to each trial's own preceding healthy interval. Results carry bootstrap intervals; code and data are open.
+\end{abstract}
 
-\keywords{design for diagnosability, architecture selection, sensor suite design, Design for X, condition monitoring, wind-turbine generators}
+\begin{keyword}
+condition monitoring \sep fault detectability \sep stator winding fault \sep wind-turbine generators \sep sensor suite selection \sep transfer across machines
+\end{keyword}
 
-\maketitle
+\end{frontmatter}
+%% Line numbers for review start after the front matter: numbering the title page makes the class
+%% misjudge the height of its title block and push the keywords to page 2.
+\linenumbers
 
 %% ----------------------------------------------------------------------
 %% intro
@@ -59,68 +70,71 @@
 
 \section{Introduction}\label{sec:intro}
 
-The architecture of an engineered system is chosen early, against criteria that are easy to quantify at that stage: performance, mass, cost, efficiency, manufacturability. Whether the failures that matter in service will be \emph{observable}---and therefore detectable before they become expensive---is rarely among them. Condition monitoring is specified later, by different people, for an architecture that is already fixed, and its difficulties are treated as signal-processing problems rather than as consequences of the architectural decision. The design community reasons about failure at the concept stage---function--failure mapping and functional-failure reasoning evaluate architectures by the faults they can propagate \citep{Tumer2003, Stone2005, Kurtoglu2010}---and the diagnosis community has structural methods that decide, from a model, which faults a given sensor set can detect \citep{Krysander2008, Blanke2016}. Neither gives the designer an empirical \emph{magnitude} of detectability, calibrated against the healthy behaviour of each alternative and comparable across alternatives whose signals live in different physical units, and neither poses architecture and monitoring suite as one co-selection problem. This paper does both.
+Stator-winding insulation faults are the archetypal incipient failure of an electrical machine: a short-circuit across a few turns with subtle signatures that evolves into a machine-destroying fault if it is not detected \citep{RieraGuasp2015, Gandhi2011}. In wind turbines, electrical-subsystem failures contribute substantially to downtime \citep{Tavner2007, Carroll2016}, and a rich literature detects winding faults in a given machine: motor-current signature analysis \citep{Thomson2001}, negative-sequence current and impedance methods \citep{Kliman1996, Lee2003}, the review literature \citep{Nandi2005, Bellini2008} and, for converter-fed machines, the analysis of how closed-loop current control moves the asymmetry from the currents into the voltage commands \citep{Tallam2003, Cruz2004}. Almost all of it is developed and validated on one machine. Yet the generator type of a large turbine---permanent-magnet synchronous (PMSG), squirrel-cage induction (SCIG), wound-field synchronous (WFSG) or doubly-fed induction---is itself chosen on cost, mass, efficiency and grid-compliance grounds \citep{Polinder2006, Polinder2013}, and its condition monitoring is added afterwards from a catalogue of commercial systems \citep{Yang2014}. Whether the same fault is equally visible in different generator types, in which measured quantity it appears, and which sensors are therefore worth specifying for each has not been quantified.
 
-The central idea is to treat diagnosability as a property of the triple (architecture, control structure, observation suite) and to evaluate it with a single scale-free statistic computed from trials---measured or simulated---in which a failure mode of known extent is introduced into an otherwise healthy system. The statistic is called the signal-to-drift ratio (SDR): the relative change of an observable feature between a reference interval and a faulted interval, divided by the size of the relative changes the same feature exhibits between adjacent reference intervals when nothing is wrong. An SDR of one marks the point at which a fault of that extent becomes distinguishable from the ordinary non-stationarity of the healthy system at a chosen per-trial false-alarm rate. From the SDR follow the quantities a designer can write requirements on: the \emph{minimum detectable extent} (MDE) of a failure-mode class for a given alternative and observation suite, and the \emph{detectable share} (DS) of trials above a required extent in which it is detected. Both can be compared across alternatives and traded against the cost of the observation suite, and a decision table over the requirement and the false-alarm level turns them into a selection: the condition monitoring of the system is designed from measured detectability, not chosen from a catalogue after the architecture is fixed.
+Answering such questions requires a measure of detectability with three properties that the existing measures do not combine. It must be computable without a model of the machine and without a trained detector, because the quantity of interest is what the measurements contain, not what one algorithm extracts from them; the detectability and isolability notions of fault detection and isolation (FDI) theory \citep{Basseville2001, Blanke2016, Krysander2008} and the sensor-placement methods built on them \citep{Frisk2009} presuppose a model, and a learned detector \citep{Lei2020} presupposes data from the very machine, with transfer across machines an open problem \citep{Pan2010}. It must be comparable across features in different physical units, across operating points and across machines whose healthy behaviour differs, which rules out signal-to-noise ratios in physical units and the per-feature suitability metrics of prognostics \citep{Coble2013, Saxena2008}. And it must connect to the quantities a monitoring specification is written in: the smallest fault that shall be detected, the false-alarm rate tolerated and the sensors it costs.
 
-The motivating domain is the generator of a large wind turbine. The choice between a permanent-magnet synchronous generator (PMSG), a squirrel-cage induction generator (SCIG), a wound-field synchronous generator (WFSG) and a doubly-fed induction generator is an established architecture-level trade \citep{Polinder2006, Polinder2013}, and electrical-subsystem failures contribute substantially to offshore downtime \citep{Carroll2016}. Stator-winding insulation faults are the archetypal incipient failure: a short-circuit across a few turns with subtle signatures that evolves into a machine-destroying fault if undetected \citep{RieraGuasp2015}. A rich literature detects them in a given machine \citep{Thomson2001, Nandi2005}; almost none of it asks how the choice of machine changes the problem. A recent series of open benchmark datasets makes that question answerable empirically: \citet{Tominaga2025pmsg, Tominaga2025scig, Tominaga2024gen} subjected three types of generator---a PMSG, an SCIG and a variable-speed WFSG---to the \emph{same} inter-turn and inter-winding short-circuits, inserted at the same tapped positions of the stator winding; the PMSG and SCIG share one bench and one protocol. The datasets were published for algorithm benchmarking and refrain from comparing the machines; here they serve as the test-stage instantiation of a method whose object is the comparison itself.
+This paper proposes such a measure, the signal-to-drift ratio (SDR): the relative change of an observable feature between a healthy reference interval and a faulted interval, divided by a quantile of the relative changes the same feature exhibits between adjacent healthy intervals when nothing is wrong. Statistically it is the known-onset, fixed-sample mean-shift test of change detection \citep{Basseville1993} expressed as a standardised effect size; an SDR of one marks the point at which a fault of a given extent becomes distinguishable from the ordinary non-stationarity of the healthy machine at a chosen per-trial false-alarm rate. Because the reference interval of every trial, faulted or not, contributes to the null, the SDR is calibrated on each machine's own healthy behaviour and needs no dedicated healthy recordings. From the SDR follow the quantities a specification can be written on: the \emph{minimum detectable extent} (MDE) of a fault class for a given machine type and sensor suite, the \emph{detectable share} (DS) of trials above a required extent in which the fault is detected, and the \emph{signature location}, the measurement group in which the fault appears. A decision table over the required extent and the false-alarm level turns them into the selection of the cheapest adequate sensor suite, and a transfer test establishes under which feature-referencing rule a detector built on one machine type serves another.
 
-This paper makes four contributions. The first is a definition of \emph{alternative-dependent diagnosability} (Section~\ref{sec:derived}) built on the SDR statistic, its calibration against a pooled no-fault null and a binomial reliability screen for observables, with three derived quantities: the minimum detectable extent, the detectable share above a required extent and the signature location. The second is a six-step procedure, with default rules for its framing decisions, that co-selects an architecture and the observation suite that will monitor it under a detectability requirement, through a decision table over the required extent and the false-alarm level, and that tests whether a monitoring design transfers across the alternatives of a product family. The third is a demonstration on three types of wind-turbine generator under identical winding faults, with four findings that have design content: the design-level extent of a fault and its physical severity are different axes and must both be carried; the measurement group in which a fault becomes visible depends on the machine--drive combination; the cheapest adequate observation suite depends on the alternative \emph{and} on the requirement; and a learned detector transferred across the machines only when its features were referenced to each trial's own immediately preceding healthy behaviour, not to a commissioning baseline. The fourth is a sensitivity and uncertainty analysis of the tuning choices (null quantile, window length, screen), with trial-level and tap-pair-level bootstrap intervals, and open code that reproduces every result from the public data.
+The question is made answerable empirically by a recent series of open benchmark datasets \citep{Tominaga2025pmsg, Tominaga2025scig, Tominaga2024gen} in which three types of generator---a PMSG, an SCIG and a variable-speed WFSG---were subjected to the \emph{same} inter-turn and inter-winding short-circuits, inserted at the same tapped positions of the stator winding; the PMSG and SCIG share one bench, one converter, one controller and one protocol, so that everything but the machine and the control structure it requires is held fixed. The datasets were published for algorithm benchmarking and refrain from comparing the machines; here the comparison is the object.
 
-The paper is organised as follows: Section~\ref{sec:background} positions the work against concept-stage failure reasoning, diagnosability and sensor-placement methods, the condition monitoring of electrical machines and the generator trade in wind turbines; Section~\ref{sec:method} defines the signal-to-drift ratio, the derived design quantities and the six-step procedure; Section~\ref{sec:demo} describes the three generator alternatives, the fault protocol, the observation suites and the computation; Section~\ref{sec:results} reports the results; Section~\ref{sec:discussion} draws out the design implications and the limits of what one machine per alternative supports; and Section~\ref{sec:conclusion} concludes. Appendix~\ref{app:appendix} gives feature definitions, computation details and four additional tables.
+This paper makes four contributions. The first is the SDR as a detector-free, self-calibrated measure of fault detectability, with its statistical interpretation, its pooled null, a binomial reliability screen that removes features with excess false alarms on healthy trials, and the three derived quantities MDE, DS and signature location (Section~\ref{sec:method}). The second is a six-step procedure that turns these into a selection: a decision table that classifies every sensor suite of every machine type as meeting, failing or uncertain against a requirement on the extent and the false-alarm level, with bootstrap confidence, and a transfer test over feature-referencing rules for a detector that must serve several machine types. The third is a quantitative comparison, the first known to the author, of winding-fault detectability across three wind-turbine generator types under identical faults, with four findings: the design-level extent of a fault and its physical severity are different axes and must both be carried; the measurement group in which a fault becomes visible depends on the machine--drive combination, and the detectability difference between the two machines on one bench comes from their healthy nulls rather than from their signatures; the cheapest adequate sensor suite depends on the machine type \emph{and} on the requirement; and a learned detector transfers across the machines only when its features are referenced to each trial's own immediately preceding healthy interval, not to a commissioning baseline. The fourth is a sensitivity and uncertainty analysis of the tuning choices (null quantile, window length, screen), with trial-level and tap-pair-level bootstrap intervals, and open code that reproduces every result from the public data.
+
+The paper is organised as follows: Section~\ref{sec:background} positions the SDR among the detectability measures of FDI and health monitoring and summarises what is known about winding-fault signatures in converter-fed machines; Section~\ref{sec:method} defines the SDR, the derived quantities and the six-step procedure; Section~\ref{sec:demo} describes the three machines, the fault protocol, the sensor suites and the computation; Section~\ref{sec:results} reports the results; Section~\ref{sec:discussion} draws out the implications for the condition monitoring of wind-turbine generators and the limits of what one machine per type supports; and Section~\ref{sec:conclusion} concludes. \ref{app:appendix} gives feature definitions, computation details and four additional tables.
 %% ----------------------------------------------------------------------
 %% background
 %% ----------------------------------------------------------------------
 
 \section{Background and related work}\label{sec:background}
 
-\subsection{Failure and lifecycle properties at the concept stage}
+\subsection{Detectability measures in fault detection and health monitoring}
 
-Systematic design methodology treats the evaluation of alternatives against lifecycle criteria as a core activity of the conceptual and embodiment phases \citep{Pahl2007}, and the Design-for-X programme has turned a growing list of such criteria into operational methods \citep{Holt2010}. Reliability is the criterion closest to the present work. Failure mode and effects analysis remains the dominant design-stage instrument; recent work in this journal has re-founded it on design theory \citep{Cabanes2021}, and extended it with causal reasoning over failure data \citep{Liu2026afgnn}. What FMEA-type methods record about \emph{detection} is an expert rating: the ``D'' column of a design FMEA (DFMEA) is assigned, not measured, and assigned for one architecture at a time.
+Fault detection and isolation has a mature theory of diagnosability for systems described by models. Structural analysis determines which faults can be detected and isolated from which sensor sets without numerical parameter values \citep{Blanke2016, Krysander2008}, sensor placement selects the cheapest sensor set that makes a required fault set detectable \citep{Frisk2009}, and the approach has been applied to electric-vehicle drives with a diagnosability index that ranks candidate residual generators \citep{Zhang2015}; testability analysis in the test-engineering tradition records the same information as a dependency matrix of tests against faults \citep{Deb1994, Simpson1994}. \citet{Basseville2001} gives statistical definitions of detectability and isolability for parametric models as distances between the distributions of a residual under the healthy and the faulted hypothesis. All of these presuppose a model whose structure is known and trusted \citep{Isermann2005, Venkatasubramanian2003}. Data-driven diagnosis \citep{Lei2020} replaces the model by data from the very machine being monitored, and its transfer across machines is an active problem \citep{Pan2010}. The prognostics and health management (PHM) community grades candidate features by monotonicity, trendability and prognosability \citep{Coble2013}, evaluates prognostic algorithms by dedicated metrics \citep{Saxena2008} and has reviewed the sensor systems that feed them \citep{Cheng2010}. None of these yields, for a fault of known extent in a built or simulated machine, a number that states how far above the healthy non-stationarity of each candidate measurement the fault stands, comparable across measurements in different units and across machines.
 
-The design community's own failure reasoning at the concept stage runs from function--failure mapping \citep{Tumer2003, Stone2005} to the functional failure identification and propagation framework (FFIP), which simulates how faults propagate through the functional model of a concept \citep{Kurtoglu2008, Kurtoglu2010}. These methods answer \emph{which} failures an architecture can suffer; they do not measure whether a failure of a given size would be visible to a given set of sensors, which is the question here. In the language of axiomatic design \citep{Suh2001}, the monitoring and control functions of a converter-fed machine share the design parameter ``current asymmetry'', a coupling the present method makes visible. Alternative selection is itself a methodological topic: \citet{Eaton2026} show that technical measures omitted from a selection problem change which alternative is chosen, and diagnosability is argued here to be a routinely omitted one; because monitoring designs increasingly serve a family of variants \citep{Simpson2004}, whether a monitoring design transfers across alternatives is a family-level question. Following \citet{Blessing2009}, the demonstration is a support evaluation: it establishes that the method can be applied and what it yields, not that it improves design outcomes in practice.
-
-\subsection{Diagnosability, testability and sensor placement}
-
-Fault detection and isolation (FDI) has a mature theory of diagnosability for systems described by models. Structural analysis determines which faults can be detected and isolated from which sensor sets without numerical parameter values \citep{Blanke2016, Krysander2008}, and has been applied to electric-vehicle drives with a diagnosability index that ranks candidate residual generators \citep{Zhang2015}. \citet{Basseville2001} gives statistical definitions of detectability and isolability for parametric models, and the prognostics and health management (PHM) community grades candidate features by monotonicity, trendability and prognosability \citep{Coble2013}, the metrics closest to the SDR. Model-based approaches \citep{Venkatasubramanian2003} require a model whose structure is known and trusted; data-driven diagnosis \citep{Lei2020} requires data from the very system being designed, and its transfer across systems is an active problem \citep{Pan2010}.
-
-Table~\ref{tab:positioning} places the method among these. It requires neither a model structure nor a trained detector, only trials with a known fault extent and observable features, and it produces a magnitude---the SDR---that is comparable across features, operating points and alternatives because it is normalised by each alternative's own healthy non-stationarity rather than by a physical unit. Statistically it is the known-onset, fixed-sample mean-shift test of \citet{Basseville1993} expressed as a standardised effect size (Section~\ref{sec:sdr}); what is new is its use as a design measure over alternatives and suites and the co-selection it supports. It deliberately stops at detectability: isolation and prognosis presuppose it.
+Table~\ref{tab:positioning} places the SDR among these methods. It requires neither a model structure nor a trained detector, only trials with a known fault extent and observable features, and it produces a magnitude that is comparable across features, operating points and machines because it is normalised by each machine's own healthy non-stationarity rather than by a physical unit. Statistically it is the known-onset, fixed-sample mean-shift test of \citet{Basseville1993} expressed as a standardised effect size (Section~\ref{sec:sdr}); what is new is its calibration on the reference intervals of every trial, the reliability screen, the limit-of-detection quantities derived from it, and its use to compare machine types and sensor suites and to select among them. It deliberately stops at detectability: isolation, severity estimation and prognosis presuppose it.
 
 \begin{table}[t]
 \tabsize
 \setlength{\tabcolsep}{4pt}
-\caption{Positioning of the method among design-stage failure and diagnosability methods}\label{tab:positioning}
-\begin{tabular}{@{}p{2.6cm}p{2.5cm}p{2.6cm}p{2.0cm}p{2.2cm}@{}}
+\centering
+\begin{threeparttable}
+\caption{Positioning of the signal-to-drift ratio among detectability and feature-assessment methods}\label{tab:positioning}
+\begin{tabular}{@{}L{2.9cm}L{2.5cm}L{3.0cm}L{1.9cm}L{2.2cm}@{}}
 \toprule
-Method & Input & Output & Sensing cost & Compares alternatives \\
+Method & Input & Output & Needs model or detector & Compares machines and sensor suites \\
 \midrule
-DFMEA detection rating & expert judgement & ordinal D score & implicit & one at a time \\
-Function--failure mapping, FFIP \citep{Stone2005, Kurtoglu2010} & functional model, failure knowledge & failure modes and propagation paths per concept & no & yes, qualitatively \\
-Structural diagnosability, sensor placement \citep{Krysander2008, Blanke2016} & model structure & detectable/isolable fault sets per sensor set & yes, minimal sets & per model \\
+Structural diagnosability, sensor placement \citep{Krysander2008, Frisk2009, Blanke2016} & model structure & detectable and isolable fault sets per sensor set & model structure & per model, no magnitude \\
+Statistical detectability \citep{Basseville2001} & parametric model, residual & distance between hypotheses & model & per model \\
+Testability analysis \citep{Deb1994, Simpson1994} & test--fault dependency matrix & detectable and isolable fault sets, test sequences & dependency model & no \\
 PHM feature suitability \citep{Coble2013} & run-to-failure data & feature scores & no & no \\
-This paper & trials with known fault extent (measured or simulated) & MDE, detectable share and signature location per alternative and suite; decision table & yes, per suite & yes, quantitatively \\
-\botrule
+Learned detectors \citep{Lei2020} & labelled data of the machine & detector and its ROC & trained detector & only through transfer \citep{Pan2010} \\
+This paper & trials with known fault extent (measured or simulated) & MDE, detectable share and signature location per machine type and sensor suite; decision table; transfer rule & neither & yes, scale-free and self-calibrated \\
+\bottomrule
 \end{tabular}
+\begin{tablenotes}[flushleft]
+\item MDE: minimum detectable extent; PHM: prognostics and health management; ROC: receiver operating characteristic.
+\end{tablenotes}
+\end{threeparttable}
 \end{table}
 
-\subsection{Condition monitoring of electrical machines}
+\subsection{Stator winding faults in converter-fed machines}
 
-Inter-turn short-circuits in stator windings are among the most studied incipient faults in electrical machines \citep{RieraGuasp2015}. Motor-current signature analysis \citep{Thomson2001}, negative-sequence current and impedance methods \citep{Lee2003} and the review literature \citep{Nandi2005} have established the physical signatures: an asymmetry of the winding produces negative-sequence components in the terminal quantities and a component at twice the fundamental frequency in the synchronous reference frame. Under closed-loop current control the current regulator acts against the negative-sequence current it can see, so the asymmetry migrates from the currents into the voltage commands and the controller states, with the degree of migration set by the current-loop bandwidth relative to twice the electrical frequency \citep{Tallam2003, Cruz2004}. In a wound-field synchronous machine the stator negative sequence additionally induces a component at twice the electrical frequency in the field current \citep{Neti2009}, and in permanent-magnet machines with an accessible neutral the zero-sequence voltage is a sensitive indicator \citep{Urresty2012}. These facts are well known to drive specialists but have not been turned into a measure that a design team can apply across candidate architectures. Machine-learning detectors are typically developed for one machine \citep{Canseven2026machines, Sadik2026}; the transfer experiment in this paper is their design-level counterpart. Finite-element turn-fault models \citep{Vaseghi2009} and digital twins \citep{Tao2019} are the natural trial generators for a design-stage instantiation, and how such twins should be designed is an open question in this journal \citep{Tipuric2026}.
+Inter-turn short-circuits in stator windings are among the most studied incipient faults in electrical machines \citep{RieraGuasp2015, Gandhi2011}. Motor-current signature analysis \citep{Thomson2001}, negative-sequence current and impedance methods \citep{Kliman1996, Lee2003}, turn-fault models \citep{Tallam2002} and the review literature \citep{Nandi2005, Bellini2008} have established the physical signatures: an asymmetry of the winding produces negative-sequence components in the terminal quantities and a component at twice the fundamental frequency in the synchronous reference frame. Under closed-loop current control the current regulator acts against the negative-sequence current it can see, so the asymmetry migrates from the currents into the voltage commands and the controller states, with the degree of migration set by the current-loop bandwidth relative to twice the electrical frequency \citep{Tallam2003, Cruz2004}. In a wound-field synchronous machine the stator negative sequence additionally induces a component at twice the electrical frequency in the field current \citep{Neti2009}, and in permanent-magnet machines with an accessible neutral the zero-sequence voltage is a sensitive indicator \citep{Urresty2012}. These facts are well known to drive specialists but have not been turned into a measure that can be applied across candidate machine types. Machine-learning detectors are typically developed for one machine \citep{Canseven2026machines, Sadik2026}, and open datasets of winding faults exist for one machine type at a time \citep{Jung2023}; the transfer experiment in this paper is the cross-machine counterpart of such detectors. Finite-element turn-fault models \citep{Vaseghi2009} and digital twins \citep{Tao2019} are the natural trial generators for an instantiation of the method before hardware exists.
 
-\subsection{Generator topology as a wind-turbine design decision}
+\subsection{Generator type as a design decision}
 
-The generator concept of a large wind turbine---direct-drive or geared; permanent-magnet, induction, wound-field or doubly-fed; full or partial power conversion---is selected early on cost, mass, efficiency and grid-compliance grounds \citep{Polinder2006, Polinder2013}. Reliability enters the trade through failure-rate statistics of subassemblies \citep{Carroll2016}, and condition monitoring is added afterwards from a catalogue of commercial systems built around vibration, oil and electrical signals \citep{Yang2014}, not through the observability of the failures in each concept.
+The generator concept of a large wind turbine---direct-drive or geared; permanent-magnet, induction, wound-field or doubly-fed; full or partial power conversion---is selected early on cost, mass, efficiency and grid-compliance grounds \citep{Polinder2006, Polinder2013}. Reliability enters the trade through failure-rate statistics of subassemblies \citep{Tavner2007, Carroll2016}, and condition monitoring is added afterwards from a catalogue of commercial systems built around vibration, oil and electrical signals \citep{Yang2014}, not through the observability of the failures in each concept. The design community's concept-stage failure reasoning---function--failure mapping and functional failure identification and propagation \citep{Tumer2003, Stone2005, Kurtoglu2010}---and the detection rating of a design failure mode and effects analysis record which failures a concept can suffer and an expert's judgement of whether they would be detected, not a measured magnitude. Because monitoring designs increasingly serve a family of variants \citep{Simpson2004}, whether a monitoring design transfers across machine types is a family-level question, which the transfer step of the method addresses.
 %% ----------------------------------------------------------------------
 %% method
 %% ----------------------------------------------------------------------
 
-\section{Method: alternative-dependent diagnosability}\label{sec:method}
+\section{Method}\label{sec:method}
 
 \subsection{Definitions and terms}\label{sec:defs}
 
-Let $\mathcal{A}$ be a set of design \emph{alternatives}. An alternative $a\in\mathcal{A}$ is an architecture together with the control structure it implies---for a generator, the machine topology and the converter control that the topology requires. Let $\mathcal{F}$ be a set of failure-mode classes; each class $f\in\mathcal{F}$ is parameterised by an \emph{extent} $e\in E_f$ expressed at the design level, so that the same $(f,e)$ can be realised in every alternative: for a winding fault the fraction of a winding branch that is short-circuited, for a bearing a defect size, for a structure a crack length. The design-level extent does not fix the physical severity of the event (Section~\ref{sec:res-severity}), so the framing also names a \emph{physical severity axis} on which the alternatives can be compared. Let $\mathcal{S}$ be a set of candidate \emph{observation suites}; a suite $s\in\mathcal{S}$ is a set of measurements with a cost $c(s)$, and $\Phi(s)$ is the set of features computable from those measurements alone. Let $\mathcal{O}$ be the operating envelope, discretised into operating points $o$.
+Let $\mathcal{A}$ be a set of candidate \emph{alternatives}. An alternative $a\in\mathcal{A}$ is a machine type together with the control structure it implies---for a generator, the machine topology and the converter control that the topology requires. Let $\mathcal{F}$ be a set of failure-mode classes; each class $f\in\mathcal{F}$ is parameterised by an \emph{extent} $e\in E_f$ expressed at the design level, so that the same $(f,e)$ can be realised in every alternative: for a winding fault the fraction of a winding branch that is short-circuited, for a bearing a defect size, for a structure a crack length. The design-level extent does not fix the physical severity of the event (Section~\ref{sec:res-severity}), so the framing also names a \emph{physical severity axis} on which the alternatives can be compared. Let $\mathcal{S}$ be a set of candidate \emph{sensor suites}; a suite $s\in\mathcal{S}$ is a set of measurements, including quantities internal to the drive controller, with a cost $c(s)$, and $\Phi(s)$ is the set of features computable from those measurements alone. Let $\mathcal{O}$ be the operating envelope, discretised into operating points $o$.
 
-A \emph{trial} is a record of the system in alternative $a$ at operating point $o$ containing a reference interval $R$ in which the system is healthy and, immediately after it, a faulted interval $F$ in which failure mode $(f,e)$ is present. Trials may come from a physical test (test-stage instantiation) or from a validated simulation (design-stage instantiation, Section~\ref{sec:design-stage}). These terms---alternative, trial, observation suite, extent (design level) and severity (physical)---are used throughout.
+A \emph{trial} is a record of the system in alternative $a$ at operating point $o$ containing a reference interval $R$ in which the system is healthy and, immediately after it, a faulted interval $F$ in which failure mode $(f,e)$ is present. Trials may come from a physical test (test-stage instantiation) or from a validated simulation (design-stage instantiation, Section~\ref{sec:design-stage}). These terms---alternative, trial, sensor suite, extent (design level) and severity (physical)---are used throughout.
 
 \subsection{The signal-to-drift ratio}\label{sec:sdr}
 
@@ -139,11 +153,11 @@ where $q_\alpha$ is the $\alpha$-quantile of the pooled null; with $\alpha=0.95$
 
 \emph{What the SDR is statistically.} For a roughly Gaussian null, $q_{0.95}(|\delta^0|)\approx1.96\,\sigma$, so $\mathrm{SDR}\ge1$ is a two-sided 5\,\% test on the shift of interval means with a known change time: the fixed-sample mean-shift test, the known-onset special case of the generalised likelihood ratio of \citet{Basseville1993}. The SDR is thus a trial-level standardised effect size (Cohen's $d$ on interval means, divided by 1.96), the detectable share defined below is an empirical power, and a share at a given $\alpha$ is one point of a receiver operating characteristic. Three assumptions are built in: the onset is known, the whole faulted interval is averaged, and the healthy reference lies immediately before the fault; the last makes the null one of sub-second non-stationarity, and Section~\ref{sec:res-robust} quantifies how much wider the null of a reference established at commissioning is. The SDR characterises the simplest detector on the feature---a threshold on the relative change of interval means---and the design quantities derived from it are statements about that detector; a detector that combines features or accumulates evidence over time can detect below $\mathrm{SDR}=1$, which is why the oracle variant and the transfer experiment of step~6 are part of the method.
 
-Four properties make the SDR suitable as a design measure: it is \emph{scale-free}, so a current ratio, a voltage harmonic and a controller output are compared on one axis; \emph{calibrated} against each alternative's own non-stationarity, so a noisier alternative is not credited with detectability it does not have, at the price that numerator and denominator must be reported separately when alternatives are compared (Section~\ref{sec:res-where}), because a quieter null raises the SDR as much as a stronger signature does; \emph{per trial}, so its distribution over trials carries the dependence on operating point and extent; and \emph{detector-free}, so it can be computed before any algorithm is chosen. The relative form presumes a non-zero healthy level; for features whose healthy value is a noise floor an absolute-change variant with the same structure is used, and Section~\ref{sec:res-robust} shows that the two rank the features alike.
+Four properties make the SDR suitable as a measure for comparing alternatives and suites: it is \emph{scale-free}, so a current ratio, a voltage harmonic and a controller output are compared on one axis; \emph{calibrated} against each alternative's own non-stationarity, so a noisier alternative is not credited with detectability it does not have, at the price that numerator and denominator must be reported separately when alternatives are compared (Section~\ref{sec:res-where}), because a quieter null raises the SDR as much as a stronger signature does; \emph{per trial}, so its distribution over trials carries the dependence on operating point and extent; and \emph{detector-free}, so it can be computed before any algorithm is chosen. The relative form presumes a non-zero healthy level; for features whose healthy value is a noise floor an absolute-change variant with the same structure is used, and Section~\ref{sec:res-robust} shows that the two rank the features alike.
 
 \emph{Safeguards.} (i) \emph{Reliability screen.} On healthy trials---trials in which the ``faulted'' interval contains no fault, only the switching operation that would insert one---a feature should exceed $\mathrm{SDR}=1$ at the nominal rate $1-\alpha$. A feature whose count of such false alarms in the $n_h$ healthy trials is incompatible with that rate (one-sided binomial test at the 5\,\% level; three or more of nine at $\alpha=0.95$) is excluded from the design quantities for that alternative, as are features whose null quantile exceeds one (healthy relative change above 100\,\%). (ii) \emph{Fixed, nested and oracle feature.} A suite is evaluated by one \emph{fixed} feature---the screened feature with the highest median SDR over the trials of a class, chosen once---or by the \emph{oracle} feature, the best feature of each trial. The fixed variant is what a threshold detector achieves; the oracle variant is an upper bound for a detector that combines the suite's features and, being a maximum over features, is reported with its false-alarm rate on healthy trials. Because the fixed feature is chosen on the trials it is evaluated on, a \emph{nested} variant chooses it on all but one tap pair and evaluates it on the held-out pair. (iii) \emph{Uncertainty.} Every design quantity carries a bootstrap interval: over tap pairs (the physical fault locations) for statements about a class, over operating points within an extent level for the minimum detectable extent, with Wilson intervals for shares.
 
-\subsection{Derived design quantities and the definition}\label{sec:derived}
+\subsection{Derived quantities}\label{sec:derived}
 
 From the SDR distribution over trials the following are defined for each alternative $a$, suite $s$ and class $f$:
 \begin{itemize}
@@ -152,9 +166,10 @@ From the SDR distribution over trials the following are defined for each alterna
   \item the \emph{detectable share} $\mathrm{DS}_a(s,f\mid e\ge e_{\mathrm{req}})$: the fraction of faulted trials with $e\ge e_{\mathrm{req}}$ in which $\mathrm{SDR}\ge1$, written for a required extent so that it does not depend on how the test matrix samples the extent axis;
   \item the \emph{signature location}: the measurement group---stator currents, terminal voltages, controller internals, mechanical quantities, excitation---whose best screened feature attains the highest SDR in the largest share of trials.
 \end{itemize}
-\emph{Alternative-dependent diagnosability} is the map $(a, s, f)\mapsto(\mathrm{MDE}_a, \mathrm{DS}_a, \text{location})$. For a requirement $(f, e_{\mathrm{req}}, \alpha)$ the \emph{adequate} suites of alternative $a$ are those with $\mathrm{MDE}_a(s,f)\le e_{\mathrm{req}}$, and diagnosability is alternative-dependent for that requirement when the cheapest adequate suite differs between alternatives by more than the bootstrap uncertainty of the MDE. MDE and DS are the quantities against which requirements are written (``inter-turn faults of extent $\ge e_{\mathrm{req}}$ shall be detectable over the operating envelope at a per-trial false-alarm rate $\le1-\alpha$''); the signature location tells the designer \emph{why} an alternative behaves as it does.
 
-\subsection{Design procedure}\label{sec:procedure}
+The \emph{alternative-dependent diagnosability} of a set of alternatives is then the map that assigns to every triple $(a, s, f)$ the triple $(\mathrm{MDE}_a, \mathrm{DS}_a, \text{location})$. For a requirement $(f, e_{\mathrm{req}}, \alpha)$ the \emph{adequate} suites of alternative $a$ are those with $\mathrm{MDE}_a(s,f)\le e_{\mathrm{req}}$, and diagnosability is alternative-dependent for that requirement when the cheapest adequate suite differs between alternatives by more than the bootstrap uncertainty of the MDE. MDE and DS are the quantities against which requirements are written (``inter-turn faults of extent $\ge e_{\mathrm{req}}$ shall be detectable over the operating envelope at a per-trial false-alarm rate $\le1-\alpha$''); the signature location tells the designer \emph{why} an alternative behaves as it does.
+
+\subsection{Procedure}\label{sec:procedure}
 
 %% ----------------------------------------------------------------------
 %% fig_method
@@ -163,7 +178,7 @@ From the SDR distribution over trials the following are defined for each alterna
 \begin{figure}[t]
 \centering
 \begin{tikzpicture}[
-  font=\normalsize,
+  font=\small,
   box/.style={draw, rounded corners=2pt, align=left, inner sep=4pt, text width=3.55cm, minimum height=3.1cm},
   data/.style={draw, align=center, inner sep=4pt, text width=3.4cm, fill=black!4},
   arr/.style={-{Latex[length=2mm]}, thick},
@@ -180,12 +195,12 @@ From the SDR distribution over trials the following are defined for each alterna
 \draw[arr] (s3) -- (s4);
 \draw[arr] (s4) -- (s5);
 \draw[arr] (s5) -- (s6);
-\node[data, below=5mm of s6] (out) {co-selected architecture, observation suite and referencing rule};
+\node[data, below=5mm of s6] (out) {selected machine type, sensor suite and referencing rule};
 \draw[arr] (s6) -- (out);
 \node[data, below=5mm of s5] (req) {detectability requirement: $\mathrm{MDE}\le e_{\mathrm{req}}$ at false-alarm rate $\le 1-\alpha$};
 \draw[arr] (req) -- (s5);
 \end{tikzpicture}
-\caption{The six-step design procedure; steps 3--4 are fixed by Eqs.~(\ref{eq:delta})--(\ref{eq:sdr}), steps 1, 2, 5 and 6 follow the default rules of Section~\ref{sec:procedure}}\label{fig:method}
+\caption{The six-step procedure; steps 3--4 are fixed by Eqs.~(\ref{eq:delta})--(\ref{eq:sdr}), steps 1, 2, 5 and 6 follow the default rules of Section~\ref{sec:procedure}}\label{fig:method}
 \end{figure}
 
 The procedure (Fig.~\ref{fig:method}) has six steps. Steps 3--4 are mechanical and fully specified by Eqs.~(\ref{eq:delta})--(\ref{eq:sdr}); steps 1, 2, 5 and 6 are design decisions, for which the method supplies default rules.
@@ -194,13 +209,13 @@ The procedure (Fig.~\ref{fig:method}) has six steps. Steps 3--4 are mechanical a
   \item \textbf{Generate trials.} For each $(a,f,e,o)$ obtain trials with a healthy reference interval of at least twice the faulted duration, immediately followed by the faulted interval; test at least the extent levels that bracket $e_{\mathrm{req}}$ and the corners of the envelope; include enough healthy trials with the same timing for the screen (nine allow the binomial rule above). At the test stage these are prototype or benchmark experiments; at the design stage the faulted numerator is simulated and the null is supplied as in Section~\ref{sec:design-stage}.
   \item \textbf{Compute.} Extract $\Phi(s)$ for all suites on sliding windows within the intervals, form the pooled null per alternative and feature, compute the SDR per trial, apply the screen.
   \item \textbf{Map.} Build $D_a(s,f,e,o)$ and summarise it into $\mathrm{MDE}_a$, $\mathrm{DS}_a$ and the signature location for the fixed, nested and oracle variants, with bootstrap intervals.
-  \item \textbf{Select.} Build the decision table: for each alternative, class and suite and for the candidate values of $e_{\mathrm{req}}$ and $\alpha$, classify the suite as \emph{meets} when the bootstrap probability that $\mathrm{MDE}\le e_{\mathrm{req}}$ is at least 0.95, \emph{fails} when it is at most 0.05, and \emph{uncertain} otherwise. The adequate suite of an alternative is the cheapest that meets the requirement for \emph{every} class; an uncertain verdict is resolved by more trials around $e_{\mathrm{req}}$ or by specifying the next suite as a fallback. The alternatives are then compared on the cost of their adequate suites together with the other selection criteria; the architecture decision is affected only when, for some alternative, no affordable suite meets the requirement, otherwise the method changes the monitoring specification and says so.
+  \item \textbf{Select.} Build the decision table: for each alternative, class and suite and for the candidate values of $e_{\mathrm{req}}$ and $\alpha$, classify the suite as \emph{meets} when the bootstrap probability that $\mathrm{MDE}\le e_{\mathrm{req}}$ is at least 0.95, \emph{fails} when it is at most 0.05, and \emph{uncertain} otherwise. The adequate suite of an alternative is the cheapest that meets the requirement for \emph{every} class; an uncertain verdict is resolved by more trials around $e_{\mathrm{req}}$ or by specifying the next suite as a fallback. The alternatives are then compared on the cost of their adequate suites together with the other selection criteria; the choice of machine type is affected only when, for some alternative, no affordable suite meets the requirement, otherwise the method changes the monitoring specification and says so.
   \item \textbf{Assess transfer.} If the suite and its detector must serve a family of alternatives, test whether a detector built on one alternative's trials detects the others' faults under the candidate feature-referencing rules (physical units; scaled on the target's healthy trials; referenced to each trial's own preceding healthy interval). The rule that transfers becomes part of the monitoring specification.
 \end{enumerate}
 
 \subsection{Design-stage instantiation}\label{sec:design-stage}
 
-The demonstration in this paper is a test-stage instantiation on built machines. A design-stage instantiation must supply the two ingredients of the SDR separately. The numerator---the change of a feature under a fault of extent $e$---is what a finite-element or circuit model of each alternative with the fault injected can provide \citep{Vaseghi2009}. The denominator---the healthy non-stationarity of sensor noise, controller activity, thermal drift and operating-point wander---is a property of hardware and environment that such a model does not reproduce, and a simulated SDR that supplied its own null would be optimistic by an unknown factor. The null must therefore come from measured healthy records of hardware of the same class (a predecessor product, a prototype of one alternative, or a benchmark such as the one used here), transferred to the other alternatives on the assumption that the healthy non-stationarity of a feature depends on the sensing and control chain more than on the machine; the assumption is testable by comparing the null quantiles of the alternatives for which hardware exists (Table~\ref{tab:decomp} does so for the two machines on one bench), and a simulated instantiation is validated by comparing simulated and measured SDR on a few physical trials, the role the three benches would play in a design study of the next generator.
+The demonstration in this paper is a test-stage instantiation on built machines. A design-stage instantiation, before hardware exists, must supply the two ingredients of the SDR separately. The numerator---the change of a feature under a fault of extent $e$---is what a finite-element or circuit model of each alternative with the fault injected can provide \citep{Vaseghi2009}. The denominator---the healthy non-stationarity of sensor noise, controller activity, thermal drift and operating-point wander---is a property of hardware and environment that such a model does not reproduce, and a simulated SDR that supplied its own null would be optimistic by an unknown factor. The null must therefore come from measured healthy records of hardware of the same class (a predecessor product, a prototype of one alternative, or a benchmark such as the one used here), transferred to the other alternatives on the assumption that the healthy non-stationarity of a feature depends on the sensing and control chain more than on the machine; the assumption is testable by comparing the null quantiles of the alternatives for which hardware exists (Table~\ref{tab:decomp} does so for the two machines on one bench), and a simulated instantiation is validated by comparing simulated and measured SDR on a few physical trials, the role the three benches would play in a design study of the next generator.
 
 \subsection{Scope}\label{sec:scope}
 
@@ -218,8 +233,10 @@ The three alternatives are laboratory-scale generators of the same power class o
 \begin{table}[t]
 \tabsize
 \setlength{\tabcolsep}{4pt}
+\centering
+\begin{threeparttable}
 \caption{The three alternatives; the PMSG and SCIG share one bench and one protocol, the WFSG bench differs where indicated}\label{tab:alternatives}
-\begin{tabular}{@{}p{2.4cm}p{2.8cm}p{3.3cm}p{3.4cm}@{}}
+\begin{tabular}{@{}L{2.4cm}L{2.8cm}L{3.3cm}L{3.4cm}@{}}
 \toprule
  & PMSG & SCIG & WFSG (variable speed) \\
 \midrule
@@ -232,9 +249,12 @@ Fault impedance & 2.6\,$\Omega$ & 2.6\,$\Omega$ & 1, 2.83, 5.66, 11.32\,$\Omega$
 Operating points & 3 speeds $\times$ 3 torques & same & 716--1910\,rpm, 4 torque levels (sparse) \\
 Healthy trials & 9 & 9 & none \\
 Fault trials & 216 & 216 & 438 (198 at 2.83\,$\Omega$) \\
-\botrule
+\bottomrule
 \end{tabular}
-\footnotetext{Ratings as given by the manufacturer (kVA for the synchronous machines, kW for the induction machine). 2L: two-level converter; 3L-NPC: three-level neutral-point-clamped converter; FOC: field-oriented control.}
+\begin{tablenotes}[flushleft]
+\item Ratings as given by the manufacturer (kVA for the synchronous machines, kW for the induction machine). 2L: two-level converter; 3L-NPC: three-level neutral-point-clamped converter; FOC: field-oriented control.
+\end{tablenotes}
+\end{threeparttable}
 \end{table}
 
 %% ----------------------------------------------------------------------
@@ -247,7 +267,7 @@ Fault trials & 216 & 216 & 438 (198 at 2.83\,$\Omega$) \\
 \definecolor{scigc}{HTML}{EB6834}
 \definecolor{wfsgc}{HTML}{1BAF7A}
 \begin{tikzpicture}[
-  font=\normalsize, x=1cm, y=1cm, line cap=round, line join=round,
+  font=\small, x=1cm, y=1cm, line cap=round, line join=round,
   frame/.style={draw=black!70, line width=0.8pt},
   hd/.style={anchor=south, inner sep=1pt},
   sub/.style={anchor=north, inner sep=1pt, text width=12.6cm, align=center}
@@ -303,7 +323,7 @@ Fault trials & 216 & 216 & 438 (198 at 2.83\,$\Omega$) \\
 \foreach \a in {60,180,300} { \draw[black!40, line width=2.8pt] (4.3,-4.2) ++(\a+7:0.4) arc[start angle=\a+7, end angle=\a+53, radius=0.4]; }
 \node[sub] at (6.2,-5.0) {(c) PMSG};
 \end{tikzpicture}
-\caption{The three alternatives as generator systems: turbine rotor, generator with its rotor excitation (squirrel cage, field winding, permanent magnets), back-to-back converter and grid}\label{fig:alternatives}
+\caption{The three alternatives as generator systems: turbine rotor, generator with its rotor excitation (cage, field winding or magnets), converter and grid}\label{fig:alternatives}
 \end{figure}
 
 \subsection{Failure-mode class and extent scale}\label{sec:extent}
@@ -317,7 +337,7 @@ All three machines were built with 24 tapped derivation points along their stato
 \begin{figure}[t]
 \centering
 \begin{tikzpicture}[
-  font=\normalsize, x=1cm, y=1cm,
+  font=\small, x=1cm, y=1cm,
   wire/.style={thick},
   coil/.style={draw, thick, fill=white, minimum width=3.2mm, minimum height=5.8mm, inner sep=0},
   tap/.style={circle, fill=black, inner sep=0, minimum size=1.5mm},
@@ -373,20 +393,22 @@ All three machines were built with 24 tapped derivation points along their stato
   \node at (2.3,-0.25) {(b) Inter-winding short-circuit};
 \end{scope}
 \end{tikzpicture}
-\caption{Inter-turn (\textbf{a}) and inter-winding (\textbf{b}) short-circuits through $R_{\mathrm{f}}$ between taps of one phase of the double-star stator (schematic); $e$ is the fraction of a branch between the taps}\label{fig:faults}
+\caption{Inter-turn (\textbf{a}) and inter-winding (\textbf{b}) short-circuits through $R_{\mathrm{f}}$ between taps of one phase of the double-star stator; $e$ is the fraction of a branch between the taps}\label{fig:faults}
 \end{figure}
 
 The PMSG and SCIG matrix is complete: 24 fault cases $\times$ 3 speeds (1200, 1500, 1800\,rpm) $\times$ 3 torques (5.2, 6.4, 8.0\,N\,m), the torque--speed pairs scaled from the operating region of the International Energy Agency (IEA) 15\,MW reference turbine \citep{Gaertner2020} to the laboratory speed range (the electrical frequency is not scaled), plus the healthy condition at each operating point; the SCIG generates with slip, at 59.6\,Hz at 1800\,rpm. The WFSG matrix covers the same 24 tap pairs at six speeds (716--1910\,rpm) and four per-unit torque levels, sparsely and with two to six repetitions, so its operating points are not matched to the other two. The WFSG benchmark also contains phase-to-phase faults, a class absent from the PMSG/SCIG protocol; they are excluded from every analysis. The analyses use the WFSG's 438 inter-turn and inter-winding trials at all impedances for the null, the feature ranking and the detectable shares, with the impedance as a covariate, and the 198 trials at 2.83\,$\Omega$---the impedance closest to the PMSG/SCIG value, covering four inter-turn tap pairs of 11.6--12.1\,\% and four inter-winding pairs of 2.3--10.6\,\%---for the minimum detectable extent and the decision table.
 
-\subsection{Observation suites and features}\label{sec:suites}
+\subsection{Sensor suites and features}\label{sec:suites}
 
-Five observation suites are considered, ordered by the data access, hardware and integration they add to a bare generator--converter set (Table~\ref{tab:suitedef}). \emph{Drive-internal} uses only quantities the converter controller already has; \emph{3\,CT} (three current transducers) uses the three phase currents---from dedicated transducers or from the converter's own current sensors routed to a monitoring system---with angle-free features, so that for a converter-fed machine its cost is data access and bandwidth rather than hardware; \emph{3\,CT + 3\,VT} adds three terminal voltage transducers (VT); \emph{3\,CT + 3\,VT + drive} adds controller access, which also allows the measured terminal voltages to be transformed into the synchronous frame; and \emph{+ torque transducer} adds a shaft torque sensor. For the WFSG the field current is an additional drive-internal observable (the \emph{excitation} suite), available because its exciter is static \citep{Neti2009}. Each feature is assigned to the cheapest suite whose measurements suffice to compute it. The suites are those the datasets can populate (zero-sequence voltage, stray flux, winding temperature, vibration and partial discharge are not recorded, and the angle-free Park's-vector features were not computed), so the suite conclusions hold among the suites and features considered; the zero-sequence current is not used because the star points are isolated.
+Five sensor suites are considered, ordered by the data access, hardware and integration they add to a bare generator--converter set (Table~\ref{tab:suitedef}). \emph{Drive-internal} uses only quantities the converter controller already has; \emph{3\,CT} (three current transducers) uses the three phase currents---from dedicated transducers or from the converter's own current sensors routed to a monitoring system---with angle-free features, so that for a converter-fed machine its cost is data access and bandwidth rather than hardware; \emph{3\,CT + 3\,VT} adds three terminal voltage transducers (VT); \emph{3\,CT + 3\,VT + drive} adds controller access, which also allows the measured terminal voltages to be transformed into the synchronous frame; and \emph{+ torque transducer} adds a shaft torque sensor. For the WFSG the field current is an additional drive-internal observable (the \emph{excitation} suite), available because its exciter is static \citep{Neti2009}. Each feature is assigned to the cheapest suite whose measurements suffice to compute it. The suites are those the datasets can populate (zero-sequence voltage, stray flux, winding temperature, vibration and partial discharge are not recorded, and the angle-free Park's-vector features were not computed), so the suite conclusions hold among the suites and features considered; the zero-sequence current is not used because the star points are isolated.
 
 \begin{table}[t]
 \tabsize
 \setlength{\tabcolsep}{4pt}
-\caption{Observation suites and the features they can compute}\label{tab:suitedef}
-\begin{tabular}{@{}p{2.3cm}p{3.0cm}p{7.0cm}@{}}
+\centering
+\begin{threeparttable}
+\caption{Sensor suites and the features they can compute}\label{tab:suitedef}
+\begin{tabular}{@{}L{2.3cm}L{3.0cm}L{7.0cm}@{}}
 \toprule
 Suite & Added access / hardware & Features \\
 \midrule
@@ -396,16 +418,19 @@ Drive-internal & controller data & $I_d, I_q$: std, 1$f_e$, 2$f_e$; $V_d^{\mathr
 3\,CT + 3\,VT + drive & + controller data & all of the above + measured $V_d, V_q$: 2$f_e$ \\
 + torque transducer & + shaft torque sensor & + $T_m$: std, 1$f_e$, 2$f_e$ \\
 Excitation (WFSG) & field-current measurement & $I_f$: std, 2$f_e$ \\
-\botrule
+\bottomrule
 \end{tabular}
-\footnotetext{$f_e$: electrical frequency; 1$f_e$, 2$f_e$: amplitude of the component at once and twice the electrical frequency; $I_1, I_2$ ($V_1, V_2$): positive- and negative-sequence magnitudes at $f_e$; std: standard deviation; THD: total harmonic distortion; PI: proportional--integral.}
+\begin{tablenotes}[flushleft]
+\item $f_e$: electrical frequency; 1$f_e$, 2$f_e$: amplitude of the component at once and twice the electrical frequency; $I_1, I_2$ ($V_1, V_2$): positive- and negative-sequence magnitudes at $f_e$; std: standard deviation; THD: total harmonic distortion; PI: proportional--integral.
+\end{tablenotes}
+\end{threeparttable}
 \end{table}
 
-Features are computed on sliding windows of $n_c$ electrical cycles with a hop of one cycle; the electrical frequency and the phase rotation are estimated per window from the current space vector, so that the external suites need no angle sensor. Appendix~\ref{app:features} defines every feature and states which WFSG channels are measured and which commanded.
+Features are computed on sliding windows of $n_c$ electrical cycles with a hop of one cycle; the electrical frequency and the phase rotation are estimated per window from the current space vector, so that the external suites need no angle sensor. \ref{app:features} defines every feature and states which WFSG channels are measured and which commanded.
 
 \subsection{Computation}\label{sec:computation}
 
-For the PMSG and SCIG the reference interval is the 0.68\,s before the contactor command, split into $R_1$ (0.32\,s) and $R_2$ (0.36\,s), and the faulted interval runs from 30\,ms after the command to 10\,ms before its release; for the WFSG the fault interval is located from the measured fault current and the reference interval (0.49\,s) is split at 0.30\,s. Appendix~\ref{app:computation} lists all interval boundaries, thresholds, seeds and model settings. The main PMSG--SCIG comparison uses $n_c=5$; the three-alternative comparison uses $n_c=3$ for all three machines because the WFSG fault intervals are short. The sensitivity of every conclusion to $n_c\in\{3,5,8\}$ and to $\alpha\in\{0.90,0.95,0.99\}$ is reported, with the screen applied at each setting. The null is pooled over all 225 records of each of the PMSG and SCIG and over the 438 WFSG records, every record contributing a healthy reference interval. Uncertainty is quantified by bootstrap with 2000 resamples: the median SDR and the detectable share of a class are resampled over the twelve tap pairs, the same pairs for both machines so that the SCIG/PMSG ratio is matched; the minimum detectable extent is resampled over the operating-point trials within each extent level; shares also carry Wilson intervals; the null quantile is held at its full-sample value. The decision table uses 1000 resamples per suite, alternative, class and $\alpha$, with $e_{\mathrm{req}}\in\{3,5,8,12\}$\,\%.
+For the PMSG and SCIG the reference interval is the 0.68\,s before the contactor command, split into $R_1$ (0.32\,s) and $R_2$ (0.36\,s), and the faulted interval runs from 30\,ms after the command to 10\,ms before its release; for the WFSG the fault interval is located from the measured fault current and the reference interval (0.49\,s) is split at 0.30\,s. \ref{app:computation} lists all interval boundaries, thresholds, seeds and model settings. The main PMSG--SCIG comparison uses $n_c=5$; the three-alternative comparison uses $n_c=3$ for all three machines because the WFSG fault intervals are short. The sensitivity of every conclusion to $n_c\in\{3,5,8\}$ and to $\alpha\in\{0.90,0.95,0.99\}$ is reported, with the screen applied at each setting. The null is pooled over all 225 records of each of the PMSG and SCIG and over the 438 WFSG records, every record contributing a healthy reference interval. Uncertainty is quantified by bootstrap with 2000 resamples: the median SDR and the detectable share of a class are resampled over the twelve tap pairs, the same pairs for both machines so that the SCIG/PMSG ratio is matched; the minimum detectable extent is resampled over the operating-point trials within each extent level; shares also carry Wilson intervals; the null quantile is held at its full-sample value. The decision table uses 1000 resamples per suite, alternative, class and $\alpha$, with $e_{\mathrm{req}}\in\{3,5,8,12\}$\,\%.
 
 Step 6 of the procedure is instantiated as a window-level change detector: a gradient-boosted decision-tree (GBDT) classifier \citep{Friedman2001} and, for the PMSG--SCIG pair, a logistic regression, trained to separate faulted windows from healthy ones. Within an alternative the detector is evaluated by five-fold cross-validation grouped by tap pair (healthy trials grouped by speed), so that the tested fault locations are never seen in training; across alternatives it is trained on all trials of one machine and tested on all trials of another. Three feature-referencing rules are compared: physical units; features $z$-scored on the target machine's healthy trials (a commissioning baseline); and the absolute $z$-score of each window against the \emph{first half} of its own trial's reference interval. Negatives are the reference and recovery windows of all trials plus the fault-interval windows of the healthy trials, the only negatives that contain the contactor operation without a fault. Because the windows used to normalise a trial are trivially separable under the third rule, every metric is also reported on the out-of-reference windows, and the false-alarm rate of the threshold that gives 1\,\% false positives on all negatives is reported on the healthy trials' fault-time windows; the true-positive rate at 1\,\% false-positive rate is a point of the receiver operating characteristic, not an operating threshold.
 
@@ -428,6 +453,8 @@ The null of the SDR differs by up to a factor of 35 between the PMSG and the SCI
 \begin{table}[t]
 \tabsize
 \setlength{\tabcolsep}{3pt}
+\centering
+\begin{threeparttable}
 \caption{SCIG/PMSG ratio of median SDR decomposed into numerator and denominator, five-cycle windows}\label{tab:decomp}
 \begin{tabular}{@{}llccccccc@{}}
 \toprule
@@ -447,9 +474,12 @@ inter-winding & PI$_d$\,2$f_e$ & 2.344 & 1.188 & 0.557 & 0.016 & 0.51 & 34.71 & 
 inter-winding & $V_q$\,2$f_e$ & 3.688 & 1.495 & 0.165 & 0.060 & 0.41 & 2.73 & 1.11 \\
 inter-winding & $V_q^{\mathrm{cmd}}$\,2$f_e$ & 0.845 & 1.184 & 0.162 & 0.039 & 1.40 & 4.17 & 5.84 \\
 inter-winding & $D_2/D_1$ & 2.942 & 0.854 & 0.090 & 0.010 & 0.29 & 8.96 & 2.60 \\
-\botrule
+\bottomrule
 \end{tabular}
-\footnotetext{Num.: SCIG/PMSG ratio of the median relative change under fault $|\delta|$; Den.: ratio of null quantiles $q_{95}^{\mathrm{PMSG}}/q_{95}^{\mathrm{SCIG}}$; P: PMSG; S: SCIG.}
+\begin{tablenotes}[flushleft]
+\item Num.: SCIG/PMSG ratio of the median relative change under fault $|\delta|$; Den.: ratio of null quantiles $q_{95}^{\mathrm{PMSG}}/q_{95}^{\mathrm{SCIG}}$; P: PMSG; S: SCIG.
+\end{tablenotes}
+\end{threeparttable}
 \end{table}
 %% END GENERATED tab_decomp
 
@@ -469,6 +499,8 @@ Table~\ref{tab:mde} gives the minimum detectable extent with its bootstrap inter
 \begin{table}[t]
 \tabsize
 \setlength{\tabcolsep}{2pt}
+\centering
+\begin{threeparttable}
 \caption{Minimum detectable extent, detectable share and median SDR with 95\,\% intervals for four features, PMSG and SCIG, five-cycle windows, $\alpha=0.95$}\label{tab:mde}
 \begin{tabular}{@{}lllcccc@{}}
 \toprule
@@ -490,9 +522,12 @@ IW & PI$_d$\,2$f_e$ & P & 21.7 [9.7, 21.7] & 72 [63, 80] & 4.21 [1.18, 13] & \\
  &  & S & 2.3 [2.3, 2.3] & 100 [97, 100] & 74 [22.9, 245] & 18.2 [12.3, 27.2] \\
 IW & $V_q$\,2$f_e$ & P & 9.7 [2.3, 14.3] & 90 [83, 94] & 22.4 [3.24, 62] & \\
  &  & S & 9.7 [2.3, 9.7] & 92 [85, 96] & 24.8 [7.04, 78.6] & 1.13 [0.831, 1.9] \\
-\botrule
+\bottomrule
 \end{tabular}
-\footnotetext{MDE: \% of the winding branch between the taps, limit-of-detection convention, bootstrap over operating points within each extent level; DS: \%, Wilson interval; median SDR and SCIG/PMSG ratio: bootstrap over tap pairs, the same pairs for both machines. IT: inter-turn; IW: inter-winding; P: PMSG; S: SCIG. `--': the largest tested extent is not detectable; smallest tested extents 2.7\,\% (IT) and 2.3\,\% (IW).}
+\begin{tablenotes}[flushleft]
+\item MDE: \% of the winding branch between the taps, limit-of-detection convention, bootstrap over operating points within each extent level; DS: \%, Wilson interval; median SDR and SCIG/PMSG ratio: bootstrap over tap pairs, the same pairs for both machines. IT: inter-turn; IW: inter-winding; P: PMSG; S: SCIG. `--': the largest tested extent is not detectable; smallest tested extents 2.7\,\% (IT) and 2.3\,\% (IW).
+\end{tablenotes}
+\end{threeparttable}
 \end{table}
 %% END GENERATED tab_mde
 
@@ -506,15 +541,17 @@ IW & $V_q$\,2$f_e$ & P & 9.7 [2.3, 14.3] & 90 [83, 94] & 22.4 [3.24, 62] & \\
 
 Speed dominates the operating-point dependence: in the PMSG the median SDR of the best feature rises from 5--9 at 1200\,rpm to 16--21 at 1800\,rpm and the detectable share from 79--83 to 92--96\,\%, in the SCIG from 16--18 to 44--51 and from 92--96 to 96--100\,\%; torque changes little. Two cautions apply: the dependence is consistent with a resistor-limited fault current that scales with speed, so it is a property of the emulation as much as of the machines; and the pooled null is a mixture over operating points (the share of trials whose healthy change exceeds the pooled 95th percentile is 0--16\,\% by speed for the key features), so the 5\,\% false-alarm reading holds on average over the envelope. Both make the lowest monitored speed a parameter of the requirement.
 
-\subsection{Observation suites and the design decision}\label{sec:res-suites}
+\subsection{Sensor suites and the selection}\label{sec:res-suites}
 
-Table~\ref{tab:suites} gives the suite results for the PMSG and SCIG at five-cycle windows, Table~\ref{tab:suites3} (Appendix~\ref{app:appendix}) for the three alternatives on the common feature set at three cycles, and Table~\ref{tab:decision} the decision table of step~5. For the PMSG, current transducers alone resolve inter-turn faults from 7.4\,\% and inter-winding faults from 9.7\,\%; three voltage transducers take these to 3.8 and 2.3\,\%, and neither controller access nor a torque transducer improves the fixed-feature result further. The drive-internal suite reaches 7.4\,\% for inter-turn faults through the duty-cycle negative sequence, a weaker version of the signature the measured terminal voltage carries. For the SCIG the cheapest suites already reach what any suite reaches---7.4\,\% for inter-turn faults through $I_2/I_1$ or, with no added sensor, the $d$-axis PI output, and 2.3\,\% for inter-winding faults---and additional hardware raises the detectable share rather than the reach. For the WFSG every suite detects all inter-winding faults from 2.3\,\% and 78--98\,\% of the inter-turn trials at the matching impedance, and the field current alone detects 86 and 100\,\%. The nested selection of the fixed feature changes no share by more than five points (Table~\ref{tab:suites3}); the oracle shares come with false-alarm rates of 44--78\,\% on the healthy trials for the large suites and are upper bounds only. A shaft torque transducer adds nothing for winding faults on the two machines on which it was available (the torque features' healthy relative change exceeds 100\,\% on the SCIG and their median SDR is below 0.3 on the PMSG).
+Table~\ref{tab:suites} gives the suite results for the PMSG and SCIG at five-cycle windows, Table~\ref{tab:suites3} (\ref{app:appendix}) for the three alternatives on the common feature set at three cycles, and Table~\ref{tab:decision} the decision table of step~5. For the PMSG, current transducers alone resolve inter-turn faults from 7.4\,\% and inter-winding faults from 9.7\,\%; three voltage transducers take these to 3.8 and 2.3\,\%, and neither controller access nor a torque transducer improves the fixed-feature result further. The drive-internal suite reaches 7.4\,\% for inter-turn faults through the duty-cycle negative sequence, a weaker version of the signature the measured terminal voltage carries. For the SCIG the cheapest suites already reach what any suite reaches---7.4\,\% for inter-turn faults through $I_2/I_1$ or, with no added sensor, the $d$-axis PI output, and 2.3\,\% for inter-winding faults---and additional hardware raises the detectable share rather than the reach. For the WFSG every suite detects all inter-winding faults from 2.3\,\% and 78--98\,\% of the inter-turn trials at the matching impedance, and the field current alone detects 86 and 100\,\%. The nested selection of the fixed feature changes no share by more than five points (Table~\ref{tab:suites3}); the oracle shares come with false-alarm rates of 44--78\,\% on the healthy trials for the large suites and are upper bounds only. A shaft torque transducer adds nothing for winding faults on the two machines on which it was available (the torque features' healthy relative change exceeds 100\,\% on the SCIG and their median SDR is below 0.3 on the PMSG).
 
 %% BEGIN GENERATED tab_suites -- written by scripts/make_tables.py from results/tables; do not edit by hand
 \begin{table}[t]
 \tabsize
 \setlength{\tabcolsep}{3pt}
-\caption{Observation suites versus what they detect, PMSG and SCIG, five-cycle windows: best fixed feature, its MDE (\%) and detectable share (\%)}\label{tab:suites}
+\centering
+\begin{threeparttable}
+\caption{Sensor suites versus what they detect, PMSG and SCIG, five-cycle windows: best fixed feature, its MDE (\%) and detectable share (\%)}\label{tab:suites}
 \begin{tabular}{@{}lllllll@{}}
 \toprule
 Suite & PMSG feature & MDE & DS [oracle] & SCIG feature & MDE & DS [oracle] \\
@@ -531,9 +568,12 @@ drive-internal & $D_2/D_1$ & 14.3 & 90 [100] & PI$_d$\,2$f_e$ & 2.3 & 100 [100] 
 3 CT + 3 VT & $V_2/V_1$ & 2.3 & 94 [97] & $I_2/I_1$ & 2.3 & 100 [100] \\
 3 CT + 3 VT + drive & $V_2/V_1$ & 2.3 & 94 [100] & PI$_d$\,2$f_e$ & 2.3 & 100 [100] \\
 + torque transducer & $V_2/V_1$ & 2.3 & 94 [100] & PI$_d$\,2$f_e$ & 2.3 & 100 [100] \\
-\botrule
+\bottomrule
 \end{tabular}
-\footnotetext{Oracle: per-trial best feature, its detectable share in brackets (false-alarm rates in Table~\ref{tab:suites3}); features failing the reliability screen are excluded for that machine.}
+\begin{tablenotes}[flushleft]
+\item Oracle: per-trial best feature, its detectable share in brackets (false-alarm rates in Table~\ref{tab:suites3}); features failing the reliability screen are excluded for that machine.
+\end{tablenotes}
+\end{threeparttable}
 \end{table}
 %% END GENERATED tab_suites
 
@@ -543,7 +583,9 @@ The decision table turns this into the selection of step~5. At $\alpha=0.95$ no 
 \begin{table}[t]
 \tabsize
 \setlength{\tabcolsep}{3pt}
-\caption{Decision table: cheapest suite whose MDE meets $e_{\mathrm{req}}$ with probability $\ge0.95$, per alternative, fault class and $\alpha$}\label{tab:decision}
+\centering
+\begin{threeparttable}
+\caption{Decision table: the cheapest suite whose MDE meets $e_{\mathrm{req}}$ with probability $\ge0.95$}\label{tab:decision}
 \begin{tabular}{@{}llcccccc@{}}
 \toprule
 \multirow{2}{*}{$\alpha$} & \multirow{2}{*}{$e_{\mathrm{req}}$ (\%)} & \multicolumn{2}{c}{PMSG} & \multicolumn{2}{c}{SCIG} & \multicolumn{2}{c}{WFSG} \\
@@ -562,19 +604,24 @@ The decision table turns this into the selection of step~5. At $\alpha=0.95$ no 
 0.99 & 5 & (3CT+3VT)? & none & none & drive & none & drive \\
 0.99 & 8 & drive & none & drive & drive & none & drive \\
 0.99 & 12 & drive & (drive)? & drive & drive & drive & drive \\
-\botrule
+\bottomrule
 \end{tabular}
-\footnotetext{Three-cycle windows; probabilities from 1000 bootstrap resamples. Suites ordered drive $<$ 3CT $<$ 3CT+3VT $<$ 3CT+3VT+drv; exc: WFSG field current; IT: inter-turn; IW: inter-winding. `(suite)?': no suite meets with that confidence and the cheapest suite with an uncertain verdict is shown; `none': every suite fails. WFSG inter-turn verdicts are bounded by its smallest tested extent at the matching impedance (11.6\,\%).}
+\begin{tablenotes}[flushleft]
+\item Three-cycle windows; probabilities from 1000 bootstrap resamples. Suites ordered drive $<$ 3CT $<$ 3CT+3VT $<$ 3CT+3VT+drv; exc: WFSG field current; IT: inter-turn; IW: inter-winding. `(suite)?': no suite meets with that confidence and the cheapest suite with an uncertain verdict is shown; `none': every suite fails. WFSG inter-turn verdicts are bounded by its smallest tested extent at the matching impedance (11.6\,\%).
+\end{tablenotes}
+\end{threeparttable}
 \end{table}
 %% END GENERATED tab_decision
 
 \subsection{Transfer across alternatives}\label{sec:res-transfer}
 
-Table~\ref{tab:transfer} reports step~6 for the PMSG--SCIG pair and Table~\ref{tab:transfer3} (Appendix~\ref{app:appendix}) for the three alternatives; the figures quoted below are AUCs on the out-of-reference windows, and the values on all windows agree with them to within 0.02, so the windows used for normalisation do not drive the result. In physical units a gradient-boosted detector reaches an area under the receiver operating characteristic curve (AUC) of 0.87--0.91 within a machine on unseen tap pairs but 0.78 (PMSG$\to$SCIG) and 0.55 (SCIG$\to$PMSG) across; with its features scaled on the target machine's healthy trials, a commissioning baseline, 0.82 and 0.75, and a logistic detector under that rule falls below chance in one direction (0.45); with each feature referenced to the first half of the trial's own reference interval, 0.91 and 0.84, against 0.91--0.94 within a machine, and a logistic detector transfers at 0.89 and 0.87. The threshold that gives 1\,\% false positives on all negatives fires on 0--3\,\% of the healthy trials' fault-time windows, the only negatives that contain the contactor operation. Between the three alternatives, self-referenced detectors transfer in all six directions with AUC 0.80--0.98 on the out-of-reference windows, and a detector trained on two machines detects the faults of the third with 0.83 (PMSG), 0.88 (SCIG) and 0.97 (WFSG; optimistic, as that bench has no healthy trials). Restricted to each suite's features, every suite transfers at 0.82--0.95 when self-referenced and at 0.62--0.90 under the commissioning baseline.
+Table~\ref{tab:transfer} reports step~6 for the PMSG--SCIG pair and Table~\ref{tab:transfer3} (\ref{app:appendix}) for the three alternatives; the figures quoted below are AUCs on the out-of-reference windows, and the values on all windows agree with them to within 0.02, so the windows used for normalisation do not drive the result. In physical units a gradient-boosted detector reaches an area under the receiver operating characteristic curve (AUC) of 0.87--0.91 within a machine on unseen tap pairs but 0.78 (PMSG$\to$SCIG) and 0.55 (SCIG$\to$PMSG) across; with its features scaled on the target machine's healthy trials, a commissioning baseline, 0.82 and 0.75, and a logistic detector under that rule falls below chance in one direction (0.45); with each feature referenced to the first half of the trial's own reference interval, 0.91 and 0.84, against 0.91--0.94 within a machine, and a logistic detector transfers at 0.89 and 0.87. The threshold that gives 1\,\% false positives on all negatives fires on 0--3\,\% of the healthy trials' fault-time windows, the only negatives that contain the contactor operation. Between the three alternatives, self-referenced detectors transfer in all six directions with AUC 0.80--0.98 on the out-of-reference windows, and a detector trained on two machines detects the faults of the third with 0.83 (PMSG), 0.88 (SCIG) and 0.97 (WFSG; optimistic, as that bench has no healthy trials). Restricted to each suite's features, every suite transfers at 0.82--0.95 when self-referenced and at 0.62--0.90 under the commissioning baseline.
 
 %% BEGIN GENERATED tab_transfer -- written by scripts/make_tables.py from results/tables; do not edit by hand
 \begin{table}[t]
 \tabsize
+\centering
+\begin{threeparttable}
 \caption{Transfer of a window-level detector between PMSG and SCIG: AUC on all windows / AUC on the out-of-reference windows}\label{tab:transfer}
 \begin{tabular}{@{}llcccc@{}}
 \toprule
@@ -586,17 +633,20 @@ $z$ on target's healthy trials & logistic & 0.78/0.78 & 0.79/0.80 & 0.71/0.71 & 
 $z$ on target's healthy trials & GBDT & 0.88/0.87 & 0.90/0.91 & 0.82/0.82 & 0.75/0.75 \\
 $|z|$ vs own reference & logistic & 0.90/0.89 & 0.94/0.93 & 0.90/0.89 & 0.88/0.87 \\
 $|z|$ vs own reference & GBDT & 0.92/0.91 & 0.95/0.94 & 0.92/0.91 & 0.86/0.84 \\
-\botrule
+\bottomrule
 \end{tabular}
-\footnotetext{Out-of-reference windows: those outside the normalising set (Section~\ref{sec:computation}). P$\to$P, S$\to$S: cross-validation grouped by tap pair; P$\to$S, S$\to$P: trained on one machine, tested on the other.}
+\begin{tablenotes}[flushleft]
+\item Out-of-reference windows: those outside the normalising set (Section~\ref{sec:computation}). P$\to$P, S$\to$S: cross-validation grouped by tap pair; P$\to$S, S$\to$P: trained on one machine, tested on the other.
+\end{tablenotes}
+\end{threeparttable}
 \end{table}
 %% END GENERATED tab_transfer
 
 \subsection{Robustness and the two nulls}\label{sec:res-robust}
 
-Table~\ref{tab:sens} (Appendix~\ref{app:appendix}) shows how the tuning choices move the design quantities, with the screen applied at every setting. The inter-turn MDEs of all five key features are the same at three, five and eight cycles on both machines and the detectable shares move by at most six points; for inter-winding faults one MDE moves (the PMSG's $V_2/V_1$, 9.7\,\% at three cycles against 2.3\,\% at five and eight). Tightening the null quantile from 0.95 to 0.99 lowers the shares by 3--9 points and moves two PMSG inter-winding MDEs up one level; relaxing it to 0.90 raises the shares by up to 9 points and moves one down. No ordering of the two machines reverses, but the PMSG's inter-winding suite conclusion depends on $\alpha$ and on the window length (Table~\ref{tab:decision}). At $\alpha=0.95$ the screen removes up to three weak features per machine and window length (Appendix~\ref{app:computation}); none of the five key features is removed at any setting, and the three-cycle result of $V_2/V_1$ on the PMSG (two false alarms in nine healthy trials) passes the binomial rule. An absolute-change variant of the SDR, which removes the healthy level of the feature from numerator and null, ranks the 30 features with a Spearman correlation of 0.92--0.98 against the relative variant and picks the same three top features in every machine and class. The bootstrap intervals (Table~\ref{tab:mde}) put the median SDRs within a factor of two to four and the shares within $\pm$8--10 points.
+Table~\ref{tab:sens} (\ref{app:appendix}) shows how the tuning choices move the design quantities, with the screen applied at every setting. The inter-turn MDEs of all five key features are the same at three, five and eight cycles on both machines and the detectable shares move by at most six points; for inter-winding faults one MDE moves (the PMSG's $V_2/V_1$, 9.7\,\% at three cycles against 2.3\,\% at five and eight). Tightening the null quantile from 0.95 to 0.99 lowers the shares by 3--9 points and moves two PMSG inter-winding MDEs up one level; relaxing it to 0.90 raises the shares by up to 9 points and moves one down. No ordering of the two machines reverses, but the PMSG's inter-winding suite conclusion depends on $\alpha$ and on the window length (Table~\ref{tab:decision}). At $\alpha=0.95$ the screen removes up to three weak features per machine and window length (\ref{app:computation}); none of the five key features is removed at any setting, and the three-cycle result of $V_2/V_1$ on the PMSG (two false alarms in nine healthy trials) passes the binomial rule. An absolute-change variant of the SDR, which removes the healthy level of the feature from numerator and null, ranks the 30 features with a Spearman correlation of 0.92--0.98 against the relative variant and picks the same three top features in every machine and class. The bootstrap intervals (Table~\ref{tab:mde}) put the median SDRs within a factor of two to four and the shares within $\pm$8--10 points.
 
-Table~\ref{tab:between} (Appendix~\ref{app:appendix}) replaces the reference immediately before the fault by the healthy trial recorded at the same operating point at another time, a commissioning baseline: the null of the four key features widens by a factor of 1.6 to 4.9, the median SDR of the inter-turn features falls to about one (PMSG $V_2/V_1$ from 3.0 to 1.1; SCIG $I_2/I_1$ from 4.5 to 1.1) and their detectable shares to 20--59\,\%, while inter-winding faults remain detectable in 67--94\,\% of trials. The MDEs reported here are therefore statements about a short-horizon change detector; a monitor that compares against an old baseline needs the wider null.
+Table~\ref{tab:between} (\ref{app:appendix}) replaces the reference immediately before the fault by the healthy trial recorded at the same operating point at another time, a commissioning baseline: the null of the four key features widens by a factor of 1.6 to 4.9, the median SDR of the inter-turn features falls to about one (PMSG $V_2/V_1$ from 3.0 to 1.1; SCIG $I_2/I_1$ from 4.5 to 1.1) and their detectable shares to 20--59\,\%, while inter-winding faults remain detectable in 67--94\,\% of trials. The MDEs reported here are therefore statements about a short-horizon change detector; a monitor that compares against an old baseline needs the wider null.
 %% ----------------------------------------------------------------------
 %% discussion
 %% ----------------------------------------------------------------------
@@ -611,19 +661,19 @@ The demonstration supports four claims about the method that do not depend on wh
 
 \emph{Where a failure becomes observable is a property of the machine--drive combination, and the SDR must be read with its decomposition.} In the PMSG the winding asymmetry appeared in the terminal voltage, in the SCIG in the magnetising-axis current and its controller action, in the WFSG additionally in the field current and the current harmonics; the incremental negative-sequence impedance under fault was twice as large in the PMSG drive as in the SCIG drive. The version of this claim in which ``the control structure decides'' is not supported: both machines run the same controller, and Table~\ref{tab:decomp} shows that the SCIG's higher SDR on current and $d$-axis features is entirely a quieter healthy null. The SDR is designed to credit a quiet alternative, but a design team must know whether an alternative wins by signature or by silence, because the two generalise differently: a signature is a property of the fault physics, a null of the sensing and control chain and of the operating regime, which a design-stage instantiation cannot simulate (Section~\ref{sec:design-stage}).
 
-\emph{The cheapest adequate observation suite depends on the alternative and on the requirement, and here it would change the monitoring specification, not the architecture.} With three current transducers the PMSG reaches 7.4\,\% (inter-turn) and 9.7\,\% (inter-winding); three voltage transducers take it to 3.8 and 2.3\,\% and buy nothing on the SCIG, whose current-only or drive-internal suites already reach 7.4 and 2.3\,\%. The decision table makes the requirement explicit: around 8\,\% of a branch all three alternatives meet it with drive-internal quantities and diagnosability does not discriminate between them; below 5\,\% only the PMSG with voltage transducers is a candidate, with an uncertain verdict at the confidence demanded. The method would change an architecture decision only if, for one alternative, no affordable suite met the requirement; here it changes what is specified for each: a measured detection rating per alternative and suite, with its uncertainty, in place of an assigned one.
+\emph{The cheapest adequate sensor suite depends on the alternative and on the requirement, and here it would change the monitoring specification, not the choice of machine type.} With three current transducers the PMSG reaches 7.4\,\% (inter-turn) and 9.7\,\% (inter-winding); three voltage transducers take it to 3.8 and 2.3\,\% and buy nothing on the SCIG, whose current-only or drive-internal suites already reach 7.4 and 2.3\,\%. The decision table makes the requirement explicit: around 8\,\% of a branch all three alternatives meet it with drive-internal quantities and diagnosability does not discriminate between them; below 5\,\% only the PMSG with voltage transducers is a candidate, with an uncertain verdict at the confidence demanded. The method would change the choice of machine type only if, for one alternative, no affordable suite met the requirement; here it changes what is specified for each: a measured detectability per alternative and suite, with its uncertainty, in place of an assumed one.
 
 \emph{A monitoring design transfers across alternatives only under the right referencing rule, and the rule is a short-horizon one.} A detector built on one machine and applied to another in physical units lost much of its performance; features scaled on the target machine's healthy trials---a commissioning baseline---recovered part of it and were harmful in one direction; features referenced to the first half of each trial's own reference interval transferred in all six directions between the three machines and from any two to the third. The between-trial null (Table~\ref{tab:between}) explains why: against a baseline recorded at another time, the inter-turn signatures sit at SDR $\approx1$. For a product family the specification rule is a change detector on self-referenced deviations over a short horizon; a monitor that compares against an old baseline must be calibrated on the wider null.
 
-\subsection{Design implications}
+\subsection{Implications for the condition monitoring of wind-turbine generators}
 
-For the wind-turbine generator, with the scope of Section~\ref{sec:threats}: a PMSG with full-power conversion should be specified with terminal voltage measurement---or another observable of the terminal asymmetry, such as the zero-sequence voltage where a neutral is accessible \citep{Urresty2012}---if inter-turn faults below about 7\,\% of a branch are to be detected by threshold monitoring, its controller's commanded quantities carrying a weaker version of the signature. An SCIG reaches the same detectability with current transducers alone or with no added sensor, and additional hardware buys robustness rather than reach. A wound-field machine with a static exciter offers a further drive-internal channel, the field current, whose 2$f_e$ ripple detected every inter-winding fault and most inter-turn faults; a brushless exciter would not expose it \citep{Neti2009}. A shaft torque transducer, as filtered on these benches, is not worth specifying for winding faults. Two industrial parameters change these statements and are computable at the concept stage: the ratio of current-loop bandwidth to twice the electrical frequency, which for a direct-drive multi-megawatt PMSG at a fundamental near 10\,Hz will push the signature further into the controller and the voltage than in these 40--60\,Hz machines; and the grid-connected, unregulated stator of a doubly-fed generator, where the migration is absent and current-signature routes regain their reach.
+Within the scope of Section~\ref{sec:threats}, the results carry the following implications for the wind-turbine generator. A PMSG with full-power conversion should be specified with terminal voltage measurement, or with another observable of the terminal asymmetry such as the zero-sequence voltage where a neutral is accessible \citep{Urresty2012}, if inter-turn faults below about 7\,\% of a branch are to be detected by threshold monitoring; its controller's commanded quantities carry a weaker version of the signature. An SCIG reaches the same detectability with current transducers alone or with no added sensor, and additional hardware buys robustness rather than reach. A wound-field machine with a static exciter offers a further drive-internal channel, the field current, whose 2$f_e$ ripple detected every inter-winding fault and most inter-turn faults; a brushless exciter would not expose it \citep{Neti2009}. A shaft torque transducer, as filtered on these benches, is not worth specifying for winding faults. Two industrial parameters change these statements and are computable at the concept stage: the ratio of current-loop bandwidth to twice the electrical frequency, which for a direct-drive multi-megawatt PMSG at a fundamental near 10\,Hz will push the signature further into the controller and the voltage than in these 40--60\,Hz machines; and the grid-connected, unregulated stator of a doubly-fed generator, where the migration is absent and current-signature routes regain their reach.
 
-\subsection{Applying the method elsewhere}
+\subsection{Applying the method to other machines}
 
 Nothing in Section~\ref{sec:method} is specific to electrical machines, but the scope conditions of Section~\ref{sec:scope} are. A gearbox family would use tooth-damage size as extent, vibration and oil-debris suites, and seeded-damage trials with a healthy run before each damage step; a battery-pack family would use cell-capacity loss, voltage, temperature and impedance suites, and trials in which a degraded cell is switched into a healthy pack.
 
-\subsection{Threats to validity}\label{sec:threats}
+\subsection{Limitations}\label{sec:threats}
 
 The most important limitation is that each alternative is represented by one physical machine. The differences reported are differences between three machines; attributing them to topology rather than to the individual units requires replicated machines or simulated populations of each alternative under parameter variation, validated against the measured units. The demonstration is therefore regarded as establishing the method and the mechanisms, not the population-level ranking of the topologies; the two benches also differ in converter, controller, sampling rate and sensing chain.
 
@@ -636,45 +686,37 @@ Statistically, the pooled null is a mixture over operating points and holds its 
 
 \section{Conclusions}\label{sec:conclusion}
 
-A method has been proposed that makes the diagnosability of failure modes a criterion for choosing between architectural alternatives and, jointly, for designing the condition monitoring of the chosen architecture through the observation suite that will monitor it. Its core is a scale-free, self-calibrated statistic, the signal-to-drift ratio, from which a minimum detectable extent and a detectable share above a required extent can be computed for every combination of alternative, suite and failure-mode class, with a reliability screen, bootstrap intervals and a decision table over the required extent and the false-alarm level; a six-step procedure with default rules for its framing decisions turns these into a co-selection and a transferability specification.
+A detector-free measure of fault detectability has been proposed, the signal-to-drift ratio: a scale-free statistic calibrated on each machine's own healthy non-stationarity, from which a minimum detectable extent and a detectable share above a required extent can be computed for every combination of machine type, sensor suite and failure-mode class, with a reliability screen, bootstrap intervals and a decision table over the required extent and the false-alarm level. A six-step procedure with default rules for its framing decisions turns these into the selection of the cheapest adequate sensor suite for each machine type, a comparison of the machine types on that basis, and a transferability specification for a detector that must serve several of them.
 
-Applied to three types of wind-turbine generator subjected to identical winding short-circuits on open benchmark data, the method showed that the same design-level fault is not the same physical fault across the machines; that where a fault becomes visible depends on the machine--drive combination, the detectability difference between the two machines on one bench arising from their healthy non-stationarity rather than from the signature; that the cheapest observation suite meeting a requirement depends on the alternative and on the requirement, voltage transducers lowering the permanent-magnet machine's detectable extent and adding nothing for the induction machine, while around 8\,\% of a branch all three alternatives are equally diagnosable with drive-internal quantities; and that a learned detector transfers across the three machines only when its features are referenced to each trial's own preceding healthy behaviour. The findings are robust in their orderings to the method's tuning, carry tap-pair-level uncertainty, and are limited by one physical unit per alternative, laboratory scale, resistor-limited fault emulation and a single failure-mode class.
+Applied to three types of wind-turbine generator subjected to identical winding short-circuits on open benchmark data, the method showed that the same design-level fault is not the same physical fault across the machines; that where a fault becomes visible depends on the machine--drive combination, the detectability difference between the two machines on one bench arising from their healthy non-stationarity rather than from the signature; that the cheapest sensor suite meeting a requirement depends on the alternative and on the requirement, voltage transducers lowering the permanent-magnet machine's detectable extent and adding nothing for the induction machine, while around 8\,\% of a branch all three alternatives are equally diagnosable with drive-internal quantities; and that a learned detector transfers across the three machines only when its features are referenced to each trial's own preceding healthy behaviour. The findings are robust in their orderings to the method's tuning, carry tap-pair-level uncertainty, and are limited by one physical unit per alternative, laboratory scale, resistor-limited fault emulation and a single failure-mode class.
 
 Three extensions follow: the design-stage instantiation, in which simulated faulted trials are combined with measured healthy nulls of hardware of the same class and validated on a few physical trials, so that the method applies before hardware exists and machine-level differences become population-level statements; other failure-mode classes and observables---bearing and rotor faults with vibration and flux observables, zero-sequence and Park's-vector features for the winding faults studied here---and a mechanical or electrochemical family, to test the claim to generality; and a cost model including integration, maintenance and missed detection in place of the ordinal ranking of suites, so that the co-selection can be posed as an optimisation. The released code, which reproduces every result from the public data, is the starting point for all three.
 
-\backmatter
+\section*{CRediT authorship contribution statement}
+\textbf{H\"useyin Tayyer Canseven:} Conceptualization, Methodology, Software, Formal analysis, Investigation, Data curation, Visualization, Writing -- original draft, Writing -- review \& editing.
 
-\bmhead{Acknowledgements}
+\section*{Declaration of competing interest}
+The author declares that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+
+\section*{Funding}
+This research did not receive any specific grant from funding agencies in the public, commercial or not-for-profit sectors.
+
+\section*{Data availability}
+All data are public under the CC BY 4.0 licence: the PMSG, SCIG and synchronous-generator datasets of the InnovaPower MitDev-Eletrica project, \url{https://github.com/InnovaPower/MitDev-Eletrica}, archived on Zenodo at \url{https://doi.org/10.5281/zenodo.15741561}, \url{https://doi.org/10.5281/zenodo.17161986} and \url{https://doi.org/10.5281/zenodo.13685630}. The complete analysis pipeline, with the derived per-trial tables, is released under an open licence at \url{https://github.com/htcanseven/Claude} (directory \texttt{scripts/}) and reproduces every number in this paper from the public data; an archived release with a DOI will be deposited on Zenodo at acceptance.
+
+\section*{Acknowledgements}
 The author thanks the InnovaPower group of the University of S\~ao Paulo for publishing the benchmark datasets on which this work rests.
 
-\section*{Declarations}
-
-\bmhead{Funding}
-No specific funding was received for this work.
-
-\bmhead{Competing interests}
-The author declares no competing interests.
-
-\bmhead{Ethics approval and consent}
-Not applicable.
-
-\bmhead{Data availability}
-All data are public: the PMSG, SCIG and synchronous-generator datasets of the InnovaPower MitDev-Eletrica project (\url{https://github.com/InnovaPower/MitDev-Eletrica}; Zenodo DOIs 10.5281/zenodo.15741561, 10.5281/zenodo.17161986 and 10.5281/zenodo.13685630), licensed CC BY 4.0. The derived per-trial tables are provided with the code.
-
-\bmhead{Code availability}
-The complete analysis pipeline is released under an open licence at \url{https://github.com/htcanseven/Claude} (directory \texttt{scripts/}; an archived release with a DOI will be deposited on Zenodo at acceptance) and reproduces every number in this paper from the public data.
-
-\bmhead{Author contributions}
-H.T.C. conceived the method, designed and carried out the analysis, and wrote the paper.
-
-\bmhead{Use of generative AI}
-A large language model (Claude, Anthropic) was used under the author's direction as an assistant for code development, literature retrieval, data analysis and drafting and editing of the text. The author designed the study, verified all analyses, checked every reference against its published record, and takes full responsibility for the content. No AI-generated images are used; all figures are produced by the released code from the data.
+\section*{Declaration of generative AI and AI-assisted technologies in the writing process}
+During the preparation of this work the author used a large language model (Claude, Anthropic) under their direction to assist with code development, literature retrieval, data analysis, and drafting and editing of the text. After using this tool, the author reviewed and edited the content as needed, verified all analyses, checked every reference against its published record, and takes full responsibility for the content of the publication. No AI-generated images are used; all figures are produced by the released code from the data.
 
 %% ----------------------------------------------------------------------
 %% appendix
 %% ----------------------------------------------------------------------
 
-\begin{appendices}
+\appendix
+\setcounter{table}{0}
+\setcounter{figure}{0}
 
 \section{Feature definitions, computation details and additional tables}\label{app:appendix}
 
@@ -682,7 +724,9 @@ A large language model (Claude, Anthropic) was used under the author's direction
 \begin{table}[t]
 \tabsize
 \setlength{\tabcolsep}{3pt}
-\caption{Observation suites for the three alternatives, three-cycle windows, common feature set, $\alpha=0.95$}\label{tab:suites3}
+\centering
+\begin{threeparttable}
+\caption{Sensor suites for the three alternatives, three-cycle windows, common feature set, $\alpha=0.95$}\label{tab:suites3}
 \begin{tabular}{@{}llllcccc@{}}
 \toprule
 Suite & Machine & Feature & MDE & DS & DS nested & Oracle DS & Oracle FA \\
@@ -715,17 +759,22 @@ drive-internal & WFSG & $I_q$\,2$f_e$ & 2.3 & 100 & 100 & 100 & -- \\
 3 CT + 3 VT + drive & SCIG & $I_d$\,2$f_e$ & 2.3 & 100 & 100 & 100 & 89 \\
 3 CT + 3 VT + drive & WFSG & $I_q$\,2$f_e$ & 2.3 & 100 & 100 & 100 & -- \\
 excitation (field current) & WFSG & $I_f$\,2$f_e$ & 2.3 & 100 & 100 & 100 & -- \\
-\botrule
+\bottomrule
 \end{tabular}
-\footnotetext{Fixed feature: highest median SDR among the suite's screened features. MDE (\%) at the fault impedance matching the PMSG/SCIG protocol (WFSG: 198 trials, four tap pairs per class). DS: detectable share (\%) of the fixed feature; nested: fixed feature chosen on the other tap pairs; oracle: per-trial best feature, with its false-alarm rate on the healthy trials (FA, \%; not available for the WFSG). `--': largest tested extent not detectable.}
-\footnotetext[\mathrm{a}]{The smallest inter-turn extent tested on the WFSG at that impedance is 11.6\,\%, so the value is an upper bound.}
+\begin{tablenotes}[flushleft]
+\item Fixed feature: highest median SDR among the suite's screened features. MDE (\%) at the fault impedance matching the PMSG/SCIG protocol (WFSG: 198 trials, four tap pairs per class). DS: detectable share (\%) of the fixed feature; nested: fixed feature chosen on the other tap pairs; oracle: per-trial best feature, with its false-alarm rate on the healthy trials (FA, \%; not available for the WFSG). `--': largest tested extent not detectable.
+\item[a] The smallest inter-turn extent tested on the WFSG at that impedance is 11.6\,\%, so the value is an upper bound.
+\end{tablenotes}
+\end{threeparttable}
 \end{table}
 %% END GENERATED tab_suites3
 %% BEGIN GENERATED tab_sens -- written by scripts/make_tables.py from results/tables; do not edit by hand
 \begin{table}[t]
 \tabsize
 \setlength{\tabcolsep}{3pt}
-\caption{Sensitivity of MDE/DS to the window length (3, 5, 8 cycles at $\alpha=0.95$) and to the null quantile ($\alpha=0.90$ and $0.99$ at five cycles)}\label{tab:sens}
+\centering
+\begin{threeparttable}
+\caption{Sensitivity of MDE/DS to the window length (3, 5, 8 cycles) and to the null quantile ($\alpha$ 0.90, 0.99)}\label{tab:sens}
 \begin{tabular}{@{}lllccccc@{}}
 \toprule
 Class & Feature & Machine & 3\,c & 5\,c & 8\,c & $\alpha$\,0.90 & $\alpha$\,0.99 \\
@@ -750,16 +799,21 @@ IW & PI$_d$\,2$f_e$ & PMSG & 21.7/71 & 21.7/72 & 21.7/70 & 21.7/74 & 21.7/69 \\
 IW & PI$_d$\,2$f_e$ & SCIG & 2.3/100 & 2.3/100 & 2.3/100 & 2.3/100 & 2.3/100 \\
 IW & $V_q$\,2$f_e$ & PMSG & 9.7/89 & 9.7/90 & 9.7/91 & 9.7/91 & 9.7/86 \\
 IW & $V_q$\,2$f_e$ & SCIG & 9.7/88 & 9.7/92 & 9.7/88 & 9.7/95 & 9.7/84 \\
-\botrule
+\bottomrule
 \end{tabular}
-\footnotetext{Cells: MDE (\%; limit-of-detection convention; `--': largest extent not detectable) / DS (\%). IT: inter-turn; IW: inter-winding.}
-\footnotetext[\mathrm{a}]{The feature fails the reliability screen at that setting.}
+\begin{tablenotes}[flushleft]
+\item Cells: MDE (\%; limit-of-detection convention; `--': largest extent not detectable) / DS (\%). Window-length columns at $\alpha=0.95$; quantile columns at five cycles. IT: inter-turn; IW: inter-winding.
+\item[a] The feature fails the reliability screen at that setting.
+\end{tablenotes}
+\end{threeparttable}
 \end{table}
 %% END GENERATED tab_sens
 %% BEGIN GENERATED tab_between -- written by scripts/make_tables.py from results/tables; do not edit by hand
 \begin{table}[t]
 \tabsize
 \setlength{\tabcolsep}{2.5pt}
+\centering
+\begin{threeparttable}
 \caption{Within-trial versus commissioning-baseline null, five-cycle windows, $\alpha=0.95$}\label{tab:between}
 \begin{tabular}{@{}lllcccccc@{}}
 \toprule
@@ -783,14 +837,19 @@ IW & $V_2/V_1$ & S & 0.033 & 0.111 & 48.2 & 16.1 & 100 & 94 \\
 IW & $I_2/I_1$ & S & 0.034 & 0.130 & 55.6 & 12.9 & 100 & 86 \\
 IW & PI$_d$\,2$f_e$ & S & 0.016 & 0.078 & 74 & 16 & 100 & 88 \\
 IW & $V_q$\,2$f_e$ & S & 0.060 & 0.131 & 24.8 & 11.2 & 92 & 86 \\
-\botrule
+\bottomrule
 \end{tabular}
-\footnotetext{Four key features. Within: reference immediately before the fault; baseline: the healthy trial at the same operating point, recorded at another time. DS: detectable share (\%). IT: inter-turn; IW: inter-winding; P: PMSG; S: SCIG.}
+\begin{tablenotes}[flushleft]
+\item Four key features. Within: reference immediately before the fault; baseline: the healthy trial at the same operating point, recorded at another time. DS: detectable share (\%). IT: inter-turn; IW: inter-winding; P: PMSG; S: SCIG.
+\end{tablenotes}
+\end{threeparttable}
 \end{table}
 %% END GENERATED tab_between
 %% BEGIN GENERATED tab_transfer3 -- written by scripts/make_tables.py from results/tables; do not edit by hand
 \begin{table}[t]
 \tabsize
+\centering
+\begin{threeparttable}
 \caption{Transfer between the three alternatives with a self-referenced GBDT detector, three-cycle windows, common features}\label{tab:transfer3}
 \begin{tabular}{@{}llcccc@{}}
 \toprule
@@ -808,13 +867,16 @@ WFSG & SCIG & 0.91 & 0.89 & 0.61 & 0 \\
 SCIG+WFSG & PMSG & 0.84 & 0.83 & 0.41 & 0 \\
 PMSG+WFSG & SCIG & 0.89 & 0.88 & 0.61 & 0 \\
 PMSG+SCIG & WFSG & 0.97 & 0.97 & 0.88 & -- \\
-\botrule
+\bottomrule
 \end{tabular}
-\footnotetext{Features $|z|$-referenced to the first half of each trial's own reference interval. AUC on all windows and on the out-of-reference (o.o.r.) windows; TPR: true-positive rate at 1\,\% false-positive rate (FPR) on the o.o.r. windows; FA: share of the healthy trials' fault-time windows above the threshold giving 1\,\% FPR on all negatives. The WFSG has no healthy trials, so its negatives are reference and recovery windows only and its rows are optimistic.}
+\begin{tablenotes}[flushleft]
+\item Features $|z|$-referenced to the first half of each trial's own reference interval. AUC on all windows and on the out-of-reference (o.o.r.) windows; TPR: true-positive rate at 1\,\% false-positive rate (FPR) on the o.o.r. windows; FA: share of the healthy trials' fault-time windows above the threshold giving 1\,\% FPR on all negatives. The WFSG has no healthy trials, so its negatives are reference and recovery windows only and its rows are optimistic.
+\end{tablenotes}
+\end{threeparttable}
 \end{table}
 %% END GENERATED tab_transfer3
 
-This appendix defines the features (Section~\ref{app:features}), lists the computation details (Section~\ref{app:computation}) and gives the observation-suite results for the three alternatives (Table~\ref{tab:suites3}), the sensitivity of the design quantities to the window length and the null quantile (Table~\ref{tab:sens}), the commissioning-baseline null (Table~\ref{tab:between}) and the transfer results between the three alternatives (Table~\ref{tab:transfer3}).
+This appendix defines the features (\ref{app:features}), lists the computation details (\ref{app:computation}) and gives the sensor-suite results for the three alternatives (Table~\ref{tab:suites3}), the sensitivity of the design quantities to the window length and the null quantile (Table~\ref{tab:sens}), the commissioning-baseline null (Table~\ref{tab:between}) and the transfer results between the three alternatives (Table~\ref{tab:transfer3}).
 
 \subsection{Feature definitions}\label{app:features}
 
@@ -830,10 +892,8 @@ Let $x_a, x_b, x_c$ be the sampled phase quantities of a window of $N$ samples a
 
 \emph{Transfer.} Models: scikit-learn histogram gradient boosting (maximum depth 3, 200 iterations, learning rate 0.08, random state 0) and logistic regression with standardisation ($C=1$, 3000 iterations); five-fold GroupKFold with one group per tap pair and machine, healthy trials grouped by speed. The self-referencing rule uses the windows starting before 0.62\,s (PMSG/SCIG) or 0.30\,s (WFSG) as the normalising set. Metrics: area under the receiver operating characteristic curve (AUC) and true-positive rate at 1\,\% false-positive rate, on all windows and on the windows outside the normalising set, and the false-alarm rate of the all-negatives 1\,\% threshold on the fault-time windows of the healthy trials.
 
-\end{appendices}
 
-{\makeatletter\def\bibfont{\reset@font\fontfamily{\rmdefault}\footnotesize\selectfont}\makeatother
-\setlength{\bibsep}{0.05em}
-\bibliography{refs}}
+\bibliographystyle{elsarticle-num-names}
+\bibliography{refs}
 
 \end{document}

@@ -62,11 +62,14 @@ def table(body, caption, label, cols, head, size=r"\tabsize", colsep=None, note=
     if caption.endswith("."):
         caption = caption[:-1]
     sep = f"\\setlength{{\\tabcolsep}}{{{colsep}}}\n" if colsep else ""
-    foot = f"\\footnotetext{{{note}}}\n" if note else ""
-    foot += "".join(f"\\footnotetext[\\mathrm{{{letter}}}]{{{text}}}\n" for letter, text in lettered)
-    return (f"\\begin{{table}}[t]\n{size}\n{sep}\\caption{{{caption}}}\\label{{{label}}}\n"
+    # Table notes are typeset by threeparttable under the table, at the table width (Elsevier elsarticle
+    # layout; the class has no table-note command of its own).
+    items = ([f"\\item {note}\n"] if note else []) + [f"\\item[{letter}] {text}\n" for letter, text in lettered]
+    notes = f"\\begin{{tablenotes}}[flushleft]\n{''.join(items)}\\end{{tablenotes}}\n" if items else ""
+    return (f"\\begin{{table}}[t]\n{size}\n{sep}\\centering\n\\begin{{threeparttable}}\n"
+            f"\\caption{{{caption}}}\\label{{{label}}}\n"
             f"\\begin{{tabular}}{{@{{}}{cols}@{{}}}}\n\\toprule\n{head} \\\\\n\\midrule\n"
-            + " \\\\\n".join(rows) + f" \\\\\n\\botrule\n\\end{{tabular}}\n{foot}\\end{{table}}\n")
+            + " \\\\\n".join(rows) + f" \\\\\n\\bottomrule\n\\end{{tabular}}\n{notes}\\end{{threeparttable}}\n\\end{{table}}\n")
 
 
 
@@ -86,7 +89,7 @@ def t_suites():
             body.append(" & ".join(row) if s != order[-1] or ft == "WINDINGS" else " & ".join(row) + r" \\[2pt]")
     body = [x if x.endswith(r"\\") or x.endswith(r"\\[2pt]") else x + r" \\" for x in body]
     body[-1] = body[-1].rstrip(r"\\").rstrip()
-    cap = ("Observation suites versus what they detect, PMSG and SCIG, five-cycle windows: best fixed feature, "
+    cap = ("Sensor suites versus what they detect, PMSG and SCIG, five-cycle windows: best fixed feature, "
            "its MDE (\\%) and detectable share (\\%)")
     note = ("Oracle: per-trial best feature, its detectable share in brackets (false-alarm rates in Table~\\ref{tab:suites3}); "
             "features failing the reliability screen are excluded for that machine.")
@@ -235,7 +238,7 @@ def t_suites3():
                 body.append(" & ".join([SUITE[s], m, tex(r.fixed_feature), mde, pct(r.ds_all), pct(r.ds_nested),
                                         pct(o.oracle_share_detectable), pct(o.oracle_healthy_false_alarm)]) + r" \\")
     body[-1] = body[-1].rstrip(r"\\").rstrip()
-    cap = "Observation suites for the three alternatives, three-cycle windows, common feature set, $\\alpha=0.95$"
+    cap = "Sensor suites for the three alternatives, three-cycle windows, common feature set, $\\alpha=0.95$"
     note = ("Fixed feature: highest median SDR among the suite's screened features. MDE (\\%) at the fault impedance matching "
             "the PMSG/SCIG protocol (WFSG: 198 trials, four tap pairs per class). DS: detectable share (\\%) of the fixed "
             "feature; nested: fixed feature chosen on the other tap pairs; oracle: per-trial best feature, with its false-alarm "
@@ -319,10 +322,9 @@ def t_sens():
                     row.append(cell(q[(q.ftype == ft) & (q.feature == f) & (q.machine == m) & (np.isclose(q.null_quantile, a))].iloc[0]))
                 body.append(" & ".join(row) + r" \\")
     body[-1] = body[-1].rstrip(r"\\").rstrip()
-    cap = ("Sensitivity of MDE/DS to the window length (3, 5, 8 cycles at $\\alpha=0.95$) and to the null quantile "
-           "($\\alpha=0.90$ and $0.99$ at five cycles)")
+    cap = "Sensitivity of MDE/DS to the window length (3, 5, 8 cycles) and to the null quantile ($\\alpha$ 0.90, 0.99)"
     note = ("Cells: MDE (\\%; limit-of-detection convention; `--': largest extent not detectable) / DS (\\%). "
-            "IT: inter-turn; IW: inter-winding.")
+            "Window-length columns at $\\alpha=0.95$; quantile columns at five cycles. IT: inter-turn; IW: inter-winding.")
     lettered = [("a", "The feature fails the reliability screen at that setting.")]
     head = r"Class & Feature & Machine & 3\,c & 5\,c & 8\,c & $\alpha$\,0.90 & $\alpha$\,0.99"
     return table(body, cap, "tab:sens", "lllccccc", head, size=r"\tabsize", colsep="3pt", note=note, lettered=lettered)
@@ -365,8 +367,7 @@ def t_decision():
                     row.append(c)
             body.append(" & ".join(row) + r" \\")
     body[-1] = body[-1].rstrip(r"\\").rstrip()
-    cap = ("Decision table: cheapest suite whose MDE meets $e_{\\mathrm{req}}$ with probability $\\ge0.95$, "
-           "per alternative, fault class and $\\alpha$")
+    cap = "Decision table: the cheapest suite whose MDE meets $e_{\\mathrm{req}}$ with probability $\\ge0.95$"
     note = ("Three-cycle windows; probabilities from 1000 bootstrap resamples. Suites ordered drive $<$ 3CT $<$ 3CT+3VT $<$ "
             "3CT+3VT+drv; exc: WFSG field current; "
             "IT: inter-turn; IW: inter-winding. `(suite)?': no suite meets with that confidence and the cheapest suite with an "

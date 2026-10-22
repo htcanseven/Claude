@@ -17,6 +17,7 @@ session; the bracketed items are the things to change.
 | 4 Simulated review | 14 Sep | Three referee reports from agents with distinct expertise; every addressable comment implemented, with re-analysis; response letter | `paper/review/review_*.md`, `response_to_reviewers.md`, `scripts/sensitivity.py`, `revision.py` |
 | 5 Length and guidelines | 14 Sep, 1 Oct | 42 → 29 pages (supplement, merged figures, trims); author-guideline alignment item by item; figures in the body font with sub-captions | `paper/main.tex`, `scripts/figs_paper.py`, `make_tables.py` |
 | 6 Author iterations | 1–3 Oct | Title, intro structure, caption length, two schematic figures, supplement folded back into one 31-page document, passive voice, single-file source, cover letter | `paper/main.tex`, `paper/overleaf_RED_manuscript.zip` |
+| 7 Resubmission | 22 Oct | Desk rejection by the design journal (contribution judged specific to the tested configurations); reframed for a condition-monitoring and signal-processing journal, reformatted to Elsevier `elsarticle` (numbered references, line numbers, highlights, declarations), new title and abstract, cover letter rewritten | `paper/main.tex`, `paper/highlights.tex`, `paper/overleaf_MSSP_manuscript.zip` |
 
 ## 2. Phase 1: frame the study for the target journal before touching data
 
@@ -143,6 +144,25 @@ into its numerator (signature) and denominator (null), because a quieter alterna
   markers that `make_tables.py` rewrites in place; the Overleaf zip holds that file, the class and style
   files, the bibliography and the two data figures, and is test-compiled in a clean directory before delivery.
 * Cover letter drafted last, from the paper's own abstract, contributions and declarations.
+
+### Phase 7: after a desk rejection
+
+* Read the decision for its actual reason. "Not a broad contribution to design methodology" is a fit
+  verdict, not a flaw in the evidence, so the remedy is a venue change with a reframing (route A), not a new
+  study; adding a second application domain to prove generality (route B) is the remedy only when the method
+  itself is in doubt.
+* Verify the new journal's requirements before touching the manuscript: article types, abstract and keyword
+  limits, highlights, reference style, review model (single or double anonymised), declarations. Publisher
+  pages behind captchas can be read through a reader proxy or a third-party summary, with the limits then
+  confirmed against the official class and template.
+* Reframe, do not rewrite: new title, abstract, introduction, positioning section (the table of related
+  methods re-drawn against the new field's own methods) and discussion headings for the new readership; the
+  method, data, results and limitations stay as reviewed. Terms change with the audience (observation suite
+  to sensor suite, architecture to machine type); the formal term of the method is defined once and kept.
+* Reformat by script, not by hand: class-specific markup (table notes, rules, appendix, declarations,
+  citation commands) is converted in one pass, the tables are regenerated through the same generator, and
+  what the new class exposes (caption widths, line-breaking tolerance, title-page overflow with line numbers,
+  appendix counters) is fixed from the log and the rendered pages, then the zip is test-compiled clean.
 
 ## 8. Quality gates run before every delivery
 
