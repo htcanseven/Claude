@@ -151,16 +151,16 @@ def t_floors() -> str:
     for c in SHARED:
         f, r = fl.loc[c], rf.loc[c]
         lt = "/".join(f"{fp.loc[(c, g), 'floor_over_sigma_lt']:.1f}" for g in geos)
-        rows.append(f"{QSHORT[c]} ({UNIT[c]}) & {sig(f['floor'])} & {sig(f['floor_lo'])}--{sig(f['floor_hi'])} & "
+        rows.append(f"{QSHORT[c]} ({UNIT[c]}) & {sig(f['floor'])} & "
                     f"{sig(f['floor_lo_alt'])}--{sig(f['floor_hi_alt'])} & {sig(f['floor_concave'])}/{sig(f['floor_convex'])} & "
                     f"{r['run_floor_min']:.2f}--{r['run_floor_max']:.2f} & {r['warm_up_ratio']:.2f} & {lt}")
-    head = (r"Characteristic & $F$ & Batches & Clusters & Concave/convex & Single runs & No warm-up & "
+    head = (r"Characteristic & $F$ & Interval & Concave/convex & Single runs & No warm-up & "
             r"$F/\sigma_\mathrm{LT}$")
     return table(rows, "Within-run floor per characteristic, pooled and per geometry, with its spread over runs",
-                 "tab:floors", "lrrrrrrr", head, colsep="1pt", full=True,
+                 "tab:floors", "lrrrrrr", head, colsep="3pt", full=True,
                  note=r"Batches of 50 consecutive parts, 95\,\% quantile of the difference of their 10\,\% trimmed "
-                      r"means. Batches, Clusters: 95\,\% intervals from 2000 resamples of batches and of whole "
-                      r"alternatives. Single runs: floor of one run over that of its geometry, range over the 18 runs. "
+                      r"means. Interval: 95\,\% over 2000 resamples of whole alternatives (the narrower interval over "
+                      r"resampled batches is in the archive). Single runs: floor of one run over that of its geometry, range over the 18 runs. "
                       r"No warm-up: floor without the first 150 parts over the reference. $\sigma_\mathrm{LT}$: "
                       r"standard deviation of the parts of a series (concave/convex); $\sigma_\mathrm{b}$, "
                       r"$\sigma_\mathrm{w}$ and the drift in \esm{Table~S20}.")
@@ -257,7 +257,7 @@ def t_distances() -> str:
                       r"interpolated, 84 extrapolated; a new family in the produced family's floor (in its own floor in "
                       r"\esm{Table~S1}). Interval: 95\,\% over 1000 resamples of the held-out alternatives, fits fixed. "
                       r"Trial: the first $n$ parts of the design's own run, a within-run lower bound. $^\dagger$, "
-                      r"$^\ddagger$: added after the first results and in revision.")
+                      r"$^\ddagger$: added after the first results and for this version.")
 
 
 def t_guards() -> str:
@@ -405,7 +405,7 @@ def t_groups() -> str:
             r"\cmidrule(lr){2-4}" "\n"
             r"Characteristic & Sibling & Interp. & Extrap. & Extrap. & Extrap. & New family & $P_\mathrm{pk}$")
     return table(rows, "Decisive distance per characteristic in floors and, in brackets, in its unit", "tab:groups",
-                 "lrrrrrrr", head, colsep="1.2pt", place="p", size=r"\tabsizesmall",
+                 "lrrrrrrr", head, colsep="1pt", place="p", size=r"\tabsizesmall", full=True,
                  note=r"18 cases per characteristic with a sibling and for a new family, 6 interpolated, 12 "
                       r"extrapolated; units through the pooled floor of the characteristic; a new family in the "
                       r"produced family's floor. $P_\mathrm{pk}$: median performance index of a requirement at the "
@@ -430,7 +430,7 @@ def t_validation() -> str:
     head = (r"Characteristic & Measured & Sim.\,$-$\,meas. & In floors & Inside & Closest $\mu$ & $x$--$y$ & "
             r"Roughness")
     return table(rows, "The simulation dataset against the measurement, over the six geometry--force cells",
-                 "tab:validation", "lrrrrrrr", head, colsep="1.6pt", place="p", size=r"\tabsizesmall",
+                 "tab:validation", "lrrrrrrr", head, colsep="1pt", place="p", size=r"\tabsizesmall", full=True,
                  note=r"Measured: range of the cells' centres (signed). Sim.\,$-$\,meas.: simulation at 0.99\,mm and "
                       r"friction 0.10 minus the measured centre, in the unit and in floors. Inside: cells whose measured "
                       r"centre lies within the simulated range over the friction grid (of 6). Closest $\mu$: grid "
@@ -1002,7 +1002,8 @@ def s_measurement() -> str:
     head = r"Series & $W_y-W_x$ & $\sigma_y/\sigma_x$ & $r_{xy}$ & Diagonals & N$-$EW & $r_\mathrm{EW}$"
     return table(rows, "Redundancy of the scans per series, and the components of the floor", "tab:s-scan",
                  "lrrrrrr", head, colsep="3pt", place="p", size=r"\tabsizesmall",
-                 note=r"$W_y-W_x$: flange width along minus across the scan lines (mm); $\sigma_y/\sigma_x$: ratio of their "
+                 note=r"$W_y-W_x$: flange width in the direction of motion minus that along the laser line (mm); "
+                      r"$\sigma_y/\sigma_x$: ratio of their "
                       r"part-to-part standard deviations; $r_{xy}$: their correlation; diagonals: difference of the two "
                       r"flange diagonals (mm); N$-$EW: north wall angle minus the mean of east and west ($^\circ$); "
                       r"$r_\mathrm{EW}$: correlation of east and west. Components: $\sigma_\mathrm{b}$ between batch means, "

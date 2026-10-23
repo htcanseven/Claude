@@ -71,7 +71,7 @@
 \fi
 
 %% BEGIN ABSTRACT
-\abstract{Simulation and machine learning increasingly inform design-stage manufacturability decisions, yet such predictors are judged by their prediction error, not by whether their verdicts could replace a physical trial. This paper proposes a production-referenced evaluation of design-stage decision rules. Its unit, the within-run floor, is the difference that drift and scatter of production and measurement produce between two batches of one design within a run. For each evidence relation of a new design to what has been produced (a produced sibling, a new process setting or a new family), a rule that returns meets, fails or trial is characterised by its decisive distance, beyond which at least 95\,\% of its verdicts are correct, and its safe distance, beyond which at most 5\,\% are wrong; a guard band turns these into a rule for single verdicts. An exploratory application to one laboratory deep-drawing process, with every alternative produced in a single run and an uncalibrated simulation dataset, scored simulation-based, learned and production-record rules. The nearest produced setting, committed to in advance, decided at 3.4 floors with a produced sibling and at 8.5 floors for a new process setting. No simulation-based or learned rule was more decisive, and a Gaussian process specified for the small-data regime reduced to a force trend. Intervals calibrated on the same evidence relation in the other family, not learning, made the production record safe for new settings. For a new family the simulation was indispensable, yet no rule decided reliably closer than 30 floors. Within a design family, a production record indexed by its relation to the coming design is the baseline that a learned manufacturability check has to beat.}
+\abstract{Simulation and machine learning inform design-stage manufacturability decisions, yet they are judged by prediction error, not by whether their verdicts could replace a physical trial. This paper proposes a production-referenced evaluation of design-stage decision rules. Its unit, the within-run floor, is the difference that drift and scatter of production and measurement produce between two batches of one design within a run. For each evidence relation of a new design to produced ones (a sibling, a new process setting or a new family), a rule that returns meets, fails or trial is characterised by its decisive distance, beyond which at least 95\,\% of its verdicts are correct, and its safe distance, beyond which at most 5\,\% are wrong; a guard band turns them into single verdicts. An exploratory application to one laboratory deep-drawing process, with alternatives produced once and an uncalibrated simulation dataset, scored simulation-based, learned and production-record rules. The nearest produced setting, committed to in advance, decided at 3.4 floors with a sibling and 8.5 for a new process setting. No simulation-based or learned rule was more decisive; a Gaussian process specified for small data reduced to a force trend. Intervals calibrated on the same relation in the other family, not learning, made the production record safe for new settings. For a new family only simulation-based rules decided, none closer than 30 floors. Within a family, a production record indexed by its relation to the coming design is the baseline a learned manufacturability check has to beat.}
 %% END ABSTRACT
 
 \keywords{decision support, design for manufacturing, machine learning, uncertainty quantification, selective prediction, deep drawing}
@@ -155,7 +155,7 @@ Production evidence comes as series of consecutive parts, each cut into batches 
 F_c = Q_\alpha\bigl\{\,|m_i - m_j| : i< j \text{ batches of the same alternative}\,\bigr\},
 \label{eq:floor}
 \end{equation}
-the $\alpha$-quantile of the difference between two batches of one design. Under a stationary normal model with a standard deviation $\sigma_\mathrm{b}$ between batch means and $\sigma_\mathrm{w}$ between parts, $F_c = 1.96\sqrt{2}\sqrt{\sigma_\mathrm{b}^2+\sigma_\mathrm{w}^2/B}$ at $\alpha=0.95$, the form of the repeatability limit \citep[clause~4.1.4]{iso2025repeatability}; because it pools batch pairs up to 450 parts apart and grows with their lag, it is closer to a time-different intermediate-precision limit \citep{iso2023intermediate} of batch centres within a run. The reference protocol is $B=50$, ten batches of a 500-part run, all pairs of batches and $\alpha=0.95$; every characteristic is scored in the floor of its own geometry, and the pooled floor serves only to convert distances to physical units. The floor rests on three assumptions: batches of one design differ only by drift and scatter within a run (A1); the variation within the runs from which it is estimated is like that within future runs (A2); and the measuring system is repeatable and its resolution small against the floor (A3).
+the $\alpha$-quantile of the difference between two batches of one design. Under a stationary normal model with a standard deviation $\sigma_\mathrm{b}$ between batch means and $\sigma_\mathrm{w}$ between parts, $F_c = 1.96\sqrt{2}\sqrt{\sigma_\mathrm{b}^2+\sigma_\mathrm{w}^2/B}$ at $\alpha=0.95$, the form of the repeatability limit \citep{iso2025repeatability, iso1994accuracy}; because it pools batch pairs up to 450 parts apart and grows with their lag, it is closer to a time-different intermediate-precision limit \citep{iso2023intermediate} of batch centres within a run. The reference protocol is $B=50$, ten batches of a 500-part run, all pairs of batches and $\alpha=0.95$; every characteristic is scored in the floor of its own geometry, and the pooled floor serves only to convert distances to physical units. The floor rests on three assumptions: batches of one design differ only by drift and scatter within a run (A1); the variation within the runs from which it is estimated is like that within future runs (A2); and the measuring system is repeatable and its resolution small against the floor (A3).
 
 Four properties matter for its use. It has the unit of the characteristic, so distances in floors put all characteristics and predictors on a common scale, though equal distances do not mean equal nonconforming fractions. It is a property of a protocol, and $\sigma_\mathrm{b}$ and $\sigma_\mathrm{w}$ are reported so that it can be recomputed. It contains whatever drifts between batches, process and measuring system alike: without a reference artefact scanned through the series it is a production-and-measurement floor, and not the shop floor. And it excludes the variation between runs, which makes it a lower bound of the variation of series production. A new family, whose floor is unknown before it is produced, is scored in the floor of the produced family. Two alternatives $a$ and $b$ are resolvable for $c$ when their effect-to-scatter ratio $\mathrm{ESR}_c(a,b) = |\bar m_a - \bar m_b|/F_c$ is at least one, $\bar m$ being the centre of all parts of an alternative; for a continuous parameter $x$ with local sensitivity $s_c=\partial\bar m/\partial x$ the minimum resolvable change is $F_c/|s_c|$.
 
@@ -183,7 +183,7 @@ M7n trend GP$^\ddagger$ & linear mean plus GP, MAP under priors & GP (nominal 0.
 NN+RM$^\ddagger$ & NN & relation-matched (0.9) & $q_p$ \\
 \botrule
 \end{tabular}
-\footnotetext{Fitted on the calibration alternatives; descriptors: geometry indicator, blank-holder force and lubrication rank. Pre-specified unless marked: $^\dagger$ added after the first results; $^\ddagger$ added in revision. Levels: guaranteed (largest residual, $n$ calibration alternatives: 8 with a sibling, 6 for a new setting, 9 for a new family) or nominal.}
+\footnotetext{Fitted on the calibration alternatives; descriptors: geometry indicator, blank-holder force and lubrication rank. Pre-specified unless marked: $^\dagger$ added after the first results; $^\ddagger$ added for this version. Levels: guaranteed (largest residual, $n$ calibration alternatives: 8 with a sibling, 6 for a new setting, 9 for a new family) or nominal.}
 \end{table}
 
 \subsection{Operating characteristics: decisive and safe distances}\label{sec:distances}
@@ -205,7 +205,7 @@ The distances are exact up to the 0.05-floor grid on which they are evaluated, b
 
 \subsection{Evidence relation and calibration budget}\label{sec:budget}
 
-How a new design relates to the produced alternatives is part of the decision situation. With a \emph{sibling}, an alternative at the same process setting has been produced that differs only in the factor varied at a fixed setting (here the lubrication pattern); a \emph{new process setting} lies between produced settings (interpolation) or outside them (extrapolation); a \emph{new family} shares no produced alternative. A team knows, before it decides, whether the produced siblings of a new variant differ resolvably from each other, so the sibling relation is stratified by this decision-time information, not by the new design's own production. The calibration budget is the dependence of the distances on the number $k$ of produced alternatives. An applicability guard flags a design outside the calibration, in the spirit of a valid input domain \citep{malak2010using}: its geometry is not calibrated, a descriptor lies outside the calibrated range, or its simulated $q_p$ lies outside that of the calibration alternatives.
+How a new design relates to the produced alternatives is part of the decision situation. With a \emph{sibling}, an alternative at the same process setting has been produced that differs only in the factor varied at a fixed setting (here the lubrication pattern, which the nominal simulation does not represent); a \emph{new process setting} lies between produced settings (interpolation) or outside them (extrapolation); a \emph{new family} shares no produced alternative. A team knows, before it decides, whether the produced siblings of a new variant differ resolvably from each other, so the sibling relation is stratified by this decision-time information, not by the new design's own production. The calibration budget is the dependence of the distances on the number $k$ of produced alternatives. An applicability guard flags a design outside the calibration, in the spirit of a valid input domain \citep{malak2010using}: its geometry is not calibrated, a descriptor lies outside the calibrated range, or its simulated $q_p$ lies outside that of the calibration alternatives.
 
 \subsection{Procedure}\label{sec:procedure}
 
@@ -285,29 +285,29 @@ The constants of the floor and of the requirement grid were set before the decis
 
 \subsection{What the floor contains}\label{sec:res-floor}
 
-Two batches of 50 consecutive parts of one alternative differ by up to 0.051\,mm in mid-side draw-in and 0.078$^\circ$ in wall angle in 95\,\% of batch pairs (Table~\ref{tab:floors}), so one floor is 0.7 to 1.7 long-term standard deviations of the parts. The floors are set by drift within the run (Fig.~\ref{fig:batches}): without the time order they shrink by a factor of 2.1 to 4.5, and batches one position apart differ by 0.51--0.80 floors, nine apart by 1.1--1.5. They vary between runs: the floor of a single run is 0.21 to 2.16 times the pooled floor of its geometry, and the alternative-cluster interval is wider than the batch interval. Without the warm-up of the first 150 parts the floors fall to 0.75--1.00 of the reference, which keeps the warm-up because series production starts up after every break. Independent part-to-part noise, scanner repeatability included, accounts for 15--33\,\% of each floor, and the resolution is small against it except for the mid-side draw-in, so A3 holds for repeatability and resolution.
+Two batches of 50 consecutive parts of one alternative differ by up to 0.051\,mm in mid-side draw-in and 0.078$^\circ$ in wall angle in 95\,\% of batch pairs (Table~\ref{tab:floors}), so one floor is 0.7 to 1.7 long-term standard deviations of the parts. The floors are set by drift within the run (Fig.~\ref{fig:batches}): without the time order they shrink by a factor of 2.1 to 4.5, and batches one position apart differ by 0.51--0.80 floors, nine apart by 1.1--1.5. They vary between runs: the floor of a single run is 0.21 to 2.16 times the pooled floor of its geometry, and the alternative-cluster interval is wider than the batch interval. Without the warm-up of the first 150 parts the floors fall to 0.75--1.00 of the reference, which keeps the warm-up because series production starts up after every break. Independent part-to-part noise, scanner repeatability included, accounts for 15--33\,\% of each floor, and the resolution is small against it except for the mid-side draw-in, so A3 holds for repeatability and resolution, while bias, linearity and stability remain untested.
 
 Physical candidates for the drift are the warm-up of the tools and its effect on the lubricant, the build-up of lubricant on die and blank holder over consecutive strokes, and variation of the material and of the blank size along the stack, which enters the draw-in one to one because it is computed against the nominal 210\,mm blank. Whether the drift is the process or the scanner cannot be settled without a reference artefact, but two checks bear on it. No recorded process signal explains it: batch centres of press force, punch temperature, sheet thickness and oil film predict it out of fold with $R^2$ of $-0.23$ to $0.20$. And the batch centres of the flange width and of the cup width at 15\,mm depth, which punch and die largely fix, are weakly correlated within the runs ($r=-0.27$ and $+0.27$), which argues against a common lateral scale drift of the scanner; the cup width varies by 0.06--0.07\,mm between batches, so it bounds such a drift only below 0.05\,\%, and drift in height and of the edge detection remain untestable. Variation between runs is not in the floor: the three lubrication series of one geometry and force differ by 1.2 (waviness) to 9.8 floors (dome) at the 95th percentile of their centre differences, lubrication effects included, whereas within a run the 95th percentiles of two batches of 100 parts differ by 0.92--1.49 floors in 95\,\% of pairs.
 
 %% BEGIN GENERATED floors
 \begin{table}[t]
 \tabsize
-\setlength{\tabcolsep}{1pt}
+\setlength{\tabcolsep}{3pt}
 \caption{Within-run floor per characteristic, pooled and per geometry, with its spread over runs}\label{tab:floors}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrrrr@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrrr@{}}
 \toprule
-Characteristic & $F$ & Batches & Clusters & Concave/convex & Single runs & No warm-up & $F/\sigma_\mathrm{LT}$ \\
+Characteristic & $F$ & Interval & Concave/convex & Single runs & No warm-up & $F/\sigma_\mathrm{LT}$ \\
 \midrule
-Mid-side (mm) & 0.051 & 0.045--0.061 & 0.042--0.061 & 0.050/0.052 & 0.36--1.62 & 0.99 & 1.0/1.4 \\
-Corner (mm) & 0.046 & 0.035--0.052 & 0.032--0.053 & 0.053/0.030 & 0.27--1.62 & 0.95 & 1.4/1.2 \\
-Wavin. (mm) & 0.0028 & 0.0024--0.0031 & 0.0021--0.0050 & 0.0037/0.0021 & 0.21--2.08 & 0.89 & 1.6/0.7 \\
-Wall ($^\circ$) & 0.078 & 0.066--0.10 & 0.054--0.10 & 0.081/0.078 & 0.30--1.74 & 0.80 & 1.3/0.7 \\
-Arm ($^\circ$) & 0.11 & 0.094--0.12 & 0.089--0.15 & 0.12/0.100 & 0.40--2.16 & 1.00 & 1.7/0.8 \\
-Depth (mm) & 0.011 & 0.0096--0.012 & 0.0090--0.012 & 0.0087/0.012 & 0.39--1.45 & 0.75 & 1.4/1.6 \\
-Dome (mm) & 0.0070 & 0.0061--0.0081 & 0.0052--0.0084 & 0.0034/0.0082 & 0.42--1.61 & 0.93 & 1.2/1.6 \\
+Mid-side (mm) & 0.051 & 0.042--0.061 & 0.050/0.052 & 0.36--1.62 & 0.99 & 1.0/1.4 \\
+Corner (mm) & 0.046 & 0.032--0.053 & 0.053/0.030 & 0.27--1.62 & 0.95 & 1.4/1.2 \\
+Wavin. (mm) & 0.0028 & 0.0021--0.0050 & 0.0037/0.0021 & 0.21--2.08 & 0.89 & 1.6/0.7 \\
+Wall ($^\circ$) & 0.078 & 0.054--0.10 & 0.081/0.078 & 0.30--1.74 & 0.80 & 1.3/0.7 \\
+Arm ($^\circ$) & 0.11 & 0.089--0.15 & 0.12/0.100 & 0.40--2.16 & 1.00 & 1.7/0.8 \\
+Depth (mm) & 0.011 & 0.0090--0.012 & 0.0087/0.012 & 0.39--1.45 & 0.75 & 1.4/1.6 \\
+Dome (mm) & 0.0070 & 0.0052--0.0084 & 0.0034/0.0082 & 0.42--1.61 & 0.93 & 1.2/1.6 \\
 \botrule
 \end{tabular*}
-\footnotetext{Batches of 50 consecutive parts, 95\,\% quantile of the difference of their 10\,\% trimmed means. Batches, Clusters: 95\,\% intervals from 2000 resamples of batches and of whole alternatives. Single runs: floor of one run over that of its geometry, range over the 18 runs. No warm-up: floor without the first 150 parts over the reference. $\sigma_\mathrm{LT}$: standard deviation of the parts of a series (concave/convex); $\sigma_\mathrm{b}$, $\sigma_\mathrm{w}$ and the drift in \esm{Table~S20}.}
+\footnotetext{Batches of 50 consecutive parts, 95\,\% quantile of the difference of their 10\,\% trimmed means. Interval: 95\,\% over 2000 resamples of whole alternatives (the narrower interval over resampled batches is in the archive). Single runs: floor of one run over that of its geometry, range over the 18 runs. No warm-up: floor without the first 150 parts over the reference. $\sigma_\mathrm{LT}$: standard deviation of the parts of a series (concave/convex); $\sigma_\mathrm{b}$, $\sigma_\mathrm{w}$ and the drift in \esm{Table~S20}.}
 \end{table}
 %% END GENERATED floors
 
@@ -361,7 +361,7 @@ NN+RM$^\ddagger$ & 6.3/$<$1 & $<$1/$<$1 & 9.6/$<$1 & $<$1/$<$1 & 20/$<$1 & 1.5/$
 Trial, first 50 parts & 0.90 & 1.0/0.85 & 0.90 & 1.0/0.85 & 0.90 & 1.0/0.85 & 0.90 & 1.0/0.85 \\
 \botrule
 \end{tabular}
-\footnotetext{Over all seven characteristics; one number for rules that always decide; $<$1: below one floor. FA/FR: safe distances on the false-accept and the false-reject side. 126 cases with a sibling and for a new family, 42 interpolated, 84 extrapolated; a new family in the produced family's floor (in its own floor in \esm{Table~S1}). Interval: 95\,\% over 1000 resamples of the held-out alternatives, fits fixed. Trial: the first $n$ parts of the design's own run, a within-run lower bound. $^\dagger$, $^\ddagger$: added after the first results and in revision.}
+\footnotetext{Over all seven characteristics; one number for rules that always decide; $<$1: below one floor. FA/FR: safe distances on the false-accept and the false-reject side. 126 cases with a sibling and for a new family, 42 interpolated, 84 extrapolated; a new family in the produced family's floor (in its own floor in \esm{Table~S1}). Interval: 95\,\% over 1000 resamples of the held-out alternatives, fits fixed. Trial: the first $n$ parts of the design's own run, a within-run lower bound. $^\dagger$, $^\ddagger$: added after the first results and for this version.}
 \end{table}
 %% END GENERATED distances
 
@@ -633,9 +633,9 @@ M7n & 6.8/$<$1 & 85 & 7.4/3.4 & 52 & 15/5.9 & 56 & 132/130 & 0 \\
 %% BEGIN GENERATED groups
 \begin{table}[p]
 \tabsizesmall
-\setlength{\tabcolsep}{1.2pt}
+\setlength{\tabcolsep}{1pt}
 \caption{Decisive distance per characteristic in floors and, in brackets, in its unit}\label{tab:groups}
-\begin{tabular}{@{}lrrrrrrr@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrrrr@{}}
 \toprule
  & \multicolumn{3}{c}{NN} & M1sn & M1s & M5 & \\
 \cmidrule(lr){2-4}
@@ -649,7 +649,7 @@ Arm ($^\circ$) & 2.8 (0.28) & 5.9 (0.59) & 5.4 (0.53) & 9.5 (0.94) & 5.9 (0.69) 
 Depth (mm) & 3.3 (0.039) & 4.4 (0.038) & 15 (0.13) & 9.9 (0.086) & 165 (1.4) & 20 (0.20) & 2.4 \\
 Dome (mm) & 7.0 (0.038) & 5.3 (0.044) & 4.3 (0.020) & 3.0 (0.020) & 15 (0.056) & 40 (0.21) & 4.0 \\
 \botrule
-\end{tabular}
+\end{tabular*}
 \footnotetext{18 cases per characteristic with a sibling and for a new family, 6 interpolated, 12 extrapolated; units through the pooled floor of the characteristic; a new family in the produced family's floor. $P_\mathrm{pk}$: median performance index of a requirement at the decisive distance of NN with a sibling. All rules and the safe distances in \esm{Table~S15}.}
 \end{table}
 %% END GENERATED groups
@@ -657,9 +657,9 @@ Dome (mm) & 7.0 (0.038) & 5.3 (0.044) & 4.3 (0.020) & 3.0 (0.020) & 15 (0.056) &
 %% BEGIN GENERATED validation
 \begin{table}[p]
 \tabsizesmall
-\setlength{\tabcolsep}{1.6pt}
+\setlength{\tabcolsep}{1pt}
 \caption{The simulation dataset against the measurement, over the six geometry--force cells}\label{tab:validation}
-\begin{tabular}{@{}lrrrrrrr@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrrrr@{}}
 \toprule
 Characteristic & Measured & Sim.\,$-$\,meas. & In floors & Inside & Closest $\mu$ & $x$--$y$ & Roughness \\
 \midrule
@@ -671,7 +671,7 @@ Arm ($^\circ$) & $-$4.95 to +0.76 & $-$4.64 to +0.42 & $-$40 to +4 & 3 & 0.05--0
 Depth (mm) & 28.29--28.82 & 0.71--1.06 & 58--116 & 0 & 0.05--0.15 & -- & 0.7--0.8 \\
 Dome (mm) & 0.030--0.116 & $-$0.087 to +0.104 & $-$11 to +30 & 3 & 0.08--0.15 & -- & 2.4--9.8 \\
 \botrule
-\end{tabular}
+\end{tabular*}
 \footnotetext{Measured: range of the cells' centres (signed). Sim.\,$-$\,meas.: simulation at 0.99\,mm and friction 0.10 minus the measured centre, in the unit and in floors. Inside: cells whose measured centre lies within the simulated range over the friction grid (of 6). Closest $\mu$: grid friction nearest the measurement. $x$--$y$, Roughness: standard deviation of the difference between the two directions of the quarter model and roughness along the friction grid (floors), the extraction noise of the simulation. Per cell in \esm{Table~S18}.}
 \end{table}
 %% END GENERATED validation
@@ -687,12 +687,12 @@ Section & Results & Script: result files \\
 3.4, 4.1, 4.3 & failing-side weight, run metadata, scan redundancy and biases, resolution & panel.py: panel\_failing\_weight, panel\_runs, panel\_resolution\_steps; measurement.py: meas\_scan; simcheck.py: meas\_characteristics, meas\_cut\_walls \\
 4.2 & simulation noise of the characteristics & measurement.py: meas\_sim \\
 5.1 & time order, lag profile, single-run floors, warm-up, components, tooling reference, in-line drift & alternatives.py: alt\_floor; sensitivity.py: sens\_drift; panel.py: panel\_variogram, panel\_floor\_protocol; measurement.py: meas\_floor; simcheck.py: meas\_run\_floors, meas\_tooling\_reference; inline.py: inline\_drift \\
-5.2 & resolvable contrasts, validation, friction fits, oil mapping, depth offset, envelope, force effect, arm sign & alternatives.py: alt\_effects, alt\_mrc; simcheck.py: sim\_validation, sim\_mc\_friction, sim\_oil\_mapping, sim\_depth\_offset, sim\_envelope\_variant; learners.py: learn\_mcd\_posterior; panel.py: panel\_force\_effect, panel\_arm\_sign, panel\_m0\_split \\
+5.2 & resolvable contrasts, validation, friction fits, oil mapping, depth offset, envelope, force effect, arm sign, surrogate & alternatives.py: alt\_effects, alt\_mrc; simcheck.py: sim\_validation, sim\_mc\_friction, sim\_oil\_mapping, sim\_depth\_offset, sim\_envelope\_variant; learners.py: learn\_mcd\_posterior; panel.py: panel\_force\_effect, panel\_arm\_sign, panel\_m0\_split; design\_space.py: ds\_surrogate\_rule \\
 5.3 & distances, paired differences, strata, per characteristic, units & decisions.py: dec\_resolution, dec\_paired; learners.py: learn\_resolution, learn\_source\_floor, learn\_paired; panel.py: panel\_source\_floor; qualify.py: qual\_strata, qual\_per\_characteristic \\
-5.4 & GP diagnostics, crossing, coverage, interval score, tuning study, few-shot transfer & learners.py: learn\_gp\_diagnostics, learn\_fewshot; qualify.py: qual\_coverage; decisions.py: dec\_gp; tuning.py: tune\_decisions \\
+5.4 & GP diagnostics, crossing, coverage, interval score, M6, tuning study, few-shot transfer & learners.py: learn\_gp\_diagnostics, learn\_fewshot; qualify.py: qual\_coverage, qual\_m6\_coverage; decisions.py: dec\_gp; tuning.py: tune\_decisions \\
 5.5 & guard bands per family, out of sample, priors, per characteristic & qualify.py: qual\_guard\_family, qual\_guard\_oos, qual\_guard\_prior\_width, qual\_guard\_characteristic; panel.py: panel\_step6, panel\_guard\_priors \\
 5.6 & costs, trial, capability-anchored limits & qualify.py: qual\_costs, qual\_trial; panel.py: panel\_capability \\
-5.7 & between-run sensitivity, cross-fit, resolvable difference, design level, variants, robustness, budget & qualify.py: qual\_between\_run, qual\_crossfit, qual\_resolvable\_difference, qual\_design\_level, qual\_variants, qual\_decomposition; robustness.py: rob\_decisions, rob\_refit; budget.py: budget\_design \\
+5.7 & between-run sensitivity, cross-fit, resolvable difference, design level, variants, floors without the held-out series, robustness, budget & qualify.py: qual\_between\_run, qual\_crossfit, qual\_resolvable\_difference, qual\_design\_level, qual\_variants, qual\_decomposition, qual\_floor\_loao; robustness.py: rob\_decisions, rob\_refit; budget.py: budget\_design \\
 6.4 & scoring function; PA12 attempt & opchar.py (self-check against dec\_resolution); case2\_pa12.py: case2\_floor \\
 \botrule
 \end{tabular}

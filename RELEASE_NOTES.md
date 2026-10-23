@@ -1,7 +1,50 @@
 # Release notes
 
-Code, feature tables and result files of the paper *Evaluating AI-based manufacturability decisions against the
-resolution of production* (H. T. Canseven).
+Code, feature tables and result files of the paper *When can a prediction replace a physical trial? A
+production-referenced evaluation of design-stage decision rules in deep drawing* (H. T. Canseven), first submitted
+as *Evaluating AI-based manufacturability decisions against the resolution of production*.
+
+## Version 2 (October 2026)
+
+Version 2 holds the code, feature tables and result files that produce the numbers of the revised paper and of its
+Online Resource 1. Every result file of version 1 is unchanged (the checksums under version 1 still hold), except
+the figure `F5_reliability`, which now shows the rules of the main text; `figs.py`, `make_tables.py` and `run_all.sh`
+were extended, and the revision adds:
+
+- `scripts/learners.py`: the trend GP M7n, the autoregressive multi-fidelity model M7, the friction calibration with
+  a discrepancy term Mcd, predictors with relation-matched intervals (P+RM), GP diagnostics and the few-shot transfer
+  to a new family (`results/learn_*.csv`).
+- `scripts/qualify.py`: decision-time sibling strata, guard bands per family, out of sample and under other priors,
+  costs and the trial as a rule, coverage with cluster intervals and interval scores, the between-run sensitivity,
+  cross-fitted selection, results per characteristic, design-level verdicts, lower limits, short runs, a capability
+  statistic, M6 coverage and floors without the held-out series (`results/qual_*.csv`).
+- `scripts/simcheck.py`: the simulation dataset against the measurement and the measurement behind the floor
+  (`results/sim_*.csv`, `results/meas_characteristics.csv`, `meas_cut_walls.csv`, `meas_run_floors.csv`,
+  `meas_tooling_reference.csv`).
+- `scripts/opchar.py`: the scoring function on its own, for any table of intervals, truths and floors;
+  `python opchar.py --selfcheck` reproduces `results/dec_resolution.csv`.
+- `paper/supplement.tex`: Online Resource 1; `scripts/make_tables.py` now also writes its Tables S1--S20.
+- `requirements.txt` now pins every package, including `tabulate`, which `DataFrame.to_markdown` needs.
+
+Main result files added in version 2:
+
+| File | SHA-256 |
+|---|---|
+| `results/learn_intervals.csv` | `9abfbe52fa20e0e0a29b63721ff8364d101b1c2d937e92543155e4c17acd0b3c` |
+| `results/learn_resolution.csv` | `3241c641ffd6b60e84800cbb1928d2c8350f5aa401085775e3b9bfb3ee0a9b60` |
+| `results/qual_strata.csv` | `9ef41a47ec1f943d967fb4f1756f30cf57c3eb54870267164a8e5aa916323010` |
+| `results/qual_guard_oos.csv` | `8d39ffb9ed6b6552614d7eee2487ed03839791d6ed2888cee782acc80ac34008` |
+| `results/qual_coverage.csv` | `269c1d8d6107e670a1ef823a806b7352e0492a571b93b2e8279cd7373ff66836` |
+| `results/qual_costs.csv` | `0c31c81c0242c477498fe955c5c2b590938a41a98c5bfaf2aa956a677346a8a2` |
+| `results/sim_validation.csv` | `97f51438d6e3cf9cba24953330833374f6cde1d2fd70cbc1695a1122019ebc28` |
+
+**Constants and development record.** No timestamped snapshot of the constants was deposited before the first
+results; the paper therefore no longer states that the repository history records when they were set. The order in
+which rules and analyses were added, and which of them followed reviews simulated with a language model, is stated in
+Section 4.5 and in the declarations of the paper.
+
+**Licence.** The code carries no licence yet: the author adds a `LICENSE` file and the licence field of the deposit
+metadata before the deposit is published. The data-derived files keep the CC BY 4.0 terms below.
 
 ## Version 1 (October 2026)
 
@@ -30,7 +73,7 @@ unpacked deposit, `sha256sum -c SHA256SUMS` checks them all. The main result fil
 | `results/panel_step6.csv` | `733329987119679ee1cfa8a2bf6c31d553abe9edb76432b53e215e6ad3ac6fef` |
 | `results/rob_refit.csv` | `d244fb64230e75f18806e5716270e7355282e9108bc3d7573c8db195be3e6c18` |
 
-**Licence and attribution.** For the licence of the code, see `LICENSE`. The feature tables and the result files are
+**Licence and attribution.** For the licence of the code, see version 2. The feature tables and the result files are
 derived from two datasets by S. Baum and P. Heinzelmann, both licensed under CC BY 4.0
 (<https://creativecommons.org/licenses/by/4.0/>):
 

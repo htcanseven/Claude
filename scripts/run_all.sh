@@ -23,7 +23,12 @@ python3 panel.py             # analyses for the review panel: strata, guard band
 python3 budget.py            # decisions against the number and choice of calibration alternatives
 python3 robustness.py        # data weaknesses, constants, GP specification, refitting bootstrap
 python3 tuning.py            # learner and settings of the part-level rules M3 and M4
-python3 design_space.py      # DDACS corners and sensitivities (not in the paper); surrogate accuracy (Sect. 5.5)
+python3 design_space.py      # DDACS corners and sensitivities (not in the paper); surrogate accuracy (Sect. 5.2)
 python3 inline.py            # in-line signals: drift of the batch centres (Sect. 5.1), part-level verifiability
-python3 figs.py              # figures in the paper's style (results/figures)
-python3 make_tables.py       # tables of paper/main.tex from the CSVs
+python3 learners.py          # trend GP M7n, multi-fidelity M7, calibration with discrepancy Mcd, P+RM, few-shot (~40 min)
+python3 simcheck.py          # simulation against the measurement; measurement characteristics, run floors, tooling
+python3 qualify.py           # strata, guard bands out of sample, costs, coverage, between-run, cross-fit, design level
+python3 opchar.py --selfcheck  # the stand-alone scoring function reproduces dec_resolution.csv
+python3 figs.py              # figures in the paper's style (results/figures; copied to paper/figures for LaTeX)
+python3 make_tables.py       # tables of paper/main.tex and of Online Resource 1 (paper/supplement.tex) from the CSVs
+cp ../results/figures/*.pdf ../paper/figures/

@@ -1,4 +1,4 @@
-# Evaluating AI-based manufacturability decisions against the resolution of production
+# When can a prediction replace a physical trial? A production-referenced evaluation of design-stage decision rules in deep drawing
 
 Working repository for the paper, submitted to the *Journal of Intelligent Manufacturing*. The dataset survey
 that led here is in [`dataset-survey-DFM.md`](dataset-survey-DFM.md).
@@ -20,8 +20,10 @@ describes.
 
 ## Archive
 
-The paper cites version 1 of this repository on Zenodo, which holds the code, feature tables and result files of the
-paper as submitted (deposit metadata: `.zenodo.json`, `CITATION.cff`). [`RELEASE_NOTES.md`](RELEASE_NOTES.md) gives
+The paper cites this repository on Zenodo (deposit metadata: `.zenodo.json`, `CITATION.cff`). Version 1 held the code,
+feature tables and result files of the paper as first submitted; version 2 adds those of the revision (the scripts
+`learners.py`, `qualify.py`, `simcheck.py` and `opchar.py` and their results). The licence of the code and the DOI are
+set by the author when the deposit is published. [`RELEASE_NOTES.md`](RELEASE_NOTES.md) gives
 the checksums of the main result files; `SHA256SUMS` holds the SHA-256 checksums of every script and result file
 (`sha256sum -c SHA256SUMS` checks them; `bash scripts/write_checksums.sh` rewrites the file).
 
@@ -31,8 +33,8 @@ the checksums of the main result files; `SHA256SUMS` holds the SHA-256 checksums
 |---|---|
 | `scripts/features_rddac.py` | `results/features_rddac.csv`: one row per part (force features, traverses, scan characteristics) |
 | `scripts/features_ddacs.py` | `results/features_ddacs_rddac.csv`, `results/features_ddacs_corners.csv`: the same characteristics from simulations |
-| `scripts/qc.py` | the single definition of each quality characteristic (mid-side draw-in from the widths across the scan lines, wall angle from the east and west walls) |
-| `scripts/alternatives.py` | production floor (batch and cluster intervals), effect-to-scatter ratios, minimum resolvable change |
+| `scripts/qc.py` | the single definition of each quality characteristic (mid-side draw-in from the flange widths along the laser line, wall angle from the east and west walls) |
+| `scripts/alternatives.py` | within-run floor (batch and cluster intervals), effect-to-scatter ratios, minimum resolvable change |
 | `scripts/sensitivity.py` | the floor under other batch sizes, quantiles and batch centres; scatter versus drift |
 | `scripts/measurement.py` | redundancy of the scans, components of the floor (short- and long-term variation, white-noise share, q95 floor, half series, between-series bound), extraction noise of the simulations |
 | `scripts/decisions.py` | design-stage decisions (meets / fails / trial) of fourteen rules, each calibrated rule with and without the simulation (the force trend M1sn is the counterpart of the scaled simulation M1s), by evidence relation (new variant, new process setting with interpolation/extrapolation, new family, pooled); exact decisive and safe distances, one-sided distances, paired bootstrap with reference replicates, coverage, GP diagnostics |
@@ -43,29 +45,33 @@ the checksums of the main result files; `SHA256SUMS` holds the SHA-256 checksums
 | `scripts/robustness.py` | temperature, first 150 parts dropped, force–speed confound, constants, floor protocol, floor between series, short calibration series, adequacy share, smoothed simulation, GP specification, leave one pattern out, friction mapping, conformalised GP, relation-preserving refitting bootstrap with paired intervals |
 | `scripts/tuning.py` | learners and settings of the part-level rules M3 and M4 (including quantile loss and inner selection) |
 | `scripts/design_space.py`, `scripts/inline.py` | DDACS corner sensitivities (not in the paper) and the surrogate of the simulations; drift of the batch centres explained by the in-line signals, and part-level verifiability |
+| `scripts/learners.py` | rules added in the revision: trend GP M7n (universal kriging, MAP under priors), autoregressive multi-fidelity M7, friction calibration with a GP discrepancy Mcd, predictors with relation-matched split-conformal intervals (P+RM), GP diagnostics, few-shot transfer to a new family (ICM GP) |
+| `scripts/simcheck.py` | the simulation dataset against the measurement (validation, friction fits, depth offset, oil-film mapping, envelope over measured inputs) and the measurement (characteristics, single-run floors, a dimension fixed by the tooling) |
+| `scripts/qualify.py` | qualification as a team would use it: decision-time sibling strata, guard bands per family, out of sample and per prior, costs and the trial as a rule, coverage with cluster intervals and interval scores, between-run sensitivity, cross-fitted selection, per-characteristic results, design-level verdicts, lower limits, short runs, capability statistic, M6 coverage, floors without the held-out series |
+| `scripts/opchar.py` | the scoring function on its own: distances, guard band, step 6 and expected cost for any table of intervals, truths and floors (`--selfcheck` reproduces `dec_resolution.csv`) |
 | `scripts/case2_pa12.py` | exploratory, not in the paper and not run by `run_all.sh` (see its docstring) |
 | `scripts/figs.py` | `results/figures/`: the paper's figures (PDF and PNG) |
-| `scripts/make_tables.py` | writes the data tables from the CSVs into `paper/main.tex` |
+| `scripts/make_tables.py` | writes the data tables from the CSVs into `paper/main.tex` and `paper/supplement.tex` (Online Resource 1) |
 
 The results, with every number traced to its CSV, are summarised in [`results/findings.md`](results/findings.md).
 
-`bash scripts/run_all.sh` reproduces every analysis from the cached feature tables in about four hours on
+`bash scripts/run_all.sh` reproduces every analysis from the cached feature tables in about five hours on
 four cores (and extracts them first if they are missing, which takes hours). Constants live in `scripts/common.py` and at the top of each script; seeds are fixed.
 
 Requirements: Python 3.11 with the packages in `requirements.txt`.
 
 ## Manuscript
 
-`paper/main.tex` (Springer `sn-jnl`; build with `latexmk -pdf main.tex` in `paper/`) is a single file of 30 pages:
-main text, one appendix (notation, robustness results, interval rules, the procedure's decision rule, a table that
-maps every quoted number to its script and result file, computation details) and references, with no supplementary
-material. Results that the paper does not tabulate are in the result files of `results/`. Tables
-between `%% BEGIN GENERATED` markers are written by `scripts/make_tables.py`; figures are copied from
-`results/figures/`. `paper/submission/` holds the cover letter, outreach drafts, the upload script and the
-submission checklist. `paper/review/` holds the simulated referee reports on the first version and the response to
-them, and `paper/review/cfp_panel/` a simulated review panel: three reviewers and a guest editor,
-all AI agents, with the response to them (`response_to_panel.md`) and a marked-up comparison with the reviewed
-version (`main_diff.pdf`); its second round is in `paper/review/cfp_panel/round2/` (reports, decision, the response
-`response_round2.md` with page and line numbers, and `main_diff.pdf` against the second-round version), and its third
-round in `paper/review/cfp_panel/round3/` (reports, the simulated decision to accept in principle, the response
-`response_round3.md` and `main_diff.pdf` against the third-round version).
+`paper/main.tex` (Springer `sn-jnl`; build with `latexmk -pdf main.tex` in `paper/`) is the manuscript: main text, one
+appendix (notation, further rules, Gaussian-process diagnostics, relation-matched intervals, results per
+characteristic, the simulation against the measurement, a table that maps every quoted number to its script and
+result file, computation details) and references. `paper/supplement.tex` is its Online Resource 1 (specification of
+the rules and analyses added in the revision, Tables S1--S20 and Figures S1--S4). Tables between
+`%% BEGIN GENERATED` markers are written by `scripts/make_tables.py`; figures are copied from `results/figures/`.
+`paper/submission/` holds the cover letter, outreach drafts, the upload script and the submission checklist.
+
+`paper/review/` holds the simulated reviews, all written by AI agents: the referee reports on the first version and
+the response to them; a simulated call-for-papers panel in three rounds (`paper/review/cfp_panel/`, with responses and
+marked-up comparisons); and a simulated first round at the *Journal of Intelligent Manufacturing*
+(`paper/review/jim_panel/round1/`: three reports, the editor's decision, the response `response_round1.md` with
+page and line numbers, and `main_diff.pdf` against the reviewed version). None of them is a review by a journal.

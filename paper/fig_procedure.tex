@@ -22,7 +22,7 @@
   sample}};
 \foreach \a/\b in {s1/s2, s2/s3, s3/s4, s4/s5} \draw[arr] (\a.east) -- (\b.west);
 \node[io, anchor=south] (prod) at (4.005,0.42) {produced alternatives: parts, scans};
-\node[io, anchor=south] (sim) at (8.01,0.42) {simulations of every alternative};
+\node[io, anchor=south, text width=2.8cm] (sim) at (8.01,0.42) {simulations of every alternative};
 \node[io, anchor=south, text width=2.2cm] (prior) at (10.68,0.42) {prior of requirement distances; costs};
 \draw[arr, dashed] (prod.south -| s2.north) -- (s2.north);
 \draw[arr, dashed] (prod.south -| s3.north) -- (s3.north);

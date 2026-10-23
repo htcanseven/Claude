@@ -1,9 +1,9 @@
 {
-  "title": "Code, feature tables and results for \"Evaluating AI-based manufacturability decisions against the resolution of production\"",
+  "title": "Code, feature tables and results for \"When can a prediction replace a physical trial? A production-referenced evaluation of design-stage decision rules in deep drawing\"",
   "upload_type": "software",
-  "version": "1",
+  "version": "2",
   "language": "eng",
-  "description": "<p>Analysis pipeline, extracted feature tables and result files of the paper <em>Evaluating AI-based manufacturability decisions against the resolution of production</em> (H. T. Canseven, submitted for publication). Version 1 holds exactly the code and results that produce the numbers of the paper as submitted. <code>RELEASE_NOTES.md</code> gives the SHA-256 checksums of the main result files, and <code>SHA256SUMS</code> those of every script and result file (check with <code>sha256sum -c SHA256SUMS</code>).</p><p>The pipeline (<code>scripts/run_all.sh</code>) extracts seven quality characteristics from the 9,000 scanned parts of the Real Deep Drawing and Cutting dataset (RDDAC) and from the matched simulations of the Deep Drawing and Cutting Simulations dataset (DDACS), computes the production floor, scores fourteen design-stage decision rules by their decisive and safe distances for each evidence relation, and writes every table and figure of the paper. <code>results/findings.md</code> traces the numbers to the result files, and Table A5 of the paper maps every quoted number to its script and file. The raw datasets are not included; the scripts fetch them from DaRUS.</p>",
+  "description": "<p>Analysis pipeline, extracted feature tables and result files of the paper <em>When can a prediction replace a physical trial? A production-referenced evaluation of design-stage decision rules in deep drawing</em> (H. T. Canseven, submitted for publication). Version 2 holds the code and results that produce the numbers of the revised paper and its Online Resource 1; version 1 held those of the first submission. <code>RELEASE_NOTES.md</code> gives the SHA-256 checksums of the main result files, and <code>SHA256SUMS</code> those of every script and result file (check with <code>sha256sum -c SHA256SUMS</code>).</p><p>The pipeline (<code>scripts/run_all.sh</code>) extracts seven quality characteristics from the 9,000 scanned parts of the Real Deep Drawing and Cutting dataset (RDDAC) and from the matched simulations of the Deep Drawing and Cutting Simulations dataset (DDACS), computes the within-run floor, scores design-stage decision rules (simulation-based, learned and production-record rules) by their decisive and safe distances for each evidence relation, qualifies them with guard bands validated out of sample, and writes every table and figure of the paper and of Online Resource 1. <code>scripts/opchar.py</code> is the scoring function on its own, for other datasets. Table A7 of the paper maps every quoted number to its script and file. The raw datasets are not included; the scripts fetch them from DaRUS.</p>",
   "creators": [
     {
       "name": "Canseven, Hüseyin Tayyer",
@@ -13,11 +13,12 @@
   "keywords": [
     "design for manufacturing",
     "machine learning",
-    "design decision making",
-    "verification and validation",
+    "decision support",
+    "uncertainty quantification",
+    "selective prediction",
     "operating characteristic",
     "deep drawing",
-    "production floor"
+    "within-run floor"
   ],
   "related_identifiers": [
     {

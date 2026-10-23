@@ -1,12 +1,16 @@
 # Submission checklist
 
-*Journal of Intelligent Manufacturing* (Springer; JUFO level 2). Manuscript: *Evaluating AI-based manufacturability
-decisions against the resolution of production*.
+*Journal of Intelligent Manufacturing* (Springer; JUFO level 2). Manuscript: *When can a prediction replace a physical
+trial? A production-referenced evaluation of design-stage decision rules in deep drawing* (first prepared as
+*Evaluating AI-based manufacturability decisions against the resolution of production*).
 
-**Status.** The manuscript is retargeted to JIM: title, keywords, the introduction and Section 2.1 framed for AI in
-manufacturing, with four new references checked against Crossref. The use of the language model is documented in
-the methods (Section 4.5), as the journal asks. Everything specific to *Research in Engineering Design* is gone from
-the paper, the archive metadata, the README and the release notes. The archive is version 1, its first deposit.
+**Status.** The manuscript was revised after a simulated first review round at JIM (three reviewers and an editor,
+all AI agents; `paper/review/jim_panel/round1/`): new title and abstract (249 words), decision-time strata, a
+small-data learner (M7n), multi-fidelity and discrepancy models, relation-matched intervals, guard bands per family
+and out of sample, costs, a between-run sensitivity, results per characteristic, a measurement subsection, and Online
+Resource 1 (`paper/supplement.tex`, Tables S1–S20, Figures S1–S4). The archive is version 2. Because the review was
+simulated, this version goes to the journal as a first submission; the response letter and the marked-up version are
+internal documents.
 
 **Journal requirements** (submission guidelines): abstract 150–250 words; 4–6 keywords; author–year citations;
 declarations (funding, competing interests, data availability) before the references; LaTeX with the Springer Nature
@@ -26,25 +30,31 @@ template accepted; no page limit. The corresponding author must give an ORCID in
    this package. If it did, update the table in `RELEASE_NOTES.md` from `SHA256SUMS`. Commit and push.
 3. **Deposit**, either way:
    - *GitHub release.* The Zenodo GitHub integration needs a public repository. Switch the repository on under
-     Zenodo → Settings → GitHub. Create a GitHub release from the final commit, with tag `v1`, title "Version 1" and
+     Zenodo → Settings → GitHub. Create a GitHub release from the final commit, with tag `v2`, title "Version 2" and
      `RELEASE_NOTES.md` as its description. Zenodo reads `.zenodo.json` and mints the DOI. The deposited paper
      source then still shows the DOI as pending; the code and results are identical.
    - *Manual upload with a reserved DOI.* Start a new upload on Zenodo and reserve its DOI. Do steps 4 and 5 first,
-     then upload `git archive --format=zip -o claude-v1.zip HEAD` from the final commit, fill in the metadata from
+     then upload `git archive --format=zip -o claude-v2.zip HEAD` from the final commit, fill in the metadata from
      `.zenodo.json` and publish.
 4. **Insert the DOI** (`10.5281/zenodo.NNNNNNN`):
    - `paper/refs.bib`, entry `canseven2026archive`: replace `note = {\pending{DOI}}` by
      `doi = {10.5281/zenodo.NNNNNNN}`;
    - `CITATION.cff`: add `doi: 10.5281/zenodo.NNNNNNN`;
    - `paper/submission/cover_letter.md`: replace "[DOI to be inserted after deposit]".
-5. **Rebuild** the paper (`latexmk -pdf main.tex` in `paper/`; check that it still has 30 pages) and the upload zip
-   (`bash paper/submission/make_zip.sh`, which warns while the DOI is still pending).
+5. **Rebuild** the paper and Online Resource 1 (`latexmk -pdf main.tex` and `latexmk -pdf supplement.tex` in
+   `paper/`; 36 and 22 pages) and the upload zip (`bash paper/submission/make_zip.sh`, which builds both in a clean
+   directory and warns while the DOI is still pending).
 6. **Check** that the DOI resolves and that `sha256sum -c SHA256SUMS` passes in the unpacked deposit.
 
 ## Submission
 
 - [ ] **Files.** Upload the LaTeX source (`manuscript_source.zip`) with the compiled PDF (`paper/main.pdf`); the
-      journal requires the editable source files.
+      journal requires the editable source files. Upload Online Resource 1 (`paper/supplement.pdf`) as electronic
+      supplementary material, named "Online Resource 1".
+- [ ] **Frozen procedure.** Register `paper/notes/frozen_procedure.md` (for example on OSF Registries) before any
+      confirmatory data are analysed, and cite the registration if it exists at submission.
+- [ ] **Dataset providers.** Send the request in `note_to_dataset_authors.md` if you wish; the paper does not depend
+      on the answer.
 - [ ] **Cover letter.** `cover_letter.md`, written for JIM. Insert the DOI.
 - [ ] **ORCID**, required for the corresponding author; check the Funding declaration ("No specific funding").
 - [ ] **Affiliation.** Check the department line of the author block in `paper/main.tex`.
@@ -55,9 +65,10 @@ template accepted; no page limit. The corresponding author must give an ORCID in
   - J.-Y. Dantan and A. Siadat (conformal prediction for quality assurance);
   - D. F. Benoit (manufacturability datasets for sheet metal).
 - [ ] **Line numbers.** Keep the class option `lineno` for review; remove it for production after acceptance.
-- [ ] **Internal review documents.** `paper/review/` holds simulated reviews, all written by AI agents, including the
-      review panel for the RED collection in `paper/review/cfp_panel/`. They are internal working documents and not
-      part of the submission. Section 4.5 and the declaration on generative AI cover them.
+- [ ] **Internal review documents.** `paper/review/` holds simulated reviews, all written by AI agents: the review
+      panel for the RED collection in `paper/review/cfp_panel/` and the simulated JIM round in
+      `paper/review/jim_panel/round1/`. They are internal working documents and not part of the submission. Section
+      4.5 and the declaration on generative AI cover them.
 - [ ] **ISO editions.** The paper cites ISO 5725-2:2025 and ISO 22514-2:2026, the current editions according to ISO's
       catalogue data. If you worked from the 2019 and 2017 texts, cite those instead (`iso2025repeatability`,
       `iso2026process` in `paper/refs.bib`).

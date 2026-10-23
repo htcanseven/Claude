@@ -4,9 +4,72 @@ Design-stage manufacturability decisions qualified with production evidence. Dee
 DP600 cups: 18 design–process alternatives (2 geometries × 3 blank-holder forces × 3 lubrication patterns),
 500 consecutive parts each (RDDAC), against the matching finite-element simulations (DDACS).
 
-Every number below comes from the CSV named in brackets, written by `bash scripts/run_all.sh` (about four hours on
+Every number below comes from the CSV named in brackets, written by `bash scripts/run_all.sh` (about five hours on
 4 cores from the cached feature tables). Distances and floors are in the units of each quality
 characteristic unless stated; "floors" means multiples of that characteristic's production floor.
+
+## S Findings of the simulated first round at JIM (supersede Section Q where they differ)
+
+The simulated JIM round (`paper/review/jim_panel/round1/`, AI agents) led to the rules M7n, M7, Mcd and P+RM, to
+decision-time strata, guard bands per family and out of sample, costs, a between-run sensitivity, cross-fitting,
+results per characteristic and design-level verdicts (`learners.py`, `qualify.py`, `simcheck.py`). The unit is now
+called the within-run floor. The manuscript (`paper/main.tex`) and Online Resource 1 (`paper/supplement.tex`)
+report these numbers.
+
+**S1 Decision-time strata** [qual_strata.csv]: with siblings that do not differ resolvably from each other (75 cases on
+17 alternatives) NN needs 1.60 floors, M1sn 3.05, M5 6.15/0.15, M7n 5.55/0.15; with resolvable siblings (51 cases on
+16) 4.40, 4.20, 8.90/0.85 and 8.55/0.75. The outcome strata of Section P (0.85, 2.45, 4.85) are a diagnostic only.
+A limit at a performance index of 1.33 lies a median 1.75 floors from the truth [panel_capability.csv], 0.15 floor
+beyond NN's 1.60.
+
+**S2 Learners for the small-data regime** [learn_resolution.csv, learn_source_floor.csv, learn_gp_diagnostics.csv,
+learn_paired.csv]: M7n 6.80/0.65 with a sibling, 14.5/5.15 for a new setting (7.40/3.40 interpolated, 15.15/5.85
+extrapolated), 131.75 for a new family in the produced family's floor; its centre lies a median 0.33–0.36 floor from
+M1sn for a new setting; nugget 0.43–0.51 floors against sampling errors of 0.13–0.14. M7n − M5n for a new setting
+−2.70 (−5.55 to −1.05); M7n − NN +3.45 with a sibling. M7 28.35/15.85 for a new setting; Mcd 7.20/0.45 with a
+sibling, 24.25/4.95 for a new setting, 30.0/19.0 for a new family (produced family's floor) [learn_mcd_posterior.csv:
+posterior mass at friction 0.05 in every calibration set]. M5n for a new setting: force length scale at its bound in
+68–79 % of the fits, noise at its bound in all, centre within 0.01 floor of the calibration mean in 93–95 % of cases.
+
+**S3 Relation-matched intervals** [learn_resolution.csv, qual_coverage.csv]: NN+RM 6.30/0.85 with a sibling,
+9.55/0.40 interpolated, 20.1/0.0 extrapolated; coverage 88 % interpolating and 93 % extrapolating (M5 71 and 46 %,
+M7n 52 and 56 %). Interval scores for a new setting: relation-matched 12–14 (interpolated) and 19–24 (extrapolated)
+against 14–98 and 41–147 for the rules' own intervals. Coverage with a sibling: M5 0.86 (0.76–0.94), M5n 0.85
+(0.76–0.93), M3 0.96 (0.93–0.98); M6 0.93 (0.87–0.98) at 17.35 floors, 0.61 extrapolating [qual_m6_coverage.csv].
+
+**S4 Guard bands** [qual_guard_family.csv, qual_guard_oos.csv, qual_guard_prior_width.csv,
+qual_guard_characteristic.csv]: per family NN 1.5/2.5 floors interpolating and 9.5/5.75 extrapolating; M2 and M5
+qualify for an extrapolated setting on the convex cup only, and moved to the concave cup give 0.842 and 0.834 correct.
+Leaving one alternative out 0.94–0.99; leaving a force cell out 0.93–0.95 for NN and M1sn, 0.83 and 0.81 for M2 and
+M5 extrapolating. Release-like prior (±5 floors): NN 2.0/4.25/14.25 floors, deciding 63/32/2 % of the verdicts.
+With a sibling NN is right in 0.892 of decided verdicts on the dome and 0.985 on the waviness.
+
+**S5 Costs and trials** [qual_costs.csv, qual_trial.csv]: with c_FR = 0.5 c_FA the cost-minimising band of NN falls
+from 5.0 to 0 floors with a sibling and from 14.75 to 0 extrapolating as c_T rises from 0.01 to 0.5 c_FA; for a new
+family trying every design is cheapest up to c_T ≈ 0.1. Trials of the first 20 and 50 parts decide at 1.35 and 0.90
+floors (within-run lower bounds).
+
+**S6 Uncertainty, selection, extensions** [qual_between_run.csv, qual_crossfit.csv, qual_decomposition.csv,
+qual_design_level.csv, qual_variants.csv, qual_floor_loao.csv, qual_resolvable_difference.csv]: with τ = 3 floors NN
+needs 5.75 with a sibling and 10.3 extrapolating, M5 9.3 and 20.2, and a production-record rule is the most decisive
+within the family in every draw. Cross-fitted: NN with a sibling 2.0/3.6 floors on the other geometry. Pre-specified
+rules within the family: rule 60 %, relation 16 % of the variance. Design level: the production-record rules lose at
+most 1.75 floors within a family, M5 up to 15.85. Floors without the held-out series: ratios 0.70–1.08, NN and M1sn
+move by at most 0.25 floors. Median half-width of paired intervals between point rules: 2.11 (sibling), 0.39
+(interpolated), 2.24 (extrapolated) floors.
+
+**S7 Simulation and measurement** [sim_validation.csv, sim_mc_friction.csv, sim_oil_mapping.csv,
+sim_depth_offset.csv, sim_envelope_variant.csv, meas_characteristics.csv, meas_run_floors.csv,
+meas_tooling_reference.csv]: measured centre inside the simulated friction range in 11 of 42 combinations; all 72
+Mc calibrations end at friction 0.15; oil mapping implies 0.77–3.13 mm of mid-side draw-in per g/m², against
+within-run slopes of −0.008 to +0.091 and median between-pattern slopes of −0.17 to +0.39; depth offset 0.70–1.06 mm
+with the wall position at 15 mm depth 2.0–2.2 mm larger in radius than simulated; envelope over measured inputs: M5
+with a sibling 24.15 instead of 7.15 floors. Single-run floors 0.21–2.16 of the pooled floor; without the warm-up
+0.75–1.00; tooling reference r = −0.27 and +0.27 (0.03 pooled over the geometries), lateral drift bound < 0.05 %.
+
+**S8 Few-shot transfer** [learn_fewshot.csv]: with one produced alternative of the new family the shifted record
+decides at 8.9 floors and the family's own record at 10.5 (target family's floor); with two or three, NN within the
+family 7.65 and 5.9; the two-task GP 13–17 floors decisive and 1.25–1.55 safe.
 
 ## Q Findings of the second review round (supersede Section P where they differ)
 
