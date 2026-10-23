@@ -1,0 +1,201 @@
+variant,relation,method,cases,resolution_floors,safe_floors,resolution_adequate,safe_adequate,resolution_failing,safe_failing
+lower limits (5th percentile),sibling,M0,72,110.65,110.65,14.65,14.65,117.15,117.15
+lower limits (5th percentile),sibling,M1,72,16.75,16.75,15.95,15.95,17.5,17.5
+lower limits (5th percentile),sibling,M1n,72,8.05,8.05,8.95,8.95,5.4,5.4
+lower limits (5th percentile),sibling,M1s,72,3.6,3.6,3.6,3.6,4.75,4.75
+lower limits (5th percentile),sibling,M1sn,72,3.25,3.25,3.45,3.45,3.25,3.25
+lower limits (5th percentile),sibling,M2,72,62.4,0.1,61.4,0.2,62.4,0.0
+lower limits (5th percentile),sibling,M2n,72,18.4,0.15,17.95,0.15,18.4,0.1
+lower limits (5th percentile),sibling,M5,72,6.4,0.05,6.5,0.05,6.4,0.3
+lower limits (5th percentile),sibling,M5n,72,6.0,0.25,6.0,0.25,6.95,0.55
+lower limits (5th percentile),sibling,NN,72,2.95,2.95,2.95,2.95,3.1,3.1
+lower limits (5th percentile),interpolation,M0,24,116.5,116.5,14.3,14.3,116.6,116.6
+lower limits (5th percentile),interpolation,M1,24,7.0,7.0,7.0,7.0,6.85,6.85
+lower limits (5th percentile),interpolation,M1n,24,3.0,3.0,0.9,0.9,3.5,3.5
+lower limits (5th percentile),interpolation,M1s,24,10.35,10.35,2.05,2.05,10.4,10.4
+lower limits (5th percentile),interpolation,M1sn,24,3.45,3.45,1.5,1.5,4.1,4.1
+lower limits (5th percentile),interpolation,M2,24,47.2,0.0,30.85,0.0,48.1,0.2
+lower limits (5th percentile),interpolation,M2n,24,14.15,0.0,11.45,0.0,14.2,0.0
+lower limits (5th percentile),interpolation,M5,24,63.65,0.0,47.15,0.0,64.5,0.0
+lower limits (5th percentile),interpolation,M5n,24,17.25,0.0,11.8,0.0,17.3,0.0
+lower limits (5th percentile),interpolation,NN,24,3.45,3.45,1.5,1.5,4.1,4.1
+lower limits (5th percentile),extrapolation,M0,48,110.25,110.25,25.3,25.3,117.15,117.15
+lower limits (5th percentile),extrapolation,M1,48,25.35,25.35,25.1,25.1,26.2,26.2
+lower limits (5th percentile),extrapolation,M1n,48,10.35,10.35,10.35,10.35,9.5,9.5
+lower limits (5th percentile),extrapolation,M1s,48,13.25,13.25,143.45,143.45,1.1,1.1
+lower limits (5th percentile),extrapolation,M1sn,48,6.65,6.65,7.6,7.6,3.25,3.25
+lower limits (5th percentile),extrapolation,M2,48,61.55,29.65,58.0,40.9,62.9,26.2
+lower limits (5th percentile),extrapolation,M2n,48,18.6,6.65,15.9,6.95,18.6,6.5
+lower limits (5th percentile),extrapolation,M5,48,65.35,26.5,64.7,36.75,74.5,20.2
+lower limits (5th percentile),extrapolation,M5n,48,19.7,5.9,15.9,5.95,20.45,4.85
+lower limits (5th percentile),extrapolation,NN,48,8.25,8.25,8.35,8.35,7.15,7.15
+lower limits (5th percentile),new family,M0,72,107.8,107.8,15.15,15.15,116.05,116.05
+lower limits (5th percentile),new family,M1,72,23.05,23.05,23.3,23.3,13.3,13.3
+lower limits (5th percentile),new family,M1n,72,164.25,164.25,131.65,131.65,171.0,171.0
+lower limits (5th percentile),new family,M1s,72,127.55,127.55,115.9,115.9,128.95,128.95
+lower limits (5th percentile),new family,M1sn,72,168.1,168.1,131.35,131.35,169.1,169.1
+lower limits (5th percentile),new family,M2,72,65.75,16.05,80.45,16.85,62.75,14.75
+lower limits (5th percentile),new family,M2n,72,174.8,153.75,134.15,129.1,181.55,160.45
+lower limits (5th percentile),new family,M5,72,25.0,18.55,27.7,18.9,20.15,18.55
+lower limits (5th percentile),new family,M5n,72,171.85,164.55,132.6,129.85,173.3,165.7
+lower limits (5th percentile),new family,NN,72,168.05,168.05,131.35,131.35,168.9,168.9
+short runs: first 20 parts,sibling,M0,126,108.35,108.35,109.15,109.15,18.0,18.0
+short runs: first 20 parts,sibling,M1,126,15.3,15.3,11.8,11.8,15.3,15.3
+short runs: first 20 parts,sibling,M1n,126,7.55,7.55,4.8,4.8,9.3,9.3
+short runs: first 20 parts,sibling,M1s,126,4.8,4.8,4.8,4.8,4.35,4.35
+short runs: first 20 parts,sibling,M1sn,126,3.75,3.75,3.75,3.75,3.55,3.55
+short runs: first 20 parts,sibling,M2,126,21.9,0.2,22.45,0.1,18.15,0.2
+short runs: first 20 parts,sibling,M2n,126,18.65,0.15,15.95,0.0,20.5,0.5
+short runs: first 20 parts,sibling,M5,126,7.2,0.75,6.95,0.75,8.45,0.35
+short runs: first 20 parts,sibling,M5n,126,7.1,0.75,7.05,0.95,7.15,0.15
+short runs: first 20 parts,sibling,NN,126,3.0,3.0,3.65,3.65,3.0,3.0
+short runs: first 20 parts,interpolation,M0,42,109.15,109.15,115.25,115.25,18.0,18.0
+short runs: first 20 parts,interpolation,M1,42,10.8,10.8,11.4,11.4,9.65,9.65
+short runs: first 20 parts,interpolation,M1n,42,4.05,4.05,4.05,4.05,2.35,2.35
+short runs: first 20 parts,interpolation,M1s,42,17.65,17.65,17.3,17.3,33.85,33.85
+short runs: first 20 parts,interpolation,M1sn,42,4.55,4.55,4.55,4.55,3.0,3.0
+short runs: first 20 parts,interpolation,M2,42,17.95,3.9,23.75,3.3,17.2,5.0
+short runs: first 20 parts,interpolation,M2n,42,14.4,0.0,15.4,0.0,11.1,0.0
+short runs: first 20 parts,interpolation,M5,42,19.95,2.65,30.65,4.15,19.9,2.45
+short runs: first 20 parts,interpolation,M5n,42,14.55,0.0,18.8,0.0,11.6,0.1
+short runs: first 20 parts,interpolation,NN,42,4.55,4.55,4.55,4.55,3.0,3.0
+short runs: first 20 parts,extrapolation,M0,84,107.95,107.95,108.85,108.85,11.4,11.4
+short runs: first 20 parts,extrapolation,M1,84,24.95,24.95,24.6,24.6,25.0,25.0
+short runs: first 20 parts,extrapolation,M1n,84,10.4,10.4,9.05,9.05,11.05,11.05
+short runs: first 20 parts,extrapolation,M1s,84,16.8,16.8,7.6,7.6,164.2,164.2
+short runs: first 20 parts,extrapolation,M1sn,84,7.3,7.3,6.6,6.6,9.1,9.1
+short runs: first 20 parts,extrapolation,M2,84,18.2,7.6,19.4,8.3,17.9,7.55
+short runs: first 20 parts,extrapolation,M2n,84,14.75,7.3,15.95,2.95,14.65,8.9
+short runs: first 20 parts,extrapolation,M5,84,19.35,7.6,20.05,8.15,18.7,6.9
+short runs: first 20 parts,extrapolation,M5n,84,15.8,7.4,16.25,2.4,14.8,8.6
+short runs: first 20 parts,extrapolation,NN,84,8.8,8.8,5.5,5.5,9.6,9.6
+short runs: first 20 parts,new family,M0,126,103.7,103.7,106.2,106.2,28.25,28.25
+short runs: first 20 parts,new family,M1,126,32.4,32.4,24.75,24.75,35.3,35.3
+short runs: first 20 parts,new family,M1n,126,130.8,130.8,165.75,165.75,129.4,129.4
+short runs: first 20 parts,new family,M1s,126,125.55,125.55,123.05,123.05,135.2,135.2
+short runs: first 20 parts,new family,M1sn,126,130.65,130.65,167.95,167.95,129.05,129.05
+short runs: first 20 parts,new family,M2,126,39.8,23.8,27.65,9.85,42.55,25.95
+short runs: first 20 parts,new family,M2n,126,132.7,128.85,176.05,155.5,131.35,127.45
+short runs: first 20 parts,new family,M5,126,35.3,30.25,25.8,14.4,35.3,33.75
+short runs: first 20 parts,new family,M5n,126,132.5,128.4,171.2,164.1,131.1,127.0
+short runs: first 20 parts,new family,NN,126,130.85,130.85,167.8,167.8,129.05,129.05
+short runs: first 50 parts,sibling,M0,126,108.35,108.35,109.15,109.15,17.45,17.45
+short runs: first 50 parts,sibling,M1,126,15.15,15.15,11.5,11.5,15.15,15.15
+short runs: first 50 parts,sibling,M1n,126,8.0,8.0,4.8,4.8,9.55,9.55
+short runs: first 50 parts,sibling,M1s,126,4.8,4.8,4.8,4.8,4.55,4.55
+short runs: first 50 parts,sibling,M1sn,126,3.6,3.6,3.6,3.6,3.45,3.45
+short runs: first 50 parts,sibling,M2,126,22.0,0.25,22.05,0.05,18.85,0.25
+short runs: first 50 parts,sibling,M2n,126,19.5,0.25,15.6,0.0,21.25,0.5
+short runs: first 50 parts,sibling,M5,126,7.1,0.6,6.45,0.65,7.9,0.5
+short runs: first 50 parts,sibling,M5n,126,6.9,0.35,6.6,0.35,7.25,0.15
+short runs: first 50 parts,sibling,NN,126,3.2,3.2,3.35,3.35,3.1,3.1
+short runs: first 50 parts,interpolation,M0,42,108.85,108.85,115.25,115.25,17.45,17.45
+short runs: first 50 parts,interpolation,M1,42,10.9,10.9,11.25,11.25,9.4,9.4
+short runs: first 50 parts,interpolation,M1n,42,4.0,4.0,4.0,4.0,2.3,2.3
+short runs: first 50 parts,interpolation,M1s,42,17.85,17.85,17.25,17.25,33.55,33.55
+short runs: first 50 parts,interpolation,M1sn,42,4.4,4.4,4.4,4.4,2.85,2.85
+short runs: first 50 parts,interpolation,M2,42,17.85,4.45,23.9,4.25,16.5,4.65
+short runs: first 50 parts,interpolation,M2n,42,13.4,0.0,15.25,0.0,10.9,0.0
+short runs: first 50 parts,interpolation,M5,42,19.85,2.7,31.3,4.5,19.35,2.55
+short runs: first 50 parts,interpolation,M5n,42,14.6,0.0,18.9,0.0,11.65,0.0
+short runs: first 50 parts,interpolation,NN,42,4.4,4.4,4.4,4.4,2.85,2.85
+short runs: first 50 parts,extrapolation,M0,84,107.5,107.5,108.9,108.9,11.65,11.65
+short runs: first 50 parts,extrapolation,M1,84,24.95,24.95,24.95,24.95,24.6,24.6
+short runs: first 50 parts,extrapolation,M1n,84,10.7,10.7,9.25,9.25,11.6,11.6
+short runs: first 50 parts,extrapolation,M1s,84,17.5,17.5,6.8,6.8,163.5,163.5
+short runs: first 50 parts,extrapolation,M1sn,84,7.75,7.75,7.35,7.35,8.9,8.9
+short runs: first 50 parts,extrapolation,M2,84,17.9,7.7,18.65,9.15,17.5,7.5
+short runs: first 50 parts,extrapolation,M2n,84,15.05,7.55,15.75,2.65,14.65,9.55
+short runs: first 50 parts,extrapolation,M5,84,18.6,7.7,19.65,8.8,18.5,7.15
+short runs: first 50 parts,extrapolation,M5n,84,16.45,7.7,16.95,2.55,14.95,9.0
+short runs: first 50 parts,extrapolation,NN,84,8.95,8.95,5.55,5.55,10.05,10.05
+short runs: first 50 parts,new family,M0,126,104.7,104.7,105.9,105.9,28.15,28.15
+short runs: first 50 parts,new family,M1,126,32.45,32.45,24.0,24.0,35.8,35.8
+short runs: first 50 parts,new family,M1n,126,131.0,131.0,165.85,165.85,129.35,129.35
+short runs: first 50 parts,new family,M1s,126,121.7,121.7,119.4,119.4,138.45,138.45
+short runs: first 50 parts,new family,M1sn,126,130.9,130.9,168.05,168.05,129.15,129.15
+short runs: first 50 parts,new family,M2,126,40.3,25.9,28.5,10.3,42.2,27.1
+short runs: first 50 parts,new family,M2n,126,133.0,129.0,176.25,155.45,131.35,127.35
+short runs: first 50 parts,new family,M5,126,35.8,31.45,25.8,14.45,35.8,34.0
+short runs: first 50 parts,new family,M5n,126,132.65,129.05,171.3,164.2,131.0,127.35
+short runs: first 50 parts,new family,NN,126,131.15,131.15,168.0,168.0,129.15,129.15
+decided statistic: centre + 3.99 sd,sibling,M0,126,107.0,107.0,108.55,108.55,20.6,20.6
+decided statistic: centre + 3.99 sd,sibling,M1,126,15.95,15.95,12.0,12.0,15.95,15.95
+decided statistic: centre + 3.99 sd,sibling,M1n,126,9.3,9.3,5.4,5.4,11.7,11.7
+decided statistic: centre + 3.99 sd,sibling,M1s,126,5.4,5.4,5.4,5.4,5.15,5.15
+decided statistic: centre + 3.99 sd,sibling,M1sn,126,4.0,4.0,4.3,4.3,3.6,3.6
+decided statistic: centre + 3.99 sd,sibling,M2,126,22.5,0.2,22.5,0.1,21.25,0.2
+decided statistic: centre + 3.99 sd,sibling,M2n,126,19.4,0.35,16.0,0.0,24.6,0.35
+decided statistic: centre + 3.99 sd,sibling,M5,126,7.95,0.55,7.95,0.9,8.2,0.5
+decided statistic: centre + 3.99 sd,sibling,M5n,126,6.6,0.9,6.35,1.2,6.7,0.55
+decided statistic: centre + 3.99 sd,sibling,NN,126,3.35,3.35,3.45,3.45,3.25,3.25
+decided statistic: centre + 3.99 sd,interpolation,M0,42,107.0,107.0,113.4,113.4,20.6,20.6
+decided statistic: centre + 3.99 sd,interpolation,M1,42,11.4,11.4,11.85,11.85,8.25,8.25
+decided statistic: centre + 3.99 sd,interpolation,M1n,42,5.15,5.15,7.0,7.0,1.6,1.6
+decided statistic: centre + 3.99 sd,interpolation,M1s,42,19.6,19.6,19.05,19.05,24.75,24.75
+decided statistic: centre + 3.99 sd,interpolation,M1sn,42,4.9,4.9,6.0,6.0,2.5,2.5
+decided statistic: centre + 3.99 sd,interpolation,M2,42,17.9,1.2,25.8,1.2,14.35,0.85
+decided statistic: centre + 3.99 sd,interpolation,M2n,42,14.35,0.55,15.25,0.55,8.9,0.0
+decided statistic: centre + 3.99 sd,interpolation,M5,42,18.3,2.2,32.8,2.95,16.25,1.5
+decided statistic: centre + 3.99 sd,interpolation,M5n,42,17.15,0.0,20.4,0.0,11.5,0.0
+decided statistic: centre + 3.99 sd,interpolation,NN,42,4.9,4.9,6.0,6.0,2.5,2.5
+decided statistic: centre + 3.99 sd,extrapolation,M0,84,102.6,102.6,107.8,107.8,15.7,15.7
+decided statistic: centre + 3.99 sd,extrapolation,M1,84,25.0,25.0,25.0,25.0,24.1,24.1
+decided statistic: centre + 3.99 sd,extrapolation,M1n,84,11.6,11.6,11.15,11.15,13.85,13.85
+decided statistic: centre + 3.99 sd,extrapolation,M1s,84,19.9,19.9,8.65,8.65,176.85,176.85
+decided statistic: centre + 3.99 sd,extrapolation,M1sn,84,9.7,9.7,5.85,5.85,12.55,12.55
+decided statistic: centre + 3.99 sd,extrapolation,M2,84,18.3,9.4,18.7,9.4,17.25,10.45
+decided statistic: centre + 3.99 sd,extrapolation,M2n,84,16.6,6.6,16.6,3.35,16.6,11.05
+decided statistic: centre + 3.99 sd,extrapolation,M5,84,19.75,9.5,20.15,9.5,18.3,10.55
+decided statistic: centre + 3.99 sd,extrapolation,M5n,84,19.35,7.25,19.4,2.6,17.2,10.85
+decided statistic: centre + 3.99 sd,extrapolation,NN,84,10.55,10.55,5.5,5.5,12.2,12.2
+decided statistic: centre + 3.99 sd,new family,M0,126,101.15,101.15,103.45,103.45,29.95,29.95
+decided statistic: centre + 3.99 sd,new family,M1,126,34.95,34.95,24.55,24.55,39.55,39.55
+decided statistic: centre + 3.99 sd,new family,M1n,126,131.0,131.0,165.6,165.6,126.85,126.85
+decided statistic: centre + 3.99 sd,new family,M1s,126,114.15,114.15,109.9,109.9,127.85,127.85
+decided statistic: centre + 3.99 sd,new family,M1sn,126,130.85,130.85,166.15,166.15,127.2,127.2
+decided statistic: centre + 3.99 sd,new family,M2,126,42.65,26.95,28.9,11.05,44.6,28.95
+decided statistic: centre + 3.99 sd,new family,M2n,126,134.8,127.2,174.45,156.7,130.65,123.05
+decided statistic: centre + 3.99 sd,new family,M5,126,39.55,31.0,26.1,16.05,39.55,35.55
+decided statistic: centre + 3.99 sd,new family,M5n,126,134.4,127.6,170.15,163.25,130.6,123.8
+decided statistic: centre + 3.99 sd,new family,NN,126,130.75,130.75,166.55,166.55,127.2,127.2
+reference (refitted),sibling,M0,126,108.35,108.35,109.4,109.4,17.0,17.0
+reference (refitted),sibling,M1,126,15.2,15.2,11.95,11.95,15.2,15.2
+reference (refitted),sibling,M1n,126,9.05,9.05,5.2,5.2,10.25,10.25
+reference (refitted),sibling,M1s,126,4.85,4.85,4.85,4.85,4.65,4.65
+reference (refitted),sibling,M1sn,126,3.5,3.5,3.55,3.55,3.45,3.45
+reference (refitted),sibling,M2,126,22.65,0.15,22.65,0.0,20.4,0.3
+reference (refitted),sibling,M2n,126,18.75,0.0,15.3,0.0,22.1,0.2
+reference (refitted),sibling,M5,126,7.15,0.75,6.8,0.85,8.5,0.15
+reference (refitted),sibling,M5n,126,7.15,0.55,6.8,0.9,7.25,0.1
+reference (refitted),sibling,NN,126,3.35,3.35,3.35,3.35,2.8,2.8
+reference (refitted),interpolation,M0,42,108.6,108.6,115.1,115.1,17.0,17.0
+reference (refitted),interpolation,M1,42,11.25,11.25,11.3,11.3,9.2,9.2
+reference (refitted),interpolation,M1n,42,4.8,4.8,4.8,4.8,5.8,5.8
+reference (refitted),interpolation,M1s,42,19.25,19.25,18.7,18.7,30.4,30.4
+reference (refitted),interpolation,M1sn,42,4.65,4.65,4.65,4.65,3.1,3.1
+reference (refitted),interpolation,M2,42,17.75,2.7,24.95,2.4,15.45,3.65
+reference (refitted),interpolation,M2n,42,13.3,0.0,15.05,0.0,10.0,0.0
+reference (refitted),interpolation,M5,42,19.05,2.8,32.6,3.1,18.65,2.4
+reference (refitted),interpolation,M5n,42,15.6,0.0,19.45,0.0,11.1,0.0
+reference (refitted),interpolation,NN,42,4.65,4.65,4.65,4.65,3.1,3.1
+reference (refitted),extrapolation,M0,84,105.55,105.55,108.7,108.7,12.0,12.0
+reference (refitted),extrapolation,M1,84,24.6,24.6,24.6,24.6,23.8,23.8
+reference (refitted),extrapolation,M1n,84,11.75,11.75,9.8,9.8,12.6,12.6
+reference (refitted),extrapolation,M1s,84,19.1,19.1,7.9,7.9,164.75,164.75
+reference (refitted),extrapolation,M1sn,84,8.85,8.85,7.35,7.35,9.25,9.25
+reference (refitted),extrapolation,M2,84,17.5,9.9,17.9,9.95,17.5,8.7
+reference (refitted),extrapolation,M2n,84,15.5,9.1,15.3,3.6,15.5,9.9
+reference (refitted),extrapolation,M5,84,18.5,8.9,19.25,9.65,17.95,8.4
+reference (refitted),extrapolation,M5n,84,18.1,8.6,18.15,3.35,16.0,9.7
+reference (refitted),extrapolation,NN,84,9.45,9.45,5.55,5.55,11.0,11.0
+reference (refitted),new family,M0,126,103.75,103.75,105.45,105.45,27.9,27.9
+reference (refitted),new family,M1,126,32.9,32.9,24.0,24.0,35.2,35.2
+reference (refitted),new family,M1n,126,130.5,130.5,165.25,165.25,129.0,129.0
+reference (refitted),new family,M1s,126,120.65,120.65,118.15,118.15,124.65,124.65
+reference (refitted),new family,M1sn,126,130.5,130.5,167.8,167.8,128.85,128.85
+reference (refitted),new family,M2,126,40.75,26.4,29.5,9.7,41.85,26.85
+reference (refitted),new family,M2n,126,133.15,127.85,175.1,155.4,131.6,126.35
+reference (refitted),new family,M5,126,35.2,31.3,25.85,14.95,35.2,33.3
+reference (refitted),new family,M5n,126,132.5,128.1,171.75,164.95,131.1,126.7
+reference (refitted),new family,NN,126,130.4,130.4,168.05,168.05,128.85,128.85

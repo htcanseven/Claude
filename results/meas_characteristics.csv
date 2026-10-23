@@ -1,0 +1,8 @@
+qc,unit,operation,region,directions,resolution_step,step_over_floor,distinct_per_series,zero_se_alternatives,known_biases
+drawin_mid,mm,OP10,"flange, mid-sides","x widths only, (210 - Wx)/2",0.0192310000000013,0.377719357884912,6-21,5,Wy - Wx 2.29 to 3.47 mm; sd(Wy)/sd(Wx) 3.73 to 17.65
+drawin_corner,mm,OP10,"flange, corner tips",mean of the two diagonals,0.0001365000000002,0.0033053977068168,491-500,0,diagonals differ by 1.64 to 2.17 mm
+waviness,mm,OP10,flange,residual sd about a quadratic surface,9.999999999996125e-06,0.0034556279700696,469-494,0,-
+wall_op10,deg,OP10,side walls at mid-depth,mean of east and west walls,0.0003882500000012,0.0049084024635377,497-500,0,"north wall -1.64 to -0.92 deg against E/W on the convex cups (-0.05 to 0.39 concave); south wall shadowed, 6.73 to 10.00 deg off"
+arm_op20,deg,OP20,"cut arms, centre lines",mean of the four arms,0.0004855000000003,0.004496384737772,496-500,0,-
+depth_op10,mm,OP10,flange against the bottom plane,median over the flange,3.500000000045134e-05,0.003325479928749,486-497,0,the flange plane is cut away at OP20
+dome_op20,mm,OP20,"cup bottom, sag at r = 40 mm",paraboloid fit,2.0500000000010093e-05,0.0035089367420202,474-497,0,-

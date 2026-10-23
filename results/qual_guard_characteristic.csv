@@ -1,0 +1,201 @@
+relation,method,group,name,pooled_band,share_correct,trial_rate,own_band,own_band_correct,own_band_trial
+sibling,M2,characteristic,arm_op20,0.0,0.996996996996997,0.5444596443228454,0.0,,
+sibling,M2,characteristic,depth_op10,0.0,0.9924528301886792,0.6867612293144209,0.0,,
+sibling,M2,characteristic,dome_op20,0.0,0.9842271293375394,0.6007556675062973,0.0,,
+sibling,M2,characteristic,drawin_corner,0.0,0.9936908517350158,0.25059101654846333,0.0,,
+sibling,M2,characteristic,drawin_mid,0.0,0.9971181556195965,0.5898345153664303,0.0,,
+sibling,M2,characteristic,wall_op10,0.0,0.9900990099009901,0.4030732860520095,0.0,,
+sibling,M2,characteristic,waviness,0.0,0.9907834101382489,0.7410501193317423,0.0,,
+sibling,M2,class,cut part,0.0,0.9907692307692307,0.5737704918032787,0.0,0.9907692307692307,0.5737704918032787
+sibling,M2,class,drawn geometry,0.0,0.990909090909091,0.5449172576832151,0.0,0.990909090909091,0.5449172576832151
+sibling,M2,class,process indicators,0.0,0.9941569282136895,0.5264822134387351,0.0,0.9941569282136895,0.5264822134387351
+sibling,M5,characteristic,arm_op20,0.0,0.9851024208566108,0.265389876880985,0.0,,
+sibling,M5,characteristic,depth_op10,0.0,0.9838187702265372,0.2695035460992908,0.0,,
+sibling,M5,characteristic,dome_op20,0.0,0.9390243902439024,0.4836272040302267,2.75,,
+sibling,M5,characteristic,drawin_corner,0.0,0.9898697539797395,0.18321513002364065,0.0,,
+sibling,M5,characteristic,drawin_mid,0.0,0.997179125528914,0.16193853427895982,0.0,,
+sibling,M5,characteristic,wall_op10,0.0,0.985632183908046,0.1773049645390071,0.0,,
+sibling,M5,characteristic,waviness,0.0,1.0,0.07995226730310262,0.0,,
+sibling,M5,class,cut part,0.0,0.9651531151003168,0.37901639344262295,0.0,0.9651531151003168,0.37901639344262295
+sibling,M5,class,drawn geometry,0.0,0.984779299847793,0.22340425531914893,0.0,0.984779299847793,0.22340425531914893
+sibling,M5,class,process indicators,0.0,0.9958544449562413,0.14189723320158104,0.0,0.9958544449562413,0.14189723320158104
+sibling,NN,characteristic,arm_op20,0.25,0.9438990182328191,0.024623803009575923,0.5,,
+sibling,NN,characteristic,depth_op10,0.25,0.9553140096618358,0.02127659574468085,0.25,,
+sibling,NN,characteristic,dome_op20,0.25,0.8917525773195877,0.022670025188916875,3.25,,
+sibling,NN,characteristic,drawin_corner,0.25,0.964975845410628,0.02127659574468085,0.0,,
+sibling,NN,characteristic,drawin_mid,0.25,0.9734299516908212,0.02127659574468085,0.0,,
+sibling,NN,characteristic,wall_op10,0.25,0.9722222222222222,0.02127659574468085,0.0,,
+sibling,NN,characteristic,waviness,0.25,0.9853658536585366,0.021479713603818614,0.0,,
+sibling,NN,class,cut part,0.25,0.9167226326393553,0.02360655737704918,1.75,0.9528672427336999,0.16524590163934427
+sibling,NN,class,drawn geometry,0.25,0.9637681159420289,0.02127659574468085,0.0,0.9550827423167849,0.0
+sibling,NN,class,process indicators,0.25,0.9745557350565428,0.021343873517786563,0.0,0.9703557312252964,0.0
+sibling,M1sn,characteristic,arm_op20,0.75,0.9453471196454948,0.07387140902872777,1.0,,
+sibling,M1sn,characteristic,depth_op10,0.75,0.9343434343434344,0.06382978723404255,1.5,,
+sibling,M1sn,characteristic,dome_op20,0.75,0.922972972972973,0.06801007556675064,2.0,,
+sibling,M1sn,characteristic,drawin_corner,0.75,0.9747474747474747,0.06382978723404255,0.0,,
+sibling,M1sn,characteristic,drawin_mid,0.75,0.976010101010101,0.06382978723404255,0.25,,
+sibling,M1sn,characteristic,wall_op10,0.75,0.9848484848484849,0.06382978723404255,0.0,,
+sibling,M1sn,characteristic,waviness,0.75,0.9336734693877551,0.06443914081145585,1.25,,
+sibling,M1sn,class,cut part,0.75,0.9336626676076217,0.07081967213114754,1.5,0.9503437738731857,0.14163934426229507
+sibling,M1sn,class,drawn geometry,0.75,0.9595959595959596,0.06382978723404255,0.5,0.9518518518518518,0.0425531914893617
+sibling,M1sn,class,process indicators,0.75,0.9615709459459459,0.06403162055335969,0.5,0.9554087530966143,0.042687747035573126
+sibling,M7n,characteristic,arm_op20,0.0,0.9781818181818182,0.2476060191518468,0.0,,
+sibling,M7n,characteristic,depth_op10,0.0,0.9837037037037037,0.20212765957446807,0.0,,
+sibling,M7n,characteristic,dome_op20,0.0,0.918141592920354,0.43073047858942065,4.25,,
+sibling,M7n,characteristic,drawin_corner,0.0,0.994535519125683,0.1347517730496454,0.0,,
+sibling,M7n,characteristic,drawin_mid,0.0,0.9945652173913043,0.13002364066193853,0.0,,
+sibling,M7n,characteristic,wall_op10,0.0,0.9959785522788204,0.1182033096926714,0.0,,
+sibling,M7n,characteristic,waviness,0.0,1.0,0.10143198090692124,0.0,,
+sibling,M7n,class,cut part,0.0,0.9510978043912176,0.34295081967213115,0.0,0.9510978043912176,0.34295081967213115
+sibling,M7n,class,drawn geometry,0.0,0.9901477832512315,0.16016548463356975,0.0,0.9901477832512315,0.16016548463356975
+sibling,M7n,class,process indicators,0.0,0.9963980189104007,0.12213438735177866,0.0,0.9963980189104007,0.12213438735177866
+interpolation,M2,characteristic,arm_op20,0.75,1.0,0.6322314049586777,0.0,,
+interpolation,M2,characteristic,depth_op10,0.75,0.9915254237288136,0.5815602836879432,0.0,,
+interpolation,M2,characteristic,dome_op20,0.75,0.8790322580645161,0.5303030303030303,2.0,,
+interpolation,M2,characteristic,drawin_corner,0.75,1.0,0.3617021276595745,0.0,,
+interpolation,M2,characteristic,drawin_mid,0.75,1.0,0.7907801418439716,0.0,,
+interpolation,M2,characteristic,wall_op10,0.75,0.9532163742690059,0.39361702127659576,0.75,,
+interpolation,M2,characteristic,waviness,0.75,0.8961038961038961,0.44802867383512546,2.75,,
+interpolation,M2,class,cut part,0.75,0.9295774647887324,0.5790513833992095,1.5,0.9574468085106383,0.6284584980237155
+interpolation,M2,class,drawn geometry,0.75,0.9688581314878892,0.4875886524822695,0.25,0.9546925566343042,0.4521276595744681
+interpolation,M2,class,process indicators,0.75,0.9592875318066157,0.5338078291814946,0.0,0.9502262443438914,0.47568208778173193
+interpolation,M5,characteristic,arm_op20,0.5,1.0,0.640495867768595,0.0,,
+interpolation,M5,characteristic,depth_op10,0.5,0.944,0.5567375886524822,0.75,,
+interpolation,M5,characteristic,dome_op20,0.5,0.8333333333333334,0.5,3.0,,
+interpolation,M5,characteristic,drawin_corner,0.5,1.0,0.30141843971631205,0.0,,
+interpolation,M5,characteristic,drawin_mid,0.5,1.0,0.9078014184397163,0.0,,
+interpolation,M5,characteristic,wall_op10,0.5,0.9424083769633508,0.32269503546099293,1.0,,
+interpolation,M5,characteristic,waviness,0.5,0.9918032786885246,0.5627240143369175,0.0,,
+interpolation,M5,class,cut part,0.5,0.8995433789954338,0.567193675889328,2.5,0.9575757575757575,0.6739130434782609
+interpolation,M5,class,drawn geometry,0.5,0.9430379746835443,0.4397163120567376,1.0,0.9563758389261745,0.4716312056737589
+interpolation,M5,class,process indicators,0.5,0.9971014492753624,0.5907473309608541,0.0,0.9890710382513661,0.5658362989323843
+interpolation,NN,characteristic,arm_op20,2.0,0.9329896907216495,0.19834710743801653,3.5,,
+interpolation,NN,characteristic,depth_op10,2.0,0.9188034188034188,0.1702127659574468,3.0,,
+interpolation,NN,characteristic,dome_op20,2.0,0.9583333333333334,0.18181818181818182,1.75,,
+interpolation,NN,characteristic,drawin_corner,2.0,1.0,0.1702127659574468,0.0,,
+interpolation,NN,characteristic,drawin_mid,2.0,0.9700854700854701,0.1702127659574468,1.5,,
+interpolation,NN,characteristic,wall_op10,2.0,1.0,0.1702127659574468,0.0,,
+interpolation,NN,characteristic,waviness,2.0,0.8831168831168831,0.17204301075268819,3.5,,
+interpolation,NN,class,cut part,2.0,0.9463414634146341,0.18972332015810275,2.5,0.9533678756476683,0.23715415019762845
+interpolation,NN,class,drawn geometry,2.0,0.9594017094017094,0.1702127659574468,1.5,0.9512195121951219,0.1276595744680851
+interpolation,NN,class,process indicators,2.0,0.9513590844062947,0.1708185053380783,2.0,0.9513590844062947,0.1708185053380783
+interpolation,M1sn,characteristic,arm_op20,2.0,0.9329896907216495,0.19834710743801653,3.5,,
+interpolation,M1sn,characteristic,depth_op10,2.0,0.9188034188034188,0.1702127659574468,3.0,,
+interpolation,M1sn,characteristic,dome_op20,2.0,0.9583333333333334,0.18181818181818182,1.75,,
+interpolation,M1sn,characteristic,drawin_corner,2.0,1.0,0.1702127659574468,0.0,,
+interpolation,M1sn,characteristic,drawin_mid,2.0,0.9700854700854701,0.1702127659574468,1.5,,
+interpolation,M1sn,characteristic,wall_op10,2.0,1.0,0.1702127659574468,0.0,,
+interpolation,M1sn,characteristic,waviness,2.0,0.8831168831168831,0.17204301075268819,3.5,,
+interpolation,M1sn,class,cut part,2.0,0.9463414634146341,0.18972332015810275,2.5,0.9533678756476683,0.23715415019762845
+interpolation,M1sn,class,drawn geometry,2.0,0.9594017094017094,0.1702127659574468,1.5,0.9512195121951219,0.1276595744680851
+interpolation,M1sn,class,process indicators,2.0,0.9513590844062947,0.1708185053380783,2.0,0.9513590844062947,0.1708185053380783
+interpolation,M7n,characteristic,arm_op20,0.75,0.9180327868852459,0.24380165289256198,3.0,,
+interpolation,M7n,characteristic,depth_op10,0.75,0.9646464646464646,0.2978723404255319,0.25,,
+interpolation,M7n,characteristic,dome_op20,0.75,0.9281045751633987,0.42045454545454547,2.75,,
+interpolation,M7n,characteristic,drawin_corner,0.75,1.0,0.3262411347517731,0.0,,
+interpolation,M7n,characteristic,drawin_mid,0.75,0.9746835443037974,0.1595744680851064,0.25,,
+interpolation,M7n,characteristic,wall_op10,0.75,1.0,0.26595744680851063,0.0,,
+interpolation,M7n,characteristic,waviness,0.75,0.8864628820960698,0.17921146953405018,2.25,,
+interpolation,M7n,class,cut part,0.75,0.9226190476190477,0.3359683794466403,2.75,0.9510204081632653,0.5158102766798419
+interpolation,M7n,class,drawn geometry,0.75,0.9827160493827161,0.28191489361702127,0.0,0.9705882352941176,0.21631205673758866
+interpolation,M7n,class,process indicators,0.75,0.9512195121951219,0.22182680901542112,0.75,0.9512195121951219,0.22182680901542112
+extrapolation,M2,characteristic,arm_op20,inf,,1.0,inf,,
+extrapolation,M2,characteristic,depth_op10,inf,,1.0,11.5,,
+extrapolation,M2,characteristic,dome_op20,inf,,1.0,0.0,,
+extrapolation,M2,characteristic,drawin_corner,inf,,1.0,0.0,,
+extrapolation,M2,characteristic,drawin_mid,inf,,1.0,6.25,,
+extrapolation,M2,characteristic,wall_op10,inf,,1.0,1.5,,
+extrapolation,M2,characteristic,waviness,inf,,1.0,10.25,,
+extrapolation,M2,class,cut part,inf,,1.0,inf,,1.0
+extrapolation,M2,class,drawn geometry,inf,,1.0,10.5,0.9518716577540107,0.8342198581560284
+extrapolation,M2,class,process indicators,inf,,1.0,8.75,0.953307392996109,0.6953171310017783
+extrapolation,M5,characteristic,arm_op20,inf,,1.0,inf,,
+extrapolation,M5,characteristic,depth_op10,inf,,1.0,11.75,,
+extrapolation,M5,characteristic,dome_op20,inf,,1.0,0.75,,
+extrapolation,M5,characteristic,drawin_corner,inf,,1.0,0.0,,
+extrapolation,M5,characteristic,drawin_mid,inf,,1.0,5.0,,
+extrapolation,M5,characteristic,wall_op10,inf,,1.0,1.0,,
+extrapolation,M5,characteristic,waviness,inf,,1.0,9.75,,
+extrapolation,M5,class,cut part,inf,,1.0,inf,,1.0
+extrapolation,M5,class,drawn geometry,inf,,1.0,10.75,0.9502762430939227,0.8395390070921985
+extrapolation,M5,class,process indicators,inf,,1.0,8.25,0.9528688524590164,0.7107291049199763
+extrapolation,NN,characteristic,arm_op20,7.0,1.0,0.6175869120654397,3.5,,
+extrapolation,NN,characteristic,depth_op10,7.0,0.8584615384615385,0.4237588652482269,12.75,,
+extrapolation,NN,characteristic,dome_op20,7.0,1.0,0.6245283018867924,1.75,,
+extrapolation,NN,characteristic,drawin_corner,7.0,0.9763779527559056,0.549645390070922,4.25,,
+extrapolation,NN,characteristic,drawin_mid,7.0,1.0,0.5514184397163121,4.25,,
+extrapolation,NN,characteristic,wall_op10,7.0,1.0,0.5957446808510638,0.0,,
+extrapolation,NN,characteristic,waviness,7.0,0.891156462585034,0.4740608228980322,8.75,,
+extrapolation,NN,class,cut part,7.0,1.0,0.6211972522080471,2.5,0.9537869062901155,0.23552502453385674
+extrapolation,NN,class,drawn geometry,7.0,0.9168173598553345,0.5097517730496454,11.25,0.9512195121951219,0.7455673758865248
+extrapolation,NN,class,process indicators,7.0,0.9525593008739076,0.5251926496739775,7.0,0.9525593008739076,0.5251926496739775
+extrapolation,M1sn,characteristic,arm_op20,6.0,0.8992248062015504,0.4723926380368098,7.5,,
+extrapolation,M1sn,characteristic,depth_op10,6.0,0.913312693498452,0.42730496453900707,7.5,,
+extrapolation,M1sn,characteristic,dome_op20,6.0,1.0,0.5377358490566038,0.75,,
+extrapolation,M1sn,characteristic,drawin_corner,6.0,1.0,0.5053191489361702,1.25,,
+extrapolation,M1sn,characteristic,drawin_mid,6.0,1.0,0.4946808510638298,3.0,,
+extrapolation,M1sn,characteristic,wall_op10,6.0,1.0,0.5106382978723404,0.0,,
+extrapolation,M1sn,characteristic,waviness,6.0,0.8786127167630058,0.3810375670840787,7.75,,
+extrapolation,M1sn,class,cut part,6.0,0.94831013916501,0.5063788027477919,6.25,0.9503105590062112,0.5260058881256133
+extrapolation,M1sn,class,drawn geometry,6.0,0.9532554257095158,0.46897163120567376,6.0,0.9532554257095158,0.46897163120567376
+extrapolation,M1sn,class,process indicators,6.0,0.9538461538461539,0.4605809128630705,6.0,0.9538461538461539,0.4605809128630705
+extrapolation,M7n,characteristic,arm_op20,3.25,1.0,0.6789366053169734,0.0,,
+extrapolation,M7n,characteristic,depth_op10,3.25,0.9417808219178082,0.48226950354609927,4.75,,
+extrapolation,M7n,characteristic,dome_op20,3.25,1.0,0.8528301886792453,0.0,,
+extrapolation,M7n,characteristic,drawin_corner,3.25,1.0,0.5673758865248227,0.0,,
+extrapolation,M7n,characteristic,drawin_mid,3.25,0.9965034965034965,0.4929078014184397,1.25,,
+extrapolation,M7n,characteristic,wall_op10,3.25,1.0,0.5602836879432624,0.0,,
+extrapolation,M7n,characteristic,waviness,3.25,0.8266666666666667,0.3291592128801431,5.75,,
+extrapolation,M7n,class,cut part,3.25,1.0,0.7693817468105987,0.0,0.9774436090225563,0.6084396467124632
+extrapolation,M7n,class,drawn geometry,3.25,0.9685185185185186,0.5212765957446809,1.25,0.9515669515669516,0.3776595744680851
+extrapolation,M7n,class,process indicators,3.25,0.9270718232044199,0.46354475400118555,4.5,0.9523809523809523,0.5394190871369294
+new family,M2,characteristic,arm_op20,inf,,1.0,inf,,
+new family,M2,characteristic,depth_op10,inf,,1.0,3.5,,
+new family,M2,characteristic,dome_op20,inf,,1.0,inf,,
+new family,M2,characteristic,drawin_corner,inf,,1.0,0.0,,
+new family,M2,characteristic,drawin_mid,inf,,1.0,0.0,,
+new family,M2,characteristic,wall_op10,inf,,1.0,0.0,,
+new family,M2,characteristic,waviness,inf,,1.0,8.0,,
+new family,M2,class,cut part,inf,,1.0,inf,,1.0
+new family,M2,class,drawn geometry,inf,,1.0,0.0,0.9598494353826851,0.5289598108747045
+new family,M2,class,process indicators,inf,,1.0,6.5,0.9522342064714946,0.7436808846761453
+new family,M5,characteristic,arm_op20,inf,,1.0,inf,,
+new family,M5,characteristic,depth_op10,inf,,1.0,12.75,,
+new family,M5,characteristic,dome_op20,inf,,1.0,inf,,
+new family,M5,characteristic,drawin_corner,inf,,1.0,0.5,,
+new family,M5,characteristic,drawin_mid,inf,,1.0,0.0,,
+new family,M5,characteristic,wall_op10,inf,,1.0,0.75,,
+new family,M5,characteristic,waviness,inf,,1.0,18.25,,
+new family,M5,class,cut part,inf,,1.0,inf,,1.0
+new family,M5,class,drawn geometry,inf,,1.0,11.75,0.9501557632398754,0.8102836879432624
+new family,M5,class,process indicators,inf,,1.0,17.75,0.9538461538461539,0.8973143759873617
+new family,NN,characteristic,arm_op20,inf,,1.0,inf,,
+new family,NN,characteristic,depth_op10,inf,,1.0,inf,,
+new family,NN,characteristic,dome_op20,inf,,1.0,inf,,
+new family,NN,characteristic,drawin_corner,inf,,1.0,inf,,
+new family,NN,characteristic,drawin_mid,inf,,1.0,18.0,,
+new family,NN,characteristic,wall_op10,inf,,1.0,inf,,
+new family,NN,characteristic,waviness,inf,,1.0,8.25,,
+new family,NN,class,cut part,inf,,1.0,inf,,1.0
+new family,NN,class,drawn geometry,inf,,1.0,inf,,1.0
+new family,NN,class,process indicators,inf,,1.0,inf,,1.0
+new family,M1sn,characteristic,arm_op20,inf,,1.0,inf,,
+new family,M1sn,characteristic,depth_op10,inf,,1.0,inf,,
+new family,M1sn,characteristic,dome_op20,inf,,1.0,inf,,
+new family,M1sn,characteristic,drawin_corner,inf,,1.0,inf,,
+new family,M1sn,characteristic,drawin_mid,inf,,1.0,18.25,,
+new family,M1sn,characteristic,wall_op10,inf,,1.0,inf,,
+new family,M1sn,characteristic,waviness,inf,,1.0,10.5,,
+new family,M1sn,class,cut part,inf,,1.0,inf,,1.0
+new family,M1sn,class,drawn geometry,inf,,1.0,inf,,1.0
+new family,M1sn,class,process indicators,inf,,1.0,inf,,1.0
+new family,M7n,characteristic,arm_op20,inf,,1.0,inf,,
+new family,M7n,characteristic,depth_op10,inf,,1.0,inf,,
+new family,M7n,characteristic,dome_op20,inf,,1.0,inf,,
+new family,M7n,characteristic,drawin_corner,inf,,1.0,inf,,
+new family,M7n,characteristic,drawin_mid,inf,,1.0,17.0,,
+new family,M7n,characteristic,wall_op10,inf,,1.0,inf,,
+new family,M7n,characteristic,waviness,inf,,1.0,7.5,,
+new family,M7n,class,cut part,inf,,1.0,inf,,1.0
+new family,M7n,class,drawn geometry,inf,,1.0,inf,,1.0
+new family,M7n,class,process indicators,inf,,1.0,inf,,1.0

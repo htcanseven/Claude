@@ -1,0 +1,607 @@
+relation,method,level,subset,cases,coverage,coverage_lo,coverage_hi,median_half_width,interval_score
+sibling,M2,"0.78 (largest residual, estimated offset)",all,126,0.8888888888888888,0.8333333333333334,0.9365079365079365,7.58236854188915,19.053085232112306
+sibling,M2,"0.78 (largest residual, estimated offset)",arm_op20,18,0.8888888888888888,,,,30.437113833333356
+sibling,M2,"0.78 (largest residual, estimated offset)",depth_op10,18,0.8888888888888888,,,,23.020825311544943
+sibling,M2,"0.78 (largest residual, estimated offset)",dome_op20,18,0.8333333333333334,,,,17.414610946585963
+sibling,M2,"0.78 (largest residual, estimated offset)",drawin_corner,18,0.8888888888888888,,,,8.666741265155231
+sibling,M2,"0.78 (largest residual, estimated offset)",drawin_mid,18,0.9444444444444444,,,,18.934606039647413
+sibling,M2,"0.78 (largest residual, estimated offset)",wall_op10,18,0.8888888888888888,,,,11.952666498739948
+sibling,M2,"0.78 (largest residual, estimated offset)",waviness,18,0.8888888888888888,,,,22.945032729779257
+sibling,M2,"0.78 (largest residual, estimated offset)",siblings not resolvable,75,0.9333333333333333,0.8874955985915493,0.9743670886075949,,
+sibling,M2,"0.78 (largest residual, estimated offset)",siblings resolvable,51,0.8235294117647058,0.7096627565982405,0.9423076923076923,,
+sibling,M5,"0.90 nominal (model-based, no guarantee)",all,126,0.8571428571428571,0.7619047619047619,0.9444444444444444,2.1894684762970043,10.008132838838623
+sibling,M5,"0.90 nominal (model-based, no guarantee)",arm_op20,18,0.8333333333333334,,,,9.006966977784897
+sibling,M5,"0.90 nominal (model-based, no guarantee)",depth_op10,18,0.8333333333333334,,,,11.475033305427775
+sibling,M5,"0.90 nominal (model-based, no guarantee)",dome_op20,18,0.8333333333333334,,,,24.567137482283265
+sibling,M5,"0.90 nominal (model-based, no guarantee)",drawin_corner,18,0.8888888888888888,,,,8.341948707894312
+sibling,M5,"0.90 nominal (model-based, no guarantee)",drawin_mid,18,0.8888888888888888,,,,4.844620027954265
+sibling,M5,"0.90 nominal (model-based, no guarantee)",wall_op10,18,0.8333333333333334,,,,9.459475175961021
+sibling,M5,"0.90 nominal (model-based, no guarantee)",waviness,18,0.8888888888888888,,,,2.361748194564834
+sibling,M5,"0.90 nominal (model-based, no guarantee)",siblings not resolvable,75,0.8933333333333333,0.7974640780020528,0.9733333333333334,,
+sibling,M5,"0.90 nominal (model-based, no guarantee)",siblings resolvable,51,0.803921568627451,0.6666666666666666,0.9523809523809523,,
+sibling,M2n,"0.78 (largest residual, estimated offset)",all,126,0.8968253968253969,0.8174603174603174,0.9603174603174603,5.87427217347605,15.02068374554372
+sibling,M2n,"0.78 (largest residual, estimated offset)",arm_op20,18,0.8888888888888888,,,,9.123264295819995
+sibling,M2n,"0.78 (largest residual, estimated offset)",depth_op10,18,0.8888888888888888,,,,24.345837430920344
+sibling,M2n,"0.78 (largest residual, estimated offset)",dome_op20,18,0.8888888888888888,,,,14.199970560584495
+sibling,M2n,"0.78 (largest residual, estimated offset)",drawin_corner,18,0.8888888888888888,,,,18.52731778410986
+sibling,M2n,"0.78 (largest residual, estimated offset)",drawin_mid,18,0.9444444444444444,,,,13.107997617697134
+sibling,M2n,"0.78 (largest residual, estimated offset)",wall_op10,18,0.8888888888888888,,,,5.476407473421282
+sibling,M2n,"0.78 (largest residual, estimated offset)",waviness,18,0.8888888888888888,,,,20.36399105625294
+sibling,M2n,"0.78 (largest residual, estimated offset)",siblings not resolvable,75,0.92,0.8714285714285714,0.969708276797829,,
+sibling,M2n,"0.78 (largest residual, estimated offset)",siblings resolvable,51,0.8627450980392157,0.7368172790466733,0.9777777777777777,,
+sibling,M5n,"0.90 nominal (model-based, no guarantee)",all,126,0.8492063492063492,0.7619047619047619,0.9285714285714286,2.268353704319293,9.148312127981843
+sibling,M5n,"0.90 nominal (model-based, no guarantee)",arm_op20,18,0.8888888888888888,,,,8.737974741016828
+sibling,M5n,"0.90 nominal (model-based, no guarantee)",depth_op10,18,0.8888888888888888,,,,10.869279875422048
+sibling,M5n,"0.90 nominal (model-based, no guarantee)",dome_op20,18,0.8333333333333334,,,,20.34926444031077
+sibling,M5n,"0.90 nominal (model-based, no guarantee)",drawin_corner,18,0.8333333333333334,,,,9.700042718356709
+sibling,M5n,"0.90 nominal (model-based, no guarantee)",drawin_mid,18,0.8888888888888888,,,,4.961431391785985
+sibling,M5n,"0.90 nominal (model-based, no guarantee)",wall_op10,18,0.7222222222222222,,,,7.063563567968469
+sibling,M5n,"0.90 nominal (model-based, no guarantee)",waviness,18,0.8888888888888888,,,,2.3566281610120785
+sibling,M5n,"0.90 nominal (model-based, no guarantee)",siblings not resolvable,75,0.88,0.7857142857142857,0.96,,
+sibling,M5n,"0.90 nominal (model-based, no guarantee)",siblings resolvable,51,0.803921568627451,0.6808510638297872,0.9333333333333333,,
+sibling,M3,0.78 (jackknife+),all,126,0.9603174603174603,0.9285714285714286,0.9841269841269841,9.27027364443735,20.981066877204043
+sibling,M3,0.78 (jackknife+),arm_op20,18,0.9444444444444444,,,,24.176647592598336
+sibling,M3,0.78 (jackknife+),depth_op10,18,0.9444444444444444,,,,18.94536693194662
+sibling,M3,0.78 (jackknife+),dome_op20,18,0.9444444444444444,,,,31.233538277131743
+sibling,M3,0.78 (jackknife+),drawin_corner,18,1.0,,,,13.589540535593004
+sibling,M3,0.78 (jackknife+),drawin_mid,18,1.0,,,,17.77821243189223
+sibling,M3,0.78 (jackknife+),wall_op10,18,0.8888888888888888,,,,23.059089169884547
+sibling,M3,0.78 (jackknife+),waviness,18,1.0,,,,18.08507320138183
+sibling,M3,0.78 (jackknife+),siblings not resolvable,75,0.96,0.9210526315789473,1.0,,
+sibling,M3,0.78 (jackknife+),siblings resolvable,51,0.9607843137254902,0.9090909090909091,1.0,,
+sibling,M4,0.78 (jackknife+),all,126,0.8888888888888888,0.8095238095238095,0.9523809523809523,2.9858958636094606,11.083639564750147
+sibling,M4,0.78 (jackknife+),arm_op20,18,0.8888888888888888,,,,13.414526371246462
+sibling,M4,0.78 (jackknife+),depth_op10,18,0.8888888888888888,,,,12.914276605486336
+sibling,M4,0.78 (jackknife+),dome_op20,18,0.8888888888888888,,,,25.887466767184144
+sibling,M4,0.78 (jackknife+),drawin_corner,18,0.8888888888888888,,,,9.059321827837884
+sibling,M4,0.78 (jackknife+),drawin_mid,18,0.8888888888888888,,,,6.1502157974520655
+sibling,M4,0.78 (jackknife+),wall_op10,18,0.9444444444444444,,,,7.010559624651873
+sibling,M4,0.78 (jackknife+),waviness,18,0.8333333333333334,,,,3.1491099593922685
+sibling,M4,0.78 (jackknife+),siblings not resolvable,75,0.8666666666666667,0.7580414746543779,0.958347602739726,,
+sibling,M4,0.78 (jackknife+),siblings resolvable,51,0.9215686274509803,0.8363636363636363,1.0,,
+sibling,M7n,"0.90 nominal (model-based, no guarantee)",all,126,0.8492063492063492,0.746031746031746,0.9365079365079365,1.5822195146462563,9.786279466768837
+sibling,M7n,"0.90 nominal (model-based, no guarantee)",arm_op20,18,0.7222222222222222,,,,11.779228113251245
+sibling,M7n,"0.90 nominal (model-based, no guarantee)",depth_op10,18,0.8333333333333334,,,,10.690667908371527
+sibling,M7n,"0.90 nominal (model-based, no guarantee)",dome_op20,18,0.7777777777777778,,,,30.118311400155335
+sibling,M7n,"0.90 nominal (model-based, no guarantee)",drawin_corner,18,0.8888888888888888,,,,4.301816952843844
+sibling,M7n,"0.90 nominal (model-based, no guarantee)",drawin_mid,18,0.8333333333333334,,,,4.702258507036324
+sibling,M7n,"0.90 nominal (model-based, no guarantee)",wall_op10,18,0.8888888888888888,,,,4.5126593540849
+sibling,M7n,"0.90 nominal (model-based, no guarantee)",waviness,18,1.0,,,,2.3990140316386994
+sibling,M7n,"0.90 nominal (model-based, no guarantee)",siblings not resolvable,75,0.8933333333333333,0.8,0.963855421686747,,
+sibling,M7n,"0.90 nominal (model-based, no guarantee)",siblings resolvable,51,0.7843137254901961,0.6382978723404256,0.9167091836734691,,
+sibling,M7,"0.90 nominal (model-based, no guarantee)",all,126,0.8333333333333334,0.7301587301587301,0.9285714285714286,1.636971130093181,10.395056014887265
+sibling,M7,"0.90 nominal (model-based, no guarantee)",arm_op20,18,0.7222222222222222,,,,13.914294604567253
+sibling,M7,"0.90 nominal (model-based, no guarantee)",depth_op10,18,0.7777777777777778,,,,11.694142367829821
+sibling,M7,"0.90 nominal (model-based, no guarantee)",dome_op20,18,0.7777777777777778,,,,31.012776872152074
+sibling,M7,"0.90 nominal (model-based, no guarantee)",drawin_corner,18,0.8888888888888888,,,,3.953581688218502
+sibling,M7,"0.90 nominal (model-based, no guarantee)",drawin_mid,18,0.8333333333333334,,,,5.111096618223911
+sibling,M7,"0.90 nominal (model-based, no guarantee)",wall_op10,18,0.8333333333333334,,,,4.796949355418764
+sibling,M7,"0.90 nominal (model-based, no guarantee)",waviness,18,1.0,,,,2.2825505978005283
+sibling,M7,"0.90 nominal (model-based, no guarantee)",siblings not resolvable,75,0.9066666666666666,0.8115942028985508,0.9784011220196346,,
+sibling,M7,"0.90 nominal (model-based, no guarantee)",siblings resolvable,51,0.7254901960784313,0.5918367346938775,0.868421052631579,,
+sibling,Mcd,"0.90 nominal (model-based, no guarantee)",all,126,0.8253968253968254,0.7142857142857143,0.9206349206349206,1.6650955204587898,10.1752676403308
+sibling,Mcd,"0.90 nominal (model-based, no guarantee)",arm_op20,18,0.6666666666666666,,,,17.691450310086054
+sibling,Mcd,"0.90 nominal (model-based, no guarantee)",depth_op10,18,0.7777777777777778,,,,10.512984963182383
+sibling,Mcd,"0.90 nominal (model-based, no guarantee)",dome_op20,18,0.7777777777777778,,,,29.003235997740003
+sibling,Mcd,"0.90 nominal (model-based, no guarantee)",drawin_corner,18,0.8333333333333334,,,,4.047982107285932
+sibling,Mcd,"0.90 nominal (model-based, no guarantee)",drawin_mid,18,0.7777777777777778,,,,4.435728356890414
+sibling,Mcd,"0.90 nominal (model-based, no guarantee)",wall_op10,18,0.9444444444444444,,,,3.289054452715183
+sibling,Mcd,"0.90 nominal (model-based, no guarantee)",waviness,18,1.0,,,,2.2464372944156215
+sibling,Mcd,"0.90 nominal (model-based, no guarantee)",siblings not resolvable,75,0.8666666666666667,0.7605492957746479,0.9638766832034017,,
+sibling,Mcd,"0.90 nominal (model-based, no guarantee)",siblings resolvable,51,0.7647058823529411,0.6290041260315079,0.9038461538461539,,
+sibling,M1s+RM,0.90 (split conformal across families),all,126,0.9047619047619048,0.873015873015873,0.9365079365079365,5.531173036666276,14.63443150666989
+sibling,M1s+RM,0.90 (split conformal across families),arm_op20,18,1.0,,,,11.062346073332481
+sibling,M1s+RM,0.90 (split conformal across families),depth_op10,18,0.7222222222222222,,,,30.432540747474345
+sibling,M1s+RM,0.90 (split conformal across families),dome_op20,18,0.9444444444444444,,,,11.07195957053505
+sibling,M1s+RM,0.90 (split conformal across families),drawin_corner,18,1.0,,,,11.062346073332453
+sibling,M1s+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,11.062346073332444
+sibling,M1s+RM,0.90 (split conformal across families),wall_op10,18,1.0,,,,11.062346073332485
+sibling,M1s+RM,0.90 (split conformal across families),waviness,18,0.6666666666666666,,,,16.687135935350003
+sibling,M1s+RM,0.90 (split conformal across families),siblings not resolvable,75,0.8933333333333333,0.8518518518518519,0.9393939393939394,,
+sibling,M1s+RM,0.90 (split conformal across families),siblings resolvable,51,0.9215686274509803,0.8461538461538461,1.0,,
+sibling,M1sn+RM,0.90 (split conformal across families),all,126,0.8809523809523809,0.8095238095238095,0.9444444444444444,3.571662693472593,9.277262101360865
+sibling,M1sn+RM,0.90 (split conformal across families),arm_op20,18,0.8333333333333334,,,,11.190377319815187
+sibling,M1sn+RM,0.90 (split conformal across families),depth_op10,18,0.8888888888888888,,,,7.6044080141180315
+sibling,M1sn+RM,0.90 (split conformal across families),dome_op20,18,0.7222222222222222,,,,14.837985827722159
+sibling,M1sn+RM,0.90 (split conformal across families),drawin_corner,18,0.8888888888888888,,,,9.16468307768072
+sibling,M1sn+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,7.14332538694525
+sibling,M1sn+RM,0.90 (split conformal across families),wall_op10,18,0.9444444444444444,,,,7.1439096093047665
+sibling,M1sn+RM,0.90 (split conformal across families),waviness,18,0.8888888888888888,,,,7.856145473939942
+sibling,M1sn+RM,0.90 (split conformal across families),siblings not resolvable,75,0.96,0.9066666666666666,1.0,,
+sibling,M1sn+RM,0.90 (split conformal across families),siblings resolvable,51,0.7647058823529411,0.6303997194950912,0.8980102040816323,,
+sibling,M4+RM,0.90 (split conformal across families),all,126,0.8809523809523809,0.8174603174603174,0.9365079365079365,4.232416644954995,13.430288767590527
+sibling,M4+RM,0.90 (split conformal across families),arm_op20,18,0.7222222222222222,,,,14.779887618554836
+sibling,M4+RM,0.90 (split conformal across families),depth_op10,18,1.0,,,,8.464833289910048
+sibling,M4+RM,0.90 (split conformal across families),dome_op20,18,0.6111111111111112,,,,31.867315746294643
+sibling,M4+RM,0.90 (split conformal across families),drawin_corner,18,0.8888888888888888,,,,12.814574749143004
+sibling,M4+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,8.464833289910096
+sibling,M4+RM,0.90 (split conformal across families),wall_op10,18,0.9444444444444444,,,,9.155743389410976
+sibling,M4+RM,0.90 (split conformal across families),waviness,18,1.0,,,,8.46483328991008
+sibling,M4+RM,0.90 (split conformal across families),siblings not resolvable,75,0.9733333333333334,0.9220522898154477,1.0,,
+sibling,M4+RM,0.90 (split conformal across families),siblings resolvable,51,0.7450980392156863,0.6274509803921569,0.8717948717948718,,
+sibling,M5+RM,0.90 (split conformal across families),all,126,0.8571428571428571,0.7698412698412699,0.9285714285714286,2.980622357149093,11.207899429504723
+sibling,M5+RM,0.90 (split conformal across families),arm_op20,18,0.7777777777777778,,,,11.384181126262318
+sibling,M5+RM,0.90 (split conformal across families),depth_op10,18,0.8333333333333334,,,,8.248572849727111
+sibling,M5+RM,0.90 (split conformal across families),dome_op20,18,0.6111111111111112,,,,28.17115952853313
+sibling,M5+RM,0.90 (split conformal across families),drawin_corner,18,0.8888888888888888,,,,9.779314141892694
+sibling,M5+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,5.961244714298648
+sibling,M5+RM,0.90 (split conformal across families),wall_op10,18,0.8888888888888888,,,,8.949578931520545
+sibling,M5+RM,0.90 (split conformal across families),waviness,18,1.0,,,,5.961244714298601
+sibling,M5+RM,0.90 (split conformal across families),siblings not resolvable,75,0.9466666666666667,0.8928434065934067,1.0,,
+sibling,M5+RM,0.90 (split conformal across families),siblings resolvable,51,0.7254901960784313,0.5573315118397085,0.8863743567753001,,
+sibling,M5n+RM,0.90 (split conformal across families),all,126,0.8809523809523809,0.8174603174603174,0.9365079365079365,3.0654065362361944,9.492520313097659
+sibling,M5n+RM,0.90 (split conformal across families),arm_op20,18,0.7777777777777778,,,,10.450570735922865
+sibling,M5n+RM,0.90 (split conformal across families),depth_op10,18,0.8888888888888888,,,,7.4109316505312
+sibling,M5n+RM,0.90 (split conformal across families),dome_op20,18,0.6666666666666666,,,,20.22264997583891
+sibling,M5n+RM,0.90 (split conformal across families),drawin_corner,18,0.8888888888888888,,,,9.73883608058378
+sibling,M5n+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,6.130813072472516
+sibling,M5n+RM,0.90 (split conformal across families),wall_op10,18,0.9444444444444444,,,,6.363027603861806
+sibling,M5n+RM,0.90 (split conformal across families),waviness,18,1.0,,,,6.130813072472534
+sibling,M5n+RM,0.90 (split conformal across families),siblings not resolvable,75,0.9466666666666667,0.890210027100271,1.0,,
+sibling,M5n+RM,0.90 (split conformal across families),siblings resolvable,51,0.7843137254901961,0.6415094339622641,0.9056603773584906,,
+sibling,M7+RM,0.90 (split conformal across families),all,126,0.8888888888888888,0.8412698412698413,0.9365079365079365,3.362858960533991,11.328317184202849
+sibling,M7+RM,0.90 (split conformal across families),arm_op20,18,0.7777777777777778,,,,15.379819904731777
+sibling,M7+RM,0.90 (split conformal across families),depth_op10,18,0.9444444444444444,,,,6.852561087979024
+sibling,M7+RM,0.90 (split conformal across families),dome_op20,18,0.5555555555555556,,,,29.975582765184054
+sibling,M7+RM,0.90 (split conformal across families),drawin_corner,18,0.9444444444444444,,,,6.9131027683211865
+sibling,M7+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,6.725717921067957
+sibling,M7+RM,0.90 (split conformal across families),wall_op10,18,1.0,,,,6.725717921067971
+sibling,M7+RM,0.90 (split conformal across families),waviness,18,1.0,,,,6.725717921067965
+sibling,M7+RM,0.90 (split conformal across families),siblings not resolvable,75,0.9466666666666667,0.8904067824924825,1.0,,
+sibling,M7+RM,0.90 (split conformal across families),siblings resolvable,51,0.803921568627451,0.7221899224806202,0.8974358974358975,,
+sibling,M7n+RM,0.90 (split conformal across families),all,126,0.9126984126984127,0.8571428571428571,0.9603174603174603,3.3959941608246877,10.90910215321771
+sibling,M7n+RM,0.90 (split conformal across families),arm_op20,18,0.8888888888888888,,,,10.59286916858931
+sibling,M7n+RM,0.90 (split conformal across families),depth_op10,18,0.9444444444444444,,,,6.962468274815639
+sibling,M7n+RM,0.90 (split conformal across families),dome_op20,18,0.6111111111111112,,,,31.092784612488305
+sibling,M7n+RM,0.90 (split conformal across families),drawin_corner,18,0.9444444444444444,,,,7.339628051683189
+sibling,M7n+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,6.791988321649176
+sibling,M7n+RM,0.90 (split conformal across families),wall_op10,18,1.0,,,,6.791988321649171
+sibling,M7n+RM,0.90 (split conformal across families),waviness,18,1.0,,,,6.791988321649184
+sibling,M7n+RM,0.90 (split conformal across families),siblings not resolvable,75,0.96,0.9012037037037037,1.0,,
+sibling,M7n+RM,0.90 (split conformal across families),siblings resolvable,51,0.8431372549019608,0.7547169811320755,0.9298347613219093,,
+sibling,NN+RM,0.90 (split conformal across families),all,126,0.8412698412698413,0.7380952380952381,0.9285714285714286,3.172195785466736,11.373997815755668
+sibling,NN+RM,0.90 (split conformal across families),arm_op20,18,0.7222222222222222,,,,11.267347083951796
+sibling,NN+RM,0.90 (split conformal across families),depth_op10,18,0.7777777777777778,,,,8.887576322662074
+sibling,NN+RM,0.90 (split conformal across families),dome_op20,18,0.6111111111111112,,,,25.33645917373349
+sibling,NN+RM,0.90 (split conformal across families),drawin_corner,18,0.8888888888888888,,,,12.001610242968251
+sibling,NN+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,6.344391570933401
+sibling,NN+RM,0.90 (split conformal across families),wall_op10,18,0.8888888888888888,,,,9.436208745107292
+sibling,NN+RM,0.90 (split conformal across families),waviness,18,1.0,,,,6.3443915709333965
+sibling,NN+RM,0.90 (split conformal across families),siblings not resolvable,75,0.9466666666666667,0.8701157538114059,1.0,,
+sibling,NN+RM,0.90 (split conformal across families),siblings resolvable,51,0.6862745098039216,0.5172270114942529,0.8809523809523809,,
+interpolation,M2,"0.71 (largest residual, estimated offset)",all,42,0.7142857142857143,0.7142857142857143,0.7142857142857143,5.727321788440686,26.97316601296667
+interpolation,M2,"0.71 (largest residual, estimated offset)",arm_op20,6,1.0,,,,18.496770670254424
+interpolation,M2,"0.71 (largest residual, estimated offset)",depth_op10,6,0.6666666666666666,,,,18.862048939603145
+interpolation,M2,"0.71 (largest residual, estimated offset)",dome_op20,6,0.3333333333333333,,,,44.79785443121569
+interpolation,M2,"0.71 (largest residual, estimated offset)",drawin_corner,6,1.0,,,,7.0207038497578536
+interpolation,M2,"0.71 (largest residual, estimated offset)",drawin_mid,6,1.0,,,,17.31762161396363
+interpolation,M2,"0.71 (largest residual, estimated offset)",wall_op10,6,0.5,,,,31.832732269486925
+interpolation,M2,"0.71 (largest residual, estimated offset)",waviness,6,0.5,,,,50.484430316484946
+interpolation,M5,"0.90 nominal (model-based, no guarantee)",all,42,0.7142857142857143,0.7142857142857143,0.7142857142857143,6.419347081139002,28.66793847876919
+interpolation,M5,"0.90 nominal (model-based, no guarantee)",arm_op20,6,1.0,,,,25.719937342307116
+interpolation,M5,"0.90 nominal (model-based, no guarantee)",depth_op10,6,0.6666666666666666,,,,29.399348936138107
+interpolation,M5,"0.90 nominal (model-based, no guarantee)",dome_op20,6,0.3333333333333333,,,,53.05128191707366
+interpolation,M5,"0.90 nominal (model-based, no guarantee)",drawin_corner,6,1.0,,,,5.987959996772587
+interpolation,M5,"0.90 nominal (model-based, no guarantee)",drawin_mid,6,1.0,,,,25.672151777857263
+interpolation,M5,"0.90 nominal (model-based, no guarantee)",wall_op10,6,0.5,,,,33.416665805075965
+interpolation,M5,"0.90 nominal (model-based, no guarantee)",waviness,6,0.5,,,,27.42822357615961
+interpolation,M2n,"0.71 (largest residual, estimated offset)",all,42,0.9285714285714286,0.9285714285714286,0.9285714285714286,5.03325818883533,14.200619258193827
+interpolation,M2n,"0.71 (largest residual, estimated offset)",arm_op20,6,0.6666666666666666,,,,22.497365202787037
+interpolation,M2n,"0.71 (largest residual, estimated offset)",depth_op10,6,1.0,,,,21.608011887195065
+interpolation,M2n,"0.71 (largest residual, estimated offset)",dome_op20,6,0.8333333333333334,,,,14.394333431735923
+interpolation,M2n,"0.71 (largest residual, estimated offset)",drawin_corner,6,1.0,,,,13.970925527245248
+interpolation,M2n,"0.71 (largest residual, estimated offset)",drawin_mid,6,1.0,,,,9.843905015455
+interpolation,M2n,"0.71 (largest residual, estimated offset)",wall_op10,6,1.0,,,,3.9949970012793075
+interpolation,M2n,"0.71 (largest residual, estimated offset)",waviness,6,1.0,,,,13.094796741659223
+interpolation,M5n,"0.90 nominal (model-based, no guarantee)",all,42,0.9285714285714286,0.9285714285714286,0.9285714285714286,5.774222238854309,16.241247574394983
+interpolation,M5n,"0.90 nominal (model-based, no guarantee)",arm_op20,6,0.6666666666666666,,,,21.647140356121394
+interpolation,M5n,"0.90 nominal (model-based, no guarantee)",depth_op10,6,1.0,,,,26.409960458809902
+interpolation,M5n,"0.90 nominal (model-based, no guarantee)",dome_op20,6,0.8333333333333334,,,,13.786171454846722
+interpolation,M5n,"0.90 nominal (model-based, no guarantee)",drawin_corner,6,1.0,,,,15.013001028776431
+interpolation,M5n,"0.90 nominal (model-based, no guarantee)",drawin_mid,6,1.0,,,,13.01087763883058
+interpolation,M5n,"0.90 nominal (model-based, no guarantee)",wall_op10,6,1.0,,,,4.1316479407598825
+interpolation,M5n,"0.90 nominal (model-based, no guarantee)",waviness,6,1.0,,,,19.689934142619958
+interpolation,M3,0.71 (jackknife+),all,42,0.42857142857142855,0.35714285714285715,0.5238095238095238,6.994162406317516,97.64602024901744
+interpolation,M3,0.71 (jackknife+),arm_op20,6,0.5,,,,185.88278916705886
+interpolation,M3,0.71 (jackknife+),depth_op10,6,0.16666666666666666,,,,83.87787763366688
+interpolation,M3,0.71 (jackknife+),dome_op20,6,0.3333333333333333,,,,87.67346554976213
+interpolation,M3,0.71 (jackknife+),drawin_corner,6,0.6666666666666666,,,,23.930514948537404
+interpolation,M3,0.71 (jackknife+),drawin_mid,6,0.0,,,,195.79138050692404
+interpolation,M3,0.71 (jackknife+),wall_op10,6,0.6666666666666666,,,,39.58705499211447
+interpolation,M3,0.71 (jackknife+),waviness,6,0.6666666666666666,,,,66.77905894505834
+interpolation,M4,0.71 (jackknife+),all,42,0.35714285714285715,0.35714285714285715,0.35714285714285715,3.3855872111271044,65.17286784491641
+interpolation,M4,0.71 (jackknife+),arm_op20,6,0.16666666666666666,,,,34.17961828706927
+interpolation,M4,0.71 (jackknife+),depth_op10,6,0.0,,,,94.14520492473633
+interpolation,M4,0.71 (jackknife+),dome_op20,6,0.8333333333333334,,,,29.21816980601244
+interpolation,M4,0.71 (jackknife+),drawin_corner,6,0.5,,,,25.198725845477085
+interpolation,M4,0.71 (jackknife+),drawin_mid,6,0.0,,,,99.30194977719985
+interpolation,M4,0.71 (jackknife+),wall_op10,6,1.0,,,,6.705602722316356
+interpolation,M4,0.71 (jackknife+),waviness,6,0.0,,,,167.4608035516036
+interpolation,M7n,"0.90 nominal (model-based, no guarantee)",all,42,0.5238095238095238,0.42857142857142855,0.6428571428571429,1.9815425974741996,25.626064666516797
+interpolation,M7n,"0.90 nominal (model-based, no guarantee)",arm_op20,6,0.6666666666666666,,,,35.42630588374996
+interpolation,M7n,"0.90 nominal (model-based, no guarantee)",depth_op10,6,0.3333333333333333,,,,21.95428464903381
+interpolation,M7n,"0.90 nominal (model-based, no guarantee)",dome_op20,6,0.5,,,,35.293035913999134
+interpolation,M7n,"0.90 nominal (model-based, no guarantee)",drawin_corner,6,1.0,,,,6.096956415824741
+interpolation,M7n,"0.90 nominal (model-based, no guarantee)",drawin_mid,6,0.16666666666666666,,,,19.824677659128415
+interpolation,M7n,"0.90 nominal (model-based, no guarantee)",wall_op10,6,1.0,,,,4.746584841518375
+interpolation,M7n,"0.90 nominal (model-based, no guarantee)",waviness,6,0.0,,,,56.04060730236315
+interpolation,M7,"0.90 nominal (model-based, no guarantee)",all,42,0.5714285714285714,0.5238095238095238,0.6190476190476191,2.989922069264792,81.41991855259015
+interpolation,M7,"0.90 nominal (model-based, no guarantee)",arm_op20,6,0.5,,,,164.14731958390072
+interpolation,M7,"0.90 nominal (model-based, no guarantee)",depth_op10,6,0.3333333333333333,,,,97.14600761683766
+interpolation,M7,"0.90 nominal (model-based, no guarantee)",dome_op20,6,0.5,,,,32.70165352239659
+interpolation,M7,"0.90 nominal (model-based, no guarantee)",drawin_corner,6,1.0,,,,6.213230033811762
+interpolation,M7,"0.90 nominal (model-based, no guarantee)",drawin_mid,6,0.6666666666666666,,,,7.743676280929985
+interpolation,M7,"0.90 nominal (model-based, no guarantee)",wall_op10,6,1.0,,,,9.662277320536155
+interpolation,M7,"0.90 nominal (model-based, no guarantee)",waviness,6,0.0,,,,252.32526550971815
+interpolation,Mcd,"0.90 nominal (model-based, no guarantee)",all,42,0.7857142857142857,0.7857142857142857,0.7857142857142857,6.648315996542797,24.327548139806215
+interpolation,Mcd,"0.90 nominal (model-based, no guarantee)",arm_op20,6,1.0,,,,25.351817018968347
+interpolation,Mcd,"0.90 nominal (model-based, no guarantee)",depth_op10,6,0.8333333333333334,,,,13.820875665653354
+interpolation,Mcd,"0.90 nominal (model-based, no guarantee)",dome_op20,6,0.6666666666666666,,,,40.48843192826654
+interpolation,Mcd,"0.90 nominal (model-based, no guarantee)",drawin_corner,6,1.0,,,,6.482667416181787
+interpolation,Mcd,"0.90 nominal (model-based, no guarantee)",drawin_mid,6,1.0,,,,18.4232318828647
+interpolation,Mcd,"0.90 nominal (model-based, no guarantee)",wall_op10,6,0.5,,,,30.87388847190734
+interpolation,Mcd,"0.90 nominal (model-based, no guarantee)",waviness,6,0.5,,,,34.851924594801396
+interpolation,M1s+RM,0.90 (split conformal across families),all,42,0.8571428571428571,0.8571428571428571,0.8571428571428571,21.311015050661172,76.2389751780636
+interpolation,M1s+RM,0.90 (split conformal across families),arm_op20,6,0.5,,,,210.37361603100484
+interpolation,M1s+RM,0.90 (split conformal across families),depth_op10,6,1.0,,,,42.622030101322345
+interpolation,M1s+RM,0.90 (split conformal across families),dome_op20,6,1.0,,,,42.622030101322565
+interpolation,M1s+RM,0.90 (split conformal across families),drawin_corner,6,1.0,,,,42.622030101322586
+interpolation,M1s+RM,0.90 (split conformal across families),drawin_mid,6,1.0,,,,42.6220301013226
+interpolation,M1s+RM,0.90 (split conformal across families),wall_op10,6,1.0,,,,42.6220301013226
+interpolation,M1s+RM,0.90 (split conformal across families),waviness,6,0.5,,,,110.18905970882757
+interpolation,M1sn+RM,0.90 (split conformal across families),all,42,0.8809523809523809,0.8571428571428571,0.9285714285714286,4.786380406510253,11.76873717446033
+interpolation,M1sn+RM,0.90 (split conformal across families),arm_op20,6,0.6666666666666666,,,,18.4518190054323
+interpolation,M1sn+RM,0.90 (split conformal across families),depth_op10,6,1.0,,,,9.572760813020437
+interpolation,M1sn+RM,0.90 (split conformal across families),dome_op20,6,0.8333333333333334,,,,13.013811339878686
+interpolation,M1sn+RM,0.90 (split conformal across families),drawin_corner,6,1.0,,,,9.57276081302053
+interpolation,M1sn+RM,0.90 (split conformal across families),drawin_mid,6,1.0,,,,9.572760813020547
+interpolation,M1sn+RM,0.90 (split conformal across families),wall_op10,6,1.0,,,,9.572760813020485
+interpolation,M1sn+RM,0.90 (split conformal across families),waviness,6,0.6666666666666666,,,,12.624486623829332
+interpolation,M4+RM,0.90 (split conformal across families),all,42,0.8571428571428571,0.8571428571428571,0.8571428571428571,10.48746356092905,25.502851441242054
+interpolation,M4+RM,0.90 (split conformal across families),arm_op20,6,1.0,,,,20.97492712185812
+interpolation,M4+RM,0.90 (split conformal across families),depth_op10,6,0.5,,,,42.230553517017874
+interpolation,M4+RM,0.90 (split conformal across families),dome_op20,6,1.0,,,,20.974927121858112
+interpolation,M4+RM,0.90 (split conformal across families),drawin_corner,6,1.0,,,,20.97492712185812
+interpolation,M4+RM,0.90 (split conformal across families),drawin_mid,6,1.0,,,,20.974927121858123
+interpolation,M4+RM,0.90 (split conformal across families),wall_op10,6,1.0,,,,20.974927121858094
+interpolation,M4+RM,0.90 (split conformal across families),waviness,6,0.5,,,,31.414770962385926
+interpolation,M5+RM,0.90 (split conformal across families),all,42,0.9285714285714286,0.9285714285714286,0.9285714285714286,10.64840255766001,23.713963219503633
+interpolation,M5+RM,0.90 (split conformal across families),arm_op20,6,0.5,,,,38.216911844605235
+interpolation,M5+RM,0.90 (split conformal across families),depth_op10,6,1.0,,,,21.29680511532006
+interpolation,M5+RM,0.90 (split conformal across families),dome_op20,6,1.0,,,,21.296805115320012
+interpolation,M5+RM,0.90 (split conformal across families),drawin_corner,6,1.0,,,,21.296805115320012
+interpolation,M5+RM,0.90 (split conformal across families),drawin_mid,6,1.0,,,,21.296805115320044
+interpolation,M5+RM,0.90 (split conformal across families),wall_op10,6,1.0,,,,21.296805115320048
+interpolation,M5+RM,0.90 (split conformal across families),waviness,6,1.0,,,,21.29680511532003
+interpolation,M5n+RM,0.90 (split conformal across families),all,42,0.8809523809523809,0.8571428571428571,0.9285714285714286,4.786380406510064,11.7747175823412
+interpolation,M5n+RM,0.90 (split conformal across families),arm_op20,6,0.6666666666666666,,,,18.451819005434533
+interpolation,M5n+RM,0.90 (split conformal across families),depth_op10,6,1.0,,,,9.572760813020295
+interpolation,M5n+RM,0.90 (split conformal across families),dome_op20,6,0.8333333333333334,,,,13.055674195041492
+interpolation,M5n+RM,0.90 (split conformal across families),drawin_corner,6,1.0,,,,9.572760813020098
+interpolation,M5n+RM,0.90 (split conformal across families),drawin_mid,6,1.0,,,,9.572760813020121
+interpolation,M5n+RM,0.90 (split conformal across families),wall_op10,6,1.0,,,,9.572760813020116
+interpolation,M5n+RM,0.90 (split conformal across families),waviness,6,0.6666666666666666,,,,12.624486623831745
+interpolation,M7+RM,0.90 (split conformal across families),all,42,0.8571428571428571,0.8571428571428571,0.8571428571428571,22.471537876825654,80.05223674006692
+interpolation,M7+RM,0.90 (split conformal across families),arm_op20,6,0.5,,,,227.18207704685832
+interpolation,M7+RM,0.90 (split conformal across families),depth_op10,6,1.0,,,,44.943075753651335
+interpolation,M7+RM,0.90 (split conformal across families),dome_op20,6,1.0,,,,44.943075753651634
+interpolation,M7+RM,0.90 (split conformal across families),drawin_corner,6,1.0,,,,44.94307575365167
+interpolation,M7+RM,0.90 (split conformal across families),drawin_mid,6,1.0,,,,44.94307575365164
+interpolation,M7+RM,0.90 (split conformal across families),wall_op10,6,1.0,,,,44.94307575365165
+interpolation,M7+RM,0.90 (split conformal across families),waviness,6,0.5,,,,108.46820136535223
+interpolation,M7n+RM,0.90 (split conformal across families),all,42,0.9047619047619048,0.8571428571428571,0.9285714285714286,5.601183685140736,13.786535817181743
+interpolation,M7n+RM,0.90 (split conformal across families),arm_op20,6,0.6666666666666666,,,,20.800581837252846
+interpolation,M7n+RM,0.90 (split conformal across families),depth_op10,6,1.0,,,,11.202367370281449
+interpolation,M7n+RM,0.90 (split conformal across families),dome_op20,6,0.8333333333333334,,,,19.142974703063867
+interpolation,M7n+RM,0.90 (split conformal across families),drawin_corner,6,1.0,,,,11.202367370281495
+interpolation,M7n+RM,0.90 (split conformal across families),drawin_mid,6,1.0,,,,11.20236737028147
+interpolation,M7n+RM,0.90 (split conformal across families),wall_op10,6,1.0,,,,11.20236737028148
+interpolation,M7n+RM,0.90 (split conformal across families),waviness,6,0.8333333333333334,,,,11.752724698829587
+interpolation,NN+RM,0.90 (split conformal across families),all,42,0.8809523809523809,0.8571428571428571,0.9285714285714286,4.786380406510253,11.768737174460314
+interpolation,NN+RM,0.90 (split conformal across families),arm_op20,6,0.6666666666666666,,,,18.451819005432217
+interpolation,NN+RM,0.90 (split conformal across families),depth_op10,6,1.0,,,,9.572760813020437
+interpolation,NN+RM,0.90 (split conformal across families),dome_op20,6,0.8333333333333334,,,,13.013811339878657
+interpolation,NN+RM,0.90 (split conformal across families),drawin_corner,6,1.0,,,,9.572760813020514
+interpolation,NN+RM,0.90 (split conformal across families),drawin_mid,6,1.0,,,,9.572760813020547
+interpolation,NN+RM,0.90 (split conformal across families),wall_op10,6,1.0,,,,9.572760813020496
+interpolation,NN+RM,0.90 (split conformal across families),waviness,6,0.6666666666666666,,,,12.624486623829318
+extrapolation,M2,"0.71 (largest residual, estimated offset)",all,84,0.44047619047619047,0.34523809523809523,0.5476190476190477,4.815852206636043,78.71010746593527
+extrapolation,M2,"0.71 (largest residual, estimated offset)",arm_op20,12,0.3333333333333333,,,,135.94199597249803
+extrapolation,M2,"0.71 (largest residual, estimated offset)",depth_op10,12,0.5,,,,84.84460432186307
+extrapolation,M2,"0.71 (largest residual, estimated offset)",dome_op20,12,0.75,,,,25.996252320144947
+extrapolation,M2,"0.71 (largest residual, estimated offset)",drawin_corner,12,0.5,,,,16.21976735422803
+extrapolation,M2,"0.71 (largest residual, estimated offset)",drawin_mid,12,0.0,,,,143.21632838051235
+extrapolation,M2,"0.71 (largest residual, estimated offset)",wall_op10,12,0.5,,,,30.769486933137614
+extrapolation,M2,"0.71 (largest residual, estimated offset)",waviness,12,0.5,,,,113.982316979163
+extrapolation,M5,"0.90 nominal (model-based, no guarantee)",all,84,0.4642857142857143,0.35714285714285715,0.5595238095238095,4.551605904253027,75.25768873689714
+extrapolation,M5,"0.90 nominal (model-based, no guarantee)",arm_op20,12,0.5833333333333334,,,,136.26869252028212
+extrapolation,M5,"0.90 nominal (model-based, no guarantee)",depth_op10,12,0.5,,,,91.68960381116034
+extrapolation,M5,"0.90 nominal (model-based, no guarantee)",dome_op20,12,0.6666666666666666,,,,29.396272245106378
+extrapolation,M5,"0.90 nominal (model-based, no guarantee)",drawin_corner,12,0.5,,,,15.72142940249882
+extrapolation,M5,"0.90 nominal (model-based, no guarantee)",drawin_mid,12,0.0,,,,114.52516346666306
+extrapolation,M5,"0.90 nominal (model-based, no guarantee)",wall_op10,12,0.5,,,,26.778237348828707
+extrapolation,M5,"0.90 nominal (model-based, no guarantee)",waviness,12,0.5,,,,112.4244223637405
+extrapolation,M2n,"0.71 (largest residual, estimated offset)",all,84,0.3333333333333333,0.25,0.42857142857142855,3.0913980943692074,58.69432327162095
+extrapolation,M2n,"0.71 (largest residual, estimated offset)",arm_op20,12,0.4166666666666667,,,,19.631273921704906
+extrapolation,M2n,"0.71 (largest residual, estimated offset)",depth_op10,12,0.0,,,,122.68659091104401
+extrapolation,M2n,"0.71 (largest residual, estimated offset)",dome_op20,12,0.75,,,,16.194742348356304
+extrapolation,M2n,"0.71 (largest residual, estimated offset)",drawin_corner,12,0.25,,,,61.27062137281592
+extrapolation,M2n,"0.71 (largest residual, estimated offset)",drawin_mid,12,0.16666666666666666,,,,63.51229179604834
+extrapolation,M2n,"0.71 (largest residual, estimated offset)",wall_op10,12,0.6666666666666666,,,,11.243367131823993
+extrapolation,M2n,"0.71 (largest residual, estimated offset)",waviness,12,0.08333333333333333,,,,116.32137541955329
+extrapolation,M5n,"0.90 nominal (model-based, no guarantee)",all,84,0.35714285714285715,0.23809523809523808,0.4880952380952381,3.690282385592649,54.55639785303435
+extrapolation,M5n,"0.90 nominal (model-based, no guarantee)",arm_op20,12,0.25,,,,21.104243379971077
+extrapolation,M5n,"0.90 nominal (model-based, no guarantee)",depth_op10,12,0.16666666666666666,,,,114.59116731388885
+extrapolation,M5n,"0.90 nominal (model-based, no guarantee)",dome_op20,12,0.75,,,,17.52921061330135
+extrapolation,M5n,"0.90 nominal (model-based, no guarantee)",drawin_corner,12,0.0,,,,58.31838428446301
+extrapolation,M5n,"0.90 nominal (model-based, no guarantee)",drawin_mid,12,0.3333333333333333,,,,55.81724759842317
+extrapolation,M5n,"0.90 nominal (model-based, no guarantee)",wall_op10,12,0.6666666666666666,,,,10.981213420609057
+extrapolation,M5n,"0.90 nominal (model-based, no guarantee)",waviness,12,0.3333333333333333,,,,103.55331836058393
+extrapolation,M3,0.71 (jackknife+),all,84,0.42857142857142855,0.34523809523809523,0.5119047619047619,8.910331185921736,120.34281868600503
+extrapolation,M3,0.71 (jackknife+),arm_op20,12,0.6666666666666666,,,,108.50922116900216
+extrapolation,M3,0.71 (jackknife+),depth_op10,12,0.25,,,,129.49180331439743
+extrapolation,M3,0.71 (jackknife+),dome_op20,12,0.8333333333333334,,,,49.094385271030596
+extrapolation,M3,0.71 (jackknife+),drawin_corner,12,0.16666666666666666,,,,113.25989064320943
+extrapolation,M3,0.71 (jackknife+),drawin_mid,12,0.16666666666666666,,,,260.24691625199694
+extrapolation,M3,0.71 (jackknife+),wall_op10,12,0.4166666666666667,,,,72.27980188261395
+extrapolation,M3,0.71 (jackknife+),waviness,12,0.5,,,,109.51771226978467
+extrapolation,M4,0.71 (jackknife+),all,84,0.47619047619047616,0.36904761904761907,0.5833333333333334,2.3435271544655247,47.88470546201584
+extrapolation,M4,0.71 (jackknife+),arm_op20,12,0.6666666666666666,,,,18.851148340539453
+extrapolation,M4,0.71 (jackknife+),depth_op10,12,0.25,,,,99.9093409535297
+extrapolation,M4,0.71 (jackknife+),dome_op20,12,0.75,,,,27.021285834259178
+extrapolation,M4,0.71 (jackknife+),drawin_corner,12,0.4166666666666667,,,,40.85983669138185
+extrapolation,M4,0.71 (jackknife+),drawin_mid,12,0.4166666666666667,,,,30.403584243135768
+extrapolation,M4,0.71 (jackknife+),wall_op10,12,0.5833333333333334,,,,13.627367113411395
+extrapolation,M4,0.71 (jackknife+),waviness,12,0.25,,,,104.52037505785353
+extrapolation,M7n,"0.90 nominal (model-based, no guarantee)",all,84,0.5595238095238095,0.4880952380952381,0.6309523809523809,2.8135207620665588,41.00334901442928
+extrapolation,M7n,"0.90 nominal (model-based, no guarantee)",arm_op20,12,0.9166666666666666,,,,13.723291027123247
+extrapolation,M7n,"0.90 nominal (model-based, no guarantee)",depth_op10,12,0.16666666666666666,,,,58.82018118561705
+extrapolation,M7n,"0.90 nominal (model-based, no guarantee)",dome_op20,12,0.9166666666666666,,,,26.253244558834343
+extrapolation,M7n,"0.90 nominal (model-based, no guarantee)",drawin_corner,12,0.9166666666666666,,,,11.029850906402784
+extrapolation,M7n,"0.90 nominal (model-based, no guarantee)",drawin_mid,12,0.3333333333333333,,,,37.417174609533156
+extrapolation,M7n,"0.90 nominal (model-based, no guarantee)",wall_op10,12,0.6666666666666666,,,,10.90223903511717
+extrapolation,M7n,"0.90 nominal (model-based, no guarantee)",waviness,12,0.0,,,,128.87746177837718
+extrapolation,M7,"0.90 nominal (model-based, no guarantee)",all,84,0.5833333333333334,0.5,0.6666666666666666,3.178924003704299,147.22472740154606
+extrapolation,M7,"0.90 nominal (model-based, no guarantee)",arm_op20,12,1.0,,,,12.886553234526588
+extrapolation,M7,"0.90 nominal (model-based, no guarantee)",depth_op10,12,0.16666666666666666,,,,684.4831693849247
+extrapolation,M7,"0.90 nominal (model-based, no guarantee)",dome_op20,12,0.75,,,,58.264466781693415
+extrapolation,M7,"0.90 nominal (model-based, no guarantee)",drawin_corner,12,0.9166666666666666,,,,8.639128915419604
+extrapolation,M7,"0.90 nominal (model-based, no guarantee)",drawin_mid,12,0.5,,,,16.3980430724953
+extrapolation,M7,"0.90 nominal (model-based, no guarantee)",wall_op10,12,0.75,,,,9.193650295277228
+extrapolation,M7,"0.90 nominal (model-based, no guarantee)",waviness,12,0.0,,,,240.7080801264855
+extrapolation,Mcd,"0.90 nominal (model-based, no guarantee)",all,84,0.6666666666666666,0.5952380952380952,0.7380952380952381,8.27764730718287,49.839628075388376
+extrapolation,Mcd,"0.90 nominal (model-based, no guarantee)",arm_op20,12,0.25,,,,122.56723340229668
+extrapolation,Mcd,"0.90 nominal (model-based, no guarantee)",depth_op10,12,0.75,,,,41.6624074192538
+extrapolation,Mcd,"0.90 nominal (model-based, no guarantee)",dome_op20,12,1.0,,,,23.36413802183257
+extrapolation,Mcd,"0.90 nominal (model-based, no guarantee)",drawin_corner,12,0.75,,,,13.313235285493235
+extrapolation,Mcd,"0.90 nominal (model-based, no guarantee)",drawin_mid,12,0.25,,,,68.34329964240446
+extrapolation,Mcd,"0.90 nominal (model-based, no guarantee)",wall_op10,12,1.0,,,,14.463130491059871
+extrapolation,Mcd,"0.90 nominal (model-based, no guarantee)",waviness,12,0.6666666666666666,,,,65.163952265378
+extrapolation,M1s+RM,0.90 (split conformal across families),all,84,0.8571428571428571,0.8571428571428571,0.8571428571428571,15.330725160496414,154.7280546048266
+extrapolation,M1s+RM,0.90 (split conformal across families),arm_op20,12,1.0,,,,30.661450320992696
+extrapolation,M1s+RM,0.90 (split conformal across families),depth_op10,12,0.5,,,,822.8218363814289
+extrapolation,M1s+RM,0.90 (split conformal across families),dome_op20,12,0.75,,,,51.20120731240246
+extrapolation,M1s+RM,0.90 (split conformal across families),drawin_corner,12,1.0,,,,30.66145032099271
+extrapolation,M1s+RM,0.90 (split conformal across families),drawin_mid,12,1.0,,,,30.661450320992675
+extrapolation,M1s+RM,0.90 (split conformal across families),wall_op10,12,1.0,,,,30.661450320992675
+extrapolation,M1s+RM,0.90 (split conformal across families),waviness,12,0.75,,,,86.42753725598426
+extrapolation,M1sn+RM,0.90 (split conformal across families),all,84,0.8809523809523809,0.8452380952380952,0.9166666666666666,8.89968614282655,19.071731833685785
+extrapolation,M1sn+RM,0.90 (split conformal across families),arm_op20,12,0.8333333333333334,,,,19.467136816473836
+extrapolation,M1sn+RM,0.90 (split conformal across families),depth_op10,12,0.8333333333333334,,,,20.477218389374595
+extrapolation,M1sn+RM,0.90 (split conformal across families),dome_op20,12,1.0,,,,17.799372285653053
+extrapolation,M1sn+RM,0.90 (split conformal across families),drawin_corner,12,1.0,,,,17.799372285653053
+extrapolation,M1sn+RM,0.90 (split conformal across families),drawin_mid,12,1.0,,,,17.79937228565304
+extrapolation,M1sn+RM,0.90 (split conformal across families),wall_op10,12,1.0,,,,17.79937228565306
+extrapolation,M1sn+RM,0.90 (split conformal across families),waviness,12,0.5,,,,22.360278487339844
+extrapolation,M4+RM,0.90 (split conformal across families),all,84,0.9285714285714286,0.8809523809523809,0.9761904761904762,9.763544530720328,23.855283103462543
+extrapolation,M4+RM,0.90 (split conformal across families),arm_op20,12,1.0,,,,19.527089061440588
+extrapolation,M4+RM,0.90 (split conformal across families),depth_op10,12,0.75,,,,41.87071920118601
+extrapolation,M4+RM,0.90 (split conformal across families),dome_op20,12,1.0,,,,19.527089061440588
+extrapolation,M4+RM,0.90 (split conformal across families),drawin_corner,12,1.0,,,,19.527089061440577
+extrapolation,M4+RM,0.90 (split conformal across families),drawin_mid,12,1.0,,,,19.527089061440567
+extrapolation,M4+RM,0.90 (split conformal across families),wall_op10,12,1.0,,,,19.527089061440588
+extrapolation,M4+RM,0.90 (split conformal across families),waviness,12,0.75,,,,27.480817215848862
+extrapolation,M5+RM,0.90 (split conformal across families),all,84,0.8452380952380952,0.8214285714285714,0.8571428571428571,12.961176704947988,40.1023342047414
+extrapolation,M5+RM,0.90 (split conformal across families),arm_op20,12,0.5,,,,109.23509802587067
+extrapolation,M5+RM,0.90 (split conformal across families),depth_op10,12,0.8333333333333334,,,,34.320133821702434
+extrapolation,M5+RM,0.90 (split conformal across families),dome_op20,12,1.0,,,,25.922353409896072
+extrapolation,M5+RM,0.90 (split conformal across families),drawin_corner,12,1.0,,,,25.922353409896118
+extrapolation,M5+RM,0.90 (split conformal across families),drawin_mid,12,0.6666666666666666,,,,33.16596790243211
+extrapolation,M5+RM,0.90 (split conformal across families),wall_op10,12,1.0,,,,25.92235340989609
+extrapolation,M5+RM,0.90 (split conformal across families),waviness,12,0.9166666666666666,,,,26.228079453496406
+extrapolation,M5n+RM,0.90 (split conformal across families),all,84,0.8928571428571429,0.8690476190476191,0.9166666666666666,11.825479855514656,29.202782448324612
+extrapolation,M5n+RM,0.90 (split conformal across families),arm_op20,12,1.0,,,,23.65095971102927
+extrapolation,M5n+RM,0.90 (split conformal across families),depth_op10,12,0.5,,,,53.725479989820535
+extrapolation,M5n+RM,0.90 (split conformal across families),dome_op20,12,1.0,,,,23.650959711029284
+extrapolation,M5n+RM,0.90 (split conformal across families),drawin_corner,12,1.0,,,,23.65095971102922
+extrapolation,M5n+RM,0.90 (split conformal across families),drawin_mid,12,1.0,,,,23.65095971102926
+extrapolation,M5n+RM,0.90 (split conformal across families),wall_op10,12,1.0,,,,23.650959711029273
+extrapolation,M5n+RM,0.90 (split conformal across families),waviness,12,0.75,,,,32.439198593305456
+extrapolation,M7+RM,0.90 (split conformal across families),all,84,0.8928571428571429,0.8690476190476191,0.9166666666666666,15.359864339159518,149.07555729020874
+extrapolation,M7+RM,0.90 (split conformal across families),arm_op20,12,1.0,,,,30.719728678318816
+extrapolation,M7+RM,0.90 (split conformal across families),depth_op10,12,0.5,,,,804.5540408488624
+extrapolation,M7+RM,0.90 (split conformal across families),dome_op20,12,1.0,,,,30.719728678318802
+extrapolation,M7+RM,0.90 (split conformal across families),drawin_corner,12,1.0,,,,30.71972867831883
+extrapolation,M7+RM,0.90 (split conformal across families),drawin_mid,12,1.0,,,,30.71972867831879
+extrapolation,M7+RM,0.90 (split conformal across families),wall_op10,12,1.0,,,,30.719728678318813
+extrapolation,M7+RM,0.90 (split conformal across families),waviness,12,0.75,,,,85.3762167910047
+extrapolation,M7n+RM,0.90 (split conformal across families),all,84,0.8928571428571429,0.8571428571428571,0.9166666666666666,8.765567599817116,19.405102081025454
+extrapolation,M7n+RM,0.90 (split conformal across families),arm_op20,12,0.9166666666666666,,,,19.614027260208335
+extrapolation,M7n+RM,0.90 (split conformal across families),depth_op10,12,0.8333333333333334,,,,19.851460732405975
+extrapolation,M7n+RM,0.90 (split conformal across families),dome_op20,12,1.0,,,,17.531135199634154
+extrapolation,M7n+RM,0.90 (split conformal across families),drawin_corner,12,1.0,,,,17.531135199634146
+extrapolation,M7n+RM,0.90 (split conformal across families),drawin_mid,12,1.0,,,,17.53113519963414
+extrapolation,M7n+RM,0.90 (split conformal across families),wall_op10,12,1.0,,,,17.53113519963416
+extrapolation,M7n+RM,0.90 (split conformal across families),waviness,12,0.5,,,,26.245685776027276
+extrapolation,NN+RM,0.90 (split conformal across families),all,84,0.9285714285714286,0.8809523809523809,0.9761904761904762,10.030604100559362,24.33200590701616
+extrapolation,NN+RM,0.90 (split conformal across families),arm_op20,12,1.0,,,,20.06120820111856
+extrapolation,NN+RM,0.90 (split conformal across families),depth_op10,12,0.75,,,,41.90056440725662
+extrapolation,NN+RM,0.90 (split conformal across families),dome_op20,12,1.0,,,,20.06120820111855
+extrapolation,NN+RM,0.90 (split conformal across families),drawin_corner,12,1.0,,,,20.06120820111853
+extrapolation,NN+RM,0.90 (split conformal across families),drawin_mid,12,1.0,,,,20.061208201118596
+extrapolation,NN+RM,0.90 (split conformal across families),wall_op10,12,1.0,,,,20.06120820111855
+extrapolation,NN+RM,0.90 (split conformal across families),waviness,12,0.75,,,,28.11743593626373
+new family,M2,"0.80 (largest residual, estimated offset)",all,126,0.46825396825396826,0.4126984126984127,0.5240079365079354,7.594844331425962,124.06042565551581
+new family,M2,"0.80 (largest residual, estimated offset)",arm_op20,18,0.0,,,,303.1517974570607
+new family,M2,"0.80 (largest residual, estimated offset)",depth_op10,18,0.8333333333333334,,,,37.663870991099216
+new family,M2,"0.80 (largest residual, estimated offset)",dome_op20,18,0.0,,,,364.45609867494113
+new family,M2,"0.80 (largest residual, estimated offset)",drawin_corner,18,0.5,,,,20.146570014247395
+new family,M2,"0.80 (largest residual, estimated offset)",drawin_mid,18,0.6666666666666666,,,,24.136215753155383
+new family,M2,"0.80 (largest residual, estimated offset)",wall_op10,18,0.9444444444444444,,,,11.59045635002669
+new family,M2,"0.80 (largest residual, estimated offset)",waviness,18,0.3333333333333333,,,,107.27797034808023
+new family,M5,"0.90 nominal (model-based, no guarantee)",all,126,0.11904761904761904,0.07142857142857142,0.16666666666666666,2.330511903445366,188.0380940041243
+new family,M5,"0.90 nominal (model-based, no guarantee)",arm_op20,18,0.0,,,,440.9269452662763
+new family,M5,"0.90 nominal (model-based, no guarantee)",depth_op10,18,0.2222222222222222,,,,126.58021290890878
+new family,M5,"0.90 nominal (model-based, no guarantee)",dome_op20,18,0.0,,,,423.8154243426023
+new family,M5,"0.90 nominal (model-based, no guarantee)",drawin_corner,18,0.2222222222222222,,,,27.18915750171527
+new family,M5,"0.90 nominal (model-based, no guarantee)",drawin_mid,18,0.16666666666666666,,,,18.925200705016017
+new family,M5,"0.90 nominal (model-based, no guarantee)",wall_op10,18,0.2222222222222222,,,,34.987492528831545
+new family,M5,"0.90 nominal (model-based, no guarantee)",waviness,18,0.0,,,,243.8422247755199
+new family,M2n,"0.80 (largest residual, estimated offset)",all,126,0.11904761904761904,0.09523809523809523,0.14285714285714285,5.720585398007173,969.4249449022292
+new family,M2n,"0.80 (largest residual, estimated offset)",arm_op20,18,0.0,,,,707.6339661017465
+new family,M2n,"0.80 (largest residual, estimated offset)",depth_op10,18,0.0,,,,537.8986415902945
+new family,M2n,"0.80 (largest residual, estimated offset)",dome_op20,18,0.0,,,,207.22547557291568
+new family,M2n,"0.80 (largest residual, estimated offset)",drawin_corner,18,0.0,,,,2518.322847161649
+new family,M2n,"0.80 (largest residual, estimated offset)",drawin_mid,18,0.0,,,,264.2382052447856
+new family,M2n,"0.80 (largest residual, estimated offset)",wall_op10,18,0.0,,,,2493.6983385274016
+new family,M2n,"0.80 (largest residual, estimated offset)",waviness,18,0.8333333333333334,,,,56.957140116811466
+new family,M5n,"0.90 nominal (model-based, no guarantee)",all,126,0.0,0.0,0.0,2.1821621453915654,1023.793310495989
+new family,M5n,"0.90 nominal (model-based, no guarantee)",arm_op20,18,0.0,,,,739.0979070162805
+new family,M5n,"0.90 nominal (model-based, no guarantee)",depth_op10,18,0.0,,,,696.9854832221228
+new family,M5n,"0.90 nominal (model-based, no guarantee)",dome_op20,18,0.0,,,,213.6438855175764
+new family,M5n,"0.90 nominal (model-based, no guarantee)",drawin_corner,18,0.0,,,,2602.097086267776
+new family,M5n,"0.90 nominal (model-based, no guarantee)",drawin_mid,18,0.0,,,,336.4848372358058
+new family,M5n,"0.90 nominal (model-based, no guarantee)",wall_op10,18,0.0,,,,2501.3551341256825
+new family,M5n,"0.90 nominal (model-based, no guarantee)",waviness,18,0.0,,,,76.88884008667839
+new family,M3,0.80 (jackknife+),all,126,0.3968253968253968,0.2857142857142857,0.5158730158730159,9.708857851034798,133.5561064222781
+new family,M3,0.80 (jackknife+),arm_op20,18,0.2777777777777778,,,,373.6410167777763
+new family,M3,0.80 (jackknife+),depth_op10,18,0.2777777777777778,,,,129.84098053817047
+new family,M3,0.80 (jackknife+),dome_op20,18,0.2222222222222222,,,,181.56901648954053
+new family,M3,0.80 (jackknife+),drawin_corner,18,0.5555555555555556,,,,47.93196233035317
+new family,M3,0.80 (jackknife+),drawin_mid,18,0.5555555555555556,,,,32.10492795078413
+new family,M3,0.80 (jackknife+),wall_op10,18,0.5,,,,48.67482983858044
+new family,M3,0.80 (jackknife+),waviness,18,0.3888888888888889,,,,121.1300110307418
+new family,M4,0.80 (jackknife+),all,126,0.07142857142857142,0.047619047619047616,0.09523809523809523,3.29864061588888,988.8888427317852
+new family,M4,0.80 (jackknife+),arm_op20,18,0.0,,,,713.8885725459957
+new family,M4,0.80 (jackknife+),depth_op10,18,0.0,,,,661.4251175506259
+new family,M4,0.80 (jackknife+),dome_op20,18,0.4444444444444444,,,,148.11265353064275
+new family,M4,0.80 (jackknife+),drawin_corner,18,0.0,,,,2549.874677194343
+new family,M4,0.80 (jackknife+),drawin_mid,18,0.0,,,,316.69042880583515
+new family,M4,0.80 (jackknife+),wall_op10,18,0.0,,,,2463.763642983924
+new family,M4,0.80 (jackknife+),waviness,18,0.05555555555555555,,,,68.46680651112878
+new family,M7n,"0.90 nominal (model-based, no guarantee)",all,126,0.0,0.0,0.0,0.9928823679674013,1042.7944901757376
+new family,M7n,"0.90 nominal (model-based, no guarantee)",arm_op20,18,0.0,,,,760.7311060441139
+new family,M7n,"0.90 nominal (model-based, no guarantee)",depth_op10,18,0.0,,,,718.9810913075676
+new family,M7n,"0.90 nominal (model-based, no guarantee)",dome_op20,18,0.0,,,,247.54299903139204
+new family,M7n,"0.90 nominal (model-based, no guarantee)",drawin_corner,18,0.0,,,,2627.8417196482005
+new family,M7n,"0.90 nominal (model-based, no guarantee)",drawin_mid,18,0.0,,,,348.94503472004686
+new family,M7n,"0.90 nominal (model-based, no guarantee)",wall_op10,18,0.0,,,,2517.4713888315073
+new family,M7n,"0.90 nominal (model-based, no guarantee)",waviness,18,0.0,,,,78.0480916473373
+new family,M7,"0.90 nominal (model-based, no guarantee)",all,126,0.16666666666666666,0.14285714285714285,0.19047619047619047,6.922040607805289,697.9725200732358
+new family,M7,"0.90 nominal (model-based, no guarantee)",arm_op20,18,0.0,,,,660.1071631751713
+new family,M7,"0.90 nominal (model-based, no guarantee)",depth_op10,18,0.3333333333333333,,,,297.0460251285039
+new family,M7,"0.90 nominal (model-based, no guarantee)",dome_op20,18,0.3333333333333333,,,,150.98274362265826
+new family,M7,"0.90 nominal (model-based, no guarantee)",drawin_corner,18,0.0,,,,1403.547654579258
+new family,M7,"0.90 nominal (model-based, no guarantee)",drawin_mid,18,0.0,,,,242.66101344713277
+new family,M7,"0.90 nominal (model-based, no guarantee)",wall_op10,18,0.0,,,,2090.0707928703696
+new family,M7,"0.90 nominal (model-based, no guarantee)",waviness,18,0.5,,,,41.39224768955657
+new family,Mcd,"0.90 nominal (model-based, no guarantee)",all,126,0.1111111111111111,0.06349206349206349,0.15873015873015872,2.7489775283881555,139.47256774052275
+new family,Mcd,"0.90 nominal (model-based, no guarantee)",arm_op20,18,0.1111111111111111,,,,175.71485909560846
+new family,Mcd,"0.90 nominal (model-based, no guarantee)",depth_op10,18,0.16666666666666666,,,,73.55209206768426
+new family,Mcd,"0.90 nominal (model-based, no guarantee)",dome_op20,18,0.0,,,,391.3384077544427
+new family,Mcd,"0.90 nominal (model-based, no guarantee)",drawin_corner,18,0.0,,,,44.22634763082803
+new family,Mcd,"0.90 nominal (model-based, no guarantee)",drawin_mid,18,0.0,,,,32.944667436296236
+new family,Mcd,"0.90 nominal (model-based, no guarantee)",wall_op10,18,0.5,,,,32.01627839001231
+new family,Mcd,"0.90 nominal (model-based, no guarantee)",waviness,18,0.0,,,,226.5153218087872
+new family,M1s+RM,0.90 (split conformal across families),all,126,0.9285714285714286,0.9285714285714286,0.9285714285714286,121.41071398801824,251.5313030987331
+new family,M1s+RM,0.90 (split conformal across families),arm_op20,18,1.0,,,,242.82142797603623
+new family,M1s+RM,0.90 (split conformal across families),depth_op10,18,1.0,,,,242.82142797603663
+new family,M1s+RM,0.90 (split conformal across families),dome_op20,18,1.0,,,,242.82142797603623
+new family,M1s+RM,0.90 (split conformal across families),drawin_corner,18,1.0,,,,242.82142797603618
+new family,M1s+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,242.82142797603623
+new family,M1s+RM,0.90 (split conformal across families),wall_op10,18,0.5,,,,303.79055383491414
+new family,M1s+RM,0.90 (split conformal across families),waviness,18,1.0,,,,242.82142797603623
+new family,M1sn+RM,0.90 (split conformal across families),all,126,0.8571428571428571,0.8571428571428571,0.8571428571428571,146.3132915411868,361.81703501013425
+new family,M1sn+RM,0.90 (split conformal across families),arm_op20,18,1.0,,,,292.62658308237354
+new family,M1sn+RM,0.90 (split conformal across families),depth_op10,18,1.0,,,,292.62658308237366
+new family,M1sn+RM,0.90 (split conformal across families),dome_op20,18,1.0,,,,292.62658308237343
+new family,M1sn+RM,0.90 (split conformal across families),drawin_corner,18,0.5,,,,733.6869060634888
+new family,M1sn+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,292.62658308237354
+new family,M1sn+RM,0.90 (split conformal across families),wall_op10,18,0.5,,,,335.89942359558387
+new family,M1sn+RM,0.90 (split conformal across families),waviness,18,1.0,,,,292.62658308237343
+new family,M4+RM,0.90 (split conformal across families),all,126,0.8571428571428571,0.8571428571428571,0.8571428571428571,145.7203220474678,360.8059443833931
+new family,M4+RM,0.90 (split conformal across families),arm_op20,18,1.0,,,,291.4406440949359
+new family,M4+RM,0.90 (split conformal across families),depth_op10,18,1.0,,,,291.44064409493564
+new family,M4+RM,0.90 (split conformal across families),dome_op20,18,1.0,,,,291.4406440949359
+new family,M4+RM,0.90 (split conformal across families),drawin_corner,18,0.5,,,,730.476861974951
+new family,M4+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,291.44064409493586
+new family,M4+RM,0.90 (split conformal across families),wall_op10,18,0.5,,,,337.9615282341217
+new family,M4+RM,0.90 (split conformal across families),waviness,18,1.0,,,,291.4406440949358
+new family,M5+RM,0.90 (split conformal across families),all,126,0.9126984126984127,0.8809523809523809,0.9444444444444444,34.197813303981775,78.02364794009391
+new family,M5+RM,0.90 (split conformal across families),arm_op20,18,0.6666666666666666,,,,81.09107600083487
+new family,M5+RM,0.90 (split conformal across families),depth_op10,18,1.0,,,,68.39562660796345
+new family,M5+RM,0.90 (split conformal across families),dome_op20,18,0.7222222222222222,,,,123.09632654000436
+new family,M5+RM,0.90 (split conformal across families),drawin_corner,18,1.0,,,,68.39562660796364
+new family,M5+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,68.39562660796365
+new family,M5+RM,0.90 (split conformal across families),wall_op10,18,1.0,,,,68.3956266079636
+new family,M5+RM,0.90 (split conformal across families),waviness,18,1.0,,,,68.39562660796359
+new family,M5n+RM,0.90 (split conformal across families),all,126,0.8571428571428571,0.8571428571428571,0.8571428571428571,146.41022148336617,362.2963377365021
+new family,M5n+RM,0.90 (split conformal across families),arm_op20,18,1.0,,,,292.82044296673234
+new family,M5n+RM,0.90 (split conformal across families),depth_op10,18,1.0,,,,292.82044296673234
+new family,M5n+RM,0.90 (split conformal across families),dome_op20,18,1.0,,,,292.82044296673234
+new family,M5n+RM,0.90 (split conformal across families),drawin_corner,18,0.5,,,,734.9481086199044
+new family,M5n+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,292.82044296673234
+new family,M5n+RM,0.90 (split conformal across families),wall_op10,18,0.5,,,,337.02404070194825
+new family,M5n+RM,0.90 (split conformal across families),waviness,18,1.0,,,,292.8204429667323
+new family,M7+RM,0.90 (split conformal across families),all,126,0.9285714285714286,0.9285714285714286,0.9285714285714286,123.7806621797757,253.1611969491265
+new family,M7+RM,0.90 (split conformal across families),arm_op20,18,1.0,,,,247.56132435955135
+new family,M7+RM,0.90 (split conformal across families),depth_op10,18,1.0,,,,247.56132435955138
+new family,M7+RM,0.90 (split conformal across families),dome_op20,18,1.0,,,,247.56132435955135
+new family,M7+RM,0.90 (split conformal across families),drawin_corner,18,1.0,,,,247.5613243595513
+new family,M7+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,247.5613243595513
+new family,M7+RM,0.90 (split conformal across families),wall_op10,18,0.5,,,,286.7604324865776
+new family,M7+RM,0.90 (split conformal across families),waviness,18,1.0,,,,247.5613243595513
+new family,M7n+RM,0.90 (split conformal across families),all,126,0.8571428571428571,0.8571428571428571,0.8571428571428571,146.4977492157769,362.52249157583105
+new family,M7n+RM,0.90 (split conformal across families),arm_op20,18,1.0,,,,292.99549843155404
+new family,M7n+RM,0.90 (split conformal across families),depth_op10,18,1.0,,,,292.99549843155387
+new family,M7n+RM,0.90 (split conformal across families),dome_op20,18,1.0,,,,292.99549843155404
+new family,M7n+RM,0.90 (split conformal across families),drawin_corner,18,0.5,,,,735.0588341961784
+new family,M7n+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,292.99549843155404
+new family,M7n+RM,0.90 (split conformal across families),wall_op10,18,0.5,,,,337.6211146768685
+new family,M7n+RM,0.90 (split conformal across families),waviness,18,1.0,,,,292.99549843155404
+new family,NN+RM,0.90 (split conformal across families),all,126,0.8571428571428571,0.8571428571428571,0.8571428571428571,146.32292222447523,362.3476524346508
+new family,NN+RM,0.90 (split conformal across families),arm_op20,18,1.0,,,,292.6458444489507
+new family,NN+RM,0.90 (split conformal across families),depth_op10,18,1.0,,,,292.6458444489505
+new family,NN+RM,0.90 (split conformal across families),dome_op20,18,1.0,,,,292.64584444895064
+new family,NN+RM,0.90 (split conformal across families),drawin_corner,18,0.5,,,,735.4959136328539
+new family,NN+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,292.64584444895064
+new family,NN+RM,0.90 (split conformal across families),wall_op10,18,0.5,,,,337.70843116495
+new family,NN+RM,0.90 (split conformal across families),waviness,18,1.0,,,,292.6458444489507
+sibling,M0,point,all,126,,,,,692.0481874002945
+sibling,M1,point,all,126,,,,,138.5052313840997
+sibling,M1s,point,all,126,,,,,42.853125152609245
+sibling,M1n,point,all,126,,,,,61.772772508855944
+sibling,M1sn,point,all,126,,,,,32.38107792528989
+sibling,NN,point,all,126,,,,,23.728657316444362
+sibling,Mc,point,all,126,,,,,214.32585508257685
+interpolation,M0,point,all,42,,,,,734.667343173409
+interpolation,M1,point,all,42,,,,,101.36407778248584
+interpolation,M1s,point,all,42,,,,,122.44873797046867
+interpolation,M1n,point,all,42,,,,,42.26836265146037
+interpolation,M1sn,point,all,42,,,,,41.96113667672346
+interpolation,NN,point,all,42,,,,,41.96113667672409
+interpolation,Mc,point,all,42,,,,,136.66603070009197
+extrapolation,M0,point,all,84,,,,,670.7386095137373
+extrapolation,M1,point,all,84,,,,,259.3494247628566
+extrapolation,M1s,point,all,84,,,,,216.87878675256724
+extrapolation,M1n,point,all,84,,,,,111.62313855302065
+extrapolation,M1sn,point,all,84,,,,,77.26517253288083
+extrapolation,NN,point,all,84,,,,,80.60916143212137
+extrapolation,Mc,point,all,84,,,,,428.3255600434482
+new family,M0,point,all,126,,,,,697.3863260349541
+new family,M1,point,all,126,,,,,308.5617814303287
+new family,M1s,point,all,126,,,,,860.2481286975014
+new family,M1n,point,all,126,,,,,1073.3757872907222
+new family,M1sn,point,all,126,,,,,1067.3010567625863
+new family,NN,point,all,126,,,,,1066.8031548512874
+new family,Mc,point,all,126,,,,,416.5355942329163

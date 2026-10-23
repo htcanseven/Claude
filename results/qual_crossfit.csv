@@ -1,0 +1,41 @@
+relation,criterion,pool,selected_on,evaluated_on,rule,in_sample,cross_fitted,best_on_evaluation,band,share_correct,trial_rate
+sibling,resolution_floors,all rules,concave,convex,NN,1.95,3.55,3.55,,,
+sibling,resolution_floors,all rules,convex,concave,NN,3.55,1.95,1.95,,,
+sibling,resolution_floors,pre-specified,concave,convex,M5,6.45,8.5,8.5,,,
+sibling,resolution_floors,pre-specified,convex,concave,M5,8.5,6.45,6.45,,,
+sibling,safe_floors,all rules,concave,convex,M1sn+RM,0.0,0.4,0.0,,,
+sibling,safe_floors,all rules,convex,concave,M1s+RM,0.0,1.1,0.0,,,
+sibling,safe_floors,pre-specified,concave,convex,M3,0.0,0.0,0.0,,,
+sibling,safe_floors,pre-specified,convex,concave,M3,0.0,0.0,0.0,,,
+sibling,step 6,all rules,concave,convex,NN,1.95,3.55,,0.0,0.9421571963252807,0.0
+sibling,step 6,all rules,convex,concave,NN,4.05,2.45,,0.5,0.9712900820283371,0.04487179487179487
+interpolation,resolution_floors,all rules,concave,convex,M1n,3.55,5.8,5.3,,,
+interpolation,resolution_floors,all rules,convex,concave,M1sn,5.3,4.2,3.55,,,
+interpolation,resolution_floors,pre-specified,concave,convex,M1,11.55,6.8,6.8,,,
+interpolation,resolution_floors,pre-specified,convex,concave,M1,6.8,11.55,11.55,,,
+interpolation,safe_floors,all rules,concave,convex,M1s+RM,0.0,18.15,0.0,,,
+interpolation,safe_floors,all rules,convex,concave,M4+RM,0.0,1.8,0.0,,,
+interpolation,safe_floors,pre-specified,concave,convex,M2,2.55,3.65,1.9,,,
+interpolation,safe_floors,pre-specified,convex,concave,M5,1.9,3.1,2.55,,,
+interpolation,step 6,all rules,concave,convex,M1n,5.05,7.3,,1.5,0.9307511737089202,0.12883435582822086
+interpolation,step 6,all rules,convex,concave,M1sn,7.8,6.75,,2.5,0.9696551724137931,0.22459893048128343
+extrapolation,resolution_floors,all rules,concave,convex,M1sn,8.65,8.85,8.7,,,
+extrapolation,resolution_floors,all rules,convex,concave,NN,8.7,11.0,8.65,,,
+extrapolation,resolution_floors,pre-specified,concave,convex,M4,12.2,13.05,13.05,,,
+extrapolation,resolution_floors,pre-specified,convex,concave,M4,13.05,12.2,12.2,,,
+extrapolation,safe_floors,all rules,concave,convex,M1sn+RM,0.0,0.25,0.0,,,
+extrapolation,safe_floors,all rules,convex,concave,M1s+RM,0.0,11.45,0.0,,,
+extrapolation,safe_floors,pre-specified,concave,convex,M4,9.85,5.05,5.05,,,
+extrapolation,safe_floors,pre-specified,convex,concave,M4,5.05,9.85,9.85,,,
+extrapolation,step 6,all rules,concave,convex,M1sn,14.15,14.35,,5.5,0.934763181411975,0.4293727689954105
+extrapolation,step 6,all rules,convex,concave,NN,14.45,16.75,,5.75,0.9241516966067864,0.46502936465563266
+new family,resolution_floors,all rules,concave,convex,Mcd,28.8,33.3,33.3,,,
+new family,resolution_floors,all rules,convex,concave,M1,33.3,31.8,28.8,,,
+new family,resolution_floors,pre-specified,concave,convex,M1,31.8,33.3,33.3,,,
+new family,resolution_floors,pre-specified,convex,concave,M1,33.3,31.8,31.8,,,
+new family,safe_floors,all rules,concave,convex,M5+RM,0.05,0.0,0.0,,,
+new family,safe_floors,all rules,convex,concave,M1s+RM,0.0,5.9,0.05,,,
+new family,safe_floors,pre-specified,concave,convex,M3,18.3,17.05,17.05,,,
+new family,safe_floors,pre-specified,convex,concave,M3,17.05,18.3,18.3,,,
+new family,step 6,all rules,concave,convex,Mcd,43.35,38.2,,18.25,0.7330677290836654,0.8301184433164128
+new family,step 6,all rules,convex,concave,M5+RM,58.9,80.5,,12.0,,1.0

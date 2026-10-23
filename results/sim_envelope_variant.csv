@@ -1,0 +1,25 @@
+envelope,scope,method,resolution_floors,safe_floors,median_width_floors
+DDACS grid (reference),setting/extrapolation,M0w,118.75,77.45,24.03001998010508
+DDACS grid (reference),setting/extrapolation,M2,17.5,9.9,9.63170441327208
+DDACS grid (reference),setting/extrapolation,M5,18.5,8.9,9.103211808505943
+DDACS grid (reference),setting/interpolation,M0w,118.6,94.25,22.58128912544798
+DDACS grid (reference),setting/interpolation,M2,17.75,2.7,11.45464357688137
+DDACS grid (reference),setting/interpolation,M5,19.05,2.8,12.838694162277854
+DDACS grid (reference),transfer,M0w,117.4,79.3,23.263088012839283
+DDACS grid (reference),transfer,M2,40.75,26.4,15.189688662851637
+DDACS grid (reference),transfer,M5,35.2,31.3,4.661023806890697
+DDACS grid (reference),within,M0w,118.7,94.25,23.52673025200757
+DDACS grid (reference),within,M2,22.65,0.15,15.164737083778284
+DDACS grid (reference),within,M5,7.15,0.75,4.3789369529100375
+measured incoming variation,setting/extrapolation,M0w,112.2,100.85,12.401273321091221
+measured incoming variation,setting/extrapolation,M2,33.6,7.7,14.0846769063443
+measured incoming variation,setting/extrapolation,M5,39.85,7.05,13.950232600122774
+measured incoming variation,setting/interpolation,M0w,116.6,104.8,9.678411343415284
+measured incoming variation,setting/interpolation,M2,34.6,1.7,17.603192304020585
+measured incoming variation,setting/interpolation,M5,40.6,3.35,17.804979133388954
+measured incoming variation,transfer,M0w,111.05,88.6,13.805463941482458
+measured incoming variation,transfer,M2,42.65,30.05,22.907187150558766
+measured incoming variation,transfer,M5,36.2,31.9,12.296741346907465
+measured incoming variation,within,M0w,113.55,101.05,11.898437665436475
+measured incoming variation,within,M2,34.75,1.25,21.78402194462491
+measured incoming variation,within,M5,24.15,1.25,12.824691733095243

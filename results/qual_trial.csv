@@ -1,0 +1,3 @@
+rule,cases,resolution_floors,safe_floors,resolution_adequate,safe_adequate,resolution_failing,safe_failing,abs_error_p90,abs_error_median
+"trial, first 20 parts",126,1.35,1.35,1.15,1.15,1.45,1.45,1.3039179171530275,0.40005708671678053
+"trial, first 50 parts",126,0.9,0.9,0.85,0.85,1.0,1.0,0.8625887212087733,0.2663916611177295

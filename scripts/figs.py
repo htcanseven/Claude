@@ -296,18 +296,293 @@ def fig_budget(src: Path) -> None:
     save(fig, "F4_budget")
 
 
+RULE_COLOUR.update({"M7n": "#1baf7a", "M1sn": "#4a3aa7", "M1s": MUTED, "NN+RM": "#eb6834"})
+RULE_MARKER.update({"M7n": "v", "M1sn": "P", "M1s": "s", "NN+RM": "d"})
+
+
+def all_intervals(src: Path) -> pd.DataFrame:
+    """Stored intervals of decisions.py and learners.py, with the relation scopes and a new family in the
+    produced family's floor (as step 6 scores it)."""
+    import decisions as D
+    import panel as P
+
+    iv = pd.concat([pd.read_csv(src / "dec_intervals.csv"), pd.read_csv(src / "learn_intervals.csv")], ignore_index=True)
+    return P.in_produced_floor(D.with_relation_scopes(iv), D.load_floors())
+
+
+def fig_schematic(src: Path, method: str = "M7n", scope: str = "setting/extrapolation") -> None:
+    """Operating characteristics of one rule: shares of correct and wrong verdicts against the requirement distance,
+    with the decisive and safe distances, and the share correct among decided verdicts against the observable
+    margin, with the guard band."""
+    import decisions as D
+    import panel as P
+
+    iv = all_intervals(src)
+    g = iv[(iv["scope"] == scope) & (iv["method"] == method)]
+    grid = D.FINE[D.FINE <= 40]
+    s = D.share_curves(*D.exclusion(g), grid=grid)
+    dd = D.first_beyond(s["correct"], grid)
+    ds = D.first_beyond(1 - s["wrong"], grid)
+    band, curve = P.guard_band(g)
+    fig, axs = plt.subplots(1, 2, figsize=(WIDTH_IN, 2.2), squeeze=False)
+    ax = axs[0, 0]
+    trial = 1 - s["correct"] - s["wrong"]
+    ax.stackplot(grid, s["correct"], trial, s["wrong"], colors=[OUTCOME_COLOUR["correct"], OUTCOME_COLOUR["abstain"],
+                                                                 OUTCOME_COLOUR["false_accept"]], edgecolor="white", lw=0.3)
+    ax.axhline(0.95, color=INK, lw=0.7, ls=":")         # delta_d: correct share reaches 95 %; delta_s: wrong share < 5 %
+    ax.text(39.5, 0.925, "95 %", fontsize=7, ha="right", va="top", color="white")
+    for x, lab, ls in ((dd, r"$\delta_\mathrm{d}$", "-"), (ds, r"$\delta_\mathrm{s}$", "--")):
+        ax.axvline(x, color=INK, lw=1.0, ls=ls)
+        ax.text(x + 0.4, 0.42, lab, fontsize=9, color="white", va="center")
+    ax.set_xlim(0, 40)
+    ax.set_ylim(0, 1)
+    ax.set_yticks([0, 0.5, 1], ["0", "0.5", "1"])
+    ax.tick_params(labelsize=8)
+    ax.set_ylabel("share of verdicts", fontsize=9)
+    ax.text(28, 0.6, r"correct, $\kappa$", fontsize=8, color="white", ha="center")
+    ax.text(2.2, 0.86, "trial", fontsize=7, color=INK, ha="left", va="center")
+    subcaption(ax, "a", r"verdicts at $|d|=\delta$", r"requirement distance $\delta$ (floors)")
+    ax = axs[0, 1]
+    ax.plot(curve["margin"], curve["correct_when_decided"], "-", color=OUTCOME_COLOUR["correct"], lw=1.3)
+    ax.axhline(0.95, color=INK, lw=0.7, ls=":")
+    if np.isfinite(band):
+        ax.axvline(band, color=INK, lw=1.0)
+        ax.text(band + 0.4, 0.62, rf"$g={band:g}$", fontsize=9)
+    ax.set_xlim(0, 20)
+    ax.set_ylim(0.6, 1.005)
+    ax.tick_params(labelsize=8)
+    ax.set_ylabel("correct among\ndecided verdicts", fontsize=9)
+    subcaption(ax, "b", "a single verdict", "observable margin (floors)")
+    handles = [plt.Rectangle((0, 0), 1, 1, color=OUTCOME_COLOUR[k], label=lab) for k, lab in
+               (("correct", "correct"), ("abstain", "trial"), ("false_accept", r"wrong, $\omega$"))]
+    fig.legend(handles=handles, loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.5, 1.04), fontsize=9)
+    fig.tight_layout(rect=(0, 0, 1, 0.93), w_pad=1.2)
+    save(fig, "F_schematic")
+
+
+def fig_parts(src: Path) -> None:
+    """One part of each geometry after drawing (OP10) and after cutting (OP20), as the scanner sees it: depth below
+    the plane of the cup bottom, with the regions and directions of the seven characteristics."""
+    import io
+    import zipfile
+
+    import h5py
+
+    import features_rddac as FR
+    from common import CACHE, RDDAC_FILES, fetch_small
+
+    zf = zipfile.ZipFile(fetch_small(RDDAC_FILES["sample.zip"], CACHE / "rddac_sample.zip"))
+    fig, axs = plt.subplots(2, 3, figsize=(WIDTH_IN, 3.75), squeeze=False,
+                            gridspec_kw={"width_ratios": [1, 1, 1.25]})
+    letters = iter("abcdef")
+    for i, (geo, member, label) in enumerate((("concave", "2500.h5", "concave, 300 kN"),
+                                               ("convex", "7000.h5", "convex, 300 kN"))):
+        with h5py.File(io.BytesIO(zf.read(member)), "r") as h5:
+            frames = {}
+            for op in ("op10", "op20"):
+                Z, _ = FR.load_scan(h5, op)
+                frames[op] = FR.part_frame(FR.block_median(Z))
+        for j, op in enumerate(("op10", "op20")):
+            fr = frames[op]
+            X, Y, Dm = fr["X"] - fr["xc"], fr["Y"] - fr["yc"], np.where(fr["fin"], fr["D"], np.nan)
+            ax = axs[i, j]
+            ax.pcolormesh(X, Y, Dm, cmap="Blues", vmin=-2, vmax=34, shading="auto", rasterized=True)
+            ax.set_aspect("equal")
+            ax.set_xlim(-118, 118)
+            ax.set_ylim(-118, 118)
+            ax.set_xticks([-100, 0, 100])
+            ax.set_yticks([-100, 0, 100])
+            ax.tick_params(labelsize=7)
+            ax.grid(False)
+            if op == "op10":
+                ax.plot([-105, 105], [0, 0], color=OUTCOME_COLOUR["false_reject"], lw=1.0)          # mid-side widths (x)
+                ax.plot([-80, 80], [-80, 80], color=OUTCOME_COLOUR["false_accept"], lw=0.9, ls="--")   # diagonals
+                ax.plot([-80, 80], [80, -80], color=OUTCOME_COLOUR["false_accept"], lw=0.9, ls="--")
+                for sgn in (-1, 1):                     # east and west bands: wall at 10-20 mm depth, flange angle
+                    ax.add_patch(plt.Rectangle((0 if sgn > 0 else -105, -5), 105, 10, fill=False, ec=INK, lw=0.7))
+            else:
+                for ux, uy in ((1, 0), (-1, 0), (0, 1), (0, -1)):                                    # arm bands
+                    ax.add_patch(plt.Rectangle((min(0, ux * 105) - (5 if ux == 0 else 0),
+                                                min(0, uy * 105) - (5 if uy == 0 else 0)),
+                                               10 if ux == 0 else 105, 10 if uy == 0 else 105, fill=False,
+                                               ec=INK, lw=0.7))
+                ax.add_patch(plt.Circle((0, 0), 40, fill=False, ec=OUTCOME_COLOUR["false_reject"], lw=1.0))
+            if j == 0:
+                ax.set_ylabel(f"{label}\ny (mm)", fontsize=8)
+            subcaption(ax, next(letters), "after drawing" if op == "op10" else "after cutting",
+                       "x (mm)" if i == 1 else "")
+        fr = frames["op10"]
+        X, Y, Dm = fr["X"] - fr["xc"], fr["Y"] - fr["yc"], fr["D"]
+        band = fr["fin"] & (np.abs(Y) <= 2.0)
+        x, d = X[band], Dm[band]
+        edges = np.arange(-115, 116, 1.0)
+        idx = np.digitize(x, edges)
+        prof = np.array([np.nanmedian(d[idx == k]) if np.sum(idx == k) > 2 else np.nan for k in range(1, len(edges))])
+        xc = edges[:-1] + 0.5
+        ax = axs[i, 2]
+        ax.plot(xc, prof, "-", color=GEO_COLOUR[geo], lw=1.2)
+        ax.invert_yaxis()
+        ax.set_xlim(-115, 115)
+        ax.set_ylim(33, -3)
+        ax.axhspan(10, 20, color=GRID, lw=0)                         # straight part of the wall used for the angle
+        ax.text(0, 15, "wall angle\nbetween 10 and 20 mm", ha="center", va="center", fontsize=6.5, color=MUTED)
+        rim = (np.abs(xc) > 75) & np.isfinite(prof)
+        flange = float(np.nanmedian(prof[rim])) if rim.any() else 29.0
+        xa = float(np.nanmax(np.abs(xc[rim]))) - 3 if rim.any() else 85.0
+        ax.annotate("", xy=(xa, flange), xytext=(xa, 0), arrowprops=dict(arrowstyle="<->", lw=0.8, color=INK))
+        ax.text(xa - 2, 6, "depth", rotation=90, fontsize=6.5, ha="right", va="center")
+        ax.text(0, 4, "bottom: datum\n(dome after cutting)", ha="center", va="center", fontsize=6.5, color=MUTED)
+        ax.text(-xa + 1, flange - 2.5, "flange", fontsize=6.5, va="bottom", color=MUTED)
+        ax.tick_params(labelsize=7)
+        ax.set_ylabel("depth (mm)", fontsize=8)
+        subcaption(ax, next(letters), "section y = 0, after drawing", "x (mm)" if i == 1 else "")
+    fig.tight_layout(h_pad=0.4, w_pad=0.6)
+    save(fig, "F_parts")
+
+
+def fig_batches(src: Path, alt: str = "concave/300/medium") -> None:
+    """The parts of one run in production order with the centres of its ten batches of 50, and the floor of the
+    characteristic (95 % of batch pairs of an alternative differ by less)."""
+    q = parts_qc(pd.read_csv(src / "features_rddac.csv", low_memory=False))
+    fl = pd.read_csv(src / "alt_floor.csv").set_index("qc")
+    g = q[q["alternative"] == alt].reset_index(drop=True)
+    geo = alt.split("/")[0]
+    fig, axs = plt.subplots(2, 1, figsize=(WIDTH_IN, 3.0), sharex=True, squeeze=False)
+    for ax, qc, letter in zip(axs[:, 0], ("drawin_mid", "wall_op10"), "ab"):
+        y = g[qc].to_numpy(float)
+        n = np.arange(1, len(y) + 1)
+        ax.plot(n, y, ".", color=MUTED, ms=1.6, alpha=0.6)
+        cen = [centre(y[k:k + 50]) for k in range(0, len(y), 50)]
+        for k, c in enumerate(cen):
+            ax.plot([k * 50 + 1, k * 50 + 50], [c, c], "-", color=GEO_COLOUR[geo], lw=2.0, solid_capstyle="butt")
+        F = float(fl.loc[qc, f"floor_{geo}"])
+        lo, hi = np.nanpercentile(y, [1, 99])
+        ax.set_ylim(lo - 0.1 * (hi - lo), hi + 0.1 * (hi - lo))
+        x0 = 512
+        mid = np.nanmean(cen)
+        ax.plot([x0, x0], [mid - F / 2, mid + F / 2], color=INK, lw=2.4, solid_capstyle="butt", clip_on=False)
+        ax.text(x0 + 6, mid, f"floor\n{F:.3g} {QCS_UNIT[qc]}", fontsize=7, va="center", clip_on=False)
+        ax.set_xlim(0, 505)
+        ax.tick_params(labelsize=8)
+        ax.set_ylabel(ROW_LABEL[qc], fontsize=8)
+        geo_, bhf_, lub_ = alt.split("/")
+        subcaption(ax, letter, f"{SHORT[qc]}: {geo_} cup, {bhf_} kN, {lub_} lubrication",
+                   "part in production order" if letter == "b" else "")
+    fig.tight_layout(h_pad=0.4, rect=(0, 0, 0.93, 1))
+    save(fig, "F_batches")
+
+
+QCS_UNIT = {"drawin_mid": "mm", "drawin_corner": "mm", "waviness": "mm", "wall_op10": "$^{\\circ}$",
+            "arm_op20": "$^{\\circ}$", "depth_op10": "mm", "dome_op20": "mm"}
+
+
+def fig_costs(src: Path, c_fr: float = 0.5) -> None:
+    """Expected cost per verdict against the cost of a trial (both relative to a false accept; a false reject costs
+    c_fr), under the reference prior, for each rule with its cost-minimising guard band, and the cost of trying every
+    design; lower row: the cost-minimising band."""
+    c = pd.read_csv(src / "qual_costs.csv")
+    c = c[(c["prior"] == "reference (+-20)") & np.isclose(c["c_fr"], c_fr)]
+    rels = [("sibling", "sibling"), ("interpolation", "interpolated"), ("extrapolation", "extrapolated"),
+            ("new family", "new family")]
+    rules = ["M2", "M5", "NN", "M1sn", "M7n", "NN+RM"]
+    fig, axs = plt.subplots(2, 4, figsize=(WIDTH_IN, 3.4), sharex=True, sharey="row", squeeze=False)
+    letters = {(i, j): "abcdefgh"[4 * i + j] for i in range(2) for j in range(4)}
+    for j, (rel, name) in enumerate(rels):
+        for i, col in enumerate(("cost_opt", "band_opt")):
+            ax = axs[i, j]
+            for m in rules:
+                g = c[(c["relation"] == rel) & (c["method"] == m)].sort_values("c_trial")
+                if g.empty:
+                    continue
+                y = g[col].to_numpy(float)
+                if col == "band_opt":
+                    y = np.where(g["cost_opt"].to_numpy() >= g["c_trial"].to_numpy() - 1e-12, np.nan, y)
+                ax.plot(g["c_trial"], y, "--" if m.endswith("+RM") else "-", marker=RULE_MARKER.get(m, "o"),
+                        color=RULE_COLOUR.get(m, MUTED), lw=1.0, ms=3.2, mfc="white", mew=0.9, label=m)
+            if col == "cost_opt":
+                xs = np.array([0.01, 0.5])
+                ax.plot(xs, xs, color=INK, lw=0.9, ls="--", label="trial every design")
+            ax.set_xscale("log")
+            ax.set_xticks([0.01, 0.1, 0.5], ["0.01", "0.1", "0.5"])
+            ax.tick_params(labelsize=7)
+            subcaption(ax, letters[(i, j)], name, r"$c_\mathrm{T}/c_\mathrm{FA}$" if i == 1 else "")
+        axs[0, 0].set_ylabel("expected cost\nper verdict", fontsize=8)
+        axs[1, 0].set_ylabel("cost-minimising\nband (floors)", fontsize=8)
+    h, lab = axs[0, 1].get_legend_handles_labels()
+    fig.legend(h, lab, loc="upper center", ncol=7, frameon=False, bbox_to_anchor=(0.5, 1.03), fontsize=8,
+               handlelength=1.6, columnspacing=0.8)
+    fig.tight_layout(rect=(0, 0, 1, 0.94), w_pad=0.4, h_pad=0.5)
+    save(fig, "F_costs")
+
+
+def fig_decisions_main(src: Path) -> None:
+    """Verdict shares of three rules against the requirement distance, by relation (a new family in the produced
+    family's floor), with the decisive (solid) and safe (dashed) distances."""
+    import decisions as D
+
+    iv = all_intervals(src)
+    methods = [("NN", "nearest setting"), ("M5", "GP-corrected envelope"), ("M7n", "trend GP")]
+    scopes = [("within", "sibling"), ("setting", "new setting"), ("transfer", "new family")]
+    fig, axs = plt.subplots(len(scopes), len(methods), figsize=(WIDTH_IN, 4.1), sharey=True, squeeze=False)
+    letters = iter("abcdefghi")
+    for i, (scope, sname) in enumerate(scopes):
+        for j, (m, mname) in enumerate(methods):
+            ax = axs[i, j]
+            g = iv[(iv["scope"] == scope) & (iv["method"] == m)]
+            d = D.verdict_frame(g).assign(scope=scope)
+            cv = D.score(d, ["d"]).reset_index().sort_values("d")
+            x = cv["d"].to_numpy()
+            ax.stackplot(x, cv["correct"], cv["abstain"], cv["false_reject"], cv["false_accept"],
+                         colors=[OUTCOME_COLOUR[k] for k in ["correct", "abstain", "false_reject", "false_accept"]],
+                         edgecolor="white", lw=0.4)
+            r = D.distance_pair(*D.exclusion(g))
+            for col, ls in (("resolution_floors", "-"), ("safe_floors", "--")):
+                dv = r[col]
+                if np.isfinite(dv) and dv < 100:
+                    for sgn in (-1, 1):
+                        ax.axvline(sgn * dv, color=INK, lw=0.9, ls=ls)
+            ax.set_xscale("symlog", linthresh=10.0, linscale=1.5)
+            ax.set_xlim(-100, 100)
+            ax.set_ylim(0, 1)
+            ax.set_xticks([-100, -10, 0, 10, 100], ["$-100$", "$-10$", "0", "10", "100"], fontsize=7)
+            ax.set_xticks([-50, -30, -20, -5, 5, 20, 30, 50], minor=True)
+            ax.set_yticks([0, 0.5, 1], ["0", "0.5", "1"])
+            ax.tick_params(axis="y", labelsize=8)
+            ax.axvline(0, color=INK, lw=0.6)
+            if i == 0:
+                ax.set_title(mname, fontsize=8, color=INK)
+            subcaption(ax, next(letters), f"{m}, {sname}", "$d$ (floors)" if i == len(scopes) - 1 else "")
+        axs[i, 0].set_ylabel("share of verdicts", fontsize=8)
+    labels = {"correct": "correct", "abstain": "trial", "false_reject": "false reject", "false_accept": "false accept"}
+    handles = [plt.Rectangle((0, 0), 1, 1, color=OUTCOME_COLOUR[k], label=labels[k]) for k in labels]
+    handles += [plt.Line2D([], [], color=INK, lw=0.9, ls="-", label=r"$\pm\delta_\mathrm{d}$"),
+                plt.Line2D([], [], color=INK, lw=0.9, ls="--", label=r"$\pm\delta_\mathrm{s}$")]
+    fig.legend(handles=handles, loc="upper center", ncol=6, frameon=False, bbox_to_anchor=(0.5, 1.01),
+               handlelength=1.4, columnspacing=1.0, fontsize=8)
+    fig.tight_layout(rect=(0, 0, 1, 0.955), w_pad=0.5, h_pad=0.5)
+    save(fig, "F3_decisions_main")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--src", default=str(RESULTS))
+    ap.add_argument("--only", nargs="*", help="names of the figure functions to run (default: all)")
     args = ap.parse_args()
     src = Path(args.src)
     style()
-    fig_alternatives(src)
-    fig_decisions_compare(src)
+    figs = {"alternatives": fig_alternatives, "decisions_compare": fig_decisions_compare}
     if (src / "budget_design.csv").exists():
-        fig_budget(src)
+        figs["budget"] = fig_budget
     if (src / "panel_step6_curves.csv").exists():
-        fig_reliability(src)
+        figs["reliability"] = fig_reliability
+    if (src / "learn_intervals.csv").exists():
+        figs.update({"schematic": fig_schematic, "decisions_main": fig_decisions_main})
+    if (src / "qual_costs.csv").exists():
+        figs["costs"] = fig_costs
+    figs.update({"parts": fig_parts, "batches": fig_batches})
+    for name, fn in figs.items():
+        if not args.only or name in args.only:
+            fn(src)
     print(f"figures written to {FIGURES}")
 
 

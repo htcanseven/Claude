@@ -1,0 +1,5 @@
+rule_set,distance,relations,rules,share_relation,share_rule,share_interaction,best_rule_range
+"pre-specified calibrated rules (M1-M5), produced family's floor",resolution_floors,all relations,5,0.5835008189615797,0.09504481288710712,0.32145436815131323,"[13.3, 32.9, 7.15]"
+"pre-specified calibrated rules (M1-M5), produced family's floor",resolution_floors,within the family,5,0.15588650761214967,0.6044799412058725,0.23963355118197804,"[13.3, 7.15]"
+"pre-specified calibrated rules (M1-M5), produced family's floor",safe_floors,all relations,5,0.7094350269456347,0.11462890271607028,0.17593607033829517,
+"pre-specified calibrated rules (M1-M5), produced family's floor",safe_floors,within the family,5,0.54435597453839,0.34557443922650327,0.11006958623510665,

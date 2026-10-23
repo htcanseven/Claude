@@ -1,0 +1,127 @@
+alternative,qc,stratum
+concave/100/coarse,drawin_mid,siblings resolvable
+concave/100/fine,drawin_mid,siblings not resolvable
+concave/100/medium,drawin_mid,siblings not resolvable
+concave/300/coarse,drawin_mid,siblings resolvable
+concave/300/fine,drawin_mid,siblings resolvable
+concave/300/medium,drawin_mid,siblings resolvable
+concave/500/coarse,drawin_mid,siblings resolvable
+concave/500/fine,drawin_mid,siblings not resolvable
+concave/500/medium,drawin_mid,siblings resolvable
+convex/100/coarse,drawin_mid,siblings not resolvable
+convex/100/fine,drawin_mid,siblings not resolvable
+convex/100/medium,drawin_mid,siblings not resolvable
+convex/300/coarse,drawin_mid,siblings not resolvable
+convex/300/fine,drawin_mid,siblings resolvable
+convex/300/medium,drawin_mid,siblings resolvable
+convex/500/coarse,drawin_mid,siblings resolvable
+convex/500/fine,drawin_mid,siblings not resolvable
+convex/500/medium,drawin_mid,siblings not resolvable
+concave/100/coarse,drawin_corner,siblings not resolvable
+concave/100/fine,drawin_corner,siblings not resolvable
+concave/100/medium,drawin_corner,siblings not resolvable
+concave/300/coarse,drawin_corner,siblings resolvable
+concave/300/fine,drawin_corner,siblings not resolvable
+concave/300/medium,drawin_corner,siblings resolvable
+concave/500/coarse,drawin_corner,siblings resolvable
+concave/500/fine,drawin_corner,siblings not resolvable
+concave/500/medium,drawin_corner,siblings resolvable
+convex/100/coarse,drawin_corner,siblings not resolvable
+convex/100/fine,drawin_corner,siblings not resolvable
+convex/100/medium,drawin_corner,siblings not resolvable
+convex/300/coarse,drawin_corner,siblings not resolvable
+convex/300/fine,drawin_corner,siblings not resolvable
+convex/300/medium,drawin_corner,siblings not resolvable
+convex/500/coarse,drawin_corner,siblings resolvable
+convex/500/fine,drawin_corner,siblings resolvable
+convex/500/medium,drawin_corner,siblings resolvable
+concave/100/coarse,waviness,siblings not resolvable
+concave/100/fine,waviness,siblings not resolvable
+concave/100/medium,waviness,siblings resolvable
+concave/300/coarse,waviness,siblings not resolvable
+concave/300/fine,waviness,siblings not resolvable
+concave/300/medium,waviness,siblings not resolvable
+concave/500/coarse,waviness,siblings not resolvable
+concave/500/fine,waviness,siblings not resolvable
+concave/500/medium,waviness,siblings resolvable
+convex/100/coarse,waviness,siblings not resolvable
+convex/100/fine,waviness,siblings not resolvable
+convex/100/medium,waviness,siblings not resolvable
+convex/300/coarse,waviness,siblings not resolvable
+convex/300/fine,waviness,siblings not resolvable
+convex/300/medium,waviness,siblings not resolvable
+convex/500/coarse,waviness,siblings resolvable
+convex/500/fine,waviness,siblings not resolvable
+convex/500/medium,waviness,siblings not resolvable
+concave/100/coarse,wall_op10,siblings not resolvable
+concave/100/fine,wall_op10,siblings resolvable
+concave/100/medium,wall_op10,siblings resolvable
+concave/300/coarse,wall_op10,siblings not resolvable
+concave/300/fine,wall_op10,siblings not resolvable
+concave/300/medium,wall_op10,siblings not resolvable
+concave/500/coarse,wall_op10,siblings not resolvable
+concave/500/fine,wall_op10,siblings not resolvable
+concave/500/medium,wall_op10,siblings not resolvable
+convex/100/coarse,wall_op10,siblings not resolvable
+convex/100/fine,wall_op10,siblings not resolvable
+convex/100/medium,wall_op10,siblings not resolvable
+convex/300/coarse,wall_op10,siblings not resolvable
+convex/300/fine,wall_op10,siblings not resolvable
+convex/300/medium,wall_op10,siblings not resolvable
+convex/500/coarse,wall_op10,siblings resolvable
+convex/500/fine,wall_op10,siblings resolvable
+convex/500/medium,wall_op10,siblings resolvable
+concave/100/coarse,arm_op20,siblings not resolvable
+concave/100/fine,arm_op20,siblings resolvable
+concave/100/medium,arm_op20,siblings resolvable
+concave/300/coarse,arm_op20,siblings not resolvable
+concave/300/fine,arm_op20,siblings not resolvable
+concave/300/medium,arm_op20,siblings resolvable
+concave/500/coarse,arm_op20,siblings not resolvable
+concave/500/fine,arm_op20,siblings not resolvable
+concave/500/medium,arm_op20,siblings not resolvable
+convex/100/coarse,arm_op20,siblings not resolvable
+convex/100/fine,arm_op20,siblings not resolvable
+convex/100/medium,arm_op20,siblings resolvable
+convex/300/coarse,arm_op20,siblings not resolvable
+convex/300/fine,arm_op20,siblings resolvable
+convex/300/medium,arm_op20,siblings resolvable
+convex/500/coarse,arm_op20,siblings resolvable
+convex/500/fine,arm_op20,siblings resolvable
+convex/500/medium,arm_op20,siblings resolvable
+concave/100/coarse,depth_op10,siblings resolvable
+concave/100/fine,depth_op10,siblings not resolvable
+concave/100/medium,depth_op10,siblings resolvable
+concave/300/coarse,depth_op10,siblings not resolvable
+concave/300/fine,depth_op10,siblings not resolvable
+concave/300/medium,depth_op10,siblings not resolvable
+concave/500/coarse,depth_op10,siblings not resolvable
+concave/500/fine,depth_op10,siblings not resolvable
+concave/500/medium,depth_op10,siblings not resolvable
+convex/100/coarse,depth_op10,siblings not resolvable
+convex/100/fine,depth_op10,siblings not resolvable
+convex/100/medium,depth_op10,siblings not resolvable
+convex/300/coarse,depth_op10,siblings not resolvable
+convex/300/fine,depth_op10,siblings resolvable
+convex/300/medium,depth_op10,siblings resolvable
+convex/500/coarse,depth_op10,siblings resolvable
+convex/500/fine,depth_op10,siblings resolvable
+convex/500/medium,depth_op10,siblings resolvable
+concave/100/coarse,dome_op20,siblings resolvable
+concave/100/fine,dome_op20,siblings resolvable
+concave/100/medium,dome_op20,siblings resolvable
+concave/300/coarse,dome_op20,siblings not resolvable
+concave/300/fine,dome_op20,siblings not resolvable
+concave/300/medium,dome_op20,siblings not resolvable
+concave/500/coarse,dome_op20,siblings not resolvable
+concave/500/fine,dome_op20,siblings not resolvable
+concave/500/medium,dome_op20,siblings not resolvable
+convex/100/coarse,dome_op20,siblings resolvable
+convex/100/fine,dome_op20,siblings resolvable
+convex/100/medium,dome_op20,siblings resolvable
+convex/300/coarse,dome_op20,siblings not resolvable
+convex/300/fine,dome_op20,siblings resolvable
+convex/300/medium,dome_op20,siblings resolvable
+convex/500/coarse,dome_op20,siblings resolvable
+convex/500/fine,dome_op20,siblings resolvable
+convex/500/medium,dome_op20,siblings resolvable
