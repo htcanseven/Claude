@@ -2564,311 +2564,311 @@
 | relation      | method   | level                                     | subset                  |   cases |   coverage |   coverage_lo |   coverage_hi |   median_half_width |   interval_score |
 |:--------------|:---------|:------------------------------------------|:------------------------|--------:|-----------:|--------------:|--------------:|--------------------:|-----------------:|
 | sibling       | M2       | 0.78 (largest residual, estimated offset) | all                     |     126 |      0.889 |         0.833 |         0.937 |               7.582 |           19.053 |
-| sibling       | M2       | 0.78 (largest residual, estimated offset) | arm_op20                |      18 |      0.889 |       nan     |       nan     |             nan     |           30.437 |
-| sibling       | M2       | 0.78 (largest residual, estimated offset) | depth_op10              |      18 |      0.889 |       nan     |       nan     |             nan     |           23.021 |
-| sibling       | M2       | 0.78 (largest residual, estimated offset) | dome_op20               |      18 |      0.833 |       nan     |       nan     |             nan     |           17.415 |
-| sibling       | M2       | 0.78 (largest residual, estimated offset) | drawin_corner           |      18 |      0.889 |       nan     |       nan     |             nan     |            8.667 |
-| sibling       | M2       | 0.78 (largest residual, estimated offset) | drawin_mid              |      18 |      0.944 |       nan     |       nan     |             nan     |           18.935 |
-| sibling       | M2       | 0.78 (largest residual, estimated offset) | wall_op10               |      18 |      0.889 |       nan     |       nan     |             nan     |           11.953 |
-| sibling       | M2       | 0.78 (largest residual, estimated offset) | waviness                |      18 |      0.889 |       nan     |       nan     |             nan     |           22.945 |
-| sibling       | M2       | 0.78 (largest residual, estimated offset) | siblings not resolvable |      75 |      0.933 |         0.887 |         0.974 |             nan     |          nan     |
-| sibling       | M2       | 0.78 (largest residual, estimated offset) | siblings resolvable     |      51 |      0.824 |         0.71  |         0.942 |             nan     |          nan     |
-| sibling       | M5       | 0.90 nominal (model-based, no guarantee)  | all                     |     126 |      0.857 |         0.762 |         0.944 |               2.189 |           10.008 |
-| sibling       | M5       | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      18 |      0.833 |       nan     |       nan     |             nan     |            9.007 |
-| sibling       | M5       | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      18 |      0.833 |       nan     |       nan     |             nan     |           11.475 |
-| sibling       | M5       | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      18 |      0.833 |       nan     |       nan     |             nan     |           24.567 |
-| sibling       | M5       | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      18 |      0.889 |       nan     |       nan     |             nan     |            8.342 |
-| sibling       | M5       | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      18 |      0.889 |       nan     |       nan     |             nan     |            4.845 |
-| sibling       | M5       | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      18 |      0.833 |       nan     |       nan     |             nan     |            9.459 |
-| sibling       | M5       | 0.90 nominal (model-based, no guarantee)  | waviness                |      18 |      0.889 |       nan     |       nan     |             nan     |            2.362 |
-| sibling       | M5       | 0.90 nominal (model-based, no guarantee)  | siblings not resolvable |      75 |      0.893 |         0.797 |         0.973 |             nan     |          nan     |
-| sibling       | M5       | 0.90 nominal (model-based, no guarantee)  | siblings resolvable     |      51 |      0.804 |         0.667 |         0.952 |             nan     |          nan     |
+| sibling       | M2       | 0.78 (largest residual, estimated offset) | arm_op20                |      18 |      0.889 |         0.722 |         1     |             nan     |           30.437 |
+| sibling       | M2       | 0.78 (largest residual, estimated offset) | depth_op10              |      18 |      0.889 |         0.722 |         1     |             nan     |           23.021 |
+| sibling       | M2       | 0.78 (largest residual, estimated offset) | dome_op20               |      18 |      0.833 |         0.611 |         1     |             nan     |           17.415 |
+| sibling       | M2       | 0.78 (largest residual, estimated offset) | drawin_corner           |      18 |      0.889 |         0.722 |         1     |             nan     |            8.667 |
+| sibling       | M2       | 0.78 (largest residual, estimated offset) | drawin_mid              |      18 |      0.944 |         0.833 |         1     |             nan     |           18.935 |
+| sibling       | M2       | 0.78 (largest residual, estimated offset) | wall_op10               |      18 |      0.889 |         0.722 |         1     |             nan     |           11.953 |
+| sibling       | M2       | 0.78 (largest residual, estimated offset) | waviness                |      18 |      0.889 |         0.722 |         1     |             nan     |           22.945 |
+| sibling       | M2       | 0.78 (largest residual, estimated offset) | siblings not resolvable |      75 |      0.933 |         0.882 |         0.974 |             nan     |          nan     |
+| sibling       | M2       | 0.78 (largest residual, estimated offset) | siblings resolvable     |      51 |      0.824 |         0.706 |         0.941 |             nan     |          nan     |
+| sibling       | M5       | 0.90 nominal (model-based, no guarantee)  | all                     |     126 |      0.857 |         0.754 |         0.944 |               2.189 |           10.008 |
+| sibling       | M5       | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      18 |      0.833 |         0.667 |         1     |             nan     |            9.007 |
+| sibling       | M5       | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      18 |      0.833 |         0.667 |         1     |             nan     |           11.475 |
+| sibling       | M5       | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      18 |      0.833 |         0.667 |         1     |             nan     |           24.567 |
+| sibling       | M5       | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      18 |      0.889 |         0.722 |         1     |             nan     |            8.342 |
+| sibling       | M5       | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      18 |      0.889 |         0.722 |         1     |             nan     |            4.845 |
+| sibling       | M5       | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      18 |      0.833 |         0.667 |         1     |             nan     |            9.459 |
+| sibling       | M5       | 0.90 nominal (model-based, no guarantee)  | waviness                |      18 |      0.889 |         0.722 |         1     |             nan     |            2.362 |
+| sibling       | M5       | 0.90 nominal (model-based, no guarantee)  | siblings not resolvable |      75 |      0.893 |         0.8   |         0.971 |             nan     |          nan     |
+| sibling       | M5       | 0.90 nominal (model-based, no guarantee)  | siblings resolvable     |      51 |      0.804 |         0.667 |         0.951 |             nan     |          nan     |
 | sibling       | M5n      | 0.90 nominal (model-based, no guarantee)  | all                     |     126 |      0.849 |         0.762 |         0.929 |               2.268 |            9.148 |
-| sibling       | M5n      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      18 |      0.889 |       nan     |       nan     |             nan     |            8.738 |
-| sibling       | M5n      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      18 |      0.889 |       nan     |       nan     |             nan     |           10.869 |
-| sibling       | M5n      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      18 |      0.833 |       nan     |       nan     |             nan     |           20.349 |
-| sibling       | M5n      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      18 |      0.833 |       nan     |       nan     |             nan     |            9.7   |
-| sibling       | M5n      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      18 |      0.889 |       nan     |       nan     |             nan     |            4.961 |
-| sibling       | M5n      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      18 |      0.722 |       nan     |       nan     |             nan     |            7.064 |
-| sibling       | M5n      | 0.90 nominal (model-based, no guarantee)  | waviness                |      18 |      0.889 |       nan     |       nan     |             nan     |            2.357 |
-| sibling       | M5n      | 0.90 nominal (model-based, no guarantee)  | siblings not resolvable |      75 |      0.88  |         0.786 |         0.96  |             nan     |          nan     |
-| sibling       | M5n      | 0.90 nominal (model-based, no guarantee)  | siblings resolvable     |      51 |      0.804 |         0.681 |         0.933 |             nan     |          nan     |
-| sibling       | M3       | 0.78 (jackknife+)                         | all                     |     126 |      0.96  |         0.929 |         0.984 |               9.27  |           20.981 |
-| sibling       | M3       | 0.78 (jackknife+)                         | arm_op20                |      18 |      0.944 |       nan     |       nan     |             nan     |           24.177 |
-| sibling       | M3       | 0.78 (jackknife+)                         | depth_op10              |      18 |      0.944 |       nan     |       nan     |             nan     |           18.945 |
-| sibling       | M3       | 0.78 (jackknife+)                         | dome_op20               |      18 |      0.944 |       nan     |       nan     |             nan     |           31.234 |
-| sibling       | M3       | 0.78 (jackknife+)                         | drawin_corner           |      18 |      1     |       nan     |       nan     |             nan     |           13.59  |
-| sibling       | M3       | 0.78 (jackknife+)                         | drawin_mid              |      18 |      1     |       nan     |       nan     |             nan     |           17.778 |
-| sibling       | M3       | 0.78 (jackknife+)                         | wall_op10               |      18 |      0.889 |       nan     |       nan     |             nan     |           23.059 |
-| sibling       | M3       | 0.78 (jackknife+)                         | waviness                |      18 |      1     |       nan     |       nan     |             nan     |           18.085 |
-| sibling       | M3       | 0.78 (jackknife+)                         | siblings not resolvable |      75 |      0.96  |         0.921 |         1     |             nan     |          nan     |
-| sibling       | M3       | 0.78 (jackknife+)                         | siblings resolvable     |      51 |      0.961 |         0.909 |         1     |             nan     |          nan     |
+| sibling       | M5n      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      18 |      0.889 |         0.722 |         1     |             nan     |            8.738 |
+| sibling       | M5n      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      18 |      0.889 |         0.722 |         1     |             nan     |           10.869 |
+| sibling       | M5n      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      18 |      0.833 |         0.667 |         1     |             nan     |           20.349 |
+| sibling       | M5n      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      18 |      0.833 |         0.667 |         1     |             nan     |            9.7   |
+| sibling       | M5n      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      18 |      0.889 |         0.722 |         1     |             nan     |            4.961 |
+| sibling       | M5n      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      18 |      0.722 |         0.5   |         0.889 |             nan     |            7.064 |
+| sibling       | M5n      | 0.90 nominal (model-based, no guarantee)  | waviness                |      18 |      0.889 |         0.722 |         1     |             nan     |            2.357 |
+| sibling       | M5n      | 0.90 nominal (model-based, no guarantee)  | siblings not resolvable |      75 |      0.88  |         0.789 |         0.961 |             nan     |          nan     |
+| sibling       | M5n      | 0.90 nominal (model-based, no guarantee)  | siblings resolvable     |      51 |      0.804 |         0.673 |         0.935 |             nan     |          nan     |
+| sibling       | M3       | 0.78 (jackknife+)                         | all                     |     126 |      0.96  |         0.936 |         0.984 |               9.27  |           20.981 |
+| sibling       | M3       | 0.78 (jackknife+)                         | arm_op20                |      18 |      0.944 |         0.833 |         1     |             nan     |           24.177 |
+| sibling       | M3       | 0.78 (jackknife+)                         | depth_op10              |      18 |      0.944 |         0.833 |         1     |             nan     |           18.945 |
+| sibling       | M3       | 0.78 (jackknife+)                         | dome_op20               |      18 |      0.944 |         0.833 |         1     |             nan     |           31.234 |
+| sibling       | M3       | 0.78 (jackknife+)                         | drawin_corner           |      18 |      1     |         1     |         1     |             nan     |           13.59  |
+| sibling       | M3       | 0.78 (jackknife+)                         | drawin_mid              |      18 |      1     |         1     |         1     |             nan     |           17.778 |
+| sibling       | M3       | 0.78 (jackknife+)                         | wall_op10               |      18 |      0.889 |         0.722 |         1     |             nan     |           23.059 |
+| sibling       | M3       | 0.78 (jackknife+)                         | waviness                |      18 |      1     |         1     |         1     |             nan     |           18.085 |
+| sibling       | M3       | 0.78 (jackknife+)                         | siblings not resolvable |      75 |      0.96  |         0.922 |         1     |             nan     |          nan     |
+| sibling       | M3       | 0.78 (jackknife+)                         | siblings resolvable     |      51 |      0.961 |         0.911 |         1     |             nan     |          nan     |
 | sibling       | M4       | 0.78 (jackknife+)                         | all                     |     126 |      0.889 |         0.81  |         0.952 |               2.986 |           11.084 |
-| sibling       | M4       | 0.78 (jackknife+)                         | arm_op20                |      18 |      0.889 |       nan     |       nan     |             nan     |           13.415 |
-| sibling       | M4       | 0.78 (jackknife+)                         | depth_op10              |      18 |      0.889 |       nan     |       nan     |             nan     |           12.914 |
-| sibling       | M4       | 0.78 (jackknife+)                         | dome_op20               |      18 |      0.889 |       nan     |       nan     |             nan     |           25.887 |
-| sibling       | M4       | 0.78 (jackknife+)                         | drawin_corner           |      18 |      0.889 |       nan     |       nan     |             nan     |            9.059 |
-| sibling       | M4       | 0.78 (jackknife+)                         | drawin_mid              |      18 |      0.889 |       nan     |       nan     |             nan     |            6.15  |
-| sibling       | M4       | 0.78 (jackknife+)                         | wall_op10               |      18 |      0.944 |       nan     |       nan     |             nan     |            7.011 |
-| sibling       | M4       | 0.78 (jackknife+)                         | waviness                |      18 |      0.833 |       nan     |       nan     |             nan     |            3.149 |
-| sibling       | M4       | 0.78 (jackknife+)                         | siblings not resolvable |      75 |      0.867 |         0.758 |         0.958 |             nan     |          nan     |
-| sibling       | M4       | 0.78 (jackknife+)                         | siblings resolvable     |      51 |      0.922 |         0.836 |         1     |             nan     |          nan     |
+| sibling       | M4       | 0.78 (jackknife+)                         | arm_op20                |      18 |      0.889 |         0.722 |         1     |             nan     |           13.415 |
+| sibling       | M4       | 0.78 (jackknife+)                         | depth_op10              |      18 |      0.889 |         0.722 |         1     |             nan     |           12.914 |
+| sibling       | M4       | 0.78 (jackknife+)                         | dome_op20               |      18 |      0.889 |         0.722 |         1     |             nan     |           25.887 |
+| sibling       | M4       | 0.78 (jackknife+)                         | drawin_corner           |      18 |      0.889 |         0.722 |         1     |             nan     |            9.059 |
+| sibling       | M4       | 0.78 (jackknife+)                         | drawin_mid              |      18 |      0.889 |         0.722 |         1     |             nan     |            6.15  |
+| sibling       | M4       | 0.78 (jackknife+)                         | wall_op10               |      18 |      0.944 |         0.833 |         1     |             nan     |            7.011 |
+| sibling       | M4       | 0.78 (jackknife+)                         | waviness                |      18 |      0.833 |         0.667 |         1     |             nan     |            3.149 |
+| sibling       | M4       | 0.78 (jackknife+)                         | siblings not resolvable |      75 |      0.867 |         0.761 |         0.958 |             nan     |          nan     |
+| sibling       | M4       | 0.78 (jackknife+)                         | siblings resolvable     |      51 |      0.922 |         0.837 |         1     |             nan     |          nan     |
 | sibling       | M7n      | 0.90 nominal (model-based, no guarantee)  | all                     |     126 |      0.849 |         0.746 |         0.937 |               1.582 |            9.786 |
-| sibling       | M7n      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      18 |      0.722 |       nan     |       nan     |             nan     |           11.779 |
-| sibling       | M7n      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      18 |      0.833 |       nan     |       nan     |             nan     |           10.691 |
-| sibling       | M7n      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      18 |      0.778 |       nan     |       nan     |             nan     |           30.118 |
-| sibling       | M7n      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      18 |      0.889 |       nan     |       nan     |             nan     |            4.302 |
-| sibling       | M7n      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      18 |      0.833 |       nan     |       nan     |             nan     |            4.702 |
-| sibling       | M7n      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      18 |      0.889 |       nan     |       nan     |             nan     |            4.513 |
-| sibling       | M7n      | 0.90 nominal (model-based, no guarantee)  | waviness                |      18 |      1     |       nan     |       nan     |             nan     |            2.399 |
-| sibling       | M7n      | 0.90 nominal (model-based, no guarantee)  | siblings not resolvable |      75 |      0.893 |         0.8   |         0.964 |             nan     |          nan     |
-| sibling       | M7n      | 0.90 nominal (model-based, no guarantee)  | siblings resolvable     |      51 |      0.784 |         0.638 |         0.917 |             nan     |          nan     |
-| sibling       | M7       | 0.90 nominal (model-based, no guarantee)  | all                     |     126 |      0.833 |         0.73  |         0.929 |               1.637 |           10.395 |
-| sibling       | M7       | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      18 |      0.722 |       nan     |       nan     |             nan     |           13.914 |
-| sibling       | M7       | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      18 |      0.778 |       nan     |       nan     |             nan     |           11.694 |
-| sibling       | M7       | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      18 |      0.778 |       nan     |       nan     |             nan     |           31.013 |
-| sibling       | M7       | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      18 |      0.889 |       nan     |       nan     |             nan     |            3.954 |
-| sibling       | M7       | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      18 |      0.833 |       nan     |       nan     |             nan     |            5.111 |
-| sibling       | M7       | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      18 |      0.833 |       nan     |       nan     |             nan     |            4.797 |
-| sibling       | M7       | 0.90 nominal (model-based, no guarantee)  | waviness                |      18 |      1     |       nan     |       nan     |             nan     |            2.283 |
-| sibling       | M7       | 0.90 nominal (model-based, no guarantee)  | siblings not resolvable |      75 |      0.907 |         0.812 |         0.978 |             nan     |          nan     |
-| sibling       | M7       | 0.90 nominal (model-based, no guarantee)  | siblings resolvable     |      51 |      0.725 |         0.592 |         0.868 |             nan     |          nan     |
-| sibling       | Mcd      | 0.90 nominal (model-based, no guarantee)  | all                     |     126 |      0.825 |         0.714 |         0.921 |               1.665 |           10.175 |
-| sibling       | Mcd      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      18 |      0.667 |       nan     |       nan     |             nan     |           17.691 |
-| sibling       | Mcd      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      18 |      0.778 |       nan     |       nan     |             nan     |           10.513 |
-| sibling       | Mcd      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      18 |      0.778 |       nan     |       nan     |             nan     |           29.003 |
-| sibling       | Mcd      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      18 |      0.833 |       nan     |       nan     |             nan     |            4.048 |
-| sibling       | Mcd      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      18 |      0.778 |       nan     |       nan     |             nan     |            4.436 |
-| sibling       | Mcd      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      18 |      0.944 |       nan     |       nan     |             nan     |            3.289 |
-| sibling       | Mcd      | 0.90 nominal (model-based, no guarantee)  | waviness                |      18 |      1     |       nan     |       nan     |             nan     |            2.246 |
-| sibling       | Mcd      | 0.90 nominal (model-based, no guarantee)  | siblings not resolvable |      75 |      0.867 |         0.761 |         0.964 |             nan     |          nan     |
-| sibling       | Mcd      | 0.90 nominal (model-based, no guarantee)  | siblings resolvable     |      51 |      0.765 |         0.629 |         0.904 |             nan     |          nan     |
+| sibling       | M7n      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      18 |      0.722 |         0.5   |         0.889 |             nan     |           11.779 |
+| sibling       | M7n      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      18 |      0.833 |         0.667 |         1     |             nan     |           10.691 |
+| sibling       | M7n      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      18 |      0.778 |         0.556 |         0.944 |             nan     |           30.118 |
+| sibling       | M7n      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      18 |      0.889 |         0.722 |         1     |             nan     |            4.302 |
+| sibling       | M7n      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      18 |      0.833 |         0.667 |         1     |             nan     |            4.702 |
+| sibling       | M7n      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      18 |      0.889 |         0.722 |         1     |             nan     |            4.513 |
+| sibling       | M7n      | 0.90 nominal (model-based, no guarantee)  | waviness                |      18 |      1     |         1     |         1     |             nan     |            2.399 |
+| sibling       | M7n      | 0.90 nominal (model-based, no guarantee)  | siblings not resolvable |      75 |      0.893 |         0.803 |         0.966 |             nan     |          nan     |
+| sibling       | M7n      | 0.90 nominal (model-based, no guarantee)  | siblings resolvable     |      51 |      0.784 |         0.646 |         0.929 |             nan     |          nan     |
+| sibling       | M7       | 0.90 nominal (model-based, no guarantee)  | all                     |     126 |      0.833 |         0.73  |         0.921 |               1.637 |           10.395 |
+| sibling       | M7       | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      18 |      0.722 |         0.5   |         0.944 |             nan     |           13.914 |
+| sibling       | M7       | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      18 |      0.778 |         0.556 |         0.944 |             nan     |           11.694 |
+| sibling       | M7       | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      18 |      0.778 |         0.556 |         0.944 |             nan     |           31.013 |
+| sibling       | M7       | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      18 |      0.889 |         0.722 |         1     |             nan     |            3.954 |
+| sibling       | M7       | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      18 |      0.833 |         0.665 |         1     |             nan     |            5.111 |
+| sibling       | M7       | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      18 |      0.833 |         0.667 |         1     |             nan     |            4.797 |
+| sibling       | M7       | 0.90 nominal (model-based, no guarantee)  | waviness                |      18 |      1     |         1     |         1     |             nan     |            2.283 |
+| sibling       | M7       | 0.90 nominal (model-based, no guarantee)  | siblings not resolvable |      75 |      0.907 |         0.82  |         0.976 |             nan     |          nan     |
+| sibling       | M7       | 0.90 nominal (model-based, no guarantee)  | siblings resolvable     |      51 |      0.725 |         0.587 |         0.867 |             nan     |          nan     |
+| sibling       | Mcd      | 0.90 nominal (model-based, no guarantee)  | all                     |     126 |      0.825 |         0.722 |         0.913 |               1.665 |           10.175 |
+| sibling       | Mcd      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      18 |      0.667 |         0.444 |         0.889 |             nan     |           17.691 |
+| sibling       | Mcd      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      18 |      0.778 |         0.556 |         0.944 |             nan     |           10.513 |
+| sibling       | Mcd      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      18 |      0.778 |         0.556 |         0.944 |             nan     |           29.003 |
+| sibling       | Mcd      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      18 |      0.833 |         0.667 |         1     |             nan     |            4.048 |
+| sibling       | Mcd      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      18 |      0.778 |         0.611 |         0.944 |             nan     |            4.436 |
+| sibling       | Mcd      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      18 |      0.944 |         0.833 |         1     |             nan     |            3.289 |
+| sibling       | Mcd      | 0.90 nominal (model-based, no guarantee)  | waviness                |      18 |      1     |         1     |         1     |             nan     |            2.246 |
+| sibling       | Mcd      | 0.90 nominal (model-based, no guarantee)  | siblings not resolvable |      75 |      0.867 |         0.753 |         0.97  |             nan     |          nan     |
+| sibling       | Mcd      | 0.90 nominal (model-based, no guarantee)  | siblings resolvable     |      51 |      0.765 |         0.627 |         0.897 |             nan     |          nan     |
 | sibling       | NN+RM    | 0.90 (split conformal across families)    | all                     |     126 |      0.841 |         0.738 |         0.929 |               3.172 |           11.374 |
-| sibling       | NN+RM    | 0.90 (split conformal across families)    | arm_op20                |      18 |      0.722 |       nan     |       nan     |             nan     |           11.267 |
-| sibling       | NN+RM    | 0.90 (split conformal across families)    | depth_op10              |      18 |      0.778 |       nan     |       nan     |             nan     |            8.888 |
-| sibling       | NN+RM    | 0.90 (split conformal across families)    | dome_op20               |      18 |      0.611 |       nan     |       nan     |             nan     |           25.336 |
-| sibling       | NN+RM    | 0.90 (split conformal across families)    | drawin_corner           |      18 |      0.889 |       nan     |       nan     |             nan     |           12.002 |
-| sibling       | NN+RM    | 0.90 (split conformal across families)    | drawin_mid              |      18 |      1     |       nan     |       nan     |             nan     |            6.344 |
-| sibling       | NN+RM    | 0.90 (split conformal across families)    | wall_op10               |      18 |      0.889 |       nan     |       nan     |             nan     |            9.436 |
-| sibling       | NN+RM    | 0.90 (split conformal across families)    | waviness                |      18 |      1     |       nan     |       nan     |             nan     |            6.344 |
-| sibling       | NN+RM    | 0.90 (split conformal across families)    | siblings not resolvable |      75 |      0.947 |         0.87  |         1     |             nan     |          nan     |
-| sibling       | NN+RM    | 0.90 (split conformal across families)    | siblings resolvable     |      51 |      0.686 |         0.517 |         0.881 |             nan     |          nan     |
+| sibling       | NN+RM    | 0.90 (split conformal across families)    | arm_op20                |      18 |      0.722 |         0.556 |         0.889 |             nan     |           11.267 |
+| sibling       | NN+RM    | 0.90 (split conformal across families)    | depth_op10              |      18 |      0.778 |         0.611 |         0.944 |             nan     |            8.888 |
+| sibling       | NN+RM    | 0.90 (split conformal across families)    | dome_op20               |      18 |      0.611 |         0.389 |         0.778 |             nan     |           25.336 |
+| sibling       | NN+RM    | 0.90 (split conformal across families)    | drawin_corner           |      18 |      0.889 |         0.722 |         1     |             nan     |           12.002 |
+| sibling       | NN+RM    | 0.90 (split conformal across families)    | drawin_mid              |      18 |      1     |         1     |         1     |             nan     |            6.344 |
+| sibling       | NN+RM    | 0.90 (split conformal across families)    | wall_op10               |      18 |      0.889 |         0.778 |         1     |             nan     |            9.436 |
+| sibling       | NN+RM    | 0.90 (split conformal across families)    | waviness                |      18 |      1     |         1     |         1     |             nan     |            6.344 |
+| sibling       | NN+RM    | 0.90 (split conformal across families)    | siblings not resolvable |      75 |      0.947 |         0.869 |         1     |             nan     |          nan     |
+| sibling       | NN+RM    | 0.90 (split conformal across families)    | siblings resolvable     |      51 |      0.686 |         0.518 |         0.884 |             nan     |          nan     |
 | interpolation | M2       | 0.71 (largest residual, estimated offset) | all                     |      42 |      0.714 |         0.714 |         0.714 |               5.727 |           26.973 |
-| interpolation | M2       | 0.71 (largest residual, estimated offset) | arm_op20                |       6 |      1     |       nan     |       nan     |             nan     |           18.497 |
-| interpolation | M2       | 0.71 (largest residual, estimated offset) | depth_op10              |       6 |      0.667 |       nan     |       nan     |             nan     |           18.862 |
-| interpolation | M2       | 0.71 (largest residual, estimated offset) | dome_op20               |       6 |      0.333 |       nan     |       nan     |             nan     |           44.798 |
-| interpolation | M2       | 0.71 (largest residual, estimated offset) | drawin_corner           |       6 |      1     |       nan     |       nan     |             nan     |            7.021 |
-| interpolation | M2       | 0.71 (largest residual, estimated offset) | drawin_mid              |       6 |      1     |       nan     |       nan     |             nan     |           17.318 |
-| interpolation | M2       | 0.71 (largest residual, estimated offset) | wall_op10               |       6 |      0.5   |       nan     |       nan     |             nan     |           31.833 |
-| interpolation | M2       | 0.71 (largest residual, estimated offset) | waviness                |       6 |      0.5   |       nan     |       nan     |             nan     |           50.484 |
+| interpolation | M2       | 0.71 (largest residual, estimated offset) | arm_op20                |       6 |      1     |         1     |         1     |             nan     |           18.497 |
+| interpolation | M2       | 0.71 (largest residual, estimated offset) | depth_op10              |       6 |      0.667 |         0.5   |         1     |             nan     |           18.862 |
+| interpolation | M2       | 0.71 (largest residual, estimated offset) | dome_op20               |       6 |      0.333 |         0     |         0.5   |             nan     |           44.798 |
+| interpolation | M2       | 0.71 (largest residual, estimated offset) | drawin_corner           |       6 |      1     |         1     |         1     |             nan     |            7.021 |
+| interpolation | M2       | 0.71 (largest residual, estimated offset) | drawin_mid              |       6 |      1     |         1     |         1     |             nan     |           17.318 |
+| interpolation | M2       | 0.71 (largest residual, estimated offset) | wall_op10               |       6 |      0.5   |         0.5   |         0.5   |             nan     |           31.833 |
+| interpolation | M2       | 0.71 (largest residual, estimated offset) | waviness                |       6 |      0.5   |         0.5   |         0.5   |             nan     |           50.484 |
 | interpolation | M5       | 0.90 nominal (model-based, no guarantee)  | all                     |      42 |      0.714 |         0.714 |         0.714 |               6.419 |           28.668 |
-| interpolation | M5       | 0.90 nominal (model-based, no guarantee)  | arm_op20                |       6 |      1     |       nan     |       nan     |             nan     |           25.72  |
-| interpolation | M5       | 0.90 nominal (model-based, no guarantee)  | depth_op10              |       6 |      0.667 |       nan     |       nan     |             nan     |           29.399 |
-| interpolation | M5       | 0.90 nominal (model-based, no guarantee)  | dome_op20               |       6 |      0.333 |       nan     |       nan     |             nan     |           53.051 |
-| interpolation | M5       | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |       6 |      1     |       nan     |       nan     |             nan     |            5.988 |
-| interpolation | M5       | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |       6 |      1     |       nan     |       nan     |             nan     |           25.672 |
-| interpolation | M5       | 0.90 nominal (model-based, no guarantee)  | wall_op10               |       6 |      0.5   |       nan     |       nan     |             nan     |           33.417 |
-| interpolation | M5       | 0.90 nominal (model-based, no guarantee)  | waviness                |       6 |      0.5   |       nan     |       nan     |             nan     |           27.428 |
+| interpolation | M5       | 0.90 nominal (model-based, no guarantee)  | arm_op20                |       6 |      1     |         1     |         1     |             nan     |           25.72  |
+| interpolation | M5       | 0.90 nominal (model-based, no guarantee)  | depth_op10              |       6 |      0.667 |         0.5   |         1     |             nan     |           29.399 |
+| interpolation | M5       | 0.90 nominal (model-based, no guarantee)  | dome_op20               |       6 |      0.333 |         0     |         0.5   |             nan     |           53.051 |
+| interpolation | M5       | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |       6 |      1     |         1     |         1     |             nan     |            5.988 |
+| interpolation | M5       | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |       6 |      1     |         1     |         1     |             nan     |           25.672 |
+| interpolation | M5       | 0.90 nominal (model-based, no guarantee)  | wall_op10               |       6 |      0.5   |         0.5   |         0.5   |             nan     |           33.417 |
+| interpolation | M5       | 0.90 nominal (model-based, no guarantee)  | waviness                |       6 |      0.5   |         0.5   |         0.5   |             nan     |           27.428 |
 | interpolation | M5n      | 0.90 nominal (model-based, no guarantee)  | all                     |      42 |      0.929 |         0.929 |         0.929 |               5.774 |           16.241 |
-| interpolation | M5n      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |       6 |      0.667 |       nan     |       nan     |             nan     |           21.647 |
-| interpolation | M5n      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |       6 |      1     |       nan     |       nan     |             nan     |           26.41  |
-| interpolation | M5n      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |       6 |      0.833 |       nan     |       nan     |             nan     |           13.786 |
-| interpolation | M5n      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |       6 |      1     |       nan     |       nan     |             nan     |           15.013 |
-| interpolation | M5n      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |       6 |      1     |       nan     |       nan     |             nan     |           13.011 |
-| interpolation | M5n      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |       6 |      1     |       nan     |       nan     |             nan     |            4.132 |
-| interpolation | M5n      | 0.90 nominal (model-based, no guarantee)  | waviness                |       6 |      1     |       nan     |       nan     |             nan     |           19.69  |
+| interpolation | M5n      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |       6 |      0.667 |         0.5   |         1     |             nan     |           21.647 |
+| interpolation | M5n      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |       6 |      1     |         1     |         1     |             nan     |           26.41  |
+| interpolation | M5n      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |       6 |      0.833 |         0.5   |         1     |             nan     |           13.786 |
+| interpolation | M5n      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |       6 |      1     |         1     |         1     |             nan     |           15.013 |
+| interpolation | M5n      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |       6 |      1     |         1     |         1     |             nan     |           13.011 |
+| interpolation | M5n      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |       6 |      1     |         1     |         1     |             nan     |            4.132 |
+| interpolation | M5n      | 0.90 nominal (model-based, no guarantee)  | waviness                |       6 |      1     |         1     |         1     |             nan     |           19.69  |
 | interpolation | M3       | 0.71 (jackknife+)                         | all                     |      42 |      0.429 |         0.357 |         0.524 |               6.994 |           97.646 |
-| interpolation | M3       | 0.71 (jackknife+)                         | arm_op20                |       6 |      0.5   |       nan     |       nan     |             nan     |          185.883 |
-| interpolation | M3       | 0.71 (jackknife+)                         | depth_op10              |       6 |      0.167 |       nan     |       nan     |             nan     |           83.878 |
-| interpolation | M3       | 0.71 (jackknife+)                         | dome_op20               |       6 |      0.333 |       nan     |       nan     |             nan     |           87.673 |
-| interpolation | M3       | 0.71 (jackknife+)                         | drawin_corner           |       6 |      0.667 |       nan     |       nan     |             nan     |           23.931 |
-| interpolation | M3       | 0.71 (jackknife+)                         | drawin_mid              |       6 |      0     |       nan     |       nan     |             nan     |          195.791 |
-| interpolation | M3       | 0.71 (jackknife+)                         | wall_op10               |       6 |      0.667 |       nan     |       nan     |             nan     |           39.587 |
-| interpolation | M3       | 0.71 (jackknife+)                         | waviness                |       6 |      0.667 |       nan     |       nan     |             nan     |           66.779 |
+| interpolation | M3       | 0.71 (jackknife+)                         | arm_op20                |       6 |      0.5   |         0.5   |         0.5   |             nan     |          185.883 |
+| interpolation | M3       | 0.71 (jackknife+)                         | depth_op10              |       6 |      0.167 |         0     |         0.5   |             nan     |           83.878 |
+| interpolation | M3       | 0.71 (jackknife+)                         | dome_op20               |       6 |      0.333 |         0     |         0.5   |             nan     |           87.673 |
+| interpolation | M3       | 0.71 (jackknife+)                         | drawin_corner           |       6 |      0.667 |         0.5   |         1     |             nan     |           23.931 |
+| interpolation | M3       | 0.71 (jackknife+)                         | drawin_mid              |       6 |      0     |         0     |         0     |             nan     |          195.791 |
+| interpolation | M3       | 0.71 (jackknife+)                         | wall_op10               |       6 |      0.667 |         0.5   |         1     |             nan     |           39.587 |
+| interpolation | M3       | 0.71 (jackknife+)                         | waviness                |       6 |      0.667 |         0.5   |         1     |             nan     |           66.779 |
 | interpolation | M4       | 0.71 (jackknife+)                         | all                     |      42 |      0.357 |         0.357 |         0.357 |               3.386 |           65.173 |
-| interpolation | M4       | 0.71 (jackknife+)                         | arm_op20                |       6 |      0.167 |       nan     |       nan     |             nan     |           34.18  |
-| interpolation | M4       | 0.71 (jackknife+)                         | depth_op10              |       6 |      0     |       nan     |       nan     |             nan     |           94.145 |
-| interpolation | M4       | 0.71 (jackknife+)                         | dome_op20               |       6 |      0.833 |       nan     |       nan     |             nan     |           29.218 |
-| interpolation | M4       | 0.71 (jackknife+)                         | drawin_corner           |       6 |      0.5   |       nan     |       nan     |             nan     |           25.199 |
-| interpolation | M4       | 0.71 (jackknife+)                         | drawin_mid              |       6 |      0     |       nan     |       nan     |             nan     |           99.302 |
-| interpolation | M4       | 0.71 (jackknife+)                         | wall_op10               |       6 |      1     |       nan     |       nan     |             nan     |            6.706 |
-| interpolation | M4       | 0.71 (jackknife+)                         | waviness                |       6 |      0     |       nan     |       nan     |             nan     |          167.461 |
+| interpolation | M4       | 0.71 (jackknife+)                         | arm_op20                |       6 |      0.167 |         0     |         0.5   |             nan     |           34.18  |
+| interpolation | M4       | 0.71 (jackknife+)                         | depth_op10              |       6 |      0     |         0     |         0     |             nan     |           94.145 |
+| interpolation | M4       | 0.71 (jackknife+)                         | dome_op20               |       6 |      0.833 |         0.5   |         1     |             nan     |           29.218 |
+| interpolation | M4       | 0.71 (jackknife+)                         | drawin_corner           |       6 |      0.5   |         0.5   |         0.5   |             nan     |           25.199 |
+| interpolation | M4       | 0.71 (jackknife+)                         | drawin_mid              |       6 |      0     |         0     |         0     |             nan     |           99.302 |
+| interpolation | M4       | 0.71 (jackknife+)                         | wall_op10               |       6 |      1     |         1     |         1     |             nan     |            6.706 |
+| interpolation | M4       | 0.71 (jackknife+)                         | waviness                |       6 |      0     |         0     |         0     |             nan     |          167.461 |
 | interpolation | M7n      | 0.90 nominal (model-based, no guarantee)  | all                     |      42 |      0.524 |         0.429 |         0.643 |               1.982 |           25.626 |
-| interpolation | M7n      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |       6 |      0.667 |       nan     |       nan     |             nan     |           35.426 |
-| interpolation | M7n      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |       6 |      0.333 |       nan     |       nan     |             nan     |           21.954 |
-| interpolation | M7n      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |       6 |      0.5   |       nan     |       nan     |             nan     |           35.293 |
-| interpolation | M7n      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |       6 |      1     |       nan     |       nan     |             nan     |            6.097 |
-| interpolation | M7n      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |       6 |      0.167 |       nan     |       nan     |             nan     |           19.825 |
-| interpolation | M7n      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |       6 |      1     |       nan     |       nan     |             nan     |            4.747 |
-| interpolation | M7n      | 0.90 nominal (model-based, no guarantee)  | waviness                |       6 |      0     |       nan     |       nan     |             nan     |           56.041 |
+| interpolation | M7n      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |       6 |      0.667 |         0.5   |         1     |             nan     |           35.426 |
+| interpolation | M7n      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |       6 |      0.333 |         0     |         0.5   |             nan     |           21.954 |
+| interpolation | M7n      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |       6 |      0.5   |         0.5   |         0.5   |             nan     |           35.293 |
+| interpolation | M7n      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |       6 |      1     |         1     |         1     |             nan     |            6.097 |
+| interpolation | M7n      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |       6 |      0.167 |         0     |         0.5   |             nan     |           19.825 |
+| interpolation | M7n      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |       6 |      1     |         1     |         1     |             nan     |            4.747 |
+| interpolation | M7n      | 0.90 nominal (model-based, no guarantee)  | waviness                |       6 |      0     |         0     |         0     |             nan     |           56.041 |
 | interpolation | M7       | 0.90 nominal (model-based, no guarantee)  | all                     |      42 |      0.571 |         0.524 |         0.619 |               2.99  |           81.42  |
-| interpolation | M7       | 0.90 nominal (model-based, no guarantee)  | arm_op20                |       6 |      0.5   |       nan     |       nan     |             nan     |          164.147 |
-| interpolation | M7       | 0.90 nominal (model-based, no guarantee)  | depth_op10              |       6 |      0.333 |       nan     |       nan     |             nan     |           97.146 |
-| interpolation | M7       | 0.90 nominal (model-based, no guarantee)  | dome_op20               |       6 |      0.5   |       nan     |       nan     |             nan     |           32.702 |
-| interpolation | M7       | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |       6 |      1     |       nan     |       nan     |             nan     |            6.213 |
-| interpolation | M7       | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |       6 |      0.667 |       nan     |       nan     |             nan     |            7.744 |
-| interpolation | M7       | 0.90 nominal (model-based, no guarantee)  | wall_op10               |       6 |      1     |       nan     |       nan     |             nan     |            9.662 |
-| interpolation | M7       | 0.90 nominal (model-based, no guarantee)  | waviness                |       6 |      0     |       nan     |       nan     |             nan     |          252.325 |
+| interpolation | M7       | 0.90 nominal (model-based, no guarantee)  | arm_op20                |       6 |      0.5   |         0.5   |         0.5   |             nan     |          164.147 |
+| interpolation | M7       | 0.90 nominal (model-based, no guarantee)  | depth_op10              |       6 |      0.333 |         0     |         0.5   |             nan     |           97.146 |
+| interpolation | M7       | 0.90 nominal (model-based, no guarantee)  | dome_op20               |       6 |      0.5   |         0.5   |         0.5   |             nan     |           32.702 |
+| interpolation | M7       | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |       6 |      1     |         1     |         1     |             nan     |            6.213 |
+| interpolation | M7       | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |       6 |      0.667 |         0.333 |         1     |             nan     |            7.744 |
+| interpolation | M7       | 0.90 nominal (model-based, no guarantee)  | wall_op10               |       6 |      1     |         1     |         1     |             nan     |            9.662 |
+| interpolation | M7       | 0.90 nominal (model-based, no guarantee)  | waviness                |       6 |      0     |         0     |         0     |             nan     |          252.325 |
 | interpolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | all                     |      42 |      0.786 |         0.786 |         0.786 |               6.648 |           24.328 |
-| interpolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |       6 |      1     |       nan     |       nan     |             nan     |           25.352 |
-| interpolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |       6 |      0.833 |       nan     |       nan     |             nan     |           13.821 |
-| interpolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |       6 |      0.667 |       nan     |       nan     |             nan     |           40.488 |
-| interpolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |       6 |      1     |       nan     |       nan     |             nan     |            6.483 |
-| interpolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |       6 |      1     |       nan     |       nan     |             nan     |           18.423 |
-| interpolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |       6 |      0.5   |       nan     |       nan     |             nan     |           30.874 |
-| interpolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | waviness                |       6 |      0.5   |       nan     |       nan     |             nan     |           34.852 |
+| interpolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |       6 |      1     |         1     |         1     |             nan     |           25.352 |
+| interpolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |       6 |      0.833 |         0.5   |         1     |             nan     |           13.821 |
+| interpolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |       6 |      0.667 |         0.5   |         1     |             nan     |           40.488 |
+| interpolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |       6 |      1     |         1     |         1     |             nan     |            6.483 |
+| interpolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |       6 |      1     |         1     |         1     |             nan     |           18.423 |
+| interpolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |       6 |      0.5   |         0.5   |         0.5   |             nan     |           30.874 |
+| interpolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | waviness                |       6 |      0.5   |         0.5   |         0.5   |             nan     |           34.852 |
 | interpolation | NN+RM    | 0.90 (split conformal across families)    | all                     |      42 |      0.881 |         0.857 |         0.929 |               4.786 |           11.769 |
-| interpolation | NN+RM    | 0.90 (split conformal across families)    | arm_op20                |       6 |      0.667 |       nan     |       nan     |             nan     |           18.452 |
-| interpolation | NN+RM    | 0.90 (split conformal across families)    | depth_op10              |       6 |      1     |       nan     |       nan     |             nan     |            9.573 |
-| interpolation | NN+RM    | 0.90 (split conformal across families)    | dome_op20               |       6 |      0.833 |       nan     |       nan     |             nan     |           13.014 |
-| interpolation | NN+RM    | 0.90 (split conformal across families)    | drawin_corner           |       6 |      1     |       nan     |       nan     |             nan     |            9.573 |
-| interpolation | NN+RM    | 0.90 (split conformal across families)    | drawin_mid              |       6 |      1     |       nan     |       nan     |             nan     |            9.573 |
-| interpolation | NN+RM    | 0.90 (split conformal across families)    | wall_op10               |       6 |      1     |       nan     |       nan     |             nan     |            9.573 |
-| interpolation | NN+RM    | 0.90 (split conformal across families)    | waviness                |       6 |      0.667 |       nan     |       nan     |             nan     |           12.624 |
-| extrapolation | M2       | 0.71 (largest residual, estimated offset) | all                     |      84 |      0.44  |         0.345 |         0.548 |               4.816 |           78.71  |
-| extrapolation | M2       | 0.71 (largest residual, estimated offset) | arm_op20                |      12 |      0.333 |       nan     |       nan     |             nan     |          135.942 |
-| extrapolation | M2       | 0.71 (largest residual, estimated offset) | depth_op10              |      12 |      0.5   |       nan     |       nan     |             nan     |           84.845 |
-| extrapolation | M2       | 0.71 (largest residual, estimated offset) | dome_op20               |      12 |      0.75  |       nan     |       nan     |             nan     |           25.996 |
-| extrapolation | M2       | 0.71 (largest residual, estimated offset) | drawin_corner           |      12 |      0.5   |       nan     |       nan     |             nan     |           16.22  |
-| extrapolation | M2       | 0.71 (largest residual, estimated offset) | drawin_mid              |      12 |      0     |       nan     |       nan     |             nan     |          143.216 |
-| extrapolation | M2       | 0.71 (largest residual, estimated offset) | wall_op10               |      12 |      0.5   |       nan     |       nan     |             nan     |           30.769 |
-| extrapolation | M2       | 0.71 (largest residual, estimated offset) | waviness                |      12 |      0.5   |       nan     |       nan     |             nan     |          113.982 |
+| interpolation | NN+RM    | 0.90 (split conformal across families)    | arm_op20                |       6 |      0.667 |         0.5   |         1     |             nan     |           18.452 |
+| interpolation | NN+RM    | 0.90 (split conformal across families)    | depth_op10              |       6 |      1     |         1     |         1     |             nan     |            9.573 |
+| interpolation | NN+RM    | 0.90 (split conformal across families)    | dome_op20               |       6 |      0.833 |         0.5   |         1     |             nan     |           13.014 |
+| interpolation | NN+RM    | 0.90 (split conformal across families)    | drawin_corner           |       6 |      1     |         1     |         1     |             nan     |            9.573 |
+| interpolation | NN+RM    | 0.90 (split conformal across families)    | drawin_mid              |       6 |      1     |         1     |         1     |             nan     |            9.573 |
+| interpolation | NN+RM    | 0.90 (split conformal across families)    | wall_op10               |       6 |      1     |         1     |         1     |             nan     |            9.573 |
+| interpolation | NN+RM    | 0.90 (split conformal across families)    | waviness                |       6 |      0.667 |         0.5   |         1     |             nan     |           12.624 |
+| extrapolation | M2       | 0.71 (largest residual, estimated offset) | all                     |      84 |      0.44  |         0.333 |         0.536 |               4.816 |           78.71  |
+| extrapolation | M2       | 0.71 (largest residual, estimated offset) | arm_op20                |      12 |      0.333 |         0.083 |         0.583 |             nan     |          135.942 |
+| extrapolation | M2       | 0.71 (largest residual, estimated offset) | depth_op10              |      12 |      0.5   |         0.25  |         0.75  |             nan     |           84.845 |
+| extrapolation | M2       | 0.71 (largest residual, estimated offset) | dome_op20               |      12 |      0.75  |         0.5   |         1     |             nan     |           25.996 |
+| extrapolation | M2       | 0.71 (largest residual, estimated offset) | drawin_corner           |      12 |      0.5   |         0.25  |         0.75  |             nan     |           16.22  |
+| extrapolation | M2       | 0.71 (largest residual, estimated offset) | drawin_mid              |      12 |      0     |         0     |         0     |             nan     |          143.216 |
+| extrapolation | M2       | 0.71 (largest residual, estimated offset) | wall_op10               |      12 |      0.5   |         0.25  |         0.75  |             nan     |           30.769 |
+| extrapolation | M2       | 0.71 (largest residual, estimated offset) | waviness                |      12 |      0.5   |         0.25  |         0.75  |             nan     |          113.982 |
 | extrapolation | M5       | 0.90 nominal (model-based, no guarantee)  | all                     |      84 |      0.464 |         0.357 |         0.56  |               4.552 |           75.258 |
-| extrapolation | M5       | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      12 |      0.583 |       nan     |       nan     |             nan     |          136.269 |
-| extrapolation | M5       | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      12 |      0.5   |       nan     |       nan     |             nan     |           91.69  |
-| extrapolation | M5       | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      12 |      0.667 |       nan     |       nan     |             nan     |           29.396 |
-| extrapolation | M5       | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      12 |      0.5   |       nan     |       nan     |             nan     |           15.721 |
-| extrapolation | M5       | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      12 |      0     |       nan     |       nan     |             nan     |          114.525 |
-| extrapolation | M5       | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      12 |      0.5   |       nan     |       nan     |             nan     |           26.778 |
-| extrapolation | M5       | 0.90 nominal (model-based, no guarantee)  | waviness                |      12 |      0.5   |       nan     |       nan     |             nan     |          112.424 |
+| extrapolation | M5       | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      12 |      0.583 |         0.333 |         0.833 |             nan     |          136.269 |
+| extrapolation | M5       | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      12 |      0.5   |         0.25  |         0.75  |             nan     |           91.69  |
+| extrapolation | M5       | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      12 |      0.667 |         0.417 |         0.917 |             nan     |           29.396 |
+| extrapolation | M5       | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      12 |      0.5   |         0.25  |         0.75  |             nan     |           15.721 |
+| extrapolation | M5       | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      12 |      0     |         0     |         0     |             nan     |          114.525 |
+| extrapolation | M5       | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      12 |      0.5   |         0.25  |         0.75  |             nan     |           26.778 |
+| extrapolation | M5       | 0.90 nominal (model-based, no guarantee)  | waviness                |      12 |      0.5   |         0.25  |         0.75  |             nan     |          112.424 |
 | extrapolation | M5n      | 0.90 nominal (model-based, no guarantee)  | all                     |      84 |      0.357 |         0.238 |         0.488 |               3.69  |           54.556 |
-| extrapolation | M5n      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      12 |      0.25  |       nan     |       nan     |             nan     |           21.104 |
-| extrapolation | M5n      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      12 |      0.167 |       nan     |       nan     |             nan     |          114.591 |
-| extrapolation | M5n      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      12 |      0.75  |       nan     |       nan     |             nan     |           17.529 |
-| extrapolation | M5n      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      12 |      0     |       nan     |       nan     |             nan     |           58.318 |
-| extrapolation | M5n      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      12 |      0.333 |       nan     |       nan     |             nan     |           55.817 |
-| extrapolation | M5n      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      12 |      0.667 |       nan     |       nan     |             nan     |           10.981 |
-| extrapolation | M5n      | 0.90 nominal (model-based, no guarantee)  | waviness                |      12 |      0.333 |       nan     |       nan     |             nan     |          103.553 |
+| extrapolation | M5n      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      12 |      0.25  |         0.083 |         0.417 |             nan     |           21.104 |
+| extrapolation | M5n      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      12 |      0.167 |         0     |         0.417 |             nan     |          114.591 |
+| extrapolation | M5n      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      12 |      0.75  |         0.583 |         0.917 |             nan     |           17.529 |
+| extrapolation | M5n      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      12 |      0     |         0     |         0     |             nan     |           58.318 |
+| extrapolation | M5n      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      12 |      0.333 |         0.083 |         0.583 |             nan     |           55.817 |
+| extrapolation | M5n      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      12 |      0.667 |         0.417 |         0.917 |             nan     |           10.981 |
+| extrapolation | M5n      | 0.90 nominal (model-based, no guarantee)  | waviness                |      12 |      0.333 |         0.083 |         0.583 |             nan     |          103.553 |
 | extrapolation | M3       | 0.71 (jackknife+)                         | all                     |      84 |      0.429 |         0.345 |         0.512 |               8.91  |          120.343 |
-| extrapolation | M3       | 0.71 (jackknife+)                         | arm_op20                |      12 |      0.667 |       nan     |       nan     |             nan     |          108.509 |
-| extrapolation | M3       | 0.71 (jackknife+)                         | depth_op10              |      12 |      0.25  |       nan     |       nan     |             nan     |          129.492 |
-| extrapolation | M3       | 0.71 (jackknife+)                         | dome_op20               |      12 |      0.833 |       nan     |       nan     |             nan     |           49.094 |
-| extrapolation | M3       | 0.71 (jackknife+)                         | drawin_corner           |      12 |      0.167 |       nan     |       nan     |             nan     |          113.26  |
-| extrapolation | M3       | 0.71 (jackknife+)                         | drawin_mid              |      12 |      0.167 |       nan     |       nan     |             nan     |          260.247 |
-| extrapolation | M3       | 0.71 (jackknife+)                         | wall_op10               |      12 |      0.417 |       nan     |       nan     |             nan     |           72.28  |
-| extrapolation | M3       | 0.71 (jackknife+)                         | waviness                |      12 |      0.5   |       nan     |       nan     |             nan     |          109.518 |
-| extrapolation | M4       | 0.71 (jackknife+)                         | all                     |      84 |      0.476 |         0.369 |         0.583 |               2.344 |           47.885 |
-| extrapolation | M4       | 0.71 (jackknife+)                         | arm_op20                |      12 |      0.667 |       nan     |       nan     |             nan     |           18.851 |
-| extrapolation | M4       | 0.71 (jackknife+)                         | depth_op10              |      12 |      0.25  |       nan     |       nan     |             nan     |           99.909 |
-| extrapolation | M4       | 0.71 (jackknife+)                         | dome_op20               |      12 |      0.75  |       nan     |       nan     |             nan     |           27.021 |
-| extrapolation | M4       | 0.71 (jackknife+)                         | drawin_corner           |      12 |      0.417 |       nan     |       nan     |             nan     |           40.86  |
-| extrapolation | M4       | 0.71 (jackknife+)                         | drawin_mid              |      12 |      0.417 |       nan     |       nan     |             nan     |           30.404 |
-| extrapolation | M4       | 0.71 (jackknife+)                         | wall_op10               |      12 |      0.583 |       nan     |       nan     |             nan     |           13.627 |
-| extrapolation | M4       | 0.71 (jackknife+)                         | waviness                |      12 |      0.25  |       nan     |       nan     |             nan     |          104.52  |
+| extrapolation | M3       | 0.71 (jackknife+)                         | arm_op20                |      12 |      0.667 |         0.417 |         0.917 |             nan     |          108.509 |
+| extrapolation | M3       | 0.71 (jackknife+)                         | depth_op10              |      12 |      0.25  |         0.083 |         0.417 |             nan     |          129.492 |
+| extrapolation | M3       | 0.71 (jackknife+)                         | dome_op20               |      12 |      0.833 |         0.667 |         1     |             nan     |           49.094 |
+| extrapolation | M3       | 0.71 (jackknife+)                         | drawin_corner           |      12 |      0.167 |         0     |         0.333 |             nan     |          113.26  |
+| extrapolation | M3       | 0.71 (jackknife+)                         | drawin_mid              |      12 |      0.167 |         0     |         0.333 |             nan     |          260.247 |
+| extrapolation | M3       | 0.71 (jackknife+)                         | wall_op10               |      12 |      0.417 |         0.167 |         0.667 |             nan     |           72.28  |
+| extrapolation | M3       | 0.71 (jackknife+)                         | waviness                |      12 |      0.5   |         0.25  |         0.75  |             nan     |          109.518 |
+| extrapolation | M4       | 0.71 (jackknife+)                         | all                     |      84 |      0.476 |         0.369 |         0.584 |               2.344 |           47.885 |
+| extrapolation | M4       | 0.71 (jackknife+)                         | arm_op20                |      12 |      0.667 |         0.417 |         0.917 |             nan     |           18.851 |
+| extrapolation | M4       | 0.71 (jackknife+)                         | depth_op10              |      12 |      0.25  |         0.083 |         0.417 |             nan     |           99.909 |
+| extrapolation | M4       | 0.71 (jackknife+)                         | dome_op20               |      12 |      0.75  |         0.583 |         0.917 |             nan     |           27.021 |
+| extrapolation | M4       | 0.71 (jackknife+)                         | drawin_corner           |      12 |      0.417 |         0.167 |         0.667 |             nan     |           40.86  |
+| extrapolation | M4       | 0.71 (jackknife+)                         | drawin_mid              |      12 |      0.417 |         0.167 |         0.667 |             nan     |           30.404 |
+| extrapolation | M4       | 0.71 (jackknife+)                         | wall_op10               |      12 |      0.583 |         0.333 |         0.833 |             nan     |           13.627 |
+| extrapolation | M4       | 0.71 (jackknife+)                         | waviness                |      12 |      0.25  |         0.083 |         0.417 |             nan     |          104.52  |
 | extrapolation | M7n      | 0.90 nominal (model-based, no guarantee)  | all                     |      84 |      0.56  |         0.488 |         0.631 |               2.814 |           41.003 |
-| extrapolation | M7n      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      12 |      0.917 |       nan     |       nan     |             nan     |           13.723 |
-| extrapolation | M7n      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      12 |      0.167 |       nan     |       nan     |             nan     |           58.82  |
-| extrapolation | M7n      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      12 |      0.917 |       nan     |       nan     |             nan     |           26.253 |
-| extrapolation | M7n      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      12 |      0.917 |       nan     |       nan     |             nan     |           11.03  |
-| extrapolation | M7n      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      12 |      0.333 |       nan     |       nan     |             nan     |           37.417 |
-| extrapolation | M7n      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      12 |      0.667 |       nan     |       nan     |             nan     |           10.902 |
-| extrapolation | M7n      | 0.90 nominal (model-based, no guarantee)  | waviness                |      12 |      0     |       nan     |       nan     |             nan     |          128.877 |
+| extrapolation | M7n      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      12 |      0.917 |         0.75  |         1     |             nan     |           13.723 |
+| extrapolation | M7n      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      12 |      0.167 |         0     |         0.333 |             nan     |           58.82  |
+| extrapolation | M7n      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      12 |      0.917 |         0.75  |         1     |             nan     |           26.253 |
+| extrapolation | M7n      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      12 |      0.917 |         0.75  |         1     |             nan     |           11.03  |
+| extrapolation | M7n      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      12 |      0.333 |         0.167 |         0.5   |             nan     |           37.417 |
+| extrapolation | M7n      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      12 |      0.667 |         0.417 |         0.917 |             nan     |           10.902 |
+| extrapolation | M7n      | 0.90 nominal (model-based, no guarantee)  | waviness                |      12 |      0     |         0     |         0     |             nan     |          128.877 |
 | extrapolation | M7       | 0.90 nominal (model-based, no guarantee)  | all                     |      84 |      0.583 |         0.5   |         0.667 |               3.179 |          147.225 |
-| extrapolation | M7       | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      12 |      1     |       nan     |       nan     |             nan     |           12.887 |
-| extrapolation | M7       | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      12 |      0.167 |       nan     |       nan     |             nan     |          684.483 |
-| extrapolation | M7       | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      12 |      0.75  |       nan     |       nan     |             nan     |           58.264 |
-| extrapolation | M7       | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      12 |      0.917 |       nan     |       nan     |             nan     |            8.639 |
-| extrapolation | M7       | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      12 |      0.5   |       nan     |       nan     |             nan     |           16.398 |
-| extrapolation | M7       | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      12 |      0.75  |       nan     |       nan     |             nan     |            9.194 |
-| extrapolation | M7       | 0.90 nominal (model-based, no guarantee)  | waviness                |      12 |      0     |       nan     |       nan     |             nan     |          240.708 |
-| extrapolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | all                     |      84 |      0.667 |         0.595 |         0.738 |               8.278 |           49.84  |
-| extrapolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      12 |      0.25  |       nan     |       nan     |             nan     |          122.567 |
-| extrapolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      12 |      0.75  |       nan     |       nan     |             nan     |           41.662 |
-| extrapolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      12 |      1     |       nan     |       nan     |             nan     |           23.364 |
-| extrapolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      12 |      0.75  |       nan     |       nan     |             nan     |           13.313 |
-| extrapolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      12 |      0.25  |       nan     |       nan     |             nan     |           68.343 |
-| extrapolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      12 |      1     |       nan     |       nan     |             nan     |           14.463 |
-| extrapolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | waviness                |      12 |      0.667 |       nan     |       nan     |             nan     |           65.164 |
+| extrapolation | M7       | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      12 |      1     |         1     |         1     |             nan     |           12.887 |
+| extrapolation | M7       | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      12 |      0.167 |         0     |         0.333 |             nan     |          684.483 |
+| extrapolation | M7       | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      12 |      0.75  |         0.583 |         0.917 |             nan     |           58.264 |
+| extrapolation | M7       | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      12 |      0.917 |         0.75  |         1     |             nan     |            8.639 |
+| extrapolation | M7       | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      12 |      0.5   |         0.25  |         0.667 |             nan     |           16.398 |
+| extrapolation | M7       | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      12 |      0.75  |         0.5   |         1     |             nan     |            9.194 |
+| extrapolation | M7       | 0.90 nominal (model-based, no guarantee)  | waviness                |      12 |      0     |         0     |         0     |             nan     |          240.708 |
+| extrapolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | all                     |      84 |      0.667 |         0.607 |         0.738 |               8.278 |           49.84  |
+| extrapolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      12 |      0.25  |         0.083 |         0.417 |             nan     |          122.567 |
+| extrapolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      12 |      0.75  |         0.583 |         0.917 |             nan     |           41.662 |
+| extrapolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      12 |      1     |         1     |         1     |             nan     |           23.364 |
+| extrapolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      12 |      0.75  |         0.5   |         1     |             nan     |           13.313 |
+| extrapolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      12 |      0.25  |         0.083 |         0.417 |             nan     |           68.343 |
+| extrapolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      12 |      1     |         1     |         1     |             nan     |           14.463 |
+| extrapolation | Mcd      | 0.90 nominal (model-based, no guarantee)  | waviness                |      12 |      0.667 |         0.417 |         0.917 |             nan     |           65.164 |
 | extrapolation | NN+RM    | 0.90 (split conformal across families)    | all                     |      84 |      0.929 |         0.881 |         0.976 |              10.031 |           24.332 |
-| extrapolation | NN+RM    | 0.90 (split conformal across families)    | arm_op20                |      12 |      1     |       nan     |       nan     |             nan     |           20.061 |
-| extrapolation | NN+RM    | 0.90 (split conformal across families)    | depth_op10              |      12 |      0.75  |       nan     |       nan     |             nan     |           41.901 |
-| extrapolation | NN+RM    | 0.90 (split conformal across families)    | dome_op20               |      12 |      1     |       nan     |       nan     |             nan     |           20.061 |
-| extrapolation | NN+RM    | 0.90 (split conformal across families)    | drawin_corner           |      12 |      1     |       nan     |       nan     |             nan     |           20.061 |
-| extrapolation | NN+RM    | 0.90 (split conformal across families)    | drawin_mid              |      12 |      1     |       nan     |       nan     |             nan     |           20.061 |
-| extrapolation | NN+RM    | 0.90 (split conformal across families)    | wall_op10               |      12 |      1     |       nan     |       nan     |             nan     |           20.061 |
-| extrapolation | NN+RM    | 0.90 (split conformal across families)    | waviness                |      12 |      0.75  |       nan     |       nan     |             nan     |           28.117 |
-| new family    | M2       | 0.80 (largest residual, estimated offset) | all                     |     126 |      0.468 |         0.413 |         0.524 |               7.595 |          124.06  |
-| new family    | M2       | 0.80 (largest residual, estimated offset) | arm_op20                |      18 |      0     |       nan     |       nan     |             nan     |          303.152 |
-| new family    | M2       | 0.80 (largest residual, estimated offset) | depth_op10              |      18 |      0.833 |       nan     |       nan     |             nan     |           37.664 |
-| new family    | M2       | 0.80 (largest residual, estimated offset) | dome_op20               |      18 |      0     |       nan     |       nan     |             nan     |          364.456 |
-| new family    | M2       | 0.80 (largest residual, estimated offset) | drawin_corner           |      18 |      0.5   |       nan     |       nan     |             nan     |           20.147 |
-| new family    | M2       | 0.80 (largest residual, estimated offset) | drawin_mid              |      18 |      0.667 |       nan     |       nan     |             nan     |           24.136 |
-| new family    | M2       | 0.80 (largest residual, estimated offset) | wall_op10               |      18 |      0.944 |       nan     |       nan     |             nan     |           11.59  |
-| new family    | M2       | 0.80 (largest residual, estimated offset) | waviness                |      18 |      0.333 |       nan     |       nan     |             nan     |          107.278 |
+| extrapolation | NN+RM    | 0.90 (split conformal across families)    | arm_op20                |      12 |      1     |         1     |         1     |             nan     |           20.061 |
+| extrapolation | NN+RM    | 0.90 (split conformal across families)    | depth_op10              |      12 |      0.75  |         0.583 |         0.917 |             nan     |           41.901 |
+| extrapolation | NN+RM    | 0.90 (split conformal across families)    | dome_op20               |      12 |      1     |         1     |         1     |             nan     |           20.061 |
+| extrapolation | NN+RM    | 0.90 (split conformal across families)    | drawin_corner           |      12 |      1     |         1     |         1     |             nan     |           20.061 |
+| extrapolation | NN+RM    | 0.90 (split conformal across families)    | drawin_mid              |      12 |      1     |         1     |         1     |             nan     |           20.061 |
+| extrapolation | NN+RM    | 0.90 (split conformal across families)    | wall_op10               |      12 |      1     |         1     |         1     |             nan     |           20.061 |
+| extrapolation | NN+RM    | 0.90 (split conformal across families)    | waviness                |      12 |      0.75  |         0.583 |         0.917 |             nan     |           28.117 |
+| new family    | M2       | 0.80 (largest residual, estimated offset) | all                     |     126 |      0.468 |         0.413 |         0.532 |               7.595 |          124.06  |
+| new family    | M2       | 0.80 (largest residual, estimated offset) | arm_op20                |      18 |      0     |         0     |         0     |             nan     |          303.152 |
+| new family    | M2       | 0.80 (largest residual, estimated offset) | depth_op10              |      18 |      0.833 |         0.667 |         0.944 |             nan     |           37.664 |
+| new family    | M2       | 0.80 (largest residual, estimated offset) | dome_op20               |      18 |      0     |         0     |         0     |             nan     |          364.456 |
+| new family    | M2       | 0.80 (largest residual, estimated offset) | drawin_corner           |      18 |      0.5   |         0.278 |         0.722 |             nan     |           20.147 |
+| new family    | M2       | 0.80 (largest residual, estimated offset) | drawin_mid              |      18 |      0.667 |         0.444 |         0.889 |             nan     |           24.136 |
+| new family    | M2       | 0.80 (largest residual, estimated offset) | wall_op10               |      18 |      0.944 |         0.833 |         1     |             nan     |           11.59  |
+| new family    | M2       | 0.80 (largest residual, estimated offset) | waviness                |      18 |      0.333 |         0.111 |         0.556 |             nan     |          107.278 |
 | new family    | M5       | 0.90 nominal (model-based, no guarantee)  | all                     |     126 |      0.119 |         0.071 |         0.167 |               2.331 |          188.038 |
-| new family    | M5       | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      18 |      0     |       nan     |       nan     |             nan     |          440.927 |
-| new family    | M5       | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      18 |      0.222 |       nan     |       nan     |             nan     |          126.58  |
-| new family    | M5       | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      18 |      0     |       nan     |       nan     |             nan     |          423.815 |
-| new family    | M5       | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      18 |      0.222 |       nan     |       nan     |             nan     |           27.189 |
-| new family    | M5       | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      18 |      0.167 |       nan     |       nan     |             nan     |           18.925 |
-| new family    | M5       | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      18 |      0.222 |       nan     |       nan     |             nan     |           34.987 |
-| new family    | M5       | 0.90 nominal (model-based, no guarantee)  | waviness                |      18 |      0     |       nan     |       nan     |             nan     |          243.842 |
+| new family    | M5       | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      18 |      0     |         0     |         0     |             nan     |          440.927 |
+| new family    | M5       | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      18 |      0.222 |         0.056 |         0.389 |             nan     |          126.58  |
+| new family    | M5       | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      18 |      0     |         0     |         0     |             nan     |          423.815 |
+| new family    | M5       | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      18 |      0.222 |         0.056 |         0.389 |             nan     |           27.189 |
+| new family    | M5       | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      18 |      0.167 |         0     |         0.333 |             nan     |           18.925 |
+| new family    | M5       | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      18 |      0.222 |         0.056 |         0.389 |             nan     |           34.987 |
+| new family    | M5       | 0.90 nominal (model-based, no guarantee)  | waviness                |      18 |      0     |         0     |         0     |             nan     |          243.842 |
 | new family    | M5n      | 0.90 nominal (model-based, no guarantee)  | all                     |     126 |      0     |         0     |         0     |               2.182 |         1023.79  |
-| new family    | M5n      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      18 |      0     |       nan     |       nan     |             nan     |          739.098 |
-| new family    | M5n      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      18 |      0     |       nan     |       nan     |             nan     |          696.985 |
-| new family    | M5n      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      18 |      0     |       nan     |       nan     |             nan     |          213.644 |
-| new family    | M5n      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      18 |      0     |       nan     |       nan     |             nan     |         2602.1   |
-| new family    | M5n      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      18 |      0     |       nan     |       nan     |             nan     |          336.485 |
-| new family    | M5n      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      18 |      0     |       nan     |       nan     |             nan     |         2501.36  |
-| new family    | M5n      | 0.90 nominal (model-based, no guarantee)  | waviness                |      18 |      0     |       nan     |       nan     |             nan     |           76.889 |
-| new family    | M3       | 0.80 (jackknife+)                         | all                     |     126 |      0.397 |         0.286 |         0.516 |               9.709 |          133.556 |
-| new family    | M3       | 0.80 (jackknife+)                         | arm_op20                |      18 |      0.278 |       nan     |       nan     |             nan     |          373.641 |
-| new family    | M3       | 0.80 (jackknife+)                         | depth_op10              |      18 |      0.278 |       nan     |       nan     |             nan     |          129.841 |
-| new family    | M3       | 0.80 (jackknife+)                         | dome_op20               |      18 |      0.222 |       nan     |       nan     |             nan     |          181.569 |
-| new family    | M3       | 0.80 (jackknife+)                         | drawin_corner           |      18 |      0.556 |       nan     |       nan     |             nan     |           47.932 |
-| new family    | M3       | 0.80 (jackknife+)                         | drawin_mid              |      18 |      0.556 |       nan     |       nan     |             nan     |           32.105 |
-| new family    | M3       | 0.80 (jackknife+)                         | wall_op10               |      18 |      0.5   |       nan     |       nan     |             nan     |           48.675 |
-| new family    | M3       | 0.80 (jackknife+)                         | waviness                |      18 |      0.389 |       nan     |       nan     |             nan     |          121.13  |
+| new family    | M5n      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      18 |      0     |         0     |         0     |             nan     |          739.098 |
+| new family    | M5n      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      18 |      0     |         0     |         0     |             nan     |          696.985 |
+| new family    | M5n      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      18 |      0     |         0     |         0     |             nan     |          213.644 |
+| new family    | M5n      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      18 |      0     |         0     |         0     |             nan     |         2602.1   |
+| new family    | M5n      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      18 |      0     |         0     |         0     |             nan     |          336.485 |
+| new family    | M5n      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      18 |      0     |         0     |         0     |             nan     |         2501.36  |
+| new family    | M5n      | 0.90 nominal (model-based, no guarantee)  | waviness                |      18 |      0     |         0     |         0     |             nan     |           76.889 |
+| new family    | M3       | 0.80 (jackknife+)                         | all                     |     126 |      0.397 |         0.294 |         0.516 |               9.709 |          133.556 |
+| new family    | M3       | 0.80 (jackknife+)                         | arm_op20                |      18 |      0.278 |         0.111 |         0.5   |             nan     |          373.641 |
+| new family    | M3       | 0.80 (jackknife+)                         | depth_op10              |      18 |      0.278 |         0.111 |         0.5   |             nan     |          129.841 |
+| new family    | M3       | 0.80 (jackknife+)                         | dome_op20               |      18 |      0.222 |         0.056 |         0.389 |             nan     |          181.569 |
+| new family    | M3       | 0.80 (jackknife+)                         | drawin_corner           |      18 |      0.556 |         0.333 |         0.778 |             nan     |           47.932 |
+| new family    | M3       | 0.80 (jackknife+)                         | drawin_mid              |      18 |      0.556 |         0.389 |         0.722 |             nan     |           32.105 |
+| new family    | M3       | 0.80 (jackknife+)                         | wall_op10               |      18 |      0.5   |         0.278 |         0.722 |             nan     |           48.675 |
+| new family    | M3       | 0.80 (jackknife+)                         | waviness                |      18 |      0.389 |         0.167 |         0.611 |             nan     |          121.13  |
 | new family    | M4       | 0.80 (jackknife+)                         | all                     |     126 |      0.071 |         0.048 |         0.095 |               3.299 |          988.889 |
-| new family    | M4       | 0.80 (jackknife+)                         | arm_op20                |      18 |      0     |       nan     |       nan     |             nan     |          713.889 |
-| new family    | M4       | 0.80 (jackknife+)                         | depth_op10              |      18 |      0     |       nan     |       nan     |             nan     |          661.425 |
-| new family    | M4       | 0.80 (jackknife+)                         | dome_op20               |      18 |      0.444 |       nan     |       nan     |             nan     |          148.113 |
-| new family    | M4       | 0.80 (jackknife+)                         | drawin_corner           |      18 |      0     |       nan     |       nan     |             nan     |         2549.88  |
-| new family    | M4       | 0.80 (jackknife+)                         | drawin_mid              |      18 |      0     |       nan     |       nan     |             nan     |          316.69  |
-| new family    | M4       | 0.80 (jackknife+)                         | wall_op10               |      18 |      0     |       nan     |       nan     |             nan     |         2463.76  |
-| new family    | M4       | 0.80 (jackknife+)                         | waviness                |      18 |      0.056 |       nan     |       nan     |             nan     |           68.467 |
+| new family    | M4       | 0.80 (jackknife+)                         | arm_op20                |      18 |      0     |         0     |         0     |             nan     |          713.889 |
+| new family    | M4       | 0.80 (jackknife+)                         | depth_op10              |      18 |      0     |         0     |         0     |             nan     |          661.425 |
+| new family    | M4       | 0.80 (jackknife+)                         | dome_op20               |      18 |      0.444 |         0.333 |         0.5   |             nan     |          148.113 |
+| new family    | M4       | 0.80 (jackknife+)                         | drawin_corner           |      18 |      0     |         0     |         0     |             nan     |         2549.88  |
+| new family    | M4       | 0.80 (jackknife+)                         | drawin_mid              |      18 |      0     |         0     |         0     |             nan     |          316.69  |
+| new family    | M4       | 0.80 (jackknife+)                         | wall_op10               |      18 |      0     |         0     |         0     |             nan     |         2463.76  |
+| new family    | M4       | 0.80 (jackknife+)                         | waviness                |      18 |      0.056 |         0     |         0.167 |             nan     |           68.467 |
 | new family    | M7n      | 0.90 nominal (model-based, no guarantee)  | all                     |     126 |      0     |         0     |         0     |               0.993 |         1042.79  |
-| new family    | M7n      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      18 |      0     |       nan     |       nan     |             nan     |          760.731 |
-| new family    | M7n      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      18 |      0     |       nan     |       nan     |             nan     |          718.981 |
-| new family    | M7n      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      18 |      0     |       nan     |       nan     |             nan     |          247.543 |
-| new family    | M7n      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      18 |      0     |       nan     |       nan     |             nan     |         2627.84  |
-| new family    | M7n      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      18 |      0     |       nan     |       nan     |             nan     |          348.945 |
-| new family    | M7n      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      18 |      0     |       nan     |       nan     |             nan     |         2517.47  |
-| new family    | M7n      | 0.90 nominal (model-based, no guarantee)  | waviness                |      18 |      0     |       nan     |       nan     |             nan     |           78.048 |
+| new family    | M7n      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      18 |      0     |         0     |         0     |             nan     |          760.731 |
+| new family    | M7n      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      18 |      0     |         0     |         0     |             nan     |          718.981 |
+| new family    | M7n      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      18 |      0     |         0     |         0     |             nan     |          247.543 |
+| new family    | M7n      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      18 |      0     |         0     |         0     |             nan     |         2627.84  |
+| new family    | M7n      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      18 |      0     |         0     |         0     |             nan     |          348.945 |
+| new family    | M7n      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      18 |      0     |         0     |         0     |             nan     |         2517.47  |
+| new family    | M7n      | 0.90 nominal (model-based, no guarantee)  | waviness                |      18 |      0     |         0     |         0     |             nan     |           78.048 |
 | new family    | M7       | 0.90 nominal (model-based, no guarantee)  | all                     |     126 |      0.167 |         0.143 |         0.19  |               6.922 |          697.973 |
-| new family    | M7       | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      18 |      0     |       nan     |       nan     |             nan     |          660.107 |
-| new family    | M7       | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      18 |      0.333 |       nan     |       nan     |             nan     |          297.046 |
-| new family    | M7       | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      18 |      0.333 |       nan     |       nan     |             nan     |          150.983 |
-| new family    | M7       | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      18 |      0     |       nan     |       nan     |             nan     |         1403.55  |
-| new family    | M7       | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      18 |      0     |       nan     |       nan     |             nan     |          242.661 |
-| new family    | M7       | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      18 |      0     |       nan     |       nan     |             nan     |         2090.07  |
-| new family    | M7       | 0.90 nominal (model-based, no guarantee)  | waviness                |      18 |      0.5   |       nan     |       nan     |             nan     |           41.392 |
+| new family    | M7       | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      18 |      0     |         0     |         0     |             nan     |          660.107 |
+| new family    | M7       | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      18 |      0.333 |         0.167 |         0.446 |             nan     |          297.046 |
+| new family    | M7       | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      18 |      0.333 |         0.167 |         0.556 |             nan     |          150.983 |
+| new family    | M7       | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      18 |      0     |         0     |         0     |             nan     |         1403.55  |
+| new family    | M7       | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      18 |      0     |         0     |         0     |             nan     |          242.661 |
+| new family    | M7       | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      18 |      0     |         0     |         0     |             nan     |         2090.07  |
+| new family    | M7       | 0.90 nominal (model-based, no guarantee)  | waviness                |      18 |      0.5   |         0.278 |         0.722 |             nan     |           41.392 |
 | new family    | Mcd      | 0.90 nominal (model-based, no guarantee)  | all                     |     126 |      0.111 |         0.063 |         0.159 |               2.749 |          139.473 |
-| new family    | Mcd      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      18 |      0.111 |       nan     |       nan     |             nan     |          175.715 |
-| new family    | Mcd      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      18 |      0.167 |       nan     |       nan     |             nan     |           73.552 |
-| new family    | Mcd      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      18 |      0     |       nan     |       nan     |             nan     |          391.338 |
-| new family    | Mcd      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      18 |      0     |       nan     |       nan     |             nan     |           44.226 |
-| new family    | Mcd      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      18 |      0     |       nan     |       nan     |             nan     |           32.945 |
-| new family    | Mcd      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      18 |      0.5   |       nan     |       nan     |             nan     |           32.016 |
-| new family    | Mcd      | 0.90 nominal (model-based, no guarantee)  | waviness                |      18 |      0     |       nan     |       nan     |             nan     |          226.515 |
+| new family    | Mcd      | 0.90 nominal (model-based, no guarantee)  | arm_op20                |      18 |      0.111 |         0     |         0.278 |             nan     |          175.715 |
+| new family    | Mcd      | 0.90 nominal (model-based, no guarantee)  | depth_op10              |      18 |      0.167 |         0     |         0.333 |             nan     |           73.552 |
+| new family    | Mcd      | 0.90 nominal (model-based, no guarantee)  | dome_op20               |      18 |      0     |         0     |         0     |             nan     |          391.338 |
+| new family    | Mcd      | 0.90 nominal (model-based, no guarantee)  | drawin_corner           |      18 |      0     |         0     |         0     |             nan     |           44.226 |
+| new family    | Mcd      | 0.90 nominal (model-based, no guarantee)  | drawin_mid              |      18 |      0     |         0     |         0     |             nan     |           32.945 |
+| new family    | Mcd      | 0.90 nominal (model-based, no guarantee)  | wall_op10               |      18 |      0.5   |         0.278 |         0.722 |             nan     |           32.016 |
+| new family    | Mcd      | 0.90 nominal (model-based, no guarantee)  | waviness                |      18 |      0     |         0     |         0     |             nan     |          226.515 |
 | new family    | NN+RM    | 0.90 (split conformal across families)    | all                     |     126 |      0.857 |         0.857 |         0.857 |             146.323 |          362.348 |
-| new family    | NN+RM    | 0.90 (split conformal across families)    | arm_op20                |      18 |      1     |       nan     |       nan     |             nan     |          292.646 |
-| new family    | NN+RM    | 0.90 (split conformal across families)    | depth_op10              |      18 |      1     |       nan     |       nan     |             nan     |          292.646 |
-| new family    | NN+RM    | 0.90 (split conformal across families)    | dome_op20               |      18 |      1     |       nan     |       nan     |             nan     |          292.646 |
-| new family    | NN+RM    | 0.90 (split conformal across families)    | drawin_corner           |      18 |      0.5   |       nan     |       nan     |             nan     |          735.496 |
-| new family    | NN+RM    | 0.90 (split conformal across families)    | drawin_mid              |      18 |      1     |       nan     |       nan     |             nan     |          292.646 |
-| new family    | NN+RM    | 0.90 (split conformal across families)    | wall_op10               |      18 |      0.5   |       nan     |       nan     |             nan     |          337.708 |
-| new family    | NN+RM    | 0.90 (split conformal across families)    | waviness                |      18 |      1     |       nan     |       nan     |             nan     |          292.646 |
+| new family    | NN+RM    | 0.90 (split conformal across families)    | arm_op20                |      18 |      1     |         1     |         1     |             nan     |          292.646 |
+| new family    | NN+RM    | 0.90 (split conformal across families)    | depth_op10              |      18 |      1     |         1     |         1     |             nan     |          292.646 |
+| new family    | NN+RM    | 0.90 (split conformal across families)    | dome_op20               |      18 |      1     |         1     |         1     |             nan     |          292.646 |
+| new family    | NN+RM    | 0.90 (split conformal across families)    | drawin_corner           |      18 |      0.5   |         0.5   |         0.5   |             nan     |          735.496 |
+| new family    | NN+RM    | 0.90 (split conformal across families)    | drawin_mid              |      18 |      1     |         1     |         1     |             nan     |          292.646 |
+| new family    | NN+RM    | 0.90 (split conformal across families)    | wall_op10               |      18 |      0.5   |         0.5   |         0.5   |             nan     |          337.708 |
+| new family    | NN+RM    | 0.90 (split conformal across families)    | waviness                |      18 |      1     |         1     |         1     |             nan     |          292.646 |
 | sibling       | M0       | point                                     | all                     |     126 |    nan     |       nan     |       nan     |             nan     |          692.048 |
 | sibling       | M1s      | point                                     | all                     |     126 |    nan     |       nan     |       nan     |             nan     |           42.853 |
 | sibling       | M1sn     | point                                     | all                     |     126 |    nan     |       nan     |       nan     |             nan     |           32.381 |
@@ -3926,4 +3926,44 @@
 | reference (refitted)                | new family    | M5       |     126 |               35.2  |         31.3  |                 25.85 |           14.95 |                35.2  |          33.3  |
 | reference (refitted)                | new family    | M5n      |     126 |              132.5  |        128.1  |                171.75 |          164.95 |               131.1  |         126.7  |
 | reference (refitted)                | new family    | NN       |     126 |              130.4  |        130.4  |                168.05 |          168.05 |               128.85 |         128.85 |
+
+## m6_coverage
+
+| relation   | method   | cases   | coverage   | coverage_lo   | coverage_hi   | interval_score   | median_half_width   | resolution_floors   | safe_floors   | resolution_adequate   | safe_adequate   | resolution_failing   | safe_failing   |
+|------------|----------|---------|------------|---------------|---------------|------------------|---------------------|---------------------|---------------|-----------------------|-----------------|----------------------|----------------|
+
+## floor_loao
+
+| kind      | relation      | method   |   alternative |   ratio_loao_to_full |   resolution_floors |   safe_floors |   resolution_loao |   safe_loao |
+|:----------|:--------------|:---------|--------------:|---------------------:|--------------------:|--------------:|------------------:|------------:|
+| distances | sibling       | M0       |           nan |                  nan |              108.35 |        108.35 |            104.6  |      104.6  |
+| distances | sibling       | M1s      |           nan |                  nan |                4.85 |          4.85 |              4.9  |        4.9  |
+| distances | sibling       | M2       |           nan |                  nan |               22.65 |          0.15 |             22    |        0.15 |
+| distances | sibling       | M5       |           nan |                  nan |                7.15 |          0.75 |              7    |        0.8  |
+| distances | sibling       | NN       |           nan |                  nan |                3.35 |          3.35 |              3.3  |        3.3  |
+| distances | sibling       | M1sn     |           nan |                  nan |                3.5  |          3.5  |              3.6  |        3.6  |
+| distances | sibling       | M7n      |           nan |                  nan |                6.8  |          0.65 |              6.85 |        0.7  |
+| distances | sibling       | M5n      |           nan |                  nan |                7.15 |          0.55 |              7.3  |        0.65 |
+| distances | sibling       | M3       |           nan |                  nan |               23.05 |          0    |             22.8  |        0    |
+| distances | sibling       | NN+RM    |           nan |                  nan |                6.3  |          0.85 |              6.55 |        0.9  |
+| distances | interpolation | M0       |           nan |                  nan |              108.6  |        108.6  |            107.5  |      107.5  |
+| distances | interpolation | M1s      |           nan |                  nan |               19.25 |         19.25 |             20.05 |       20.05 |
+| distances | interpolation | M2       |           nan |                  nan |               17.75 |          2.7  |             18.25 |        2.55 |
+| distances | interpolation | M5       |           nan |                  nan |               19.05 |          2.8  |             20.45 |        2.8  |
+| distances | interpolation | NN       |           nan |                  nan |                4.65 |          4.65 |              4.8  |        4.8  |
+| distances | interpolation | M1sn     |           nan |                  nan |                4.65 |          4.65 |              4.8  |        4.8  |
+| distances | interpolation | M7n      |           nan |                  nan |                7.4  |          3.4  |              7.45 |        3.3  |
+| distances | interpolation | M5n      |           nan |                  nan |               15.6  |          0    |             15.1  |        0    |
+| distances | interpolation | M3       |           nan |                  nan |               29.05 |         13.35 |             28.35 |       12.95 |
+| distances | interpolation | NN+RM    |           nan |                  nan |                9.55 |          0.4  |              9.3  |        0.4  |
+| distances | extrapolation | M0       |           nan |                  nan |              105.55 |        105.55 |            104.2  |      104.2  |
+| distances | extrapolation | M1s      |           nan |                  nan |               19.1  |         19.1  |             18.05 |       18.05 |
+| distances | extrapolation | M2       |           nan |                  nan |               17.5  |          9.9  |             17.6  |        9.4  |
+| distances | extrapolation | M5       |           nan |                  nan |               18.5  |          8.9  |             19.05 |        9.15 |
+| distances | extrapolation | NN       |           nan |                  nan |                9.45 |          9.45 |              9.6  |        9.6  |
+| distances | extrapolation | M1sn     |           nan |                  nan |                8.85 |          8.85 |              8.6  |        8.6  |
+| distances | extrapolation | M7n      |           nan |                  nan |               15.15 |          5.85 |             15    |        6.35 |
+| distances | extrapolation | M5n      |           nan |                  nan |               18.1  |          8.6  |             18.45 |        8.65 |
+| distances | extrapolation | M3       |           nan |                  nan |               32.85 |         16.95 |             33.45 |       16.45 |
+| distances | extrapolation | NN+RM    |           nan |                  nan |               20.1  |          0    |             19.5  |        0    |
 

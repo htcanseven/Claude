@@ -27,6 +27,8 @@ LABEL = {"drawin_mid": "Draw-in, mid-side", "drawin_corner": "Draw-in, corner", 
          "dome_op20": "Bottom dome, cut"}
 UNIT = {"drawin_mid": "mm", "drawin_corner": "mm", "waviness": "mm", "wall_op10": r"$^\circ$",
         "arm_op20": r"$^\circ$", "depth_op10": "mm", "dome_op20": "mm"}
+QSHORT = {"drawin_mid": "Mid-side", "drawin_corner": "Corner", "waviness": "Wavin.", "wall_op10": "Wall",
+          "arm_op20": "Arm", "depth_op10": "Depth", "dome_op20": "Dome"}
 MAIN_RULES = ["M0", "M1s", "M2", "M5", "M7n", "NN", "M1sn", "NN+RM"]
 FURTHER = ["M1", "M1n", "M2n", "M5n", "M7", "Mc", "Mcd", "M0w", "M3", "M4", "M6"]
 ALL_RULES = MAIN_RULES + FURTHER
@@ -93,7 +95,7 @@ def band(x: float) -> str:
     return f"{x:.2f}" if q in (1, 3) else (f"{x:.1f}" if x < 10 else f"{x:.0f}")
 
 
-def pair(x, m: str, below_one: bool = False) -> str:
+def pair(x, m: str, below_one: bool = True) -> str:
     """decisive/safe; a point rule (always decides) shows one number."""
     if x is None:
         return "--"
@@ -108,7 +110,9 @@ def table(rows, caption, label, cols, head, colsep=None, note=None, place="t", s
     body = " \\\\\n".join(r.rstrip().rstrip("\\").rstrip() for r in rows)
     begin, end = ((f"\\begin{{tabular*}}{{\\textwidth}}{{@{{\\extracolsep{{\\fill}}}}{cols}@{{}}}}", "\\end{tabular*}") if full
                   else (f"\\begin{{tabular}}{{@{{}}{cols}@{{}}}}", "\\end{tabular}"))
-    return (f"\\begin{{table}}[{place}]\n{size}\n{sep}\\caption{{{caption.rstrip('.')}}}\\label{{{label}}}\n"
+    import re
+    caption = re.sub(r"(?<!\\)%", r"\\%", caption.rstrip(".")).replace(" \\%", "\\,\\%")
+    return (f"\\begin{{table}}[{place}]\n{size}\n{sep}\\caption{{{caption}}}\\label{{{label}}}\n"
             f"{begin}\n\\toprule\n{head} \\\\\n\\midrule\n{body} \\\\\n"
             f"\\botrule\n{end}\n{foot}\\end{{table}}\n")
 
@@ -128,7 +132,8 @@ def distances_all() -> pd.DataFrame:
     src = pd.concat([read("panel_source_floor.csv"), read("learn_source_floor.csv")])
     src = src[(src["floor"] == "source family") & (src["qc"] == "all")].drop_duplicates("method")
     out = pd.concat([r[r["scope"] != "transfer"], own, src.assign(scope="transfer"),
-                     m6[m6["scope"] != "transfer"]], ignore_index=True)
+                     m6[m6["scope"] != "transfer"], m6[m6["scope"] == "transfer"].assign(scope="transfer/own")],
+                    ignore_index=True)
     return out.drop_duplicates(["scope", "method"]).set_index(["scope", "method"])
 
 
@@ -146,14 +151,13 @@ def t_floors() -> str:
     for c in SHARED:
         f, r = fl.loc[c], rf.loc[c]
         lt = "/".join(f"{fp.loc[(c, g), 'floor_over_sigma_lt']:.1f}" for g in geos)
-        rows.append(f"{LABEL[c]} ({UNIT[c]}) & {sig(f['floor'])} & {sig(f['floor_lo'])}--{sig(f['floor_hi'])} & "
-                    f"{sig(f['floor_lo_alt'])}--{sig(f['floor_hi_alt'])} & {sig(f['floor_concave'])} & "
-                    f"{sig(f['floor_convex'])} & {r['run_floor_min']:.2f}--{r['run_floor_max']:.2f} & "
-                    f"{r['warm_up_ratio']:.2f} & {lt}")
-    head = (r"Characteristic & $F$ & Batches & Clusters & Concave & Convex & Single runs & No warm-up & "
+        rows.append(f"{QSHORT[c]} ({UNIT[c]}) & {sig(f['floor'])} & {sig(f['floor_lo'])}--{sig(f['floor_hi'])} & "
+                    f"{sig(f['floor_lo_alt'])}--{sig(f['floor_hi_alt'])} & {sig(f['floor_concave'])}/{sig(f['floor_convex'])} & "
+                    f"{r['run_floor_min']:.2f}--{r['run_floor_max']:.2f} & {r['warm_up_ratio']:.2f} & {lt}")
+    head = (r"Characteristic & $F$ & Batches & Clusters & Concave/convex & Single runs & No warm-up & "
             r"$F/\sigma_\mathrm{LT}$")
     return table(rows, "Within-run floor per characteristic, pooled and per geometry, with its spread over runs",
-                 "tab:floors", "lrrrrrrrr", head, colsep="2.4pt",
+                 "tab:floors", "lrrrrrrr", head, colsep="1pt", full=True,
                  note=r"Batches of 50 consecutive parts, 95\,\% quantile of the difference of their 10\,\% trimmed "
                       r"means. Batches, Clusters: 95\,\% intervals from 2000 resamples of batches and of whole "
                       r"alternatives. Single runs: floor of one run over that of its geometry, range over the 18 runs. "
@@ -162,24 +166,61 @@ def t_floors() -> str:
                       r"$\sigma_\mathrm{w}$ and the drift in \esm{Table~S20}.")
 
 
+REGION = {"drawin_mid": r"flange mid-sides; $(210-W_x)/2$, $W_x$ along the laser line",
+          "drawin_corner": "flange corners; mean of the two diagonals",
+          "waviness": "flange; residual SD about a quadratic surface",
+          "wall_op10": "side walls at mid-depth; mean of east and west",
+          "arm_op20": "cut arms, centre lines; mean of the four arms",
+          "depth_op10": "flange above the bottom plane; median",
+          "dome_op20": r"bottom sag at $r=40$\,mm; paraboloid fit"}
+
+
+def num(x: float, d: int = 2, plus: bool = False) -> str:
+    """A signed number with a typographic minus."""
+    s = f"{abs(x):.{d}f}"
+    return f"$-${s}" if x < 0 and float(s) != 0 else (f"+{s}" if plus and x > 0 else s)
+
+
+def span(a: float, b: float, d: int = 2, unit: str = "") -> str:
+    """A range: 'a--b' for positive ends, 'a to b' when an end is negative."""
+    if f"{a:.{d}f}" == f"{b:.{d}f}":
+        return f"{num(a, d)}{unit}"
+    if min(a, b) < 0:
+        return f"{num(a, d)} to {num(b, d, plus=a < 0 < b)}{unit}"
+    return f"{a:.{d}f}--{b:.{d}f}{unit}"
+
+
 def t_qcs() -> str:
+    import re
     m = read("meas_characteristics.csv").set_index("qc")
-    fl = read("alt_floor.csv").set_index("qc")
+    cut = read("meas_cut_walls.csv").iloc[0]
     rows = []
     for c in SHARED:
         x = m.loc[c]
-        step = float(x["resolution_step"])
-        bias = str(x["known_biases"]).replace("deg", r"$^\circ$").replace("sd(", r"$\sigma$(").replace("Wy - Wx", r"$W_y-W_x$").replace("-", "--").replace("----", "--")
-        bias = "--" if bias.strip() == "--" else bias
-        rows.append(f"{LABEL[c]} & {x['operation']} & {x['region']}; {x['directions']} & "
-                    f"{sig(step, 2)} ({x['step_over_floor']:.2f}) & {bias}")
-    head = r"Characteristic & Op. & Region; directions used & Step ($/F$) & Direction-dependent differences"
+        v = [float(t) for t in re.findall(r"-?\d+\.\d+", str(x["known_biases"]))]
+        if c == "drawin_mid":
+            bias = f"$W_y-W_x$ {span(v[0], v[1])}\\,mm; $W_y$, in the direction of motion, scatters {v[2]:.1f}--{v[3]:.1f} times more"
+        elif c == "drawin_corner":
+            bias = f"the two diagonals differ by {span(v[0], v[1])}\\,mm"
+        elif c == "wall_op10":
+            cw = [float(t) for t in re.findall(r"-?\d+\.\d+", str(cut["cut_wall_north_minus_east_convex"]))]
+            bias = (f"convex: north wall {span(v[0], v[1])}$^\\circ$ from east/west (concave {span(v[2], v[3])}$^\\circ$); "
+                    f"south wall shadowed, {v[4]:.1f}--{v[5]:.1f}$^\\circ$ off; after the cut, north {span(cw[0], cw[1], 1)}"
+                    f"$^\\circ$ off (convex)")
+        elif c == "depth_op10":
+            bias = "the flange plane is cut away at OP20"
+        else:
+            bias = "--"
+        step = float(x["step_over_floor"])
+        rows.append(f"{LABEL[c]} & {x['operation']} & {REGION[c]} & "
+                    f"{(f'{step:.2f}' if step >= 0.01 else '$<$0.01')} & {str(x['distinct_per_series']).replace('-', '--')} & {bias}")
+    head = r"Characteristic & Op. & Region; definition & Step$/F$ & Values & Direction-dependent differences"
     return table(rows, "The quality characteristics and their measurement by the laser scanner", "tab:qcs",
-                 r"L{1.85cm}L{0.65cm}L{3.55cm}L{1.35cm}L{4.95cm}", head, colsep="2.6pt",
-                 note=r"Op.: operation measured (OP10 after drawing, OP20 after cutting). Step: median step between "
-                      r"adjacent values in one series (unit of the characteristic) and over the floor. Differences "
-                      r"from the redundancy of the four sides, series medians (\esm{Table~S20}); the directions used "
-                      r"avoid them, their residual bias is unknown. Absolute values are not calibrated against a "
+                 r"L{1.75cm}L{0.75cm}L{3.15cm}rrL{3.85cm}", head, colsep="2.4pt",
+                 note=r"Op.: operation measured (OP10 after drawing, OP20 after cutting). Step$/F$: median step between "
+                      r"adjacent values in one series over the floor; Values: distinct values per series. Differences from "
+                      r"the redundancy of the four sides, ranges of the series medians (\esm{Table~S20}); the directions "
+                      r"used avoid them, their residual bias is unknown. Absolute values are not calibrated against a "
                       r"reference at the size of the part.")
 
 
@@ -191,7 +232,8 @@ def t_distances() -> str:
         cells = []
         for scope, _ in RELS:
             x = get(r, scope, m)
-            cells += [pair(x, m, True), "--" if x is None else dist(x["safe_failing"], True)]
+            cells += [pair(x, m, True), "--" if x is None else
+                      f"{dist(x['safe_failing'], True)}/{dist(x['safe_adequate'], True)}"]
         rows.append(f"{SHORT[m]}{MARK.get(m, '')} & " + " & ".join(cells))
         if m in ("M5", "M7n", "NN"):
             ci = []
@@ -202,15 +244,16 @@ def t_distances() -> str:
     for n in (20, 50):
         x = trial.loc[f"trial, first {n} parts"]
         rows.append((r"\midrule " if n == 20 else "") + f"Trial, first {n} parts & " +
-                    " & ".join([dist(x["resolution_floors"]), dist(x["safe_failing"])] * 4))
+                    " & ".join([dist(x["resolution_floors"]),
+                                f"{dist(x['safe_failing'])}/{dist(x['safe_adequate'])}"] * 4))
     head = (r" & \multicolumn{2}{c}{Sibling} & \multicolumn{2}{c}{Interpolated} & \multicolumn{2}{c}{Extrapolated} & "
             r"\multicolumn{2}{c}{New family} \\" "\n"
             r"\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}" "\n"
-            f"Rule & {DD} & FA & {DD} & FA & {DD} & FA & {DD} & FA")
+            f"Rule & {DD} & FA/FR & {DD} & FA/FR & {DD} & FA/FR & {DD} & FA/FR")
     return table(rows, "Decisive and safe distances (floors) by the relation of the new design to the produced "
                        "evidence", "tab:distances", "l" + "r" * 8, head, colsep="3.4pt",
                  note=r"Over all seven characteristics; one number for rules that always decide; $<$1: below one floor. "
-                      r"FA: safe distance on the false-accept side. 126 cases with a sibling and for a new family, 42 "
+                      r"FA/FR: safe distances on the false-accept and the false-reject side. 126 cases with a sibling and for a new family, 42 "
                       r"interpolated, 84 extrapolated; a new family in the produced family's floor (in its own floor in "
                       r"\esm{Table~S1}). Interval: 95\,\% over 1000 resamples of the held-out alternatives, fits fixed. "
                       r"Trial: the first $n$ parts of the design's own run, a within-run lower bound. $^\dagger$, "
@@ -273,8 +316,8 @@ def t_further() -> str:
     head = "Rule & Prediction of $q_p$ & Sibling & Interp. & Extrap. & New family"
     return table(rows, "The further rules and their decisive/safe distances (floors) by relation", "tab:further",
                  r"lL{5.0cm}rrrr", head, colsep="3pt", place="p", size=r"\tabsizesmall",
-                 note=r"M1, M1n, M2n, M5n and M7 pair with M1s, M2, M5 and M7n with and without the simulation; M3n is "
-                      r"M4 in the code; M6 is a robustness variant. A new family in the produced family's floor. "
+                 note=r"Pairs with and without the simulation: M1/M1n, M2/M2n, M3/M3n, M5/M5n and M7/M7n, as M1s/M1sn "
+                      r"(Table~\ref{tab:rules}); M3n is M4 in the code; M6 is a robustness variant. A new family in the produced family's floor. "
                       r"Pooled scopes and intervals in \esm{Table~S1}.")
 
 
@@ -295,7 +338,7 @@ def t_gp() -> str:
             rows.append(f"{lead} & {m} & {int(x['fits'])} & {x['median_ls_bhf']:.2f} & {low} & {noise} & "
                         f"{dist(x['median_d_calib_mean'])} & {pct(x['share_within_001_of_calib_mean'])} & "
                         f"{dist(x['median_d_nn'])} & {dist(x['median_d_m1sn'])} & {dist(x['median_half_width'])}")
-    head = (r"Relation & Rule & Fits & $\ell_F$ & At bound & Noise & $\Delta$mean & ${\le}0.01$ & $\Delta$NN & "
+    head = (r"Relation & Rule & Cases & $\ell_F$ & At bound & Noise & $\Delta$mean & ${\le}0.01$ & $\Delta$NN & "
             r"$\Delta$M1sn & HW")
     return table(rows, "Fitted Gaussian processes by relation: hyperparameters and where their centres lie", "tab:gp",
                  "llrrrrrrrrr", head, colsep="2.6pt", place="p", size=r"\tabsizesmall",
@@ -334,10 +377,10 @@ def t_crossing() -> str:
             r"\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}" "\n"
             f"Predictor + interval & {DD} & Cov & {DD} & Cov & {DD} & Cov & {DD} & Cov")
     return table(rows, "Point predictors with a relation-matched interval, against the rules' own intervals",
-                 "tab:crossing", "l" + "r" * 8, head, colsep="3pt", place="p", size=r"\tabsizesmall",
+                 "tab:crossing", "l" + "r" * 8, head, colsep="2.6pt", place="p", size=r"\tabsizesmall",
                  note=r"P+RM: the prediction of P (for interval rules the interval centre) with the 90\,\% split-conformal "
                       r"quantile of P's absolute errors (floors) over the cases of the same relation in the other family "
-                      r"(sibling 63, interpolated 21, extrapolated 42, new family 63). Cov: coverage of the true $q_{95}$ "
+                      r"(sibling 63, interpolated 21, extrapolated 42, new family 63). Cov: coverage of the true $q_p$ "
                       r"(\%); cluster intervals and interval scores in \esm{Table~S4}. A new family in the produced "
                       r"family's floor.")
 
@@ -352,14 +395,17 @@ def t_groups() -> str:
         cells = []
         for rel, m in cols:
             x = p.loc[(rel, m, c)]
-            cells.append(f"{dist(x['resolution_floors'])} ({sig(x['decisive_units'])})")
+            if x["resolution_floors"] < 1 - 1e-9:
+                cells.append(f"$<$1 ($<${sig(x['pooled_floor'])})")
+            else:
+                cells.append(f"{dist(x['resolution_floors'])} ({sig(x['decisive_units'])})")
         x = p.loc[("sibling", "NN", c)]
-        rows.append(f"{LABEL[c]} ({UNIT[c]}) & " + " & ".join(cells) + f" & {x['ppk_at_decisive_median']:.1f}")
+        rows.append(f"{QSHORT[c]} ({UNIT[c]}) & " + " & ".join(cells) + f" & {x['ppk_at_decisive_median']:.1f}")
     head = (r" & \multicolumn{3}{c}{NN} & M1sn & M1s & M5 & \\" "\n"
             r"\cmidrule(lr){2-4}" "\n"
             r"Characteristic & Sibling & Interp. & Extrap. & Extrap. & Extrap. & New family & $P_\mathrm{pk}$")
     return table(rows, "Decisive distance per characteristic in floors and, in brackets, in its unit", "tab:groups",
-                 "lrrrrrrr", head, colsep="2.4pt", place="p", size=r"\tabsizesmall",
+                 "lrrrrrrr", head, colsep="1.2pt", place="p", size=r"\tabsizesmall",
                  note=r"18 cases per characteristic with a sibling and for a new family, 6 interpolated, 12 "
                       r"extrapolated; units through the pooled floor of the characteristic; a new family in the "
                       r"produced family's floor. $P_\mathrm{pk}$: median performance index of a requirement at the "
@@ -373,16 +419,18 @@ def t_validation() -> str:
         g = v[v["qc"] == c]
         d, dfl = g["sim_minus_measured"], g["sim_minus_measured_floors"]
         nz = g["sim_xy_sd_floors"].dropna()
-        rows.append(f"{LABEL[c]} ({UNIT[c]}) & {sig(g['measured_centre'].min(), 3)}--{sig(g['measured_centre'].max(), 3)} & "
-                    f"{sig(d.min())} to {sig(d.max())} & {dfl.min():.0f} to {dfl.max():.0f} & "
-                    f"{int(g['measured_inside_friction_range'].sum())} & "
-                    f"{g['closest_mu'].min():.2f}--{g['closest_mu'].max():.2f} & "
-                    f"{('--' if nz.empty else f'{nz.min():.1f}--{nz.max():.1f}')} & "
-                    f"{g['sim_roughness_sd_floors'].min():.1f}--{g['sim_roughness_sd_floors'].max():.1f}")
+        dd = 3 if c in ("waviness", "dome_op20") else 2
+        mu = (f"{g['closest_mu'].min():.2f}" if np.isclose(g['closest_mu'].min(), g['closest_mu'].max())
+              else f"{g['closest_mu'].min():.2f}--{g['closest_mu'].max():.2f}")
+        rough = g["sim_roughness_sd_floors"]
+        rows.append(f"{QSHORT[c]} ({UNIT[c]}) & {span(g['measured_centre'].min(), g['measured_centre'].max(), dd)} & "
+                    f"{span(d.min(), d.max(), dd)} & {span(dfl.min(), dfl.max(), 0)} & "
+                    f"{int(g['measured_inside_friction_range'].sum())} & {mu} & "
+                    f"{('--' if nz.empty else span(nz.min(), nz.max(), 1))} & {span(rough.min(), rough.max(), 1)}")
     head = (r"Characteristic & Measured & Sim.\,$-$\,meas. & In floors & Inside & Closest $\mu$ & $x$--$y$ & "
             r"Roughness")
     return table(rows, "The simulation dataset against the measurement, over the six geometry--force cells",
-                 "tab:validation", "lrrrrrrr", head, colsep="2.4pt", place="p", size=r"\tabsizesmall",
+                 "tab:validation", "lrrrrrrr", head, colsep="1.6pt", place="p", size=r"\tabsizesmall",
                  note=r"Measured: range of the cells' centres (signed). Sim.\,$-$\,meas.: simulation at 0.99\,mm and "
                       r"friction 0.10 minus the measured centre, in the unit and in floors. Inside: cells whose measured "
                       r"centre lies within the simulated range over the friction grid (of 6). Closest $\mu$: grid "
@@ -439,7 +487,9 @@ def s_variants() -> str:
         cells = [pair(rob.loc[(v, s, m)], m) if (v, s, m) in rob.index else "" for s, m in cols]
         if any(cells):
             rows.append(f"{name} & " + " & ".join(cells))
-    relmap = {"within": "sibling", "setting": None}
+    r = distances_all()
+    rows.append(r"\midrule Reference, extrapolated$^*$ & " + " & ".join(
+        pair(get(r, "within" if s_ == "within" else "setting/extrapolation", m), m) for s_, m in cols))
     for label in ["lower limits (5th percentile)", "short runs: first 20 parts", "short runs: first 50 parts",
                   "decided statistic: centre + 3.99 sd"]:
         g = var[var["variant"] == label].set_index(["relation", "method"])
@@ -452,6 +502,18 @@ def s_variants() -> str:
                 "short runs: first 20 parts": "Short runs: 20 parts$^*$", "short runs: first 50 parts":
                 "Short runs: 50 parts$^*$", "decided statistic: centre + 3.99 sd": r"Statistic $\bar m+4\sigma$$^*$"}[label]
         rows.append(f"{name} & " + " & ".join(cells))
+    fl = read("qual_floor_loao.csv")
+    fl = fl[fl["kind"] == "distances"].set_index(["relation", "method"])
+    cells = []
+    for s_, m in cols:
+        key = ("sibling" if s_ == "within" else "extrapolation", m)
+        if key in fl.index:
+            x = fl.loc[key]
+            d = dist(x["resolution_loao"], True)
+            cells.append(d if m in POINT else f"{d}/{dist(x['safe_loao'], True)}")
+        else:
+            cells.append("")
+    rows.append(r"Floors without the held-out series$^*$ & " + " & ".join(cells))
     e = env[env["envelope"] == "measured incoming variation"].set_index(["scope", "method"])
     cells = []
     for s, m in cols:
@@ -467,8 +529,9 @@ def s_variants() -> str:
             r"Variant & M1s & M2 & M5 & NN & M2 & M5 & NN & M1sn")
     return table(rows, "Decisive/safe distances (floors) under the robustness and sensitivity variants", "tab:s-variants",
                  "l" + "r" * 8, head, colsep="2.4pt", place="p", size=r"\tabsizesmall",
-                 note=r"Rules refitted for every variant. $^*$: added in revision; their new-setting columns are the "
-                      r"extrapolated setting. Lower limits: draw-ins, wall angle and depth. Short runs: calibration and "
+                 note=r"Rules refitted for every variant. $^*$: added in this version; their new-setting columns are "
+                      r"the extrapolated setting, to be read against the extrapolated reference. Floors without the held-out "
+                      r"series: every case in the floor of its geometry recomputed without its own alternative. Lower limits: draw-ins, wall angle and depth. Short runs: calibration and "
                       r"truths from the first $n$ parts. Envelope over measured inputs: thickness and mapped friction "
                       r"between the 5th and 95th percentiles of the parts. Refit: 95\,\% interval over 200 draws of each "
                       r"geometry's lubrication patterns with replacement.")
@@ -480,11 +543,14 @@ def s_strata() -> str:
     rows = []
     for m in ["NN", "M1sn", "M1s", "M2", "M5", "M7n", "NN+RM"]:
         cells = []
+        def two(x):
+            d = f"{x['resolution_floors'] + 1e-9:.2f}"
+            return d if m in POINT else f"{d}/{dist(x['safe_floors'], True)}"
         for st in ("siblings not resolvable", "siblings resolvable"):
             x = s.loc[(st, m)]
-            cells += [pair(x, m), f"{x['abs_error_p90']:.2f}"]
+            cells += [two(x), f"{x['abs_error_p90']:.2f}"]
         for k in (0, 1, 2):
-            cells.append(pair(o.loc[(k, m)], m) if (k, m) in o.index else "--")
+            cells.append(two(o.loc[(k, m)]) if (k, m) in o.index else "--")
         rows.append(f"{SHORT.get(m, m)} & " + " & ".join(cells))
     cnt = s.xs("NN", level="method")
     head = (r" & \multicolumn{4}{c}{Decision time: produced siblings} & \multicolumn{3}{c}{Outcome (diagnostic)} \\" "\n"
@@ -513,9 +579,19 @@ def s_coverage() -> str:
                 cells += ["--", "--"]
                 continue
             x = x.iloc[0]
-            cells += [f"{pct(x['coverage'])} ({pct(x['coverage_lo'])}--{pct(x['coverage_hi'])})", f"{x['interval_score']:.0f}"]
+            cov = (f"{pct(x['coverage'])} ({pct(x['coverage_lo'])}--{pct(x['coverage_hi'])})" if rel == "sibling"
+                   else pct(x["coverage"]))
+            cells += [cov, f"{x['interval_score']:.0f}"]
         lvl = a[(a["method"] == m) & (a["relation"] == "sibling")]["level"].iloc[0]
         rows.append(f"{SHORT.get(m, m)} & {lvl.split(' (')[0]} & " + " & ".join(cells))
+    m6 = read("qual_m6_coverage.csv").set_index("relation")
+    cells = []
+    for rel in rels:
+        x = m6.loc[rel]
+        cov = (f"{pct(x['coverage'])} ({pct(x['coverage_lo'])}--{pct(x['coverage_hi'])})" if rel == "sibling"
+               else pct(x["coverage"]))
+        cells += [cov, f"{x['interval_score']:.0f}"]
+    rows.append("M6 & 0.90 & " + " & ".join(cells))
     for m in ["NN", "M1sn", "M1s"]:
         cells = []
         for rel in rels:
@@ -528,9 +604,13 @@ def s_coverage() -> str:
     return table(rows, "Interval rules: coverage with cluster-bootstrap intervals and interval score by relation",
                  "tab:s-coverage", "ll" + "r" * 8, head, colsep="2pt", place="p", size=r"\tabsizesmall",
                  note=r"Level: guaranteed (largest residual, jackknife+; with a sibling) or nominal coverage. Cov: coverage "
-                      r"(\%) with a 95\,\% interval over 2000 resamples of the alternatives within each geometry. IS: mean "
+                      r"(\%), with a sibling with a 95\,\% interval over 2000 resamples of the alternatives within each "
+                      r"geometry; for a new setting and a new family the alternatives of one held-out cell or family share "
+                      r"their calibration set and are near-replicates, so with 2, 4 and 2 such units no useful interval can "
+                      r"be given. IS: mean "
                       r"interval score (Gneiting and Raftery 2007) at $\alpha=0.1$, floors; lower is better; for point "
-                      r"rules $20\,|e|$. A new family in the produced family's floor.")
+                      r"rules $20\,|e|$. M6: conformal margin on standardised leave-one-out residuals of the calibration set, "
+                      r"guaranteed only under exchangeability with them. A new family in the produced family's floor.")
 
 
 def s_coverage_qc() -> str:
@@ -540,14 +620,20 @@ def s_coverage_qc() -> str:
         for m in ["M5", "M5n", "M7n", "M3", "NN+RM"]:
             x = c[(c["relation"] == rel) & (c["method"] == m)].set_index("subset")
             cells = [pct(x.loc[q, "coverage"]) if q in x.index else "--" for q in SHARED]
-            st = [f"{pct(x.loc[s, 'coverage'])}" if s in x.index else "--" for s in ("siblings not resolvable", "siblings resolvable")]
+            st = [pct(x.loc[k, "coverage"]) if k in x.index else "--"
+                  for k in ("siblings not resolvable", "siblings resolvable")]
             rows.append(f"{rel if m == 'M5' else ''} & {SHORT.get(m, m)} & " + " & ".join(cells) + " & " + " & ".join(st))
-    head = ("Relation & Rule & " + " & ".join(LABEL[q].replace("Draw-in, ", "D-i ").replace(", cut", "") for q in SHARED)
-            + r" & Not res. & Res.")
+            if rel == "sibling":
+                ci = [f"{pct(x.loc[q, 'coverage_lo'])}--{pct(x.loc[q, 'coverage_hi'])}" if q in x.index else ""
+                      for q in SHARED + ["siblings not resolvable", "siblings resolvable"]]
+                rows.append(r" & \quad interval & " + " & ".join(ci))
+    head = "Relation & Rule & " + " & ".join(QSHORT[q] for q in SHARED) + r" & Not res. & Res."
     return table(rows, "Coverage (%) of the interval rules per characteristic and decision-time stratum", "tab:s-coverage-qc",
                  "ll" + "r" * 9, head, colsep="2pt", place="p", size=r"\tabsizesmall",
-                 note=r"18 cases per characteristic with a sibling, 6 interpolated, 12 extrapolated. Not res., Res.: "
-                      r"the produced siblings do not or do differ resolvably from each other (75 and 51 cases).")
+                 note=r"18 cases per characteristic with a sibling, 6 interpolated, 12 extrapolated. Not res., Res.: the "
+                      r"produced siblings do not or do differ resolvably from each other (75 and 51 cases). Interval: 95\,\% "
+                      r"over 2000 resamples of the alternatives within each geometry, given only with a sibling (see "
+                      r"Table~\ref{tab:s-coverage}).")
 
 
 def s_step6() -> str:
@@ -561,7 +647,7 @@ def s_step6() -> str:
             if not np.isfinite(x["guard_band"]):
                 cells += ["none", "--", "100", "100"]
                 continue
-            cells += [band(x["guard_band"]), f"{dist(x['decisive_step6'])}/{dist(x['safe_step6'])}",
+            cells += [band(x["guard_band"]), f"{dist(x['decisive_step6'], True)}/{dist(x['safe_step6'], True)}",
                       pct(x["trial_10_step6"]), pct(x["trial_20_step6"])]
         rows.append(f"{SHORT[m]} & " + " & ".join(cells))
     head = (" & " + " & ".join(rf"\multicolumn{{4}}{{c}}{{{lab}}}" for _, lab in rels) + r" \\" "\n"
@@ -584,9 +670,11 @@ def s_guard_family() -> str:
             if x.empty:
                 continue
             x = x.iloc[0]
+            bc = band(x["band_concave"]) if x["trial_concave"] < 0.999 else "none"
+            bv = band(x["band_convex"]) if x["trial_convex"] < 0.999 else "none"
             rows.append(f"{rel if m == 'NN' else ''} & {SHORT.get(m, m)} & {band(x['band_pooled'])} & "
-                        f"{band(x['band_concave'])} & {pct(x['correct_concave'])} & {pct(x['correct_concave_with_other_band'])} & "
-                        f"{band(x['band_convex'])} & {pct(x['correct_convex'])} & {pct(x['correct_convex_with_other_band'])}")
+                        f"{bc} & {pct(x['correct_concave'])} & {pct(x['correct_concave_with_other_band'])} & "
+                        f"{bv} & {pct(x['correct_convex'])} & {pct(x['correct_convex_with_other_band'])}")
     head = (r" & & & \multicolumn{3}{c}{Concave} & \multicolumn{3}{c}{Convex} \\" "\n"
             r"\cmidrule(lr){4-6}\cmidrule(lr){7-9}" "\n"
             r"Relation & Rule & Pooled $g$ & $g$ & Correct & Other $g$ & $g$ & Correct & Other $g$")
@@ -594,7 +682,7 @@ def s_guard_family() -> str:
                  "ll" + "r" * 7, head, colsep="3pt", place="p", size=r"\tabsizesmall",
                  note=r"Reference prior. Correct: share correct among decided verdicts (\%) with the family's own band; "
                       r"Other $g$: with the band of the other family. For a new family, the family is the target of the "
-                      r"transfer. --: every design to trial.")
+                      r"transfer. None, --: every design to trial.")
 
 
 def s_guard_oos() -> str:
@@ -655,7 +743,7 @@ def s_guard_qc() -> str:
             cls = [f"{band(x.loc[c, 'own_band'])}" for c in ("process indicators", "drawn geometry", "cut part")]
             rows.append(f"{rel if m == 'NN' else ''} & {SHORT.get(m, m)} & {band(x['pooled_band'].iloc[0])} & "
                         + " & ".join(cells) + " & " + " & ".join(cls))
-    head = ("Relation & Rule & $g$ & " + " & ".join(LABEL[q].replace("Draw-in, ", "D-i ").replace(", cut", "") for q in SHARED)
+    head = ("Relation & Rule & $g$ & " + " & ".join(QSHORT[q] for q in SHARED)
             + r" & $g_\mathrm{P}$ & $g_\mathrm{G}$ & $g_\mathrm{C}$")
     return table(rows, "Share correct (%) per characteristic with the pooled band, and bands per class of characteristic",
                  "tab:s-guard-qc", "ll" + "r" * 11, head, colsep="1.6pt", place="p", size=r"\tabsizesmall",
@@ -675,16 +763,21 @@ def s_costs() -> str:
             for ct in (0.02, 0.05, 0.1, 0.2, 0.5):
                 h = g[np.isclose(g["c_trial"], ct) & g["method"].isin(rules)]
                 best = h.loc[h["cost_opt"].idxmin()]
-                name = "trial" if best["cost_opt"] >= ct - 1e-12 else SHORT.get(best["method"], best["method"])
                 nn = h[h["method"] == "NN"].iloc[0]
-                cells.append(f"{name} {best['cost_opt']:.3f} ({band(nn['band_opt']) if nn['cost_opt'] < ct - 1e-12 else 'trial'})")
-            rows.append(f"{rel if cfr == 0.25 else ''} & {cfr:g} & " + " & ".join(cells))
-    head = r"Relation & $c_\mathrm{FR}$ & $c_\mathrm{T}=0.02$ & 0.05 & 0.1 & 0.2 & 0.5"
+                if best["cost_opt"] >= ct - 1e-12:
+                    cells.append("trial")
+                else:
+                    nb = band(nn["band_opt"]) if nn["cost_opt"] < ct - 1e-12 else "T"
+                    cells.append(f"{SHORT.get(best['method'], best['method'])} {best['cost_opt']:.3f} ({nb})")
+            if cfr == 0.25:
+                rows.append(rf"\multicolumn{{6}}{{@{{}}l}}{{\emph{{{rel.capitalize()}}}}}")
+            rows.append(f"{cfr:g} & " + " & ".join(cells))
+    head = r"$c_\mathrm{FR}$ & $c_\mathrm{T}=0.02$ & 0.05 & 0.1 & 0.2 & 0.5"
     return table(rows, "Cheapest rule and its expected cost per verdict, with the cost-minimising band of NN",
-                 "tab:s-costs", "lr" + "r" * 5, head, colsep="2.4pt", place="p", size=r"\tabsizesmall",
+                 "tab:s-costs", "r" + "r" * 5, head, colsep="3pt", place="p", size=r"\tabsizesmall",
                  note=r"Costs relative to a false accept; reference prior; each rule with its cost-minimising band (0 to "
                       r"40 floors). Trial: sending every design to trial (cost $c_\mathrm{T}$) is cheapest. In brackets: "
-                      r"the cost-minimising band of NN (floors).")
+                      r"the cost-minimising band of NN (floors); T: NN is cheapest sending every design to trial.")
 
 
 def s_between() -> str:
@@ -740,7 +833,7 @@ def s_per_qc() -> str:
                 continue
             cells = [pair(x.loc[q], m) for q in SHARED]
             rows.append(f"{rel if m == 'M0' else ''} & {SHORT.get(m, m)} & " + " & ".join(cells))
-    head = "Relation & Rule & " + " & ".join(LABEL[q].replace("Draw-in, ", "D-i ").replace(", cut", "") for q in SHARED)
+    head = "Relation & Rule & " + " & ".join(QSHORT[q] for q in SHARED)
     return table(rows, "Decisive/safe distances (floors) per characteristic", "tab:s-qc", "ll" + "r" * 7, head,
                  colsep="2pt", place="p", size=r"\tabsizesmall",
                  note=r"In the floor of the characteristic's geometry; a new family in the produced family's floor. 18 "
@@ -790,29 +883,75 @@ def s_fewshot() -> str:
                  "tab:s-fewshot", "rlrrrrrr", head, colsep="3pt", place="p", size=r"\tabsizesmall",
                  note=r"Decisive (and safe) distances in the target family's floor over every subset of $k$ produced "
                       r"alternatives; relation of the judged alternative to the $k$. NN in family: nearest produced setting "
-                      r"among the $k$; shifted record: the other family's $q_{95}$ at the same setting plus the median offset "
+                      r"among the $k$; shifted record: the other family's $q_p$ at the same setting plus the median offset "
                       r"of the $k$; ICM: two-task GP with family intercepts and a free inter-family correlation; ICM+sim: "
                       r"with the nominal simulation in the mean. Cov: coverage of the ICM interval (\%).")
 
 
+def s_paired() -> str:
+    a = pd.concat([read("dec_paired.csv"), read("learn_paired.csv")]).drop_duplicates(["scope", "rule_a", "rule_b"])
+    a = a.set_index(["scope", "rule_a", "rule_b"])
+    pairs = [("M5", "NN"), ("M5n", "NN"), ("M2", "NN"), ("M1sn", "NN"), ("M1s", "M1sn"), ("M5", "M5n"), ("M2", "M2n"),
+             ("M3", "M4"), ("M7n", "NN"), ("M7n", "M5n"), ("M7n", "M1sn"), ("M7", "M7n"), ("NN+RM", "M5"),
+             ("NN+RM", "M7n"), ("Mcd", "Mc")]
+    scopes = ["within", "setting/interpolation", "setting/extrapolation"]
+
+    def cell(x, k):
+        lo, hi = x[f"{k}_diff_lo"], x[f"{k}_diff_hi"]
+        return f"{num(x[f'{k}_diff'], 1)} ({num(lo, 1)}, {num(hi, 1)})"
+
+    rows = []
+    for ra, rb in pairs:
+        for k, lab in (("resolution", r"$\delta_\mathrm{d}$"), ("safe", r"$\delta_\mathrm{s}$")):
+            cells = [cell(a.loc[(sc, ra, rb)], k) if (sc, ra, rb) in a.index else "--" for sc in scopes]
+            name = f"{SHORT.get(ra, ra)}$-${SHORT.get(rb, rb)}" if k == "resolution" else ""
+            rows.append(f"{name} & {lab} & " + " & ".join(cells))
+    r = read("qual_resolvable_difference.csv").set_index(["scope", "pairs"])
+    rows.append(r"\midrule \multicolumn{5}{@{}l}{\emph{Median half-width of the paired 95\,\% intervals (floors)}} \\")
+    for pr, lab in (("point-rule pairs", "point rules"), ("all pairs", "all pairs")):
+        rows.append(f"{lab} & & " + " & ".join(f"{r.loc[(sc, pr), 'median_half_width']:.2f} "
+                                              f"({r.loc[(sc, pr), 'min_half_width']:.2f}--{r.loc[(sc, pr), 'max_half_width']:.2f})"
+                                              for sc in scopes))
+    d = read("qual_decomposition.csv")
+    rows.append(r"\midrule \multicolumn{5}{@{}l}{\emph{Share of the variance of the distances of the pre-specified rules M1--M5}} \\")
+    for _, x in d[d["rule_set"].str.startswith("pre-specified")].iterrows():
+        k = r"$\delta_\mathrm{d}$" if x["distance"] == "resolution_floors" else r"$\delta_\mathrm{s}$"
+        rows.append(f"{x['relations']} & {k} & \\multicolumn{{3}}{{l}}{{relation {pct(x['share_relation'])}\\,\\%, rule "
+                    f"{pct(x['share_rule'])}\\,\\%, interaction {pct(x['share_interaction'])}\\,\\%}}")
+    head = r"Pair $a-b$ & & Sibling & Interpolated & Extrapolated"
+    return table(rows, "Paired differences of the distances between rules, their resolution and the decomposition",
+                 "tab:s-paired", "llrrr", head, colsep="3pt", place="p", size=r"\tabsizesmall",
+                 note=r"Difference of rule $a$ minus rule $b$ (floors) with the 95\,\% interval over 1000 common resamples "
+                      r"of the held-out alternatives, fits fixed; negative: $a$ closer. Descriptive and not adjusted for the "
+                      r"number of comparisons. Decomposition: two-way analysis of the distances of M1--M5 over relations and "
+                      r"rules, in the produced family's floor.")
+
+
 def s_validation_full() -> str:
     v = read("sim_validation.csv")
+
+    def val(x: float) -> str:
+        t = sig(abs(x), 4)
+        return f"$-${t}" if x < 0 and float(t) != 0 else t
+
     rows = []
     for c in SHARED:
         for _, r in v[v["qc"] == c].iterrows():
+            lo, hi = r["sim_min_over_friction"], r["sim_max_over_friction"]
+            rng = f"{val(lo)} to {val(hi)}" if min(lo, hi) < 0 else f"{val(lo)}--{val(hi)}"
+            res = r["residual_at_closest_floors"]
             rows.append(f"{LABEL[c] if r['geometry'] == 'concave' and r['bhf_kN'] == 100 else ''} & {r['geometry']} & "
-                        f"{int(r['bhf_kN'])} & {sig(r['measured_centre'], 4)} & {sig(r['sim_nominal'], 4)} & "
-                        f"{sig(r['sim_min_over_friction'], 4)}--{sig(r['sim_max_over_friction'], 4)} & "
+                        f"{int(r['bhf_kN'])} & {val(r['measured_centre'])} & {val(r['sim_nominal'])} & {rng} & "
                         f"{'yes' if r['measured_inside_friction_range'] else 'no'} & {r['closest_mu']:.2f} & "
-                        f"{r['residual_at_closest_floors']:.1f}")
+                        f"{num(res, 1) if abs(res) >= 0.05 else '0.0'}")
     mc = read("sim_mc_friction.csv")
-    head = r"Characteristic & Geometry & kN & Measured & Sim., $\mu=0.10$ & Sim. range & Inside & Closest $\mu$ & Residual"
+    head = r"Characteristic & Geometry & kN & Measured & $\mu=0.10$ & Range over $\mu$ & Inside & Closest $\mu$ & Residual"
     return table(rows, "The simulation dataset against the measurement per geometry and force", "tab:s-validation",
-                 "llrrrrlrr", head, colsep="2.6pt", place="p", size=r"\tabsizesmall",
-                 note=rf"Signed values in the unit of the characteristic, simulation at 0.99\,mm. Sim. range: over the "
-                      rf"friction grid 0.05--0.15. Residual: simulation at the closest grid friction minus the measurement "
-                      rf"(floors). Mc's friction fits end at the upper edge of the grid in {int(mc['at_upper_edge'].sum())} "
-                      rf"of {len(mc)} within-family calibrations.")
+                 "llrrrrlrr", head, colsep="1.8pt", place="p", size=r"\tabsizesmall",
+                 note=rf"Values in the unit of the characteristic (signed), simulation at 0.99\,mm. $\mu=0.10$: the nominal "
+                      rf"simulation; range over $\mu$: over the friction grid 0.05--0.15. Residual: simulation at the closest "
+                      rf"grid friction minus the measurement (floors). Mc's friction fits end at the upper edge of the grid in "
+                      rf"{int(mc['at_upper_edge'].sum())} of {len(mc)} within-family calibrations.")
 
 
 def s_sim_checks() -> str:
@@ -822,26 +961,28 @@ def s_sim_checks() -> str:
     rows = []
     for _, r in o.iterrows():
         rows.append(f"oil film & {r['geometry']}, {int(r['bhf_kN'])}\\,kN, {LABEL[r['qc']].lower()} & "
-                    f"{r['implied_mm_per_gm2']:.2f} & {r['within_run_mm_per_gm2']:.3f} & "
-                    f"{r['between_patterns_min']:.2f} to {r['between_patterns_max']:.2f} & ")
-    rows.append(r"\midrule \multicolumn{6}{@{}l}{\emph{Cup depth, flange rise and wall position at 15 mm depth (mm, simulation at nominal)}} \\")
+                    f"{r['implied_mm_per_gm2']:.2f} & {num(r['within_run_mm_per_gm2'], 3)} & "
+                    f"{num(r['between_patterns_median'], 2)} & {span(r['between_patterns_min'], r['between_patterns_max'])}")
+    rows.append(r"\midrule \multicolumn{6}{@{}l}{\emph{Cup depth, flange rise and wall position at 15\,mm depth (mm, "
+                r"simulation at nominal)}} \\")
     for _, r in d.iterrows():
         rows.append(f"depth & {r['geometry']}, {int(r['bhf_kN'])}\\,kN & {r['depth_sim_minus_measured']:.2f} & "
-                    f"{r['flange_rise_measured']:.2f} / {r['flange_rise_sim']:.2f} & "
+                    f"{num(r['flange_rise_measured'], 2)} / {num(r['flange_rise_sim'], 2)} & "
                     f"{r['wall_r15_measured_minus_sim']:.2f} & {r['press_bdc_sd_mm']:.3f}")
-    rows.append(r"\midrule \multicolumn{6}{@{}l}{\emph{A dimension fixed by the tooling: cup width at 15 mm depth}} \\")
+    rows.append(r"\midrule \multicolumn{6}{@{}l}{\emph{A dimension fixed by the tooling: cup width at 15\,mm depth}} \\")
     for _, r in t.iterrows():
-        rows.append(f"tooling & {r['geometry']} & {r['r_wx_cupwidth']:.2f} & {r['floor_cup_width_mm']:.3f} & "
+        rows.append(f"tooling & {r['geometry']} & {num(r['r_wx_cupwidth'], 2)} & {r['floor_cup_width_mm']:.3f} & "
                     f"{r['floor_wx_mm']:.3f} & {100 * r['lateral_scale_drift_bound']:.3f}")
     head = r"Check & Case & a & b & c & d"
     return table(rows, "Checks of the simulation's oil-film mapping, the cup-depth offset and the scanner's lateral scale",
                  "tab:s-checks", "llrrrr", head, colsep="3pt", place="p", size=r"\tabsizesmall",
-                 note=r"Oil film: a, change of draw-in per g/m$^2$ implied by the mapping and the simulated friction "
-                      r"sensitivity (mm); b, within-run slope; c, slopes between the lubrication patterns. Depth: a, "
-                      r"simulated minus measured depth; b, flange rise measured/simulated; c, wall position at 15\,mm depth, "
-                      r"measured minus simulated (radius); d, standard deviation of the press position at bottom dead centre "
-                      r"within the series. Tooling: a, correlation of the batch centres of flange width and cup width; b, c, "
-                      r"floors of the cup width and the flange width (mm); d, bound of a lateral scale drift (\%).")
+                 note=r"Oil film (mm of draw-in per g/m$^2$): a, implied by the dataset's mapping from oil film to friction "
+                      r"and the simulated friction sensitivity; b, slope within the run; c, median and d, range of the slopes "
+                      r"between the lubrication patterns. Depth: a, simulated minus measured cup depth; b, flange rise towards "
+                      r"the edge, measured/simulated; c, wall position at 15\,mm depth, measured minus simulated (radius); d, "
+                      r"standard deviation of the press position at bottom dead centre within the series. Tooling: a, "
+                      r"correlation of the batch centres of flange width and cup width; b, c, floors of the cup width and of "
+                      r"the flange width (mm); d, bound of a lateral scale drift (\%).")
 
 
 def s_measurement() -> str:
@@ -873,8 +1014,8 @@ MAIN_TABLES = {"floors": t_floors, "qcs": t_qcs, "distances": t_distances, "guar
 SUPP_TABLES = {"s-all": s_all_rules, "s-variants": s_variants, "s-strata": s_strata, "s-coverage": s_coverage,
                "s-coverage-qc": s_coverage_qc, "s-step6": s_step6, "s-guard-family": s_guard_family,
                "s-guard-oos": s_guard_oos, "s-prior": s_prior_width, "s-guard-qc": s_guard_qc, "s-costs": s_costs,
-               "s-between": s_between, "s-crossfit": s_crossfit, "s-qc": s_per_qc, "s-design": s_design,
-               "s-fewshot": s_fewshot, "s-validation": s_validation_full, "s-checks": s_sim_checks,
+               "s-between": s_between, "s-crossfit": s_crossfit, "s-design": s_design, "s-qc": s_per_qc,
+               "s-fewshot": s_fewshot, "s-paired": s_paired, "s-validation": s_validation_full, "s-checks": s_sim_checks,
                "s-scan": s_measurement}
 
 

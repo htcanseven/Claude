@@ -1,0 +1,157 @@
+kind,relation,method,alternative,ratio_loao_to_full,resolution_floors,safe_floors,resolution_loao,safe_loao
+floor ratio,concave,drawin_mid,concave/100/coarse,0.9294003868475161,,,,
+floor ratio,concave,drawin_mid,concave/100/fine,1.0270793036753223,,,,
+floor ratio,concave,drawin_mid,concave/100/medium,1.0270793036753223,,,,
+floor ratio,concave,drawin_mid,concave/300/coarse,1.0270793036753223,,,,
+floor ratio,concave,drawin_mid,concave/300/fine,0.8041586073504565,,,,
+floor ratio,concave,drawin_mid,concave/300/medium,1.0270793036753223,,,,
+floor ratio,concave,drawin_mid,concave/500/coarse,1.0270793036753223,,,,
+floor ratio,concave,drawin_mid,concave/500/fine,1.0270793036753223,,,,
+floor ratio,concave,drawin_mid,concave/500/medium,1.0270793036753223,,,,
+floor ratio,concave,drawin_corner,concave/100/coarse,0.972096692525726,,,,
+floor ratio,concave,drawin_corner,concave/100/fine,1.0108235113179092,,,,
+floor ratio,concave,drawin_corner,concave/100/medium,1.0108235113179092,,,,
+floor ratio,concave,drawin_corner,concave/300/coarse,1.0108235113179092,,,,
+floor ratio,concave,drawin_corner,concave/300/fine,0.986209158880646,,,,
+floor ratio,concave,drawin_corner,concave/300/medium,1.0108235113179092,,,,
+floor ratio,concave,drawin_corner,concave/500/coarse,0.9238913486440402,,,,
+floor ratio,concave,drawin_corner,concave/500/fine,0.9962221141063694,,,,
+floor ratio,concave,drawin_corner,concave/500/medium,1.0108235113179092,,,,
+floor ratio,concave,waviness,concave/100/coarse,1.0307845834345497,,,,
+floor ratio,concave,waviness,concave/100/fine,1.0307845834345497,,,,
+floor ratio,concave,waviness,concave/100/medium,0.7013188579094904,,,,
+floor ratio,concave,waviness,concave/300/coarse,1.0307845834345497,,,,
+floor ratio,concave,waviness,concave/300/fine,1.0307845834345497,,,,
+floor ratio,concave,waviness,concave/300/medium,1.0307845834345497,,,,
+floor ratio,concave,waviness,concave/500/coarse,1.0307845834345497,,,,
+floor ratio,concave,waviness,concave/500/fine,1.0307845834345497,,,,
+floor ratio,concave,waviness,concave/500/medium,1.0307845834345497,,,,
+floor ratio,concave,wall_op10,concave/100/coarse,1.010296864279421,,,,
+floor ratio,concave,wall_op10,concave/100/fine,0.825764298779799,,,,
+floor ratio,concave,wall_op10,concave/100/medium,0.7691953587108754,,,,
+floor ratio,concave,wall_op10,concave/300/coarse,1.010296864279421,,,,
+floor ratio,concave,wall_op10,concave/300/fine,1.010296864279421,,,,
+floor ratio,concave,wall_op10,concave/300/medium,1.010296864279421,,,,
+floor ratio,concave,wall_op10,concave/500/coarse,1.010296864279421,,,,
+floor ratio,concave,wall_op10,concave/500/fine,1.010296864279421,,,,
+floor ratio,concave,wall_op10,concave/500/medium,1.010296864279421,,,,
+floor ratio,concave,arm_op20,concave/100/coarse,1.0320423726476238,,,,
+floor ratio,concave,arm_op20,concave/100/fine,1.0320423726476238,,,,
+floor ratio,concave,arm_op20,concave/100/medium,0.7739676792974322,,,,
+floor ratio,concave,arm_op20,concave/300/coarse,1.0320423726476238,,,,
+floor ratio,concave,arm_op20,concave/300/fine,1.0320423726476238,,,,
+floor ratio,concave,arm_op20,concave/300/medium,1.0320423726476238,,,,
+floor ratio,concave,arm_op20,concave/500/coarse,1.0306071325233708,,,,
+floor ratio,concave,arm_op20,concave/500/fine,1.0320423726476238,,,,
+floor ratio,concave,arm_op20,concave/500/medium,1.0320423726476238,,,,
+floor ratio,concave,depth_op10,concave/100/coarse,0.9722278628716278,,,,
+floor ratio,concave,depth_op10,concave/100/fine,0.9312920310835456,,,,
+floor ratio,concave,depth_op10,concave/100/medium,1.0457989578073126,,,,
+floor ratio,concave,depth_op10,concave/300/coarse,0.8750307878209993,,,,
+floor ratio,concave,depth_op10,concave/300/fine,1.0457989578073126,,,,
+floor ratio,concave,depth_op10,concave/300/medium,1.0457989578073126,,,,
+floor ratio,concave,depth_op10,concave/500/coarse,1.0457989578073126,,,,
+floor ratio,concave,depth_op10,concave/500/fine,1.0457989578073126,,,,
+floor ratio,concave,depth_op10,concave/500/medium,1.0457989578073126,,,,
+floor ratio,concave,dome_op20,concave/100/coarse,1.0810289857379065,,,,
+floor ratio,concave,dome_op20,concave/100/fine,1.0810289857379065,,,,
+floor ratio,concave,dome_op20,concave/100/medium,0.8062969606929086,,,,
+floor ratio,concave,dome_op20,concave/300/coarse,1.0810289857379065,,,,
+floor ratio,concave,dome_op20,concave/300/fine,1.0810289857379065,,,,
+floor ratio,concave,dome_op20,concave/300/medium,1.0810289857379065,,,,
+floor ratio,concave,dome_op20,concave/500/coarse,1.0140603395027314,,,,
+floor ratio,concave,dome_op20,concave/500/fine,1.0726836639906054,,,,
+floor ratio,concave,dome_op20,concave/500/medium,1.0810289857379065,,,,
+floor ratio,convex,drawin_mid,convex/100/coarse,1.0428966789667176,,,,
+floor ratio,convex,drawin_mid,convex/100/fine,1.0428966789667176,,,,
+floor ratio,convex,drawin_mid,convex/100/medium,1.0428966789667176,,,,
+floor ratio,convex,drawin_mid,convex/300/coarse,1.0428966789667176,,,,
+floor ratio,convex,drawin_mid,convex/300/fine,0.9792435424351381,,,,
+floor ratio,convex,drawin_mid,convex/300/medium,0.9040590405900649,,,,
+floor ratio,convex,drawin_mid,convex/500/coarse,0.9409594095942267,,,,
+floor ratio,convex,drawin_mid,convex/500/fine,0.9529520295203249,,,,
+floor ratio,convex,drawin_mid,convex/500/medium,1.0428966789667176,,,,
+floor ratio,convex,drawin_corner,convex/100/coarse,1.0506107278206542,,,,
+floor ratio,convex,drawin_corner,convex/100/fine,1.0452127278472876,,,,
+floor ratio,convex,drawin_corner,convex/100/medium,1.0506107278206542,,,,
+floor ratio,convex,drawin_corner,convex/300/coarse,1.0506107278206542,,,,
+floor ratio,convex,drawin_corner,convex/300/fine,1.0506107278206542,,,,
+floor ratio,convex,drawin_corner,convex/300/medium,1.0040618745295438,,,,
+floor ratio,convex,drawin_corner,convex/500/coarse,0.972772959088443,,,,
+floor ratio,convex,drawin_corner,convex/500/fine,0.9243017414133796,,,,
+floor ratio,convex,drawin_corner,convex/500/medium,0.9925118337489834,,,,
+floor ratio,convex,waviness,convex/100/coarse,0.9868604834443323,,,,
+floor ratio,convex,waviness,convex/100/fine,1.057953905916276,,,,
+floor ratio,convex,waviness,convex/100/medium,0.9824168078625188,,,,
+floor ratio,convex,waviness,convex/300/coarse,1.0491579729359282,,,,
+floor ratio,convex,waviness,convex/300/fine,0.9868604834443323,,,,
+floor ratio,convex,waviness,convex/300/medium,0.9329239752392716,,,,
+floor ratio,convex,waviness,convex/500/coarse,1.057953905916276,,,,
+floor ratio,convex,waviness,convex/500/fine,1.057953905916276,,,,
+floor ratio,convex,waviness,convex/500/medium,1.057953905916276,,,,
+floor ratio,convex,wall_op10,convex/100/coarse,1.0116748114302012,,,,
+floor ratio,convex,wall_op10,convex/100/fine,1.0116748114302012,,,,
+floor ratio,convex,wall_op10,convex/100/medium,1.0116748114302012,,,,
+floor ratio,convex,wall_op10,convex/300/coarse,0.8969531202952918,,,,
+floor ratio,convex,wall_op10,convex/300/fine,1.0116748114302012,,,,
+floor ratio,convex,wall_op10,convex/300/medium,1.0116748114302012,,,,
+floor ratio,convex,wall_op10,convex/500/coarse,1.0116748114302012,,,,
+floor ratio,convex,wall_op10,convex/500/fine,0.9848583008143976,,,,
+floor ratio,convex,wall_op10,convex/500/medium,0.900163430520632,,,,
+floor ratio,convex,arm_op20,convex/100/coarse,1.0317090162549991,,,,
+floor ratio,convex,arm_op20,convex/100/fine,0.9595066322349375,,,,
+floor ratio,convex,arm_op20,convex/100/medium,1.0075412293992567,,,,
+floor ratio,convex,arm_op20,convex/300/coarse,0.9890886593234752,,,,
+floor ratio,convex,arm_op20,convex/300/fine,1.0317090162549991,,,,
+floor ratio,convex,arm_op20,convex/300/medium,0.9595066322349375,,,,
+floor ratio,convex,arm_op20,convex/500/coarse,1.0317090162549991,,,,
+floor ratio,convex,arm_op20,convex/500/fine,0.9595066322349375,,,,
+floor ratio,convex,arm_op20,convex/500/medium,1.0317090162549991,,,,
+floor ratio,convex,depth_op10,convex/100/coarse,1.0109112534632656,,,,
+floor ratio,convex,depth_op10,convex/100/fine,1.0109112534632656,,,,
+floor ratio,convex,depth_op10,convex/100/medium,1.0109112534632656,,,,
+floor ratio,convex,depth_op10,convex/300/coarse,0.9276668388109078,,,,
+floor ratio,convex,depth_op10,convex/300/fine,1.0109112534632656,,,,
+floor ratio,convex,depth_op10,convex/300/medium,1.0007117070452498,,,,
+floor ratio,convex,depth_op10,convex/500/coarse,0.99896302355417,,,,
+floor ratio,convex,depth_op10,convex/500/fine,0.9300325819134253,,,,
+floor ratio,convex,depth_op10,convex/500/medium,1.0090630761069266,,,,
+floor ratio,convex,dome_op20,convex/100/coarse,1.0191701787106584,,,,
+floor ratio,convex,dome_op20,convex/100/fine,0.9420408463421643,,,,
+floor ratio,convex,dome_op20,convex/100/medium,0.9718494132788413,,,,
+floor ratio,convex,dome_op20,convex/300/coarse,0.9713913322783415,,,,
+floor ratio,convex,dome_op20,convex/300/fine,1.0191701787106584,,,,
+floor ratio,convex,dome_op20,convex/300/medium,1.0191701787106584,,,,
+floor ratio,convex,dome_op20,convex/500/coarse,1.010345414165788,,,,
+floor ratio,convex,dome_op20,convex/500/fine,1.0191701787106584,,,,
+floor ratio,convex,dome_op20,convex/500/medium,1.0191701787106584,,,,
+distances,sibling,M0,,,108.35,108.35,104.6,104.6
+distances,sibling,M1s,,,4.85,4.85,4.9,4.9
+distances,sibling,M2,,,22.65,0.15,22.0,0.15
+distances,sibling,M5,,,7.15,0.75,7.0,0.8
+distances,sibling,NN,,,3.35,3.35,3.3,3.3
+distances,sibling,M1sn,,,3.5,3.5,3.6,3.6
+distances,sibling,M7n,,,6.8,0.65,6.85,0.7
+distances,sibling,M5n,,,7.15,0.55,7.3,0.65
+distances,sibling,M3,,,23.05,0.0,22.8,0.0
+distances,sibling,NN+RM,,,6.3,0.85,6.55,0.9
+distances,interpolation,M0,,,108.6,108.6,107.5,107.5
+distances,interpolation,M1s,,,19.25,19.25,20.05,20.05
+distances,interpolation,M2,,,17.75,2.7,18.25,2.55
+distances,interpolation,M5,,,19.05,2.8,20.45,2.8
+distances,interpolation,NN,,,4.65,4.65,4.8,4.8
+distances,interpolation,M1sn,,,4.65,4.65,4.8,4.8
+distances,interpolation,M7n,,,7.4,3.4,7.45,3.3
+distances,interpolation,M5n,,,15.6,0.0,15.1,0.0
+distances,interpolation,M3,,,29.05,13.35,28.35,12.95
+distances,interpolation,NN+RM,,,9.55,0.4,9.3,0.4
+distances,extrapolation,M0,,,105.55,105.55,104.2,104.2
+distances,extrapolation,M1s,,,19.1,19.1,18.05,18.05
+distances,extrapolation,M2,,,17.5,9.9,17.6,9.4
+distances,extrapolation,M5,,,18.5,8.9,19.05,9.15
+distances,extrapolation,NN,,,9.45,9.45,9.6,9.6
+distances,extrapolation,M1sn,,,8.85,8.85,8.6,8.6
+distances,extrapolation,M7n,,,15.15,5.85,15.0,6.35
+distances,extrapolation,M5n,,,18.1,8.6,18.45,8.65
+distances,extrapolation,M3,,,32.85,16.95,33.45,16.45
+distances,extrapolation,NN+RM,,,20.1,0.0,19.5,0.0

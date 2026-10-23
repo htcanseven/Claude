@@ -234,22 +234,28 @@ def fig_decisions_compare(src: Path) -> None:
 def fig_reliability(src: Path) -> None:
     """Share of correct verdicts among the decided ones whose observable margin between the predicted interval and
     the requirement is at least the value on the axis (reference prior: the requirement grid within 20 floors of
-    the truth), by evidence relation, with each rule's guard band g marked where one qualifies."""
-    c = pd.read_csv(src / "panel_step6_curves.csv")
-    bands = pd.read_csv(src / "panel_step6.csv").set_index(["scope", "method"])["guard_band"]
+    the truth), by evidence relation, with each rule's guard band g marked where one qualifies; the rules of the
+    main text, a new family in the produced family's floor."""
+    import panel as P
+
+    iv = all_intervals(src)
+    rules = ("NN", "M1sn", "M2", "M5", "M7n", "NN+RM")
     scopes = [("within", "sibling"), ("setting/interpolation", "interpolated"),
               ("setting/extrapolation", "extrapolated"), ("transfer", "new family")]
     fig, axs = plt.subplots(1, len(scopes), figsize=(WIDTH_IN, 2.35), sharey=True, squeeze=False)
     letters = iter("abcd")
     for j, (scope, sname) in enumerate(scopes):
         ax = axs[0, j]
-        for m in ("M1", "M2", "M5", "M5n", "NN"):
-            g = c[(c["scope"] == scope) & (c["method"] == m)].sort_values("margin")
-            ax.plot(g["margin"], g["correct_when_decided"], "-", color=RULE_COLOUR[m], lw=1.1, label=m,
-                    marker=RULE_MARKER[m], markevery=16, ms=3.0, mfc="white", mew=0.9)
-            band = bands.get((scope, m), np.inf)
+        for m in rules:
+            g = iv[(iv["scope"] == scope) & (iv["method"] == m)]
+            if g.empty:
+                continue
+            band, curve = P.guard_band(g)
+            ax.plot(curve["margin"], curve["correct_when_decided"], "--" if m == "NN+RM" else "-",
+                    color=RULE_COLOUR[m], lw=1.1, label=m, marker=RULE_MARKER[m], markevery=16, ms=3.0, mfc="white",
+                    mew=0.9)
             if np.isfinite(band):
-                y = np.interp(band, g["margin"], g["correct_when_decided"])
+                y = np.interp(band, curve["margin"], curve["correct_when_decided"])
                 ax.plot([band], [y], marker=RULE_MARKER[m], color=RULE_COLOUR[m], ms=5.0, mec="white", mew=0.6,
                         zorder=5)
         ax.axhline(0.95, color=MUTED, lw=0.8, ls=":")
@@ -260,7 +266,7 @@ def fig_reliability(src: Path) -> None:
         subcaption(ax, next(letters), sname, "margin (floors)")
     axs[0, 0].set_ylabel("correct among\ndecided verdicts", fontsize=9)
     h, lab = axs[0, 0].get_legend_handles_labels()
-    fig.legend(h, lab, loc="upper center", ncol=5, frameon=False, bbox_to_anchor=(0.5, 1.04), fontsize=9)
+    fig.legend(h, lab, loc="upper center", ncol=6, frameon=False, bbox_to_anchor=(0.5, 1.04), fontsize=9)
     fig.tight_layout(rect=(0, 0, 1, 0.92), w_pad=1.0)
     save(fig, "F5_reliability")
 

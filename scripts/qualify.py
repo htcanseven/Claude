@@ -356,7 +356,11 @@ def coverage(ivs: pd.DataFrame, strata: pd.DataFrame) -> pd.DataFrame:
                          "interval_score": float(np.nanmean(isc))})
             for qc, h in g.groupby("qc"):
                 ins = ((h["lo"] <= h["real_q95"]) & (h["real_q95"] <= h["hi"])).to_numpy()
+                per = {a: (float(ins[(h["alternative"] == a).to_numpy()].sum()), float((h["alternative"] == a).sum()))
+                       for a in h["alternative"].unique()}
+                lo, hi = cluster_ci(per, rng)
                 rows.append({**base, "subset": qc, "cases": len(h), "coverage": float(ins.mean()),
+                             "coverage_lo": lo, "coverage_hi": hi,
                              "interval_score": float(np.nanmean(interval_score(h["lo"], h["hi"], h["real_q95"]) / h["floor"]))})
             if rel == "sibling":
                 for s, h in g.groupby([st.get((a, q), "") for a, q in zip(g["alternative"], g["qc"])]):
@@ -373,6 +377,69 @@ def coverage(ivs: pd.DataFrame, strata: pd.DataFrame) -> pd.DataFrame:
             if len(g):
                 rows.append({"relation": rel, "method": m, "level": "point", "subset": "all", "cases": len(g),
                              "interval_score": float(np.nanmean(interval_score(g["lo"], g["hi"], g["real_q95"]) / g["floor"]))})
+    return pd.DataFrame(rows)
+
+
+def m6_coverage(t: pd.DataFrame, floors: dict) -> pd.DataFrame:
+    """Coverage and interval score of M6 (the M5 mean with a conformal margin on standardised leave-one-out
+    residuals of the calibration set), whose intervals robustness.py does not store."""
+    import panel
+    import robustness as R
+
+    iv = R.m6_intervals(t, floors)
+    iv = panel.in_produced_floor(D.with_relation_scopes(iv), floors)
+    rng = np.random.default_rng(SEED + 5)
+    rows = []
+    for rel, scope in RELATIONS.items():
+        g = iv[iv["scope"] == scope]
+        if g.empty:
+            continue
+        inside = ((g["lo"] <= g["real_q95"]) & (g["real_q95"] <= g["hi"])).to_numpy()
+        per = {a: (float(inside[(g["alternative"] == a).to_numpy()].sum()), float((g["alternative"] == a).sum()))
+               for a in g["alternative"].unique()}
+        lo, hi = cluster_ci(per, rng)
+        r = P.dist(g)
+        rows.append({"relation": rel, "method": "M6", "cases": len(g), "coverage": float(inside.mean()),
+                     "coverage_lo": lo, "coverage_hi": hi,
+                     "interval_score": float(np.nanmean(interval_score(g["lo"], g["hi"], g["real_q95"]) / g["floor"])),
+                     "median_half_width": float(np.nanmedian((g["hi"] - g["lo"]) / 2 / g["floor"])), **r})
+    return pd.DataFrame(rows)
+
+
+def floor_loao(q: pd.DataFrame, ivs: pd.DataFrame, rules: list[str]) -> pd.DataFrame:
+    """The floor of each geometry recomputed without the held-out alternative's series, and the distances with
+    every case scored in that floor: does computing the floors from all series, the held-out one included, leak
+    into the distances? A new family is scored in the produced family's floor, which never contains it."""
+    import alternatives as A
+
+    qb = A.batches(q)
+    ratio = {}
+    rows = []
+    for geo in ("concave", "convex"):
+        sub = A.batch_centres(qb[qb["geometry"] == geo], SHARED)
+        for qc in SHARED:
+            full = A.floor_from(sub, qc)
+            for a in sub.index.get_level_values(0).unique():
+                f = A.floor_from(sub.drop(index=a, level=0), qc)
+                ratio[(a, qc)] = f / full
+                rows.append({"kind": "floor ratio", "relation": geo, "method": qc, "alternative": a,
+                             "ratio_loao_to_full": f / full})
+    out = ivs.copy()
+    own = out["scope"] != "transfer"
+    out.loc[own, "floor"] = out.loc[own, "floor"].to_numpy() * np.array(
+        [ratio.get((a, c), 1.0) for a, c in zip(out.loc[own, "alternative"], out.loc[own, "qc"])])
+    for rel, scope in RELATIONS.items():
+        if rel == "new family":
+            continue
+        for m in rules:
+            g0 = ivs[(ivs["scope"] == scope) & (ivs["method"] == m)]
+            g1 = out[(out["scope"] == scope) & (out["method"] == m)]
+            if g0.empty:
+                continue
+            r0, r1 = P.dist(g0), P.dist(g1)
+            rows.append({"kind": "distances", "relation": rel, "method": m,
+                         "resolution_floors": r0["resolution_floors"], "safe_floors": r0["safe_floors"],
+                         "resolution_loao": r1["resolution_floors"], "safe_loao": r1["safe_floors"]})
     return pd.DataFrame(rows)
 
 
@@ -693,6 +760,8 @@ def main(only: list[str] | None = None) -> None:
         "per_characteristic": lambda: per_characteristic(ivs, t, MAIN + ["M5n", "M7", "M3", "M4"]),
         "design_level": lambda: design_level(ivs, MAIN + ["M5n", "M7", "M3", "M4", "NN+RM"]),
         "variants": variants,
+        "m6_coverage": lambda: m6_coverage(t, floors),
+        "floor_loao": lambda: floor_loao(q, ivs, MAIN + ["M5n", "M3", "NN+RM"]),
     }
     for name, fn in jobs.items():
         if only and name not in only:
