@@ -1,8 +1,8 @@
 """Write the response to the first JIM round with page and line numbers of the revised manuscript.
 
-Reads response_round1.src.md, compiles a line-numbered copy of paper/main.tex in a temporary directory and replaces every {{loc:phrase}} by "p. N, l. L" of the first place where the
-phrase occurs in the compiled PDF, {{mainpages}} by the page on which the conclusions end and {{totalpages}} by the
-page count. Writes response_round1.md and lists phrases that could not be found.
+Reads response_round1.src.md, compiles a line-numbered copy of paper/main.tex in a temporary directory and
+replaces every {{loc:phrase}} by "(p. N, l. L)" of the first place where the phrase occurs in the compiled PDF,
+{{mainpages}} by the page on which the conclusions end and {{totalpages}} by the page count. Writes response_round1.md and lists phrases that could not be found.
 
 Usage: python paper/review/jim_panel/round1/resolve_locations.py
 """
@@ -108,7 +108,7 @@ def main() -> None:
         if hit is None:
             missing.append(m.group(1))
             return "(location not found)"
-        return f"p. {hit[0]}, l. {hit[1]}"
+        return f"(p. {hit[0]}, l. {hit[1]})"
 
     out = re.sub(r"\{\{loc:(.*?)\}\}", rep, src)
     unknown = re.findall(r"\{\{[^}]*\}\}", out.replace("{{mainpages}}", "").replace("{{totalpages}}", ""))
