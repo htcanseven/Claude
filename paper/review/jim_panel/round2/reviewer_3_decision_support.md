@@ -26,7 +26,7 @@ The revision is thorough and responsive. The paper is retitled and framed as an 
 
 **Major 5 (unit): Resolved.** The revision adds physical units and performance indices (Table 6, L767–768) and F/σLT (Table 4). It also gives the requirement grid in units (L437–438), calls the floor a lower bound (L272–273) and adds a between-run sensitivity analysis (L960–964).
 
-**Major 6 (reuse and checklist): Resolved.** This is answered by Table 9, the limitation for classifiers (L1101–1125), the expanded language-model protocol (L1126–1130) and `opchar.py`, which I ran (Section 5). Remaining points are minor 7 and 8.
+**Major 6 (reuse and checklist): Resolved.** This is answered by Table 9, the limitation for classifiers (L1101–1104, L1125), the expanded language-model protocol (L1126–1130) and `opchar.py`, which I ran (Section 5). Remaining points are minor 7 and 8.
 
 **Major 7 (positioning): Resolved.** Section 2 now covers virtual metrology with reliance indices (L108–111; Table 1), JCGM 106 (L147–148, L158–160), transfer learning (L111–113), reliance on automation (L155–158) and cost-sensitive evaluation (L154–155), and says what is adopted and what is new (L179–183, L212–213).
 
@@ -100,7 +100,7 @@ On the merits, the CSV files with `results/findings.md` are complete, checksumme
 
 ## 5. Checks I ran against the archive
 
-All checks were read-only, and I ran no pipeline script. My own short scripts lived outside the repository and imported the released functions without writing bytecode. `git status` was clean before and after.
+All checks were read-only, and I ran no pipeline script. My own short scripts lived outside the repository and imported the released functions without writing bytecode; the checks left the repository unchanged.
 
 | What | File(s) | Result |
 |---|---|---|
