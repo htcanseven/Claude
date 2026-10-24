@@ -73,4 +73,6 @@ file. Tables between `%% BEGIN GENERATED` markers are written by `scripts/make_t
 the response to them; a simulated call-for-papers panel in three rounds (`paper/review/cfp_panel/`, with responses and
 marked-up comparisons); and a simulated first round at the *Journal of Intelligent Manufacturing*
 (`paper/review/jim_panel/round1/`: three reports, the editor's decision, the response `response_round1.md` with
-page and line numbers, and `main_diff.pdf` against the reviewed version). None of them is a review by a journal.
+page and line numbers, and `main_diff.pdf` against the reviewed version), followed by a simulated second round on the
+shortened 31-page version (`paper/review/jim_panel/round2/`: the frozen manuscript, three reports and the editor's
+decision, all minor revision). None of them is a review by a journal.
