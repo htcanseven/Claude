@@ -122,23 +122,8 @@ All checks were read-only, and I ran no pipeline script. My own short scripts li
 
 ## 6. Recommendation
 
-**Minor revision.** The revision answers nearly everything I asked for, and the archive verifies: every number I checked reproduces, and the released scoring function reproduces the distances and Table 7. The claims now match the evidence, and the paper reads as a JIM paper.
-
-What remains concerns the element a factory would deploy:
-
-- The guard band in Table 7 and in the worked example is neither the band that step 5 prescribes nor one a team could have when deciding.
-- The costs are computed in-sample, beside the procedure rather than inside it.
-
-Both can be fixed from the stored intervals with the released code, without new data, and neither is likely to change the findings. They do change what a practitioner would take from Table 7 and Section 5.6.
-
-Once majors 1–3 are addressed, the licence and DOI are in place and the minor points are answered, I would support acceptance. I would like to see the revised Table 7, Section 3.7 and Section 5.6, but I do not need a full further round.
+**Minor revision.** The revision answers nearly everything I asked for, the archive verifies (every number I checked reproduces, and the released scoring function reproduces the distances and Table 7), the claims now match the evidence and the paper reads as a JIM paper. What remains concerns the element a factory would deploy: the guard band in Table 7 and the worked example is neither the band step 5 prescribes nor one a team could have when deciding, and the costs are computed in-sample, beside the procedure rather than inside it. Both can be fixed from the stored intervals with the released code, without new data; neither is likely to change the findings, but both change what a practitioner would take from Table 7 and Section 5.6. With majors 1–3 addressed, the licence and DOI in place and the minor points answered, I would support acceptance. I would like to see the revised Table 7, Section 3.7 and Section 5.6, but do not need a full further round.
 
 ## 7. Confidential comments to the editor
 
-The revision is honest and the archive is in good order. All 180 checksums verify, and every number I spot-checked reproduces, Table 7 included, with the released function.
-
-My remaining concerns are about the internal consistency of the procedure that would be deployed: pooled versus per-family bands, a band in the worked example that draws on the production of the very setting being decided, and costs estimated in-sample. They need no new data and leave the findings intact, which is why I recommend minor rather than major revision. If the author declines to make the bands in Table 7 available at decision time, I would consider another round warranted.
-
-On the tables moved to the archive, I suggest asking for a compact Online Resource. It does not count towards the length, and until the deposit has a DOI and a licence, readers can neither cite nor reuse the results that several statements rest on. The licence and DOI are prerequisites for acceptance.
-
-The statement on the use of AI is now explicit, including that most post hoc analyses followed simulated reviews. Whether that extent of use is acceptable is a policy question for the journal.
+The revision is honest and the archive is in good order: all 180 checksums verify, and every number I spot-checked reproduces, Table 7 included, with the released function. My remaining concerns are about the internal consistency of the procedure that would be deployed: pooled versus per-family bands, a worked-example band that draws on the production of the very setting being decided, and costs estimated in-sample. They need no new data and leave the findings intact, which is why I recommend minor rather than major revision; if the author declines to make the bands in Table 7 available at decision time, I would consider another round warranted. On the tables moved to the archive, I suggest asking for a compact Online Resource: it does not count towards the length, and until the deposit has a DOI and a licence, readers can neither cite nor reuse the results that several statements rest on. Licence and DOI are prerequisites for acceptance. The AI-use statement is now explicit, including that most post hoc analyses followed simulated reviews; whether that extent of use is acceptable is a policy question for the journal.
