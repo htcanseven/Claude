@@ -4,6 +4,62 @@ Code, feature tables and result files of the paper *When can a prediction replac
 production-referenced evaluation of design-stage decision rules in deep drawing* (H. T. Canseven), first submitted
 as *Evaluating AI-based manufacturability decisions against the resolution of production*.
 
+## Version 3 (October 2026)
+
+Version 3 holds the code, feature tables and result files that produce the numbers of the paper's second revision
+and of its electronic supplementary material, Online Resource 1 (`paper/online_resource_1.tex`, Tables S1–S15). The
+result files of version 2 are unchanged (their checksums still hold) except those listed under *Changed*.
+
+**Added.**
+
+- `scripts/qualify.py`, new jobs: guard bands available when deciding, validated by the matching scheme
+  (`qual_guard_decision.csv`); the trial of the first 20 or 50 parts under the between-run component
+  (`qual_between_run_trial.csv`) and the expected cost of its own errors (`qual_trial_cost.csv`); release scored on
+  the mean plus four standard deviations (`qual_release_capability.csv`); the cheapest option per relation, trial
+  cost, prior and cost ratio (`qual_cost_cheapest.csv`); every number of the worked example
+  (`qual_worked_example.csv`).
+- `scripts/learners.py --prior-sensitivity`: the trend GP M7n with each of its four prior medians halved or doubled
+  (`learn_m7n_priors.csv`; the reference variant reproduces the stored fits exactly).
+- `scripts/data_dictionary.py` and `results/DATA_DICTIONARY.md`: the columns, scopes and rule codes of every result
+  file in the terms of the paper (`within` = sibling, `transfer` = new family, M4 = M3n, `resolution_floors` = decisive
+  distance), and the floor each file uses.
+- `scripts/opchar.py --selfcheck` also reproduces the new-setting guard bands of `qual_guard_decision.csv`, their
+  share correct and trial rate (40 of 40), with the stand-alone scoring function.
+- `results/findings_history.md`: the findings of earlier versions, moved out of `findings.md`, which now holds only
+  the current numbers and the map of the paper and of Online Resource 1.
+- `paper/online_resource_1.tex` and its PDF; `make_tables.py` writes its tables.
+
+**Changed.**
+
+- `results/qual_coverage.csv`: coverage values unchanged; columns `rm_n`, `rm_quantile_floors` (the borrowed cases
+  and quantile behind each relation-matched interval) and `ci_note` added; cluster intervals are given only with a
+  sibling, where every alternative has its own calibration set (for a new setting the alternatives of a held-out cell
+  share one fit, and the intervals of version 2 were degenerate or too narrow), and are drawn from a new bootstrap
+  stream (bounds move by at most one alternative in 18); interval scores added for the decision-time strata.
+- `results/figures/`: `F_schematic`, `F_batches`, `F_costs` and `F3_decisions_main` redrawn at smaller heights, and
+  `F_batches` with the warm-up shaded; the data are unchanged.
+- `make_tables.py` writes guard bands of half a floor above 10 floors with their decimal (14.5, not 14).
+- `results/findings.md` and `results/summary_qualify.md` rewritten.
+
+Main result files added or changed in version 3:
+
+| File | SHA-256 |
+|---|---|
+| `results/qual_guard_decision.csv` | `b12f3a4822e8a34cd9f0b3a0c89963775049cae03da638e31f47545867b29a86` |
+| `results/qual_between_run_trial.csv` | `f32c802cec3e108856942a8f45ef6fd01118ed74d0cf84c3703a6105d14ec85f` |
+| `results/qual_trial_cost.csv` | `6425ab2c15705082837b367e5428990f3db85d1edf6f1a27eab514ff3d60d414` |
+| `results/qual_release_capability.csv` | `cf6f7decf9d6b5deda7819c0366f20fa87bfc9546d53e5dc498cb077c63b4727` |
+| `results/qual_cost_cheapest.csv` | `963ae6e08f027508e193025f739b3657c9ad9307a693b08900b6b5da4bc074cc` |
+| `results/qual_worked_example.csv` | `d968d40c6c9daeb3bea684001051ba435392b60b473c711f35008cff02391a50` |
+| `results/learn_m7n_priors.csv` | `5b5ba404a4b34774d06bed73d91c08e0c4e78ba44dbbe1c802b65b168b2715f1` |
+| `results/qual_coverage.csv` | `c50ec2dcb153eac1356ad3f2a6d55623d29982e4155152a0f759317bb58e1248` |
+
+**Open before the deposit is published (the author's actions).** A licence file for the code and the licence fields
+of `.zenodo.json` and `CITATION.cff`; the DOI, then cited in the paper and in `CITATION.cff`; and a timestamped
+deposit of `paper/notes/frozen_procedure.md` if the procedure is to be cited as registered. The paper no longer
+calls the procedure frozen; it names a confirmatory test of the procedure, registered before the analysis, as an
+extension.
+
 ## Version 2 (October 2026)
 
 Version 2 holds the code, feature tables and result files that produce the numbers of the revised paper, which has

@@ -26,9 +26,11 @@ python3 tuning.py            # learner and settings of the part-level rules M3 a
 python3 design_space.py      # DDACS corners and sensitivities (not in the paper); surrogate accuracy (Sect. 5.2)
 python3 inline.py            # in-line signals: drift of the batch centres (Sect. 5.1), part-level verifiability
 python3 learners.py          # trend GP M7n, multi-fidelity M7, calibration with discrepancy Mcd, P+RM, few-shot (~40 min)
+python3 learners.py --prior-sensitivity   # M7n with each prior median halved or doubled (~1 min)
 python3 simcheck.py          # simulation against the measurement; measurement characteristics, run floors, tooling
-python3 qualify.py           # strata, guard bands out of sample, costs, coverage, between-run, cross-fit, design level
-python3 opchar.py --selfcheck  # the stand-alone scoring function reproduces dec_resolution.csv
+python3 qualify.py           # strata, guard bands when deciding and out of sample, costs, trial, coverage, between-run, cross-fit
+python3 opchar.py --selfcheck  # the stand-alone scoring function reproduces dec_resolution.csv and qual_guard_decision.csv
 python3 figs.py              # figures in the paper's style (results/figures; copied to paper/figures for LaTeX)
-python3 make_tables.py       # tables of paper/main.tex from the CSVs
+python3 make_tables.py       # tables of paper/main.tex and paper/online_resource_1.tex from the CSVs
+python3 data_dictionary.py   # results/DATA_DICTIONARY.md from the headers of the result files
 cp ../results/figures/*.pdf ../paper/figures/

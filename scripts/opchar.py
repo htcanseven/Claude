@@ -9,6 +9,7 @@ limits R = truth + d * floor at known distances d; the verdict is meets (hi <= R
     guard_band(lo, hi, truth, floor)       the band of step 6 under a prior of requirement distances
     step6(lo, hi, truth, floor, band)      verdict shares of the rule with its interval widened by the band
     expected_cost(...)                     c_FA P(false accept) + c_FR P(false reject) + c_T P(trial)
+    cost_band(..., c_trial)                the band widened by stated costs (never below the 95 % band)
 
 The decisive distance is the smallest delta beyond which at least `target` of the verdicts at |d| = delta are
 correct; the safe distance the smallest beyond which at most 1 - target are wrong. Every case gives one verdict on
@@ -20,6 +21,7 @@ lo)/floor or their negatives.
 Command line, for a CSV with the columns lo, hi, truth, floor and optionally a grouping column:
     python opchar.py cases.csv --group relation --prior-width 20
     python opchar.py --selfcheck           reproduces the distances of results/dec_resolution.csv (fits fixed)
+                                           and the new-setting guard bands of results/qual_guard_decision.csv
 """
 
 from __future__ import annotations
@@ -136,6 +138,18 @@ def expected_cost(lo, hi, truth, floor, band: float, c_trial: float, c_fr: float
     return c_fa * s["false_accept"] + c_fr * s["false_reject"] + c_trial * s["trial"]
 
 
+def cost_band(lo, hi, truth, floor, c_trial: float, c_fr: float = 0.5, prior: np.ndarray | None = None,
+              target: float = 0.95, nonnegative: bool = True) -> float:
+    """The band that stated costs set in step 5: the one minimising the expected cost over the prior, never narrower
+    than the band that keeps `target` of the decided verdicts correct (inf: no such band, every design to trial)."""
+    g95 = guard_band(lo, hi, truth, floor, prior=prior, target=target, nonnegative=nonnegative)
+    if not np.isfinite(g95):
+        return np.inf
+    cands = BANDS[BANDS >= g95 - 1e-9]
+    costs = [expected_cost(lo, hi, truth, floor, b, c_trial, c_fr, prior=prior, nonnegative=nonnegative) for b in cands]
+    return float(cands[int(np.argmin(costs))])
+
+
 def score(df: pd.DataFrame, prior_width: float = 20.0, target: float = 0.95) -> dict:
     cols = [df[c].to_numpy(float) for c in ("lo", "hi", "truth", "floor")]
     prior = prior_grid(prior_width)
@@ -162,7 +176,46 @@ def selfcheck() -> None:
             bad += 1
             print(f"mismatch {scope} {m}: {d['decisive']}/{d['safe']} against {ref['resolution_floors']}/{ref['safe_floors']}")
     print("selfcheck:", "all distances reproduced" if bad == 0 else f"{bad} mismatches")
-    sys.exit(1 if bad else 0)
+    bad_guard = selfcheck_guard(results)
+    sys.exit(1 if bad or bad_guard else 0)
+
+
+def selfcheck_guard(results: Path) -> int:
+    """Reproduce, from the stored intervals, the guard bands a team has for a new setting (the band of the same
+    relation in the other family) with their share correct and trial rate in results/qual_guard_decision.csv."""
+    iv = pd.concat([pd.read_csv(results / "dec_intervals.csv"), pd.read_csv(results / "learn_intervals.csv")])
+    ref = pd.read_csv(results / "qual_guard_decision.csv")
+    bad = checked = 0
+    for _, r in ref[ref["relation"].isin(["interpolation", "extrapolation"])].iterrows():
+        prior = prior_grid(20.0 if r["prior"].startswith("reference") else 5.0)
+        g = iv[(iv["scope"] == "setting") & (iv["relation"] == r["relation"]) & (iv["method"] == r["method"])]
+        n = c = dec = 0
+        same = True
+        for geo in ("concave", "convex"):
+            own, other = g[g["geometry"] == geo], g[g["geometry"] != geo]
+            band = guard_band(other["lo"], other["hi"], other["real_q95"], other["floor"], prior=prior)
+            same &= bool(band == r[f"band_{geo}"] or np.isclose(band, r[f"band_{geo}"]))
+            feas, meets, fails, adequate, _ = _verdicts(own["lo"], own["hi"], own["real_q95"], own["floor"],
+                                                       band if np.isfinite(band) else 0.0, prior, True)
+            n += int(feas.sum())
+            if np.isfinite(band):
+                c += int(((meets & adequate) | (fails & ~adequate)).sum())
+                dec += int((meets | fails).sum())
+        share = c / dec if dec else np.nan
+        same &= bool(np.isclose((n - dec) / n, r["trial_rate"]))
+        same &= bool((np.isnan(share) and np.isnan(r["share_correct"])) or np.isclose(share, r["share_correct"]))
+        checked += 1
+        if not same:
+            bad += 1
+            print(f"guard mismatch {r['prior']} {r['relation']} {r['method']}")
+    print("selfcheck:", f"{checked} guard bands reproduced" if bad == 0 else f"{bad} of {checked} guard bands differ")
+    we = pd.read_csv(results / "qual_worked_example.csv").set_index("quantity")["value"]
+    g = iv[(iv["scope"] == "setting") & (iv["relation"] == "interpolation") & (iv["method"] == "NN")
+           & (iv["geometry"] == "convex")]
+    cb = cost_band(g["lo"], g["hi"], g["real_q95"], g["floor"], c_trial=0.05)
+    ok = np.isclose(cb, we["NN: cost band, convex family, c_T = 0.05 c_FA (floors)"])
+    print("selfcheck:", "cost band of the worked example reproduced" if ok else f"cost band {cb} differs")
+    return bad + (0 if ok else 1)
 
 
 def main() -> None:

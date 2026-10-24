@@ -22,8 +22,10 @@ describes.
 
 The paper cites this repository on Zenodo (deposit metadata: `.zenodo.json`, `CITATION.cff`). Version 1 held the code,
 feature tables and result files of the paper as first submitted; version 2 adds those of the revision (the scripts
-`learners.py`, `qualify.py`, `simcheck.py` and `opchar.py` and their results). The licence of the code and the DOI are
-set by the author when the deposit is published. [`RELEASE_NOTES.md`](RELEASE_NOTES.md) gives
+`learners.py`, `qualify.py`, `simcheck.py` and `opchar.py` and their results); version 3 those of the second revision
+(decision-time guard bands, the trial under between-run variation, release as a capability decision, the prior
+sensitivity of M7n, Online Resource 1 and a data dictionary). The licence of the code and the DOI are set by the
+author when the deposit is published. [`RELEASE_NOTES.md`](RELEASE_NOTES.md) gives
 the checksums of the main result files; `SHA256SUMS` holds the SHA-256 checksums of every script and result file
 (`sha256sum -c SHA256SUMS` checks them; `bash scripts/write_checksums.sh` rewrites the file).
 
@@ -48,12 +50,17 @@ the checksums of the main result files; `SHA256SUMS` holds the SHA-256 checksums
 | `scripts/learners.py` | rules added in the revision: trend GP M7n (universal kriging, MAP under priors), autoregressive multi-fidelity M7, friction calibration with a GP discrepancy Mcd, predictors with relation-matched split-conformal intervals (P+RM), GP diagnostics, few-shot transfer to a new family (ICM GP) |
 | `scripts/simcheck.py` | the simulation dataset against the measurement (validation, friction fits, depth offset, oil-film mapping, envelope over measured inputs) and the measurement (characteristics, single-run floors, a dimension fixed by the tooling) |
 | `scripts/qualify.py` | qualification as a team would use it: decision-time sibling strata, guard bands per family, out of sample and per prior, costs and the trial as a rule, coverage with cluster intervals and interval scores, between-run sensitivity, cross-fitted selection, per-characteristic results, design-level verdicts, lower limits, short runs, capability statistic, M6 coverage, floors without the held-out series |
-| `scripts/opchar.py` | the scoring function on its own: distances, guard band, step 6 and expected cost for any table of intervals, truths and floors (`--selfcheck` reproduces `dec_resolution.csv`) |
+| `scripts/qualify.py` (second revision) | guard bands available when deciding (a family's own sibling cases; for a new setting the other family's band), the trial under between-run variation and the cost of its errors, release as a capability decision, the cheapest option per cost setting, the worked example |
+| `scripts/opchar.py` | the scoring function on its own: distances, guard band, step 6 and expected cost for any table of intervals, truths and floors (`--selfcheck` reproduces `dec_resolution.csv` and the new-setting guard bands of `qual_guard_decision.csv`) |
+| `scripts/data_dictionary.py` | `results/DATA_DICTIONARY.md`: columns, scopes and rule codes of every result file in the terms of the paper, and the floor each file uses |
 | `scripts/case2_pa12.py` | exploratory, not in the paper and not run by `run_all.sh` (see its docstring) |
 | `scripts/figs.py` | `results/figures/`: the paper's figures (PDF and PNG) |
-| `scripts/make_tables.py` | writes the data tables from the CSVs into `paper/main.tex` |
+| `scripts/make_tables.py` | writes the data tables from the CSVs into `paper/main.tex` and `paper/online_resource_1.tex` |
 
-The results, with every number traced to its CSV, are summarised in [`results/findings.md`](results/findings.md).
+The current results, with every number of the paper and of Online Resource 1 traced to its CSV, are summarised in
+[`results/findings.md`](results/findings.md); the findings of earlier versions are in
+[`results/findings_history.md`](results/findings_history.md), and
+[`results/DATA_DICTIONARY.md`](results/DATA_DICTIONARY.md) explains the result files.
 
 `bash scripts/run_all.sh` reproduces every analysis from the cached feature tables in about five hours on
 four cores (and extracts them first if they are missing, which takes hours). Constants live in `scripts/common.py` and at the top of each script; seeds are fixed.
@@ -63,10 +70,10 @@ Requirements: Python 3.11 with the packages in `requirements.txt`.
 ## Manuscript
 
 `paper/main.tex` (Springer `sn-jnl`; build with `latexmk -pdf main.tex` in `paper/`) is the manuscript: 31 pages of
-main text, declarations and references, with no appendix and no supplementary material. The results that it does not
-tabulate are in the result files, and `results/findings.md` maps every number of the paper to its script and result
-file. Tables between `%% BEGIN GENERATED` markers are written by `scripts/make_tables.py`; figures are copied from
-`results/figures/`.
+main text, declarations and references, without an appendix. `paper/online_resource_1.tex` is its electronic
+supplementary material, Online Resource 1 (Tables S1–S15, 16 pages), which holds the tables behind statements of the
+paper. `results/findings.md` maps every number of both to its script and result file. Tables between
+`%% BEGIN GENERATED` markers are written by `scripts/make_tables.py`; figures are copied from `results/figures/`.
 `paper/submission/` holds the cover letter, outreach drafts, the upload script and the submission checklist.
 
 `paper/review/` holds the simulated reviews, all written by AI agents: the referee reports on the first version and
@@ -74,5 +81,6 @@ the response to them; a simulated call-for-papers panel in three rounds (`paper/
 marked-up comparisons); and a simulated first round at the *Journal of Intelligent Manufacturing*
 (`paper/review/jim_panel/round1/`: three reports, the editor's decision, the response `response_round1.md` with
 page and line numbers, and `main_diff.pdf` against the reviewed version), followed by a simulated second round on the
-shortened 31-page version (`paper/review/jim_panel/round2/`: the frozen manuscript, three reports and the editor's
-decision, all minor revision). None of them is a review by a journal.
+shortened 31-page version (`paper/review/jim_panel/round2/`: the frozen manuscript, three reports, the editor's
+decision, all minor revision, the response `response_round2.md` and `main_diff.pdf` against the reviewed version).
+None of them is a review by a journal.

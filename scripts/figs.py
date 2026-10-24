@@ -457,6 +457,10 @@ def fig_batches(src: Path, alt: str = "concave/300/medium") -> None:
     for ax, qc, letter in zip(axs[:, 0], ("drawin_mid", "wall_op10"), "ab"):
         y = g[qc].to_numpy(float)
         n = np.arange(1, len(y) + 1)
+        ax.axvspan(0.5, 150.5, color="#ecebe5", lw=0, zorder=0)     # warm-up: the first 150 parts
+        if letter == "a":
+            ax.text(75, 0.93, "warm-up", transform=ax.get_xaxis_transform(), fontsize=7, ha="center", va="top",
+                    color=INK)
         ax.plot(n, y, ".", color=MUTED, ms=1.6, alpha=0.6)
         cen = [centre(y[k:k + 50]) for k in range(0, len(y), 50)]
         for k, c in enumerate(cen):
