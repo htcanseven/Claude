@@ -236,6 +236,63 @@ def guard_out_of_sample(ivs: pd.DataFrame, rules: list[str]) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def guard_decision_time(ivs: pd.DataFrame, rules: list[str]) -> pd.DataFrame:
+    """The band a team can have when it decides. With a sibling, the band of the family's own sibling cases,
+    validated leaving one alternative out within the family. For a new setting or a new family, which the family's
+    own production cannot exercise (a family produced at two forces has no interpolation case), the band of the
+    same relation in the other family, applied to this family and so validated out of family. Shares correct among
+    decided verdicts with cluster intervals over alternatives (sibling only: for a new setting the alternatives of a
+    held-out cell share one fit), trial rate, verdict counts and the worst characteristic under the band."""
+    rows = []
+    rng = np.random.default_rng(SEED + 7)
+    keys = ("correct", "decided", "trial", "verdicts", "false_accept", "false_reject")
+    for prior_name, width in (("reference (+-20)", 20.0), ("release-like (+-5)", 5.0)):
+        grid = prior_grid(width)
+        for rel in RELATIONS:
+            for m in rules:
+                g = relation_cases(ivs, rel, m)
+                if g.empty:
+                    continue
+                tot = dict.fromkeys(keys, 0)
+                per_alt, per_qc, band_used = {}, {}, {}
+                for geo in ("concave", "convex"):
+                    own = g[g["geometry"] == geo]
+                    if rel == "sibling":
+                        band_used[geo] = band_of(own, grid)
+                        band_for = {a: band_of(own[own["alternative"] != a], grid) for a in own["alternative"].unique()}
+                    else:
+                        band_used[geo] = band_of(g[g["geometry"] != geo], grid)
+                        band_for = dict.fromkeys(own["alternative"].unique(), band_used[geo])
+                    for a, h in own.groupby("alternative"):
+                        o = verdict_outcomes(h, band_for[a], grid)
+                        per_alt[a] = (o["correct"], o["decided"], o["trial"], o["verdicts"])
+                        for k in keys:
+                            tot[k] += o[k]
+                        for qc, hq in h.groupby("qc"):
+                            oq = verdict_outcomes(hq, band_for[a], grid)
+                            c, d = per_qc.get(qc, (0, 0))
+                            per_qc[qc] = (c + oq["correct"], d + oq["decided"])
+                sc = tot["correct"] / tot["decided"] if tot["decided"] else np.nan
+                lo = hi = tlo = thi = np.nan
+                if rel == "sibling":
+                    lo, hi = cluster_ci({a: (v[0], v[1]) for a, v in per_alt.items()}, rng)
+                    tlo, thi = cluster_ci({a: (v[2], v[3]) for a, v in per_alt.items()}, rng)
+                qshare = {qc: c / d for qc, (c, d) in per_qc.items() if d >= 20}
+                worst = min(qshare, key=qshare.get) if qshare else ""
+                rows.append({"prior": prior_name, "relation": rel, "method": m,
+                             "scheme": "own family, one alternative left out" if rel == "sibling" else "other family's band",
+                             "band_concave": band_used["concave"], "band_convex": band_used["convex"],
+                             "share_correct": sc, "share_correct_lo": lo, "share_correct_hi": hi,
+                             "trial_rate": tot["trial"] / tot["verdicts"], "trial_lo": tlo, "trial_hi": thi,
+                             "decided": tot["decided"], "verdicts": tot["verdicts"],
+                             "false_accept_share": tot["false_accept"] / tot["verdicts"],
+                             "alternatives": g["alternative"].nunique(),
+                             "worst_characteristic": worst, "worst_share_correct": qshare.get(worst, np.nan),
+                             **{f"share_{qc}": c / d if d else np.nan for qc, (c, d) in per_qc.items()},
+                             **{f"decided_{qc}": d for qc, (c, d) in per_qc.items()}})
+    return pd.DataFrame(rows)
+
+
 def guard_prior_width(ivs: pd.DataFrame, rules: list[str]) -> pd.DataFrame:
     rows = []
     for rel in RELATIONS:
@@ -310,21 +367,86 @@ def costs(ivs: pd.DataFrame, rules: list[str]) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def trial_cases(t: pd.DataFrame, q: pd.DataFrame, floors: dict, n: int) -> pd.DataFrame:
+    """A trial of the first n parts of the design's own run as a point rule: one case per alternative and
+    characteristic, scored in the floor of its geometry."""
+    cases = []
+    for (alt, qc), r in t.set_index(["alternative", "qc"]).iterrows():
+        y = D.transform(qc, q.loc[q["alternative"] == alt, qc].dropna().to_numpy())[:n]
+        v = float(np.quantile(y, D.ADEQUATE_RATE))
+        cases.append({"alternative": alt, "geometry": r["geometry"], "qc": qc, "lo": v, "hi": v,
+                      "real_q95": r["real_q95"], "floor": floors[(qc, r["geometry"])]})
+    return pd.DataFrame(cases)
+
+
 def trial_reference(t: pd.DataFrame, q: pd.DataFrame, floors: dict) -> pd.DataFrame:
     """A trial of the first n parts of the design's own run, scored as a point rule (within-run: variation
     between runs would add to its error)."""
     rows = []
     for n in TRIAL_PARTS:
-        cases = []
-        for (alt, qc), r in t.set_index(["alternative", "qc"]).iterrows():
-            y = D.transform(qc, q.loc[q["alternative"] == alt, qc].dropna().to_numpy())[:n]
-            v = float(np.quantile(y, D.ADEQUATE_RATE))
-            cases.append({"alternative": alt, "qc": qc, "lo": v, "hi": v, "real_q95": r["real_q95"],
-                          "floor": floors[(qc, r["geometry"])]})
-        g = pd.DataFrame(cases)
+        g = trial_cases(t, q, floors, n)
         err = np.abs(g["lo"] - g["real_q95"]) / g["floor"]
         rows.append({"rule": f"trial, first {n} parts", "cases": len(g), **P.dist(g),
                      "abs_error_p90": float(np.quantile(err, 0.9)), "abs_error_median": float(np.median(err))})
+    return pd.DataFrame(rows)
+
+
+def trial_cost(t: pd.DataFrame, q: pd.DataFrame, floors: dict) -> pd.DataFrame:
+    """The trial's own error priced like a rule's (Fig. 6 prices a trial verdict at c_T alone): expected cost of
+    its false accepts and false rejects per verdict over each prior, and the share of the prior's feasible
+    verdicts that fall on failing designs."""
+    rows = []
+    for n in TRIAL_PARTS:
+        g = trial_cases(t, q, floors, n)
+        for prior_name, width in (("reference (+-20)", 20.0), ("release-like (+-5)", 5.0)):
+            grid = prior_grid(width)
+            o = verdict_outcomes(g, 0.0, grid)
+            reqs = g["real_q95"].to_numpy(float)[:, None] + grid[None, :] * g["floor"].to_numpy(float)[:, None]
+            feas = reqs >= 0
+            failing_share = float((feas & (grid < 0)[None, :]).sum() / feas.sum())
+            for cfr in COST_FR:
+                rows.append({"rule": f"trial, first {n} parts", "prior": prior_name, "c_fr": cfr,
+                             "false_accept": o["false_accept"] / o["verdicts"],
+                             "false_reject": o["false_reject"] / o["verdicts"],
+                             "error_cost": (o["false_accept"] + cfr * o["false_reject"]) / o["verdicts"],
+                             "failing_share_of_verdicts": failing_share})
+    return pd.DataFrame(rows)
+
+
+def release_capability() -> pd.DataFrame:
+    """Release as a capability decision: with the decided statistic centre + 4 sd (a performance index of 1.33 at
+    the limit), a rule's decisive distance delta (floors) means it confirms Ppk >= 1.33 only for designs whose
+    true Ppk exceeds 4/3 + delta (F / sigma_LT) / 3; F / sigma_LT over characteristics and geometries."""
+    v = pd.read_csv(RESULTS / "qual_variants.csv")
+    v = v[v["variant"] == f"decided statistic: centre + {3 * PPK_TARGET:g} sd"]
+    ratio = pd.read_csv(RESULTS / "panel_floor_protocol.csv")["floor_over_sigma_lt"].to_numpy(float)
+    rows = []
+    for r in v.to_dict("records"):
+        dd = r["resolution_floors"]
+        ppk = 4.0 / 3.0 + dd * ratio / 3.0
+        rows.append({"relation": r["relation"], "method": r["method"], "decisive_on_centre_plus_4sd": dd,
+                     "true_ppk_min": float(ppk.min()), "true_ppk_median": float(np.median(ppk)),
+                     "true_ppk_max": float(ppk.max())})
+    return pd.DataFrame(rows)
+
+
+def cost_cheapest(costs_table: pd.DataFrame) -> pd.DataFrame:
+    """Cheapest option per prior, cost ratio, relation and trial cost: each rule with its cost-minimising band
+    (chosen in-sample, pooled over the families) or a trial of every design, and the margin to the runner-up."""
+    rows = []
+    tol = 1e-9
+    for (prior, cfr, rel, ct), g in costs_table.groupby(["prior", "c_fr", "relation", "c_trial"]):
+        # a rule whose cost-minimising band sends every design to trial is the trial itself
+        opts = {m: c for m, c in zip(g["method"], g["cost_opt"]) if c < ct - tol}
+        opts["trial every design"] = float(ct)
+        best = min(opts.values())
+        tied = sorted(m for m, c in opts.items() if c <= best + tol)
+        rest = sorted((c, m) for m, c in opts.items() if c > best + tol)
+        first = tied[0]
+        rows.append({"prior": prior, "c_fr": cfr, "relation": rel, "c_trial": ct, "cheapest": " = ".join(tied),
+                     "cost": best, "runner_up": rest[0][1] if rest else "", "runner_up_cost": rest[0][0] if rest else np.nan,
+                     "margin": rest[0][0] - best if rest else np.nan,
+                     "fa_of_cheapest": float(g.loc[g["method"] == first, "fa_opt"].iloc[0]) if first in set(g["method"]) else 0.0})
     return pd.DataFrame(rows)
 
 
@@ -334,42 +456,56 @@ def interval_score(lo, hi, y, alpha: float = 1 - D.CONF_LEVEL):
 
 
 def coverage(ivs: pd.DataFrame, strata: pd.DataFrame) -> pd.DataFrame:
+    """Coverage and interval score per relation, and per family, characteristic and (with a sibling) decision-time
+    stratum. Cluster intervals over alternatives only with a sibling, where every alternative has its own
+    calibration set; for a new setting or family the alternatives of a held-out cell share one fit, and an
+    interval over alternatives would be degenerate or too narrow. The pooled scopes (both families calibrate,
+    with a family term) are added for the Gaussian processes."""
     rng = np.random.default_rng(SEED + 1)
     st = strata.set_index(["alternative", "qc"])["stratum"]
     rows = []
     methods = [m for m in ivs["method"].unique() if m in INTERVAL or m.endswith("+RM")]
-    n_cal = {"sibling": 8, "interpolation": 6, "extrapolation": 6, "new family": 9}
-    for rel, scope in RELATIONS.items():
+    n_cal = {"sibling": 8, "interpolation": 6, "extrapolation": 6, "new family": 9,
+             "pooled sibling": 17, "pooled interpolation": 15, "pooled extrapolation": 15}
+    scopes = {**RELATIONS, "pooled sibling": "pooled", "pooled interpolation": "pooled-setting/interpolation",
+              "pooled extrapolation": "pooled-setting/extrapolation"}
+
+    def ci(h: pd.DataFrame, ins: np.ndarray, rel: str) -> tuple[float, float]:
+        if rel != "sibling":
+            return np.nan, np.nan
+        per = {a: (float(ins[(h["alternative"] == a).to_numpy()].sum()), float((h["alternative"] == a).sum()))
+               for a in h["alternative"].unique()}
+        return cluster_ci(per, rng)
+
+    for rel, scope in scopes.items():
         for m in methods:
+            if rel.startswith("pooled") and m not in ("M5", "M5n", "M7", "M7n"):
+                continue
             g = ivs[(ivs["scope"] == scope) & (ivs["method"] == m)]
             if g.empty:
                 continue
             inside = ((g["lo"] <= g["real_q95"]) & (g["real_q95"] <= g["hi"])).to_numpy()
             isc = interval_score(g["lo"], g["hi"], g["real_q95"]) / g["floor"]
-            per = {a: (float(inside[(g["alternative"] == a).to_numpy()].sum()), float((g["alternative"] == a).sum()))
-                   for a in g["alternative"].unique()}
-            lo, hi = cluster_ci(per, rng)
+            lo, hi = ci(g, inside, rel)
             base = {"relation": rel, "method": m, "level": nominal_level(m, n_cal[rel])}
             rows.append({**base, "subset": "all", "cases": len(g), "coverage": float(inside.mean()),
                          "coverage_lo": lo, "coverage_hi": hi,
                          "median_half_width": float(np.nanmedian((g["hi"] - g["lo"]) / 2 / g["floor"])),
-                         "interval_score": float(np.nanmean(isc))})
-            for qc, h in g.groupby("qc"):
-                ins = ((h["lo"] <= h["real_q95"]) & (h["real_q95"] <= h["hi"])).to_numpy()
-                per = {a: (float(ins[(h["alternative"] == a).to_numpy()].sum()), float((h["alternative"] == a).sum()))
-                       for a in h["alternative"].unique()}
-                lo, hi = cluster_ci(per, rng)
-                rows.append({**base, "subset": qc, "cases": len(h), "coverage": float(ins.mean()),
-                             "coverage_lo": lo, "coverage_hi": hi,
-                             "interval_score": float(np.nanmean(interval_score(h["lo"], h["hi"], h["real_q95"]) / h["floor"]))})
+                         "interval_score": float(np.nanmean(isc)),
+                         "rm_n": float(g["rm_n"].median()) if "rm_n" in g and g["rm_n"].notna().any() else np.nan})
+            subsets = list(g.groupby("qc")) + [(f"family: {geo}", h) for geo, h in g.groupby("geometry")]
             if rel == "sibling":
-                for s, h in g.groupby([st.get((a, q), "") for a, q in zip(g["alternative"], g["qc"])]):
-                    ins = ((h["lo"] <= h["real_q95"]) & (h["real_q95"] <= h["hi"])).to_numpy()
-                    per = {a: (float(ins[(h["alternative"] == a).to_numpy()].sum()), float((h["alternative"] == a).sum()))
-                           for a in h["alternative"].unique()}
-                    lo, hi = cluster_ci(per, rng)
-                    rows.append({**base, "subset": s, "cases": len(h), "coverage": float(ins.mean()),
-                                 "coverage_lo": lo, "coverage_hi": hi})
+                subsets += list(g.groupby([st.get((a, q), "") for a, q in zip(g["alternative"], g["qc"])]))
+            for name, h in subsets:
+                ins = ((h["lo"] <= h["real_q95"]) & (h["real_q95"] <= h["hi"])).to_numpy()
+                lo, hi = ci(h, ins, rel)
+                row = {**base, "subset": name, "cases": len(h), "coverage": float(ins.mean()),
+                       "coverage_lo": lo, "coverage_hi": hi,
+                       "interval_score": float(np.nanmean(interval_score(h["lo"], h["hi"], h["real_q95"]) / h["floor"]))}
+                if name.startswith("family: ") and m.endswith("+RM"):
+                    row["rm_quantile_floors"] = float(h["rm_quantile_floors"].median())
+                    row["rm_n"] = float(h["rm_n"].median())
+                rows.append(row)
     # point rules: interval score of the point prediction (no width)
     for rel, scope in RELATIONS.items():
         for m in ["M0", "M1", "M1s", "M1n", "M1sn", "NN", "Mc"]:
@@ -377,7 +513,18 @@ def coverage(ivs: pd.DataFrame, strata: pd.DataFrame) -> pd.DataFrame:
             if len(g):
                 rows.append({"relation": rel, "method": m, "level": "point", "subset": "all", "cases": len(g),
                              "interval_score": float(np.nanmean(interval_score(g["lo"], g["hi"], g["real_q95"]) / g["floor"]))})
-    return pd.DataFrame(rows)
+    out = pd.DataFrame(rows)
+
+    def note(r) -> str:     # why an interval is or is not given, and which given intervals are degenerate
+        if r["level"] == "point":
+            return "point rule: interval score only"
+        if r["relation"] != "sibling":
+            return "no interval: the alternatives of a held-out cell share one fit"
+        if np.isclose(r["coverage_lo"], r["coverage_hi"]):
+            return "degenerate: every resample gives the same share"
+        return "cluster bootstrap over alternatives"
+    out["ci_note"] = out.apply(note, axis=1)
+    return out
 
 
 def m6_coverage(t: pd.DataFrame, floors: dict) -> pd.DataFrame:
@@ -458,16 +605,45 @@ def resolvable_difference() -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def between_run(ivs: pd.DataFrame, t: pd.DataFrame, rules: list[str]) -> pd.DataFrame:
-    """Every truth plus tau F z (z standard normal per alternative and characteristic, common to all rules and
-    relations): distances, ranking and guard bands; tau = 'bound' uses each characteristic's between-series bound."""
+def tau_draws(t: pd.DataFrame) -> tuple[dict, dict, np.ndarray]:
+    """The between-run draws shared by every rule and the trial: each characteristic's between-series bound
+    (as a standard deviation in floors), the position of every alternative and characteristic, and z."""
     mf = pd.read_csv(RESULTS / "meas_floor.csv").set_index("qc")["between_series_q95_floors"]
     tau_bound = (mf / (1.96 * np.sqrt(2))).to_dict()
     alts = sorted(t["alternative"].unique())
     keys = [(a, q) for a in alts for q in SHARED]
     pos = {k: i for i, k in enumerate(keys)}
     rng = np.random.default_rng(SEED + 2)
-    Z = rng.standard_normal((N_TAU_DRAWS, len(keys)))
+    return tau_bound, pos, rng.standard_normal((N_TAU_DRAWS, len(keys)))
+
+
+def between_run_trial(t: pd.DataFrame, q: pd.DataFrame, floors: dict) -> pd.DataFrame:
+    """The trial of the first n parts under the same between-run component as the rules: a future run's q95 is
+    the observed one plus tau F z, while the trial saw the observed run (the draws of between_run)."""
+    tau_bound, pos, Z = tau_draws(t)
+    rows = []
+    for n in TRIAL_PARTS:
+        g = trial_cases(t, q, floors, n)
+        idx = np.array([pos[(a, c)] for a, c in zip(g["alternative"], g["qc"])])
+        F = g["floor"].to_numpy(float)
+        for tau in TAUS + ["bound"]:
+            scale = np.array([tau_bound[c] for c in g["qc"]]) if tau == "bound" else float(tau)
+            dd, ds = [], []
+            for b in range(N_TAU_DRAWS if tau != 0.0 else 1):
+                qq = np.maximum(g["real_q95"].to_numpy(float) + scale * F * Z[b, idx], 1e-12)
+                r = D.distance_pair(*D.exclusion(g, qq))
+                dd.append(r["resolution_floors"])
+                ds.append(r["safe_floors"])
+            rows.append({"tau": str(tau), "rule": f"trial, first {n} parts", "decisive_median": float(np.median(dd)),
+                         "decisive_p05": float(np.percentile(dd, 5)), "decisive_p95": float(np.percentile(dd, 95)),
+                         "safe_median": float(np.median(ds))})
+    return pd.DataFrame(rows)
+
+
+def between_run(ivs: pd.DataFrame, t: pd.DataFrame, rules: list[str]) -> pd.DataFrame:
+    """Every truth plus tau F z (z standard normal per alternative and characteristic, common to all rules and
+    relations): distances, ranking and guard bands; tau = 'bound' uses each characteristic's between-series bound."""
+    tau_bound, pos, Z = tau_draws(t)
     grid = prior_grid(20.0)
     cand = sorted(set(ivs["method"]) - {"M0w"})
     rows = []
@@ -505,6 +681,81 @@ def between_run(ivs: pd.DataFrame, t: pd.DataFrame, rules: list[str]) -> pd.Data
                              "band_median": float(np.median(bands[m])) if bands[m] else np.nan,
                              "share_record_rule_best": float(best.isin(["NN", "M1sn", "M1n"]).mean()),
                              "best_rules": "; ".join(f"{k} {v:.2f}" for k, v in best.value_counts(normalize=True).items())})
+    return pd.DataFrame(rows)
+
+
+WE_TARGET, WE_QC, WE_LIMIT, WE_TRIAL_COST = "concave/300/medium", "drawin_mid", 15.30, 0.05
+
+
+def worked_example(ivs: pd.DataFrame, q: pd.DataFrame, t: pd.DataFrame) -> pd.DataFrame:
+    """The worked example of Section 3.7 with only what the planner knows: the concave cup produced at 100 and
+    500 kN, the floor of those six series, the force change they resolve, and the interpolation band and distance
+    of the convex family (the concave family's production cannot exercise interpolation); with a stated trial
+    cost, the cost-minimising band on the convex cases, never narrower than the 95 % band."""
+    import alternatives as A
+
+    rows = []
+
+    def put(name: str, value: float, note: str = "") -> None:
+        rows.append({"quantity": name, "value": float(value), "note": note})
+
+    geo, bhf = WE_TARGET.split("/")[0], int(WE_TARGET.split("/")[1])
+    produced = sorted(a for a in t["alternative"].unique() if a.startswith(geo + "/") and D.bhf_of(a) != bhf)
+    qb = A.batches(q[q["alternative"].isin(produced)])
+    F6 = A.floor_from(A.batch_centres(qb, [WE_QC]), WE_QC)
+    put("floor of the six produced series (mm)", F6)
+    put("floor of all nine series (mm)", float(pd.read_csv(RESULTS / "alt_floor.csv").set_index("qc").loc[WE_QC, f"floor_{geo}"]))
+    tt = t[(t["qc"] == WE_QC) & t["alternative"].isin(produced)]
+    slopes = []
+    for lub, g in tt.groupby("oil_type"):
+        c = g.set_index("bhf_kN")["real_centre"]
+        slopes.append((c[500] - c[100]) / 400.0)
+    mean_slope = (tt[tt["bhf_kN"] == 500]["real_centre"].mean() - tt[tt["bhf_kN"] == 100]["real_centre"].mean()) / 400.0
+    put("resolvable force change, mean secant (kN)", F6 / abs(mean_slope))
+    put("resolvable force change, per pattern, min (kN)", F6 / max(abs(s) for s in slopes))
+    put("resolvable force change, per pattern, max (kN)", F6 / min(abs(s) for s in slopes))
+    case = ivs[(ivs["scope"] == "setting/interpolation") & (ivs["alternative"] == WE_TARGET) & (ivs["qc"] == WE_QC)]
+    truth = float(case["real_q95"].iloc[0])
+    put("true q95 (mm)", truth)
+    put("truth below the limit (floors of the six series)", (WE_LIMIT - truth) / F6)
+    grid = prior_grid(20.0)
+    for m in ["NN", "M7n", "M2", "M5", "M5n", "M1sn", "NN+RM"]:
+        r = case[case["method"] == m]
+        if r.empty:
+            continue
+        lo, hi = float(r["lo"].iloc[0]), float(r["hi"].iloc[0])
+        conv = relation_cases(ivs, "interpolation", m)
+        conv = conv[conv["geometry"] != geo]
+        b = band_of(conv, grid)
+        put(f"{m}: upper end of the interval (mm)", hi)
+        put(f"{m}: margin to the limit (floors)", (WE_LIMIT - hi) / F6)
+        put(f"{m}: band of the convex family, interpolation (floors)", b)
+        put(f"{m}: margin beyond the band (floors)", (WE_LIMIT - hi) / F6 - b if np.isfinite(b) else -np.inf)
+        if m == "NN":
+            put("NN: decisive distance of the convex family, interpolation (floors)", P.dist(conv, sides=False)["resolution_floors"])
+            own = relation_cases(ivs, "interpolation", m)
+            own = own[own["geometry"] == geo]
+            o = verdict_outcomes(own, b, grid)
+            put("NN: convex band on the concave interpolation cases, share correct", share_correct(o))
+            put("NN: convex band on the concave interpolation cases, trial rate", o["trial"] / o["verdicts"])
+            outs = [verdict_outcomes(conv, x, grid) for x in COST_BANDS]
+            n = outs[0]["verdicts"]
+            cost = np.array([(o_["false_accept"] + 0.5 * o_["false_reject"] + WE_TRIAL_COST * o_["trial"]) / n for o_ in outs])
+            ok = COST_BANDS >= b
+            j = int(np.flatnonzero(ok)[np.argmin(cost[ok])])
+            put("NN: cost band, convex family, c_T = 0.05 c_FA (floors)", COST_BANDS[j],
+                "cost-minimising band over the reference prior, not narrower than the 95 % band")
+            put("NN: margin beyond the cost band (floors)", (WE_LIMIT - hi) / F6 - COST_BANDS[j])
+    m0 = ivs[(ivs["method"] == "M0") & (ivs["alternative"] == WE_TARGET) & (ivs["qc"] == WE_QC)]
+    put("M0: prediction (mm)", float(m0["lo"].iloc[0]))
+    shares, steps = [], []
+    for a in sorted(t["alternative"].unique()):
+        y = q.loc[q["alternative"] == a, WE_QC].dropna().round(6)
+        shares.append(float(y.value_counts(normalize=True).iloc[:3].sum()))
+        u = np.unique(y.to_numpy())
+        steps.append(float(np.median(np.diff(u))) if u.size > 1 else np.nan)
+    put("mid-side draw-in: share of a series in its three most frequent values (median)", float(np.median(shares)))
+    put("mid-side draw-in: median step between adjacent values (mm)", float(np.nanmedian(steps)))
     return pd.DataFrame(rows)
 
 
@@ -762,6 +1013,13 @@ def main(only: list[str] | None = None) -> None:
         "variants": variants,
         "m6_coverage": lambda: m6_coverage(t, floors),
         "floor_loao": lambda: floor_loao(q, ivs, MAIN + ["M5n", "M3", "NN+RM"]),
+        "guard_decision": lambda: guard_decision_time(ivs, ["M2", "M5", "M5n", "NN", "M1sn", "M7n", "M7", "Mcd", "M3",
+                                                            "NN+RM"]),
+        "between_run_trial": lambda: between_run_trial(t, q, floors),
+        "trial_cost": lambda: trial_cost(t, q, floors),
+        "release_capability": release_capability,
+        "cost_cheapest": lambda: cost_cheapest(pd.read_csv(RESULTS / "qual_costs.csv")),
+        "worked_example": lambda: worked_example(ivs, q, t),
     }
     for name, fn in jobs.items():
         if only and name not in only:

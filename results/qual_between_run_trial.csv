@@ -1,0 +1,15 @@
+tau,rule,decisive_median,decisive_p05,decisive_p95,safe_median
+0.0,"trial, first 20 parts",1.35,1.35,1.35,1.35
+0.5,"trial, first 20 parts",1.5,1.35,1.7,1.5
+1.0,"trial, first 20 parts",2.1,1.8,2.35,2.1
+1.5,"trial, first 20 parts",2.8,2.45,3.2,2.8
+2.0,"trial, first 20 parts",3.55,3.1,4.0024999999999995,3.55
+3.0,"trial, first 20 parts",5.1,4.45,5.8,5.1
+bound,"trial, first 20 parts",2.95,2.4975,3.502499999999999,2.95
+0.0,"trial, first 50 parts",0.9,0.9,0.9,0.9
+0.5,"trial, first 50 parts",1.25,1.1,1.3524999999999991,1.25
+1.0,"trial, first 50 parts",1.9,1.65,2.2,1.9
+1.5,"trial, first 50 parts",2.65,2.3,3.0,2.65
+2.0,"trial, first 50 parts",3.45,3.05,3.9,3.45
+3.0,"trial, first 50 parts",5.05,4.4,5.6549999999999985,5.05
+bound,"trial, first 50 parts",2.85,2.3,3.45,2.85

@@ -1,0 +1,821 @@
+%% Online Resource 1 (electronic supplementary material) of the manuscript in main.tex.
+%% Tables S1--S15 are written by scripts/make_tables.py from the archived result files.
+\documentclass[pdflatex,sn-basic]{sn-jnl}
+
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{manyfoot}
+\usepackage{placeins}
+
+\raggedbottom
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.7}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.5}
+\setcounter{topnumber}{3}
+\setcounter{totalnumber}{4}
+\setlength{\textfloatsep}{10pt plus 3pt minus 2pt}
+\setlength{\floatsep}{10pt plus 3pt minus 2pt}
+\setlength{\belowcaptionskip}{3pt}
+\makeatletter
+\setlength{\@fptop}{0pt}
+\setlength{\@fpsep}{10pt plus 2fil}
+\setlength{\@fpbot}{0pt plus 1fil}
+\makeatother
+\newcommand{\tabsize}{\fontsize{8}{9.5}\selectfont}
+\newcommand{\tabsizesmall}{\footnotesize}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash\hspace{0pt}}p{#1}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\theHtable}{S\arabic{table}}
+
+\begin{document}
+
+\title[Online Resource 1]{Online Resource 1 for ``When can a prediction replace a physical trial? A production-referenced evaluation of design-stage decision rules in deep drawing''}
+
+\author*[1]{\fnm{H\"useyin Tayyer} \sur{Canseven}}\email{huseyin.canseven@lut.fi}
+\affil*[1]{\orgdiv{Department of Electrical Engineering, LUT School of Energy Systems}, \orgname{LUT University}, \orgaddress{\city{Lappeenranta}, \country{Finland}}}
+
+\abstract{This resource holds the tables behind statements of the paper that its main text summarises: the distances of every rule and per characteristic, the simulation dataset against the measurement and the redundancy of the scans, the fitted Gaussian processes with a sensitivity analysis of the trend GP's priors, the predictors crossed with relation-matched intervals and the coverage of every interval rule, the guard bands available when deciding, the costs, the between-run sensitivity with the trial, and the cross-fitted selection. Every number is written by \texttt{scripts/make\_tables.py} from a result file of the archived release (Canseven 2026, Zenodo); each table names its files, and \texttt{results/DATA\_DICTIONARY.md} explains their columns.}
+
+\maketitle
+
+\section{How to read the tables}
+
+The relations and rules are those of the paper (its Table~2 and Section~3.3). A new design is judged with a produced \emph{sibling} (the alternative alone held out), at a new process setting that is \emph{interpolated} (300\,kN held out) or \emph{extrapolated} (100 or 500\,kN held out), or as a \emph{new family} (one geometry calibrates the rules for the other). Distances are in within-run floors of the characteristic's own geometry, a new family in the floor of the produced family unless stated otherwise; ``$<$1'' marks distances below one floor, and a pair $a/b$ is the decisive and the safe distance. P+RM is the point prediction of rule P with the relation-matched interval; M3n is named M4 in the code. The reference prior of requirement distances weights the 47 distances of the evaluation grid within $\pm20$ floors equally (0, $\pm0.5$ to $\pm10$ in steps of 0.5, $\pm12$, $\pm15$ and $\pm20$), the release-like prior the grid within $\pm5$ floors.
+
+\section{Distances}
+
+Table~\ref{tab:s-all} gives every rule in every relation, with the interval of its decisive distance and a new family also in its own floor, and Table~\ref{tab:s-qc} both distances per characteristic for the main rules and M7. On the cup depth, M1s and M7 falsely accept extrapolated alternatives up to 165 and 118 floors from their limit.
+
+\section{Simulation and measurement}
+
+Table~\ref{tab:s-validation} compares the simulation dataset with the measurement in every cell, at the nominal friction and at the closest grid friction, with the extraction noise of the simulated characteristics; Table~\ref{tab:s-scan} gives the redundancy of the scans per series and the components of the floor.
+
+\section{Learning and intervals}
+
+Table~\ref{tab:s-gp} gives the fitted Gaussian processes by relation and Table~\ref{tab:s-priors} the trend GP M7n with each prior median halved or doubled. Table~\ref{tab:s-crossing} crosses eight point predictors with the relation-matched interval and sets them against the rules' own intervals and against M7n calibrated on both families. Tables~\ref{tab:s-coverage} and \ref{tab:s-coverage-detail} give the coverage of every interval rule, overall and per family, characteristic and decision-time stratum.
+
+\section{Guard bands}
+
+Table~\ref{tab:s-guards} gives the guard bands a team can have when it decides, under both priors, with intervals, verdict counts, the worst characteristic and the share correct when a force cell of the family's own production is left out instead; Table~\ref{tab:s-guard-qc} gives the share correct per characteristic, and Table~\ref{tab:s-prior} the band and trial rate against the width of the prior.
+
+\section{Costs, between-run variation and selection}
+
+Table~\ref{tab:s-costs} gives the cheapest option for every relation, trial cost, prior and ratio of false-reject to false-accept cost; Table~\ref{tab:s-between} the distances and bands with a between-run component added to the truths, and the trial under the same component; Table~\ref{tab:s-crossfit} the rules and bands selected on one geometry and evaluated on the other.
+
+\section{Development record}
+
+M0--M5 and M3n were defined before the first results; everything else was added afterwards, most of it in response to reviews of earlier versions simulated with a large language model, which are not reviews by a journal. Four simulated rounds led to M0w, Mc, M1n, NN, M2n, M5n, the grouped schemes, the exact estimator of the distances, the noise-variance bound, M1s, M1sn, the jackknife+ intervals, the guard bands with their priors and the new family scored in the produced family's floor. A fifth round, of the version prepared for the journal, led to M7n, M7, Mcd, the relation-matched intervals, the decision-time strata, the per-family and out-of-sample guard bands, the costs, the between-run sensitivity, the cross-fitting, the few-shot transfer and the design-level verdicts, and a sixth, of its revision, to the guard bands available when deciding, the band widened by stated costs, the prior sensitivity of M7n and the trial under between-run variation.
+
+\FloatBarrier
+
+%% BEGIN GENERATED s-all
+\begin{table}[p]
+\tabsizesmall
+\setlength{\tabcolsep}{4pt}
+\caption{All rules: decisive/safe distances (floors) by relation, with the 95\,\% interval of the decisive distance}\label{tab:s-all}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Rule & Sibling & Interpolated & Extrapolated & New family & Own floor \\
+\midrule
+M0 & 108 & 109 & 106 & 104 & 108 \\
+\quad interval & 101--115 & 107--109 & 101--109 & 84--112 & 101--115 \\
+M1s$^\dagger$ & 4.9 & 19 & 19 & 121 & 122 \\
+\quad interval & 4.7--6.3 & 19--20 & 15--19 & 119--121 & 121--123 \\
+M2 & 23/$<$1 & 18/2.7 & 18/9.9 & 41/26 & 51/16 \\
+\quad interval & 22--23 & 15--18 & 17--19 & 39--42 & 50--52 \\
+M5 & 7.2/$<$1 & 19/2.8 & 19/8.9 & 35/31 & 38/28 \\
+\quad interval & 6.6--8.4 & 18--20 & 18--20 & 31--39 & 35--39 \\
+M7n$^\ddagger$ & 6.8/$<$1 & 7.4/3.4 & 15/5.9 & 132/130 & 132/130 \\
+\quad interval & 6.0--7.3 & 7.1--8.1 & 15--16 & 131--132 & 130--132 \\
+NN$^\dagger$ & 3.4 & 4.7 & 9.5 & 130 & 131 \\
+\quad interval & 2.0--4.5 & 4.3--5.1 & 6.6--11 & 129--131 & 129--131 \\
+M1sn$^\dagger$ & 3.5 & 4.7 & 8.9 & 131 & 130 \\
+\quad interval & 3.1--4.2 & 4.3--5.1 & 8.6--9.5 & 129--131 & 129--131 \\
+NN+RM$^\ddagger$ & 6.3/$<$1 & 9.6/$<$1 & 20/$<$1 & 293/4.5 & 327/4.4 \\
+\quad interval & 5.6--6.7 & 9.4--9.8 & 18--20 & 293--294 & 322--331 \\
+M1 & 15 & 11 & 25 & 33 & 35 \\
+\quad interval & 12--18 & 10--11 & 24--25 & 31--36 & 33--37 \\
+M1n$^\dagger$ & 9.1 & 4.8 & 12 & 131 & 131 \\
+\quad interval & 5.5--10 & 4.1--5.3 & 9.8--13 & 129--131 & 129--131 \\
+M2n$^\dagger$ & 19/$<$1 & 13/$<$1 & 16/9.1 & 133/128 & 132/129 \\
+\quad interval & 15--21 & 12--13 & 15--18 & 132--133 & 131--133 \\
+M5n$^\dagger$ & 7.2/$<$1 & 16/$<$1 & 18/8.6 & 133/128 & 132/130 \\
+\quad interval & 6.4--7.5 & 15--16 & 16--19 & 131--133 & 130--133 \\
+M7$^\ddagger$ & 7.1/$<$1 & 22/16 & 28/17 & 140/104 & 144/109 \\
+\quad interval & 6.1--8.2 & 22--23 & 23--54 & 139--141 & 144--146 \\
+Mc$^\dagger$ & 27 & 14 & 40 & 43 & 38 \\
+\quad interval & 24--29 & 13--14 & 39--42 & 35--48 & 36--45 \\
+Mcd$^\ddagger$ & 7.2/$<$1 & 22/1.6 & 24/5.8 & 30/19 & 28/19 \\
+\quad interval & 6.1--7.9 & 20--22 & 23--31 & 25--32 & 28--29 \\
+M0w$^\dagger$ & 119/94 & 119/94 & 119/77 & 117/79 & 119/94 \\
+\quad interval & 118--119 & 118--119 & 116--120 & 115--119 & 118--119 \\
+M3 & 23/$<$1 & 29/13 & 33/17 & 40/17 & 49/21 \\
+\quad interval & 17--26 & 24--31 & 25--40 & 36--45 & 45--53 \\
+M3n & 11/$<$1 & 15/7.0 & 13/7.8 & 135/126 & 133/128 \\
+\quad interval & 10--13 & 13--15 & 12--14 & 134--135 & 131--133 \\
+M6$^\dagger$ & 17/$<$1 & 47/$<$1 & 56/8.1 & 35/28 & 41/25 \\
+\quad interval &  &  &  & 34--39 & \\
+M1sn+RM & 7.1/$<$1 & 9.6/$<$1 & 18/$<$1 & 293/4.3 & 327/4.2 \\
+\quad interval & 6.6--7.8 & 9.4--9.8 & 17--18 & 293--294 & 322--331 \\
+M1s+RM & 11/$<$1 & 43/6.9 & 31/4.8 & 243/$<$1 & 325/$<$1 \\
+\quad interval & 11--12 & 38--43 & 30--40 & 243--243 & 321--331 \\
+M5n+RM & 6.1/$<$1 & 9.6/$<$1 & 24/$<$1 & 293/4.5 & 325/4.3 \\
+\quad interval & 5.2--7.2 & 9.4--9.8 & 22--24 & 293--294 & 322--331 \\
+M5+RM & 6.0/$<$1 & 21/$<$1 & 26/2.2 & 52/$<$1 & 81/$<$1 \\
+\quad interval & 5.2--6.8 & 21--22 & 26--26 & 51--53 & 80--81 \\
+M3n+RM & 8.1/$<$1 & 21/$<$1 & 20/$<$1 & 292/4.8 & 325/4.6 \\
+\quad interval & 7.1--9.9 & 21--21 & 17--20 & 291--293 & 321--331 \\
+M7n+RM & 6.5/$<$1 & 11/$<$1 & 18/$<$1 & 293/5.1 & 327/4.9 \\
+\quad interval & 5.6--7.4 & 10--12 & 17--18 & 293--294 & 325--331 \\
+M7+RM & 6.7/$<$1 & 45/6.4 & 31/$<$1 & 248/$<$1 & 332/$<$1 \\
+\quad interval & 6.0--7.7 & 39--46 & 30--40 & 247--248 & 327--336 \\
+\botrule
+\end{tabular}
+\footnotetext{One number for rules that always decide. New family: in the produced family's floor, as step 6 scores it; own floor: in the new family's floor. Intervals over 1000 resamples of the held-out alternatives, fits fixed. M3n is M4 in the code; P+RM: predictor P with the relation-matched interval. $^\dagger$, $^\ddagger$: added after the first results and in the revisions for this journal. Source: \texttt{dec\_resolution}, \texttt{learn\_resolution}, \texttt{panel\_source\_floor}, \texttt{learn\_source\_floor}, \texttt{rob\_decisions}.}
+\end{table}
+%% END GENERATED s-all
+
+%% BEGIN GENERATED s-qc
+\begin{table}[p]
+\tabsizesmall
+\setlength{\tabcolsep}{2.4pt}
+\caption{Decisive/safe distances (floors) per characteristic}\label{tab:s-qc}
+\begin{tabular}{@{}lrrrrrrr@{}}
+\toprule
+Rule & Mid-side (mm) & Corner (mm) & Wavin. (mm) & Wall ($^\circ$) & Arm ($^\circ$) & Depth (mm) & Dome (mm) \\
+\midrule
+\multicolumn{8}{@{}l}{\emph{Sibling}} \\
+M0 & 38 & 115 & 15 & 28 & 34 & 115 & 32 \\
+M1s & 2.2 & 4.3 & 7.2 & 3.0 & 4.2 & 9.0 & 5.0 \\
+M2 & 20/$<$1 & 6.1/$<$1 & 23/$<$1 & 9.3/$<$1 & 27/$<$1 & 28/$<$1 & 15/$<$1 \\
+M5 & 3.4/$<$1 & 5.7/1.5 & 1.9/$<$1 & 4.8/1.8 & 7.2/1.2 & 5.4/$<$1 & 12/5.3 \\
+M7n & 3.4/$<$1 & 3.6/$<$1 & 2.5/$<$1 & 3.5/$<$1 & 6.8/$<$1 & 5.7/1.4 & 12/6.3 \\
+M7 & 3.1/$<$1 & 4.6/$<$1 & 2.3/$<$1 & 3.6/$<$1 & 7.6/1.1 & 5.7/1.5 & 11/7.0 \\
+NN & 2.0 & 4.5 & $<$1 & 3.4 & 2.8 & 3.3 & 7.0 \\
+M1sn & 2.6 & 3.5 & 3.6 & 3.0 & 4.6 & 3.8 & 6.0 \\
+M3 & 26/$<$1 & 14/$<$1 & 21/$<$1 & 51/$<$1 & 25/$<$1 & 26/$<$1 & 36/$<$1 \\
+\multicolumn{8}{@{}l}{\emph{Interpolated}} \\
+M0 & 22 & 109 & 15 & 18 & 27 & 115 & 29 \\
+M1s & 2.8 & 1.3 & 19 & $<$1 & 31 & 12 & 5.7 \\
+M2 & 11/$<$1 & 7.1/$<$1 & 16/4.2 & 7.6/2.7 & 26/$<$1 & 14/$<$1 & 18/2.8 \\
+M5 & 16/$<$1 & 5.1/$<$1 & 19/1.3 & 7.6/3.0 & 34/$<$1 & 17/2.2 & 17/3.8 \\
+M7n & 4.5/1.9 & 6.9/$<$1 & 6.1/3.8 & 3.9/$<$1 & 7.9/5.2 & 8.1/2.7 & 9.1/5.2 \\
+M7 & 3.6/1.3 & 5.9/$<$1 & 22/16 & 9.0/$<$1 & 49/17 & 16/10 & 11/3.6 \\
+NN & 3.8 & 1.9 & 4.8 & $<$1 & 5.9 & 4.4 & 5.3 \\
+M1sn & 3.8 & 1.9 & 4.8 & $<$1 & 5.9 & 4.4 & 5.3 \\
+M3 & 23/15 & 21/1.8 & 32/9.0 & 16/7.1 & 26/19 & 19/11 & 31/6.3 \\
+\multicolumn{8}{@{}l}{\emph{Extrapolated}} \\
+M0 & 38 & 115 & 8.6 & 28 & 35 & 109 & 32 \\
+M1s & 4.0 & 2.9 & 21 & 2.0 & 5.9 & 165 & 15 \\
+M2 & 18/8.3 & 5.4/2.2 & 16/11 & 6.6/3.2 & 28/8.4 & 15/13 & 18/1.3 \\
+M5 & 20/6.8 & 5.7/2.0 & 17/11 & 7.1/3.2 & 35/8.4 & 17/13 & 16/2.5 \\
+M7n & 7.9/3.6 & 12/$<$1 & 11/7.5 & 7.6/$<$1 & 19/$<$1 & 15/7.7 & 16/$<$1 \\
+M7 & 6.6/2.2 & 9.4/$<$1 & 24/18 & 6.4/$<$1 & 15/$<$1 & 204/118 & 54/1.6 \\
+NN & 6.5 & 6.7 & 11 & 1.9 & 5.4 & 15 & 4.3 \\
+M1sn & 5.7 & 2.8 & 9.3 & 1.8 & 9.5 & 9.9 & 3.0 \\
+M3 & 34/19 & 20/11 & 25/16 & 23/8.1 & 44/20 & 22/13 & 39/3.0 \\
+\multicolumn{8}{@{}l}{\emph{New family}} \\
+M0 & 40 & 113 & 26 & 29 & 40 & 120 & 33 \\
+M1s & 15 & 107 & 18 & 125 & 43 & 29 & 23 \\
+M2 & 20/1.9 & 11/3.4 & 32/9.8 & 10/$<$1 & 46/34 & 25/5.9 & 40/36 \\
+M5 & 5.5/2.1 & 9.9/3.9 & 22/21 & 7.5/3.1 & 39/32 & 20/15 & 40/37 \\
+M7n & 21/18 & 170/169 & 12/11 & 131/129 & 48/44 & 48/44 & 33/26 \\
+M7 & 17/13 & 132/77 & 33/3.7 & 155/108 & 50/43 & 60/26 & 47/18 \\
+NN & 20 & 170 & 12 & 130 & 46 & 46 & 28 \\
+M1sn & 20 & 170 & 13 & 130 & 47 & 45 & 28 \\
+M3 & 17/3.2 & 15/6.6 & 32/17 & 31/5.3 & 58/40 & 31/15 & 40/17 \\
+\midrule Pooled floor & 0.051 & 0.046 & 0.0028 & 0.078 & 0.11 & 0.011 & 0.0070 \\
+\botrule
+\end{tabular}
+\footnotetext{In the floor of the characteristic's geometry; a new family in the produced family's floor. 18 cases per characteristic with a sibling and for a new family, 6 interpolated, 12 extrapolated. Pooled floor: to read the distances in the unit. Source: \texttt{qual\_per\_characteristic}.}
+\end{table}
+%% END GENERATED s-qc
+
+%% BEGIN GENERATED s-validation
+\begin{table}[p]
+\tabsizesmall
+\setlength{\tabcolsep}{3pt}
+\caption{The simulation dataset against the measurement per characteristic, geometry and force}\label{tab:s-validation}
+\begin{tabular}{@{}lrrrrrrrrr@{}}
+\toprule
+Geometry & kN & Measured & $\mu=0.10$ & Floors & Range over $\mu$ & Closest $\mu$ & Residual & $x$--$y$ & Rough. \\
+\midrule
+\multicolumn{10}{@{}l}{\emph{Draw-in, mid-side (mm)}} \\
+concave & 100 & 15.14 & 16.98 & 37 & 16.63--17.34 & 0.15 & 30.0 & 0.1 & 0.1 \\
+ & 300 & 14.82 & 15.66 & 17 & 14.83--16.67 & 0.15 & 0.2 &  & \\
+ & 500 & 14.73 & 14.85 & 2 & 13.59--16.14 & 0.11 & $-$2.4 &  & \\
+convex & 100 & 16.08 & 18.09 & 38 & 17.81--18.41 & 0.15 & 33.1 & 0.2 & 0.1 \\
+ & 300 & 15.76 & 16.91 & 22 & 16.17--17.71 & 0.15 & 7.7 &  & \\
+ & 500 & 15.66 & 16.05 & 7 & 14.78--17.23 & 0.12 & $-$1.7 &  & \\
+\multicolumn{10}{@{}l}{\emph{Draw-in, corner (mm)}} \\
+concave & 100 & 4.962 & 8.385 & 65 & 8.240--8.525 & 0.15 & 62.2 &  & 0.1 \\
+ & 300 & 4.811 & 7.971 & 60 & 7.517--8.328 & 0.15 & 51.4 &  & \\
+ & 500 & 4.620 & 7.210 & 49 & 5.876--8.046 & 0.15 & 23.8 &  & \\
+convex & 100 & 10.00 & 13.48 & 116 & 13.31--13.65 & 0.15 & 110.5 &  & 0.2 \\
+ & 300 & 9.876 & 13.14 & 109 & 12.76--13.47 & 0.15 & 96.3 &  & \\
+ & 500 & 9.668 & 12.58 & 97 & 11.38--13.27 & 0.15 & 57.1 &  & \\
+\multicolumn{10}{@{}l}{\emph{Flange waviness (mm)}} \\
+concave & 100 & 0.1028 & 0.08211 & $-$6 & 0.05973--0.09609 & 0.05 & $-$1.8 &  & 0.4 \\
+ & 300 & 0.06655 & 0.01440 & $-$14 & 0.01300--0.05128 & 0.05 & $-$4.2 &  & \\
+ & 500 & 0.05241 & 0.03940 & $-$4 & 0.01075--0.07766 & 0.12 & 0.9 &  & \\
+convex & 100 & 0.07836 & 0.06604 & $-$6 & 0.05264--0.06648 & 0.14 & $-$5.6 &  & 4.0 \\
+ & 300 & 0.06106 & 0.05964 & $-$1 & 0.05690--0.08995 & 0.10 & $-$0.7 &  & \\
+ & 500 & 0.06110 & 0.07239 & 5 & 0.05734--0.1112 & 0.07 & 1.4 &  & \\
+\multicolumn{10}{@{}l}{\emph{Wall angle ($^\circ$)}} \\
+concave & 100 & 21.60 & 20.92 & $-$8 & 19.77--21.10 & 0.07 & $-$6.2 & 2.3 & 3.1 \\
+ & 300 & 21.54 & 20.32 & $-$15 & 19.44--20.61 & 0.11 & $-$11.5 &  & \\
+ & 500 & 21.56 & 19.42 & $-$27 & 19.33--20.92 & 0.15 & $-$8.0 &  & \\
+convex & 100 & 11.45 & 10.74 & $-$9 & 10.01--10.91 & 0.11 & $-$6.9 & 1.8 & 1.7 \\
+ & 300 & 11.43 & 10.30 & $-$15 & 10.30--10.85 & 0.05 & $-$7.5 &  & \\
+ & 500 & 11.50 & 11.13 & $-$5 & 10.31--11.20 & 0.14 & $-$3.9 &  & \\
+\multicolumn{10}{@{}l}{\emph{Arm angle, cut ($^\circ$)}} \\
+concave & 100 & 0.7594 & $-$0.4379 & $-$10 & $-$1.103 to 0.1517 & 0.05 & $-$5.2 & 0.5 & 0.9 \\
+ & 300 & 0.4757 & $-$3.702 & $-$36 & $-$4.363 to $-$1.142 & 0.05 & $-$13.9 &  & \\
+ & 500 & 0.2892 & $-$4.349 & $-$40 & $-$4.451 to $-$2.928 & 0.05 & $-$27.7 &  & \\
+convex & 100 & $-$4.330 & $-$4.443 & $-$1 & $-$4.687 to $-$3.104 & 0.11 & 0.4 & 1.1 & 0.9 \\
+ & 300 & $-$4.947 & $-$5.503 & $-$6 & $-$5.503 to $-$4.246 & 0.06 & 0.0 &  & \\
+ & 500 & $-$4.720 & $-$4.296 & 4 & $-$5.586 to $-$2.301 & 0.08 & 0.0 &  & \\
+\multicolumn{10}{@{}l}{\emph{Cup depth (mm)}} \\
+concave & 100 & 28.44 & 29.35 & 104 & 29.35--29.38 & 0.10 & 104.3 &  & 0.8 \\
+ & 300 & 28.33 & 29.34 & 116 & 29.31--29.36 & 0.06 & 112.1 &  & \\
+ & 500 & 28.29 & 29.24 & 109 & 29.00--29.33 & 0.15 & 82.3 &  & \\
+convex & 100 & 28.82 & 29.88 & 86 & 29.81--29.88 & 0.05 & 80.8 &  & 0.7 \\
+ & 300 & 28.72 & 29.64 & 75 & 29.47--29.80 & 0.15 & 61.5 &  & \\
+ & 500 & 28.66 & 29.37 & 58 & 29.12--29.64 & 0.15 & 37.9 &  & \\
+\multicolumn{10}{@{}l}{\emph{Bottom dome, cut (mm)}} \\
+concave & 100 & 0.02971 & 0.1336 & 30 & 0.01244--0.1336 & 0.15 & 0.2 &  & 9.8 \\
+ & 300 & 0.03595 & 0.1387 & 30 & 0.03240--0.1753 & 0.15 & $-$1.0 &  & \\
+ & 500 & 0.04309 & 0.08286 & 12 & $-$0.004812 to 0.1545 & 0.08 & 2.1 &  & \\
+convex & 100 & 0.1162 & 0.04951 & $-$8 & $-$0.002123 to 0.06661 & 0.12 & $-$6.0 &  & 2.4 \\
+ & 300 & 0.1047 & 0.01768 & $-$11 & 0.001869--0.08873 & 0.12 & $-$1.9 &  & \\
+ & 500 & 0.09375 & 0.02753 & $-$8 & $-$0.0008228 to 0.08175 & 0.11 & $-$1.5 &  & \\
+\botrule
+\end{tabular}
+\footnotetext{Values in the unit of the characteristic (signed); simulation at 0.99\,mm. $\mu=0.10$: the nominal simulation; floors: its difference from the measurement. Range over $\mu$: over the friction grid 0.05--0.15; closest $\mu$: grid friction nearest the measurement, residual there (floors). $x$--$y$, Rough.: extraction noise of the simulated characteristic, standard deviation of the difference between the two directions of the quarter model and roughness along the friction grid (floors). Levels depend on the assumed blank (210\,mm) and the scanner's scales; the force effects, the concave wall-angle trend, the arm sign and the dome ranking do not. Mc's friction fits end at the upper edge of the grid in 72 of 72 within-family calibrations. Source: \texttt{sim\_validation}, \texttt{sim\_mc\_friction}.}
+\end{table}
+%% END GENERATED s-validation
+
+%% BEGIN GENERATED s-scan
+\begin{table}[p]
+\tabsizesmall
+\setlength{\tabcolsep}{4pt}
+\caption{Redundancy of the scans per series, and the components of the floor}\label{tab:s-scan}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+Series & $W_y-W_x$ & $\sigma_y/\sigma_x$ & $r_{xy}$ & Diagonals & N$-$EW & $r_\mathrm{EW}$ \\
+\midrule
+concave/100/coarse & 2.49 & 5.9 & 0.01 & 1.84 & 0.12 & 0.09 \\
+concave/100/fine & 3.47 & 3.8 & 0.20 & 2.06 & 0.39 & 0.27 \\
+concave/100/medium & 2.69 & 6.1 & -0.12 & 1.94 & 0.15 & 0.08 \\
+concave/300/coarse & 2.82 & 4.5 & -0.04 & 1.79 & 0.12 & 0.16 \\
+concave/300/fine & 2.48 & 4.4 & -0.14 & 1.81 & 0.20 & 0.05 \\
+concave/300/medium & 2.70 & 5.8 & 0.06 & 1.75 & 0.12 & 0.17 \\
+concave/500/coarse & 3.29 & 4.7 & 0.00 & 1.74 & 0.13 & 0.04 \\
+concave/500/fine & 2.86 & 5.1 & -0.01 & 1.64 & -0.05 & -0.10 \\
+concave/500/medium & 2.94 & 3.7 & 0.01 & 1.67 & 0.09 & 0.01 \\
+convex/100/coarse & 3.46 & 17.7 & 0.05 & 1.94 & -0.92 & -0.66 \\
+convex/100/fine & 2.29 & 9.5 & -0.21 & 1.96 & -0.96 & -0.57 \\
+convex/100/medium & 2.98 & 16.2 & 0.00 & 1.96 & -0.92 & -0.71 \\
+convex/300/coarse & 2.33 & 7.7 & 0.09 & 2.17 & -1.23 & -0.55 \\
+convex/300/fine & 2.44 & 7.9 & -0.02 & 1.89 & -0.98 & -0.53 \\
+convex/300/medium & 2.43 & 5.3 & 0.01 & 1.87 & -0.92 & -0.54 \\
+convex/500/coarse & 2.32 & 5.4 & 0.02 & 2.16 & -1.23 & -0.60 \\
+convex/500/fine & 2.40 & 6.1 & -0.00 & 1.96 & -1.64 & -0.62 \\
+convex/500/medium & 2.64 & 8.1 & 0.02 & 2.13 & -1.33 & -0.49 \\
+\midrule \multicolumn{7}{@{}l}{\emph{Components of the floor (fractions of the floor), concave/convex}} \\
+Characteristic & \multicolumn{2}{c}{$\sigma_\mathrm{b}/F$} & \multicolumn{2}{c}{$\sigma_\mathrm{w}/F$} & \multicolumn{2}{c}{Drift ratio} \\
+Draw-in, mid-side & \multicolumn{2}{c}{0.32/0.34} & \multicolumn{2}{c}{0.91/0.66} & \multicolumn{2}{c}{3.3} \\
+Draw-in, corner & \multicolumn{2}{c}{0.31/0.35} & \multicolumn{2}{c}{0.65/0.77} & \multicolumn{2}{c}{4.5} \\
+Flange waviness & \multicolumn{2}{c}{0.33/0.30} & \multicolumn{2}{c}{0.55/1.31} & \multicolumn{2}{c}{2.5} \\
+Wall angle & \multicolumn{2}{c}{0.32/0.26} & \multicolumn{2}{c}{0.68/1.39} & \multicolumn{2}{c}{2.1} \\
+Arm angle, cut & \multicolumn{2}{c}{0.36/0.31} & \multicolumn{2}{c}{0.46/1.22} & \multicolumn{2}{c}{2.6} \\
+Cup depth & \multicolumn{2}{c}{0.31/0.34} & \multicolumn{2}{c}{0.65/0.52} & \multicolumn{2}{c}{3.9} \\
+Bottom dome, cut & \multicolumn{2}{c}{0.33/0.36} & \multicolumn{2}{c}{0.76/0.55} & \multicolumn{2}{c}{3.9} \\
+\botrule
+\end{tabular}
+\footnotetext{$W_y-W_x$: flange width in the direction of motion minus that along the laser line (mm); $\sigma_y/\sigma_x$: ratio of their part-to-part standard deviations; $r_{xy}$: their correlation; diagonals: difference of the two flange diagonals (mm); N$-$EW: north wall angle minus the mean of east and west ($^\circ$); $r_\mathrm{EW}$: correlation of east and west. $\sigma_\mathrm{b}$: standard deviation between batch means; $\sigma_\mathrm{w}$: within batches; drift ratio: floor over that of the series in random order. Source: \texttt{meas\_scan}, \texttt{panel\_floor\_protocol}, \texttt{sens\_drift}.}
+\end{table}
+%% END GENERATED s-scan
+
+%% BEGIN GENERATED s-gp
+\begin{table}[p]
+\tabsizesmall
+\setlength{\tabcolsep}{3pt}
+\caption{Fitted Gaussian processes by relation: hyperparameters and where their centres lie}\label{tab:s-gp}
+\begin{tabular}{@{}llrrrrrrrrr@{}}
+\toprule
+Relation & Rule & Fits & $\ell_F$ & At bound & Noise & $\Delta$mean & ${\le}0.01$ & $\Delta$NN & $\Delta$M1sn & HW \\
+\midrule
+Sibling & M5 & 126 & 0.13 & 45 & 1.00 & 2.6 & 0 & 0.27 & 0.92 & 2.2 \\
+ & M5n & 126 & 1.76 & 22 & 1.00 & 2.1 & 20 & 0.28 & 0.88 & 2.3 \\
+ & M7n & 126 & 1.43 & -- & 3.6 & 2.6 & 0 & 0.40 & 1.0 & 1.6 \\
+ & M7 & 126 & 1.98 & -- & 3.6 & 2.6 & 0 & 0.48 & 1.0 & 1.6 \\
+Interpolated & M5 & 14 & 0.10 & 64 & 1.00 & 4.1 & 0 & 4.1 & 4.1 & 6.4 \\
+ & M5n & 14 & 0.10 & 79 & 1.00 & 0 & 95 & 0 & 0 & 5.8 \\
+ & M7n & 14 & 1.92 & -- & 4.0 & 0.36 & 2 & 0.36 & 0.36 & 2.0 \\
+ & M7 & 14 & 1.92 & -- & 4.0 & 1.4 & 0 & 1.4 & 1.4 & 3.0 \\
+Extrapolated & M5 & 28 & 0.10 & 54 & 1.00 & 6.8 & 0 & 6.1 & 4.9 & 4.6 \\
+ & M5n & 28 & 0.10 & 68 & 1.00 & 0 & 93 & 1.3 & 3.9 & 3.7 \\
+ & M7n & 28 & 1.95 & -- & 3.1 & 4.2 & 0 & 2.9 & 0.33 & 2.8 \\
+ & M7 & 28 & 1.95 & -- & 3.1 & 3.6 & 1 & 3.1 & 2.1 & 3.2 \\
+New family & M5 & 14 & 0.21 & 43 & 1.00 & 24 & 0 & 21 & 22 & 1.9 \\
+ & M5n & 14 & 1.77 & 21 & 1.00 & 1.9 & 13 & 0.22 & 0.66 & 2.0 \\
+ & M7n & 14 & 1.51 & -- & 3.7 & 2.2 & 1 & 0.37 & 0.83 & 1.2 \\
+ & M7 & 14 & 1.87 & -- & 4.0 & 6.8 & 1 & 5.0 & 4.8 & 7.3 \\
+Pooled interp. & M5 & 14 & 2.12 & 14 & 1.00 & 20 & 0 & 5.3 & 20 & 4.9 \\
+ & M5n & 14 & 9.33 & 0 & 1.00 & 22 & 0 & 0.81 & 22 & 3.0 \\
+ & M7n & 14 & 1.52 & -- & 2.9 & 19 & 0 & 1.1 & 19 & 2.0 \\
+ & M7 & 14 & 1.91 & -- & 3.0 & 19 & 0 & 1.3 & 19 & 2.2 \\
+Pooled extrap. & M5 & 28 & 1.92 & 11 & 1.00 & 18 & 0 & 5.3 & 25 & 6.3 \\
+ & M5n & 28 & 9.07 & 0 & 1.00 & 17 & 4 & 1.7 & 25 & 4.4 \\
+ & M7n & 28 & 1.25 & -- & 2.9 & 19 & 0 & 3.3 & 29 & 3.2 \\
+ & M7 & 28 & 1.46 & -- & 2.8 & 24 & 0 & 2.6 & 30 & 4.3 \\
+\botrule
+\end{tabular}
+\footnotetext{$\ell_F$: median force length scale (100\,kN). At bound: fits with $\ell_F$ at its lower bound (\%). Noise: fitted noise over its bound (M5, M5n) or nugget over the sampling error of the truths (M7n, M7), median. $\Delta$mean, $\Delta$NN, $\Delta$M1sn: median distance (floors) of the centre from the calibration mean, NN and M1sn; ${\le}0.01$: cases within 0.01 floor of the calibration mean (\%). HW: median half-width (floors). Pooled: both families calibrate, with a family term. Source: \texttt{learn\_gp\_diagnostics}.}
+\end{table}
+%% END GENERATED s-gp
+
+%% BEGIN GENERATED s-priors
+\begin{table}[p]
+\tabsizesmall
+\setlength{\tabcolsep}{2.4pt}
+\caption{The trend GP M7n with each of its four prior medians halved or doubled}\label{tab:s-priors}
+\begin{tabular}{@{}lrrrrrrrrrrr@{}}
+\toprule
+ & \multicolumn{3}{c}{Sibling} & \multicolumn{4}{c}{Interpolated} & \multicolumn{4}{c}{Extrapolated} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-8}\cmidrule(lr){9-12}
+Prior median & $\delta_\mathrm{d}/\delta_\mathrm{s}$ & Cov & HW & $\delta_\mathrm{d}/\delta_\mathrm{s}$ & Cov & HW & $\Delta$M1sn & $\delta_\mathrm{d}/\delta_\mathrm{s}$ & Cov & HW & $\Delta$M1sn \\
+\midrule
+reference & 6.8/$<$1 & 85 & 1.6 & 7.4/3.4 & 52 & 2.0 & 0.36 & 15/5.9 & 56 & 2.8 & 0.33 \\
+GP standard deviation x0.5 & 6.9/$<$1 & 84 & 1.6 & 7.2/3.5 & 50 & 1.8 & 0.31 & 15/6.2 & 50 & 2.3 & 0.34 \\
+GP standard deviation x2 & 7.1/$<$1 & 84 & 1.6 & 7.8/3.3 & 57 & 2.2 & 0.38 & 16/5.5 & 60 & 3.2 & 0.32 \\
+force length scale x0.5 & 7.1/$<$1 & 84 & 1.6 & 8.6/2.8 & 60 & 2.8 & 0.25 & 16/5.5 & 62 & 3.8 & 0.41 \\
+force length scale x2 & 7.1/$<$1 & 81 & 1.6 & 7.2/3.7 & 50 & 1.4 & 0.38 & 15/6.4 & 48 & 2.1 & 0.33 \\
+lubrication length scale x0.5 & 7.0/$<$1 & 83 & 1.7 & 7.3/3.6 & 50 & 1.7 & 0.37 & 15/6.3 & 48 & 2.2 & 0.30 \\
+lubrication length scale x2 & 6.9/$<$1 & 83 & 1.5 & 8.2/3.2 & 57 & 2.4 & 0.23 & 17/5.2 & 61 & 3.5 & 0.37 \\
+nugget standard deviation x0.5 & 6.7/$<$1 & 80 & 1.4 & 7.3/3.5 & 50 & 1.9 & 0.36 & 15/5.8 & 55 & 2.8 & 0.38 \\
+nugget standard deviation x2 & 7.7/$<$1 & 86 & 1.8 & 7.6/3.3 & 55 & 2.1 & 0.30 & 15/5.9 & 54 & 3.0 & 0.33 \\
+\botrule
+\end{tabular}
+\footnotetext{Reference medians: force length scale 200\,kN, lubrication length scale one pattern step, GP standard deviation two floors, nugget standard deviation one floor; one median changed at a time, every calibration set refitted. Cov: coverage of the 90\,\% interval (\%); HW: median half-width (floors); $\Delta$M1sn: median distance of the centre from the force trend (floors). For a new family every variant decides beyond 131 floors and covers no truth. The reference row reproduces the stored intervals exactly. Source: \texttt{learn\_m7n\_priors}.}
+\end{table}
+%% END GENERATED s-priors
+
+%% BEGIN GENERATED s-crossing
+\begin{table}[p]
+\tabsizesmall
+\setlength{\tabcolsep}{4pt}
+\caption{Point predictors crossed with the relation-matched interval, against the rules' own intervals and a trend GP calibrated on both families}\label{tab:s-crossing}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+Predictor and interval & $\delta_\mathrm{d}/\delta_\mathrm{s}$ & FA & Cov & IS & $q$ (c/v) & $n$ \\
+\midrule
+\multicolumn{7}{@{}l}{\emph{Sibling}} \\
+NN+RM & 6.3/$<$1 & $<$1 & 84 & 11 & 4.4/2.0 & 63 \\
+M1sn+RM & 7.1/$<$1 & $<$1 & 88 & 9 & 3.9/3.3 & 63 \\
+M1s+RM & 11/$<$1 & $<$1 & 90 & 15 & 4.8/6.3 & 63 \\
+M5n+RM & 6.1/$<$1 & $<$1 & 88 & 9 & 3.6/2.6 & 63 \\
+M5+RM & 6.0/$<$1 & $<$1 & 86 & 11 & 3.8/2.1 & 63 \\
+M3n+RM & 8.1/$<$1 & $<$1 & 88 & 13 & 5.8/2.7 & 63 \\
+M7n+RM & 6.5/$<$1 & $<$1 & 91 & 11 & 4.4/2.4 & 63 \\
+M7+RM & 6.7/$<$1 & $<$1 & 89 & 11 & 4.4/2.3 & 63 \\
+M2 (own) & 23/$<$1 & $<$1 & 89 & 19 &  & \\
+M3 (own) & 23/$<$1 & $<$1 & 96 & 21 &  & \\
+M5 (own) & 7.2/$<$1 & $<$1 & 86 & 10 &  & \\
+M7n (own) & 6.8/$<$1 & $<$1 & 85 & 10 &  & \\
+M7n, both families & 8.5/$<$1 & $<$1 & 88 & 8 &  & \\
+\multicolumn{7}{@{}l}{\emph{Interpolated}} \\
+NN+RM & 9.6/$<$1 & $<$1 & 88 & 12 & 5.3/4.2 & 21 \\
+M1sn+RM & 9.6/$<$1 & $<$1 & 88 & 12 & 5.3/4.2 & 21 \\
+M1s+RM & 43/6.9 & 18 & 86 & 76 & 30.4/12.2 & 21 \\
+M5n+RM & 9.6/$<$1 & $<$1 & 88 & 12 & 5.3/4.2 & 21 \\
+M5+RM & 21/$<$1 & $<$1 & 93 & 24 & 9.7/11.6 & 21 \\
+M3n+RM & 21/$<$1 & $<$1 & 86 & 26 & 9.6/11.4 & 21 \\
+M7n+RM & 11/$<$1 & $<$1 & 90 & 14 & 6.5/4.7 & 21 \\
+M7+RM & 45/6.4 & 20 & 86 & 80 & 32.5/12.4 & 21 \\
+M2 (own) & 18/2.7 & 3.7 & 71 & 27 &  & \\
+M3 (own) & 29/13 & 13 & 43 & 98 &  & \\
+M5 (own) & 19/2.8 & 2.4 & 71 & 29 &  & \\
+M7n (own) & 7.4/3.4 & 2.2 & 52 & 26 &  & \\
+M7n, both families & 11/1.3 & 2.7 & 86 & 16 &  & \\
+\multicolumn{7}{@{}l}{\emph{Extrapolated}} \\
+NN+RM & 20/$<$1 & 1.5 & 93 & 24 & 9.1/11.0 & 42 \\
+M1sn+RM & 18/$<$1 & $<$1 & 88 & 19 & 9.2/8.6 & 42 \\
+M1s+RM & 31/4.8 & 155 & 86 & 155 & 9.6/21.0 & 42 \\
+M5n+RM & 24/$<$1 & 2.1 & 89 & 29 & 10.8/12.8 & 42 \\
+M5+RM & 26/2.2 & 2.4 & 85 & 40 & 11.5/14.5 & 42 \\
+M3n+RM & 20/$<$1 & 1.5 & 93 & 24 & 8.9/10.6 & 42 \\
+M7n+RM & 18/$<$1 & $<$1 & 89 & 19 & 9.2/8.3 & 42 \\
+M7+RM & 31/$<$1 & 151 & 89 & 149 & 9.6/21.1 & 42 \\
+M2 (own) & 18/9.9 & 8.7 & 44 & 79 &  & \\
+M3 (own) & 33/17 & 13 & 43 & 120 &  & \\
+M5 (own) & 19/8.9 & 8.4 & 46 & 75 &  & \\
+M7n (own) & 15/5.9 & 7.5 & 56 & 41 &  & \\
+M7n, both families & 15/3.1 & 3.9 & 79 & 21 &  & \\
+\multicolumn{7}{@{}l}{\emph{New family}} \\
+NN+RM & 293/4.5 & 4.1 & 86 & 362 & 124.4/168.3 & 63 \\
+M1sn+RM & 293/4.3 & 3.9 & 86 & 362 & 124.5/168.1 & 63 \\
+M1s+RM & 243/$<$1 & 5.9 & 93 & 252 & 118.5/124.3 & 63 \\
+M5n+RM & 293/4.5 & 3.9 & 86 & 362 & 124.5/168.4 & 63 \\
+M5+RM & 52/$<$1 & $<$1 & 91 & 78 & 33.5/34.9 & 63 \\
+M3n+RM & 292/4.8 & 4.5 & 86 & 361 & 123.9/167.5 & 63 \\
+M7n+RM & 293/5.1 & 4.0 & 86 & 363 & 124.4/168.5 & 63 \\
+M7+RM & 248/$<$1 & 3.6 & 93 & 253 & 121.9/125.7 & 63 \\
+M2 (own) & 41/26 & 27 & 47 & 124 &  & \\
+M3 (own) & 40/17 & 18 & 40 & 134 &  & \\
+M5 (own) & 35/31 & 33 & 12 & 188 &  & \\
+M7n (own) & 132/130 & 129 & 0 & 1043 &  & \\
+\botrule
+\end{tabular}
+\footnotetext{P+RM: the prediction of P (for interval rules the interval centre) with the 90\,\% split-conformal quantile $q$ of P's absolute errors (floors) over the $n$ cases of the same relation in the other family; c/v: the quantile borrowed by the concave and by the convex cup. These $n$ cases come from one family and from one or a few shared fits, so the interval carries no coverage guarantee. Own: the rule's own interval. Both families: M7n calibrated on both families with a family term. FA: safe distance on the false-accept side; Cov: coverage (\%); IS: mean interval score at $\alpha=0.1$ (floors). A new family in the produced family's floor. Source: \texttt{learn\_resolution}, \texttt{qual\_coverage}.}
+\end{table}
+%% END GENERATED s-crossing
+
+%% BEGIN GENERATED s-coverage
+\begin{table}[p]
+\tabsizesmall
+\setlength{\tabcolsep}{3pt}
+\caption{Interval rules: coverage and interval score by relation}\label{tab:s-coverage}
+\begin{tabular}{@{}llrrrrrrrr@{}}
+\toprule
+ & & \multicolumn{2}{c}{Sibling} & \multicolumn{2}{c}{Interpolated} & \multicolumn{2}{c}{Extrapolated} & \multicolumn{2}{c}{New family} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+Rule & Level & Cov & IS & Cov & IS & Cov & IS & Cov & IS \\
+\midrule
+M2 & 0.78 & 89 (83--94) & 19 & 71 & 27 & 44 & 79 & 47 & 124 \\
+M2n & 0.78 & 90 (82--95) & 15 & 93 & 14 & 33 & 59 & 12 & 969 \\
+M3 & 0.78 & 96 (93--98) & 21 & 43 & 98 & 43 & 120 & 40 & 134 \\
+M3n & 0.78 & 89 (81--96) & 11 & 36 & 65 & 48 & 48 & 7 & 989 \\
+M5 & 0.90 & 86 (77--94) & 10 & 71 & 29 & 46 & 75 & 12 & 188 \\
+M5n & 0.90 & 85 (76--93) & 9 & 93 & 16 & 36 & 55 & 0 & 1024 \\
+M7 & 0.90 & 83 (73--93) & 10 & 57 & 81 & 58 & 147 & 17 & 698 \\
+M7n & 0.90 & 85 (75--94) & 10 & 52 & 26 & 56 & 41 & 0 & 1043 \\
+Mcd & 0.90 & 83 (72--92) & 10 & 79 & 24 & 67 & 50 & 11 & 139 \\
+NN+RM & 0.90 & 84 (74--94) & 11 & 88 & 12 & 93 & 24 & 86 & 362 \\
+M1sn+RM & 0.90 & 88 (81--94) & 9 & 88 & 12 & 88 & 19 & 86 & 362 \\
+M7n+RM & 0.90 & 91 (86--96) & 11 & 90 & 14 & 89 & 19 & 86 & 363 \\
+M6 & 0.90 & 93 (87--98) & 15 & 93 & 38 & 61 & 81 & 32 & 145 \\
+NN & point & -- & 24 & -- & 42 & -- & 81 & -- & 1067 \\
+M1sn & point & -- & 32 & -- & 42 & -- & 77 & -- & 1067 \\
+M1s & point & -- & 43 & -- & 122 & -- & 217 & -- & 860 \\
+\botrule
+\end{tabular}
+\footnotetext{Level: guaranteed with a sibling (largest residual, jackknife+) or nominal (model-based intervals and P+RM, whose guarantee would need exchangeable families). Cov: coverage (\%), with a sibling with a 95\,\% interval over 2000 resamples of the alternatives within each geometry; for a new setting or family the alternatives of one held-out cell or family share one fit, so no interval over alternatives is given. IS: mean interval score (Gneiting and Raftery 2007) at $\alpha=0.1$, floors; lower is better; for point rules $20\,|e|$. M6: conformal margin on standardised residuals of the calibration set. Source: \texttt{qual\_coverage}, \texttt{qual\_m6\_coverage}.}
+\end{table}
+%% END GENERATED s-coverage
+
+%% BEGIN GENERATED s-coverage-detail
+\begin{table}[p]
+\tabsizesmall
+\setlength{\tabcolsep}{2.1pt}
+\caption{Coverage (\%) per family, characteristic and decision-time stratum}\label{tab:s-coverage-detail}
+\begin{tabular}{@{}llrrrrrrrrrrr@{}}
+\toprule
+Relation & Rule & Conc. & Conv. & Mid-side & Corner & Wavin. & Wall & Arm & Depth & Dome & Not res. & Res. \\
+\midrule
+Sibling & M5 & 90 & 81 & 89 & 89 & 89 & 83 & 83 & 83 & 83 & 89 & 80 \\
+ & M5n & 86 & 84 & 89 & 83 & 89 & 72 & 89 & 89 & 83 & 88 & 80 \\
+ & M7n & 83 & 87 & 83 & 89 & 100 & 89 & 72 & 83 & 78 & 89 & 78 \\
+ & M3 & 95 & 97 & 100 & 100 & 100 & 89 & 94 & 94 & 94 & 96 & 96 \\
+ & Mcd & 83 & 83 & 78 & 83 & 100 & 94 & 67 & 78 & 78 & 87 & 76 \\
+ & NN+RM & 95 & 73 & 100 & 89 & 100 & 89 & 72 & 78 & 61 & 95 & 69 \\
+ & M7n+RM & 95 & 87 & 100 & 94 & 100 & 100 & 89 & 94 & 61 & 96 & 84 \\
+Interpolated & M5 & 71 & 71 & 100 & 100 & 50 & 50 & 100 & 67 & 33 &  & \\
+ & M5n & 100 & 86 & 100 & 100 & 100 & 100 & 67 & 100 & 83 &  & \\
+ & M7n & 57 & 48 & 17 & 100 & 0 & 100 & 67 & 33 & 50 &  & \\
+ & M3 & 33 & 52 & 0 & 67 & 67 & 67 & 50 & 17 & 33 &  & \\
+ & Mcd & 100 & 57 & 100 & 100 & 50 & 50 & 100 & 83 & 67 &  & \\
+ & NN+RM & 100 & 76 & 100 & 100 & 67 & 100 & 67 & 100 & 83 &  & \\
+ & M7n+RM & 100 & 81 & 100 & 100 & 83 & 100 & 67 & 100 & 83 &  & \\
+Extrapolated & M5 & 45 & 48 & 0 & 50 & 50 & 50 & 58 & 50 & 67 &  & \\
+ & M5n & 26 & 45 & 33 & 0 & 33 & 67 & 25 & 17 & 75 &  & \\
+ & M7n & 50 & 62 & 33 & 92 & 0 & 67 & 92 & 17 & 92 &  & \\
+ & M3 & 48 & 38 & 17 & 17 & 50 & 42 & 67 & 25 & 83 &  & \\
+ & Mcd & 64 & 69 & 25 & 75 & 67 & 100 & 25 & 75 & 100 &  & \\
+ & NN+RM & 86 & 100 & 100 & 100 & 75 & 100 & 100 & 75 & 100 &  & \\
+ & M7n+RM & 95 & 83 & 100 & 100 & 50 & 100 & 92 & 83 & 100 &  & \\
+\botrule
+\end{tabular}
+\footnotetext{Conc., Conv.: held-out alternatives of the concave and the convex cup (63 cases with a sibling, 21 interpolated, 42 extrapolated each). 18 cases per characteristic with a sibling, 6 interpolated, 12 extrapolated. Not res., Res.: the produced siblings do not or do differ resolvably from each other (75 and 51 cases). Source: \texttt{qual\_coverage}.}
+\end{table}
+%% END GENERATED s-coverage-detail
+
+%% BEGIN GENERATED s-guards
+\begin{table}[p]
+\tabsizesmall
+\setlength{\tabcolsep}{3pt}
+\caption{Guard bands available when deciding, by relation and prior, validated by the matching scheme}\label{tab:s-guards}
+\begin{tabular}{@{}llrrrrrlr@{}}
+\toprule
+Relation & Rule & $g$ (c/v) & Correct & T & Decided & FA & Worst characteristic & Cell out \\
+\midrule
+\multicolumn{9}{@{}l}{\emph{Reference prior}} \\
+Sibling & NN & 0/0.5 & 95 (94--97) & 2 & 5649/5747 & 1.8 & Dome 89 & \\
+ & M1sn & 0.5/1.0 & 95 (94--97) & 7 & 5362/5747 & 1.8 & Dome 92 & \\
+ & M2 & 0 & 99 (98--100) & 54 & 2618/5747 & 0.1 & Dome 98 & \\
+ & M5 & 0 & 99 (98--100) & 23 & 4432/5747 & 0.3 & Dome 94 & \\
+ & M5n & 0 & 99 (98--100) & 22 & 4485/5747 & 0.3 & Dome 95 & \\
+ & M7n & 0 & 98 (97--100) & 19 & 4644/5747 & 0.4 & Dome 92 & \\
+ & Mcd & 0 & 98 (97--99) & 19 & 4669/5747 & 0.4 & Dome 92 & \\
+ & NN+RM & 0 & 99 (97--99) & 28 & 4160/5747 & 0.4 & Dome 94 & \\
+Interpolated & NN & 2.5/1.5 & 95 & 18 & 1577/1913 & 1.0 & Wavin. 88 & 95 \\
+ & M1sn & 2.5/1.5 & 95 & 18 & 1577/1913 & 1.0 & Wavin. 88 & 95 \\
+ & M2 & 0.5/0.75 & 95 & 52 & 914/1913 & 1.4 & Dome 87 & 95 \\
+ & M5 & 0/1.75 & 95 & 57 & 826/1913 & 0.7 & Dome 82 & 95 \\
+ & M5n & 0 & 99 & 53 & 891/1913 & 0.4 & Arm 96 & 99 \\
+ & M7n & 1.75/0 & 95 & 28 & 1378/1913 & 1.2 & Wavin. 89 & 95 \\
+ & Mcd & 1.25/0 & 95 & 57 & 818/1913 & 0.1 & Dome 87 & \\
+ & NN+RM & 0 & 99 & 42 & 1103/1913 & 0.3 & Arm 96 & 99 \\
+Extrapolated & NN & 5.75/9.5 & 95 & 58 & 1600/3834 & 2.0 & Depth 85 & 93 \\
+ & M1sn & 6.5/5.5 & 95 & 47 & 2017/3834 & 1.7 & Wavin. 87 & 95 \\
+ & M2 & 6.25/none & 84 & 81 & 711/3834 & 2.2 & Arm 62 & 83 \\
+ & M5 & 5.0/none & 83 & 80 & 761/3834 & 2.4 & Arm 62 & 81 \\
+ & M5n & 5.0/8.5 & 95 & 68 & 1218/3834 & 1.7 & Depth 84 & 92 \\
+ & M7n & 4.75/2.75 & 96 & 60 & 1547/3834 & 1.7 & Wavin. 85 & 95 \\
+ & Mcd & 4.5/8.0 & 94 & 78 & 854/3834 & 0.3 & Arm 79 & \\
+ & NN+RM & 0/0.5 & 97 & 73 & 1029/3834 & 0.8 & Depth 90 & 97 \\
+New family & Mcd & none/18.25 & 73 & 91 & 502/5692 & 2.4 & Dome 60 & \\
+ & NN+RM & 0/none & 59 & 87 & 716/5692 & 1.4 & Corner 49 & \\
+\multicolumn{9}{@{}l}{\emph{Release-like prior}} \\
+Sibling & NN & 1.0/3.0 & 96 (92--98) & 41 & 1563/2633 & 0.8 & Dome 85 & \\
+ & M1sn & 2.25/3.0 & 95 (93--97) & 47 & 1395/2633 & 0.9 & Dome 89 & \\
+ & M2 & 0 & 97 (94--99) & 76 & 637/2633 & 0.3 & Dome 94 & \\
+ & M5 & 0/6.0 & 95 (91--100) & 67 & 870/2633 & 0.4 & Dome 69 & \\
+ & M5n & 0 & 96 (93--99) & 44 & 1468/2633 & 0.6 & Dome 82 & \\
+ & M7n & 5.5/7.25 & 84 (82--100) & 91 & 232/2633 & 0.4 & Dome 54 & \\
+ & Mcd & 5.5/5.0 & 84 (82--100) & 91 & 250/2633 & 0.4 & Dome 59 & \\
+ & NN+RM & 0/1.0 & 96 (92--100) & 72 & 727/2633 & 0.3 & Dome 85 & \\
+Interpolated & NN & 4.75/3.5 & 93 & 67 & 289/880 & 0.8 & Arm 83 & 93 \\
+ & M1sn & 4.75/3.5 & 93 & 67 & 289/880 & 0.8 & Arm 83 & 93 \\
+ & M2 & 3.25/2.25 & 94 & 85 & 135/880 & 0.8 & Wavin. 85 & 94 \\
+ & M5 & 1.5/3.25 & 88 & 84 & 144/880 & 0.6 & Dome 75 & 88 \\
+ & M5n & 1.5/0 & 93 & 84 & 142/880 & 0.8 & Arm 82 & 93 \\
+ & M7n & 4.25/1.75 & 87 & 74 & 225/880 & 1.2 & Arm 73 & 87 \\
+ & Mcd & 4.75/0 & 77 & 80 & 179/880 & 0.2 & Wall 67 & \\
+ & NN+RM & 0.5/0 & 95 & 77 & 205/880 & 0.6 & Arm 84 & 95 \\
+Extrapolated & NN & 8.5/14.5 & 75 & 92 & 139/1753 & 2.0 & Depth 64 & 72 \\
+ & M1sn & 8.5/8.25 & 94 & 84 & 286/1753 & 0.7 & Arm 92 & 96 \\
+ & M2 & 10.25/none & 72 & 91 & 158/1753 & 2.3 & Arm 52 & 62 \\
+ & M5 & 9.25/none & 67 & 91 & 165/1753 & 2.6 & Arm 52 & 61 \\
+ & M5n & 8.0/12.5 & 77 & 93 & 121/1753 & 1.6 & Depth 61 & 77 \\
+ & M7n & 7.0/6.25 & 93 & 90 & 170/1753 & 0.7 & Depth 91 & 94 \\
+ & Mcd & 8.0/10.5 & 83 & 95 & 90/1753 & 0.0 & Arm 67 & \\
+ & NN+RM & 0/5.25 & 75 & 93 & 121/1753 & 1.7 & Depth 64 & 73 \\
+New family & Mcd & none/19 & 60 & 93 & 176/2626 & 2.7 & Dome 56 & \\
+ & NN+RM & 0/none & 52 & 86 & 362/2626 & 2.8 & Corner 48 & \\
+\botrule
+\end{tabular}
+\footnotetext{$g$: band (floors) of the family's own sibling cases (with a sibling) or of the same relation in the other family (new setting, new family), for the concave/convex cup; none: no band up to 20 floors qualifies. Correct: share correct among decided verdicts (\%), with a sibling leaving one alternative out within its family (95\,\% cluster interval over alternatives), otherwise the other family's band on this family. T: share sent to trial (\%). Decided: decided and all verdicts. FA: false accepts (\% of verdicts). Worst characteristic: lowest share correct (\%). Cell out: share correct with the family's own band estimated without the held-out geometry--force cell. New-family rows only where a rule decides. Source: \texttt{qual\_guard\_decision}, \texttt{qual\_guard\_oos}.}
+\end{table}
+%% END GENERATED s-guards
+
+%% BEGIN GENERATED s-guard-qc
+\begin{table}[p]
+\tabsizesmall
+\setlength{\tabcolsep}{3pt}
+\caption{Share correct (\%) per characteristic under the guard bands available when deciding}\label{tab:s-guard-qc}
+\begin{tabular}{@{}llrrrrrrr@{}}
+\toprule
+Prior, relation & Rule & Mid-side & Corner & Wavin. & Wall & Arm & Depth & Dome \\
+\midrule
+Reference, Sibling & NN & 97 & 96 & 99 & 97 & 94 & 95 & 89 \\
+ & M1sn & 97 & 98 & 94 & 98 & 95 & 93 & 92 \\
+ & M2 & 100 & 99 & 99 & 99 & 100 & 99 & 98 \\
+ & M5 & 100 & 99 & 100 & 99 & 99 & 98 & 94 \\
+ & M7n & 99 & 99 & 100 & 100 & 98 & 98 & 92 \\
+ & NN+RM & 100 & 98 & 100 & 99 & 98 & 99 & 94 \\
+Interpolated & NN & 97 & 100 & 88 & 100 & 92 & 92 & 94 \\
+ & M1sn & 97 & 100 & 88 & 100 & 92 & 92 & 94 \\
+ & M2 & 100 & 100 & 90 & 94 & 100 & 99 & 87 \\
+ & M5 & 100 & 100 & 100 & 92 & 100 & 98 & 82 \\
+ & M7n & 97 & 100 & 89 & 100 & 90 & 98 & 89 \\
+ & NN+RM & 100 & 100 & 98 & 100 & 96 & 100 & 98 \\
+Extrapolated & NN & 99 & 100 & 90 & 100 & 100 & 85 & 100 \\
+ & M1sn & 100 & 100 & 87 & 100 & 88 & 93 & 100 \\
+ & M2 & 93 & 100 & 78 & 100 & 62 & 73 & 100 \\
+ & M5 & 94 & 100 & 72 & 100 & 62 & 70 & 100 \\
+ & M7n & 100 & 100 & 85 & 100 & 100 & 96 & 100 \\
+ & NN+RM & 100 & 100 & 96 & 100 & 100 & 90 & 100 \\
+Release-like, Sibling & NN & 97 & 99 & 100 & 99 & 95 & 95 & 85 \\
+ & M1sn & 98 & 97 & 95 & 99 & 94 & 92 & 89 \\
+ & M2 & 99 & 98 & 98 & 94 & 99 & 96 & 94 \\
+ & M5 & 100 & 100 & 100 & 99 & 95 & 90 & 69 \\
+ & M7n & 100 & 100 & 100 & 100 & 73 & 76 & 54 \\
+ & NN+RM & 100 & 100 & 100 & 100 & 93 & 99 & 85 \\
+Interpolated & NN & 100 & 100 & 87 & 100 & 83 & 100 & 90 \\
+ & M1sn & 100 & 100 & 87 & 100 & 83 & 100 & 90 \\
+ & M2 & -- & -- & 85 & 100 & -- & -- & 97 \\
+ & M5 & -- & -- & -- & 87 & -- & -- & 75 \\
+ & M7n & 98 & -- & 81 & -- & 73 & 100 & 81 \\
+ & NN+RM & 100 & -- & 94 & -- & 84 & 100 & 89 \\
+Extrapolated & NN & -- & -- & 77 & -- & -- & 64 & -- \\
+ & M1sn & 100 & -- & 94 & -- & 92 & 94 & -- \\
+ & M2 & 100 & -- & 88 & -- & 52 & 74 & -- \\
+ & M5 & -- & -- & 77 & -- & 52 & 68 & -- \\
+ & M7n & -- & -- & 92 & -- & -- & 91 & -- \\
+ & NN+RM & -- & -- & 81 & -- & -- & 64 & -- \\
+\botrule
+\end{tabular}
+\footnotetext{Bands and validation as in Table~\ref{tab:s-guards}; --: fewer than 20 decided verdicts. Source: \texttt{qual\_guard\_decision}.}
+\end{table}
+%% END GENERATED s-guard-qc
+
+%% BEGIN GENERATED s-prior
+\begin{table}[p]
+\tabsizesmall
+\setlength{\tabcolsep}{4pt}
+\caption{Guard band (floors) and trial rate (\%, in brackets) against the half-width of the prior}\label{tab:s-prior}
+\begin{tabular}{@{}llrrrrr@{}}
+\toprule
+Relation & Rule & $\pm3$ & $\pm5$ & $\pm10$ & $\pm20$ & $\pm50$ \\
+\midrule
+Sibling & NN & 8.0 (99) & 2.0 (37) & 0.5 (5) & 0.25 (2) & 0 (0) \\
+ & M1sn & 4.5 (89) & 2.75 (50) & 1.0 (10) & 0.75 (7) & 0.5 (4) \\
+ & M2 & 0.5 (85) & 0 (75) & 0 (60) & 0 (54) & 0 (48) \\
+ & M5 & 6.5 (99) & 0 (45) & 0 (26) & 0 (23) & 0 (20) \\
+ & M7n & 7.25 (99) & 6.75 (99) & 0 (22) & 0 (19) & 0 (17) \\
+ & NN+RM & 6.0 (100) & 0.5 (65) & 0 (31) & 0 (28) & 0 (24) \\
+Interpolated & NN & 5.0 (86) & 4.25 (68) & 2.5 (25) & 2.0 (18) & 1.5 (11) \\
+ & M1sn & 5.0 (86) & 4.25 (68) & 2.5 (25) & 2.0 (18) & 1.5 (11) \\
+ & M2 & 3.25 (89) & 2.75 (84) & 1.25 (62) & 0.75 (53) & 0 (42) \\
+ & M5 & 3.5 (91) & 2.75 (86) & 1.0 (62) & 0.5 (54) & 0 (45) \\
+ & M7n & 4.75 (93) & 3.75 (82) & 1.25 (36) & 0.75 (27) & 0.25 (20) \\
+ & NN+RM & 0.75 (88) & 0 (75) & 0 (48) & 0 (42) & 0 (37) \\
+Extrapolated & NN & 14.75 (99) & 14.25 (98) & 8.25 (69) & 7.0 (55) & 5.75 (40) \\
+ & M1sn & 9.0 (90) & 8.5 (84) & 6.75 (59) & 6.0 (48) & 5.25 (37) \\
+ & M2 & none (100) & none (100) & none (100) & none (100) & 17.5 (83) \\
+ & M5 & none (100) & none (100) & none (100) & none (100) & 17.75 (83) \\
+ & M7n & 7.25 (94) & 6.75 (91) & 4.25 (68) & 3.25 (56) & 2.25 (44) \\
+ & NN+RM & 5.5 (99) & 5.25 (98) & 0 (79) & 0 (72) & 0 (63) \\
+\botrule
+\end{tabular}
+\footnotetext{Prior: the evaluation grid of requirement distances within the half-width, equal weights; $\pm20$ is the reference prior and $\pm5$ the release-like one. Bands pooled over the families, in sample, to show the dependence on the prior. No rule qualifies for a new family. Source: \texttt{qual\_guard\_prior\_width}.}
+\end{table}
+%% END GENERATED s-prior
+
+%% BEGIN GENERATED s-costs
+\begin{table}[p]
+\tabsizesmall
+\setlength{\tabcolsep}{5pt}
+\caption{Cheapest option and its expected cost per verdict by relation, trial cost, prior and cost ratio}\label{tab:s-costs}
+\begin{tabular}{@{}lrlll@{}}
+\toprule
+Relation & $c_\mathrm{T}$ & $c_\mathrm{FR}=0.25$ & $c_\mathrm{FR}=0.5$ & $c_\mathrm{FR}=1$ \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{Reference prior}} \\
+Sibling & 0.02 & M5n 0.008 & M1sn 0.009 & M1sn 0.009 \\
+ & 0.05 & M5n 0.015 & M5n 0.017 & M5n 0.020 \\
+ & 0.1 & NN 0.022 & NN 0.026 & NN 0.031 \\
+ & 0.2 & NN 0.027 & NN 0.033 & NN 0.042 \\
+ & 0.5 & NN 0.028 & NN 0.036 & NN 0.051 \\
+Interpolated & 0.02 & NN$^*$ 0.009 & NN$^*$ 0.010 & NN$^*$ 0.010 \\
+ & 0.05 & NN$^*$ 0.022 & NN$^*$ 0.022 & NN$^*$ 0.023 \\
+ & 0.1 & NN$^*$ 0.033 & NN$^*$ 0.039 & NN$^*$ 0.043 \\
+ & 0.2 & NN$^*$ 0.039 & NN$^*$ 0.054 & NN$^*$ 0.074 \\
+ & 0.5 & NN$^*$ 0.040 & NN$^*$ 0.059 & NN$^*$ 0.096 \\
+Extrapolated & 0.02 & M1sn 0.014 & M1sn 0.014 & M1sn 0.014 \\
+ & 0.05 & M1sn 0.034 & M1sn 0.034 & M1sn 0.035 \\
+ & 0.1 & M1sn 0.066 & M1sn 0.067 & M1sn 0.067 \\
+ & 0.2 & NN 0.108 & M1sn 0.113 & M1sn 0.119 \\
+ & 0.5 & NN 0.117 & NN 0.135 & M1sn 0.164 \\
+New family & 0.02 & trial 0.020 & trial 0.020 & trial 0.020 \\
+ & 0.05 & trial 0.050 & trial 0.050 & trial 0.050 \\
+ & 0.1 & M3 0.098 & trial 0.100 & trial 0.100 \\
+ & 0.2 & M0 0.166 & M2 0.183 & M5 0.198 \\
+ & 0.5 & M0 0.212 & M5 0.244 & M5 0.303 \\
+\multicolumn{5}{@{}l}{\emph{Release-like prior}} \\
+Sibling & 0.02 & M5n 0.017 & M2 0.017 & M2 0.018 \\
+ & 0.05 & M7n 0.031 & M7n 0.035 & M5n 0.041 \\
+ & 0.1 & NN 0.047 & M7n 0.054 & M7n 0.063 \\
+ & 0.2 & NN 0.058 & NN 0.069 & NN 0.090 \\
+ & 0.5 & NN 0.060 & NN 0.076 & NN 0.108 \\
+Interpolated & 0.02 & NN$^*$ 0.017 & NN$^*$ 0.017 & NN$^*$ 0.017 \\
+ & 0.05 & NN$^*$ 0.040 & NN$^*$ 0.041 & NN$^*$ 0.041 \\
+ & 0.1 & NN$^*$ 0.069 & NN$^*$ 0.077 & NN$^*$ 0.080 \\
+ & 0.2 & NN$^*$ 0.084 & NN$^*$ 0.116 & NN$^*$ 0.146 \\
+ & 0.5 & NN$^*$ 0.085 & NN$^*$ 0.126 & NN$^*$ 0.208 \\
+Extrapolated & 0.02 & M1sn 0.018 & M1sn 0.018 & M1sn 0.018 \\
+ & 0.05 & M1sn 0.045 & M1sn 0.045 & M1sn 0.045 \\
+ & 0.1 & M1sn 0.089 & M1sn 0.089 & M1sn 0.089 \\
+ & 0.2 & M0 0.163 & M1sn 0.174 & M1sn 0.175 \\
+ & 0.5 & NN 0.188 & NN 0.224 & M1sn 0.278 \\
+New family & 0.02 & trial 0.020 & trial 0.020 & trial 0.020 \\
+ & 0.05 & trial 0.050 & trial 0.050 & trial 0.050 \\
+ & 0.1 & NN+RM 0.099 & trial 0.100 & trial 0.100 \\
+ & 0.2 & M0 0.173 & NN+RM 0.199 & trial 0.200 \\
+ & 0.5 & M0 0.243 & M5 0.310 & M5 0.390 \\
+\botrule
+\end{tabular}
+\footnotetext{Costs relative to a false accept. Each rule with its cost-minimising band (0 to 40 floors), chosen in sample and pooled over the families; trial: sending every design to trial (cost $c_\mathrm{T}$) is cheapest; NN$^*$: NN and M1sn, which coincide at 300\,kN. Differences of a few thousandths are not resolved by this design. Trials are priced as error-free: the errors of a 20-part trial cost 0.017 per verdict under the reference prior and 0.037 under the release-like prior ($c_\mathrm{FR}=0.5$); both priors place 47\,\% of the verdicts on failing designs. Source: \texttt{qual\_costs}, \texttt{qual\_cost\_cheapest}, \texttt{qual\_trial\_cost}.}
+\end{table}
+%% END GENERATED s-costs
+
+%% BEGIN GENERATED s-between
+\begin{table}[p]
+\tabsizesmall
+\setlength{\tabcolsep}{4pt}
+\caption{Decisive distance and guard band (floors, in brackets) with a between-run component added to the truths, and the trial under the same component}\label{tab:s-between}
+\begin{tabular}{@{}llrrrrr@{}}
+\toprule
+Relation & Rule & $\tau=0$ & 1 & 2 & 3 & bound \\
+\midrule
+Sibling & NN & 3.4 (0.25) & 3.5 (0.5) & 4.5 (1.5) & 5.8 (2.9) & 4.1 (1.0) \\
+ & M1sn & 3.5 (0.75) & 3.9 (1.0) & 4.8 (2.0) & 6.1 (3.25) & 4.4 (1.5) \\
+ & M1s & 4.9 (2.0) & 5.6 (2.25) & 6.2 (3.0) & 7.1 (4.25) & 6.1 (3.0) \\
+ & M2 & 23 (0) & 23 (0) & 23 (0) & 23 (0.25) & 23 (0) \\
+ & M5 & 7.2 (0) & 7.5 (0) & 8.3 (0) & 9.3 (0.75) & 8.3 (0) \\
+ & M7n & 6.8 (0) & 7.0 (0) & 7.7 (0) & 8.8 (1.0) & 7.9 (0) \\
+& \emph{record rule best} & 100 & 100 & 100 & 100 & 100 \\
+Interpolated & NN & 4.7 (2.0) & 5.0 (2.25) & 5.5 (3.0) & 6.6 (4.0) & 5.1 (2.75) \\
+ & M1sn & 4.7 (2.0) & 5.0 (2.25) & 5.5 (3.0) & 6.6 (4.0) & 5.1 (2.75) \\
+ & M1s & 19 (none) & 20 (none) & 21 (none) & 21 (none) & 19 (none) \\
+ & M2 & 18 (0.75) & 18 (0.75) & 19 (1.4) & 20 (2.5) & 19 (1.25) \\
+ & M5 & 19 (0.5) & 20 (0.75) & 21 (1.25) & 22 (2.25) & 20 (0.9) \\
+ & M7n & 7.4 (0.75) & 7.6 (1.0) & 8.4 (1.5) & 9.5 (2.6) & 8.4 (1.25) \\
+& \emph{record rule best} & 100 & 100 & 100 & 100 & 100 \\
+Extrapolated & NN & 9.5 (7.0) & 9.5 (7.25) & 9.5 (7.9) & 10 (8.9) & 9.7 (7.5) \\
+ & M1sn & 8.9 (6.0) & 8.8 (6.25) & 9.2 (6.75) & 9.9 (8.0) & 9.0 (6.5) \\
+ & M1s & 19 (none) & 19 (none) & 19 (none) & 18 (none) & 19 (none) \\
+ & M2 & 18 (none) & 18 (none) & 18 (none) & 19 (none) & 18 (none) \\
+ & M5 & 19 (none) & 19 (none) & 19 (none) & 20 (none) & 19 (none) \\
+ & M7n & 15 (3.25) & 15 (3.75) & 16 (4.25) & 16 (5.25) & 16 (3.75) \\
+& \emph{record rule best} & 100 & 100 & 100 & 100 & 100 \\
+New family & NN & 130 (none) & 131 (none) & 132 (none) & 133 (none) & 131 (none) \\
+ & M1sn & 131 (none) & 131 (none) & 132 (none) & 133 (none) & 131 (none) \\
+ & M1s & 121 (none) & 121 (none) & 121 (none) & 121 (none) & 121 (none) \\
+ & M2 & 41 (none) & 41 (none) & 41 (none) & 41 (none) & 41 (none) \\
+ & M5 & 35 (none) & 35 (none) & 35 (none) & 35 (none) & 35 (none) \\
+ & M7n & 132 (none) & 132 (none) & 133 (none) & 134 (none) & 132 (none) \\
+& \emph{record rule best} & 0 & 0 & 0 & 0 & 0 \\
+\midrule \multicolumn{7}{@{}l}{\emph{The trial, same draws (any relation)}} \\
+ & first 20 parts & 1.4 & 2.1 & 3.6 & 5.1 & 3.0 \\
+ & first 50 parts & 0.90 & 1.9 & 3.5 & 5.1 & 2.9 \\
+\botrule
+\end{tabular}
+\footnotetext{Medians over 200 draws (bands over 50, pooled over the families); $\tau$: standard deviation of the component (floors); bound: each characteristic's variation between series, $\tau=1.2$--$9.8/2.77$. Record rule best: share of draws in which NN, M1sn or M1n is the most decisive rule (\%). The trial saw the observed run; a future run's 95th percentile differs from it by the same component. Source: \texttt{qual\_between\_run}, \texttt{qual\_between\_run\_trial}.}
+\end{table}
+%% END GENERATED s-between
+
+%% BEGIN GENERATED s-crossfit
+\begin{table}[p]
+\tabsizesmall
+\setlength{\tabcolsep}{3pt}
+\caption{Rules and guard bands selected on one geometry and evaluated on the other}\label{tab:s-crossfit}
+\begin{tabular}{@{}llllrrrrr@{}}
+\toprule
+Relation & Criterion & Selected on & Rule & In sample & Other & $g$ & Correct & T \\
+\midrule
+Sibling & decisive, all rules & concave & NN & 2.0 & 3.6 & & & \\
+Sibling & decisive, all rules & convex & NN & 3.6 & 2.0 & & & \\
+Sibling & decisive, pre-specified & concave & M5 & 6.5 & 8.5 & & & \\
+Sibling & decisive, pre-specified & convex & M5 & 8.5 & 6.5 & & & \\
+Sibling & safe, all rules & concave & M1sn+RM & 0 & 0.40 & & & \\
+Sibling & safe, all rules & convex & M1s+RM & 0 & 1.1 & & & \\
+Sibling & safe, pre-specified & concave & M3 & 0 & 0 & & & \\
+Sibling & safe, pre-specified & convex & M3 & 0 & 0 & & & \\
+Sibling & step 6 & concave & NN & 2.0 & 3.6 & 0 & 94 & 0 \\
+Sibling & step 6 & convex & NN & 4.1 & 2.5 & 0.5 & 97 & 4 \\
+Interpolated & decisive, all rules & concave & M1n & 3.6 & 5.8 & & & \\
+Interpolated & decisive, all rules & convex & M1sn & 5.3 & 4.2 & & & \\
+Interpolated & decisive, pre-specified & concave & M1 & 12 & 6.8 & & & \\
+Interpolated & decisive, pre-specified & convex & M1 & 6.8 & 12 & & & \\
+Interpolated & safe, all rules & concave & M1s+RM & 0 & 18 & & & \\
+Interpolated & safe, all rules & convex & M3n+RM & 0 & 1.8 & & & \\
+Interpolated & safe, pre-specified & concave & M2 & 2.6 & 3.7 & & & \\
+Interpolated & safe, pre-specified & convex & M5 & 1.9 & 3.1 & & & \\
+Interpolated & step 6 & concave & M1n & 5.1 & 7.3 & 1.5 & 93 & 13 \\
+Interpolated & step 6 & convex & M1sn & 7.8 & 6.8 & 2.5 & 97 & 22 \\
+Extrapolated & decisive, all rules & concave & M1sn & 8.7 & 8.9 & & & \\
+Extrapolated & decisive, all rules & convex & NN & 8.7 & 11 & & & \\
+Extrapolated & decisive, pre-specified & concave & M3n & 12 & 13 & & & \\
+Extrapolated & decisive, pre-specified & convex & M3n & 13 & 12 & & & \\
+Extrapolated & safe, all rules & concave & M1sn+RM & 0 & 0.25 & & & \\
+Extrapolated & safe, all rules & convex & M1s+RM & 0 & 11 & & & \\
+Extrapolated & safe, pre-specified & concave & M3n & 9.9 & 5.1 & & & \\
+Extrapolated & safe, pre-specified & convex & M3n & 5.1 & 9.9 & & & \\
+Extrapolated & step 6 & concave & M1sn & 14 & 14 & 5.5 & 93 & 43 \\
+Extrapolated & step 6 & convex & NN & 14 & 17 & 5.75 & 92 & 47 \\
+New family & decisive, all rules & concave & Mcd & 29 & 33 & & & \\
+New family & decisive, all rules & convex & M1 & 33 & 32 & & & \\
+New family & decisive, pre-specified & concave & M1 & 32 & 33 & & & \\
+New family & decisive, pre-specified & convex & M1 & 33 & 32 & & & \\
+New family & safe, all rules & concave & M5+RM & 0.05 & 0 & & & \\
+New family & safe, all rules & convex & M1s+RM & 0 & 5.9 & & & \\
+New family & safe, pre-specified & concave & M3 & 18 & 17 & & & \\
+New family & safe, pre-specified & convex & M3 & 17 & 18 & & & \\
+New family & step 6 & concave & Mcd & 43 & 38 & 18.25 & 73 & 83 \\
+New family & step 6 & convex & M5+RM & & & 12 & -- & 100 \\
+\botrule
+\end{tabular}
+\footnotetext{Selection by the smallest decisive or safe distance among all rules or the pre-specified ones, or by the smallest decisive distance of step 6 (rule and band together); for a new family, selected on one transfer. Other: the distance on the other geometry. Correct, T: share correct among decided verdicts and trial rate there (\%). Source: \texttt{qual\_crossfit}.}
+\end{table}
+%% END GENERATED s-crossfit
+
+\FloatBarrier
+
+\end{document}

@@ -480,6 +480,88 @@ def fewshot_scores(fs: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+# ── sensitivity of M7n to its priors (C3) ────────────────────────────────────
+BASE_PRIORS = {"ls_bhf": PRIOR_LS["bhf"], "ls_lub": PRIOR_LS["lubrication"], "sf": PRIOR_SF, "sn": PRIOR_SN}
+SENS_VARIANTS = [("reference", {})] + [(f"{label} x{f:g}", {key: f}) for key, label in
+                                       (("ls_bhf", "force length scale"), ("ls_lub", "lubrication length scale"),
+                                        ("sf", "GP standard deviation"), ("sn", "nugget standard deviation"))
+                                       for f in (0.5, 2.0)]
+
+
+def set_priors(factors: dict) -> None:
+    """Prior medians of M7n scaled by the given factors (one at a time in the sensitivity analysis)."""
+    global PRIOR_SF, PRIOR_SN
+    PRIOR_LS["bhf"] = BASE_PRIORS["ls_bhf"] * factors.get("ls_bhf", 1.0)
+    PRIOR_LS["lubrication"] = BASE_PRIORS["ls_lub"] * factors.get("ls_lub", 1.0)
+    PRIOR_SF = BASE_PRIORS["sf"] * factors.get("sf", 1.0)
+    PRIOR_SN = BASE_PRIORS["sn"] * factors.get("sn", 1.0)
+    _FITS.clear()
+
+
+def sens_rows(args: tuple[str, dict, str]) -> list[dict]:
+    """M7n intervals of one characteristic under one prior variant, for the calibration sets of the four
+    relations (within, setting and transfer; not the pooled ones)."""
+    from threadpoolctl import threadpool_limits
+
+    name, factors, qc = args
+    set_priors(factors)
+    t, floors = _CTX["t"], _CTX["floors"]
+    alts = sorted(t["alternative"].unique())
+    rows = []
+    with threadpool_limits(1):
+        for calib, targets, label in jobs(alts):
+            if label.startswith("pooled"):
+                continue
+            for target in targets:
+                a = _CTX["tq"][(target, qc)]
+                lo, hi, info = m7_interval(calib, target, qc, False)
+                rows.append({"variant": name, "calibration": label, "relation": D.relation(calib, target),
+                             "alternative": target, "geometry": a["geometry"], "qc": qc, "method": "M7n",
+                             "real_q95": float(a["real_q95"]), "floor": floors[(qc, a["geometry"])],
+                             "lo": float(lo), "hi": float(hi), **info})
+    set_priors({})
+    return rows
+
+
+def prior_sensitivity(t: pd.DataFrame, floors: dict) -> pd.DataFrame:
+    """Decisive and safe distances, coverage, half-width, length scale and distance from the force trend of M7n
+    by relation, with each of its four prior medians halved and doubled; the reference variant reproduces the
+    stored M7n intervals."""
+    import panel as Pn
+
+    tasks = [(name, f, qc) for name, f in SENS_VARIANTS for qc in SHARED]
+    if N_JOBS > 1:
+        with Pool(N_JOBS, initializer=_init_worker) as pool:
+            chunks = pool.map(sens_rows, tasks)
+    else:
+        chunks = [sens_rows(x) for x in tasks]
+    iv = pd.DataFrame([r for c in chunks for r in c])
+    iv["scope"] = iv["calibration"].map(D.scope_of)
+    iv = Pn.in_produced_floor(D.with_relation_scopes(iv), floors)
+    old = pd.read_csv(RESULTS / "dec_intervals.csv")
+    m1sn = old[old["method"] == "M1sn"].set_index(["calibration", "alternative", "qc"])["lo"]
+    stored = pd.read_csv(RESULTS / "learn_intervals.csv")
+    stored = stored[stored["method"] == "M7n"].set_index(["calibration", "alternative", "qc"])[["lo", "hi"]]
+    rows = []
+    rel_scope = {"sibling": "within", "interpolation": "setting/interpolation",
+                 "extrapolation": "setting/extrapolation", "new family": "transfer"}
+    for (name, rel), g in iv.groupby(["variant", iv["scope"].map({v: k for k, v in rel_scope.items()})]):
+        r = D.distance_pair(*D.exclusion(g), sides=True)
+        inside = (g["lo"] <= g["real_q95"]) & (g["real_q95"] <= g["hi"])
+        key = list(zip(g["calibration"], g["alternative"], g["qc"]))
+        centre = (g["lo"] + g["hi"]) / 2
+        d_trend = np.abs(centre.to_numpy() - m1sn.reindex(key).to_numpy()) / g["floor"].to_numpy()
+        row = {"variant": name, "relation": rel, "cases": len(g), **r, "coverage": float(inside.mean()),
+               "median_half_width": float(np.median((g["hi"] - g["lo"]) / 2 / g["floor"])),
+               "median_ls_bhf": float(g["gp_ls_bhf"].median()) if "gp_ls_bhf" in g else np.nan,
+               "median_d_force_trend": float(np.nanmedian(d_trend))}
+        if name == "reference":
+            ref = stored.reindex(key)
+            row["max_abs_diff_from_stored"] = float(np.nanmax(np.abs(g[["lo", "hi"]].to_numpy() - ref.to_numpy())))
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
 # ── main ──────────────────────────────────────────────────────────────────────
 def setup() -> tuple[pd.DataFrame, np.ndarray, dict]:
     t = pd.read_csv(RESULTS / "dec_alternatives.csv")
@@ -570,9 +652,14 @@ def summarise() -> None:
 
 
 def main(argv: list[str]) -> None:
-    """learners.py            fit, score, few-shot transfer and summary
-       learners.py --score    score the stored intervals again (no fits)"""
+    """learners.py                      fit, score, few-shot transfer and summary
+       learners.py --score              score the stored intervals again (no fits)
+       learners.py --prior-sensitivity  M7n with each prior median halved and doubled (learn_m7n_priors.csv)"""
     t, reps, floors = setup()
+    if "--prior-sensitivity" in argv:
+        prior_sensitivity(t, floors).to_csv(RESULTS / "learn_m7n_priors.csv", index=False)
+        print("learn_m7n_priors.csv: written")
+        return
     if "--score" not in argv:
         fit(t, floors)
     score(t, reps, floors)
