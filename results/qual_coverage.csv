@@ -1,16 +1,16 @@
 relation,method,level,subset,cases,coverage,coverage_lo,coverage_hi,median_half_width,interval_score,rm_n,rm_quantile_floors,ci_note
-sibling,M2,"0.78 (largest residual, estimated offset)",all,126,0.8888888888888888,0.8333333333333334,0.9365079365079365,7.58236854188915,19.053085232112306,,,cluster bootstrap over alternatives
-sibling,M2,"0.78 (largest residual, estimated offset)",arm_op20,18,0.8888888888888888,0.7222222222222222,1.0,,30.437113833333356,,,cluster bootstrap over alternatives
-sibling,M2,"0.78 (largest residual, estimated offset)",depth_op10,18,0.8888888888888888,0.7222222222222222,1.0,,23.020825311544943,,,cluster bootstrap over alternatives
-sibling,M2,"0.78 (largest residual, estimated offset)",dome_op20,18,0.8333333333333334,0.6111111111111112,1.0,,17.414610946585963,,,cluster bootstrap over alternatives
-sibling,M2,"0.78 (largest residual, estimated offset)",drawin_corner,18,0.8888888888888888,0.7222222222222222,1.0,,8.666741265155231,,,cluster bootstrap over alternatives
-sibling,M2,"0.78 (largest residual, estimated offset)",drawin_mid,18,0.9444444444444444,0.8333333333333334,1.0,,18.934606039647413,,,cluster bootstrap over alternatives
-sibling,M2,"0.78 (largest residual, estimated offset)",wall_op10,18,0.8888888888888888,0.7222222222222222,1.0,,11.952666498739948,,,cluster bootstrap over alternatives
-sibling,M2,"0.78 (largest residual, estimated offset)",waviness,18,0.8888888888888888,0.7222222222222222,1.0,,22.945032729779257,,,cluster bootstrap over alternatives
-sibling,M2,"0.78 (largest residual, estimated offset)",family: concave,63,0.873015873015873,0.8095238095238095,0.9365079365079365,,22.24934229521,,,cluster bootstrap over alternatives
-sibling,M2,"0.78 (largest residual, estimated offset)",family: convex,63,0.9047619047619048,0.8095238095238095,0.9841269841269841,,15.856828169014607,,,cluster bootstrap over alternatives
-sibling,M2,"0.78 (largest residual, estimated offset)",siblings not resolvable,75,0.9333333333333333,0.8873239436619719,0.9736842105263158,,18.859207795415077,,,cluster bootstrap over alternatives
-sibling,M2,"0.78 (largest residual, estimated offset)",siblings resolvable,51,0.8235294117647058,0.7049180327868853,0.9411764705882353,,19.33819910960822,,,cluster bootstrap over alternatives
+sibling,M2,0.78 guaranteed (largest residual),all,126,0.8888888888888888,0.8333333333333334,0.9365079365079365,7.58236854188915,19.053085232112306,,,cluster bootstrap over alternatives
+sibling,M2,0.78 guaranteed (largest residual),arm_op20,18,0.8888888888888888,0.7222222222222222,1.0,,30.437113833333356,,,cluster bootstrap over alternatives
+sibling,M2,0.78 guaranteed (largest residual),depth_op10,18,0.8888888888888888,0.7222222222222222,1.0,,23.020825311544943,,,cluster bootstrap over alternatives
+sibling,M2,0.78 guaranteed (largest residual),dome_op20,18,0.8333333333333334,0.6111111111111112,1.0,,17.414610946585963,,,cluster bootstrap over alternatives
+sibling,M2,0.78 guaranteed (largest residual),drawin_corner,18,0.8888888888888888,0.7222222222222222,1.0,,8.666741265155231,,,cluster bootstrap over alternatives
+sibling,M2,0.78 guaranteed (largest residual),drawin_mid,18,0.9444444444444444,0.8333333333333334,1.0,,18.934606039647413,,,cluster bootstrap over alternatives
+sibling,M2,0.78 guaranteed (largest residual),wall_op10,18,0.8888888888888888,0.7222222222222222,1.0,,11.952666498739948,,,cluster bootstrap over alternatives
+sibling,M2,0.78 guaranteed (largest residual),waviness,18,0.8888888888888888,0.7222222222222222,1.0,,22.945032729779257,,,cluster bootstrap over alternatives
+sibling,M2,0.78 guaranteed (largest residual),family: concave,63,0.873015873015873,0.8095238095238095,0.9365079365079365,,22.24934229521,,,cluster bootstrap over alternatives
+sibling,M2,0.78 guaranteed (largest residual),family: convex,63,0.9047619047619048,0.8095238095238095,0.9841269841269841,,15.856828169014607,,,cluster bootstrap over alternatives
+sibling,M2,0.78 guaranteed (largest residual),siblings not resolvable,75,0.9333333333333333,0.8873239436619719,0.9736842105263158,,18.859207795415077,,,cluster bootstrap over alternatives
+sibling,M2,0.78 guaranteed (largest residual),siblings resolvable,51,0.8235294117647058,0.7049180327868853,0.9411764705882353,,19.33819910960822,,,cluster bootstrap over alternatives
 sibling,M5,"0.90 nominal (model-based, no guarantee)",all,126,0.8571428571428571,0.7696428571428572,0.9444444444444444,2.1894684762970043,10.008132838838623,,,cluster bootstrap over alternatives
 sibling,M5,"0.90 nominal (model-based, no guarantee)",arm_op20,18,0.8333333333333334,0.6666666666666666,1.0,,9.006966977784897,,,cluster bootstrap over alternatives
 sibling,M5,"0.90 nominal (model-based, no guarantee)",depth_op10,18,0.8333333333333334,0.6666666666666666,1.0,,11.475033305427775,,,cluster bootstrap over alternatives
@@ -23,18 +23,18 @@ sibling,M5,"0.90 nominal (model-based, no guarantee)",family: concave,63,0.90476
 sibling,M5,"0.90 nominal (model-based, no guarantee)",family: convex,63,0.8095238095238095,0.6349206349206349,0.9682539682539683,,11.745482950853164,,,cluster bootstrap over alternatives
 sibling,M5,"0.90 nominal (model-based, no guarantee)",siblings not resolvable,75,0.8933333333333333,0.7974640780020528,0.974025974025974,,8.6000190749792,,,cluster bootstrap over alternatives
 sibling,M5,"0.90 nominal (model-based, no guarantee)",siblings resolvable,51,0.803921568627451,0.6590198863636363,0.9512195121951219,,12.078888373926018,,,cluster bootstrap over alternatives
-sibling,M2n,"0.78 (largest residual, estimated offset)",all,126,0.8968253968253969,0.8174603174603174,0.9525793650793639,5.87427217347605,15.02068374554372,,,cluster bootstrap over alternatives
-sibling,M2n,"0.78 (largest residual, estimated offset)",arm_op20,18,0.8888888888888888,0.7222222222222222,1.0,,9.123264295819995,,,cluster bootstrap over alternatives
-sibling,M2n,"0.78 (largest residual, estimated offset)",depth_op10,18,0.8888888888888888,0.7222222222222222,1.0,,24.345837430920344,,,cluster bootstrap over alternatives
-sibling,M2n,"0.78 (largest residual, estimated offset)",dome_op20,18,0.8888888888888888,0.7222222222222222,1.0,,14.199970560584495,,,cluster bootstrap over alternatives
-sibling,M2n,"0.78 (largest residual, estimated offset)",drawin_corner,18,0.8888888888888888,0.7222222222222222,1.0,,18.52731778410986,,,cluster bootstrap over alternatives
-sibling,M2n,"0.78 (largest residual, estimated offset)",drawin_mid,18,0.9444444444444444,0.8333333333333334,1.0,,13.107997617697134,,,cluster bootstrap over alternatives
-sibling,M2n,"0.78 (largest residual, estimated offset)",wall_op10,18,0.8888888888888888,0.7222222222222222,1.0,,5.476407473421282,,,cluster bootstrap over alternatives
-sibling,M2n,"0.78 (largest residual, estimated offset)",waviness,18,0.8888888888888888,0.7222222222222222,1.0,,20.36399105625294,,,cluster bootstrap over alternatives
-sibling,M2n,"0.78 (largest residual, estimated offset)",family: concave,63,0.8888888888888888,0.746031746031746,0.9841269841269841,,14.852001998390445,,,cluster bootstrap over alternatives
-sibling,M2n,"0.78 (largest residual, estimated offset)",family: convex,63,0.9047619047619048,0.8412698412698413,0.9682539682539683,,15.189365492696997,,,cluster bootstrap over alternatives
-sibling,M2n,"0.78 (largest residual, estimated offset)",siblings not resolvable,75,0.92,0.8717857142857143,0.963881843162122,,14.754761902603875,,,cluster bootstrap over alternatives
-sibling,M2n,"0.78 (largest residual, estimated offset)",siblings resolvable,51,0.8627450980392157,0.7346938775510204,0.9777777777777777,,15.41174527927878,,,cluster bootstrap over alternatives
+sibling,M2n,0.78 guaranteed (largest residual),all,126,0.8968253968253969,0.8174603174603174,0.9525793650793639,5.87427217347605,15.02068374554372,,,cluster bootstrap over alternatives
+sibling,M2n,0.78 guaranteed (largest residual),arm_op20,18,0.8888888888888888,0.7222222222222222,1.0,,9.123264295819995,,,cluster bootstrap over alternatives
+sibling,M2n,0.78 guaranteed (largest residual),depth_op10,18,0.8888888888888888,0.7222222222222222,1.0,,24.345837430920344,,,cluster bootstrap over alternatives
+sibling,M2n,0.78 guaranteed (largest residual),dome_op20,18,0.8888888888888888,0.7222222222222222,1.0,,14.199970560584495,,,cluster bootstrap over alternatives
+sibling,M2n,0.78 guaranteed (largest residual),drawin_corner,18,0.8888888888888888,0.7222222222222222,1.0,,18.52731778410986,,,cluster bootstrap over alternatives
+sibling,M2n,0.78 guaranteed (largest residual),drawin_mid,18,0.9444444444444444,0.8333333333333334,1.0,,13.107997617697134,,,cluster bootstrap over alternatives
+sibling,M2n,0.78 guaranteed (largest residual),wall_op10,18,0.8888888888888888,0.7222222222222222,1.0,,5.476407473421282,,,cluster bootstrap over alternatives
+sibling,M2n,0.78 guaranteed (largest residual),waviness,18,0.8888888888888888,0.7222222222222222,1.0,,20.36399105625294,,,cluster bootstrap over alternatives
+sibling,M2n,0.78 guaranteed (largest residual),family: concave,63,0.8888888888888888,0.746031746031746,0.9841269841269841,,14.852001998390445,,,cluster bootstrap over alternatives
+sibling,M2n,0.78 guaranteed (largest residual),family: convex,63,0.9047619047619048,0.8412698412698413,0.9682539682539683,,15.189365492696997,,,cluster bootstrap over alternatives
+sibling,M2n,0.78 guaranteed (largest residual),siblings not resolvable,75,0.92,0.8717857142857143,0.963881843162122,,14.754761902603875,,,cluster bootstrap over alternatives
+sibling,M2n,0.78 guaranteed (largest residual),siblings resolvable,51,0.8627450980392157,0.7346938775510204,0.9777777777777777,,15.41174527927878,,,cluster bootstrap over alternatives
 sibling,M5n,"0.90 nominal (model-based, no guarantee)",all,126,0.8492063492063492,0.7619047619047619,0.9285714285714286,2.268353704319293,9.148312127981843,,,cluster bootstrap over alternatives
 sibling,M5n,"0.90 nominal (model-based, no guarantee)",arm_op20,18,0.8888888888888888,0.7222222222222222,1.0,,8.737974741016828,,,cluster bootstrap over alternatives
 sibling,M5n,"0.90 nominal (model-based, no guarantee)",depth_op10,18,0.8888888888888888,0.7222222222222222,1.0,,10.869279875422048,,,cluster bootstrap over alternatives
@@ -47,30 +47,30 @@ sibling,M5n,"0.90 nominal (model-based, no guarantee)",family: concave,63,0.8571
 sibling,M5n,"0.90 nominal (model-based, no guarantee)",family: convex,63,0.8412698412698413,0.6984126984126984,0.9523809523809523,,9.836081875757218,,,cluster bootstrap over alternatives
 sibling,M5n,"0.90 nominal (model-based, no guarantee)",siblings not resolvable,75,0.88,0.7916552197802198,0.9605263157894737,,7.484977218524619,,,cluster bootstrap over alternatives
 sibling,M5n,"0.90 nominal (model-based, no guarantee)",siblings resolvable,51,0.803921568627451,0.6825396825396826,0.9361702127659575,,11.59439287718364,,,cluster bootstrap over alternatives
-sibling,M3,0.78 (jackknife+),all,126,0.9603174603174603,0.9285714285714286,0.9841269841269841,9.27027364443735,20.981066877204043,,,cluster bootstrap over alternatives
-sibling,M3,0.78 (jackknife+),arm_op20,18,0.9444444444444444,0.8333333333333334,1.0,,24.176647592598336,,,cluster bootstrap over alternatives
-sibling,M3,0.78 (jackknife+),depth_op10,18,0.9444444444444444,0.8333333333333334,1.0,,18.94536693194662,,,cluster bootstrap over alternatives
-sibling,M3,0.78 (jackknife+),dome_op20,18,0.9444444444444444,0.8333333333333334,1.0,,31.233538277131743,,,cluster bootstrap over alternatives
-sibling,M3,0.78 (jackknife+),drawin_corner,18,1.0,1.0,1.0,,13.589540535593004,,,degenerate: every resample gives the same share
-sibling,M3,0.78 (jackknife+),drawin_mid,18,1.0,1.0,1.0,,17.77821243189223,,,degenerate: every resample gives the same share
-sibling,M3,0.78 (jackknife+),wall_op10,18,0.8888888888888888,0.7222222222222222,1.0,,23.059089169884547,,,cluster bootstrap over alternatives
-sibling,M3,0.78 (jackknife+),waviness,18,1.0,1.0,1.0,,18.08507320138183,,,degenerate: every resample gives the same share
-sibling,M3,0.78 (jackknife+),family: concave,63,0.9523809523809523,0.9047619047619048,1.0,,22.26619034059242,,,cluster bootstrap over alternatives
-sibling,M3,0.78 (jackknife+),family: convex,63,0.9682539682539683,0.9206349206349206,1.0,,19.695943413815666,,,cluster bootstrap over alternatives
-sibling,M3,0.78 (jackknife+),siblings not resolvable,75,0.96,0.922077922077922,1.0,,22.092703010501495,,,cluster bootstrap over alternatives
-sibling,M3,0.78 (jackknife+),siblings resolvable,51,0.9607843137254902,0.9073966408268734,1.0,,19.34630785764897,,,cluster bootstrap over alternatives
-sibling,M4,0.78 (jackknife+),all,126,0.8888888888888888,0.8095238095238095,0.9603174603174603,2.9858958636094606,11.083639564750147,,,cluster bootstrap over alternatives
-sibling,M4,0.78 (jackknife+),arm_op20,18,0.8888888888888888,0.7222222222222222,1.0,,13.414526371246462,,,cluster bootstrap over alternatives
-sibling,M4,0.78 (jackknife+),depth_op10,18,0.8888888888888888,0.7222222222222222,1.0,,12.914276605486336,,,cluster bootstrap over alternatives
-sibling,M4,0.78 (jackknife+),dome_op20,18,0.8888888888888888,0.7222222222222222,1.0,,25.887466767184144,,,cluster bootstrap over alternatives
-sibling,M4,0.78 (jackknife+),drawin_corner,18,0.8888888888888888,0.7222222222222222,1.0,,9.059321827837884,,,cluster bootstrap over alternatives
-sibling,M4,0.78 (jackknife+),drawin_mid,18,0.8888888888888888,0.7222222222222222,1.0,,6.1502157974520655,,,cluster bootstrap over alternatives
-sibling,M4,0.78 (jackknife+),wall_op10,18,0.9444444444444444,0.8333333333333334,1.0,,7.010559624651873,,,cluster bootstrap over alternatives
-sibling,M4,0.78 (jackknife+),waviness,18,0.8333333333333334,0.6666666666666666,1.0,,3.1491099593922685,,,cluster bootstrap over alternatives
-sibling,M4,0.78 (jackknife+),family: concave,63,0.8888888888888888,0.7619047619047619,0.9841269841269841,,9.157642882645064,,,cluster bootstrap over alternatives
-sibling,M4,0.78 (jackknife+),family: convex,63,0.8888888888888888,0.7936507936507936,0.9682539682539683,,13.009636246855234,,,cluster bootstrap over alternatives
-sibling,M4,0.78 (jackknife+),siblings not resolvable,75,0.8666666666666667,0.763141447368421,0.9615384615384616,,10.054647190519482,,,cluster bootstrap over alternatives
-sibling,M4,0.78 (jackknife+),siblings resolvable,51,0.9215686274509803,0.8421052631578947,1.0,,12.596863644501132,,,cluster bootstrap over alternatives
+sibling,M3,0.78 guaranteed (jackknife+),all,126,0.9603174603174603,0.9285714285714286,0.9841269841269841,9.27027364443735,20.981066877204043,,,cluster bootstrap over alternatives
+sibling,M3,0.78 guaranteed (jackknife+),arm_op20,18,0.9444444444444444,0.8333333333333334,1.0,,24.176647592598336,,,cluster bootstrap over alternatives
+sibling,M3,0.78 guaranteed (jackknife+),depth_op10,18,0.9444444444444444,0.8333333333333334,1.0,,18.94536693194662,,,cluster bootstrap over alternatives
+sibling,M3,0.78 guaranteed (jackknife+),dome_op20,18,0.9444444444444444,0.8333333333333334,1.0,,31.233538277131743,,,cluster bootstrap over alternatives
+sibling,M3,0.78 guaranteed (jackknife+),drawin_corner,18,1.0,1.0,1.0,,13.589540535593004,,,degenerate: every resample gives the same share
+sibling,M3,0.78 guaranteed (jackknife+),drawin_mid,18,1.0,1.0,1.0,,17.77821243189223,,,degenerate: every resample gives the same share
+sibling,M3,0.78 guaranteed (jackknife+),wall_op10,18,0.8888888888888888,0.7222222222222222,1.0,,23.059089169884547,,,cluster bootstrap over alternatives
+sibling,M3,0.78 guaranteed (jackknife+),waviness,18,1.0,1.0,1.0,,18.08507320138183,,,degenerate: every resample gives the same share
+sibling,M3,0.78 guaranteed (jackknife+),family: concave,63,0.9523809523809523,0.9047619047619048,1.0,,22.26619034059242,,,cluster bootstrap over alternatives
+sibling,M3,0.78 guaranteed (jackknife+),family: convex,63,0.9682539682539683,0.9206349206349206,1.0,,19.695943413815666,,,cluster bootstrap over alternatives
+sibling,M3,0.78 guaranteed (jackknife+),siblings not resolvable,75,0.96,0.922077922077922,1.0,,22.092703010501495,,,cluster bootstrap over alternatives
+sibling,M3,0.78 guaranteed (jackknife+),siblings resolvable,51,0.9607843137254902,0.9073966408268734,1.0,,19.34630785764897,,,cluster bootstrap over alternatives
+sibling,M4,0.78 guaranteed (jackknife+),all,126,0.8888888888888888,0.8095238095238095,0.9603174603174603,2.9858958636094606,11.083639564750147,,,cluster bootstrap over alternatives
+sibling,M4,0.78 guaranteed (jackknife+),arm_op20,18,0.8888888888888888,0.7222222222222222,1.0,,13.414526371246462,,,cluster bootstrap over alternatives
+sibling,M4,0.78 guaranteed (jackknife+),depth_op10,18,0.8888888888888888,0.7222222222222222,1.0,,12.914276605486336,,,cluster bootstrap over alternatives
+sibling,M4,0.78 guaranteed (jackknife+),dome_op20,18,0.8888888888888888,0.7222222222222222,1.0,,25.887466767184144,,,cluster bootstrap over alternatives
+sibling,M4,0.78 guaranteed (jackknife+),drawin_corner,18,0.8888888888888888,0.7222222222222222,1.0,,9.059321827837884,,,cluster bootstrap over alternatives
+sibling,M4,0.78 guaranteed (jackknife+),drawin_mid,18,0.8888888888888888,0.7222222222222222,1.0,,6.1502157974520655,,,cluster bootstrap over alternatives
+sibling,M4,0.78 guaranteed (jackknife+),wall_op10,18,0.9444444444444444,0.8333333333333334,1.0,,7.010559624651873,,,cluster bootstrap over alternatives
+sibling,M4,0.78 guaranteed (jackknife+),waviness,18,0.8333333333333334,0.6666666666666666,1.0,,3.1491099593922685,,,cluster bootstrap over alternatives
+sibling,M4,0.78 guaranteed (jackknife+),family: concave,63,0.8888888888888888,0.7619047619047619,0.9841269841269841,,9.157642882645064,,,cluster bootstrap over alternatives
+sibling,M4,0.78 guaranteed (jackknife+),family: convex,63,0.8888888888888888,0.7936507936507936,0.9682539682539683,,13.009636246855234,,,cluster bootstrap over alternatives
+sibling,M4,0.78 guaranteed (jackknife+),siblings not resolvable,75,0.8666666666666667,0.763141447368421,0.9615384615384616,,10.054647190519482,,,cluster bootstrap over alternatives
+sibling,M4,0.78 guaranteed (jackknife+),siblings resolvable,51,0.9215686274509803,0.8421052631578947,1.0,,12.596863644501132,,,cluster bootstrap over alternatives
 sibling,M7n,"0.90 nominal (model-based, no guarantee)",all,126,0.8492063492063492,0.753968253968254,0.9365079365079365,1.5822195146462563,9.786279466768837,,,cluster bootstrap over alternatives
 sibling,M7n,"0.90 nominal (model-based, no guarantee)",arm_op20,18,0.7222222222222222,0.5,0.8888888888888888,,11.779228113251245,,,cluster bootstrap over alternatives
 sibling,M7n,"0.90 nominal (model-based, no guarantee)",depth_op10,18,0.8333333333333334,0.6666666666666666,1.0,,10.690667908371527,,,cluster bootstrap over alternatives
@@ -107,112 +107,112 @@ sibling,Mcd,"0.90 nominal (model-based, no guarantee)",family: concave,63,0.8253
 sibling,Mcd,"0.90 nominal (model-based, no guarantee)",family: convex,63,0.8253968253968254,0.7142857142857143,0.9206349206349206,,10.96058440152191,,,cluster bootstrap over alternatives
 sibling,Mcd,"0.90 nominal (model-based, no guarantee)",siblings not resolvable,75,0.8666666666666667,0.7528676470588235,0.9605263157894737,,8.916018085916178,,,cluster bootstrap over alternatives
 sibling,Mcd,"0.90 nominal (model-based, no guarantee)",siblings resolvable,51,0.7647058823529411,0.6278955768353853,0.8974358974358975,,12.027105220352297,,,cluster bootstrap over alternatives
-sibling,M1s+RM,0.90 (split conformal across families),all,126,0.9047619047619048,0.873015873015873,0.9365079365079365,5.531173036666276,14.63443150666989,63.0,,cluster bootstrap over alternatives
-sibling,M1s+RM,0.90 (split conformal across families),arm_op20,18,1.0,1.0,1.0,,11.062346073332481,,,degenerate: every resample gives the same share
-sibling,M1s+RM,0.90 (split conformal across families),depth_op10,18,0.7222222222222222,0.5555555555555556,0.8888888888888888,,30.432540747474345,,,cluster bootstrap over alternatives
-sibling,M1s+RM,0.90 (split conformal across families),dome_op20,18,0.9444444444444444,0.8333333333333334,1.0,,11.07195957053505,,,cluster bootstrap over alternatives
-sibling,M1s+RM,0.90 (split conformal across families),drawin_corner,18,1.0,1.0,1.0,,11.062346073332453,,,degenerate: every resample gives the same share
-sibling,M1s+RM,0.90 (split conformal across families),drawin_mid,18,1.0,1.0,1.0,,11.062346073332444,,,degenerate: every resample gives the same share
-sibling,M1s+RM,0.90 (split conformal across families),wall_op10,18,1.0,1.0,1.0,,11.062346073332485,,,degenerate: every resample gives the same share
-sibling,M1s+RM,0.90 (split conformal across families),waviness,18,0.6666666666666666,0.4444444444444444,0.8888888888888888,,16.687135935350003,,,cluster bootstrap over alternatives
-sibling,M1s+RM,0.90 (split conformal across families),family: concave,63,0.8571428571428571,0.8095238095238095,0.9047619047619048,,15.922972385126554,63.0,4.774121686752949,cluster bootstrap over alternatives
-sibling,M1s+RM,0.90 (split conformal across families),family: convex,63,0.9523809523809523,0.9047619047619048,0.9841269841269841,,13.345890628213239,63.0,6.288224386579533,cluster bootstrap over alternatives
-sibling,M1s+RM,0.90 (split conformal across families),siblings not resolvable,75,0.8933333333333333,0.8522727272727273,0.9420289855072463,,14.310361357528349,,,cluster bootstrap over alternatives
-sibling,M1s+RM,0.90 (split conformal across families),siblings resolvable,51,0.9215686274509803,0.8444117647058823,0.9818262987012987,,15.111005255407461,,,cluster bootstrap over alternatives
-sibling,M1sn+RM,0.90 (split conformal across families),all,126,0.8809523809523809,0.8095238095238095,0.9444444444444444,3.571662693472593,9.277262101360865,63.0,,cluster bootstrap over alternatives
-sibling,M1sn+RM,0.90 (split conformal across families),arm_op20,18,0.8333333333333334,0.6666666666666666,1.0,,11.190377319815187,,,cluster bootstrap over alternatives
-sibling,M1sn+RM,0.90 (split conformal across families),depth_op10,18,0.8888888888888888,0.7222222222222222,1.0,,7.6044080141180315,,,cluster bootstrap over alternatives
-sibling,M1sn+RM,0.90 (split conformal across families),dome_op20,18,0.7222222222222222,0.5,0.8888888888888888,,14.837985827722159,,,cluster bootstrap over alternatives
-sibling,M1sn+RM,0.90 (split conformal across families),drawin_corner,18,0.8888888888888888,0.7222222222222222,1.0,,9.16468307768072,,,cluster bootstrap over alternatives
-sibling,M1sn+RM,0.90 (split conformal across families),drawin_mid,18,1.0,1.0,1.0,,7.14332538694525,,,degenerate: every resample gives the same share
-sibling,M1sn+RM,0.90 (split conformal across families),wall_op10,18,0.9444444444444444,0.8333333333333334,1.0,,7.1439096093047665,,,cluster bootstrap over alternatives
-sibling,M1sn+RM,0.90 (split conformal across families),waviness,18,0.8888888888888888,0.7222222222222222,1.0,,7.856145473939942,,,cluster bootstrap over alternatives
-sibling,M1sn+RM,0.90 (split conformal across families),family: concave,63,0.9523809523809523,0.8888888888888888,1.0,,8.90237888939548,63.0,3.8735516130937,cluster bootstrap over alternatives
-sibling,M1sn+RM,0.90 (split conformal across families),family: convex,63,0.8095238095238095,0.6825396825396826,0.9365079365079365,,9.652145313326251,63.0,3.2697737738515413,cluster bootstrap over alternatives
-sibling,M1sn+RM,0.90 (split conformal across families),siblings not resolvable,75,0.96,0.9076744186046511,1.0,,8.083659745585583,,,cluster bootstrap over alternatives
-sibling,M1sn+RM,0.90 (split conformal across families),siblings resolvable,51,0.7647058823529411,0.625,0.9090909090909091,,11.032559683383338,,,cluster bootstrap over alternatives
-sibling,M4+RM,0.90 (split conformal across families),all,126,0.8809523809523809,0.8174603174603174,0.9365079365079365,4.232416644954995,13.430288767590527,63.0,,cluster bootstrap over alternatives
-sibling,M4+RM,0.90 (split conformal across families),arm_op20,18,0.7222222222222222,0.5555555555555556,0.8888888888888888,,14.779887618554836,,,cluster bootstrap over alternatives
-sibling,M4+RM,0.90 (split conformal across families),depth_op10,18,1.0,1.0,1.0,,8.464833289910048,,,degenerate: every resample gives the same share
-sibling,M4+RM,0.90 (split conformal across families),dome_op20,18,0.6111111111111112,0.4444444444444444,0.7777777777777778,,31.867315746294643,,,cluster bootstrap over alternatives
-sibling,M4+RM,0.90 (split conformal across families),drawin_corner,18,0.8888888888888888,0.7222222222222222,1.0,,12.814574749143004,,,cluster bootstrap over alternatives
-sibling,M4+RM,0.90 (split conformal across families),drawin_mid,18,1.0,1.0,1.0,,8.464833289910096,,,degenerate: every resample gives the same share
-sibling,M4+RM,0.90 (split conformal across families),wall_op10,18,0.9444444444444444,0.8333333333333334,1.0,,9.155743389410976,,,cluster bootstrap over alternatives
-sibling,M4+RM,0.90 (split conformal across families),waviness,18,1.0,1.0,1.0,,8.46483328991008,,,degenerate: every resample gives the same share
-sibling,M4+RM,0.90 (split conformal across families),family: concave,63,0.9841269841269841,0.9523809523809523,1.0,,11.935012656349054,63.0,5.769719315629392,cluster bootstrap over alternatives
-sibling,M4+RM,0.90 (split conformal across families),family: convex,63,0.7777777777777778,0.6507936507936508,0.8888888888888888,,14.925564878832,63.0,2.695113974280697,cluster bootstrap over alternatives
-sibling,M4+RM,0.90 (split conformal across families),siblings not resolvable,75,0.9733333333333334,0.9230769230769231,1.0,,11.207206993187604,,,cluster bootstrap over alternatives
-sibling,M4+RM,0.90 (split conformal across families),siblings resolvable,51,0.7450980392156863,0.6278955768353853,0.8780487804878049,,16.699526671124232,,,cluster bootstrap over alternatives
-sibling,M5+RM,0.90 (split conformal across families),all,126,0.8571428571428571,0.7698412698412699,0.9365079365079365,2.980622357149093,11.207899429504723,63.0,,cluster bootstrap over alternatives
-sibling,M5+RM,0.90 (split conformal across families),arm_op20,18,0.7777777777777778,0.6111111111111112,0.9444444444444444,,11.384181126262318,,,cluster bootstrap over alternatives
-sibling,M5+RM,0.90 (split conformal across families),depth_op10,18,0.8333333333333334,0.6666666666666666,1.0,,8.248572849727111,,,cluster bootstrap over alternatives
-sibling,M5+RM,0.90 (split conformal across families),dome_op20,18,0.6111111111111112,0.3888888888888889,0.8333333333333334,,28.17115952853313,,,cluster bootstrap over alternatives
-sibling,M5+RM,0.90 (split conformal across families),drawin_corner,18,0.8888888888888888,0.7222222222222222,1.0,,9.779314141892694,,,cluster bootstrap over alternatives
-sibling,M5+RM,0.90 (split conformal across families),drawin_mid,18,1.0,1.0,1.0,,5.961244714298648,,,degenerate: every resample gives the same share
-sibling,M5+RM,0.90 (split conformal across families),wall_op10,18,0.8888888888888888,0.7222222222222222,1.0,,8.949578931520545,,,cluster bootstrap over alternatives
-sibling,M5+RM,0.90 (split conformal across families),waviness,18,1.0,1.0,1.0,,5.961244714298601,,,degenerate: every resample gives the same share
-sibling,M5+RM,0.90 (split conformal across families),family: concave,63,0.9523809523809523,0.8888888888888888,1.0,,9.271646514112966,63.0,3.8226624799524185,cluster bootstrap over alternatives
-sibling,M5+RM,0.90 (split conformal across families),family: convex,63,0.7619047619047619,0.6031746031746031,0.8888888888888888,,13.14415234489648,63.0,2.138582234346201,cluster bootstrap over alternatives
-sibling,M5+RM,0.90 (split conformal across families),siblings not resolvable,75,0.9466666666666667,0.8933333333333333,1.0,,9.234281184231572,,,cluster bootstrap over alternatives
-sibling,M5+RM,0.90 (split conformal across families),siblings resolvable,51,0.7254901960784313,0.5659777015437393,0.8775510204081632,,14.110279201965236,,,cluster bootstrap over alternatives
-sibling,M5n+RM,0.90 (split conformal across families),all,126,0.8809523809523809,0.8174603174603174,0.9365079365079365,3.0654065362361944,9.492520313097659,63.0,,cluster bootstrap over alternatives
-sibling,M5n+RM,0.90 (split conformal across families),arm_op20,18,0.7777777777777778,0.6111111111111112,0.9444444444444444,,10.450570735922865,,,cluster bootstrap over alternatives
-sibling,M5n+RM,0.90 (split conformal across families),depth_op10,18,0.8888888888888888,0.7222222222222222,1.0,,7.4109316505312,,,cluster bootstrap over alternatives
-sibling,M5n+RM,0.90 (split conformal across families),dome_op20,18,0.6666666666666666,0.4444444444444444,0.8888888888888888,,20.22264997583891,,,cluster bootstrap over alternatives
-sibling,M5n+RM,0.90 (split conformal across families),drawin_corner,18,0.8888888888888888,0.7222222222222222,1.0,,9.73883608058378,,,cluster bootstrap over alternatives
-sibling,M5n+RM,0.90 (split conformal across families),drawin_mid,18,1.0,1.0,1.0,,6.130813072472516,,,degenerate: every resample gives the same share
-sibling,M5n+RM,0.90 (split conformal across families),wall_op10,18,0.9444444444444444,0.8333333333333334,1.0,,6.363027603861806,,,cluster bootstrap over alternatives
-sibling,M5n+RM,0.90 (split conformal across families),waviness,18,1.0,1.0,1.0,,6.130813072472534,,,degenerate: every resample gives the same share
-sibling,M5n+RM,0.90 (split conformal across families),family: concave,63,0.9523809523809523,0.8888888888888888,1.0,,9.079751112769035,63.0,3.5533599062914685,cluster bootstrap over alternatives
-sibling,M5n+RM,0.90 (split conformal across families),family: convex,63,0.8095238095238095,0.6984126984126984,0.9047619047619048,,9.905289513426277,63.0,2.577453166181068,cluster bootstrap over alternatives
-sibling,M5n+RM,0.90 (split conformal across families),siblings not resolvable,75,0.9466666666666667,0.8904067824924825,1.0,,8.233937105922204,,,cluster bootstrap over alternatives
-sibling,M5n+RM,0.90 (split conformal across families),siblings resolvable,51,0.7843137254901961,0.6414973391388485,0.9090909090909091,,11.343377970708618,,,cluster bootstrap over alternatives
-sibling,M7+RM,0.90 (split conformal across families),all,126,0.8888888888888888,0.8412698412698413,0.9365079365079365,3.362858960533991,11.328317184202849,63.0,,cluster bootstrap over alternatives
-sibling,M7+RM,0.90 (split conformal across families),arm_op20,18,0.7777777777777778,0.6111111111111112,0.9444444444444444,,15.379819904731777,,,cluster bootstrap over alternatives
-sibling,M7+RM,0.90 (split conformal across families),depth_op10,18,0.9444444444444444,0.8333333333333334,1.0,,6.852561087979024,,,cluster bootstrap over alternatives
-sibling,M7+RM,0.90 (split conformal across families),dome_op20,18,0.5555555555555556,0.3333333333333333,0.7777777777777778,,29.975582765184054,,,cluster bootstrap over alternatives
-sibling,M7+RM,0.90 (split conformal across families),drawin_corner,18,0.9444444444444444,0.8333333333333334,1.0,,6.9131027683211865,,,cluster bootstrap over alternatives
-sibling,M7+RM,0.90 (split conformal across families),drawin_mid,18,1.0,1.0,1.0,,6.725717921067957,,,degenerate: every resample gives the same share
-sibling,M7+RM,0.90 (split conformal across families),wall_op10,18,1.0,1.0,1.0,,6.725717921067971,,,degenerate: every resample gives the same share
-sibling,M7+RM,0.90 (split conformal across families),waviness,18,1.0,1.0,1.0,,6.725717921067965,,,degenerate: every resample gives the same share
-sibling,M7+RM,0.90 (split conformal across families),family: concave,63,0.9523809523809523,0.873015873015873,1.0,,10.50870572962035,63.0,4.4450358485848245,cluster bootstrap over alternatives
-sibling,M7+RM,0.90 (split conformal across families),family: convex,63,0.8253968253968254,0.7619047619047619,0.9047619047619048,,12.14792863878535,63.0,2.28068207248314,cluster bootstrap over alternatives
-sibling,M7+RM,0.90 (split conformal across families),siblings not resolvable,75,0.9466666666666667,0.8947368421052632,1.0,,10.046770914181806,,,cluster bootstrap over alternatives
-sibling,M7+RM,0.90 (split conformal across families),siblings resolvable,51,0.803921568627451,0.723404255319149,0.8913043478260869,,13.21294405188085,,,cluster bootstrap over alternatives
-sibling,M7n+RM,0.90 (split conformal across families),all,126,0.9126984126984127,0.8648809523809524,0.9603174603174603,3.3959941608246877,10.90910215321771,63.0,,cluster bootstrap over alternatives
-sibling,M7n+RM,0.90 (split conformal across families),arm_op20,18,0.8888888888888888,0.7222222222222222,1.0,,10.59286916858931,,,cluster bootstrap over alternatives
-sibling,M7n+RM,0.90 (split conformal across families),depth_op10,18,0.9444444444444444,0.8333333333333334,1.0,,6.962468274815639,,,cluster bootstrap over alternatives
-sibling,M7n+RM,0.90 (split conformal across families),dome_op20,18,0.6111111111111112,0.3888888888888889,0.8333333333333334,,31.092784612488305,,,cluster bootstrap over alternatives
-sibling,M7n+RM,0.90 (split conformal across families),drawin_corner,18,0.9444444444444444,0.8333333333333334,1.0,,7.339628051683189,,,cluster bootstrap over alternatives
-sibling,M7n+RM,0.90 (split conformal across families),drawin_mid,18,1.0,1.0,1.0,,6.791988321649176,,,degenerate: every resample gives the same share
-sibling,M7n+RM,0.90 (split conformal across families),wall_op10,18,1.0,1.0,1.0,,6.791988321649171,,,degenerate: every resample gives the same share
-sibling,M7n+RM,0.90 (split conformal across families),waviness,18,1.0,1.0,1.0,,6.791988321649184,,,degenerate: every resample gives the same share
-sibling,M7n+RM,0.90 (split conformal across families),family: concave,63,0.9523809523809523,0.873015873015873,1.0,,10.272545986978258,63.0,4.436216568233088,cluster bootstrap over alternatives
-sibling,M7n+RM,0.90 (split conformal across families),family: convex,63,0.873015873015873,0.7936507936507936,0.9523809523809523,,11.54565831945716,63.0,2.3557717534160965,cluster bootstrap over alternatives
-sibling,M7n+RM,0.90 (split conformal across families),siblings not resolvable,75,0.96,0.9042516758962402,1.0,,9.69105865812917,,,cluster bootstrap over alternatives
-sibling,M7n+RM,0.90 (split conformal across families),siblings resolvable,51,0.8431372549019608,0.7460250201775626,0.9362034574468083,,12.700342587171448,,,cluster bootstrap over alternatives
-sibling,NN+RM,0.90 (split conformal across families),all,126,0.8412698412698413,0.7380952380952381,0.9365079365079365,3.172195785466736,11.373997815755668,63.0,,cluster bootstrap over alternatives
-sibling,NN+RM,0.90 (split conformal across families),arm_op20,18,0.7222222222222222,0.5555555555555556,0.8888888888888888,,11.267347083951796,,,cluster bootstrap over alternatives
-sibling,NN+RM,0.90 (split conformal across families),depth_op10,18,0.7777777777777778,0.6111111111111112,0.9444444444444444,,8.887576322662074,,,cluster bootstrap over alternatives
-sibling,NN+RM,0.90 (split conformal across families),dome_op20,18,0.6111111111111112,0.3888888888888889,0.8333333333333334,,25.33645917373349,,,cluster bootstrap over alternatives
-sibling,NN+RM,0.90 (split conformal across families),drawin_corner,18,0.8888888888888888,0.7222222222222222,1.0,,12.001610242968251,,,cluster bootstrap over alternatives
-sibling,NN+RM,0.90 (split conformal across families),drawin_mid,18,1.0,1.0,1.0,,6.344391570933401,,,degenerate: every resample gives the same share
-sibling,NN+RM,0.90 (split conformal across families),wall_op10,18,0.8888888888888888,0.7222222222222222,1.0,,9.436208745107292,,,cluster bootstrap over alternatives
-sibling,NN+RM,0.90 (split conformal across families),waviness,18,1.0,1.0,1.0,,6.3443915709333965,,,degenerate: every resample gives the same share
-sibling,NN+RM,0.90 (split conformal across families),family: concave,63,0.9523809523809523,0.873015873015873,1.0,,9.772106264067798,63.0,4.362473177443141,cluster bootstrap over alternatives
-sibling,NN+RM,0.90 (split conformal across families),family: convex,63,0.7301587301587301,0.5238095238095238,0.9047619047619048,,12.975889367443541,63.0,1.9819183934902576,cluster bootstrap over alternatives
-sibling,NN+RM,0.90 (split conformal across families),siblings not resolvable,75,0.9466666666666667,0.868841673856773,1.0,,9.004538171779243,,,cluster bootstrap over alternatives
-sibling,NN+RM,0.90 (split conformal across families),siblings resolvable,51,0.6862745098039216,0.5172413793103449,0.868421052631579,,14.858497292191593,,,cluster bootstrap over alternatives
-interpolation,M2,"0.71 (largest residual, estimated offset)",all,42,0.7142857142857143,,,5.727321788440686,26.97316601296667,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M2,"0.71 (largest residual, estimated offset)",arm_op20,6,1.0,,,,18.496770670254424,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M2,"0.71 (largest residual, estimated offset)",depth_op10,6,0.6666666666666666,,,,18.862048939603145,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M2,"0.71 (largest residual, estimated offset)",dome_op20,6,0.3333333333333333,,,,44.79785443121569,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M2,"0.71 (largest residual, estimated offset)",drawin_corner,6,1.0,,,,7.0207038497578536,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M2,"0.71 (largest residual, estimated offset)",drawin_mid,6,1.0,,,,17.31762161396363,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M2,"0.71 (largest residual, estimated offset)",wall_op10,6,0.5,,,,31.832732269486925,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M2,"0.71 (largest residual, estimated offset)",waviness,6,0.5,,,,50.484430316484946,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M2,"0.71 (largest residual, estimated offset)",family: concave,21,0.7142857142857143,,,,27.743476861212116,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M2,"0.71 (largest residual, estimated offset)",family: convex,21,0.7142857142857143,,,,26.202855164721193,,,no interval: the alternatives of a held-out cell share one fit
+sibling,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",all,126,0.9047619047619048,0.873015873015873,0.9365079365079365,5.531173036666276,14.63443150666989,63.0,,cluster bootstrap over alternatives
+sibling,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,18,1.0,1.0,1.0,,11.062346073332481,,,degenerate: every resample gives the same share
+sibling,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,18,0.7222222222222222,0.5555555555555556,0.8888888888888888,,30.432540747474345,,,cluster bootstrap over alternatives
+sibling,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,18,0.9444444444444444,0.8333333333333334,1.0,,11.07195957053505,,,cluster bootstrap over alternatives
+sibling,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,18,1.0,1.0,1.0,,11.062346073332453,,,degenerate: every resample gives the same share
+sibling,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,18,1.0,1.0,1.0,,11.062346073332444,,,degenerate: every resample gives the same share
+sibling,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,18,1.0,1.0,1.0,,11.062346073332485,,,degenerate: every resample gives the same share
+sibling,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,18,0.6666666666666666,0.4444444444444444,0.8888888888888888,,16.687135935350003,,,cluster bootstrap over alternatives
+sibling,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,63,0.8571428571428571,0.8095238095238095,0.9047619047619048,,15.922972385126554,63.0,4.774121686752949,cluster bootstrap over alternatives
+sibling,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,63,0.9523809523809523,0.9047619047619048,0.9841269841269841,,13.345890628213239,63.0,6.288224386579533,cluster bootstrap over alternatives
+sibling,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",siblings not resolvable,75,0.8933333333333333,0.8522727272727273,0.9420289855072463,,14.310361357528349,,,cluster bootstrap over alternatives
+sibling,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",siblings resolvable,51,0.9215686274509803,0.8444117647058823,0.9818262987012987,,15.111005255407461,,,cluster bootstrap over alternatives
+sibling,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",all,126,0.8809523809523809,0.8095238095238095,0.9444444444444444,3.571662693472593,9.277262101360865,63.0,,cluster bootstrap over alternatives
+sibling,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,18,0.8333333333333334,0.6666666666666666,1.0,,11.190377319815187,,,cluster bootstrap over alternatives
+sibling,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,18,0.8888888888888888,0.7222222222222222,1.0,,7.6044080141180315,,,cluster bootstrap over alternatives
+sibling,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,18,0.7222222222222222,0.5,0.8888888888888888,,14.837985827722159,,,cluster bootstrap over alternatives
+sibling,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,18,0.8888888888888888,0.7222222222222222,1.0,,9.16468307768072,,,cluster bootstrap over alternatives
+sibling,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,18,1.0,1.0,1.0,,7.14332538694525,,,degenerate: every resample gives the same share
+sibling,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,18,0.9444444444444444,0.8333333333333334,1.0,,7.1439096093047665,,,cluster bootstrap over alternatives
+sibling,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,18,0.8888888888888888,0.7222222222222222,1.0,,7.856145473939942,,,cluster bootstrap over alternatives
+sibling,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,63,0.9523809523809523,0.8888888888888888,1.0,,8.90237888939548,63.0,3.8735516130937,cluster bootstrap over alternatives
+sibling,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,63,0.8095238095238095,0.6825396825396826,0.9365079365079365,,9.652145313326251,63.0,3.2697737738515413,cluster bootstrap over alternatives
+sibling,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",siblings not resolvable,75,0.96,0.9076744186046511,1.0,,8.083659745585583,,,cluster bootstrap over alternatives
+sibling,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",siblings resolvable,51,0.7647058823529411,0.625,0.9090909090909091,,11.032559683383338,,,cluster bootstrap over alternatives
+sibling,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",all,126,0.8809523809523809,0.8174603174603174,0.9365079365079365,4.232416644954995,13.430288767590527,63.0,,cluster bootstrap over alternatives
+sibling,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,18,0.7222222222222222,0.5555555555555556,0.8888888888888888,,14.779887618554836,,,cluster bootstrap over alternatives
+sibling,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,18,1.0,1.0,1.0,,8.464833289910048,,,degenerate: every resample gives the same share
+sibling,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,18,0.6111111111111112,0.4444444444444444,0.7777777777777778,,31.867315746294643,,,cluster bootstrap over alternatives
+sibling,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,18,0.8888888888888888,0.7222222222222222,1.0,,12.814574749143004,,,cluster bootstrap over alternatives
+sibling,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,18,1.0,1.0,1.0,,8.464833289910096,,,degenerate: every resample gives the same share
+sibling,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,18,0.9444444444444444,0.8333333333333334,1.0,,9.155743389410976,,,cluster bootstrap over alternatives
+sibling,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,18,1.0,1.0,1.0,,8.46483328991008,,,degenerate: every resample gives the same share
+sibling,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,63,0.9841269841269841,0.9523809523809523,1.0,,11.935012656349054,63.0,5.769719315629392,cluster bootstrap over alternatives
+sibling,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,63,0.7777777777777778,0.6507936507936508,0.8888888888888888,,14.925564878832,63.0,2.695113974280697,cluster bootstrap over alternatives
+sibling,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",siblings not resolvable,75,0.9733333333333334,0.9230769230769231,1.0,,11.207206993187604,,,cluster bootstrap over alternatives
+sibling,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",siblings resolvable,51,0.7450980392156863,0.6278955768353853,0.8780487804878049,,16.699526671124232,,,cluster bootstrap over alternatives
+sibling,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",all,126,0.8571428571428571,0.7698412698412699,0.9365079365079365,2.980622357149093,11.207899429504723,63.0,,cluster bootstrap over alternatives
+sibling,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,18,0.7777777777777778,0.6111111111111112,0.9444444444444444,,11.384181126262318,,,cluster bootstrap over alternatives
+sibling,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,18,0.8333333333333334,0.6666666666666666,1.0,,8.248572849727111,,,cluster bootstrap over alternatives
+sibling,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,18,0.6111111111111112,0.3888888888888889,0.8333333333333334,,28.17115952853313,,,cluster bootstrap over alternatives
+sibling,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,18,0.8888888888888888,0.7222222222222222,1.0,,9.779314141892694,,,cluster bootstrap over alternatives
+sibling,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,18,1.0,1.0,1.0,,5.961244714298648,,,degenerate: every resample gives the same share
+sibling,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,18,0.8888888888888888,0.7222222222222222,1.0,,8.949578931520545,,,cluster bootstrap over alternatives
+sibling,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,18,1.0,1.0,1.0,,5.961244714298601,,,degenerate: every resample gives the same share
+sibling,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,63,0.9523809523809523,0.8888888888888888,1.0,,9.271646514112966,63.0,3.8226624799524185,cluster bootstrap over alternatives
+sibling,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,63,0.7619047619047619,0.6031746031746031,0.8888888888888888,,13.14415234489648,63.0,2.138582234346201,cluster bootstrap over alternatives
+sibling,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",siblings not resolvable,75,0.9466666666666667,0.8933333333333333,1.0,,9.234281184231572,,,cluster bootstrap over alternatives
+sibling,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",siblings resolvable,51,0.7254901960784313,0.5659777015437393,0.8775510204081632,,14.110279201965236,,,cluster bootstrap over alternatives
+sibling,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",all,126,0.8809523809523809,0.8174603174603174,0.9365079365079365,3.0654065362361944,9.492520313097659,63.0,,cluster bootstrap over alternatives
+sibling,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,18,0.7777777777777778,0.6111111111111112,0.9444444444444444,,10.450570735922865,,,cluster bootstrap over alternatives
+sibling,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,18,0.8888888888888888,0.7222222222222222,1.0,,7.4109316505312,,,cluster bootstrap over alternatives
+sibling,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,18,0.6666666666666666,0.4444444444444444,0.8888888888888888,,20.22264997583891,,,cluster bootstrap over alternatives
+sibling,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,18,0.8888888888888888,0.7222222222222222,1.0,,9.73883608058378,,,cluster bootstrap over alternatives
+sibling,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,18,1.0,1.0,1.0,,6.130813072472516,,,degenerate: every resample gives the same share
+sibling,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,18,0.9444444444444444,0.8333333333333334,1.0,,6.363027603861806,,,cluster bootstrap over alternatives
+sibling,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,18,1.0,1.0,1.0,,6.130813072472534,,,degenerate: every resample gives the same share
+sibling,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,63,0.9523809523809523,0.8888888888888888,1.0,,9.079751112769035,63.0,3.5533599062914685,cluster bootstrap over alternatives
+sibling,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,63,0.8095238095238095,0.6984126984126984,0.9047619047619048,,9.905289513426277,63.0,2.577453166181068,cluster bootstrap over alternatives
+sibling,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",siblings not resolvable,75,0.9466666666666667,0.8904067824924825,1.0,,8.233937105922204,,,cluster bootstrap over alternatives
+sibling,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",siblings resolvable,51,0.7843137254901961,0.6414973391388485,0.9090909090909091,,11.343377970708618,,,cluster bootstrap over alternatives
+sibling,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",all,126,0.8888888888888888,0.8412698412698413,0.9365079365079365,3.362858960533991,11.328317184202849,63.0,,cluster bootstrap over alternatives
+sibling,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,18,0.7777777777777778,0.6111111111111112,0.9444444444444444,,15.379819904731777,,,cluster bootstrap over alternatives
+sibling,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,18,0.9444444444444444,0.8333333333333334,1.0,,6.852561087979024,,,cluster bootstrap over alternatives
+sibling,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,18,0.5555555555555556,0.3333333333333333,0.7777777777777778,,29.975582765184054,,,cluster bootstrap over alternatives
+sibling,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,18,0.9444444444444444,0.8333333333333334,1.0,,6.9131027683211865,,,cluster bootstrap over alternatives
+sibling,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,18,1.0,1.0,1.0,,6.725717921067957,,,degenerate: every resample gives the same share
+sibling,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,18,1.0,1.0,1.0,,6.725717921067971,,,degenerate: every resample gives the same share
+sibling,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,18,1.0,1.0,1.0,,6.725717921067965,,,degenerate: every resample gives the same share
+sibling,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,63,0.9523809523809523,0.873015873015873,1.0,,10.50870572962035,63.0,4.4450358485848245,cluster bootstrap over alternatives
+sibling,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,63,0.8253968253968254,0.7619047619047619,0.9047619047619048,,12.14792863878535,63.0,2.28068207248314,cluster bootstrap over alternatives
+sibling,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",siblings not resolvable,75,0.9466666666666667,0.8947368421052632,1.0,,10.046770914181806,,,cluster bootstrap over alternatives
+sibling,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",siblings resolvable,51,0.803921568627451,0.723404255319149,0.8913043478260869,,13.21294405188085,,,cluster bootstrap over alternatives
+sibling,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",all,126,0.9126984126984127,0.8648809523809524,0.9603174603174603,3.3959941608246877,10.90910215321771,63.0,,cluster bootstrap over alternatives
+sibling,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,18,0.8888888888888888,0.7222222222222222,1.0,,10.59286916858931,,,cluster bootstrap over alternatives
+sibling,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,18,0.9444444444444444,0.8333333333333334,1.0,,6.962468274815639,,,cluster bootstrap over alternatives
+sibling,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,18,0.6111111111111112,0.3888888888888889,0.8333333333333334,,31.092784612488305,,,cluster bootstrap over alternatives
+sibling,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,18,0.9444444444444444,0.8333333333333334,1.0,,7.339628051683189,,,cluster bootstrap over alternatives
+sibling,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,18,1.0,1.0,1.0,,6.791988321649176,,,degenerate: every resample gives the same share
+sibling,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,18,1.0,1.0,1.0,,6.791988321649171,,,degenerate: every resample gives the same share
+sibling,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,18,1.0,1.0,1.0,,6.791988321649184,,,degenerate: every resample gives the same share
+sibling,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,63,0.9523809523809523,0.873015873015873,1.0,,10.272545986978258,63.0,4.436216568233088,cluster bootstrap over alternatives
+sibling,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,63,0.873015873015873,0.7936507936507936,0.9523809523809523,,11.54565831945716,63.0,2.3557717534160965,cluster bootstrap over alternatives
+sibling,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",siblings not resolvable,75,0.96,0.9042516758962402,1.0,,9.69105865812917,,,cluster bootstrap over alternatives
+sibling,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",siblings resolvable,51,0.8431372549019608,0.7460250201775626,0.9362034574468083,,12.700342587171448,,,cluster bootstrap over alternatives
+sibling,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",all,126,0.8412698412698413,0.7380952380952381,0.9365079365079365,3.172195785466736,11.373997815755668,63.0,,cluster bootstrap over alternatives
+sibling,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,18,0.7222222222222222,0.5555555555555556,0.8888888888888888,,11.267347083951796,,,cluster bootstrap over alternatives
+sibling,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,18,0.7777777777777778,0.6111111111111112,0.9444444444444444,,8.887576322662074,,,cluster bootstrap over alternatives
+sibling,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,18,0.6111111111111112,0.3888888888888889,0.8333333333333334,,25.33645917373349,,,cluster bootstrap over alternatives
+sibling,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,18,0.8888888888888888,0.7222222222222222,1.0,,12.001610242968251,,,cluster bootstrap over alternatives
+sibling,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,18,1.0,1.0,1.0,,6.344391570933401,,,degenerate: every resample gives the same share
+sibling,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,18,0.8888888888888888,0.7222222222222222,1.0,,9.436208745107292,,,cluster bootstrap over alternatives
+sibling,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,18,1.0,1.0,1.0,,6.3443915709333965,,,degenerate: every resample gives the same share
+sibling,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,63,0.9523809523809523,0.873015873015873,1.0,,9.772106264067798,63.0,4.362473177443141,cluster bootstrap over alternatives
+sibling,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,63,0.7301587301587301,0.5238095238095238,0.9047619047619048,,12.975889367443541,63.0,1.9819183934902576,cluster bootstrap over alternatives
+sibling,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",siblings not resolvable,75,0.9466666666666667,0.868841673856773,1.0,,9.004538171779243,,,cluster bootstrap over alternatives
+sibling,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",siblings resolvable,51,0.6862745098039216,0.5172413793103449,0.868421052631579,,14.858497292191593,,,cluster bootstrap over alternatives
+interpolation,M2,"0.71 nominal, held-out cases not exchangeable (largest residual)",all,42,0.7142857142857143,,,5.727321788440686,26.97316601296667,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M2,"0.71 nominal, held-out cases not exchangeable (largest residual)",arm_op20,6,1.0,,,,18.496770670254424,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M2,"0.71 nominal, held-out cases not exchangeable (largest residual)",depth_op10,6,0.6666666666666666,,,,18.862048939603145,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M2,"0.71 nominal, held-out cases not exchangeable (largest residual)",dome_op20,6,0.3333333333333333,,,,44.79785443121569,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M2,"0.71 nominal, held-out cases not exchangeable (largest residual)",drawin_corner,6,1.0,,,,7.0207038497578536,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M2,"0.71 nominal, held-out cases not exchangeable (largest residual)",drawin_mid,6,1.0,,,,17.31762161396363,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M2,"0.71 nominal, held-out cases not exchangeable (largest residual)",wall_op10,6,0.5,,,,31.832732269486925,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M2,"0.71 nominal, held-out cases not exchangeable (largest residual)",waviness,6,0.5,,,,50.484430316484946,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M2,"0.71 nominal, held-out cases not exchangeable (largest residual)",family: concave,21,0.7142857142857143,,,,27.743476861212116,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M2,"0.71 nominal, held-out cases not exchangeable (largest residual)",family: convex,21,0.7142857142857143,,,,26.202855164721193,,,no interval: the alternatives of a held-out cell share one fit
 interpolation,M5,"0.90 nominal (model-based, no guarantee)",all,42,0.7142857142857143,,,6.419347081139002,28.66793847876919,,,no interval: the alternatives of a held-out cell share one fit
 interpolation,M5,"0.90 nominal (model-based, no guarantee)",arm_op20,6,1.0,,,,25.719937342307116,,,no interval: the alternatives of a held-out cell share one fit
 interpolation,M5,"0.90 nominal (model-based, no guarantee)",depth_op10,6,0.6666666666666666,,,,29.399348936138107,,,no interval: the alternatives of a held-out cell share one fit
@@ -223,16 +223,16 @@ interpolation,M5,"0.90 nominal (model-based, no guarantee)",wall_op10,6,0.5,,,,3
 interpolation,M5,"0.90 nominal (model-based, no guarantee)",waviness,6,0.5,,,,27.42822357615961,,,no interval: the alternatives of a held-out cell share one fit
 interpolation,M5,"0.90 nominal (model-based, no guarantee)",family: concave,21,0.7142857142857143,,,,35.89885463700203,,,no interval: the alternatives of a held-out cell share one fit
 interpolation,M5,"0.90 nominal (model-based, no guarantee)",family: convex,21,0.7142857142857143,,,,21.43702232053634,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M2n,"0.71 (largest residual, estimated offset)",all,42,0.9285714285714286,,,5.03325818883533,14.200619258193827,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M2n,"0.71 (largest residual, estimated offset)",arm_op20,6,0.6666666666666666,,,,22.497365202787037,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M2n,"0.71 (largest residual, estimated offset)",depth_op10,6,1.0,,,,21.608011887195065,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M2n,"0.71 (largest residual, estimated offset)",dome_op20,6,0.8333333333333334,,,,14.394333431735923,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M2n,"0.71 (largest residual, estimated offset)",drawin_corner,6,1.0,,,,13.970925527245248,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M2n,"0.71 (largest residual, estimated offset)",drawin_mid,6,1.0,,,,9.843905015455,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M2n,"0.71 (largest residual, estimated offset)",wall_op10,6,1.0,,,,3.9949970012793075,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M2n,"0.71 (largest residual, estimated offset)",waviness,6,1.0,,,,13.094796741659223,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M2n,"0.71 (largest residual, estimated offset)",family: concave,21,1.0,,,,11.544395110553493,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M2n,"0.71 (largest residual, estimated offset)",family: convex,21,0.8571428571428571,,,,16.856843405834162,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M2n,"0.71 nominal, held-out cases not exchangeable (largest residual)",all,42,0.9285714285714286,,,5.03325818883533,14.200619258193827,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M2n,"0.71 nominal, held-out cases not exchangeable (largest residual)",arm_op20,6,0.6666666666666666,,,,22.497365202787037,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M2n,"0.71 nominal, held-out cases not exchangeable (largest residual)",depth_op10,6,1.0,,,,21.608011887195065,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M2n,"0.71 nominal, held-out cases not exchangeable (largest residual)",dome_op20,6,0.8333333333333334,,,,14.394333431735923,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M2n,"0.71 nominal, held-out cases not exchangeable (largest residual)",drawin_corner,6,1.0,,,,13.970925527245248,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M2n,"0.71 nominal, held-out cases not exchangeable (largest residual)",drawin_mid,6,1.0,,,,9.843905015455,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M2n,"0.71 nominal, held-out cases not exchangeable (largest residual)",wall_op10,6,1.0,,,,3.9949970012793075,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M2n,"0.71 nominal, held-out cases not exchangeable (largest residual)",waviness,6,1.0,,,,13.094796741659223,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M2n,"0.71 nominal, held-out cases not exchangeable (largest residual)",family: concave,21,1.0,,,,11.544395110553493,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M2n,"0.71 nominal, held-out cases not exchangeable (largest residual)",family: convex,21,0.8571428571428571,,,,16.856843405834162,,,no interval: the alternatives of a held-out cell share one fit
 interpolation,M5n,"0.90 nominal (model-based, no guarantee)",all,42,0.9285714285714286,,,5.774222238854309,16.241247574394983,,,no interval: the alternatives of a held-out cell share one fit
 interpolation,M5n,"0.90 nominal (model-based, no guarantee)",arm_op20,6,0.6666666666666666,,,,21.647140356121394,,,no interval: the alternatives of a held-out cell share one fit
 interpolation,M5n,"0.90 nominal (model-based, no guarantee)",depth_op10,6,1.0,,,,26.409960458809902,,,no interval: the alternatives of a held-out cell share one fit
@@ -243,26 +243,26 @@ interpolation,M5n,"0.90 nominal (model-based, no guarantee)",wall_op10,6,1.0,,,,
 interpolation,M5n,"0.90 nominal (model-based, no guarantee)",waviness,6,1.0,,,,19.689934142619958,,,no interval: the alternatives of a held-out cell share one fit
 interpolation,M5n,"0.90 nominal (model-based, no guarantee)",family: concave,21,1.0,,,,14.018940237790227,,,no interval: the alternatives of a held-out cell share one fit
 interpolation,M5n,"0.90 nominal (model-based, no guarantee)",family: convex,21,0.8571428571428571,,,,18.46355491099973,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M3,0.71 (jackknife+),all,42,0.42857142857142855,,,6.994162406317516,97.64602024901744,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M3,0.71 (jackknife+),arm_op20,6,0.5,,,,185.88278916705886,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M3,0.71 (jackknife+),depth_op10,6,0.16666666666666666,,,,83.87787763366688,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M3,0.71 (jackknife+),dome_op20,6,0.3333333333333333,,,,87.67346554976213,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M3,0.71 (jackknife+),drawin_corner,6,0.6666666666666666,,,,23.930514948537404,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M3,0.71 (jackknife+),drawin_mid,6,0.0,,,,195.79138050692404,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M3,0.71 (jackknife+),wall_op10,6,0.6666666666666666,,,,39.58705499211447,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M3,0.71 (jackknife+),waviness,6,0.6666666666666666,,,,66.77905894505834,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M3,0.71 (jackknife+),family: concave,21,0.3333333333333333,,,,113.62109708882511,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M3,0.71 (jackknife+),family: convex,21,0.5238095238095238,,,,81.67094340920978,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M4,0.71 (jackknife+),all,42,0.35714285714285715,,,3.3855872111271044,65.17286784491641,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M4,0.71 (jackknife+),arm_op20,6,0.16666666666666666,,,,34.17961828706927,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M4,0.71 (jackknife+),depth_op10,6,0.0,,,,94.14520492473633,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M4,0.71 (jackknife+),dome_op20,6,0.8333333333333334,,,,29.21816980601244,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M4,0.71 (jackknife+),drawin_corner,6,0.5,,,,25.198725845477085,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M4,0.71 (jackknife+),drawin_mid,6,0.0,,,,99.30194977719985,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M4,0.71 (jackknife+),wall_op10,6,1.0,,,,6.705602722316356,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M4,0.71 (jackknife+),waviness,6,0.0,,,,167.4608035516036,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M4,0.71 (jackknife+),family: concave,21,0.2857142857142857,,,,66.74277534355005,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M4,0.71 (jackknife+),family: convex,21,0.42857142857142855,,,,63.60296034628276,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M3,"0.71 nominal, held-out cases not exchangeable (jackknife+)",all,42,0.42857142857142855,,,6.994162406317516,97.64602024901744,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M3,"0.71 nominal, held-out cases not exchangeable (jackknife+)",arm_op20,6,0.5,,,,185.88278916705886,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M3,"0.71 nominal, held-out cases not exchangeable (jackknife+)",depth_op10,6,0.16666666666666666,,,,83.87787763366688,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M3,"0.71 nominal, held-out cases not exchangeable (jackknife+)",dome_op20,6,0.3333333333333333,,,,87.67346554976213,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M3,"0.71 nominal, held-out cases not exchangeable (jackknife+)",drawin_corner,6,0.6666666666666666,,,,23.930514948537404,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M3,"0.71 nominal, held-out cases not exchangeable (jackknife+)",drawin_mid,6,0.0,,,,195.79138050692404,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M3,"0.71 nominal, held-out cases not exchangeable (jackknife+)",wall_op10,6,0.6666666666666666,,,,39.58705499211447,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M3,"0.71 nominal, held-out cases not exchangeable (jackknife+)",waviness,6,0.6666666666666666,,,,66.77905894505834,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M3,"0.71 nominal, held-out cases not exchangeable (jackknife+)",family: concave,21,0.3333333333333333,,,,113.62109708882511,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M3,"0.71 nominal, held-out cases not exchangeable (jackknife+)",family: convex,21,0.5238095238095238,,,,81.67094340920978,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M4,"0.71 nominal, held-out cases not exchangeable (jackknife+)",all,42,0.35714285714285715,,,3.3855872111271044,65.17286784491641,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M4,"0.71 nominal, held-out cases not exchangeable (jackknife+)",arm_op20,6,0.16666666666666666,,,,34.17961828706927,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M4,"0.71 nominal, held-out cases not exchangeable (jackknife+)",depth_op10,6,0.0,,,,94.14520492473633,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M4,"0.71 nominal, held-out cases not exchangeable (jackknife+)",dome_op20,6,0.8333333333333334,,,,29.21816980601244,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M4,"0.71 nominal, held-out cases not exchangeable (jackknife+)",drawin_corner,6,0.5,,,,25.198725845477085,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M4,"0.71 nominal, held-out cases not exchangeable (jackknife+)",drawin_mid,6,0.0,,,,99.30194977719985,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M4,"0.71 nominal, held-out cases not exchangeable (jackknife+)",wall_op10,6,1.0,,,,6.705602722316356,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M4,"0.71 nominal, held-out cases not exchangeable (jackknife+)",waviness,6,0.0,,,,167.4608035516036,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M4,"0.71 nominal, held-out cases not exchangeable (jackknife+)",family: concave,21,0.2857142857142857,,,,66.74277534355005,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M4,"0.71 nominal, held-out cases not exchangeable (jackknife+)",family: convex,21,0.42857142857142855,,,,63.60296034628276,,,no interval: the alternatives of a held-out cell share one fit
 interpolation,M7n,"0.90 nominal (model-based, no guarantee)",all,42,0.5238095238095238,,,1.9815425974741996,25.626064666516797,,,no interval: the alternatives of a held-out cell share one fit
 interpolation,M7n,"0.90 nominal (model-based, no guarantee)",arm_op20,6,0.6666666666666666,,,,35.42630588374996,,,no interval: the alternatives of a held-out cell share one fit
 interpolation,M7n,"0.90 nominal (model-based, no guarantee)",depth_op10,6,0.3333333333333333,,,,21.95428464903381,,,no interval: the alternatives of a held-out cell share one fit
@@ -293,96 +293,96 @@ interpolation,Mcd,"0.90 nominal (model-based, no guarantee)",wall_op10,6,0.5,,,,
 interpolation,Mcd,"0.90 nominal (model-based, no guarantee)",waviness,6,0.5,,,,34.851924594801396,,,no interval: the alternatives of a held-out cell share one fit
 interpolation,Mcd,"0.90 nominal (model-based, no guarantee)",family: concave,21,1.0,,,,17.330295204525946,,,no interval: the alternatives of a held-out cell share one fit
 interpolation,Mcd,"0.90 nominal (model-based, no guarantee)",family: convex,21,0.5714285714285714,,,,31.324801075086476,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M1s+RM,0.90 (split conformal across families),all,42,0.8571428571428571,,,21.311015050661172,76.2389751780636,21.0,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M1s+RM,0.90 (split conformal across families),arm_op20,6,0.5,,,,210.37361603100484,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M1s+RM,0.90 (split conformal across families),depth_op10,6,1.0,,,,42.622030101322345,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M1s+RM,0.90 (split conformal across families),dome_op20,6,1.0,,,,42.622030101322565,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M1s+RM,0.90 (split conformal across families),drawin_corner,6,1.0,,,,42.622030101322586,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M1s+RM,0.90 (split conformal across families),drawin_mid,6,1.0,,,,42.6220301013226,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M1s+RM,0.90 (split conformal across families),wall_op10,6,1.0,,,,42.6220301013226,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M1s+RM,0.90 (split conformal across families),waviness,6,0.5,,,,110.18905970882757,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M1s+RM,0.90 (split conformal across families),family: concave,21,1.0,,,,60.753293781476984,21.0,30.37664689073854,no interval: the alternatives of a held-out cell share one fit
-interpolation,M1s+RM,0.90 (split conformal across families),family: convex,21,0.7142857142857143,,,,91.7246565746502,21.0,12.245383210584018,no interval: the alternatives of a held-out cell share one fit
-interpolation,M1sn+RM,0.90 (split conformal across families),all,42,0.8809523809523809,,,4.786380406510253,11.76873717446033,21.0,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M1sn+RM,0.90 (split conformal across families),arm_op20,6,0.6666666666666666,,,,18.4518190054323,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M1sn+RM,0.90 (split conformal across families),depth_op10,6,1.0,,,,9.572760813020437,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M1sn+RM,0.90 (split conformal across families),dome_op20,6,0.8333333333333334,,,,13.013811339878686,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M1sn+RM,0.90 (split conformal across families),drawin_corner,6,1.0,,,,9.57276081302053,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M1sn+RM,0.90 (split conformal across families),drawin_mid,6,1.0,,,,9.572760813020547,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M1sn+RM,0.90 (split conformal across families),wall_op10,6,1.0,,,,9.572760813020485,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M1sn+RM,0.90 (split conformal across families),waviness,6,0.6666666666666666,,,,12.624486623829332,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M1sn+RM,0.90 (split conformal across families),family: concave,21,1.0,,,,10.649570891054006,21.0,5.324785445526989,no interval: the alternatives of a held-out cell share one fit
-interpolation,M1sn+RM,0.90 (split conformal across families),family: convex,21,0.7619047619047619,,,,12.887903457866653,21.0,4.247975367493544,no interval: the alternatives of a held-out cell share one fit
-interpolation,M4+RM,0.90 (split conformal across families),all,42,0.8571428571428571,,,10.48746356092905,25.502851441242054,21.0,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M4+RM,0.90 (split conformal across families),arm_op20,6,1.0,,,,20.97492712185812,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M4+RM,0.90 (split conformal across families),depth_op10,6,0.5,,,,42.230553517017874,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M4+RM,0.90 (split conformal across families),dome_op20,6,1.0,,,,20.974927121858112,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M4+RM,0.90 (split conformal across families),drawin_corner,6,1.0,,,,20.97492712185812,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M4+RM,0.90 (split conformal across families),drawin_mid,6,1.0,,,,20.974927121858123,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M4+RM,0.90 (split conformal across families),wall_op10,6,1.0,,,,20.974927121858094,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M4+RM,0.90 (split conformal across families),waviness,6,0.5,,,,31.414770962385926,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M4+RM,0.90 (split conformal across families),family: concave,21,0.7142857142857143,,,,28.18101624140388,21.0,9.562583801318022,no interval: the alternatives of a held-out cell share one fit
-interpolation,M4+RM,0.90 (split conformal across families),family: convex,21,1.0,,,,22.824686641080216,21.0,11.412343320540096,no interval: the alternatives of a held-out cell share one fit
-interpolation,M5+RM,0.90 (split conformal across families),all,42,0.9285714285714286,,,10.64840255766001,23.713963219503633,21.0,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M5+RM,0.90 (split conformal across families),arm_op20,6,0.5,,,,38.216911844605235,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M5+RM,0.90 (split conformal across families),depth_op10,6,1.0,,,,21.29680511532006,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M5+RM,0.90 (split conformal across families),dome_op20,6,1.0,,,,21.296805115320012,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M5+RM,0.90 (split conformal across families),drawin_corner,6,1.0,,,,21.296805115320012,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M5+RM,0.90 (split conformal across families),drawin_mid,6,1.0,,,,21.296805115320044,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M5+RM,0.90 (split conformal across families),wall_op10,6,1.0,,,,21.296805115320048,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M5+RM,0.90 (split conformal across families),waviness,6,1.0,,,,21.29680511532003,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M5+RM,0.90 (split conformal across families),family: concave,21,0.8571428571428571,,,,24.29443423219605,21.0,9.73005901191442,no interval: the alternatives of a held-out cell share one fit
-interpolation,M5+RM,0.90 (split conformal across families),family: convex,21,1.0,,,,23.133492206811216,21.0,11.5667461034056,no interval: the alternatives of a held-out cell share one fit
-interpolation,M5n+RM,0.90 (split conformal across families),all,42,0.8809523809523809,,,4.786380406510064,11.7747175823412,21.0,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M5n+RM,0.90 (split conformal across families),arm_op20,6,0.6666666666666666,,,,18.451819005434533,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M5n+RM,0.90 (split conformal across families),depth_op10,6,1.0,,,,9.572760813020295,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M5n+RM,0.90 (split conformal across families),dome_op20,6,0.8333333333333334,,,,13.055674195041492,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M5n+RM,0.90 (split conformal across families),drawin_corner,6,1.0,,,,9.572760813020098,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M5n+RM,0.90 (split conformal across families),drawin_mid,6,1.0,,,,9.572760813020121,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M5n+RM,0.90 (split conformal across families),wall_op10,6,1.0,,,,9.572760813020116,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M5n+RM,0.90 (split conformal across families),waviness,6,0.6666666666666666,,,,12.624486623831745,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M5n+RM,0.90 (split conformal across families),family: concave,21,1.0,,,,10.649570891054001,21.0,5.324785445526971,no interval: the alternatives of a held-out cell share one fit
-interpolation,M5n+RM,0.90 (split conformal across families),family: convex,21,0.7619047619047619,,,,12.899864273628399,21.0,4.2479753674931375,no interval: the alternatives of a held-out cell share one fit
-interpolation,M7+RM,0.90 (split conformal across families),all,42,0.8571428571428571,,,22.471537876825654,80.05223674006692,21.0,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M7+RM,0.90 (split conformal across families),arm_op20,6,0.5,,,,227.18207704685832,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M7+RM,0.90 (split conformal across families),depth_op10,6,1.0,,,,44.943075753651335,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M7+RM,0.90 (split conformal across families),dome_op20,6,1.0,,,,44.943075753651634,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M7+RM,0.90 (split conformal across families),drawin_corner,6,1.0,,,,44.94307575365167,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M7+RM,0.90 (split conformal across families),drawin_mid,6,1.0,,,,44.94307575365164,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M7+RM,0.90 (split conformal across families),wall_op10,6,1.0,,,,44.94307575365165,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M7+RM,0.90 (split conformal across families),waviness,6,0.5,,,,108.46820136535223,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M7+RM,0.90 (split conformal across families),family: concave,21,1.0,,,,65.01764629981297,21.0,32.50882314990651,no interval: the alternatives of a held-out cell share one fit
-interpolation,M7+RM,0.90 (split conformal across families),family: convex,21,0.7142857142857143,,,,95.0868271803209,21.0,12.434252603745126,no interval: the alternatives of a held-out cell share one fit
-interpolation,M7n+RM,0.90 (split conformal across families),all,42,0.9047619047619048,,,5.601183685140736,13.786535817181743,21.0,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M7n+RM,0.90 (split conformal across families),arm_op20,6,0.6666666666666666,,,,20.800581837252846,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M7n+RM,0.90 (split conformal across families),depth_op10,6,1.0,,,,11.202367370281449,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M7n+RM,0.90 (split conformal across families),dome_op20,6,0.8333333333333334,,,,19.142974703063867,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M7n+RM,0.90 (split conformal across families),drawin_corner,6,1.0,,,,11.202367370281495,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M7n+RM,0.90 (split conformal across families),drawin_mid,6,1.0,,,,11.20236737028147,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M7n+RM,0.90 (split conformal across families),wall_op10,6,1.0,,,,11.20236737028148,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M7n+RM,0.90 (split conformal across families),waviness,6,0.8333333333333334,,,,11.752724698829587,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,M7n+RM,0.90 (split conformal across families),family: concave,21,1.0,,,,12.979418441063828,21.0,6.489709220531903,no interval: the alternatives of a held-out cell share one fit
-interpolation,M7n+RM,0.90 (split conformal across families),family: convex,21,0.8095238095238095,,,,14.593653193299653,21.0,4.712658149749569,no interval: the alternatives of a held-out cell share one fit
-interpolation,NN+RM,0.90 (split conformal across families),all,42,0.8809523809523809,,,4.786380406510253,11.768737174460314,21.0,,no interval: the alternatives of a held-out cell share one fit
-interpolation,NN+RM,0.90 (split conformal across families),arm_op20,6,0.6666666666666666,,,,18.451819005432217,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,NN+RM,0.90 (split conformal across families),depth_op10,6,1.0,,,,9.572760813020437,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,NN+RM,0.90 (split conformal across families),dome_op20,6,0.8333333333333334,,,,13.013811339878657,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,NN+RM,0.90 (split conformal across families),drawin_corner,6,1.0,,,,9.572760813020514,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,NN+RM,0.90 (split conformal across families),drawin_mid,6,1.0,,,,9.572760813020547,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,NN+RM,0.90 (split conformal across families),wall_op10,6,1.0,,,,9.572760813020496,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,NN+RM,0.90 (split conformal across families),waviness,6,0.6666666666666666,,,,12.624486623829318,,,no interval: the alternatives of a held-out cell share one fit
-interpolation,NN+RM,0.90 (split conformal across families),family: concave,21,1.0,,,,10.649570891053985,21.0,5.324785445526971,no interval: the alternatives of a held-out cell share one fit
-interpolation,NN+RM,0.90 (split conformal across families),family: convex,21,0.7619047619047619,,,,12.887903457866638,21.0,4.247975367493544,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M2,"0.71 (largest residual, estimated offset)",all,84,0.44047619047619047,,,4.815852206636043,78.71010746593527,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M2,"0.71 (largest residual, estimated offset)",arm_op20,12,0.3333333333333333,,,,135.94199597249803,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M2,"0.71 (largest residual, estimated offset)",depth_op10,12,0.5,,,,84.84460432186307,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M2,"0.71 (largest residual, estimated offset)",dome_op20,12,0.75,,,,25.996252320144947,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M2,"0.71 (largest residual, estimated offset)",drawin_corner,12,0.5,,,,16.21976735422803,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M2,"0.71 (largest residual, estimated offset)",drawin_mid,12,0.0,,,,143.21632838051235,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M2,"0.71 (largest residual, estimated offset)",wall_op10,12,0.5,,,,30.769486933137614,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M2,"0.71 (largest residual, estimated offset)",waviness,12,0.5,,,,113.982316979163,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M2,"0.71 (largest residual, estimated offset)",family: concave,42,0.40476190476190477,,,,102.54187388315044,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M2,"0.71 (largest residual, estimated offset)",family: convex,42,0.47619047619047616,,,,54.87834104872011,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",all,42,0.8571428571428571,,,21.311015050661172,76.2389751780636,21.0,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,6,0.5,,,,210.37361603100484,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,6,1.0,,,,42.622030101322345,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,6,1.0,,,,42.622030101322565,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,6,1.0,,,,42.622030101322586,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,6,1.0,,,,42.6220301013226,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,6,1.0,,,,42.6220301013226,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,6,0.5,,,,110.18905970882757,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,21,1.0,,,,60.753293781476984,21.0,30.37664689073854,no interval: the alternatives of a held-out cell share one fit
+interpolation,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,21,0.7142857142857143,,,,91.7246565746502,21.0,12.245383210584018,no interval: the alternatives of a held-out cell share one fit
+interpolation,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",all,42,0.8809523809523809,,,4.786380406510253,11.76873717446033,21.0,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,6,0.6666666666666666,,,,18.4518190054323,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,6,1.0,,,,9.572760813020437,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,6,0.8333333333333334,,,,13.013811339878686,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,6,1.0,,,,9.57276081302053,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,6,1.0,,,,9.572760813020547,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,6,1.0,,,,9.572760813020485,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,6,0.6666666666666666,,,,12.624486623829332,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,21,1.0,,,,10.649570891054006,21.0,5.324785445526989,no interval: the alternatives of a held-out cell share one fit
+interpolation,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,21,0.7619047619047619,,,,12.887903457866653,21.0,4.247975367493544,no interval: the alternatives of a held-out cell share one fit
+interpolation,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",all,42,0.8571428571428571,,,10.48746356092905,25.502851441242054,21.0,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,6,1.0,,,,20.97492712185812,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,6,0.5,,,,42.230553517017874,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,6,1.0,,,,20.974927121858112,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,6,1.0,,,,20.97492712185812,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,6,1.0,,,,20.974927121858123,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,6,1.0,,,,20.974927121858094,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,6,0.5,,,,31.414770962385926,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,21,0.7142857142857143,,,,28.18101624140388,21.0,9.562583801318022,no interval: the alternatives of a held-out cell share one fit
+interpolation,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,21,1.0,,,,22.824686641080216,21.0,11.412343320540096,no interval: the alternatives of a held-out cell share one fit
+interpolation,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",all,42,0.9285714285714286,,,10.64840255766001,23.713963219503633,21.0,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,6,0.5,,,,38.216911844605235,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,6,1.0,,,,21.29680511532006,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,6,1.0,,,,21.296805115320012,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,6,1.0,,,,21.296805115320012,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,6,1.0,,,,21.296805115320044,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,6,1.0,,,,21.296805115320048,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,6,1.0,,,,21.29680511532003,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,21,0.8571428571428571,,,,24.29443423219605,21.0,9.73005901191442,no interval: the alternatives of a held-out cell share one fit
+interpolation,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,21,1.0,,,,23.133492206811216,21.0,11.5667461034056,no interval: the alternatives of a held-out cell share one fit
+interpolation,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",all,42,0.8809523809523809,,,4.786380406510064,11.7747175823412,21.0,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,6,0.6666666666666666,,,,18.451819005434533,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,6,1.0,,,,9.572760813020295,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,6,0.8333333333333334,,,,13.055674195041492,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,6,1.0,,,,9.572760813020098,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,6,1.0,,,,9.572760813020121,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,6,1.0,,,,9.572760813020116,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,6,0.6666666666666666,,,,12.624486623831745,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,21,1.0,,,,10.649570891054001,21.0,5.324785445526971,no interval: the alternatives of a held-out cell share one fit
+interpolation,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,21,0.7619047619047619,,,,12.899864273628399,21.0,4.2479753674931375,no interval: the alternatives of a held-out cell share one fit
+interpolation,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",all,42,0.8571428571428571,,,22.471537876825654,80.05223674006692,21.0,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,6,0.5,,,,227.18207704685832,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,6,1.0,,,,44.943075753651335,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,6,1.0,,,,44.943075753651634,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,6,1.0,,,,44.94307575365167,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,6,1.0,,,,44.94307575365164,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,6,1.0,,,,44.94307575365165,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,6,0.5,,,,108.46820136535223,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,21,1.0,,,,65.01764629981297,21.0,32.50882314990651,no interval: the alternatives of a held-out cell share one fit
+interpolation,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,21,0.7142857142857143,,,,95.0868271803209,21.0,12.434252603745126,no interval: the alternatives of a held-out cell share one fit
+interpolation,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",all,42,0.9047619047619048,,,5.601183685140736,13.786535817181743,21.0,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,6,0.6666666666666666,,,,20.800581837252846,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,6,1.0,,,,11.202367370281449,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,6,0.8333333333333334,,,,19.142974703063867,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,6,1.0,,,,11.202367370281495,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,6,1.0,,,,11.20236737028147,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,6,1.0,,,,11.20236737028148,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,6,0.8333333333333334,,,,11.752724698829587,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,21,1.0,,,,12.979418441063828,21.0,6.489709220531903,no interval: the alternatives of a held-out cell share one fit
+interpolation,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,21,0.8095238095238095,,,,14.593653193299653,21.0,4.712658149749569,no interval: the alternatives of a held-out cell share one fit
+interpolation,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",all,42,0.8809523809523809,,,4.786380406510253,11.768737174460314,21.0,,no interval: the alternatives of a held-out cell share one fit
+interpolation,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,6,0.6666666666666666,,,,18.451819005432217,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,6,1.0,,,,9.572760813020437,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,6,0.8333333333333334,,,,13.013811339878657,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,6,1.0,,,,9.572760813020514,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,6,1.0,,,,9.572760813020547,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,6,1.0,,,,9.572760813020496,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,6,0.6666666666666666,,,,12.624486623829318,,,no interval: the alternatives of a held-out cell share one fit
+interpolation,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,21,1.0,,,,10.649570891053985,21.0,5.324785445526971,no interval: the alternatives of a held-out cell share one fit
+interpolation,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,21,0.7619047619047619,,,,12.887903457866638,21.0,4.247975367493544,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M2,"0.71 nominal, held-out cases not exchangeable (largest residual)",all,84,0.44047619047619047,,,4.815852206636043,78.71010746593527,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M2,"0.71 nominal, held-out cases not exchangeable (largest residual)",arm_op20,12,0.3333333333333333,,,,135.94199597249803,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M2,"0.71 nominal, held-out cases not exchangeable (largest residual)",depth_op10,12,0.5,,,,84.84460432186307,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M2,"0.71 nominal, held-out cases not exchangeable (largest residual)",dome_op20,12,0.75,,,,25.996252320144947,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M2,"0.71 nominal, held-out cases not exchangeable (largest residual)",drawin_corner,12,0.5,,,,16.21976735422803,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M2,"0.71 nominal, held-out cases not exchangeable (largest residual)",drawin_mid,12,0.0,,,,143.21632838051235,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M2,"0.71 nominal, held-out cases not exchangeable (largest residual)",wall_op10,12,0.5,,,,30.769486933137614,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M2,"0.71 nominal, held-out cases not exchangeable (largest residual)",waviness,12,0.5,,,,113.982316979163,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M2,"0.71 nominal, held-out cases not exchangeable (largest residual)",family: concave,42,0.40476190476190477,,,,102.54187388315044,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M2,"0.71 nominal, held-out cases not exchangeable (largest residual)",family: convex,42,0.47619047619047616,,,,54.87834104872011,,,no interval: the alternatives of a held-out cell share one fit
 extrapolation,M5,"0.90 nominal (model-based, no guarantee)",all,84,0.4642857142857143,,,4.551605904253027,75.25768873689714,,,no interval: the alternatives of a held-out cell share one fit
 extrapolation,M5,"0.90 nominal (model-based, no guarantee)",arm_op20,12,0.5833333333333334,,,,136.26869252028212,,,no interval: the alternatives of a held-out cell share one fit
 extrapolation,M5,"0.90 nominal (model-based, no guarantee)",depth_op10,12,0.5,,,,91.68960381116034,,,no interval: the alternatives of a held-out cell share one fit
@@ -393,16 +393,16 @@ extrapolation,M5,"0.90 nominal (model-based, no guarantee)",wall_op10,12,0.5,,,,
 extrapolation,M5,"0.90 nominal (model-based, no guarantee)",waviness,12,0.5,,,,112.4244223637405,,,no interval: the alternatives of a held-out cell share one fit
 extrapolation,M5,"0.90 nominal (model-based, no guarantee)",family: concave,42,0.4523809523809524,,,,97.38490439930108,,,no interval: the alternatives of a held-out cell share one fit
 extrapolation,M5,"0.90 nominal (model-based, no guarantee)",family: convex,42,0.47619047619047616,,,,53.130473074493175,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M2n,"0.71 (largest residual, estimated offset)",all,84,0.3333333333333333,,,3.0913980943692074,58.69432327162095,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M2n,"0.71 (largest residual, estimated offset)",arm_op20,12,0.4166666666666667,,,,19.631273921704906,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M2n,"0.71 (largest residual, estimated offset)",depth_op10,12,0.0,,,,122.68659091104401,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M2n,"0.71 (largest residual, estimated offset)",dome_op20,12,0.75,,,,16.194742348356304,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M2n,"0.71 (largest residual, estimated offset)",drawin_corner,12,0.25,,,,61.27062137281592,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M2n,"0.71 (largest residual, estimated offset)",drawin_mid,12,0.16666666666666666,,,,63.51229179604834,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M2n,"0.71 (largest residual, estimated offset)",wall_op10,12,0.6666666666666666,,,,11.243367131823993,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M2n,"0.71 (largest residual, estimated offset)",waviness,12,0.08333333333333333,,,,116.32137541955329,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M2n,"0.71 (largest residual, estimated offset)",family: concave,42,0.23809523809523808,,,,63.79434661662632,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M2n,"0.71 (largest residual, estimated offset)",family: convex,42,0.42857142857142855,,,,53.5942999266156,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M2n,"0.71 nominal, held-out cases not exchangeable (largest residual)",all,84,0.3333333333333333,,,3.0913980943692074,58.69432327162095,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M2n,"0.71 nominal, held-out cases not exchangeable (largest residual)",arm_op20,12,0.4166666666666667,,,,19.631273921704906,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M2n,"0.71 nominal, held-out cases not exchangeable (largest residual)",depth_op10,12,0.0,,,,122.68659091104401,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M2n,"0.71 nominal, held-out cases not exchangeable (largest residual)",dome_op20,12,0.75,,,,16.194742348356304,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M2n,"0.71 nominal, held-out cases not exchangeable (largest residual)",drawin_corner,12,0.25,,,,61.27062137281592,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M2n,"0.71 nominal, held-out cases not exchangeable (largest residual)",drawin_mid,12,0.16666666666666666,,,,63.51229179604834,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M2n,"0.71 nominal, held-out cases not exchangeable (largest residual)",wall_op10,12,0.6666666666666666,,,,11.243367131823993,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M2n,"0.71 nominal, held-out cases not exchangeable (largest residual)",waviness,12,0.08333333333333333,,,,116.32137541955329,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M2n,"0.71 nominal, held-out cases not exchangeable (largest residual)",family: concave,42,0.23809523809523808,,,,63.79434661662632,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M2n,"0.71 nominal, held-out cases not exchangeable (largest residual)",family: convex,42,0.42857142857142855,,,,53.5942999266156,,,no interval: the alternatives of a held-out cell share one fit
 extrapolation,M5n,"0.90 nominal (model-based, no guarantee)",all,84,0.35714285714285715,,,3.690282385592649,54.55639785303435,,,no interval: the alternatives of a held-out cell share one fit
 extrapolation,M5n,"0.90 nominal (model-based, no guarantee)",arm_op20,12,0.25,,,,21.104243379971077,,,no interval: the alternatives of a held-out cell share one fit
 extrapolation,M5n,"0.90 nominal (model-based, no guarantee)",depth_op10,12,0.16666666666666666,,,,114.59116731388885,,,no interval: the alternatives of a held-out cell share one fit
@@ -413,26 +413,26 @@ extrapolation,M5n,"0.90 nominal (model-based, no guarantee)",wall_op10,12,0.6666
 extrapolation,M5n,"0.90 nominal (model-based, no guarantee)",waviness,12,0.3333333333333333,,,,103.55331836058393,,,no interval: the alternatives of a held-out cell share one fit
 extrapolation,M5n,"0.90 nominal (model-based, no guarantee)",family: concave,42,0.2619047619047619,,,,58.66917254417041,,,no interval: the alternatives of a held-out cell share one fit
 extrapolation,M5n,"0.90 nominal (model-based, no guarantee)",family: convex,42,0.4523809523809524,,,,50.443623161898294,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M3,0.71 (jackknife+),all,84,0.42857142857142855,,,8.910331185921736,120.34281868600503,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M3,0.71 (jackknife+),arm_op20,12,0.6666666666666666,,,,108.50922116900216,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M3,0.71 (jackknife+),depth_op10,12,0.25,,,,129.49180331439743,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M3,0.71 (jackknife+),dome_op20,12,0.8333333333333334,,,,49.094385271030596,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M3,0.71 (jackknife+),drawin_corner,12,0.16666666666666666,,,,113.25989064320943,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M3,0.71 (jackknife+),drawin_mid,12,0.16666666666666666,,,,260.24691625199694,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M3,0.71 (jackknife+),wall_op10,12,0.4166666666666667,,,,72.27980188261395,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M3,0.71 (jackknife+),waviness,12,0.5,,,,109.51771226978467,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M3,0.71 (jackknife+),family: concave,42,0.47619047619047616,,,,122.06234243165703,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M3,0.71 (jackknife+),family: convex,42,0.38095238095238093,,,,118.62329494035302,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M4,0.71 (jackknife+),all,84,0.47619047619047616,,,2.3435271544655247,47.88470546201584,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M4,0.71 (jackknife+),arm_op20,12,0.6666666666666666,,,,18.851148340539453,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M4,0.71 (jackknife+),depth_op10,12,0.25,,,,99.9093409535297,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M4,0.71 (jackknife+),dome_op20,12,0.75,,,,27.021285834259178,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M4,0.71 (jackknife+),drawin_corner,12,0.4166666666666667,,,,40.85983669138185,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M4,0.71 (jackknife+),drawin_mid,12,0.4166666666666667,,,,30.403584243135768,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M4,0.71 (jackknife+),wall_op10,12,0.5833333333333334,,,,13.627367113411395,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M4,0.71 (jackknife+),waviness,12,0.25,,,,104.52037505785353,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M4,0.71 (jackknife+),family: concave,42,0.40476190476190477,,,,54.01392528995201,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M4,0.71 (jackknife+),family: convex,42,0.5476190476190477,,,,41.75548563407966,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M3,"0.71 nominal, held-out cases not exchangeable (jackknife+)",all,84,0.42857142857142855,,,8.910331185921736,120.34281868600503,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M3,"0.71 nominal, held-out cases not exchangeable (jackknife+)",arm_op20,12,0.6666666666666666,,,,108.50922116900216,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M3,"0.71 nominal, held-out cases not exchangeable (jackknife+)",depth_op10,12,0.25,,,,129.49180331439743,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M3,"0.71 nominal, held-out cases not exchangeable (jackknife+)",dome_op20,12,0.8333333333333334,,,,49.094385271030596,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M3,"0.71 nominal, held-out cases not exchangeable (jackknife+)",drawin_corner,12,0.16666666666666666,,,,113.25989064320943,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M3,"0.71 nominal, held-out cases not exchangeable (jackknife+)",drawin_mid,12,0.16666666666666666,,,,260.24691625199694,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M3,"0.71 nominal, held-out cases not exchangeable (jackknife+)",wall_op10,12,0.4166666666666667,,,,72.27980188261395,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M3,"0.71 nominal, held-out cases not exchangeable (jackknife+)",waviness,12,0.5,,,,109.51771226978467,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M3,"0.71 nominal, held-out cases not exchangeable (jackknife+)",family: concave,42,0.47619047619047616,,,,122.06234243165703,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M3,"0.71 nominal, held-out cases not exchangeable (jackknife+)",family: convex,42,0.38095238095238093,,,,118.62329494035302,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M4,"0.71 nominal, held-out cases not exchangeable (jackknife+)",all,84,0.47619047619047616,,,2.3435271544655247,47.88470546201584,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M4,"0.71 nominal, held-out cases not exchangeable (jackknife+)",arm_op20,12,0.6666666666666666,,,,18.851148340539453,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M4,"0.71 nominal, held-out cases not exchangeable (jackknife+)",depth_op10,12,0.25,,,,99.9093409535297,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M4,"0.71 nominal, held-out cases not exchangeable (jackknife+)",dome_op20,12,0.75,,,,27.021285834259178,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M4,"0.71 nominal, held-out cases not exchangeable (jackknife+)",drawin_corner,12,0.4166666666666667,,,,40.85983669138185,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M4,"0.71 nominal, held-out cases not exchangeable (jackknife+)",drawin_mid,12,0.4166666666666667,,,,30.403584243135768,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M4,"0.71 nominal, held-out cases not exchangeable (jackknife+)",wall_op10,12,0.5833333333333334,,,,13.627367113411395,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M4,"0.71 nominal, held-out cases not exchangeable (jackknife+)",waviness,12,0.25,,,,104.52037505785353,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M4,"0.71 nominal, held-out cases not exchangeable (jackknife+)",family: concave,42,0.40476190476190477,,,,54.01392528995201,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M4,"0.71 nominal, held-out cases not exchangeable (jackknife+)",family: convex,42,0.5476190476190477,,,,41.75548563407966,,,no interval: the alternatives of a held-out cell share one fit
 extrapolation,M7n,"0.90 nominal (model-based, no guarantee)",all,84,0.5595238095238095,,,2.8135207620665588,41.00334901442928,,,no interval: the alternatives of a held-out cell share one fit
 extrapolation,M7n,"0.90 nominal (model-based, no guarantee)",arm_op20,12,0.9166666666666666,,,,13.723291027123247,,,no interval: the alternatives of a held-out cell share one fit
 extrapolation,M7n,"0.90 nominal (model-based, no guarantee)",depth_op10,12,0.16666666666666666,,,,58.82018118561705,,,no interval: the alternatives of a held-out cell share one fit
@@ -463,96 +463,96 @@ extrapolation,Mcd,"0.90 nominal (model-based, no guarantee)",wall_op10,12,1.0,,,
 extrapolation,Mcd,"0.90 nominal (model-based, no guarantee)",waviness,12,0.6666666666666666,,,,65.163952265378,,,no interval: the alternatives of a held-out cell share one fit
 extrapolation,Mcd,"0.90 nominal (model-based, no guarantee)",family: concave,42,0.6428571428571429,,,,53.22024316365094,,,no interval: the alternatives of a held-out cell share one fit
 extrapolation,Mcd,"0.90 nominal (model-based, no guarantee)",family: convex,42,0.6904761904761905,,,,46.459012987125824,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M1s+RM,0.90 (split conformal across families),all,84,0.8571428571428571,,,15.330725160496414,154.7280546048266,42.0,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M1s+RM,0.90 (split conformal across families),arm_op20,12,1.0,,,,30.661450320992696,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M1s+RM,0.90 (split conformal across families),depth_op10,12,0.5,,,,822.8218363814289,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M1s+RM,0.90 (split conformal across families),dome_op20,12,0.75,,,,51.20120731240246,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M1s+RM,0.90 (split conformal across families),drawin_corner,12,1.0,,,,30.66145032099271,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M1s+RM,0.90 (split conformal across families),drawin_mid,12,1.0,,,,30.661450320992675,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M1s+RM,0.90 (split conformal across families),wall_op10,12,1.0,,,,30.661450320992675,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M1s+RM,0.90 (split conformal across families),waviness,12,0.75,,,,86.42753725598426,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M1s+RM,0.90 (split conformal across families),family: concave,42,0.7142857142857143,,,,267.36268963216725,42.0,9.614740532249757,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M1s+RM,0.90 (split conformal across families),family: convex,42,1.0,,,,42.093419577485896,42.0,21.04670978874294,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M1sn+RM,0.90 (split conformal across families),all,84,0.8809523809523809,,,8.89968614282655,19.071731833685785,42.0,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M1sn+RM,0.90 (split conformal across families),arm_op20,12,0.8333333333333334,,,,19.467136816473836,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M1sn+RM,0.90 (split conformal across families),depth_op10,12,0.8333333333333334,,,,20.477218389374595,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M1sn+RM,0.90 (split conformal across families),dome_op20,12,1.0,,,,17.799372285653053,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M1sn+RM,0.90 (split conformal across families),drawin_corner,12,1.0,,,,17.799372285653053,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M1sn+RM,0.90 (split conformal across families),drawin_mid,12,1.0,,,,17.79937228565304,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M1sn+RM,0.90 (split conformal across families),wall_op10,12,1.0,,,,17.79937228565306,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M1sn+RM,0.90 (split conformal across families),waviness,12,0.5,,,,22.360278487339844,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M1sn+RM,0.90 (split conformal across families),family: concave,42,0.9523809523809523,,,,19.106337167700268,42.0,9.17061914046135,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M1sn+RM,0.90 (split conformal across families),family: convex,42,0.8095238095238095,,,,19.037126499671302,42.0,8.6287531451917,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M4+RM,0.90 (split conformal across families),all,84,0.9285714285714286,,,9.763544530720328,23.855283103462543,42.0,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M4+RM,0.90 (split conformal across families),arm_op20,12,1.0,,,,19.527089061440588,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M4+RM,0.90 (split conformal across families),depth_op10,12,0.75,,,,41.87071920118601,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M4+RM,0.90 (split conformal across families),dome_op20,12,1.0,,,,19.527089061440588,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M4+RM,0.90 (split conformal across families),drawin_corner,12,1.0,,,,19.527089061440577,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M4+RM,0.90 (split conformal across families),drawin_mid,12,1.0,,,,19.527089061440567,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M4+RM,0.90 (split conformal across families),wall_op10,12,1.0,,,,19.527089061440588,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M4+RM,0.90 (split conformal across families),waviness,12,0.75,,,,27.480817215848862,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M4+RM,0.90 (split conformal across families),family: concave,42,0.8571428571428571,,,,26.502664287285764,42.0,8.923138101620934,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M4+RM,0.90 (split conformal across families),family: convex,42,1.0,,,,21.207901919639315,42.0,10.603950959819656,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M5+RM,0.90 (split conformal across families),all,84,0.8452380952380952,,,12.961176704947988,40.1023342047414,42.0,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M5+RM,0.90 (split conformal across families),arm_op20,12,0.5,,,,109.23509802587067,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M5+RM,0.90 (split conformal across families),depth_op10,12,0.8333333333333334,,,,34.320133821702434,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M5+RM,0.90 (split conformal across families),dome_op20,12,1.0,,,,25.922353409896072,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M5+RM,0.90 (split conformal across families),drawin_corner,12,1.0,,,,25.922353409896118,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M5+RM,0.90 (split conformal across families),drawin_mid,12,0.6666666666666666,,,,33.16596790243211,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M5+RM,0.90 (split conformal across families),wall_op10,12,1.0,,,,25.92235340989609,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M5+RM,0.90 (split conformal across families),waviness,12,0.9166666666666666,,,,26.228079453496406,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M5+RM,0.90 (split conformal across families),family: concave,42,0.6904761904761905,,,,51.287259341230374,42.0,11.463648875769858,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M5+RM,0.90 (split conformal across families),family: convex,42,1.0,,,,28.91740906825246,42.0,14.458704534126232,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M5n+RM,0.90 (split conformal across families),all,84,0.8928571428571429,,,11.825479855514656,29.202782448324612,42.0,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M5n+RM,0.90 (split conformal across families),arm_op20,12,1.0,,,,23.65095971102927,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M5n+RM,0.90 (split conformal across families),depth_op10,12,0.5,,,,53.725479989820535,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M5n+RM,0.90 (split conformal across families),dome_op20,12,1.0,,,,23.650959711029284,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M5n+RM,0.90 (split conformal across families),drawin_corner,12,1.0,,,,23.65095971102922,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M5n+RM,0.90 (split conformal across families),drawin_mid,12,1.0,,,,23.65095971102926,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M5n+RM,0.90 (split conformal across families),wall_op10,12,1.0,,,,23.650959711029273,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M5n+RM,0.90 (split conformal across families),waviness,12,0.75,,,,32.439198593305456,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M5n+RM,0.90 (split conformal across families),family: concave,42,0.7857142857142857,,,,32.718205539669874,42.0,10.807280032539577,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M5n+RM,0.90 (split conformal across families),family: convex,42,1.0,,,,25.68735935697935,42.0,12.843679678489693,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M7+RM,0.90 (split conformal across families),all,84,0.8928571428571429,,,15.359864339159518,149.07555729020874,42.0,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M7+RM,0.90 (split conformal across families),arm_op20,12,1.0,,,,30.719728678318816,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M7+RM,0.90 (split conformal across families),depth_op10,12,0.5,,,,804.5540408488624,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M7+RM,0.90 (split conformal across families),dome_op20,12,1.0,,,,30.719728678318802,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M7+RM,0.90 (split conformal across families),drawin_corner,12,1.0,,,,30.71972867831883,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M7+RM,0.90 (split conformal across families),drawin_mid,12,1.0,,,,30.71972867831879,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M7+RM,0.90 (split conformal across families),wall_op10,12,1.0,,,,30.719728678318813,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M7+RM,0.90 (split conformal across families),waviness,12,0.75,,,,85.3762167910047,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M7+RM,0.90 (split conformal across families),family: concave,42,0.7857142857142857,,,,255.9522815200753,42.0,9.620312148147711,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M7+RM,0.90 (split conformal across families),family: convex,42,1.0,,,,42.19883306034221,42.0,21.0994165301711,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M7n+RM,0.90 (split conformal across families),all,84,0.8928571428571429,,,8.765567599817116,19.405102081025454,42.0,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M7n+RM,0.90 (split conformal across families),arm_op20,12,0.9166666666666666,,,,19.614027260208335,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M7n+RM,0.90 (split conformal across families),depth_op10,12,0.8333333333333334,,,,19.851460732405975,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M7n+RM,0.90 (split conformal across families),dome_op20,12,1.0,,,,17.531135199634154,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M7n+RM,0.90 (split conformal across families),drawin_corner,12,1.0,,,,17.531135199634146,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M7n+RM,0.90 (split conformal across families),drawin_mid,12,1.0,,,,17.53113519963414,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M7n+RM,0.90 (split conformal across families),wall_op10,12,1.0,,,,17.53113519963416,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M7n+RM,0.90 (split conformal across families),waviness,12,0.5,,,,26.245685776027276,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M7n+RM,0.90 (split conformal across families),family: concave,42,0.9523809523809523,,,,19.100959422192652,42.0,9.219004634986074,no interval: the alternatives of a held-out cell share one fit
-extrapolation,M7n+RM,0.90 (split conformal across families),family: convex,42,0.8333333333333334,,,,19.709244739858253,42.0,8.31213056464808,no interval: the alternatives of a held-out cell share one fit
-extrapolation,NN+RM,0.90 (split conformal across families),all,84,0.9285714285714286,,,10.030604100559362,24.33200590701616,42.0,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,NN+RM,0.90 (split conformal across families),arm_op20,12,1.0,,,,20.06120820111856,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,NN+RM,0.90 (split conformal across families),depth_op10,12,0.75,,,,41.90056440725662,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,NN+RM,0.90 (split conformal across families),dome_op20,12,1.0,,,,20.06120820111855,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,NN+RM,0.90 (split conformal across families),drawin_corner,12,1.0,,,,20.06120820111853,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,NN+RM,0.90 (split conformal across families),drawin_mid,12,1.0,,,,20.061208201118596,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,NN+RM,0.90 (split conformal across families),wall_op10,12,1.0,,,,20.06120820111855,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,NN+RM,0.90 (split conformal across families),waviness,12,0.75,,,,28.11743593626373,,,no interval: the alternatives of a held-out cell share one fit
-extrapolation,NN+RM,0.90 (split conformal across families),family: concave,42,0.8571428571428571,,,,26.73496003852402,42.0,9.096682313364424,no interval: the alternatives of a held-out cell share one fit
-extrapolation,NN+RM,0.90 (split conformal across families),family: convex,42,1.0,,,,21.929051775508313,42.0,10.96452588775414,no interval: the alternatives of a held-out cell share one fit
-new family,M2,"0.80 (largest residual, estimated offset)",all,126,0.46825396825396826,,,7.594844331425962,124.06042565551581,,,no interval: the alternatives of a held-out cell share one fit
-new family,M2,"0.80 (largest residual, estimated offset)",arm_op20,18,0.0,,,,303.1517974570607,,,no interval: the alternatives of a held-out cell share one fit
-new family,M2,"0.80 (largest residual, estimated offset)",depth_op10,18,0.8333333333333334,,,,37.663870991099216,,,no interval: the alternatives of a held-out cell share one fit
-new family,M2,"0.80 (largest residual, estimated offset)",dome_op20,18,0.0,,,,364.45609867494113,,,no interval: the alternatives of a held-out cell share one fit
-new family,M2,"0.80 (largest residual, estimated offset)",drawin_corner,18,0.5,,,,20.146570014247395,,,no interval: the alternatives of a held-out cell share one fit
-new family,M2,"0.80 (largest residual, estimated offset)",drawin_mid,18,0.6666666666666666,,,,24.136215753155383,,,no interval: the alternatives of a held-out cell share one fit
-new family,M2,"0.80 (largest residual, estimated offset)",wall_op10,18,0.9444444444444444,,,,11.59045635002669,,,no interval: the alternatives of a held-out cell share one fit
-new family,M2,"0.80 (largest residual, estimated offset)",waviness,18,0.3333333333333333,,,,107.27797034808023,,,no interval: the alternatives of a held-out cell share one fit
-new family,M2,"0.80 (largest residual, estimated offset)",family: concave,63,0.4444444444444444,,,,125.79583013434707,,,no interval: the alternatives of a held-out cell share one fit
-new family,M2,"0.80 (largest residual, estimated offset)",family: convex,63,0.49206349206349204,,,,122.32502117668454,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",all,84,0.8571428571428571,,,15.330725160496414,154.7280546048266,42.0,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,12,1.0,,,,30.661450320992696,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,12,0.5,,,,822.8218363814289,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,12,0.75,,,,51.20120731240246,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,12,1.0,,,,30.66145032099271,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,12,1.0,,,,30.661450320992675,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,12,1.0,,,,30.661450320992675,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,12,0.75,,,,86.42753725598426,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,42,0.7142857142857143,,,,267.36268963216725,42.0,9.614740532249757,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,42,1.0,,,,42.093419577485896,42.0,21.04670978874294,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",all,84,0.8809523809523809,,,8.89968614282655,19.071731833685785,42.0,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,12,0.8333333333333334,,,,19.467136816473836,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,12,0.8333333333333334,,,,20.477218389374595,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,12,1.0,,,,17.799372285653053,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,12,1.0,,,,17.799372285653053,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,12,1.0,,,,17.79937228565304,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,12,1.0,,,,17.79937228565306,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,12,0.5,,,,22.360278487339844,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,42,0.9523809523809523,,,,19.106337167700268,42.0,9.17061914046135,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,42,0.8095238095238095,,,,19.037126499671302,42.0,8.6287531451917,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",all,84,0.9285714285714286,,,9.763544530720328,23.855283103462543,42.0,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,12,1.0,,,,19.527089061440588,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,12,0.75,,,,41.87071920118601,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,12,1.0,,,,19.527089061440588,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,12,1.0,,,,19.527089061440577,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,12,1.0,,,,19.527089061440567,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,12,1.0,,,,19.527089061440588,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,12,0.75,,,,27.480817215848862,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,42,0.8571428571428571,,,,26.502664287285764,42.0,8.923138101620934,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,42,1.0,,,,21.207901919639315,42.0,10.603950959819656,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",all,84,0.8452380952380952,,,12.961176704947988,40.1023342047414,42.0,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,12,0.5,,,,109.23509802587067,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,12,0.8333333333333334,,,,34.320133821702434,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,12,1.0,,,,25.922353409896072,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,12,1.0,,,,25.922353409896118,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,12,0.6666666666666666,,,,33.16596790243211,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,12,1.0,,,,25.92235340989609,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,12,0.9166666666666666,,,,26.228079453496406,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,42,0.6904761904761905,,,,51.287259341230374,42.0,11.463648875769858,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,42,1.0,,,,28.91740906825246,42.0,14.458704534126232,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",all,84,0.8928571428571429,,,11.825479855514656,29.202782448324612,42.0,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,12,1.0,,,,23.65095971102927,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,12,0.5,,,,53.725479989820535,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,12,1.0,,,,23.650959711029284,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,12,1.0,,,,23.65095971102922,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,12,1.0,,,,23.65095971102926,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,12,1.0,,,,23.650959711029273,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,12,0.75,,,,32.439198593305456,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,42,0.7857142857142857,,,,32.718205539669874,42.0,10.807280032539577,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,42,1.0,,,,25.68735935697935,42.0,12.843679678489693,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",all,84,0.8928571428571429,,,15.359864339159518,149.07555729020874,42.0,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,12,1.0,,,,30.719728678318816,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,12,0.5,,,,804.5540408488624,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,12,1.0,,,,30.719728678318802,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,12,1.0,,,,30.71972867831883,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,12,1.0,,,,30.71972867831879,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,12,1.0,,,,30.719728678318813,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,12,0.75,,,,85.3762167910047,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,42,0.7857142857142857,,,,255.9522815200753,42.0,9.620312148147711,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,42,1.0,,,,42.19883306034221,42.0,21.0994165301711,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",all,84,0.8928571428571429,,,8.765567599817116,19.405102081025454,42.0,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,12,0.9166666666666666,,,,19.614027260208335,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,12,0.8333333333333334,,,,19.851460732405975,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,12,1.0,,,,17.531135199634154,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,12,1.0,,,,17.531135199634146,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,12,1.0,,,,17.53113519963414,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,12,1.0,,,,17.53113519963416,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,12,0.5,,,,26.245685776027276,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,42,0.9523809523809523,,,,19.100959422192652,42.0,9.219004634986074,no interval: the alternatives of a held-out cell share one fit
+extrapolation,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,42,0.8333333333333334,,,,19.709244739858253,42.0,8.31213056464808,no interval: the alternatives of a held-out cell share one fit
+extrapolation,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",all,84,0.9285714285714286,,,10.030604100559362,24.33200590701616,42.0,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,12,1.0,,,,20.06120820111856,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,12,0.75,,,,41.90056440725662,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,12,1.0,,,,20.06120820111855,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,12,1.0,,,,20.06120820111853,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,12,1.0,,,,20.061208201118596,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,12,1.0,,,,20.06120820111855,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,12,0.75,,,,28.11743593626373,,,no interval: the alternatives of a held-out cell share one fit
+extrapolation,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,42,0.8571428571428571,,,,26.73496003852402,42.0,9.096682313364424,no interval: the alternatives of a held-out cell share one fit
+extrapolation,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,42,1.0,,,,21.929051775508313,42.0,10.96452588775414,no interval: the alternatives of a held-out cell share one fit
+new family,M2,"0.80 nominal, held-out cases not exchangeable (largest residual)",all,126,0.46825396825396826,,,7.594844331425962,124.06042565551581,,,no interval: the alternatives of a held-out cell share one fit
+new family,M2,"0.80 nominal, held-out cases not exchangeable (largest residual)",arm_op20,18,0.0,,,,303.1517974570607,,,no interval: the alternatives of a held-out cell share one fit
+new family,M2,"0.80 nominal, held-out cases not exchangeable (largest residual)",depth_op10,18,0.8333333333333334,,,,37.663870991099216,,,no interval: the alternatives of a held-out cell share one fit
+new family,M2,"0.80 nominal, held-out cases not exchangeable (largest residual)",dome_op20,18,0.0,,,,364.45609867494113,,,no interval: the alternatives of a held-out cell share one fit
+new family,M2,"0.80 nominal, held-out cases not exchangeable (largest residual)",drawin_corner,18,0.5,,,,20.146570014247395,,,no interval: the alternatives of a held-out cell share one fit
+new family,M2,"0.80 nominal, held-out cases not exchangeable (largest residual)",drawin_mid,18,0.6666666666666666,,,,24.136215753155383,,,no interval: the alternatives of a held-out cell share one fit
+new family,M2,"0.80 nominal, held-out cases not exchangeable (largest residual)",wall_op10,18,0.9444444444444444,,,,11.59045635002669,,,no interval: the alternatives of a held-out cell share one fit
+new family,M2,"0.80 nominal, held-out cases not exchangeable (largest residual)",waviness,18,0.3333333333333333,,,,107.27797034808023,,,no interval: the alternatives of a held-out cell share one fit
+new family,M2,"0.80 nominal, held-out cases not exchangeable (largest residual)",family: concave,63,0.4444444444444444,,,,125.79583013434707,,,no interval: the alternatives of a held-out cell share one fit
+new family,M2,"0.80 nominal, held-out cases not exchangeable (largest residual)",family: convex,63,0.49206349206349204,,,,122.32502117668454,,,no interval: the alternatives of a held-out cell share one fit
 new family,M5,"0.90 nominal (model-based, no guarantee)",all,126,0.11904761904761904,,,2.330511903445366,188.0380940041243,,,no interval: the alternatives of a held-out cell share one fit
 new family,M5,"0.90 nominal (model-based, no guarantee)",arm_op20,18,0.0,,,,440.9269452662763,,,no interval: the alternatives of a held-out cell share one fit
 new family,M5,"0.90 nominal (model-based, no guarantee)",depth_op10,18,0.2222222222222222,,,,126.58021290890878,,,no interval: the alternatives of a held-out cell share one fit
@@ -563,16 +563,16 @@ new family,M5,"0.90 nominal (model-based, no guarantee)",wall_op10,18,0.22222222
 new family,M5,"0.90 nominal (model-based, no guarantee)",waviness,18,0.0,,,,243.8422247755199,,,no interval: the alternatives of a held-out cell share one fit
 new family,M5,"0.90 nominal (model-based, no guarantee)",family: concave,63,0.1746031746031746,,,,164.6019578895995,,,no interval: the alternatives of a held-out cell share one fit
 new family,M5,"0.90 nominal (model-based, no guarantee)",family: convex,63,0.06349206349206349,,,,211.47423011864907,,,no interval: the alternatives of a held-out cell share one fit
-new family,M2n,"0.80 (largest residual, estimated offset)",all,126,0.11904761904761904,,,5.720585398007173,969.4249449022292,,,no interval: the alternatives of a held-out cell share one fit
-new family,M2n,"0.80 (largest residual, estimated offset)",arm_op20,18,0.0,,,,707.6339661017465,,,no interval: the alternatives of a held-out cell share one fit
-new family,M2n,"0.80 (largest residual, estimated offset)",depth_op10,18,0.0,,,,537.8986415902945,,,no interval: the alternatives of a held-out cell share one fit
-new family,M2n,"0.80 (largest residual, estimated offset)",dome_op20,18,0.0,,,,207.22547557291568,,,no interval: the alternatives of a held-out cell share one fit
-new family,M2n,"0.80 (largest residual, estimated offset)",drawin_corner,18,0.0,,,,2518.322847161649,,,no interval: the alternatives of a held-out cell share one fit
-new family,M2n,"0.80 (largest residual, estimated offset)",drawin_mid,18,0.0,,,,264.2382052447856,,,no interval: the alternatives of a held-out cell share one fit
-new family,M2n,"0.80 (largest residual, estimated offset)",wall_op10,18,0.0,,,,2493.6983385274016,,,no interval: the alternatives of a held-out cell share one fit
-new family,M2n,"0.80 (largest residual, estimated offset)",waviness,18,0.8333333333333334,,,,56.957140116811466,,,no interval: the alternatives of a held-out cell share one fit
-new family,M2n,"0.80 (largest residual, estimated offset)",family: concave,63,0.09523809523809523,,,,1046.5695604046534,,,no interval: the alternatives of a held-out cell share one fit
-new family,M2n,"0.80 (largest residual, estimated offset)",family: convex,63,0.14285714285714285,,,,892.2803293998049,,,no interval: the alternatives of a held-out cell share one fit
+new family,M2n,"0.80 nominal, held-out cases not exchangeable (largest residual)",all,126,0.11904761904761904,,,5.720585398007173,969.4249449022292,,,no interval: the alternatives of a held-out cell share one fit
+new family,M2n,"0.80 nominal, held-out cases not exchangeable (largest residual)",arm_op20,18,0.0,,,,707.6339661017465,,,no interval: the alternatives of a held-out cell share one fit
+new family,M2n,"0.80 nominal, held-out cases not exchangeable (largest residual)",depth_op10,18,0.0,,,,537.8986415902945,,,no interval: the alternatives of a held-out cell share one fit
+new family,M2n,"0.80 nominal, held-out cases not exchangeable (largest residual)",dome_op20,18,0.0,,,,207.22547557291568,,,no interval: the alternatives of a held-out cell share one fit
+new family,M2n,"0.80 nominal, held-out cases not exchangeable (largest residual)",drawin_corner,18,0.0,,,,2518.322847161649,,,no interval: the alternatives of a held-out cell share one fit
+new family,M2n,"0.80 nominal, held-out cases not exchangeable (largest residual)",drawin_mid,18,0.0,,,,264.2382052447856,,,no interval: the alternatives of a held-out cell share one fit
+new family,M2n,"0.80 nominal, held-out cases not exchangeable (largest residual)",wall_op10,18,0.0,,,,2493.6983385274016,,,no interval: the alternatives of a held-out cell share one fit
+new family,M2n,"0.80 nominal, held-out cases not exchangeable (largest residual)",waviness,18,0.8333333333333334,,,,56.957140116811466,,,no interval: the alternatives of a held-out cell share one fit
+new family,M2n,"0.80 nominal, held-out cases not exchangeable (largest residual)",family: concave,63,0.09523809523809523,,,,1046.5695604046534,,,no interval: the alternatives of a held-out cell share one fit
+new family,M2n,"0.80 nominal, held-out cases not exchangeable (largest residual)",family: convex,63,0.14285714285714285,,,,892.2803293998049,,,no interval: the alternatives of a held-out cell share one fit
 new family,M5n,"0.90 nominal (model-based, no guarantee)",all,126,0.0,,,2.1821621453915654,1023.793310495989,,,no interval: the alternatives of a held-out cell share one fit
 new family,M5n,"0.90 nominal (model-based, no guarantee)",arm_op20,18,0.0,,,,739.0979070162805,,,no interval: the alternatives of a held-out cell share one fit
 new family,M5n,"0.90 nominal (model-based, no guarantee)",depth_op10,18,0.0,,,,696.9854832221228,,,no interval: the alternatives of a held-out cell share one fit
@@ -583,26 +583,26 @@ new family,M5n,"0.90 nominal (model-based, no guarantee)",wall_op10,18,0.0,,,,25
 new family,M5n,"0.90 nominal (model-based, no guarantee)",waviness,18,0.0,,,,76.88884008667839,,,no interval: the alternatives of a held-out cell share one fit
 new family,M5n,"0.90 nominal (model-based, no guarantee)",family: concave,63,0.0,,,,1102.602361609809,,,no interval: the alternatives of a held-out cell share one fit
 new family,M5n,"0.90 nominal (model-based, no guarantee)",family: convex,63,0.0,,,,944.9842593821695,,,no interval: the alternatives of a held-out cell share one fit
-new family,M3,0.80 (jackknife+),all,126,0.3968253968253968,,,9.708857851034798,133.5561064222781,,,no interval: the alternatives of a held-out cell share one fit
-new family,M3,0.80 (jackknife+),arm_op20,18,0.2777777777777778,,,,373.6410167777763,,,no interval: the alternatives of a held-out cell share one fit
-new family,M3,0.80 (jackknife+),depth_op10,18,0.2777777777777778,,,,129.84098053817047,,,no interval: the alternatives of a held-out cell share one fit
-new family,M3,0.80 (jackknife+),dome_op20,18,0.2222222222222222,,,,181.56901648954053,,,no interval: the alternatives of a held-out cell share one fit
-new family,M3,0.80 (jackknife+),drawin_corner,18,0.5555555555555556,,,,47.93196233035317,,,no interval: the alternatives of a held-out cell share one fit
-new family,M3,0.80 (jackknife+),drawin_mid,18,0.5555555555555556,,,,32.10492795078413,,,no interval: the alternatives of a held-out cell share one fit
-new family,M3,0.80 (jackknife+),wall_op10,18,0.5,,,,48.67482983858044,,,no interval: the alternatives of a held-out cell share one fit
-new family,M3,0.80 (jackknife+),waviness,18,0.3888888888888889,,,,121.1300110307418,,,no interval: the alternatives of a held-out cell share one fit
-new family,M3,0.80 (jackknife+),family: concave,63,0.3333333333333333,,,,144.0548594114609,,,no interval: the alternatives of a held-out cell share one fit
-new family,M3,0.80 (jackknife+),family: convex,63,0.4603174603174603,,,,123.05735343309534,,,no interval: the alternatives of a held-out cell share one fit
-new family,M4,0.80 (jackknife+),all,126,0.07142857142857142,,,3.29864061588888,988.8888427317852,,,no interval: the alternatives of a held-out cell share one fit
-new family,M4,0.80 (jackknife+),arm_op20,18,0.0,,,,713.8885725459957,,,no interval: the alternatives of a held-out cell share one fit
-new family,M4,0.80 (jackknife+),depth_op10,18,0.0,,,,661.4251175506259,,,no interval: the alternatives of a held-out cell share one fit
-new family,M4,0.80 (jackknife+),dome_op20,18,0.4444444444444444,,,,148.11265353064275,,,no interval: the alternatives of a held-out cell share one fit
-new family,M4,0.80 (jackknife+),drawin_corner,18,0.0,,,,2549.874677194343,,,no interval: the alternatives of a held-out cell share one fit
-new family,M4,0.80 (jackknife+),drawin_mid,18,0.0,,,,316.69042880583515,,,no interval: the alternatives of a held-out cell share one fit
-new family,M4,0.80 (jackknife+),wall_op10,18,0.0,,,,2463.763642983924,,,no interval: the alternatives of a held-out cell share one fit
-new family,M4,0.80 (jackknife+),waviness,18,0.05555555555555555,,,,68.46680651112878,,,no interval: the alternatives of a held-out cell share one fit
-new family,M4,0.80 (jackknife+),family: concave,63,0.14285714285714285,,,,1062.891400193716,,,no interval: the alternatives of a held-out cell share one fit
-new family,M4,0.80 (jackknife+),family: convex,63,0.0,,,,914.8862852698543,,,no interval: the alternatives of a held-out cell share one fit
+new family,M3,"0.80 nominal, held-out cases not exchangeable (jackknife+)",all,126,0.3968253968253968,,,9.708857851034798,133.5561064222781,,,no interval: the alternatives of a held-out cell share one fit
+new family,M3,"0.80 nominal, held-out cases not exchangeable (jackknife+)",arm_op20,18,0.2777777777777778,,,,373.6410167777763,,,no interval: the alternatives of a held-out cell share one fit
+new family,M3,"0.80 nominal, held-out cases not exchangeable (jackknife+)",depth_op10,18,0.2777777777777778,,,,129.84098053817047,,,no interval: the alternatives of a held-out cell share one fit
+new family,M3,"0.80 nominal, held-out cases not exchangeable (jackknife+)",dome_op20,18,0.2222222222222222,,,,181.56901648954053,,,no interval: the alternatives of a held-out cell share one fit
+new family,M3,"0.80 nominal, held-out cases not exchangeable (jackknife+)",drawin_corner,18,0.5555555555555556,,,,47.93196233035317,,,no interval: the alternatives of a held-out cell share one fit
+new family,M3,"0.80 nominal, held-out cases not exchangeable (jackknife+)",drawin_mid,18,0.5555555555555556,,,,32.10492795078413,,,no interval: the alternatives of a held-out cell share one fit
+new family,M3,"0.80 nominal, held-out cases not exchangeable (jackknife+)",wall_op10,18,0.5,,,,48.67482983858044,,,no interval: the alternatives of a held-out cell share one fit
+new family,M3,"0.80 nominal, held-out cases not exchangeable (jackknife+)",waviness,18,0.3888888888888889,,,,121.1300110307418,,,no interval: the alternatives of a held-out cell share one fit
+new family,M3,"0.80 nominal, held-out cases not exchangeable (jackknife+)",family: concave,63,0.3333333333333333,,,,144.0548594114609,,,no interval: the alternatives of a held-out cell share one fit
+new family,M3,"0.80 nominal, held-out cases not exchangeable (jackknife+)",family: convex,63,0.4603174603174603,,,,123.05735343309534,,,no interval: the alternatives of a held-out cell share one fit
+new family,M4,"0.80 nominal, held-out cases not exchangeable (jackknife+)",all,126,0.07142857142857142,,,3.29864061588888,988.8888427317852,,,no interval: the alternatives of a held-out cell share one fit
+new family,M4,"0.80 nominal, held-out cases not exchangeable (jackknife+)",arm_op20,18,0.0,,,,713.8885725459957,,,no interval: the alternatives of a held-out cell share one fit
+new family,M4,"0.80 nominal, held-out cases not exchangeable (jackknife+)",depth_op10,18,0.0,,,,661.4251175506259,,,no interval: the alternatives of a held-out cell share one fit
+new family,M4,"0.80 nominal, held-out cases not exchangeable (jackknife+)",dome_op20,18,0.4444444444444444,,,,148.11265353064275,,,no interval: the alternatives of a held-out cell share one fit
+new family,M4,"0.80 nominal, held-out cases not exchangeable (jackknife+)",drawin_corner,18,0.0,,,,2549.874677194343,,,no interval: the alternatives of a held-out cell share one fit
+new family,M4,"0.80 nominal, held-out cases not exchangeable (jackknife+)",drawin_mid,18,0.0,,,,316.69042880583515,,,no interval: the alternatives of a held-out cell share one fit
+new family,M4,"0.80 nominal, held-out cases not exchangeable (jackknife+)",wall_op10,18,0.0,,,,2463.763642983924,,,no interval: the alternatives of a held-out cell share one fit
+new family,M4,"0.80 nominal, held-out cases not exchangeable (jackknife+)",waviness,18,0.05555555555555555,,,,68.46680651112878,,,no interval: the alternatives of a held-out cell share one fit
+new family,M4,"0.80 nominal, held-out cases not exchangeable (jackknife+)",family: concave,63,0.14285714285714285,,,,1062.891400193716,,,no interval: the alternatives of a held-out cell share one fit
+new family,M4,"0.80 nominal, held-out cases not exchangeable (jackknife+)",family: convex,63,0.0,,,,914.8862852698543,,,no interval: the alternatives of a held-out cell share one fit
 new family,M7n,"0.90 nominal (model-based, no guarantee)",all,126,0.0,,,0.9928823679674013,1042.7944901757376,,,no interval: the alternatives of a held-out cell share one fit
 new family,M7n,"0.90 nominal (model-based, no guarantee)",arm_op20,18,0.0,,,,760.7311060441139,,,no interval: the alternatives of a held-out cell share one fit
 new family,M7n,"0.90 nominal (model-based, no guarantee)",depth_op10,18,0.0,,,,718.9810913075676,,,no interval: the alternatives of a held-out cell share one fit
@@ -633,86 +633,86 @@ new family,Mcd,"0.90 nominal (model-based, no guarantee)",wall_op10,18,0.5,,,,32
 new family,Mcd,"0.90 nominal (model-based, no guarantee)",waviness,18,0.0,,,,226.5153218087872,,,no interval: the alternatives of a held-out cell share one fit
 new family,Mcd,"0.90 nominal (model-based, no guarantee)",family: concave,63,0.15873015873015872,,,,123.16255538089938,,,no interval: the alternatives of a held-out cell share one fit
 new family,Mcd,"0.90 nominal (model-based, no guarantee)",family: convex,63,0.06349206349206349,,,,155.7825801001461,,,no interval: the alternatives of a held-out cell share one fit
-new family,M1s+RM,0.90 (split conformal across families),all,126,0.9285714285714286,,,121.41071398801824,251.5313030987331,63.0,,no interval: the alternatives of a held-out cell share one fit
-new family,M1s+RM,0.90 (split conformal across families),arm_op20,18,1.0,,,,242.82142797603623,,,no interval: the alternatives of a held-out cell share one fit
-new family,M1s+RM,0.90 (split conformal across families),depth_op10,18,1.0,,,,242.82142797603663,,,no interval: the alternatives of a held-out cell share one fit
-new family,M1s+RM,0.90 (split conformal across families),dome_op20,18,1.0,,,,242.82142797603623,,,no interval: the alternatives of a held-out cell share one fit
-new family,M1s+RM,0.90 (split conformal across families),drawin_corner,18,1.0,,,,242.82142797603618,,,no interval: the alternatives of a held-out cell share one fit
-new family,M1s+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,242.82142797603623,,,no interval: the alternatives of a held-out cell share one fit
-new family,M1s+RM,0.90 (split conformal across families),wall_op10,18,0.5,,,,303.79055383491414,,,no interval: the alternatives of a held-out cell share one fit
-new family,M1s+RM,0.90 (split conformal across families),waviness,18,1.0,,,,242.82142797603623,,,no interval: the alternatives of a held-out cell share one fit
-new family,M1s+RM,0.90 (split conformal across families),family: concave,63,0.8571428571428571,,,,254.3854638476118,63.0,118.48285680110908,no interval: the alternatives of a held-out cell share one fit
-new family,M1s+RM,0.90 (split conformal across families),family: convex,63,1.0,,,,248.6771423498544,63.0,124.33857117492718,no interval: the alternatives of a held-out cell share one fit
-new family,M1sn+RM,0.90 (split conformal across families),all,126,0.8571428571428571,,,146.3132915411868,361.81703501013425,63.0,,no interval: the alternatives of a held-out cell share one fit
-new family,M1sn+RM,0.90 (split conformal across families),arm_op20,18,1.0,,,,292.62658308237354,,,no interval: the alternatives of a held-out cell share one fit
-new family,M1sn+RM,0.90 (split conformal across families),depth_op10,18,1.0,,,,292.62658308237366,,,no interval: the alternatives of a held-out cell share one fit
-new family,M1sn+RM,0.90 (split conformal across families),dome_op20,18,1.0,,,,292.62658308237343,,,no interval: the alternatives of a held-out cell share one fit
-new family,M1sn+RM,0.90 (split conformal across families),drawin_corner,18,0.5,,,,733.6869060634888,,,no interval: the alternatives of a held-out cell share one fit
-new family,M1sn+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,292.62658308237354,,,no interval: the alternatives of a held-out cell share one fit
-new family,M1sn+RM,0.90 (split conformal across families),wall_op10,18,0.5,,,,335.89942359558387,,,no interval: the alternatives of a held-out cell share one fit
-new family,M1sn+RM,0.90 (split conformal across families),waviness,18,1.0,,,,292.62658308237343,,,no interval: the alternatives of a held-out cell share one fit
-new family,M1sn+RM,0.90 (split conformal across families),family: concave,63,0.7142857142857143,,,,387.479532742853,63.0,124.54931444366564,no interval: the alternatives of a held-out cell share one fit
-new family,M1sn+RM,0.90 (split conformal across families),family: convex,63,1.0,,,,336.1545372774159,63.0,168.07726863870786,no interval: the alternatives of a held-out cell share one fit
-new family,M4+RM,0.90 (split conformal across families),all,126,0.8571428571428571,,,145.7203220474678,360.8059443833931,63.0,,no interval: the alternatives of a held-out cell share one fit
-new family,M4+RM,0.90 (split conformal across families),arm_op20,18,1.0,,,,291.4406440949359,,,no interval: the alternatives of a held-out cell share one fit
-new family,M4+RM,0.90 (split conformal across families),depth_op10,18,1.0,,,,291.44064409493564,,,no interval: the alternatives of a held-out cell share one fit
-new family,M4+RM,0.90 (split conformal across families),dome_op20,18,1.0,,,,291.4406440949359,,,no interval: the alternatives of a held-out cell share one fit
-new family,M4+RM,0.90 (split conformal across families),drawin_corner,18,0.5,,,,730.476861974951,,,no interval: the alternatives of a held-out cell share one fit
-new family,M4+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,291.44064409493586,,,no interval: the alternatives of a held-out cell share one fit
-new family,M4+RM,0.90 (split conformal across families),wall_op10,18,0.5,,,,337.9615282341217,,,no interval: the alternatives of a held-out cell share one fit
-new family,M4+RM,0.90 (split conformal across families),waviness,18,1.0,,,,291.4406440949358,,,no interval: the alternatives of a held-out cell share one fit
-new family,M4+RM,0.90 (split conformal across families),family: concave,63,0.7142857142857143,,,,386.5785256968475,63.0,123.9239625599666,no interval: the alternatives of a held-out cell share one fit
-new family,M4+RM,0.90 (split conformal across families),family: convex,63,1.0,,,,335.03336306993856,63.0,167.51668153496925,no interval: the alternatives of a held-out cell share one fit
-new family,M5+RM,0.90 (split conformal across families),all,126,0.9126984126984127,,,34.197813303981775,78.02364794009391,63.0,,no interval: the alternatives of a held-out cell share one fit
-new family,M5+RM,0.90 (split conformal across families),arm_op20,18,0.6666666666666666,,,,81.09107600083487,,,no interval: the alternatives of a held-out cell share one fit
-new family,M5+RM,0.90 (split conformal across families),depth_op10,18,1.0,,,,68.39562660796345,,,no interval: the alternatives of a held-out cell share one fit
-new family,M5+RM,0.90 (split conformal across families),dome_op20,18,0.7222222222222222,,,,123.09632654000436,,,no interval: the alternatives of a held-out cell share one fit
-new family,M5+RM,0.90 (split conformal across families),drawin_corner,18,1.0,,,,68.39562660796364,,,no interval: the alternatives of a held-out cell share one fit
-new family,M5+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,68.39562660796365,,,no interval: the alternatives of a held-out cell share one fit
-new family,M5+RM,0.90 (split conformal across families),wall_op10,18,1.0,,,,68.3956266079636,,,no interval: the alternatives of a held-out cell share one fit
-new family,M5+RM,0.90 (split conformal across families),waviness,18,1.0,,,,68.39562660796359,,,no interval: the alternatives of a held-out cell share one fit
-new family,M5+RM,0.90 (split conformal across families),family: concave,63,0.9047619047619048,,,,70.64608493417879,63.0,33.50940683953636,no interval: the alternatives of a held-out cell share one fit
-new family,M5+RM,0.90 (split conformal across families),family: convex,63,0.9206349206349206,,,,85.40121094600894,63.0,34.88621976842726,no interval: the alternatives of a held-out cell share one fit
-new family,M5n+RM,0.90 (split conformal across families),all,126,0.8571428571428571,,,146.41022148336617,362.2963377365021,63.0,,no interval: the alternatives of a held-out cell share one fit
-new family,M5n+RM,0.90 (split conformal across families),arm_op20,18,1.0,,,,292.82044296673234,,,no interval: the alternatives of a held-out cell share one fit
-new family,M5n+RM,0.90 (split conformal across families),depth_op10,18,1.0,,,,292.82044296673234,,,no interval: the alternatives of a held-out cell share one fit
-new family,M5n+RM,0.90 (split conformal across families),dome_op20,18,1.0,,,,292.82044296673234,,,no interval: the alternatives of a held-out cell share one fit
-new family,M5n+RM,0.90 (split conformal across families),drawin_corner,18,0.5,,,,734.9481086199044,,,no interval: the alternatives of a held-out cell share one fit
-new family,M5n+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,292.82044296673234,,,no interval: the alternatives of a held-out cell share one fit
-new family,M5n+RM,0.90 (split conformal across families),wall_op10,18,0.5,,,,337.02404070194825,,,no interval: the alternatives of a held-out cell share one fit
-new family,M5n+RM,0.90 (split conformal across families),waviness,18,1.0,,,,292.8204429667323,,,no interval: the alternatives of a held-out cell share one fit
-new family,M5n+RM,0.90 (split conformal across families),family: concave,63,0.7142857142857143,,,,387.8642679001452,63.0,124.4562391803029,no interval: the alternatives of a held-out cell share one fit
-new family,M5n+RM,0.90 (split conformal across families),family: convex,63,1.0,,,,336.72840757285906,63.0,168.36420378642944,no interval: the alternatives of a held-out cell share one fit
-new family,M7+RM,0.90 (split conformal across families),all,126,0.9285714285714286,,,123.7806621797757,253.1611969491265,63.0,,no interval: the alternatives of a held-out cell share one fit
-new family,M7+RM,0.90 (split conformal across families),arm_op20,18,1.0,,,,247.56132435955135,,,no interval: the alternatives of a held-out cell share one fit
-new family,M7+RM,0.90 (split conformal across families),depth_op10,18,1.0,,,,247.56132435955138,,,no interval: the alternatives of a held-out cell share one fit
-new family,M7+RM,0.90 (split conformal across families),dome_op20,18,1.0,,,,247.56132435955135,,,no interval: the alternatives of a held-out cell share one fit
-new family,M7+RM,0.90 (split conformal across families),drawin_corner,18,1.0,,,,247.5613243595513,,,no interval: the alternatives of a held-out cell share one fit
-new family,M7+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,247.5613243595513,,,no interval: the alternatives of a held-out cell share one fit
-new family,M7+RM,0.90 (split conformal across families),wall_op10,18,0.5,,,,286.7604324865776,,,no interval: the alternatives of a held-out cell share one fit
-new family,M7+RM,0.90 (split conformal across families),waviness,18,1.0,,,,247.5613243595513,,,no interval: the alternatives of a held-out cell share one fit
-new family,M7+RM,0.90 (split conformal across families),family: concave,63,0.8571428571428571,,,,254.96495787401585,63.0,121.88260634743274,no interval: the alternatives of a held-out cell share one fit
-new family,M7+RM,0.90 (split conformal across families),family: convex,63,1.0,,,,251.35743602423702,63.0,125.67871801211854,no interval: the alternatives of a held-out cell share one fit
-new family,M7n+RM,0.90 (split conformal across families),all,126,0.8571428571428571,,,146.4977492157769,362.52249157583105,63.0,,no interval: the alternatives of a held-out cell share one fit
-new family,M7n+RM,0.90 (split conformal across families),arm_op20,18,1.0,,,,292.99549843155404,,,no interval: the alternatives of a held-out cell share one fit
-new family,M7n+RM,0.90 (split conformal across families),depth_op10,18,1.0,,,,292.99549843155387,,,no interval: the alternatives of a held-out cell share one fit
-new family,M7n+RM,0.90 (split conformal across families),dome_op20,18,1.0,,,,292.99549843155404,,,no interval: the alternatives of a held-out cell share one fit
-new family,M7n+RM,0.90 (split conformal across families),drawin_corner,18,0.5,,,,735.0588341961784,,,no interval: the alternatives of a held-out cell share one fit
-new family,M7n+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,292.99549843155404,,,no interval: the alternatives of a held-out cell share one fit
-new family,M7n+RM,0.90 (split conformal across families),wall_op10,18,0.5,,,,337.6211146768685,,,no interval: the alternatives of a held-out cell share one fit
-new family,M7n+RM,0.90 (split conformal across families),waviness,18,1.0,,,,292.99549843155404,,,no interval: the alternatives of a held-out cell share one fit
-new family,M7n+RM,0.90 (split conformal across families),family: concave,63,0.7142857142857143,,,,387.9483232601382,63.0,124.4471684857921,no interval: the alternatives of a held-out cell share one fit
-new family,M7n+RM,0.90 (split conformal across families),family: convex,63,1.0,,,,337.09665989152415,63.0,168.54832994576202,no interval: the alternatives of a held-out cell share one fit
-new family,NN+RM,0.90 (split conformal across families),all,126,0.8571428571428571,,,146.32292222447523,362.3476524346508,63.0,,no interval: the alternatives of a held-out cell share one fit
-new family,NN+RM,0.90 (split conformal across families),arm_op20,18,1.0,,,,292.6458444489507,,,no interval: the alternatives of a held-out cell share one fit
-new family,NN+RM,0.90 (split conformal across families),depth_op10,18,1.0,,,,292.6458444489505,,,no interval: the alternatives of a held-out cell share one fit
-new family,NN+RM,0.90 (split conformal across families),dome_op20,18,1.0,,,,292.64584444895064,,,no interval: the alternatives of a held-out cell share one fit
-new family,NN+RM,0.90 (split conformal across families),drawin_corner,18,0.5,,,,735.4959136328539,,,no interval: the alternatives of a held-out cell share one fit
-new family,NN+RM,0.90 (split conformal across families),drawin_mid,18,1.0,,,,292.64584444895064,,,no interval: the alternatives of a held-out cell share one fit
-new family,NN+RM,0.90 (split conformal across families),wall_op10,18,0.5,,,,337.70843116495,,,no interval: the alternatives of a held-out cell share one fit
-new family,NN+RM,0.90 (split conformal across families),waviness,18,1.0,,,,292.6458444489507,,,no interval: the alternatives of a held-out cell share one fit
-new family,NN+RM,0.90 (split conformal across families),family: concave,63,0.7142857142857143,,,,388.14429561817417,63.0,124.3703398233868,no interval: the alternatives of a held-out cell share one fit
-new family,NN+RM,0.90 (split conformal across families),family: convex,63,1.0,,,,336.5510092511279,63.0,168.27550462556394,no interval: the alternatives of a held-out cell share one fit
+new family,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",all,126,0.9285714285714286,,,121.41071398801824,251.5313030987331,63.0,,no interval: the alternatives of a held-out cell share one fit
+new family,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,18,1.0,,,,242.82142797603623,,,no interval: the alternatives of a held-out cell share one fit
+new family,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,18,1.0,,,,242.82142797603663,,,no interval: the alternatives of a held-out cell share one fit
+new family,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,18,1.0,,,,242.82142797603623,,,no interval: the alternatives of a held-out cell share one fit
+new family,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,18,1.0,,,,242.82142797603618,,,no interval: the alternatives of a held-out cell share one fit
+new family,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,18,1.0,,,,242.82142797603623,,,no interval: the alternatives of a held-out cell share one fit
+new family,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,18,0.5,,,,303.79055383491414,,,no interval: the alternatives of a held-out cell share one fit
+new family,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,18,1.0,,,,242.82142797603623,,,no interval: the alternatives of a held-out cell share one fit
+new family,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,63,0.8571428571428571,,,,254.3854638476118,63.0,118.48285680110908,no interval: the alternatives of a held-out cell share one fit
+new family,M1s+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,63,1.0,,,,248.6771423498544,63.0,124.33857117492718,no interval: the alternatives of a held-out cell share one fit
+new family,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",all,126,0.8571428571428571,,,146.3132915411868,361.81703501013425,63.0,,no interval: the alternatives of a held-out cell share one fit
+new family,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,18,1.0,,,,292.62658308237354,,,no interval: the alternatives of a held-out cell share one fit
+new family,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,18,1.0,,,,292.62658308237366,,,no interval: the alternatives of a held-out cell share one fit
+new family,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,18,1.0,,,,292.62658308237343,,,no interval: the alternatives of a held-out cell share one fit
+new family,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,18,0.5,,,,733.6869060634888,,,no interval: the alternatives of a held-out cell share one fit
+new family,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,18,1.0,,,,292.62658308237354,,,no interval: the alternatives of a held-out cell share one fit
+new family,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,18,0.5,,,,335.89942359558387,,,no interval: the alternatives of a held-out cell share one fit
+new family,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,18,1.0,,,,292.62658308237343,,,no interval: the alternatives of a held-out cell share one fit
+new family,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,63,0.7142857142857143,,,,387.479532742853,63.0,124.54931444366564,no interval: the alternatives of a held-out cell share one fit
+new family,M1sn+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,63,1.0,,,,336.1545372774159,63.0,168.07726863870786,no interval: the alternatives of a held-out cell share one fit
+new family,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",all,126,0.8571428571428571,,,145.7203220474678,360.8059443833931,63.0,,no interval: the alternatives of a held-out cell share one fit
+new family,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,18,1.0,,,,291.4406440949359,,,no interval: the alternatives of a held-out cell share one fit
+new family,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,18,1.0,,,,291.44064409493564,,,no interval: the alternatives of a held-out cell share one fit
+new family,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,18,1.0,,,,291.4406440949359,,,no interval: the alternatives of a held-out cell share one fit
+new family,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,18,0.5,,,,730.476861974951,,,no interval: the alternatives of a held-out cell share one fit
+new family,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,18,1.0,,,,291.44064409493586,,,no interval: the alternatives of a held-out cell share one fit
+new family,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,18,0.5,,,,337.9615282341217,,,no interval: the alternatives of a held-out cell share one fit
+new family,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,18,1.0,,,,291.4406440949358,,,no interval: the alternatives of a held-out cell share one fit
+new family,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,63,0.7142857142857143,,,,386.5785256968475,63.0,123.9239625599666,no interval: the alternatives of a held-out cell share one fit
+new family,M4+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,63,1.0,,,,335.03336306993856,63.0,167.51668153496925,no interval: the alternatives of a held-out cell share one fit
+new family,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",all,126,0.9126984126984127,,,34.197813303981775,78.02364794009391,63.0,,no interval: the alternatives of a held-out cell share one fit
+new family,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,18,0.6666666666666666,,,,81.09107600083487,,,no interval: the alternatives of a held-out cell share one fit
+new family,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,18,1.0,,,,68.39562660796345,,,no interval: the alternatives of a held-out cell share one fit
+new family,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,18,0.7222222222222222,,,,123.09632654000436,,,no interval: the alternatives of a held-out cell share one fit
+new family,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,18,1.0,,,,68.39562660796364,,,no interval: the alternatives of a held-out cell share one fit
+new family,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,18,1.0,,,,68.39562660796365,,,no interval: the alternatives of a held-out cell share one fit
+new family,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,18,1.0,,,,68.3956266079636,,,no interval: the alternatives of a held-out cell share one fit
+new family,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,18,1.0,,,,68.39562660796359,,,no interval: the alternatives of a held-out cell share one fit
+new family,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,63,0.9047619047619048,,,,70.64608493417879,63.0,33.50940683953636,no interval: the alternatives of a held-out cell share one fit
+new family,M5+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,63,0.9206349206349206,,,,85.40121094600894,63.0,34.88621976842726,no interval: the alternatives of a held-out cell share one fit
+new family,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",all,126,0.8571428571428571,,,146.41022148336617,362.2963377365021,63.0,,no interval: the alternatives of a held-out cell share one fit
+new family,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,18,1.0,,,,292.82044296673234,,,no interval: the alternatives of a held-out cell share one fit
+new family,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,18,1.0,,,,292.82044296673234,,,no interval: the alternatives of a held-out cell share one fit
+new family,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,18,1.0,,,,292.82044296673234,,,no interval: the alternatives of a held-out cell share one fit
+new family,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,18,0.5,,,,734.9481086199044,,,no interval: the alternatives of a held-out cell share one fit
+new family,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,18,1.0,,,,292.82044296673234,,,no interval: the alternatives of a held-out cell share one fit
+new family,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,18,0.5,,,,337.02404070194825,,,no interval: the alternatives of a held-out cell share one fit
+new family,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,18,1.0,,,,292.8204429667323,,,no interval: the alternatives of a held-out cell share one fit
+new family,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,63,0.7142857142857143,,,,387.8642679001452,63.0,124.4562391803029,no interval: the alternatives of a held-out cell share one fit
+new family,M5n+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,63,1.0,,,,336.72840757285906,63.0,168.36420378642944,no interval: the alternatives of a held-out cell share one fit
+new family,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",all,126,0.9285714285714286,,,123.7806621797757,253.1611969491265,63.0,,no interval: the alternatives of a held-out cell share one fit
+new family,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,18,1.0,,,,247.56132435955135,,,no interval: the alternatives of a held-out cell share one fit
+new family,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,18,1.0,,,,247.56132435955138,,,no interval: the alternatives of a held-out cell share one fit
+new family,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,18,1.0,,,,247.56132435955135,,,no interval: the alternatives of a held-out cell share one fit
+new family,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,18,1.0,,,,247.5613243595513,,,no interval: the alternatives of a held-out cell share one fit
+new family,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,18,1.0,,,,247.5613243595513,,,no interval: the alternatives of a held-out cell share one fit
+new family,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,18,0.5,,,,286.7604324865776,,,no interval: the alternatives of a held-out cell share one fit
+new family,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,18,1.0,,,,247.5613243595513,,,no interval: the alternatives of a held-out cell share one fit
+new family,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,63,0.8571428571428571,,,,254.96495787401585,63.0,121.88260634743274,no interval: the alternatives of a held-out cell share one fit
+new family,M7+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,63,1.0,,,,251.35743602423702,63.0,125.67871801211854,no interval: the alternatives of a held-out cell share one fit
+new family,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",all,126,0.8571428571428571,,,146.4977492157769,362.52249157583105,63.0,,no interval: the alternatives of a held-out cell share one fit
+new family,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,18,1.0,,,,292.99549843155404,,,no interval: the alternatives of a held-out cell share one fit
+new family,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,18,1.0,,,,292.99549843155387,,,no interval: the alternatives of a held-out cell share one fit
+new family,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,18,1.0,,,,292.99549843155404,,,no interval: the alternatives of a held-out cell share one fit
+new family,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,18,0.5,,,,735.0588341961784,,,no interval: the alternatives of a held-out cell share one fit
+new family,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,18,1.0,,,,292.99549843155404,,,no interval: the alternatives of a held-out cell share one fit
+new family,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,18,0.5,,,,337.6211146768685,,,no interval: the alternatives of a held-out cell share one fit
+new family,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,18,1.0,,,,292.99549843155404,,,no interval: the alternatives of a held-out cell share one fit
+new family,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,63,0.7142857142857143,,,,387.9483232601382,63.0,124.4471684857921,no interval: the alternatives of a held-out cell share one fit
+new family,M7n+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,63,1.0,,,,337.09665989152415,63.0,168.54832994576202,no interval: the alternatives of a held-out cell share one fit
+new family,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",all,126,0.8571428571428571,,,146.32292222447523,362.3476524346508,63.0,,no interval: the alternatives of a held-out cell share one fit
+new family,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",arm_op20,18,1.0,,,,292.6458444489507,,,no interval: the alternatives of a held-out cell share one fit
+new family,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",depth_op10,18,1.0,,,,292.6458444489505,,,no interval: the alternatives of a held-out cell share one fit
+new family,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",dome_op20,18,1.0,,,,292.64584444895064,,,no interval: the alternatives of a held-out cell share one fit
+new family,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_corner,18,0.5,,,,735.4959136328539,,,no interval: the alternatives of a held-out cell share one fit
+new family,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",drawin_mid,18,1.0,,,,292.64584444895064,,,no interval: the alternatives of a held-out cell share one fit
+new family,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",wall_op10,18,0.5,,,,337.70843116495,,,no interval: the alternatives of a held-out cell share one fit
+new family,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",waviness,18,1.0,,,,292.6458444489507,,,no interval: the alternatives of a held-out cell share one fit
+new family,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",family: concave,63,0.7142857142857143,,,,388.14429561817417,63.0,124.3703398233868,no interval: the alternatives of a held-out cell share one fit
+new family,NN+RM,"0.90 nominal (split conformal across families, no guarantee)",family: convex,63,1.0,,,,336.5510092511279,63.0,168.27550462556394,no interval: the alternatives of a held-out cell share one fit
 pooled sibling,M5,"0.90 nominal (model-based, no guarantee)",all,126,0.9047619047619048,,,2.5399739841000546,8.940388341918771,,,no interval: the alternatives of a held-out cell share one fit
 pooled sibling,M5,"0.90 nominal (model-based, no guarantee)",arm_op20,18,0.9444444444444444,,,,9.456291370506692,,,no interval: the alternatives of a held-out cell share one fit
 pooled sibling,M5,"0.90 nominal (model-based, no guarantee)",depth_op10,18,0.8888888888888888,,,,7.67538045237037,,,no interval: the alternatives of a held-out cell share one fit

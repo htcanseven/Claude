@@ -46,7 +46,10 @@ hypotheses of Section 4. The framework, its constants and the rules are those of
   A rule not on this list may be scored but is secondary.
 - **Guard band.** Reference prior: the grid within $\pm20$ floors, equal weights; release-like prior: within $\pm5$.
   Band searched in steps of 0.25 floors up to 20; smallest band beyond which at least 95 % of decided verdicts are
-  correct; estimated per family; validated leaving one alternative out and, for new settings, one setting level out.
+  correct. With a sibling, estimated from the family's own sibling cases and validated leaving one alternative out
+  within the family, the predictions behind the band refitted without it; for a new setting, which a family
+  produced at two setting levels cannot exercise, the band of the same relation in another family, validated on
+  this family (shares reported per family). Stated costs only widen the band (step 5).
 - **Costs.** $c_\mathrm{FR} = 0.5\,c_\mathrm{FA}$; trial costs $c_\mathrm{T}/c_\mathrm{FA}$ from 0.01 to 0.5.
 
 ## 4. Hypotheses (from the exploratory study)

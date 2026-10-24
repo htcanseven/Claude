@@ -53,7 +53,8 @@ SCOPES = [
     ("setting/interpolation", "new process setting, interpolated", "300 kN of a geometry held out"),
     ("setting/extrapolation", "new process setting, extrapolated", "100 or 500 kN of a geometry held out"),
     ("setting", "new process setting", "both of the above"),
-    ("transfer", "new family", "one geometry calibrates the rules for the other, scored in the produced family's floor"),
+    ("transfer", "new family", "one geometry calibrates the rules for the other; the floor follows the file's floor code "
+                                "(G*: the new family's own floor; G: the produced family's)"),
     ("transfer (produced family's floor)", "new family", "as `transfer`, labelled explicitly"),
     ("pooled", "sibling, both families calibrating", "with a family term (Gaussian processes only)"),
     ("pooled-setting[/interpolation|/extrapolation]", "new setting, both families calibrating", "with a family term"),
@@ -121,8 +122,12 @@ GLOSSARY = [
     ("Guard bands and verdicts", [
         ("band, band_concave, band_convex, median_band, band_95, band_opt, in_sample_band",
          "guard band g (floors) on its 0.25-floor grid; inf: no band up to the search limit reaches 95 %"),
-        ("scheme", "validation of the band: own family with one alternative left out; the other family's band; a "
-                   "force cell of the own family left out"),
+        ("scheme", "validation of the band: own family with one alternative left out; the other family's band; "
+                   "'leave force cell out', the band from both families' cases except the held-out geometry-force cell "
+                   "(interpolating, only the other family's cell remains); 'strictly nested', predictions behind the band "
+                   "refitted without the held-out alternative"),
+        ("share_correct_<geometry>, trial_rate_<geometry>, decided_<geometry>, verdicts_<geometry>",
+         "the same quantities per family (concave, convex)"),
         ("share_correct, share_correct_lo, share_correct_hi", "share correct among decided verdicts, with a cluster "
                                                               "bootstrap interval over alternatives"),
         ("trial_rate, trial_lo, trial_hi", "share of verdicts sent to trial"),
@@ -134,7 +139,8 @@ GLOSSARY = [
     ("Costs", [
         ("c_fr, c_trial", "costs of a false reject and of a trial, in units of the cost of a false accept"),
         ("cost_*", "expected cost per verdict (units of the false-accept cost): alone (no band), with the 95 % band, "
-                   "with the cost-minimising band (opt), or trying every design"),
+                   "with the cost-minimising band under step 5's rule (opt: from the 95 % band up to 20 floors, inf: "
+                   "every design to trial), or trying every design"),
         ("fa_*, fr_*, trial_*", "false-accept, false-reject and trial rates per verdict under the same bands"),
         ("cheapest, runner_up, margin, fa_of_cheapest", "cheapest option, the next one, their cost difference and the "
                                                         "false-accept rate of the cheapest"),
@@ -142,7 +148,8 @@ GLOSSARY = [
                                                   "designs under the prior"),
     ]),
     ("Coverage", [
-        ("level", "nominal or guaranteed level of an interval rule"),
+        ("level", "level of an interval rule: guaranteed only with a sibling (largest residual, jackknife+), where the "
+                  "held-out alternative is exchangeable with the calibration ones; otherwise nominal"),
         ("coverage, coverage_lo, coverage_hi", "share of truths inside the interval; cluster interval over "
                                                "alternatives with a sibling only"),
         ("ci_note", "why an interval is given or not, and which given intervals are degenerate"),
@@ -204,7 +211,8 @@ FILES = {
     "qual_guard_family.csv": ("qualify.py", "in-sample bands per family", "G", "archive"),
     "qual_guard_prior_width.csv": ("qualify.py", "band and trial rate against the width of the prior", "G", "OR S12"),
     "qual_guard_characteristic.csv": ("qualify.py", "bands per characteristic (earlier version)", "G", "archive"),
-    "qual_costs.csv": ("qualify.py", "expected cost per verdict by prior, cost ratio and trial cost", "G",
+    "qual_costs.csv": ("qualify.py", "expected cost per verdict by prior, cost ratio and trial cost, bands under "
+                       "step 5's rule", "G",
                        "Fig. 6, Section 5.6; OR S13"),
     "qual_cost_cheapest.csv": ("qualify.py", "cheapest option per relation and cost setting", "G",
                                "Section 5.6; OR S13"),
@@ -232,6 +240,8 @@ FILES = {
     "qual_resolvable_difference.csv": ("qualify.py", "smallest paired difference this design resolves", "G",
                                        "Section 5.7"),
     "qual_worked_example.csv": ("qualify.py", "every number of the worked example", "G", "Section 3.7"),
+    "qual_guard_nested.csv": ("qualify.py", "sibling validation of the nearest setting with strictly nested fits", "G",
+                              "Table 7 note"),
     "meas_characteristics.csv": ("simcheck.py", "measurement of the characteristics and their redundancy", "U",
                                  "Table 3"),
     "meas_cut_walls.csv": ("simcheck.py", "walls of the cut part seen by the scanner", "U", "Table 3"),
@@ -246,6 +256,8 @@ FILES = {
     "sim_validation.csv": ("simcheck.py", "simulation against measurement per characteristic, geometry and force",
                            "G", "Section 5.2; OR S3"),
     "sim_mc_friction.csv": ("simcheck.py", "friction fitted by Mc", "-", "Section 5.2; OR S3"),
+    "sim_grid_comparisons.csv": ("simcheck.py --grid", "comparisons independent of blank and scales over the whole "
+                                 "friction-thickness grid", "U", "Section 5.2; OR S3 note"),
     "sim_oil_mapping.csv": ("simcheck.py", "draw-in per g/m2 of oil, simulated and measured", "U", "Section 5.2"),
     "sim_depth_offset.csv": ("simcheck.py", "depth and wall offsets of the simulation", "U", "Section 5.2"),
     "sim_envelope_variant.csv": ("simcheck.py", "envelope over the measured incoming variation", "G*", "Section 5.2"),

@@ -274,6 +274,39 @@ def tooling_reference(f: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def grid_comparisons(t: pd.DataFrame, sims: pd.DataFrame, q: pd.DataFrame) -> pd.DataFrame:
+    """The comparisons that depend on neither the assumed blank nor the scanner's scales, over every friction and
+    thickness of the simulation grid rather than at the nominal one: the force effect (100 to 500 kN) on the
+    draw-ins and on the wall angle against the measured one (mean of the alternatives' centres), the share of
+    concave cut arms bending downwards, and how often the dome ranks the geometries as production does not."""
+    rows = []
+    real = t.groupby(["qc", "geometry", "bhf_kN"])["real_centre"].mean()
+    grid = ["sheet_metal_thickness", "friction_coefficient"]
+    for qc in ("drawin_mid", "drawin_corner", "wall_op10"):
+        for geo in ("concave", "convex"):
+            piv = sims[sims["geometry"] == geo].pivot_table(index=grid, columns="bhf_kN", values=qc)
+            sim = (piv[500] - piv[100]).dropna()
+            r = real[(qc, geo, 500)] - real[(qc, geo, 100)]
+            key = (D.NOMINAL_THICKNESS, D.NOMINAL_FRICTION)
+            nominal = sim.loc[key] if key in sim.index else np.nan
+            rows.append({"comparison": "force effect, 100 to 500 kN", "qc": qc, "geometry": geo, "measured": r,
+                         "combinations": len(sim), "sim_min": sim.min(), "sim_max": sim.max(), "sim_nominal": nominal,
+                         "ratio_min": (sim / r).min(), "ratio_max": (sim / r).max(),
+                         "share_within_0.5_of_measured": float((np.abs(sim - r) <= 0.5).mean())})
+    arms = sims[sims["geometry"] == "concave"].groupby("bhf_kN")["arm_op20"].apply(lambda a: float((a.dropna() < 0).mean()))
+    parts = q[q["geometry"] == "concave"].groupby("bhf_kN")["arm_op20"].apply(lambda a: float((a.dropna() < 0).mean()))
+    rows.append({"comparison": "concave cut arms bending downwards", "qc": "arm_op20", "geometry": "concave",
+                 "measured": float(parts.max()), "combinations": int(sims[sims["geometry"] == "concave"]["arm_op20"].notna().sum()),
+                 "sim_min": float(arms.min()), "sim_max": float(arms.max())})
+    dome = sims.pivot_table(index=grid + ["bhf_kN"], columns="geometry", values="dome_op20").dropna()   # signed sag
+    measured_concave_lower = all(real[("dome_op20", "concave", f)] < real[("dome_op20", "convex", f)] for f in (100, 300, 500))
+    rows.append({"comparison": "dome ranking reversed (concave above convex)", "qc": "dome_op20", "geometry": "both",
+                 "measured": float(not measured_concave_lower), "combinations": len(dome),
+                 "sim_min": float((dome["concave"] > dome["convex"]).mean()),
+                 "sim_max": float((dome["concave"] > dome["convex"]).mean())})
+    return pd.DataFrame(rows)
+
+
 def main() -> None:
     import warnings
 
@@ -295,6 +328,7 @@ def main() -> None:
     out["meas_cut_walls"] = extra
     out["meas_run_floors"] = run_floors(q, floors)
     out["meas_tooling_reference"] = tooling_reference(f)
+    out["sim_grid_comparisons"] = grid_comparisons(t, sims, q)
     for name, frame in out.items():
         frame.to_csv(RESULTS / f"{name}.csv", index=False)
     mc = out["sim_mc_friction"]
@@ -308,4 +342,13 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    if "--grid" in sys.argv:            # only the comparisons over the simulation grid (seconds)
+        _f = pd.read_csv(RESULTS / "features_rddac.csv", low_memory=False)
+        _f = _f[_f["status"] == "ok"].copy()
+        _f["alternative"] = _f["geometry"] + "/" + _f["bhf_kN"].astype(str) + "/" + _f["oil_type"]
+        grid_comparisons(pd.read_csv(RESULTS / "dec_alternatives.csv"),
+                         sims_qc(pd.read_csv(RESULTS / "features_ddacs_rddac.csv")),
+                         parts_qc(_f)).to_csv(RESULTS / "sim_grid_comparisons.csv", index=False)
+        print("sim_grid_comparisons: written")
+    else:
+        main()

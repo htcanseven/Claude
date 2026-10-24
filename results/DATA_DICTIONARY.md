@@ -53,7 +53,7 @@ M7n, M7 and Mcd are fitted in pooled floors; their distances, like those of ever
 | `setting/interpolation` | new process setting, interpolated | 300 kN of a geometry held out |
 | `setting/extrapolation` | new process setting, extrapolated | 100 or 500 kN of a geometry held out |
 | `setting` | new process setting | both of the above |
-| `transfer` | new family | one geometry calibrates the rules for the other, scored in the produced family's floor |
+| `transfer` | new family | one geometry calibrates the rules for the other; the floor follows the file's floor code (G*: the new family's own floor; G: the produced family's) |
 | `transfer (produced family's floor)` | new family | as `transfer`, labelled explicitly |
 | `pooled` | sibling, both families calibrating | with a family term (Gaussian processes only) |
 | `pooled-setting[/interpolation|/extrapolation]` | new setting, both families calibrating | with a family term |
@@ -127,7 +127,8 @@ M7n, M7 and Mcd are fitted in pooled floors; their distances, like those of ever
 | Column | Meaning |
 |---|---|
 | `band, band_concave, band_convex, median_band, band_95, band_opt, in_sample_band` | guard band g (floors) on its 0.25-floor grid; inf: no band up to the search limit reaches 95 % |
-| `scheme` | validation of the band: own family with one alternative left out; the other family's band; a force cell of the own family left out |
+| `scheme` | validation of the band: own family with one alternative left out; the other family's band; 'leave force cell out', the band from both families' cases except the held-out geometry-force cell (interpolating, only the other family's cell remains); 'strictly nested', predictions behind the band refitted without the held-out alternative |
+| `share_correct_<geometry>, trial_rate_<geometry>, decided_<geometry>, verdicts_<geometry>` | the same quantities per family (concave, convex) |
 | `share_correct, share_correct_lo, share_correct_hi` | share correct among decided verdicts, with a cluster bootstrap interval over alternatives |
 | `trial_rate, trial_lo, trial_hi` | share of verdicts sent to trial |
 | `decided, verdicts` | numbers of decided and of all verdicts over the prior |
@@ -140,7 +141,7 @@ M7n, M7 and Mcd are fitted in pooled floors; their distances, like those of ever
 | Column | Meaning |
 |---|---|
 | `c_fr, c_trial` | costs of a false reject and of a trial, in units of the cost of a false accept |
-| `cost_*` | expected cost per verdict (units of the false-accept cost): alone (no band), with the 95 % band, with the cost-minimising band (opt), or trying every design |
+| `cost_*` | expected cost per verdict (units of the false-accept cost): alone (no band), with the 95 % band, with the cost-minimising band under step 5's rule (opt: from the 95 % band up to 20 floors, inf: every design to trial), or trying every design |
 | `fa_*, fr_*, trial_*` | false-accept, false-reject and trial rates per verdict under the same bands |
 | `cheapest, runner_up, margin, fa_of_cheapest` | cheapest option, the next one, their cost difference and the false-accept rate of the cheapest |
 | `error_cost, failing_share_of_verdicts` | expected cost of a trial's own errors; share of verdicts on failing designs under the prior |
@@ -149,7 +150,7 @@ M7n, M7 and Mcd are fitted in pooled floors; their distances, like those of ever
 
 | Column | Meaning |
 |---|---|
-| `level` | nominal or guaranteed level of an interval rule |
+| `level` | level of an interval rule: guaranteed only with a sibling (largest residual, jackknife+), where the held-out alternative is exchangeable with the calibration ones; otherwise nominal |
 | `coverage, coverage_lo, coverage_hi` | share of truths inside the interval; cluster interval over alternatives with a sibling only |
 | `ci_note` | why an interval is given or not, and which given intervals are degenerate |
 | `median_half_width` | median half-width of the interval (floors) |
@@ -240,7 +241,7 @@ Where: the place in the paper (Online Resource 1 as OR); `archive` marks files o
 | `qual_between_run.csv` | `qualify.py` | distances and bands with a between-run component | G | Sections 5.5, 5.7; OR S14 |
 | `qual_between_run_trial.csv` | `qualify.py` | the trial under the same between-run component | G | Section 5.6; OR S14 |
 | `qual_cost_cheapest.csv` | `qualify.py` | cheapest option per relation and cost setting | G | Section 5.6; OR S13 |
-| `qual_costs.csv` | `qualify.py` | expected cost per verdict by prior, cost ratio and trial cost | G | Fig. 6, Section 5.6; OR S13 |
+| `qual_costs.csv` | `qualify.py` | expected cost per verdict by prior, cost ratio and trial cost, bands under step 5's rule | G | Fig. 6, Section 5.6; OR S13 |
 | `qual_coverage.csv` | `qualify.py` | coverage and interval score per relation, family, characteristic, stratum | G | Section 5.4; OR S8, S9 |
 | `qual_crossfit.csv` | `qualify.py` | rules and bands selected on one geometry, evaluated on the other | G | Section 5.7; OR S15 |
 | `qual_decomposition.csv` | `qualify.py` | paired decomposition of the pre-specified rules | G | archive |
@@ -249,6 +250,7 @@ Where: the place in the paper (Online Resource 1 as OR); `archive` marks files o
 | `qual_guard_characteristic.csv` | `qualify.py` | bands per characteristic (earlier version) | G | archive |
 | `qual_guard_decision.csv` | `qualify.py` | guard bands available when deciding, validated by the matching scheme | G | Table 7, Sections 5.5, 6.2; OR S10, S11 |
 | `qual_guard_family.csv` | `qualify.py` | in-sample bands per family | G | archive |
+| `qual_guard_nested.csv` | `qualify.py` | sibling validation of the nearest setting with strictly nested fits | G | Table 7 note |
 | `qual_guard_oos.csv` | `qualify.py` | out-of-sample bands, including a force cell left out | G | Section 5.5; OR S10 |
 | `qual_guard_prior_width.csv` | `qualify.py` | band and trial rate against the width of the prior | G | OR S12 |
 | `qual_m6_coverage.csv` | `qualify.py` | coverage of M6 | G | OR S8 |
@@ -279,6 +281,7 @@ Where: the place in the paper (Online Resource 1 as OR); `archive` marks files o
 | `sim_depth_offset.csv` | `simcheck.py` | depth and wall offsets of the simulation | U | Section 5.2 |
 | `sim_envelope_ranges.csv` | `simcheck.py` | supporting or earlier analysis | see script | archive |
 | `sim_envelope_variant.csv` | `simcheck.py` | envelope over the measured incoming variation | G* | Section 5.2 |
+| `sim_grid_comparisons.csv` | `simcheck.py --grid` | comparisons independent of blank and scales over the whole friction-thickness grid | U | Section 5.2; OR S3 note |
 | `sim_mc_friction.csv` | `simcheck.py` | friction fitted by Mc | - | Section 5.2; OR S3 |
 | `sim_oil_mapping.csv` | `simcheck.py` | draw-in per g/m2 of oil, simulated and measured | U | Section 5.2 |
 | `sim_validation.csv` | `simcheck.py` | simulation against measurement per characteristic, geometry and force | G | Section 5.2; OR S3 |
@@ -366,8 +369,9 @@ Columns not in the glossary above are defined where the producing function write
 - `qual_design_level.csv`: `relation`, `method`, `designs`, `design_decisive`, `design_safe`, `marginal_decisive`, `marginal_safe`
 - `qual_floor_loao.csv`: `kind`, `relation`, `method`, `alternative`, `ratio_loao_to_full`, `resolution_floors`, `safe_floors`, `resolution_loao`, `safe_loao`
 - `qual_guard_characteristic.csv`: `relation`, `method`, `group`, `name`, `pooled_band`, `share_correct`, `trial_rate`, `own_band`, `own_band_correct`, `own_band_trial`
-- `qual_guard_decision.csv`: `prior`, `relation`, `method`, `scheme`, `band_concave`, `band_convex`, `share_correct`, `share_correct_lo`, `share_correct_hi`, `trial_rate`, `trial_lo`, `trial_hi`, `decided`, `verdicts`, `false_accept_share`, `alternatives`, `worst_characteristic`, `worst_share_correct`, `share_arm_op20`, `share_depth_op10`, `share_dome_op20`, `share_drawin_corner`, `share_drawin_mid`, `share_wall_op10`, `share_waviness`, `decided_arm_op20`, `decided_depth_op10`, `decided_dome_op20`, `decided_drawin_corner`, `decided_drawin_mid`, `decided_wall_op10`, `decided_waviness`
+- `qual_guard_decision.csv`: `prior`, `relation`, `method`, `scheme`, `band_concave`, `band_convex`, `share_correct`, `share_correct_lo`, `share_correct_hi`, `trial_rate`, `trial_lo`, `trial_hi`, `decided`, `verdicts`, `false_accept_share`, `alternatives`, `worst_characteristic`, `worst_share_correct`, `share_correct_concave`, `trial_rate_concave`, `decided_concave`, `verdicts_concave`, `share_correct_convex`, `trial_rate_convex`, `decided_convex`, `verdicts_convex`, `share_arm_op20`, `share_depth_op10`, `share_dome_op20`, `share_drawin_corner`, `share_drawin_mid`, `share_wall_op10`, `share_waviness`, `decided_arm_op20`, `decided_depth_op10`, `decided_dome_op20`, `decided_drawin_corner`, `decided_drawin_mid`, `decided_wall_op10`, `decided_waviness`
 - `qual_guard_family.csv`: `relation`, `method`, `band_pooled`, `band_concave`, `correct_concave`, `trial_concave`, `correct_concave_with_other_band`, `trial_concave_with_other_band`, `band_convex`, `correct_convex`, `trial_convex`, `correct_convex_with_other_band`, `trial_convex_with_other_band`
+- `qual_guard_nested.csv`: `prior`, `method`, `scheme`, `share_correct`, `trial_rate`, `decided`, `verdicts`, `check_max_dev_stored`
 - `qual_guard_oos.csv`: `prior`, `relation`, `method`, `scheme`, `median_band`, `share_correct`, `share_correct_lo`, `share_correct_hi`, `trial_rate`, `trial_lo`, `trial_hi`, `in_sample_band`, `in_sample_correct`, `in_sample_trial`
 - `qual_guard_prior_width.csv`: `relation`, `method`, `prior_half_width`, `band`, `trial_rate`, `share_correct`, `decided_share`
 - `qual_m6_coverage.csv`: `relation`, `method`, `cases`, `coverage`, `coverage_lo`, `coverage_hi`, `interval_score`, `median_half_width`, `resolution_floors`, `safe_floors`, `resolution_adequate`, `safe_adequate`, `resolution_failing`, `safe_failing`
@@ -398,6 +402,7 @@ Columns not in the glossary above are defined where the producing function write
 - `sim_depth_offset.csv`: `geometry`, `bhf_kN`, `depth_measured`, `depth_sim`, `depth_sim_minus_measured`, `flange_angle_measured_deg`, `flange_angle_sim_deg`, `flange_rise_measured`, `flange_rise_sim`, `rise_difference`, `wall_r15_measured`, `wall_r15_sim`, `wall_r15_measured_minus_sim`, `press_bdc_median_mm`, `press_bdc_sd_mm`
 - `sim_envelope_ranges.csv`: `alternative`, `env_thickness`, `env_friction`
 - `sim_envelope_variant.csv`: `envelope`, `scope`, `method`, `resolution_floors`, `safe_floors`, `median_width_floors`
+- `sim_grid_comparisons.csv`: `comparison`, `qc`, `geometry`, `measured`, `combinations`, `sim_min`, `sim_max`, `sim_nominal`, `ratio_min`, `ratio_max`, `share_within_0.5_of_measured`
 - `sim_mc_friction.csv`: `scope`, `target`, `lubrication`, `mu`, `at_upper_edge`, `at_lower_edge`
 - `sim_oil_mapping.csv`: `geometry`, `bhf_kN`, `qc`, `sim_mm_per_mu`, `implied_mm_per_gm2`, `within_run_mm_per_gm2`, `between_patterns_min`, `between_patterns_max`, `between_patterns_median`, `oil_traverse_sd_median`, `oil_between_parts_sd`
 - `sim_validation.csv`: `qc`, `unit`, `geometry`, `bhf_kN`, `measured_centre`, `measured_min_series`, `measured_max_series`, `sim_nominal`, `sim_minus_measured`, `sim_minus_measured_floors`, `sim_min_over_friction`, `sim_max_over_friction`, `measured_inside_friction_range`, `closest_mu`, `sim_at_closest_mu`, `residual_at_closest_floors`, `sim_xy_sd_floors`, `sim_roughness_sd_floors`

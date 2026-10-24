@@ -82,5 +82,7 @@ marked-up comparisons); and a simulated first round at the *Journal of Intellige
 (`paper/review/jim_panel/round1/`: three reports, the editor's decision, the response `response_round1.md` with
 page and line numbers, and `main_diff.pdf` against the reviewed version), followed by a simulated second round on the
 shortened 31-page version (`paper/review/jim_panel/round2/`: the frozen manuscript, three reports, the editor's
-decision, all minor revision, the response `response_round2.md` and `main_diff.pdf` against the reviewed version).
-None of them is a review by a journal.
+decision, all minor revision, the response `response_round2.md` and `main_diff.pdf` against the reviewed version),
+and a simulated third round that verified the second revision (`paper/review/jim_panel/round3/`: three reports, the
+editor's decision, accept subject to conditions, the response `response_round3.md` to its corrections D1–D10 and
+`main_diff.pdf`). None of them is a review by a journal.

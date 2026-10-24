@@ -13,8 +13,9 @@ then shortened to 31 pages without an appendix, and revised after a simulated se
 decision, the trial under between-run variation, consistent costs, a reworked worked example and Online Resource 1
 (Tables S1–S15) restored as electronic supplementary material. `results/findings.md` maps every number of the paper
 and of Online Resource 1 to its script and result file, and `results/DATA_DICTIONARY.md` explains the result files.
-The archive is version 3. Because the reviews were simulated, this version goes to the journal as a first
-submission; the response letters and the marked-up versions are internal documents.
+A simulated third round (`paper/review/jim_panel/round3/`) accepted it subject to conditions, and its corrections
+D1–D10 are made (`response_round3.md`). The archive is version 3. Because the reviews were simulated, this version
+goes to the journal as a first submission; the response letters and the marked-up versions are internal documents.
 
 **Journal requirements** (submission guidelines): abstract 150–250 words; 4–6 keywords; author–year citations;
 declarations (funding, competing interests, data availability) before the references; LaTeX with the Springer Nature

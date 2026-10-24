@@ -41,18 +41,37 @@ result files of version 2 are unchanged (their checksums still hold) except thos
 - `make_tables.py` writes guard bands of half a floor above 10 floors with their decimal (14.5, not 14).
 - `results/findings.md` and `results/summary_qualify.md` rewritten.
 
+**Corrected before the deposit, after a third simulated review round** (`paper/review/jim_panel/round3/`).
+
+- `qualify.costs`: the cost-minimising band follows step 5, searched from the rule's 95 % band up to 20 floors, and a
+  rule without a 95 % band sends every design to trial (version 3 as first prepared searched 0–40 floors without that
+  floor). `qual_costs.csv`, `qual_cost_cheapest.csv` and `F_costs` are recomputed; the paper's statements on costs
+  hold under the rule, and the nominal simulation is no longer the cheapest option anywhere.
+- `qualify.guard_decision_time` adds the shares correct, trial rates and verdict counts per family
+  (`qual_guard_decision.csv`); `qualify.guard_nested_sibling` validates the nearest setting's sibling band with
+  strictly nested fits (`qual_guard_nested.csv`).
+- `qualify.nominal_level`: the largest-residual and jackknife+ levels are labelled guaranteed only with a sibling
+  (`level` in `qual_coverage.csv`; coverage values unchanged).
+- `simcheck.grid_comparisons` (`python3 simcheck.py --grid`): the comparisons independent of blank and scales over
+  the whole friction-thickness grid (`sim_grid_comparisons.csv`).
+- `make_tables.py`: Table 3 rounds 17.65 to 17.7, as Table S4 does; Table S10 gives the shares per family; the notes
+  of Tables 7, S3, S8, S10 and S13 are corrected. `data_dictionary.py`: the `transfer`, `scheme` and `level` entries.
+
 Main result files added or changed in version 3:
 
 | File | SHA-256 |
 |---|---|
-| `results/qual_guard_decision.csv` | `b12f3a4822e8a34cd9f0b3a0c89963775049cae03da638e31f47545867b29a86` |
+| `results/qual_guard_decision.csv` | `3c4f6dc98b23442a0534af6f977874a09cada29545ea45d409ac1a8504e5af9d` |
+| `results/qual_guard_nested.csv` | `1a2266a7cc06a3c29b1ab483d75cfc4e56d683c01516981ad24079fb664a82ae` |
+| `results/qual_costs.csv` | `660dfb16fb3329abc73cf29120e05fe1f5b02a562d6cc052f47f70c7fe96de9f` |
+| `results/qual_cost_cheapest.csv` | `63a5ea50bf49d773d3b53895286d22fdcfde614dfc7be1f56ba91cb58641f2bb` |
 | `results/qual_between_run_trial.csv` | `f32c802cec3e108856942a8f45ef6fd01118ed74d0cf84c3703a6105d14ec85f` |
 | `results/qual_trial_cost.csv` | `6425ab2c15705082837b367e5428990f3db85d1edf6f1a27eab514ff3d60d414` |
 | `results/qual_release_capability.csv` | `cf6f7decf9d6b5deda7819c0366f20fa87bfc9546d53e5dc498cb077c63b4727` |
-| `results/qual_cost_cheapest.csv` | `963ae6e08f027508e193025f739b3657c9ad9307a693b08900b6b5da4bc074cc` |
 | `results/qual_worked_example.csv` | `d968d40c6c9daeb3bea684001051ba435392b60b473c711f35008cff02391a50` |
 | `results/learn_m7n_priors.csv` | `5b5ba404a4b34774d06bed73d91c08e0c4e78ba44dbbe1c802b65b168b2715f1` |
-| `results/qual_coverage.csv` | `c50ec2dcb153eac1356ad3f2a6d55623d29982e4155152a0f759317bb58e1248` |
+| `results/qual_coverage.csv` | `652c96c9cd07380ca042f954968549f404410a949cf44b697f9e5c61252e4585` |
+| `results/sim_grid_comparisons.csv` | `01dddfdcdd67124155f32eb7bac70e2739130ae3891c28e8166eb3ef10c4fc30` |
 
 **Open before the deposit is published (the author's actions).** A licence file for the code and the licence fields
 of `.zenodo.json` and `CITATION.cff`; the DOI, then cited in the paper and in `CITATION.cff`; and a timestamped

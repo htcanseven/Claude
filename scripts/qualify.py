@@ -58,6 +58,7 @@ PRIOR_WIDTHS = [3.0, 5.0, 10.0, 20.0, 50.0]
 COST_TRIAL = [0.01, 0.02, 0.05, 0.1, 0.2, 0.3, 0.5]
 COST_FR = [0.25, 0.5, 1.0]
 COST_BANDS = np.round(np.arange(0.0, 40.0 + 1e-9, 0.25), 2)
+COST_BAND_MAX = 20.0                                            # step 5 searches bands up to 20 floors
 TAUS = [0.0, 0.5, 1.0, 1.5, 2.0, 3.0]
 N_TAU_DRAWS = 200
 N_CLUSTER = 2000
@@ -68,14 +69,18 @@ PPK_TARGET = 1.33
 SEED = 11
 
 
-def nominal_level(method: str, n: int) -> str:
-    """Guaranteed or nominal coverage of an interval rule with n calibration alternatives."""
+def nominal_level(method: str, n: int, relation: str = "sibling") -> str:
+    """Level of an interval rule with n calibration alternatives. The largest-residual and jackknife+ levels are
+    guaranteed only with a sibling, where the held-out alternative is exchangeable with the calibration ones; a
+    held-out force or family is not, so there they are nominal, like the model-based and relation-matched levels
+    (with a single calibration family, P+RM has no guarantee even if the families were exchangeable)."""
+    held_out = "guaranteed" if relation == "sibling" else "nominal, held-out cases not exchangeable"
     if method.endswith("+RM"):
-        return "0.90 (split conformal across families)"
+        return "0.90 nominal (split conformal across families, no guarantee)"
     if method in ("M2", "M2n"):
-        return f"{(n - 1) / (n + 1):.2f} (largest residual, estimated offset)"
+        return f"{(n - 1) / (n + 1):.2f} {held_out} (largest residual)"
     if method in ("M3", "M4"):
-        return f"{1 - 2 / (n + 1):.2f} (jackknife+)"
+        return f"{1 - 2 / (n + 1):.2f} {held_out} (jackknife+)"
     if method in ("M5", "M5n", "M7", "M7n", "Mcd"):
         return "0.90 nominal (model-based, no guarantee)"
     return ""
@@ -255,6 +260,7 @@ def guard_decision_time(ivs: pd.DataFrame, rules: list[str]) -> pd.DataFrame:
                     continue
                 tot = dict.fromkeys(keys, 0)
                 per_alt, per_qc, band_used = {}, {}, {}
+                per_geo = {geo: dict.fromkeys(keys, 0) for geo in ("concave", "convex")}
                 for geo in ("concave", "convex"):
                     own = g[g["geometry"] == geo]
                     if rel == "sibling":
@@ -268,6 +274,7 @@ def guard_decision_time(ivs: pd.DataFrame, rules: list[str]) -> pd.DataFrame:
                         per_alt[a] = (o["correct"], o["decided"], o["trial"], o["verdicts"])
                         for k in keys:
                             tot[k] += o[k]
+                            per_geo[geo][k] += o[k]
                         for qc, hq in h.groupby("qc"):
                             oq = verdict_outcomes(hq, band_for[a], grid)
                             c, d = per_qc.get(qc, (0, 0))
@@ -288,8 +295,49 @@ def guard_decision_time(ivs: pd.DataFrame, rules: list[str]) -> pd.DataFrame:
                              "false_accept_share": tot["false_accept"] / tot["verdicts"],
                              "alternatives": g["alternative"].nunique(),
                              "worst_characteristic": worst, "worst_share_correct": qshare.get(worst, np.nan),
+                             **{f"{k}_{geo}": v for geo, o in per_geo.items() for k, v in (
+                                 ("share_correct", o["correct"] / o["decided"] if o["decided"] else np.nan),
+                                 ("trial_rate", o["trial"] / o["verdicts"] if o["verdicts"] else np.nan),
+                                 ("decided", o["decided"]), ("verdicts", o["verdicts"]))},
                              **{f"share_{qc}": c / d if d else np.nan for qc, (c, d) in per_qc.items()},
                              **{f"decided_{qc}": d for qc, (c, d) in per_qc.items()}})
+    return pd.DataFrame(rows)
+
+
+def guard_nested_sibling(ivs: pd.DataFrame, t: pd.DataFrame) -> pd.DataFrame:
+    """Sibling validation of the nearest setting with strictly nested fits. Table 7 leaves one alternative out of
+    the band's cases, but those cases' predictions were fitted with it; here every prediction behind the band of a
+    held-out alternative is recomputed without it (the mean q_p of the remaining siblings at the same force)."""
+    rows = []
+    g = relation_cases(ivs, "sibling", "NN")
+    q = t.set_index(["alternative", "qc"])["real_q95"]
+    alts = sorted(g["alternative"].unique())
+    stored = g.set_index(["alternative", "qc"])
+    for prior_name, width in (("reference (+-20)", 20.0), ("release-like (+-5)", 5.0)):
+        grid = prior_grid(width)
+        tot = {"correct": 0, "decided": 0, "trial": 0, "verdicts": 0}
+        max_dev = 0.0
+        for a in alts:
+            geo, f, _ = a.split("/")
+            others = [b for b in alts if b.startswith(geo + "/") and b != a]
+            cases = []
+            for b in others:
+                bf = b.split("/")[1]
+                sibs = [c for c in alts if c.startswith(f"{geo}/{bf}/") and c not in (a, b)]
+                for qc in g["qc"].unique():
+                    r = stored.loc[(b, qc)]
+                    if a.split("/")[1] != bf:          # a was not among b's siblings: the stored prediction stands
+                        max_dev = max(max_dev, abs(r["lo"] - np.mean([q[(c, qc)] for c in sibs])))
+                    pred = float(np.mean([q[(c, qc)] for c in sibs]))
+                    cases.append({"lo": pred, "hi": pred, "real_q95": r["real_q95"], "floor": r["floor"]})
+            b_a = band_of(pd.DataFrame(cases), grid)
+            o = verdict_outcomes(g[g["alternative"] == a], b_a, grid)
+            for k in tot:
+                tot[k] += o[k]
+        rows.append({"prior": prior_name, "method": "NN", "scheme": "strictly nested (predictions refitted without "
+                     "the held-out alternative)", "share_correct": tot["correct"] / tot["decided"],
+                     "trial_rate": tot["trial"] / tot["verdicts"], "decided": tot["decided"],
+                     "verdicts": tot["verdicts"], "check_max_dev_stored": max_dev})
     return pd.DataFrame(rows)
 
 
@@ -337,6 +385,10 @@ def guard_per_characteristic(ivs: pd.DataFrame, rules: list[str]) -> pd.DataFram
 
 # ── 3. costs and the trial ────────────────────────────────────────────────────
 def costs(ivs: pd.DataFrame, rules: list[str]) -> pd.DataFrame:
+    """Expected cost per verdict (in units of a false accept) by prior, cost ratio, relation and trial cost. The
+    cost-minimising band follows step 5: stated costs only widen the 95 % band, so it is searched from that band up
+    to the step's limit of 20 floors, or every design goes to trial; a rule without a 95 % band sends every design to
+    trial. Bands are chosen in sample, pooled over the families; cost_alone is the rule without a band."""
     rows = []
     for prior_name, width in (("reference (+-20)", 20.0), ("release-like (+-5)", 5.0)):
         grid = prior_grid(width)
@@ -352,18 +404,23 @@ def costs(ivs: pd.DataFrame, rules: list[str]) -> pd.DataFrame:
                 tr = np.array([o["trial"] for o in outs]) / n
                 b95 = band_of(g, grid)
                 i95 = int(np.argmin(np.abs(COST_BANDS - b95))) if np.isfinite(b95) else None
+                allowed = ((COST_BANDS >= b95 - 1e-9) & (COST_BANDS <= COST_BAND_MAX + 1e-9)) if i95 is not None \
+                    else np.zeros(len(COST_BANDS), dtype=bool)
                 for cfr in COST_FR:
                     for ct in COST_TRIAL:
                         c = fa + cfr * fr + ct * tr
-                        j = int(np.argmin(c))
+                        j = int(np.flatnonzero(allowed)[np.argmin(c[allowed])]) if allowed.any() else None
+                        use = j is not None and c[j] < ct     # otherwise every design goes to trial
                         rows.append({"prior": prior_name, "relation": rel, "method": m, "c_fr": cfr, "c_trial": ct,
                                      "cost_alone": float(c[0]), "fa_alone": fa[0], "fr_alone": fr[0],
                                      "trial_alone": tr[0],
                                      "band_95": b95, "cost_band_95": float(c[i95]) if i95 is not None else ct,
                                      "trial_band_95": float(tr[i95]) if i95 is not None else 1.0,
-                                     "band_opt": float(COST_BANDS[j]), "cost_opt": float(min(c[j], ct)),
-                                     "trial_opt": float(tr[j]) if c[j] <= ct else 1.0, "fa_opt": float(fa[j]),
-                                     "fr_opt": float(fr[j]), "cost_always_trial": ct})
+                                     "band_opt": float(COST_BANDS[j]) if use else np.inf,
+                                     "cost_opt": float(c[j]) if use else float(ct),
+                                     "trial_opt": float(tr[j]) if use else 1.0,
+                                     "fa_opt": float(fa[j]) if use else 0.0,
+                                     "fr_opt": float(fr[j]) if use else 0.0, "cost_always_trial": ct})
     return pd.DataFrame(rows)
 
 
@@ -487,7 +544,7 @@ def coverage(ivs: pd.DataFrame, strata: pd.DataFrame) -> pd.DataFrame:
             inside = ((g["lo"] <= g["real_q95"]) & (g["real_q95"] <= g["hi"])).to_numpy()
             isc = interval_score(g["lo"], g["hi"], g["real_q95"]) / g["floor"]
             lo, hi = ci(g, inside, rel)
-            base = {"relation": rel, "method": m, "level": nominal_level(m, n_cal[rel])}
+            base = {"relation": rel, "method": m, "level": nominal_level(m, n_cal[rel], rel)}
             rows.append({**base, "subset": "all", "cases": len(g), "coverage": float(inside.mean()),
                          "coverage_lo": lo, "coverage_hi": hi,
                          "median_half_width": float(np.nanmedian((g["hi"] - g["lo"]) / 2 / g["floor"])),
@@ -1020,6 +1077,7 @@ def main(only: list[str] | None = None) -> None:
         "release_capability": release_capability,
         "cost_cheapest": lambda: cost_cheapest(pd.read_csv(RESULTS / "qual_costs.csv")),
         "worked_example": lambda: worked_example(ivs, q, t),
+        "guard_nested": lambda: guard_nested_sibling(ivs, t),
     }
     for name, fn in jobs.items():
         if only and name not in only:

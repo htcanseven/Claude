@@ -201,7 +201,7 @@ def t_qcs() -> str:
         x = m.loc[c]
         v = [float(t) for t in re.findall(r"-?\d+\.\d+", str(x["known_biases"]))]
         if c == "drawin_mid":
-            bias = f"$W_y-W_x$ {span(v[0], v[1])}\\,mm; $W_y$, in the direction of motion, scatters {v[2]:.1f}--{v[3]:.1f} times more"
+            bias = f"$W_y-W_x$ {span(v[0], v[1])}\\,mm; $W_y$, in the direction of motion, scatters {v[2] + 1e-9:.1f}--{v[3] + 1e-9:.1f} times more"
         elif c == "drawin_corner":
             bias = f"the two diagonals differ by {span(v[0], v[1])}\\,mm"
         elif c == "wall_op10":
@@ -265,6 +265,7 @@ def t_distances() -> str:
 
 def t_guards() -> str:
     gd = read("qual_guard_decision.csv")
+    nest = read("qual_guard_nested.csv").set_index("prior")
     rels = [("sibling", "Sibling"), ("interpolation", "Interpolated"), ("extrapolation", "Extrapolated")]
     rows = []
 
@@ -288,10 +289,15 @@ def t_guards() -> str:
                  note=r"$g$: band of the family's own sibling cases with a sibling; for a new setting, which a family "
                       r"produced at two forces cannot exercise, the band of the same relation in the other family "
                       r"(concave/convex; one number when equal; none: no band up to 20 floors reaches 95\,\%). Correct: "
-                      r"share correct among decided verdicts (\%), with a sibling leaving one alternative out within its "
-                      r"family, for a new setting the other family's band applied to this family. T: share of verdicts "
-                      r"sent to trial (\%). No rule qualifies for a new family. Intervals, verdict counts and the "
-                      r"characteristics in Online Resource~1, Tables~S10 and S11.")
+                      r"share correct among decided verdicts (\%), pooled over the two families; with a sibling leaving "
+                      r"one alternative out within its family (refitting the band's cases without it, NN keeps "
+                      + f"{pct(nest.loc['reference (+-20)', 'share_correct'])} and "
+                      + f"{pct(nest.loc['release-like (+-5)', 'share_correct'])}" + r"\,\% correct and sends "
+                      + f"{pct(nest.loc['reference (+-20)', 'trial_rate'])} and "
+                      + f"{pct(nest.loc['release-like (+-5)', 'trial_rate'])}" + r"\,\% to trial), for a new setting "
+                      r"the other family's band applied to this family. T: share of verdicts sent to trial (\%). No rule "
+                      r"qualifies for a new family. Shares per family, verdict counts and the characteristics in Online "
+                      r"Resource~1, Tables~S10 and S11.")
 
 
 # ── results per characteristic ────────────────────────────────────────────────
@@ -414,8 +420,9 @@ def o_validation() -> str:
                       rf"friction grid 0.05--0.15; closest $\mu$: grid friction nearest the measurement, residual there "
                       rf"(floors). $x$--$y$, Rough.: extraction noise of the simulated characteristic, standard deviation "
                       rf"of the difference between the two directions of the quarter model and roughness along the friction "
-                      rf"grid (floors). Levels depend on the assumed blank (210\,mm) and the scanner's scales; the force "
-                      rf"effects, the concave wall-angle trend, the arm sign and the dome ranking do not. Mc's friction fits "
+                      rf"grid (floors). Levels depend on the assumed blank (210\,mm) and the scanner's scales; the mid-side "
+                      rf"force effect, the arm sign and the dome ranking do not and hold over the whole friction--thickness "
+                      rf"grid, the concave wall-angle trend only at the nominal friction. Mc's friction fits "
                       rf"end at the upper edge of the grid in {int(mc['at_upper_edge'].sum())} of {len(mc)} within-family "
                       rf"calibrations. Source: \texttt{{sim\_validation}}, \texttt{{sim\_mc\_friction}}.")
 
@@ -567,7 +574,7 @@ def o_coverage() -> str:
                   else pct(x["coverage"]))
             cells += [cv, f"{x['interval_score']:.0f}"]
         lvl = a[(a["method"] == m) & (a["relation"] == "sibling")]["level"].iloc[0]
-        lvl = lvl.split(" (")[0].replace(" nominal", "")
+        lvl = lvl.split(" ")[0]
         rows.append(f"{SHORT.get(m, m)} & {lvl} & " + " & ".join(cells))
     m6 = read("qual_m6_coverage.csv").set_index("relation")
     cells = []
@@ -588,8 +595,10 @@ def o_coverage() -> str:
             "\n" r"Rule & Level & Cov & IS & Cov & IS & Cov & IS & Cov & IS")
     return table(rows, "Interval rules: coverage and interval score by relation", "tab:s-coverage", "ll" + "r" * 8,
                  head, colsep="3pt", place="p", size=SMALL,
-                 note=r"Level: guaranteed with a sibling (largest residual, jackknife+) or nominal (model-based intervals "
-                      r"and P+RM, whose guarantee would need exchangeable families). Cov: coverage (\%), with a sibling with "
+                 note=r"Level: with a sibling, guaranteed for the largest residual and jackknife+ ($n=8$); for a new setting "
+                      r"or family their levels are nominal, a held-out force or family not being exchangeable with the "
+                      r"calibration alternatives; model-based intervals and P+RM are nominal (with a single calibration family, "
+                      r"P+RM has no guarantee even if the families were exchangeable). Cov: coverage (\%), with a sibling with "
                       r"a 95\,\% interval over 2000 resamples of the alternatives within each geometry; for a new setting or "
                       r"family the alternatives of one held-out cell or family share one fit, so no interval over "
                       r"alternatives is given. IS: mean interval score (Gneiting and Raftery 2007) at $\alpha=0.1$, floors; "
@@ -621,25 +630,30 @@ def o_coverage_detail() -> str:
 def o_guards() -> str:
     gd = read("qual_guard_decision.csv")
     oos = read("qual_guard_oos.csv")
-    rows = []
+    rows, totals = [], []
 
     def bands(x) -> str:
         bc, bv = x["band_concave"], x["band_convex"]
         return band(bc) if band(bc) == band(bv) else f"{band(bc)}/{band(bv)}"
 
     for prior, lab in (("reference (+-20)", "Reference prior"), ("release-like (+-5)", r"Release-like prior")):
-        rows.append(rf"\multicolumn{{9}}{{@{{}}l}}{{\emph{{{lab}}}}}")
+        rows.append(rf"\multicolumn{{10}}{{@{{}}l}}{{\emph{{{lab}}}}}")
+        tot = []
         for rel in ["sibling", "interpolation", "extrapolation", "new family"]:
+            first = True
             for m in ["NN", "M1sn", "M2", "M5", "M5n", "M7n", "Mcd", "NN+RM"]:
                 x = gd[(gd["prior"] == prior) & (gd["relation"] == rel) & (gd["method"] == m)]
                 if x.empty:
                     continue
                 x = x.iloc[0]
+                if m == "NN":
+                    tot.append(f"{int(x['verdicts_concave'])}/{int(x['verdicts_convex'])}")
                 if rel == "new family" and x["decided"] == 0:
                     continue
                 share = "--" if x["decided"] == 0 else (
                     f"{pct(x['share_correct'])} ({pct(x['share_correct_lo'])}--{pct(x['share_correct_hi'])})"
                     if np.isfinite(x["share_correct_lo"]) else pct(x["share_correct"]))
+                per_family = f"{pct(x['share_correct_concave'])}/{pct(x['share_correct_convex'])}"
                 cell_out = ""
                 if rel in ("interpolation", "extrapolation"):
                     y = oos[(oos["prior"] == prior) & (oos["relation"] == rel) & (oos["method"] == m)
@@ -648,20 +662,26 @@ def o_guards() -> str:
                         cell_out = pct(y.iloc[0]["share_correct"])
                 worst = ("" if not isinstance(x["worst_characteristic"], str) else
                          f"{QSHORT[x['worst_characteristic']]} {pct(x['worst_share_correct'])}")
-                rows.append(f"{RELNAME[rel] if m == 'NN' or (rel == 'new family' and m == 'Mcd') else ''} & "
-                            f"{SHORT.get(m, m)} & {bands(x)} & {share} & {pct(x['trial_rate'])} & "
-                            f"{int(x['decided'])}/{int(x['verdicts'])} & {100 * x['false_accept_share']:.1f} & {worst} & {cell_out}")
-    head = r"Relation & Rule & $g$ (c/v) & Correct & T & Decided & FA & Worst characteristic & Cell out"
+                rows.append(f"{RELNAME[rel] if first else ''} & {SHORT.get(m, m)} & {bands(x)} & {share} & "
+                            f"{per_family} & {pct(x['trial_rate'])} & "
+                            f"{int(x['decided_concave'])}/{int(x['decided_convex'])} & "
+                            f"{100 * x['false_accept_share']:.1f} & {worst} & {cell_out}")
+                first = False
+        totals.append(f"{lab.lower()} {', '.join(tot)}")
+    head = r"Relation & Rule & $g$ (c/v) & Correct & c/v & T & Decided & FA & Worst & Cell out"
     return table(rows, "Guard bands available when deciding, by relation and prior, validated by the matching scheme",
-                 "tab:s-guards", "llrrrrrlr", head, colsep="3pt", place="p", size=SMALL,
-                 note=r"$g$: band (floors) of the family's own sibling cases (with a sibling) or of the same relation in the "
-                      r"other family (new setting, new family), for the concave/convex cup; none: no band up to 20 floors "
-                      r"qualifies. Correct: share correct among decided verdicts (\%), with a sibling leaving one alternative "
-                      r"out within its family (95\,\% cluster interval over alternatives), otherwise the other family's band on "
-                      r"this family. T: share sent to trial (\%). Decided: decided and all verdicts. FA: false accepts (\% of "
-                      r"verdicts). Worst characteristic: lowest share correct (\%). Cell out: share correct with the family's "
-                      r"own band estimated without the held-out geometry--force cell. New-family rows only where a rule "
-                      r"decides. Source: \texttt{qual\_guard\_decision}, \texttt{qual\_guard\_oos}.")
+                 "tab:s-guards", "llrrrrrrlr", head, colsep="2.6pt", place="p", size=SMALL,
+                 note=r"$g$: band (floors, concave/convex) from the family's own sibling cases or, for a new setting or "
+                      r"family, from the same relation in the other family; none: no band up to 20 floors qualifies. "
+                      r"Correct: share correct among decided verdicts (\%), pooled over the families; with a sibling one "
+                      r"alternative left out within its family (95\,\% cluster interval), otherwise the other family's "
+                      r"band applied, without an interval (the alternatives of a held-out cell share one fit). c/v: per "
+                      r"family. T: share sent to trial (\%). Decided: per family, of " + "; ".join(totals)
+                      + r" verdicts (sibling, interpolated, extrapolated, new family). FA: false accepts (\% of verdicts). "
+                      r"Worst: the characteristic with the lowest share correct (\%). Cell out: share correct with the band "
+                      r"from both families' cases except the held-out geometry--force cell (interpolating, the other "
+                      r"family's cell: the band of Correct). New family: rows where a rule decides. Source: "
+                      r"\texttt{qual\_guard\_decision}, \texttt{qual\_guard\_oos}.")
 
 
 def o_guard_qc() -> str:
@@ -723,8 +743,9 @@ def o_costs() -> str:
     head = r"Relation & $c_\mathrm{T}$ & $c_\mathrm{FR}=0.25$ & $c_\mathrm{FR}=0.5$ & $c_\mathrm{FR}=1$"
     return table(rows, "Cheapest option and its expected cost per verdict by relation, trial cost, prior and cost ratio",
                  "tab:s-costs", "lrlll", head, colsep="5pt", place="p", size=SMALL,
-                 note=rf"Costs relative to a false accept. Each rule with its cost-minimising band (0 to 40 floors), chosen "
-                      rf"in sample and pooled over the families; trial: sending every design to trial (cost $c_\mathrm{{T}}$) "
+                 note=rf"Costs relative to a false accept. Each rule with its cost-minimising band under step 5's rule (from "
+                      rf"its 95\,\% band up to 20 floors; without a 95\,\% band, every design to trial), chosen in sample and "
+                      rf"pooled over the families; trial: sending every design to trial (cost $c_\mathrm{{T}}$) "
                       rf"is cheapest; NN$^*$: NN and M1sn, which coincide at 300\,kN. Differences of a few thousandths are "
                       rf"not resolved by this design. Trials are priced as error-free: the errors of a 20-part trial cost "
                       rf"{t20.loc['reference (+-20)', 'error_cost']:.3f} per verdict under the reference prior and "
