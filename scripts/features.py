@@ -91,13 +91,27 @@ def fundamental(ia, ib, ic, fs):
     return abs(slope) / (2 * np.pi), np.sign(slope)
 
 
-def sequences(pa, pb, pc, rot):
-    """Zero / positive / negative sequence magnitudes for the measured phase rotation."""
+def sequences_complex(pa, pb, pc, rot):
+    """Zero / positive / negative sequence phasors (complex) for the measured phase rotation."""
     s0 = (pa + pb + pc) / 3
     s_abc = (pa + A * pb + A * A * pc) / 3
     s_acb = (pa + A * A * pb + A * pc) / 3
     pos, neg = (s_abc, s_acb) if rot > 0 else (s_acb, s_abc)
+    return s0, pos, neg
+
+
+def sequences(pa, pb, pc, rot):
+    """Zero / positive / negative sequence magnitudes for the measured phase rotation."""
+    s0, pos, neg = sequences_complex(pa, pb, pc, rot)
     return abs(s0), abs(pos), abs(neg)
+
+
+def referenced_ratio(neg, pos):
+    """Negative-sequence phasor referenced to the positive-sequence angle and normalised by its magnitude:
+    neg * conj(pos) / |pos|^2. Both phasors come from the same window, so the common rotation with the window
+    start cancels and the complex ratio is stationary for a stationary signal; the fault-induced asymmetry adds
+    to the inherent one as a complex number, which the magnitude |neg|/|pos| alone cannot separate."""
+    return neg * np.conj(pos) / (abs(pos) ** 2) if abs(pos) > 0 else np.nan + 0j
 
 
 def window_features(seg, fs, fe0, rot):
@@ -108,15 +122,25 @@ def window_features(seg, fs, fe0, rot):
     if not (0.5 * fe0 < fe < 1.5 * fe0):   # fall back to the file-level estimate if the window is odd
         fe = fe0
     pa, pb, pc = (phasor(seg[k], fe, fs, win) for k in ("Ia", "Ib", "Ic"))
-    i0, i1, i2 = sequences(pa, pb, pc, rot)
+    ic0, icp, icn = sequences_complex(pa, pb, pc, rot)
+    i0, i1, i2 = abs(ic0), abs(icp), abs(icn)
     va, vb, vc = (phasor(seg[k], fe, fs, win) for k in ("Va", "Vb", "Vc"))
-    _, v1, v2 = sequences(va, vb, vc, rot)
+    _, vcp, vcn = sequences_complex(va, vb, vc, rot)
+    v1, v2 = abs(vcp), abs(vcn)
     da, db, dc = (phasor(seg[k] - seg[k].mean(), fe, fs, win) for k in ("Da", "Db", "Dc"))
-    _, d1, d2 = sequences(da, db, dc, rot)
+    _, dcp, dcn = sequences_complex(da, db, dc, rot)
+    d1, d2 = abs(dcp), abs(dcn)
     rms = np.array([np.sqrt(np.mean(seg[k] ** 2)) for k in ("Ia", "Ib", "Ic")])
+    # Phase-referenced complex negative-sequence ratios (real and imaginary parts): the phasor residual
+    # |mean_F - mean_R| of these separates the fault-induced asymmetry from the inherent one, which the
+    # magnitude ratios I2/I1, V2/V1, D2/D1 cannot (their change depends on the angle between the two).
+    i2c, v2c = referenced_ratio(icn, icp), referenced_ratio(vcn, vcp)
+    d2c = referenced_ratio(dcn, dcp) if d1 > 1e-9 else np.nan + 0j
     f = {"fe_Hz": fe, "I1": i1, "I2": i2, "I2_I1": i2 / i1, "I0_I1": i0 / i1,
          "I_unbal_rms": np.max(np.abs(rms - rms.mean())) / rms.mean(),
-         "V1": v1, "V2_V1": v2 / v1, "D2_D1": d2 / d1 if d1 > 1e-9 else np.nan}
+         "V1": v1, "V2_V1": v2 / v1, "D2_D1": d2 / d1 if d1 > 1e-9 else np.nan,
+         "I2c_re": i2c.real, "I2c_im": i2c.imag, "V2c_re": v2c.real, "V2c_im": v2c.imag,
+         "D2c_re": d2c.real, "D2c_im": d2c.imag}
     # Vd/Vq are derived from the measured terminal voltages (external transducers); Vd_conv/Vq_conv are
     # the converter's own voltage commands (drive-internal); Torq_mec is the torque transducer.
     for key, name in (("Id", "Id"), ("Iq", "Iq"), ("Vd", "Vd"), ("Vq", "Vq"),
@@ -171,7 +195,7 @@ def process_file(args):
         for start in range(i0, i_end - nwin + 1, nhop):
             seg = {k: v[start:start + nwin] for k, v in sig.items()}
             f = window_features(seg, fs, fe0, rot)
-            f.update(machine=machine, file=path.name, segment=segname, t_start=t[start], **meta)
+            f.update(machine=machine, file=path.name, segment=segname, t_start=t[start], t_end=t[start + nwin - 1], **meta)
             rows.append(f)
     df = pd.DataFrame(rows)
 

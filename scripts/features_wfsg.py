@@ -112,7 +112,7 @@ def process_file(args):
             f["If_std"] = np.std(x)
             for k in DROP:
                 f.pop(k, None)
-            f.update(machine="WFSG", file=path.name, segment=segname, t_start=t[start], **meta)
+            f.update(machine="WFSG", file=path.name, segment=segname, t_start=t[start], t_end=t[start + nwin - 1], **meta)
             rows.append(f)
     df = pd.DataFrame(rows)
     pre, flt = df[df.segment == "PRE"], df[df.segment == "FLT"]

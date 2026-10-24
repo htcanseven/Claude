@@ -2,7 +2,7 @@
 
 Recordings: 225 per machine (24 fault cases + healthy, × 3 speeds × 3 torques). Windows of 5 electrical cycles, hop 1 cycle. PRE-early = 0.30–0.62 s, PRE-late = 0.62–0.98 s, FLT = relay-on + 30 ms to relay-off − 10 ms. Features use only stator-side / controller signals; `Ifault` and `Fault_relay` are ground truth.
 
-**Detectability statistic.** Signal-to-drift ratio SDR = |relative change of a feature between PRE-late and FLT| ÷ 95th percentile of |relative change between PRE-early and PRE-late| over all 225 recordings of that machine. SDR ≥ 1 means the change under fault exceeds what ordinary within-recording drift produces in 95 % of healthy segments, i.e. detectable at ≈5 % per-recording false alarm. It is scale-free and directly comparable across features, operating points and topologies.
+**Detectability statistic.** Signal-to-drift ratio SDR = |relative change of a feature between PRE-late and FLT| ÷ 95th percentile of |relative change between PRE-early and PRE-late| over all 225 recordings of that machine. SDR $\geq 1$ means the change under fault exceeds what ordinary within-recording drift produces in 95 % of healthy segments, i.e. detectable at ≈5 % per-recording false alarm. It is scale-free and directly comparable across features, operating points and topologies.
 
 **Caveat on every number:** one physical machine per topology, no repeated tests. Differences between the two columns are differences between *these two machines*; attributing them to topology needs the simulation populations planned for the paper.
 
@@ -45,90 +45,90 @@ Null (95th percentile of |no-fault relative change|) per machine, selected featu
 
 | feature | PMSG | SCIG |
 |---|---|---|
-| I2_I1 | 0.162 | 0.034 |
-| V2_V1 | 0.086 | 0.033 |
-| Id_2fe | 0.563 | 0.016 |
-| Iq_2fe | 0.184 | 0.060 |
-| PIq_2fe | 0.100 | 0.053 |
-| Vq_2fe | 0.165 | 0.060 |
-| Ia_h3 | 0.216 | 0.035 |
-| Te_2fe | 0.649 | 0.625 |
-| Vdc_std | 0.003 | 0.004 |
+| I2_I1 | 0.172 | 0.038 |
+| V2_V1 | 0.107 | 0.037 |
+| Id_2fe | 0.774 | 0.017 |
+| Iq_2fe | 0.228 | 0.069 |
+| PIq_2fe | 0.112 | 0.064 |
+| Vq_2fe | 0.197 | 0.066 |
+| Ia_h3 | 0.229 | 0.044 |
+| Te_2fe | 0.955 | 0.745 |
+| Vdc_std | 0.003 | 0.005 |
 
 Top-6 features by median SDR per machine and fault type (`median_delta` = median relative change, sign = direction):
 
 | machine | ftype | feature | group | median_sdr | frac_detectable | healthy_false_alarm | median_delta |
 |---|---|---|---|---|---|---|---|
-| SCIG | WINDINGS | D2_D1 | dq / control | 84.887 | 1.000 | 0.444 | 0.854 |
-| SCIG | WINDINGS | PId_2fe | dq / control | 74.013 | 1.000 | 0.111 | 1.188 |
-| SCIG | WINDINGS | Id_2fe | dq / control | 73.971 | 1.000 | 0.111 | 1.188 |
-| SCIG | WINDINGS | Vdconv_2fe | dq / control | 63.019 | 1.000 | 0.111 | 1.203 |
-| PMSG | WINDINGS | V2_V1 | terminal voltage | 61.898 | 0.944 | 0.111 | 5.318 |
-| SCIG | WINDINGS | I2_I1 | stator current | 55.608 | 1.000 | 0.111 | 1.869 |
-| SCIG | WINDINGS | V2_V1 | terminal voltage | 48.192 | 1.000 | 0.000 | 1.569 |
-| PMSG | WINDINGS | D2_D1 | dq / control | 32.629 | 0.898 | 0.000 | 2.942 |
-| PMSG | WINDINGS | Vq_2fe | terminal voltage | 22.398 | 0.898 | 0.000 | 3.688 |
-| PMSG | WINDINGS | I2_I1 | stator current | 11.316 | 0.815 | 0.000 | 1.833 |
-| SCIG | TURNS | D2_D1 | dq / control | 11.062 | 0.815 | 0.444 | 0.017 |
-| PMSG | WINDINGS | PIq_2fe | dq / control | 8.002 | 0.833 | 0.111 | 0.636 |
-| SCIG | TURNS | PId_2fe | dq / control | 6.685 | 0.778 | 0.111 | 0.015 |
-| SCIG | TURNS | Id_2fe | dq / control | 6.682 | 0.787 | 0.111 | 0.015 |
-| SCIG | TURNS | Vdconv_2fe | dq / control | 5.960 | 0.769 | 0.111 | 0.013 |
-| PMSG | WINDINGS | Vqconv_2fe | dq / control | 5.232 | 0.769 | 0.222 | 0.669 |
-| SCIG | TURNS | I2_I1 | stator current | 4.525 | 0.750 | 0.111 | 0.042 |
-| SCIG | TURNS | V2_V1 | terminal voltage | 4.171 | 0.731 | 0.000 | 0.026 |
-| PMSG | TURNS | V2_V1 | terminal voltage | 2.990 | 0.759 | 0.111 | 0.003 |
-| PMSG | TURNS | D2_D1 | dq / control | 2.779 | 0.639 | 0.000 | 0.010 |
-| PMSG | TURNS | PIq_2fe | dq / control | 1.802 | 0.630 | 0.111 | -0.028 |
-| PMSG | TURNS | I2_I1 | stator current | 1.471 | 0.565 | 0.000 | -0.003 |
-| PMSG | TURNS | Vq_2fe | terminal voltage | 1.346 | 0.574 | 0.000 | 0.020 |
-| PMSG | TURNS | Vqconv_2fe | dq / control | 1.221 | 0.565 | 0.222 | -0.014 |
+| SCIG | WINDINGS | D2_D1 | dq / control | 71.825 | 1.000 | 0.333 | 0.854 |
+| SCIG | WINDINGS | PId_2fe | dq / control | 68.446 | 1.000 | 0.111 | 1.188 |
+| SCIG | WINDINGS | Id_2fe | dq / control | 68.376 | 1.000 | 0.111 | 1.188 |
+| SCIG | WINDINGS | D2r_D1 | dq / control | 62.907 | 1.000 | 0.222 | 1.017 |
+| PMSG | WINDINGS | V2r_V1 | terminal voltage | 52.720 | 1.000 | 0.000 | 6.509 |
+| SCIG | WINDINGS | Vdconv_2fe | dq / control | 52.559 | 1.000 | 0.111 | 1.203 |
+| PMSG | WINDINGS | V2_V1 | terminal voltage | 49.911 | 0.907 | 0.000 | 5.318 |
+| SCIG | WINDINGS | I2_I1 | stator current | 48.869 | 0.991 | 0.000 | 1.869 |
+| PMSG | WINDINGS | D2_D1 | dq / control | 29.270 | 0.898 | 0.000 | 2.942 |
+| PMSG | WINDINGS | D2r_D1 | dq / control | 26.908 | 0.963 | 0.000 | 3.704 |
+| PMSG | WINDINGS | Vq_2fe | terminal voltage | 18.744 | 0.889 | 0.000 | 3.688 |
+| PMSG | WINDINGS | I2r_I1 | stator current | 13.727 | 0.861 | 0.000 | 3.316 |
+| SCIG | TURNS | D2r_D1 | dq / control | 11.246 | 0.926 | 0.222 | 0.182 |
+| SCIG | TURNS | D2_D1 | dq / control | 9.360 | 0.769 | 0.333 | 0.017 |
+| SCIG | TURNS | V2r_V1 | terminal voltage | 6.899 | 0.815 | 0.000 | 0.354 |
+| PMSG | TURNS | V2r_V1 | terminal voltage | 6.839 | 0.880 | 0.000 | 0.844 |
+| SCIG | TURNS | I2r_I1 | stator current | 6.341 | 0.852 | 0.111 | 0.294 |
+| SCIG | TURNS | PId_2fe | dq / control | 6.182 | 0.759 | 0.111 | 0.015 |
+| SCIG | TURNS | Id_2fe | dq / control | 6.177 | 0.759 | 0.111 | 0.015 |
+| PMSG | TURNS | D2r_D1 | dq / control | 3.996 | 0.750 | 0.000 | 0.550 |
+| PMSG | TURNS | D2_D1 | dq / control | 2.493 | 0.611 | 0.000 | 0.010 |
+| PMSG | TURNS | V2_V1 | terminal voltage | 2.411 | 0.685 | 0.000 | 0.003 |
+| PMSG | TURNS | I2r_I1 | stator current | 1.705 | 0.704 | 0.000 | 0.412 |
+| PMSG | TURNS | PIq_2fe | dq / control | 1.614 | 0.620 | 0.111 | -0.028 |
 
 Share of fault recordings in which each signal group holds the strongest signature:
 
 | machine | ftype | group | representative_feature | share_of_recordings_where_group_is_strongest |
 |---|---|---|---|---|
-| PMSG | TURNS | stator current | I2_I1 | 0.083 |
-| PMSG | TURNS | terminal voltage | V2_V1 | 0.667 |
-| PMSG | TURNS | dq / control | D2_D1 | 0.167 |
-| PMSG | TURNS | mechanical | Vdc_std | 0.083 |
-| PMSG | WINDINGS | stator current | I2_I1 | 0.056 |
-| PMSG | WINDINGS | terminal voltage | V2_V1 | 0.880 |
-| PMSG | WINDINGS | dq / control | D2_D1 | 0.037 |
-| PMSG | WINDINGS | mechanical | Vdc_std | 0.028 |
-| SCIG | TURNS | stator current | I2_I1 | 0.278 |
-| SCIG | TURNS | terminal voltage | V2_V1 | 0.130 |
-| SCIG | TURNS | dq / control | PId_2fe | 0.556 |
-| SCIG | TURNS | mechanical | Vdc_std | 0.037 |
+| PMSG | TURNS | stator current | I2r_I1 | 0.028 |
+| PMSG | TURNS | terminal voltage | V2r_V1 | 0.935 |
+| PMSG | TURNS | dq / control | D2r_D1 | 0.009 |
+| PMSG | TURNS | mechanical / DC link | Vdc_std | 0.028 |
+| PMSG | WINDINGS | stator current | I2r_I1 | 0.000 |
+| PMSG | WINDINGS | terminal voltage | V2r_V1 | 0.972 |
+| PMSG | WINDINGS | dq / control | D2_D1 | 0.028 |
+| PMSG | WINDINGS | mechanical / DC link | Spd_std | 0.000 |
+| SCIG | TURNS | stator current | I2r_I1 | 0.343 |
+| SCIG | TURNS | terminal voltage | V2r_V1 | 0.028 |
+| SCIG | TURNS | dq / control | D2r_D1 | 0.630 |
+| SCIG | TURNS | mechanical / DC link | Vdc_std | 0.000 |
 | SCIG | WINDINGS | stator current | I2_I1 | 0.333 |
 | SCIG | WINDINGS | terminal voltage | V2_V1 | 0.000 |
 | SCIG | WINDINGS | dq / control | PId_2fe | 0.667 |
-| SCIG | WINDINGS | mechanical | Spd_std | 0.000 |
+| SCIG | WINDINGS | mechanical / DC link | Spd_std | 0.000 |
 
 ![B](figures/B_sdr_by_feature.png)
 
 ## C. Minimum detectable fault extent
 
-Features with the highest pooled median SDR (both machines): V2_V1, Vq_2fe, I2_I1, PId_2fe. Smallest tap-pair severity level whose median SDR is ≥ 1:
+Features with the highest pooled median SDR (both machines): V2r_V1, V2_V1, D2r_D1, Vq_2fe. Smallest tap-pair severity level whose median SDR is $\geq 1$:
 
 | machine | ftype | feature | min_detectable_sev_pct | min_detectable_first_pct | n_sev_levels | n_levels_detectable | spearman_sdr_vs_sev |
 |---|---|---|---|---|---|---|---|
+| PMSG | TURNS | V2r_V1 | 2.700 | 2.700 | 8 | 8 | 0.909 |
 | PMSG | TURNS | V2_V1 | 3.800 | 3.800 | 8 | 6 | 0.790 |
-| PMSG | TURNS | Vq_2fe | 7.400 | 7.400 | 8 | 5 | 0.775 |
-| PMSG | TURNS | I2_I1 | 7.400 | 7.400 | 8 | 5 | 0.704 |
-| PMSG | TURNS | PId_2fe | 12.100 | 11.600 | 8 | 2 | 0.512 |
-| PMSG | WINDINGS | V2_V1 | 2.300 | 2.300 | 12 | 12 | 0.925 |
+| PMSG | TURNS | D2r_D1 | 7.400 | 7.400 | 8 | 5 | 0.908 |
+| PMSG | TURNS | Vq_2fe | 7.700 | 7.700 | 8 | 4 | 0.775 |
+| PMSG | WINDINGS | V2r_V1 | 2.300 | 2.300 | 12 | 12 | 0.956 |
+| PMSG | WINDINGS | V2_V1 | 9.700 | 2.300 | 12 | 11 | 0.925 |
+| PMSG | WINDINGS | D2r_D1 | 2.300 | 2.300 | 12 | 12 | 0.952 |
 | PMSG | WINDINGS | Vq_2fe | 9.700 | 2.300 | 12 | 11 | 0.910 |
-| PMSG | WINDINGS | I2_I1 | 9.700 | 9.700 | 12 | 10 | 0.919 |
-| PMSG | WINDINGS | PId_2fe | 21.700 | 10.600 | 12 | 8 | 0.867 |
-| SCIG | TURNS | V2_V1 | 7.400 | 2.700 | 8 | 6 | 0.832 |
+| SCIG | TURNS | V2r_V1 | 3.800 | 3.800 | 8 | 6 | 0.921 |
+| SCIG | TURNS | V2_V1 | 7.400 | 7.400 | 8 | 5 | 0.832 |
+| SCIG | TURNS | D2r_D1 | 2.700 | 2.700 | 8 | 8 | 0.918 |
 | SCIG | TURNS | Vq_2fe | 7.400 | 7.400 | 8 | 5 | 0.794 |
-| SCIG | TURNS | I2_I1 | 7.400 | 7.400 | 8 | 5 | 0.769 |
-| SCIG | TURNS | PId_2fe | 7.400 | 2.700 | 8 | 6 | 0.805 |
+| SCIG | WINDINGS | V2r_V1 | 2.300 | 2.300 | 12 | 12 | 0.962 |
 | SCIG | WINDINGS | V2_V1 | 2.300 | 2.300 | 12 | 12 | 0.947 |
-| SCIG | WINDINGS | Vq_2fe | 9.700 | 2.300 | 12 | 11 | 0.952 |
-| SCIG | WINDINGS | I2_I1 | 2.300 | 2.300 | 12 | 12 | 0.868 |
-| SCIG | WINDINGS | PId_2fe | 2.300 | 2.300 | 12 | 12 | 0.935 |
+| SCIG | WINDINGS | D2r_D1 | 2.300 | 2.300 | 12 | 12 | 0.964 |
+| SCIG | WINDINGS | Vq_2fe | 9.700 | 9.700 | 12 | 10 | 0.952 |
 
 ![C](figures/C_sdr_vs_severity.png)
 
@@ -136,24 +136,24 @@ Features with the highest pooled median SDR (both machines): V2_V1, Vq_2fe, I2_I
 
 | machine | speed_rpm | torque_Nm | median_best_sdr | frac_detectable |
 |---|---|---|---|---|
-| PMSG | 1200 | 5.200 | 7.896 | 0.833 |
-| PMSG | 1200 | 6.400 | 9.006 | 0.833 |
-| PMSG | 1200 | 8.000 | 5.301 | 0.792 |
-| PMSG | 1500 | 5.200 | 12.826 | 0.958 |
-| PMSG | 1500 | 6.400 | 11.252 | 0.958 |
-| PMSG | 1500 | 8.000 | 9.580 | 0.917 |
-| PMSG | 1800 | 5.200 | 20.477 | 0.917 |
-| PMSG | 1800 | 6.400 | 18.200 | 0.958 |
-| PMSG | 1800 | 8.000 | 15.458 | 0.917 |
-| SCIG | 1200 | 5.200 | 18.149 | 0.917 |
-| SCIG | 1200 | 6.400 | 16.580 | 0.917 |
-| SCIG | 1200 | 8.000 | 16.052 | 0.958 |
-| SCIG | 1500 | 5.200 | 26.429 | 0.917 |
-| SCIG | 1500 | 6.400 | 23.491 | 0.917 |
-| SCIG | 1500 | 8.000 | 23.812 | 0.917 |
-| SCIG | 1800 | 5.200 | 51.011 | 1.000 |
-| SCIG | 1800 | 6.400 | 47.169 | 1.000 |
-| SCIG | 1800 | 8.000 | 44.012 | 0.958 |
+| PMSG | 1200 | 5.200 | 12.791 | 0.917 |
+| PMSG | 1200 | 6.400 | 12.230 | 0.917 |
+| PMSG | 1200 | 8.000 | 10.750 | 0.917 |
+| PMSG | 1500 | 5.200 | 17.431 | 0.958 |
+| PMSG | 1500 | 6.400 | 16.127 | 0.958 |
+| PMSG | 1500 | 8.000 | 14.213 | 0.917 |
+| PMSG | 1800 | 5.200 | 23.751 | 1.000 |
+| PMSG | 1800 | 6.400 | 21.999 | 1.000 |
+| PMSG | 1800 | 8.000 | 20.421 | 0.958 |
+| SCIG | 1200 | 5.200 | 24.462 | 0.958 |
+| SCIG | 1200 | 6.400 | 23.053 | 0.917 |
+| SCIG | 1200 | 8.000 | 21.356 | 0.958 |
+| SCIG | 1500 | 5.200 | 29.591 | 1.000 |
+| SCIG | 1500 | 6.400 | 28.621 | 1.000 |
+| SCIG | 1500 | 8.000 | 25.508 | 0.958 |
+| SCIG | 1800 | 5.200 | 30.123 | 1.000 |
+| SCIG | 1800 | 6.400 | 29.920 | 1.000 |
+| SCIG | 1800 | 8.000 | 27.577 | 1.000 |
 
 ![D](figures/D_operating_point_grid.png)
 
@@ -163,48 +163,48 @@ Window-level detector (1 = fault window of a fault recording; 0 = pre-fault wind
 
 | calibration | model | train | test | setting | auc | tpr_at_1pct_fpr | n_test |
 |---|---|---|---|---|---|---|---|
-| raw | logistic | PMSG | PMSG | within (unseen cases) | 0.775 | 0.549 | 23204 |
-| raw | logistic | SCIG | SCIG | within (unseen cases) | 0.794 | 0.577 | 22826 |
-| raw | logistic | PMSG | SCIG | cross-topology | 0.713 | 0.409 | 22826 |
-| raw | logistic | SCIG | PMSG | cross-topology | 0.592 | 0.254 | 23204 |
-| raw | gbdt | PMSG | PMSG | within (unseen cases) | 0.876 | 0.604 | 23204 |
-| raw | gbdt | SCIG | SCIG | within (unseen cases) | 0.903 | 0.627 | 22826 |
-| raw | gbdt | PMSG | SCIG | cross-topology | 0.783 | 0.466 | 22826 |
-| raw | gbdt | SCIG | PMSG | cross-topology | 0.551 | 0.236 | 23204 |
-| healthy-z | logistic | PMSG | PMSG | within (unseen cases) | 0.775 | 0.549 | 23204 |
-| healthy-z | logistic | SCIG | SCIG | within (unseen cases) | 0.794 | 0.577 | 22826 |
-| healthy-z | logistic | PMSG | SCIG | cross-topology | 0.707 | 0.424 | 22826 |
-| healthy-z | logistic | SCIG | PMSG | cross-topology | 0.443 | 0.085 | 23204 |
-| healthy-z | gbdt | PMSG | PMSG | within (unseen cases) | 0.876 | 0.604 | 23204 |
-| healthy-z | gbdt | SCIG | SCIG | within (unseen cases) | 0.903 | 0.627 | 22826 |
-| healthy-z | gbdt | PMSG | SCIG | cross-topology | 0.815 | 0.207 | 22826 |
-| healthy-z | gbdt | SCIG | PMSG | cross-topology | 0.745 | 0.302 | 23204 |
-| self-ref | logistic | PMSG | PMSG | within (unseen cases) | 0.902 | 0.709 | 23204 |
-| self-ref | logistic | SCIG | SCIG | within (unseen cases) | 0.938 | 0.801 | 22826 |
-| self-ref | logistic | PMSG | SCIG | cross-topology | 0.896 | 0.666 | 22826 |
-| self-ref | logistic | SCIG | PMSG | cross-topology | 0.881 | 0.602 | 23204 |
-| self-ref | gbdt | PMSG | PMSG | within (unseen cases) | 0.918 | 0.737 | 23204 |
-| self-ref | gbdt | SCIG | SCIG | within (unseen cases) | 0.945 | 0.811 | 22826 |
-| self-ref | gbdt | PMSG | SCIG | cross-topology | 0.918 | 0.739 | 22826 |
-| self-ref | gbdt | SCIG | PMSG | cross-topology | 0.857 | 0.433 | 23204 |
+| raw | logistic | PMSG | PMSG | within (unseen cases) | 0.756 | 0.589 | 23204 |
+| raw | logistic | SCIG | SCIG | within (unseen cases) | 0.826 | 0.621 | 22826 |
+| raw | logistic | PMSG | SCIG | cross-topology | 0.768 | 0.540 | 22826 |
+| raw | logistic | SCIG | PMSG | cross-topology | 0.608 | 0.324 | 23204 |
+| raw | gbdt | PMSG | PMSG | within (unseen cases) | 0.926 | 0.741 | 23204 |
+| raw | gbdt | SCIG | SCIG | within (unseen cases) | 0.907 | 0.673 | 22826 |
+| raw | gbdt | PMSG | SCIG | cross-topology | 0.786 | 0.246 | 22826 |
+| raw | gbdt | SCIG | PMSG | cross-topology | 0.612 | 0.262 | 23204 |
+| healthy-z | logistic | PMSG | PMSG | within (unseen cases) | 0.756 | 0.589 | 23204 |
+| healthy-z | logistic | SCIG | SCIG | within (unseen cases) | 0.826 | 0.621 | 22826 |
+| healthy-z | logistic | PMSG | SCIG | cross-topology | 0.777 | 0.604 | 22826 |
+| healthy-z | logistic | SCIG | PMSG | cross-topology | 0.638 | 0.367 | 23204 |
+| healthy-z | gbdt | PMSG | PMSG | within (unseen cases) | 0.926 | 0.741 | 23204 |
+| healthy-z | gbdt | SCIG | SCIG | within (unseen cases) | 0.907 | 0.673 | 22826 |
+| healthy-z | gbdt | PMSG | SCIG | cross-topology | 0.883 | 0.504 | 22826 |
+| healthy-z | gbdt | SCIG | PMSG | cross-topology | 0.879 | 0.547 | 23204 |
+| self-ref | logistic | PMSG | PMSG | within (unseen cases) | 0.923 | 0.760 | 23204 |
+| self-ref | logistic | SCIG | SCIG | within (unseen cases) | 0.960 | 0.830 | 22826 |
+| self-ref | logistic | PMSG | SCIG | cross-topology | 0.925 | 0.798 | 22826 |
+| self-ref | logistic | SCIG | PMSG | cross-topology | 0.916 | 0.718 | 23204 |
+| self-ref | gbdt | PMSG | PMSG | within (unseen cases) | 0.944 | 0.779 | 23204 |
+| self-ref | gbdt | SCIG | SCIG | within (unseen cases) | 0.961 | 0.826 | 22826 |
+| self-ref | gbdt | PMSG | SCIG | cross-topology | 0.935 | 0.809 | 22826 |
+| self-ref | gbdt | SCIG | PMSG | cross-topology | 0.903 | 0.555 | 23204 |
 
-Cosine similarity of the two logistic weight vectors (healthy-z features), PMSG vs SCIG: **0.02** (1 = identical feature weighting).
+Cosine similarity of the two logistic weight vectors (healthy-z features), PMSG vs SCIG: **0.44** (1 = identical feature weighting).
 
 Largest-weight features (healthy-z logistic):
 
 | feature | PMSG | SCIG | abs_mean |
 |---|---|---|---|
-| V2_V1 | 7.254 | -1.119 | 4.187 |
-| I2_I1 | 1.305 | 5.871 | 3.588 |
-| PIq_2fe | -3.447 | 2.209 | 2.828 |
-| Ia_h3 | 3.347 | 1.183 | 2.265 |
-| Vd_2fe | 2.234 | 0.744 | 1.489 |
-| Iq_2fe | 1.747 | 0.993 | 1.370 |
-| Iq_std | -0.482 | -2.232 | 1.357 |
-| Vdconv_2fe | -2.111 | 0.478 | 1.295 |
-| I_unbal_rms | -1.737 | -0.795 | 1.266 |
-| Vqconv_2fe | -0.790 | 1.557 | 1.173 |
-| D2_D1 | 1.787 | 0.530 | 1.158 |
-| Vq_2fe | 2.045 | -0.048 | 1.046 |
+| V2_V1 | 8.535 | 3.346 | 5.940 |
+| V2c_im | -4.871 | -2.718 | 3.795 |
+| D2c_im | -5.159 | -2.020 | 3.589 |
+| V2c_re | -2.397 | 4.674 | 3.535 |
+| D2_D1 | 3.969 | 2.881 | 3.425 |
+| I2_I1 | 0.657 | 6.152 | 3.404 |
+| Vq_2fe | 3.649 | 0.836 | 2.243 |
+| Iq_2fe | 2.539 | 0.617 | 1.578 |
+| Iq_std | -1.066 | -2.046 | 1.556 |
+| Id_2fe | 0.590 | 2.295 | 1.443 |
+| Vd_2fe | 0.147 | 2.723 | 1.435 |
+| Vdconv_2fe | -0.986 | 1.842 | 1.414 |
 
 ![E](figures/E_transfer.png)

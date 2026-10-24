@@ -76,17 +76,31 @@ def subcaption(ax, text):
     xl = ax.get_xlabel()
     ax.set_xlabel((xl + "\n" if xl else "") + text)
 
+# Phasor-residual features: the magnitude of the complex change of the phase-referenced negative-sequence
+# ratio (window columns <name>_re/<name>_im from features.py). Their relative change is |mean_F - mean_R| / |mean_R|
+# of the complex ratio, so the fault-induced asymmetry is separated from the inherent one whatever the angle
+# between the two (the magnitude ratios I2/I1 etc. rise or fall with that angle, which rotates with the faulted phase).
+RESID = {"I2r_I1": ("I2c_re", "I2c_im"), "V2r_V1": ("V2c_re", "V2c_im"), "D2r_D1": ("D2c_re", "D2c_im")}
 GROUPS = {
-    "stator current": ["I2_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd"],   # I0/I1 dropped: isolated-neutral star
-    "terminal voltage": ["V2_V1", "Vd_2fe", "Vq_2fe"],   # measured at the terminals (dq needs the controller angle)
+    "stator current": ["I2_I1", "I2r_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd"],   # I0/I1 dropped: isolated-neutral star
+    "terminal voltage": ["V2_V1", "V2r_V1", "Vd_2fe", "Vq_2fe"],   # measured at the terminals (dq needs the controller angle)
     "dq / control": ["Id_2fe", "Iq_2fe", "Id_1fe", "Iq_1fe", "Id_std", "Iq_std",
-                     "Vdconv_2fe", "Vqconv_2fe", "PId_2fe", "PIq_2fe", "PId_std", "PIq_std", "D2_D1"],
-    "mechanical": ["Te_2fe", "Te_1fe", "Te_std", "Tm_2fe", "Tm_1fe", "Tm_std", "Spd_std", "Vdc_std"],
+                     "Vdconv_2fe", "Vqconv_2fe", "PId_2fe", "PIq_2fe", "PId_std", "PIq_std", "D2_D1", "D2r_D1"],
+    "mechanical / DC link": ["Te_2fe", "Te_1fe", "Te_std", "Tm_2fe", "Tm_1fe", "Tm_std", "Spd_std", "Vdc_std"],
 }
 ALL_FEATS = [f for g in GROUPS.values() for f in g]
 GROUP_OF = {f: g for g, fs in GROUPS.items() for f in fs}
+
+
+def window_cols(feats):
+    """Window-level columns behind a feature list: a residual feature stands for its real and imaginary parts."""
+    out = []
+    for f in feats:
+        out += list(RESID.get(f, (f,)))
+    return list(dict.fromkeys(out))
 # labels for figures (matplotlib mathtext); the LaTeX tables carry their own map in make_tables.py
 LABEL = {"I2_I1": "$I_2/I_1$", "V2_V1": "$V_2/V_1$", "I0_I1": "$I_0/I_1$", "I_unbal_rms": "RMS unbal.",
+         "I2r_I1": "$|\\Delta \\bar{I}_2|/I_1$", "V2r_V1": "$|\\Delta \\bar{V}_2|/V_1$", "D2r_D1": "$|\\Delta \\bar{D}_2|/D_1$",
          "Ia_h3": "$I_a$ h3", "Ia_h5": "$I_a$ h5", "Ia_h7": "$I_a$ h7", "Ia_thd": "$I_a$ THD",
          "Id_2fe": "$I_d$ 2$f_e$", "Iq_2fe": "$I_q$ 2$f_e$", "Id_1fe": "$I_d$ 1$f_e$", "Iq_1fe": "$I_q$ 1$f_e$",
          "Id_std": "$I_d$ std", "Iq_std": "$I_q$ std", "Vd_2fe": "$V_d$ 2$f_e$", "Vq_2fe": "$V_q$ 2$f_e$",
@@ -128,6 +142,53 @@ def savefig_both(fig, name):
     fig.savefig(FIG / f"{name}.pdf")
 
 
+LEVEL_GAP = 0.07   # relative gap in median fault current that separates two physical extent levels
+
+
+def assign_levels(files, rel_gap=LEVEL_GAP):
+    """Physical extent levels. The design-level extent (fraction of a branch between the taps) comes from the tap
+    positions, but tap pairs whose resistor-limited fault currents are equal at equal operating points short the
+    same number of turns and are the same physical fault. Within each machine, class and fault impedance the tap
+    pairs are sorted by median fault current and a new level starts where the current steps up by more than
+    `rel_gap`; a level is labelled by the mean extent of its pairs and by the range it spans.
+    Returns a table (machine, case, zf_ohm, level_pct, level_label, n_pairs)."""
+    rows = []
+    f = files[files.is_fault].copy()
+    f["_zf"] = (f.zf_ohm if "zf_ohm" in f.columns else pd.Series(np.nan, index=f.index)).fillna(-1)
+    # Machines that share the tapped windings and the fault protocol (the PMSG and SCIG) are clustered jointly on
+    # the mean of their currents normalised per machine, so that the levels are common to both.
+    f["_grp"] = np.where(f.machine.isin(["PMSG", "SCIG"]), "PMSG+SCIG", f.machine)
+    for (grp, ft, z), g in f.groupby(["_grp", "ftype", "_zf"]):
+        per = g.groupby(["machine", "case"]).agg(i=("Ifault_rms_flt", "median"), e=("sev_pct", "first")).reset_index()
+        per["i_norm"] = per.i / per.groupby("machine").i.transform("median")
+        cur = per.groupby("case").agg(i=("i_norm", "mean"), e=("e", "first")).sort_values("i")
+        level, start = 0, cur.i.iloc[0]
+        ids = []
+        for i in cur.i:
+            if i / start - 1 > rel_gap:
+                level += 1
+                start = i
+            ids.append(level)
+        cur["level"] = ids
+        for lv, h in cur.groupby("level"):
+            for m in sorted(g.machine.unique()):
+                rows += [dict(machine=m, ftype=ft, zf_ohm=(np.nan if z == -1 else z), case=c,
+                              level_pct=round(float(h.e.mean()), 1),
+                              level_label=f"{h.e.min():.1f}" if h.e.min() == h.e.max() else f"{h.e.min():.1f}–{h.e.max():.1f}",
+                              n_pairs=len(h)) for c in h.index]
+    return pd.DataFrame(rows)
+
+
+def add_levels(files, win):
+    """Attach level_pct (physical extent level) to the file and window tables; healthy records get NaN."""
+    lev = assign_levels(files)
+    key = lambda d: (d.machine + "|" + d.case.astype(str) + "|" + (d.zf_ohm if "zf_ohm" in d.columns else pd.Series(np.nan, index=d.index)).fillna(-1).round(2).astype(str))
+    m = dict(zip(key(lev), lev.level_pct))
+    files["level_pct"] = key(files).map(m)
+    win["level_pct"] = key(win).map(m)
+    return files, win, lev
+
+
 def load():
     files = pd.read_csv(RES / "features_files.csv")
     win = pd.read_csv(RES / "features_windows.csv.gz")
@@ -138,24 +199,83 @@ def load():
     # extent level: round to 0.1 % so that MDE and the severity curves pool them.
     files["sev_pct"] = files.sev_pct.round(1)
     win["sev_pct"] = win.sev_pct.round(1)
+    files, win, _ = add_levels(files, win)
     return files, win
 
 
 # ----------------------------------------------------------------------------- SDR
-def sdr_table(win):
-    """Per-recording relative changes and the pooled null -> SDR per feature."""
+META_COLS = ["machine", "file", "case", "ftype", "sev_pct", "level_pct", "phases", "speed_rpm", "torque_Nm",
+             "torque_pu", "zf_ohm", "rep"]
+
+
+def split_of(w, pre_split=PRE_SPLIT):
+    """Split time of the reference interval per window: 0.30 s for the WFSG records, PRE_SPLIT otherwise."""
+    return np.where(w.machine == "WFSG", 0.30, pre_split)
+
+
+def interval_means(win, feats, pre_split=PRE_SPLIT):
+    """Per-recording means of the window features over the two halves of the reference interval and the faulted
+    interval. A window belongs to R1 when it ENDS before the split and to R2 when it STARTS at or after it, so the
+    two halves share no samples (windows straddling the split are dropped; caches without t_end fall back to the
+    start-time assignment). Residual features are represented by their real and imaginary parts."""
     w = win.replace([np.inf, -np.inf], np.nan)
-    pre_e = w[(w.segment == "PRE") & (w.t_start < PRE_SPLIT)].groupby("rid")[ALL_FEATS].mean()
-    pre_l = w[(w.segment == "PRE") & (w.t_start >= PRE_SPLIT)].groupby("rid")[ALL_FEATS].mean()
-    flt = w[w.segment == "FLT"].groupby("rid")[ALL_FEATS].mean()
-    meta = w.groupby("rid")[["machine", "file", "case", "ftype", "sev_pct", "phases", "speed_rpm", "torque_Nm"]].first()
-    delta = (flt - pre_l) / pre_l.abs()
-    null = (pre_l - pre_e) / pre_e.abs()
-    q95 = null.abs().groupby(meta.machine).quantile(0.95)          # machine x feature
-    sdr = delta.abs() / q95.reindex(meta.machine).set_axis(delta.index)
-    sign = np.sign(delta)
-    out = meta.join(sdr.add_suffix("__sdr")).join(delta.add_suffix("__delta")).join(null.add_suffix("__null"))
+    split = split_of(w, pre_split)
+    pre = (w.segment == "PRE").to_numpy()
+    t_end = w.t_end.to_numpy() if "t_end" in w.columns else w.t_start.to_numpy()
+    cols = [c for c in window_cols(feats) if c in w.columns]
+    pre_e = w[pre & (t_end <= split)].groupby("rid")[cols].mean()
+    pre_l = w[pre & (w.t_start.to_numpy() >= split)].groupby("rid")[cols].mean()
+    flt = w[(w.segment == "FLT").to_numpy()].groupby("rid")[cols].mean()
+    return w, pre_e, pre_l, flt
+
+
+def changes(pre_e, pre_l, flt, feats):
+    """Relative change under fault (delta, signed for scalar features), relative healthy change between the two
+    reference halves (null) and their absolute counterparts (dabs, nabs), per recording and feature. For a
+    residual feature the change is the magnitude of the complex difference of the phase-referenced ratio."""
+    delta, null, dabs, nabs = {}, {}, {}, {}
+    for f in feats:
+        if f in RESID:
+            re_, im_ = RESID[f]
+            if re_ not in flt.columns:
+                continue
+            e = pre_e[re_] + 1j * pre_e[im_]
+            l = pre_l[re_] + 1j * pre_l[im_]
+            x = flt[re_] + 1j * flt[im_]
+            dabs[f], nabs[f] = (x - l).abs(), (l - e).abs()
+            delta[f], null[f] = dabs[f] / l.abs(), nabs[f] / e.abs()
+        elif f in flt.columns:
+            dabs[f], nabs[f] = flt[f] - pre_l[f], pre_l[f] - pre_e[f]
+            delta[f], null[f] = dabs[f] / pre_l[f].abs(), nabs[f] / pre_e[f].abs()
+    return pd.DataFrame(delta), pd.DataFrame(null), pd.DataFrame(dabs), pd.DataFrame(nabs)
+
+
+def sdr_general(win, feats, q=0.95, pre_split=PRE_SPLIT):
+    """Per-recording SDR for the given features and null quantile: |delta| / q-quantile of |null| pooled over all
+    recordings of the machine. The output carries, per feature, the SDR, the relative and absolute changes under
+    fault and the relative and absolute healthy changes (the null values a bootstrap can resample)."""
+    w, pre_e, pre_l, flt = interval_means(win, feats, pre_split)
+    meta = w.groupby("rid")[[c for c in META_COLS if c in w.columns]].first()
+    delta, null, dabs, nabs = changes(pre_e, pre_l, flt, feats)
+    qv = null.abs().groupby(meta.machine.reindex(null.index)).quantile(q)          # machine x feature
+    sdr = delta.abs() / qv.reindex(meta.machine.reindex(delta.index)).set_axis(delta.index)
+    # healthy level of every feature (mean over R2; magnitude of the complex ratio for a residual feature)
+    lvl = {}
+    for f in feats:
+        if f in RESID and RESID[f][0] in pre_l.columns:
+            lvl[f] = (pre_l[RESID[f][0]] + 1j * pre_l[RESID[f][1]]).abs()
+        elif f in pre_l.columns:
+            lvl[f] = pre_l[f]
+    out = (meta.join(sdr.add_suffix("__sdr")).join(delta.add_suffix("__delta")).join(null.add_suffix("__null"))
+           .join(dabs.add_suffix("__dabs")).join(nabs.add_suffix("__nabs")).join(pd.DataFrame(lvl).add_suffix("__lvl")))
     out["is_fault"] = out.ftype != "HEALTHY"
+    return out, qv
+
+
+def sdr_table(win):
+    """Per-recording relative changes and the pooled null -> SDR per feature (PMSG/SCIG, five-cycle windows)."""
+    out, q95 = sdr_general(win, ALL_FEATS, 0.95)
+    sign = np.sign(out[[f"{f}__delta" for f in ALL_FEATS if f"{f}__delta" in out.columns]])
     out.to_csv(TAB / "sdr_per_recording.csv")
     q95.to_csv(TAB / "sdr_null_q95.csv")
     return out, q95, sign
@@ -357,15 +477,17 @@ def operating_point(sdr, feats):
 
 
 # ----------------------------------------------------------------------------- E: transfer
-def build_window_table(win):
+def build_window_table(win, feats=None):
     """Label 1 = FLT window of a FAULT recording; 0 = every other window: PRE and POST windows of all
     recordings (POST = after the fault is cleared, i.e. the recovery) and the FLT windows of HEALTHY
-    recordings (the relay clicks but nothing is shorted)."""
+    recordings (the relay clicks but nothing is shorted). The detector's inputs are the window columns
+    (residual features contribute their real and imaginary parts)."""
+    cols = [c for c in window_cols(feats or ALL_FEATS) if c in win.columns]
     w = win[win.segment.isin(["PRE", "FLT", "POST"])].copy()
     w["y"] = ((w.segment == "FLT") & (w.ftype != "HEALTHY")).astype(int)
     w["group"] = make_groups(w)
-    w = w.replace([np.inf, -np.inf], np.nan).dropna(subset=ALL_FEATS)
-    return w, ALL_FEATS
+    w = w.replace([np.inf, -np.inf], np.nan).dropna(subset=cols)
+    return w, cols
 
 
 def calibrate(w, feats, mode):
@@ -379,6 +501,16 @@ def calibrate(w, feats, mode):
             mu, sd = ref.mean(), ref.std().replace(0, 1)
             out.loc[w.machine == m] = (x.loc[w.machine == m] - mu) / sd
         return out
+    if mode == "healthy-z-op":   # per machine and operating point: z-score against the healthy recording at that point
+        out = x.copy()
+        key = w.machine.astype(str) + "|" + w.speed_rpm.astype(str) + "|" + w.torque_Nm.astype(str)
+        ref = w[w.ftype == "HEALTHY"].groupby(key[w.ftype == "HEALTHY"])[feats]
+        mu, sd = ref.mean(), ref.std().replace(0, 1)
+        have = key.isin(mu.index)
+        out.loc[have] = (x.loc[have] - mu.reindex(key[have]).values) / sd.reindex(key[have]).values
+        if (~have).any():   # operating points without a healthy recording fall back to the machine-wide baseline
+            out.loc[~have] = calibrate(w, feats, "healthy-z").loc[~have]
+        return out
     if mode == "self-ref":    # per recording: |z| against the FIRST HALF of its own pre-fault windows
         norm = norm_mask(w)   # the normalising windows are excluded from the out-of-reference evaluation
         pre_mean = w[norm].groupby("rid")[feats].mean()
@@ -390,9 +522,9 @@ def calibrate(w, feats, mode):
 
 def norm_mask(w):
     """Windows used to normalise a trial under the self-referenced rule: the first half of its reference
-    interval (before 0.62 s for the PMSG/SCIG records, before 0.30 s for the WFSG records)."""
-    split = np.where(w.machine == "WFSG", 0.30, PRE_SPLIT)
-    return ((w.segment == "PRE") & (w.t_start < split)).to_numpy()
+    interval (windows ending before 0.62 s for the PMSG/SCIG records, before 0.30 s for the WFSG records)."""
+    t_end = w.t_end if "t_end" in w.columns else w.t_start
+    return ((w.segment == "PRE") & (t_end.to_numpy() <= split_of(w))).to_numpy()
 
 
 def make_groups(w):

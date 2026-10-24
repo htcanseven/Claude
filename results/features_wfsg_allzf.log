@@ -1,4 +1,4 @@
-618 files, ncyc=3, 3 workers
+618 files, ncyc=3, 4 workers
   100/618 done
   200/618 done
   300/618 done
@@ -6,11 +6,11 @@
   500/618 done
   600/618 done
   618/618 done
-windows: (24871, 47) files: (618, 145) skipped: 0
+windows: (28968, 54) files: (618, 145) skipped: 0
 ftype
 PHASE       180
 TURNS       180
 WINDINGS    258
 dtype: int64
-fault duration s: median 0.127 min 0.06 max 0.282
-n_flt windows: median 3.0 min 0
+fault duration s: median 0.126 min 0.122 max 0.131
+n_flt windows: median 3.0 min 2

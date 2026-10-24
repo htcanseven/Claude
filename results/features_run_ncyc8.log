@@ -1,4 +1,4 @@
-450 files, 2 workers
+450 files, 4 workers
   50/450 done
   100/450 done
   150/450 done
@@ -8,7 +8,7 @@
   350/450 done
   400/450 done
   450/450 done
-windows: (41982, 48) files: (450, 197)
+windows: (41982, 55) files: (450, 197)
 machine  ftype   
 PMSG     HEALTHY       9
          TURNS       108
@@ -17,4 +17,3 @@ SCIG     HEALTHY       9
          TURNS       108
          WINDINGS    108
 dtype: int64
-SENS_DONE

@@ -31,13 +31,16 @@ FEATS3 = COMMON + WFSG_EXTRA
 GROUP_OF = dict(C.GROUP_OF, If_2fe="excitation", If_std="excitation")
 SUITES3 = {
     "drive-internal": [f for f in ["Id_2fe", "Iq_2fe", "Id_1fe", "Iq_1fe", "Id_std", "Iq_std", "Vdconv_2fe", "Vqconv_2fe",
-                                   "D2_D1", "Te_2fe", "Te_1fe", "Te_std", "Vdc_std", "Spd_std"]],
-    "3 CT": ["I2_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd"],
-    "3 CT + 3 VT": ["I2_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd", "V2_V1"],
+                                   "D2_D1", "D2r_D1", "Te_2fe", "Te_1fe", "Te_std", "Vdc_std", "Spd_std"]],
+    "3 CT": ["I2_I1", "I2r_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd"],
+    "3 CT + 3 VT": ["I2_I1", "I2r_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd", "V2_V1", "V2r_V1"],
     "3 CT + 3 VT + drive": None,
     "excitation (WFSG only)": WFSG_EXTRA,
 }
 SUITES3["3 CT + 3 VT + drive"] = SUITES3["3 CT + 3 VT"] + SUITES3["drive-internal"] + ["Vd_2fe", "Vq_2fe"]
+# Nesting of the suites: a suite may always use the features of its subsets, so its verdicts inherit theirs.
+SUBSETS = {"drive-internal": [], "3 CT": [], "3 CT + 3 VT": ["3 CT"],
+           "3 CT + 3 VT + drive": ["3 CT", "3 CT + 3 VT", "drive-internal"], "excitation (WFSG only)": []}
 RATED_A = dict(C.RATED_A, WFSG=np.nan)   # bench C armature current not stated in the data paper
 
 
@@ -64,28 +67,42 @@ def load3(wfsg_suffix="_allzf"):
     files["is_fault"] = files.ftype != "HEALTHY"
     files["sev_pct"] = files.sev_pct.round(1)   # pool equal extents from different tap pairs
     win["sev_pct"] = win.sev_pct.round(1)
+    files, win, _ = C.add_levels(files, win)    # physical extent levels from the fault current
     return files, win
 
 
 def sdr_from_windows(win, feats, q=0.95, pre_split=C.PRE_SPLIT):
-    """Per-recording SDR for the given features and null quantile (generalisation of compare.sdr_table).
-    For the WFSG the pre-fault split point is 0.30 s (its records start ~0.55 s before the fault)."""
-    w = win.replace([np.inf, -np.inf], np.nan)
-    split = np.where(w.machine == "WFSG", 0.30, pre_split)
-    pre = w.segment == "PRE"
-    pre_e = w[pre & (w.t_start < split)].groupby("rid")[feats].mean()
-    pre_l = w[pre & (w.t_start >= split)].groupby("rid")[feats].mean()
-    flt = w[w.segment == "FLT"].groupby("rid")[feats].mean()
-    meta_cols = [c for c in ["machine", "file", "case", "ftype", "sev_pct", "phases", "speed_rpm", "torque_Nm",
-                             "torque_pu", "zf_ohm", "rep"] if c in w.columns]
-    meta = w.groupby("rid")[meta_cols].first()
-    delta = (flt - pre_l) / pre_l.abs()
-    null = (pre_l - pre_e) / pre_e.abs()
-    qv = null.abs().groupby(meta.machine).quantile(q)
-    sdr = delta.abs() / qv.reindex(meta.machine).set_axis(delta.index)
-    out = meta.join(sdr.add_suffix("__sdr")).join(delta.add_suffix("__delta"))
-    out["is_fault"] = out.ftype != "HEALTHY"
-    return out, qv
+    """Per-recording SDR for the given features and null quantile (compare.sdr_general). For the WFSG the
+    pre-fault split point is 0.30 s (its records start ~0.55 s before the fault)."""
+    return C.sdr_general(win, feats, q=q, pre_split=pre_split)
+
+
+def wilson(k, n, z=1.96):
+    if n == 0:
+        return np.nan, np.nan
+    p = k / n
+    d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d
+    h = z * np.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / d
+    return max(0.0, c - h), min(1.0, c + h)
+
+
+def oracle_threshold(sdr, m, cols, q=0.95):
+    """Calibrated oracle: the per-trial best feature is a maximum over the suite's features, so its null is the
+    distribution of max_f |delta0_f| / q_f over the recordings of the machine (every recording contributes a
+    healthy reference interval). The threshold is the q-quantile of that maximum (step-down maximum statistic in
+    the sense of Westfall and Young); SDR >= 1 would be the uncalibrated threshold."""
+    rec = sdr[sdr.machine == m]
+    nulls = []
+    for c in cols:
+        f = c[: -len("__sdr")]
+        if f"{f}__null" in rec.columns:
+            qf = np.nanquantile(rec[f"{f}__null"].abs(), q)
+            nulls.append(rec[f"{f}__null"].abs() / qf)
+    if not nulls:
+        return np.nan
+    mx = pd.concat(nulls, axis=1).max(axis=1)
+    return float(np.nanquantile(mx, q))
 
 
 def per_feature(sdr, feats, qv=None):
@@ -121,11 +138,18 @@ def unreliable(det, m, alpha=0.95):
     return bad
 
 
-def min_detectable(s, col):
-    """Minimum detectable extent, limit-of-detection convention: the smallest tested extent above which
-    every tested extent has median SDR >= 1 over its trials (equal extents from different tap pairs are
-    pooled; NaN if the largest extent is not detectable)."""
-    med = s.groupby("sev_pct")[col].median().sort_index()
+LEVEL = "level_pct"   # extent axis of the limit-of-detection quantities: physical levels (compare.assign_levels)
+
+
+def level_col(s):
+    return LEVEL if LEVEL in s.columns and s[LEVEL].notna().any() else "sev_pct"
+
+
+def min_detectable(s, col, by=None):
+    """Minimum detectable extent, limit-of-detection convention: the smallest tested physical level above which
+    every tested level has median SDR >= 1 over its trials (NaN if the largest level is not detectable)."""
+    by = by or level_col(s)
+    med = s.groupby(by)[col].median().sort_index()
     ok = (med >= 1).to_numpy()
     idx = len(ok)
     for i in range(len(ok) - 1, -1, -1):
@@ -136,11 +160,40 @@ def min_detectable(s, col):
     return float(med.index[idx]) if idx < len(ok) else np.nan
 
 
-def min_detectable_first(s, col):
-    """Smallest tested extent whose median SDR reaches one (the original, non-monotone convention)."""
-    med = s.groupby("sev_pct")[col].median()
+def mde_bracket(s, col, by=None):
+    """The MDE as a bracket on the tested grid: (largest level not detected below the MDE, MDE); the lower end is
+    NaN when every tested level is detected."""
+    by = by or level_col(s)
+    med = s.groupby(by)[col].median().sort_index()
+    mde = min_detectable(s, col, by)
+    below = med.index[med.index < mde] if np.isfinite(mde) else med.index
+    return (float(below.max()) if len(below) else np.nan), mde
+
+
+def min_detectable_first(s, col, by=None):
+    """Smallest tested level whose median SDR reaches one (the original, non-monotone convention)."""
+    by = by or level_col(s)
+    med = s.groupby(by)[col].median()
     ok = med[med >= 1]
     return float(ok.index.min()) if len(ok) else np.nan
+
+
+def select_feature(f, feats, by=None):
+    """Fixed feature of a suite: the screened feature with the smallest minimum detectable extent (upper end of
+    the bracket; an undetectable feature counts as infinite), ties broken by the detectable share and then by the
+    median SDR. Selecting on the design quantity itself keeps a suite at least as good as its subsets."""
+    by = by or level_col(f)
+    best, key = None, None
+    for x in feats:
+        col = f"{x}__sdr"
+        s = f[col]
+        if not s.notna().any():
+            continue
+        mde = min_detectable(f, col, by)
+        k = (mde if np.isfinite(mde) else np.inf, -float((s >= 1).mean()), -float(s.median()))
+        if key is None or k < key:
+            best, key = x, k
+    return best
 
 
 def suites(sdr, det):
@@ -160,18 +213,26 @@ def suites(sdr, det):
                 if not feats or (suite.startswith("excitation") and m != "WFSG"):
                     continue
                 cols = [f"{x}__sdr" for x in feats]
-                med = f[cols].median().set_axis(feats)   # selection rule: highest median SDR among screened features
-                best = med.idxmax()
+                best = select_feature(fm, feats)          # selection rule: smallest MDE, then share, then median SDR
                 fixed = f[f"{best}__sdr"]
                 oracle = f[cols].max(axis=1)
+                thr = oracle_threshold(sdr, m, cols)      # calibrated oracle threshold (null of the maximum)
+                k_fa = int((h[f"{best}__sdr"] >= 1).sum()) if len(h) else np.nan
+                wl, wh = wilson(k_fa, len(h)) if len(h) else (np.nan, np.nan)
+                lo, mde = mde_bracket(fm, f"{best}__sdr")
                 rows.append(dict(suite=suite, machine=m, ftype=ft, best_feature=best, n_trials=len(f), n_features=len(feats),
                                  fixed_median_sdr=fixed.median(), fixed_share_detectable=(fixed >= 1).mean(),
-                                 fixed_min_detectable_pct=min_detectable(fm.assign(v=fm[f"{best}__sdr"]), "v"),
-                                 fixed_min_detectable_first_pct=min_detectable_first(fm.assign(v=fm[f"{best}__sdr"]), "v"),
-                                 smallest_extent_tested_pct=fm.sev_pct.min(),
+                                 fixed_min_detectable_pct=mde, fixed_mde_bracket_lo_pct=lo,
+                                 fixed_min_detectable_first_pct=min_detectable_first(fm, f"{best}__sdr"),
+                                 smallest_extent_tested_pct=fm[level_col(fm)].min(),
+                                 fixed_healthy_false_alarm=(k_fa / len(h)) if len(h) else np.nan,
+                                 fixed_fa_wilson_lo=wl, fixed_fa_wilson_hi=wh, n_healthy=len(h),
                                  oracle_share_detectable=(oracle >= 1).mean(),
                                  oracle_min_detectable_pct=min_detectable(fm.assign(v=fm[cols].max(axis=1)), "v"),
-                                 oracle_healthy_false_alarm=(h[cols].max(axis=1) >= 1).mean() if len(h) else np.nan))
+                                 oracle_healthy_false_alarm=(h[cols].max(axis=1) >= 1).mean() if len(h) else np.nan,
+                                 oracle_threshold=thr,
+                                 oracle_share_calibrated=(oracle >= thr).mean() if np.isfinite(thr) else np.nan,
+                                 oracle_fa_calibrated=(h[cols].max(axis=1) >= thr).mean() if (len(h) and np.isfinite(thr)) else np.nan))
     return pd.DataFrame(rows)
 
 
@@ -222,11 +283,7 @@ def fig_physical_severity(sdr, files, feats):
 
 
 def transfer3(win):
-    w = win[win.segment.isin(["PRE", "FLT", "POST"])].copy()   # POST (recovery) windows are negatives
-    w["y"] = ((w.segment == "FLT") & (w.ftype != "HEALTHY")).astype(int)
-    w["group"] = C.make_groups(w)
-    feats = COMMON
-    w = w.replace([np.inf, -np.inf], np.nan).dropna(subset=feats)
+    w, feats = C.build_window_table(win, COMMON)   # POST (recovery) windows are negatives; residuals as re/im parts
     X = C.calibrate(w, feats, "self-ref")
     mk = lambda: HistGradientBoostingClassifier(max_depth=3, max_iter=200, learning_rate=0.08, random_state=0)
     rows = []
@@ -383,7 +440,7 @@ def fig_transfer(tr):
 
 def main():
     files, win = load3()
-    feats = [f for f in FEATS3 if f in win.columns]
+    feats = [f for f in FEATS3 if f in win.columns or f in C.RESID]
     sdr, qv = sdr_from_windows(win, feats)
     sdr.to_csv(C.TAB / "G_sdr_per_recording_3alt.csv")
     qv.to_csv(C.TAB / "G_sdr_null_q95_3alt.csv")

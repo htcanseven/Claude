@@ -447,8 +447,12 @@ if __name__ == "__main__":
     # Main text: Tables 4-8.  Appendix A: A1 suites3, A2 sens, A3 between, A4 transfer3.  The other builders
     # (null, z2, groups, topfeat, opgrid, screen, suitetransfer) are kept for the released results but are not
     # part of the manuscript; their numbers are quoted in the text.
-    for name, builder in [("tab_decomp", t_decomp), ("tab_mde", t_mde), ("tab_suites", t_suites),
-                          ("tab_decision", t_decision), ("tab_transfer", t_transfer), ("tab_suites3", t_suites3),
-                          ("tab_sens", t_sens), ("tab_between", t_between), ("tab_transfer3", t_transfer3)]:
-        write_block(name, builder())
+    # The builders of the MSSP revision (make_tables_rev.py) supersede the ones above with the same names; the
+    # old ones are kept for the released results of the earlier submission.
+    import make_tables_rev as R
+    for name, builder in R.BUILDERS:
+        try:
+            write_block(name, builder())
+        except ValueError as e:
+            print(f"skipped {name}: no marker in {MAIN} ({e})")
     print("tables written into", MAIN)

@@ -13,6 +13,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
 import compare as C
 import compare3 as C3
@@ -73,11 +74,51 @@ def combined(sdr, files, feats=("V2_V1", "I2_I1")):
     C3.save(fig, "G_severity_combined")
 
 
+PHASE_MARK = {"A": "o", "B": "s", "C": "^"}
+
+
+def pairs_figure(pt, feats=(("V2_V1", "V2r_V1"), ("I2_I1", "I2r_I1"))):
+    """Median SDR per tap pair for inter-turn faults against the design-level extent: magnitude feature (left
+    column) against its phasor residual (right column); marker = faulted phase, colour = machine. Shows the
+    dependence of the magnitude features on the faulted phase and its removal by the residual."""
+    f = pt[pt.ftype == "TURNS"]
+    fig, axes = plt.subplots(len(feats), 2, figsize=(W, 1.5 * len(feats) + 1.0), sharey="row",
+                             gridspec_kw={"hspace": 0.7, "wspace": 0.1})
+    k = 0
+    for i, pair in enumerate(feats):
+        for j, feat in enumerate(pair):
+            ax = axes[i, j]
+            for m in ["PMSG", "SCIG"]:
+                s = f[f.machine == m]
+                for ph, mk in PHASE_MARK.items():
+                    g = s[s.phase == ph]
+                    ax.plot(g.sev_pct, g[f"{feat}_median_sdr"].clip(lower=0.02), mk, ms=5, color=C3.COL3[m], mec=C.SURF,
+                            mew=0.5, label=f"{m}, phase {ph}", zorder=3)
+            ax.axhline(1, color=C.AXIS, lw=0.8, ls="--")
+            ax.set_xscale("log"); ax.set_yscale("log"); ax.set_ylim(0.1, 100)
+            ax.set_xlim(2.3, 14); ax.set_xticks([3, 5, 8, 12]); ax.set_xticklabels(["3", "5", "8", "12"])
+            ax.xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
+            ax.xaxis.set_minor_locator(matplotlib.ticker.NullLocator())
+            if i == len(feats) - 1:
+                ax.set_xlabel("Winding fraction between taps (%)")
+            if j == 0:
+                ax.set_ylabel("Median SDR per tap pair")
+            C.subcaption(ax, f"({chr(97 + k)}) {C.lab(feat)}"); k += 1
+    h, l = axes[0, 0].get_legend_handles_labels()
+    uniq = dict(zip(l, h))
+    fig.legend(uniq.values(), uniq.keys(), loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.56, 1.0),
+               columnspacing=1.0, handletextpad=0.3)
+    fig.subplots_adjust(top=0.86, bottom=0.17, left=0.12, right=0.99)
+    C3.save(fig, "G_pairs_by_phase")
+
+
 if __name__ == "__main__":
     files, win = C3.load3()
-    feats = [f for f in C3.FEATS3 if f in win.columns]
+    feats = [f for f in C3.FEATS3 if f in win.columns or f in C.RESID]
     sdr, qv = C3.sdr_from_windows(win, feats)
     det = C3.per_feature(sdr, feats, qv)
-    C3.fig_features(det, feats, figsize=(W, 5.6))
-    combined(sdr, files)
+    C3.fig_features(det, feats, figsize=(W, 6.3))
+    combined(sdr, files, feats=("V2r_V1", "I2r_I1"))
+    pt = pd.read_csv(C.TAB / "R_pair_table.csv")
+    pairs_figure(pt)
     print("figures written")

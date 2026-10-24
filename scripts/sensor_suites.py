@@ -24,18 +24,19 @@ from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import GroupKFold
 
 import compare as C
+from compare3 import mde_bracket, min_detectable, oracle_threshold, select_feature, wilson
 
 SUITES = {
     "drive-internal": dict(
         cost="no added sensors; access to the converter controller",
         feats=["Id_2fe", "Iq_2fe", "Id_1fe", "Iq_1fe", "Id_std", "Iq_std", "Vdconv_2fe", "Vqconv_2fe",
-               "PId_2fe", "PIq_2fe", "PId_std", "PIq_std", "D2_D1", "Te_2fe", "Te_1fe", "Te_std", "Vdc_std", "Spd_std"]),
+               "PId_2fe", "PIq_2fe", "PId_std", "PIq_std", "D2_D1", "D2r_D1", "Te_2fe", "Te_1fe", "Te_std", "Vdc_std", "Spd_std"]),
     "3 CT": dict(
         cost="3 current transducers at the terminals; no angle information",
-        feats=["I2_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd"]),
+        feats=["I2_I1", "I2r_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd"]),
     "3 CT + 3 VT": dict(
         cost="3 current + 3 voltage transducers; no angle information",
-        feats=["I2_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd", "V2_V1"]),
+        feats=["I2_I1", "I2r_I1", "I_unbal_rms", "Ia_h3", "Ia_h5", "Ia_h7", "Ia_thd", "V2_V1", "V2r_V1"]),
     "3 CT + 3 VT + drive": dict(
         cost="external transducers plus controller access (dq transform of measured voltages)",
         feats=None),   # filled below: 3 CT + 3 VT + drive-internal + Vd_2fe, Vq_2fe
@@ -47,20 +48,6 @@ SUITES["3 CT + 3 VT + drive"]["feats"] = (SUITES["3 CT + 3 VT"]["feats"] + SUITE
                                           + ["Vd_2fe", "Vq_2fe"])
 SUITES["+ torque transducer"]["feats"] = SUITES["3 CT + 3 VT + drive"]["feats"] + ["Tm_2fe", "Tm_1fe", "Tm_std"]
 ORDER = list(SUITES)
-
-
-def min_detectable(s, col):
-    """Limit-of-detection convention (see compare3.min_detectable): smallest tested extent above which every
-    tested extent has median SDR >= 1; equal extents are pooled."""
-    med = s.groupby("sev_pct")[col].median().sort_index()
-    ok = (med >= 1).to_numpy()
-    idx = len(ok)
-    for i in range(len(ok) - 1, -1, -1):
-        if ok[i]:
-            idx = i
-        else:
-            break
-    return float(med.index[idx]) if idx < len(ok) else np.nan
 
 
 def suite_detectability(sdr, det, q95=None):
@@ -76,17 +63,24 @@ def suite_detectability(sdr, det, q95=None):
             for suite, spec in SUITES.items():
                 feats = [x for x in spec["feats"] if x not in bad and f"{x}__sdr" in f.columns]
                 cols = [f"{x}__sdr" for x in feats]
-                med = f[cols].median().set_axis(feats)   # selection rule: highest median SDR among screened features
-                best = med.idxmax()
+                best = select_feature(f, feats)   # selection rule: smallest MDE, then share, then median SDR
                 fixed = f[f"{best}__sdr"]
                 oracle = f[cols].max(axis=1)
+                thr = oracle_threshold(sdr, m, cols)
+                k = int((h[f"{best}__sdr"] >= 1).sum()) if len(h) else np.nan
+                wl, wh = wilson(k, len(h)) if len(h) else (np.nan, np.nan)
+                lo, mde = mde_bracket(f, f"{best}__sdr")
                 rows.append(dict(
                     suite=suite, machine=m, ftype=ft, n_features=len(feats), excluded=",".join(sorted(bad & set(spec["feats"]))),
                     best_feature=best, fixed_median_sdr=fixed.median(), fixed_share_detectable=(fixed >= 1).mean(),
-                    fixed_min_detectable_pct=min_detectable(f.assign(v=fixed), "v"),
+                    fixed_min_detectable_pct=mde, fixed_mde_bracket_lo_pct=lo,
+                    fixed_healthy_false_alarm=(k / len(h)) if len(h) else np.nan, fixed_fa_wilson_lo=wl, fixed_fa_wilson_hi=wh,
                     oracle_median_sdr=oracle.median(), oracle_share_detectable=(oracle >= 1).mean(),
                     oracle_min_detectable_pct=min_detectable(f.assign(v=oracle), "v"),
-                    oracle_healthy_false_alarm=(h[cols].max(axis=1) >= 1).mean() if len(h) else np.nan))
+                    oracle_healthy_false_alarm=(h[cols].max(axis=1) >= 1).mean() if len(h) else np.nan,
+                    oracle_threshold=thr,
+                    oracle_share_calibrated=(oracle >= thr).mean() if np.isfinite(thr) else np.nan,
+                    oracle_fa_calibrated=(h[cols].max(axis=1) >= thr).mean() if (len(h) and np.isfinite(thr)) else np.nan))
     out = pd.DataFrame(rows)
     out.to_csv(C.TAB / "F_sensor_suites.csv", index=False)
     return out
@@ -96,8 +90,8 @@ def suite_transfer(win):
     w, _ = C.build_window_table(win)
     rows = []
     for suite, spec in SUITES.items():
-        feats = [x for x in spec["feats"] if x in w.columns]
-        for mode in ["healthy-z", "self-ref"]:
+        feats = [x for x in C.window_cols(spec["feats"]) if x in w.columns]
+        for mode in ["healthy-z", "healthy-z-op", "self-ref"]:
             X = C.calibrate(w, feats, mode)
             mk = lambda: HistGradientBoostingClassifier(max_depth=3, max_iter=200, learning_rate=0.08, random_state=0)
             for m in ["PMSG", "SCIG"]:

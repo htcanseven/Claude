@@ -35,12 +35,17 @@ figures (procedure, generator systems, fault classes) are TikZ code inside the f
 bash scripts/run_all.sh     # compare, sensor_suites, compare3, sensitivity, revision, figs_paper, make_tables; copies figures
 ```
 
-The individual steps are `compare.py` (PMSG/SCIG, five-cycle windows), `sensor_suites.py`, `compare3.py`
-(three alternatives, three-cycle windows), `sensitivity.py` (window/quantile sensitivity, bootstrap),
-`revision.py` (decision table, requirement quantities, decomposition, out-of-reference transfer metrics,
-baseline null, screen list), `figs_paper.py` (manuscript figures at text width) and `make_tables.py`
-(writes the table blocks of `main.tex`, each as a `threeparttable` with its notes). Feature extraction from
-the raw public data is `features.py` (PMSG/SCIG) and `features_wfsg.py` (WFSG); see their docstrings.
+The individual steps are `compare.py` (PMSG/SCIG, five-cycle windows; defines the SDR, the phasor-residual
+features and the physical extent levels), `sensor_suites.py`, `compare3.py` (three alternatives, three-cycle
+windows; MDE brackets, calibrated oracle, false-alarm counts), `sensitivity.py` (window/quantile sensitivity;
+bootstrap with the null re-estimated per resample; null-quantile intervals), `revision.py` (decision tables with
+nested feature selection and a power condition, requirement quantities, decomposition in relative and absolute
+units, transfer with four referencing rules and cluster-bootstrap intervals, per-phase and per-tap-pair tables,
+baseline null, screen list), `figs_paper.py` (manuscript figures at text width) and `make_tables.py` with
+`make_tables_rev.py` (write the table blocks of `main.tex`, each as a `threeparttable` with its notes). Feature
+extraction from the raw public data is `features.py` (PMSG/SCIG) and `features_wfsg.py` (WFSG); the raw data
+are the three Zenodo release archives of the InnovaPower MitDev-Eletrica repository, unpacked so that
+`data/mitdev/` holds `PMSG-3phase-Dataset`, `SCIG-3phase-Dataset` and `Generators-Dataset`.
 
 ## Submission notes
 
