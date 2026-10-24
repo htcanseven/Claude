@@ -6,8 +6,8 @@ as *Evaluating AI-based manufacturability decisions against the resolution of pr
 
 ## Version 2 (October 2026)
 
-Version 2 holds the code, feature tables and result files that produce the numbers of the revised paper and of its
-Online Resource 1. Every result file of version 1 is unchanged (the checksums under version 1 still hold), except
+Version 2 holds the code, feature tables and result files that produce the numbers of the revised paper, which has
+no appendix and no supplementary material. Every result file of version 1 is unchanged (the checksums under version 1 still hold), except
 the figure `F5_reliability`, which now shows the rules of the main text; `figs.py`, `make_tables.py` and `run_all.sh`
 were extended, and the revision adds:
 
@@ -23,7 +23,8 @@ were extended, and the revision adds:
   `meas_tooling_reference.csv`).
 - `scripts/opchar.py`: the scoring function on its own, for any table of intervals, truths and floors;
   `python opchar.py --selfcheck` reproduces `results/dec_resolution.csv`.
-- `paper/supplement.tex`: Online Resource 1; `scripts/make_tables.py` now also writes its Tables S1--S20.
+- `results/findings.md` maps every number of the revised paper to its script and result file; the results that the
+  paper does not tabulate are in the result files.
 - `requirements.txt` now pins every package, including `tabulate`, which `DataFrame.to_markdown` needs.
 
 Main result files added in version 2:

@@ -7,10 +7,11 @@ trial? A production-referenced evaluation of design-stage decision rules in deep
 **Status.** The manuscript was revised after a simulated first review round at JIM (three reviewers and an editor,
 all AI agents; `paper/review/jim_panel/round1/`): new title and abstract (249 words), decision-time strata, a
 small-data learner (M7n), multi-fidelity and discrepancy models, relation-matched intervals, guard bands per family
-and out of sample, costs, a between-run sensitivity, results per characteristic, a measurement subsection, and Online
-Resource 1 (`paper/supplement.tex`, Tables S1–S20, Figures S1–S4). The archive is version 2. Because the review was
-simulated, this version goes to the journal as a first submission; the response letter and the marked-up version are
-internal documents.
+and out of sample, costs, a between-run sensitivity, results per characteristic and a measurement subsection. It was
+then shortened to 31 pages without an appendix or supplementary material: the results it does not tabulate are in the
+archive, where `results/findings.md` maps every number of the paper to its script and result file. The archive is
+version 2. Because the review was simulated, this version goes to the journal as a first submission; the response
+letters and the marked-up versions are internal documents.
 
 **Journal requirements** (submission guidelines): abstract 150–250 words; 4–6 keywords; author–year citations;
 declarations (funding, competing interests, data availability) before the references; LaTeX with the Springer Nature
@@ -41,16 +42,15 @@ template accepted; no page limit. The corresponding author must give an ORCID in
      `doi = {10.5281/zenodo.NNNNNNN}`;
    - `CITATION.cff`: add `doi: 10.5281/zenodo.NNNNNNN`;
    - `paper/submission/cover_letter.md`: replace "[DOI to be inserted after deposit]".
-5. **Rebuild** the paper and Online Resource 1 (`latexmk -pdf main.tex` and `latexmk -pdf supplement.tex` in
-   `paper/`; 36 and 22 pages) and the upload zip (`bash paper/submission/make_zip.sh`, which builds both in a clean
-   directory and warns while the DOI is still pending).
+5. **Rebuild** the paper (`latexmk -pdf main.tex` in `paper/`; 31 pages) and the upload zip
+   (`bash paper/submission/make_zip.sh`, which builds it in a clean directory and warns while the DOI is still
+   pending).
 6. **Check** that the DOI resolves and that `sha256sum -c SHA256SUMS` passes in the unpacked deposit.
 
 ## Submission
 
 - [ ] **Files.** Upload the LaTeX source (`manuscript_source.zip`) with the compiled PDF (`paper/main.pdf`); the
-      journal requires the editable source files. Upload Online Resource 1 (`paper/supplement.pdf`) as electronic
-      supplementary material, named "Online Resource 1".
+      journal requires the editable source files. There is no electronic supplementary material.
 - [ ] **Frozen procedure.** Register `paper/notes/frozen_procedure.md` (for example on OSF Registries) before any
       confirmatory data are analysed, and cite the registration if it exists at submission.
 - [ ] **Dataset providers.** Send the request in `note_to_dataset_authors.md` if you wish; the paper does not depend
@@ -66,8 +66,8 @@ template accepted; no page limit. The corresponding author must give an ORCID in
   - D. F. Benoit (manufacturability datasets for sheet metal).
 - [ ] **Line numbers.** Keep the class option `lineno` for review; remove it for production after acceptance.
 - [ ] **Internal review documents.** `paper/review/` holds simulated reviews, all written by AI agents: the review
-      panel for the RED collection in `paper/review/cfp_panel/` and the simulated JIM round in
-      `paper/review/jim_panel/round1/`. They are internal working documents and not part of the submission. Section
+      panel for the RED collection in `paper/review/cfp_panel/` and the simulated JIM rounds in
+      `paper/review/jim_panel/`. They are internal working documents and not part of the submission. Section
       4.5 and the declaration on generative AI cover them.
 - [ ] **ISO editions.** The paper cites ISO 5725-2:2025 and ISO 22514-2:2026, the current editions according to ISO's
       catalogue data. If you worked from the 2019 and 2017 texts, cite those instead (`iso2025repeatability`,
@@ -75,18 +75,17 @@ template accepted; no page limit. The corresponding author must give an ORCID in
 - [ ] **Outreach drafts.** `presubmission_enquiry.md` was written for the RED guest editors and is obsolete;
       `note_to_dataset_authors.md` can still be sent to the RDDAC/DDACS authors.
 
-## Quality gates (last run on the JIM version)
+## Quality gates (last run on the shortened JIM version)
 
 - [x] `paper/main.tex` compiles with zero errors, no undefined references or citations and no overfull boxes. The
-      paper has 30 pages; the main text (abstract to conclusions) ends at the top of page 24. The main text has six
-      tables and four figures; the appendix has five tables. Tables A1 and A2 fill page 25 and Tables A3–A5 page 26,
-      as float pages (placement `[p]`, 7 pt by `\tabsizesmall`, a float gap of 6 pt; `make_tables.py` writes the
-      placement and size of Tables A2–A4). References start on page 27, with DOIs as full links.
-- [x] Abstract 250 words by a strict count (`0.05 mm` and `500 kN` as two words each), within the journal's limit;
-      six keywords; captions of at most two lines; no first person; British spelling.
+      paper has 31 pages: the main text (abstract to conclusions) ends on page 27, followed by the declarations, and
+      the references fill pages 28–31, with DOIs as full links. Nine tables and six figures; no appendix and no
+      supplementary material.
+- [x] Abstract 249 words (247 when "95 %" counts as one word), within the journal's limit; six keywords; captions of
+      at most two lines; no first person; British spelling.
 - [x] Every cited key is in `refs.bib`; the references were checked against the publisher, DBLP, Crossref or the ISO
       catalogue, the four added for JIM against Crossref.
 - [x] Every number in the text checked against the result CSVs; tables are generated, not typed. No number changed
       in the retargeting.
 - [x] The upload zip (`bash paper/submission/make_zip.sh`: main.tex, fig_procedure.tex, refs.bib, class and style
-      files, figures) compiles in an empty directory to the same 30 pages.
+      files, figures) compiles in an empty directory to the same 31 pages.

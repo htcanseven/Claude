@@ -30,5 +30,5 @@ python3 simcheck.py          # simulation against the measurement; measurement c
 python3 qualify.py           # strata, guard bands out of sample, costs, coverage, between-run, cross-fit, design level
 python3 opchar.py --selfcheck  # the stand-alone scoring function reproduces dec_resolution.csv
 python3 figs.py              # figures in the paper's style (results/figures; copied to paper/figures for LaTeX)
-python3 make_tables.py       # tables of paper/main.tex and of Online Resource 1 (paper/supplement.tex) from the CSVs
+python3 make_tables.py       # tables of paper/main.tex from the CSVs
 cp ../results/figures/*.pdf ../paper/figures/

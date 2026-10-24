@@ -453,7 +453,7 @@ def fig_batches(src: Path, alt: str = "concave/300/medium") -> None:
     fl = pd.read_csv(src / "alt_floor.csv").set_index("qc")
     g = q[q["alternative"] == alt].reset_index(drop=True)
     geo = alt.split("/")[0]
-    fig, axs = plt.subplots(2, 1, figsize=(WIDTH_IN, 3.0), sharex=True, squeeze=False)
+    fig, axs = plt.subplots(2, 1, figsize=(WIDTH_IN, 2.6), sharex=True, squeeze=False)
     for ax, qc, letter in zip(axs[:, 0], ("drawin_mid", "wall_op10"), "ab"):
         y = g[qc].to_numpy(float)
         n = np.arange(1, len(y) + 1)
@@ -491,7 +491,7 @@ def fig_costs(src: Path, c_fr: float = 0.5) -> None:
     rels = [("sibling", "sibling"), ("interpolation", "interpolated"), ("extrapolation", "extrapolated"),
             ("new family", "new family")]
     rules = ["M2", "M5", "NN", "M1sn", "M7n", "NN+RM"]
-    fig, axs = plt.subplots(2, 4, figsize=(WIDTH_IN, 3.4), sharex=True, sharey="row", squeeze=False)
+    fig, axs = plt.subplots(2, 4, figsize=(WIDTH_IN, 3.1), sharex=True, sharey="row", squeeze=False)
     letters = {(i, j): "abcdefgh"[4 * i + j] for i in range(2) for j in range(4)}
     for j, (rel, name) in enumerate(rels):
         for i, col in enumerate(("cost_opt", "band_opt")):

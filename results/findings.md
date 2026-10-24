@@ -8,13 +8,71 @@ Every number below comes from the CSV named in brackets, written by `bash script
 4 cores from the cached feature tables). Distances and floors are in the units of each quality
 characteristic unless stated; "floors" means multiples of that characteristic's production floor.
 
+## Map of the paper (31-page version without appendix or supplementary material)
+
+The paper (`paper/main.tex`) has no appendix and no supplementary material. This section maps its numbers to the
+scripts that compute them and the result files (`results/*.csv`) that hold them; `scripts/run_all.sh` runs the
+scripts in order, and `make_tables.py` and `figs.py` write every table and figure. M3n is named M4 in the code.
+
+| Paper | Results | Script: result files |
+|---|---|---|
+| Table 3; Sections 3.4, 4.1, 4.3 | characteristics, scan redundancy and biases, resolution, failing-side weight, run metadata | `simcheck.py`: meas_characteristics, meas_cut_walls; `measurement.py`: meas_scan; `panel.py`: panel_resolution_steps, panel_failing_weight, panel_runs |
+| Section 4.2 | simulation noise of the characteristics | `measurement.py`: meas_sim |
+| Table 4; Section 5.1; Fig. 4 | floors, interval over alternatives, single-run floors, warm-up, σb, σw, F/σLT, time order and lag profile, tooling reference, in-line drift | `alternatives.py`: alt_floor; `simcheck.py`: meas_run_floors, meas_tooling_reference; `panel.py`: panel_floor_protocol, panel_variogram; `sensitivity.py`: sens_drift; `measurement.py`: meas_floor; `inline.py`: inline_drift |
+| Section 5.2 | resolvable contrasts, validation of the simulation, friction fits, oil mapping, depth offset, envelope over measured inputs, force effect, arm sign, surrogate | `alternatives.py`: alt_effects, alt_mrc; `simcheck.py`: sim_validation, sim_mc_friction, sim_oil_mapping, sim_depth_offset, sim_envelope_variant; `learners.py`: learn_mcd_posterior; `panel.py`: panel_force_effect, panel_arm_sign, panel_m0_split; `design_space.py`: ds_surrogate_rule |
+| Table 5; Section 5.3; Fig. 5 | distances and their intervals, FA/FR sides, trial rows, strata, one sibling | `decisions.py`: dec_resolution, dec_intervals, dec_paired; `learners.py`: learn_resolution, learn_intervals, learn_source_floor, learn_paired; `panel.py`: panel_source_floor; `qualify.py`: qual_trial, qual_strata; `budget.py`: budget_design |
+| Table 6 | decisive distance per characteristic, units, performance index | `qualify.py`: qual_per_characteristic |
+| Section 5.4 | GP diagnostics, relation-matched intervals, coverage, interval score, M6, tuning study, few-shot transfer | `learners.py`: learn_gp_diagnostics, learn_resolution, learn_fewshot; `decisions.py`: dec_gp; `qualify.py`: qual_coverage, qual_m6_coverage; `tuning.py`: tune_decisions |
+| Table 7; Section 5.5 | guard bands per family, out of sample, under other priors, per characteristic, applicability guards | `qualify.py`: qual_guard_oos, qual_guard_family, qual_guard_prior_width, qual_guard_characteristic; `panel.py`: panel_step6, panel_guard_priors; `decisions.py`: dec_guard |
+| Section 5.6; Fig. 6 | costs, trial as a rule, capability-anchored limits | `qualify.py`: qual_costs, qual_trial; `panel.py`: panel_capability |
+| Section 5.7 | between-run sensitivity, cross-fitting, resolvable difference, design level, variants, floors without the held-out series, decomposition, robustness | `qualify.py`: qual_between_run, qual_crossfit, qual_resolvable_difference, qual_design_level, qual_variants, qual_decomposition, qual_floor_loao; `robustness.py`: rob_decisions, rob_refit |
+| Section 6.4 | scoring function; PA12 attempt | `opchar.py` (self-check against dec_resolution); `case2_pa12.py`: case2_floor |
+| Fig. 1, Fig. 3 | schematic (M7n, extrapolated setting); scanned parts | `figs.py` from dec_intervals and learn_intervals; from the RDDAC sample scans |
+
+**Tables and figures of the earlier version that the paper no longer contains.** The version answered in
+`paper/review/jim_panel/round1/` had an appendix (Tables A1–A7) and Online Resource 1 (Tables S1–S20, Figures
+S1–S4). Their contents are in these files: A1 notation, now in Sections 3.1–3.4; A2 further rules, defined in
+Section 3.3 and scored in dec_resolution and learn_resolution (S1 by relation and floor); A3 GP diagnostics,
+learn_gp_diagnostics and dec_gp; A4 predictors with relation-matched intervals, learn_resolution and qual_coverage;
+A5 per characteristic, Table 6 and qual_per_characteristic (S15 with every rule); A6 and S18 the simulation against
+the measurement, sim_validation; A7 the number map, this section; S2 robustness variants, rob_decisions,
+qual_variants, sim_envelope_variant and qual_floor_loao; S3 strata, qual_strata and panel_sibling_strata; S4 and S5
+coverage, qual_coverage and qual_m6_coverage; S6 step 6, panel_step6; S7–S10 guard bands per family, out of sample,
+per prior width and per characteristic, qual_guard_family, qual_guard_oos, qual_guard_prior_width and
+qual_guard_characteristic; S11 costs, qual_costs; S12 between-run sensitivity, qual_between_run; S13 cross-fitting,
+qual_crossfit; S14 design level, qual_design_level; S16 few-shot transfer, learn_fewshot; S17 paired differences and
+decomposition, dec_paired, learn_paired, qual_resolvable_difference and qual_decomposition; S19 oil mapping, depth
+offset and tooling reference, sim_oil_mapping, sim_depth_offset and meas_tooling_reference; S20 scan redundancy and
+floor protocols, meas_scan, panel_floor_protocol and sens_drift; Figures S1–S4, `results/figures/` F1_alternatives,
+F3_decisions_compare, F4_budget and F5_reliability.
+
+**Computation details.** Batches need at least 80 % valid values. M5 and M5n are Gaussian-process regressions
+(constant times anisotropic squared-exponential kernel plus white noise, normalised targets, hyperparameters by
+maximum marginal likelihood without hyperpriors, three restarts, length scales in [0.1, 100]) on a geometry
+indicator, the force in 100 kN and the lubrication rank; the lower bound of the noise variance is the larger of the
+mean sampling variance of the calibration alternatives' q_p and the pooled variance between their series of one
+geometry and force. M7n and M7 work in pooled floors: the mean basis is an intercept, the force (or, for M7, the
+nominal simulation) and the lubrication rank, plus the geometry indicator when both families calibrate; the
+coefficients have a flat prior and are integrated out (restricted likelihood); the hyperparameters are maximum a
+posteriori under log-normal priors with medians of 200 kN and one pattern step for the length scales, two floors for
+the GP and one floor for the nugget standard deviation, and log-scale standard deviations of 1, 1.5 and 1; the
+predictive variance adds the nugget and the mean sampling variance of the calibration q_p. Mcd has a uniform prior
+over the 11 friction values of the grid, a GP discrepancy with a constant mean and the same priors, a posterior from
+the two draw-ins, and a 90 % interval from the posterior mixture. NN takes the mean q_p at the nearest force of the
+family, both neighbours when equally near; M1sn fits q_p = a + b·force by least squares. Mc calibrates, per
+lubrication pattern, the friction coefficient whose simulated draw-ins are closest to the calibration centres,
+without a discrepancy. M3 and M3n use histogram gradient boosting (depth 3, 200 iterations, rate 0.08) on geometry,
+force, lubrication, sheet thickness and oil film, with 500 incoming conditions drawn from calibration parts of the
+same pattern, and jackknife+ intervals. Guard bands lie on a grid of 0.25 floors. Software: Python 3.11 with NumPy,
+pandas, SciPy, scikit-learn and Matplotlib (versions in `requirements.txt`).
+
 ## S Findings of the simulated first round at JIM (supersede Section Q where they differ)
 
 The simulated JIM round (`paper/review/jim_panel/round1/`, AI agents) led to the rules M7n, M7, Mcd and P+RM, to
 decision-time strata, guard bands per family and out of sample, costs, a between-run sensitivity, cross-fitting,
 results per characteristic and design-level verdicts (`learners.py`, `qualify.py`, `simcheck.py`). The unit is now
-called the within-run floor. The manuscript (`paper/main.tex`) and Online Resource 1 (`paper/supplement.tex`)
-report these numbers.
+called the within-run floor. The manuscript (`paper/main.tex`)
+reports these numbers; the map above locates them.
 
 **S1 Decision-time strata** [qual_strata.csv]: with siblings that do not differ resolvably from each other (75 cases on
 17 alternatives) NN needs 1.60 floors, M1sn 3.05, M5 6.15/0.15, M7n 5.55/0.15; with resolvable siblings (51 cases on

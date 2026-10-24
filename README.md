@@ -51,7 +51,7 @@ the checksums of the main result files; `SHA256SUMS` holds the SHA-256 checksums
 | `scripts/opchar.py` | the scoring function on its own: distances, guard band, step 6 and expected cost for any table of intervals, truths and floors (`--selfcheck` reproduces `dec_resolution.csv`) |
 | `scripts/case2_pa12.py` | exploratory, not in the paper and not run by `run_all.sh` (see its docstring) |
 | `scripts/figs.py` | `results/figures/`: the paper's figures (PDF and PNG) |
-| `scripts/make_tables.py` | writes the data tables from the CSVs into `paper/main.tex` and `paper/supplement.tex` (Online Resource 1) |
+| `scripts/make_tables.py` | writes the data tables from the CSVs into `paper/main.tex` |
 
 The results, with every number traced to its CSV, are summarised in [`results/findings.md`](results/findings.md).
 
@@ -62,12 +62,11 @@ Requirements: Python 3.11 with the packages in `requirements.txt`.
 
 ## Manuscript
 
-`paper/main.tex` (Springer `sn-jnl`; build with `latexmk -pdf main.tex` in `paper/`) is the manuscript: main text, one
-appendix (notation, further rules, Gaussian-process diagnostics, relation-matched intervals, results per
-characteristic, the simulation against the measurement, a table that maps every quoted number to its script and
-result file, computation details) and references. `paper/supplement.tex` is its Online Resource 1 (specification of
-the rules and analyses added in the revision, Tables S1--S20 and Figures S1--S4). Tables between
-`%% BEGIN GENERATED` markers are written by `scripts/make_tables.py`; figures are copied from `results/figures/`.
+`paper/main.tex` (Springer `sn-jnl`; build with `latexmk -pdf main.tex` in `paper/`) is the manuscript: 31 pages of
+main text, declarations and references, with no appendix and no supplementary material. The results that it does not
+tabulate are in the result files, and `results/findings.md` maps every number of the paper to its script and result
+file. Tables between `%% BEGIN GENERATED` markers are written by `scripts/make_tables.py`; figures are copied from
+`results/figures/`.
 `paper/submission/` holds the cover letter, outreach drafts, the upload script and the submission checklist.
 
 `paper/review/` holds the simulated reviews, all written by AI agents: the referee reports on the first version and

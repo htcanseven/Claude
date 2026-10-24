@@ -8,8 +8,8 @@ Dear Editors,
 
 Please consider the enclosed manuscript, "When can a prediction replace a physical trial? A production-referenced
 evaluation of design-stage decision rules in deep drawing", for publication as a research article in the Journal of
-Intelligent Manufacturing. The manuscript comprises the main text, one appendix and the references; Online Resource 1
-holds further tables and figures.
+Intelligent Manufacturing. The manuscript has 31 pages, including the declarations and the references, and no
+appendix or supplementary material; the archived results hold everything it does not tabulate.
 
 **The problem.** Simulation and machine learning increasingly inform manufacturability decisions: learned
 manufacturability checks, surrogates of process simulations, predictive-quality models and virtual metrology. Such
