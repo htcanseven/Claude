@@ -1,73 +1,167 @@
 %% Procedure figure (TikZ, body font); \input by main.tex
 %% Colours: the blue and orange of the other figures (steps 1-5 once per design family, step 6 for every new
-%% design), a neutral grey for the evidence and inputs, and the grey of the trial verdict in Figs. 1 and 5.
+%% design), a neutral grey for the evidence and inputs, the grey of the trial verdict and the violet of wrong
+%% verdicts in Figs. 1 and 5. The small plots are schematic: they show what each step does, not data.
 \definecolor{procfam}{HTML}{2A78D6}
 \definecolor{procdes}{HTML}{EB6834}
 \definecolor{procin}{HTML}{8C8B82}
 \definecolor{proctrial}{HTML}{C3C2B7}
+\definecolor{procwrong}{HTML}{4A3AA7}
 \definecolor{procink}{HTML}{1E2329}
 \begin{tikzpicture}[
   x=1cm, y=1cm, font=\footnotesize, text=procink,
   small/.style={execute at begin node={\fontsize{7}{8}\selectfont\hyphenpenalty=10000\exhyphenpenalty=10000}},
+  tiny/.style={font=\fontsize{6}{6.5}\selectfont, inner sep=0.6pt},
   card/.style={draw=procfam, line width=0.6pt, rounded corners=3pt, fill=procfam!5,
-               minimum width=2.388cm, minimum height=3.0cm, inner sep=0pt, anchor=north},
-  badge/.style={circle, fill=#1, text=white, font=\footnotesize\bfseries, inner sep=0pt, minimum size=0.40cm},
+               minimum width=2.388cm, minimum height=3.60cm, inner sep=0pt, anchor=north},
+  badge/.style={circle, fill=#1, text=white, font=\footnotesize\bfseries, inner sep=0pt, minimum size=0.38cm},
   ttl/.style={anchor=west, font=\footnotesize\bfseries, text=#1, inner sep=0pt},
   txt/.style={small, anchor=north west, text width=#1, align=left, inner sep=0pt},
   txt/.default=2.21cm,
-  chip/.style={small, draw=procin, dashed, line width=0.5pt, rounded corners=3pt, fill=procin!8, align=center,
-               inner sep=2.6pt, anchor=south, text width=#1},
   link/.style={small, draw=procdes, line width=0.5pt, rounded corners=2pt, fill=white, align=left, inner sep=3pt,
                minimum height=1.36cm, text width=#1},
-  pill/.style={small, rounded corners=5pt, line width=0.5pt, align=left, inner sep=3pt, text width=3.4cm,
-               anchor=west},
   flow/.style={-{Stealth[length=1.6mm,width=1.5mm]}, line width=0.9pt, draw=#1},
   flow/.default=procfam,
-  feed/.style={-{Stealth[length=1.5mm,width=1.3mm]}, line width=0.6pt, draw=procin, dashed}
+  feed/.style={-{Stealth[length=1.5mm,width=1.3mm]}, line width=0.6pt, draw=procin, dashed},
+  dim/.style={{Stealth[length=1.0mm,width=1.0mm]}-{Stealth[length=1.0mm,width=1.0mm]}, line width=0.45pt, draw=procink},
+  dot/.style={circle, inner sep=0pt, minimum size=#1},
+  dot/.default=0.032cm
 ]
-%% steps 1-5, once per design family
+\def\floordots{0.140/0.302, 0.180/0.368, 0.220/0.361, 0.260/0.274, 0.300/0.285, 0.340/0.274, 0.380/0.328, 0.420/0.297, 0.460/0.467, 0.500/0.338, 0.540/0.508, 0.580/0.425, 0.620/0.464, 0.660/0.423, 0.700/0.411, 0.740/0.453, 0.780/0.561, 0.820/0.510, 0.860/0.512, 0.900/0.554, 0.940/0.476, 0.980/0.444, 1.020/0.540, 1.060/0.486, 1.100/0.374, 1.140/0.429, 1.180/0.447, 1.220/0.410, 1.260/0.395, 1.300/0.472, 1.340/0.515, 1.380/0.458, 1.420/0.543, 1.460/0.599, 1.500/0.616, 1.540/0.565, 1.580/0.607, 1.620/0.632, 1.660/0.570, 1.700/0.539}
+\def\floorcentres{0.115/0.445/0.311, 0.435/0.765/0.436, 0.755/1.085/0.511, 1.075/1.405/0.438, 1.395/1.725/0.584}
+\def\histbars{0.120/0.270/0.145, 0.270/0.420/0.235, 0.420/0.570/0.396, 0.570/0.720/0.575, 0.720/0.870/0.660, 0.870/1.020/0.585, 1.020/1.170/0.408, 1.170/1.320/0.244, 1.320/1.470/0.149, 1.470/1.620/0.112}
+\def\occorrect{(0.100,0.290) -- (0.150,0.360) -- (0.200,0.420) -- (0.250,0.471) -- (0.300,0.515) -- (0.350,0.553) -- (0.400,0.585) -- (0.450,0.613) -- (0.500,0.637) -- (0.550,0.657) -- (0.600,0.675) -- (0.650,0.690) -- (0.700,0.703) -- (0.750,0.714) -- (0.800,0.723) -- (0.850,0.731) -- (0.900,0.738) -- (0.950,0.744) -- (1.000,0.749) -- (1.050,0.754) -- (1.100,0.757) -- (1.150,0.761) -- (1.200,0.763) -- (1.250,0.766) -- (1.300,0.768) -- (1.350,0.770) -- (1.400,0.771) -- (1.450,0.772) -- (1.500,0.773) -- (1.550,0.774) -- (1.600,0.775) -- (1.650,0.776) -- (1.700,0.776) -- (1.750,0.777) -- (1.800,0.777) -- (1.850,0.778) -- (1.900,0.778) -- (1.950,0.778) -- (2.000,0.779) -- (2.050,0.779) -- (2.100,0.779) -- (2.100,0.080) -- (2.050,0.080) -- (2.000,0.080) -- (1.950,0.080) -- (1.900,0.080) -- (1.850,0.080) -- (1.800,0.080) -- (1.750,0.080) -- (1.700,0.080) -- (1.650,0.080) -- (1.600,0.080) -- (1.550,0.080) -- (1.500,0.080) -- (1.450,0.080) -- (1.400,0.080) -- (1.350,0.080) -- (1.300,0.080) -- (1.250,0.080) -- (1.200,0.080) -- (1.150,0.080) -- (1.100,0.080) -- (1.050,0.080) -- (1.000,0.080) -- (0.950,0.080) -- (0.900,0.080) -- (0.850,0.080) -- (0.800,0.080) -- (0.750,0.080) -- (0.700,0.080) -- (0.650,0.080) -- (0.600,0.080) -- (0.550,0.080) -- (0.500,0.080) -- (0.450,0.080) -- (0.400,0.080) -- (0.350,0.080) -- (0.300,0.080) -- (0.250,0.080) -- (0.200,0.080) -- (0.150,0.080) -- (0.100,0.080) -- cycle}
+\def\octrial{(0.100,0.570) -- (0.150,0.626) -- (0.200,0.668) -- (0.250,0.698) -- (0.300,0.720) -- (0.350,0.736) -- (0.400,0.748) -- (0.450,0.756) -- (0.500,0.763) -- (0.550,0.767) -- (0.600,0.771) -- (0.650,0.773) -- (0.700,0.775) -- (0.750,0.776) -- (0.800,0.777) -- (0.850,0.778) -- (0.900,0.779) -- (0.950,0.779) -- (1.000,0.779) -- (1.050,0.779) -- (1.100,0.780) -- (1.150,0.780) -- (1.200,0.780) -- (1.250,0.780) -- (1.300,0.780) -- (1.350,0.780) -- (1.400,0.780) -- (1.450,0.780) -- (1.500,0.780) -- (1.550,0.780) -- (1.600,0.780) -- (1.650,0.780) -- (1.700,0.780) -- (1.750,0.780) -- (1.800,0.780) -- (1.850,0.780) -- (1.900,0.780) -- (1.950,0.780) -- (2.000,0.780) -- (2.050,0.780) -- (2.100,0.780) -- (2.100,0.779) -- (2.050,0.779) -- (2.000,0.779) -- (1.950,0.778) -- (1.900,0.778) -- (1.850,0.778) -- (1.800,0.777) -- (1.750,0.777) -- (1.700,0.776) -- (1.650,0.776) -- (1.600,0.775) -- (1.550,0.774) -- (1.500,0.773) -- (1.450,0.772) -- (1.400,0.771) -- (1.350,0.770) -- (1.300,0.768) -- (1.250,0.766) -- (1.200,0.763) -- (1.150,0.761) -- (1.100,0.757) -- (1.050,0.754) -- (1.000,0.749) -- (0.950,0.744) -- (0.900,0.738) -- (0.850,0.731) -- (0.800,0.723) -- (0.750,0.714) -- (0.700,0.703) -- (0.650,0.690) -- (0.600,0.675) -- (0.550,0.657) -- (0.500,0.637) -- (0.450,0.613) -- (0.400,0.585) -- (0.350,0.553) -- (0.300,0.515) -- (0.250,0.471) -- (0.200,0.420) -- (0.150,0.360) -- (0.100,0.290) -- cycle}
+\def\ocwrong{(0.100,0.780) -- (0.150,0.780) -- (0.200,0.780) -- (0.250,0.780) -- (0.300,0.780) -- (0.350,0.780) -- (0.400,0.780) -- (0.450,0.780) -- (0.500,0.780) -- (0.550,0.780) -- (0.600,0.780) -- (0.650,0.780) -- (0.700,0.780) -- (0.750,0.780) -- (0.800,0.780) -- (0.850,0.780) -- (0.900,0.780) -- (0.950,0.780) -- (1.000,0.780) -- (1.050,0.780) -- (1.100,0.780) -- (1.150,0.780) -- (1.200,0.780) -- (1.250,0.780) -- (1.300,0.780) -- (1.350,0.780) -- (1.400,0.780) -- (1.450,0.780) -- (1.500,0.780) -- (1.550,0.780) -- (1.600,0.780) -- (1.650,0.780) -- (1.700,0.780) -- (1.750,0.780) -- (1.800,0.780) -- (1.850,0.780) -- (1.900,0.780) -- (1.950,0.780) -- (2.000,0.780) -- (2.050,0.780) -- (2.100,0.780) -- (2.100,0.780) -- (2.050,0.780) -- (2.000,0.780) -- (1.950,0.780) -- (1.900,0.780) -- (1.850,0.780) -- (1.800,0.780) -- (1.750,0.780) -- (1.700,0.780) -- (1.650,0.780) -- (1.600,0.780) -- (1.550,0.780) -- (1.500,0.780) -- (1.450,0.780) -- (1.400,0.780) -- (1.350,0.780) -- (1.300,0.780) -- (1.250,0.780) -- (1.200,0.780) -- (1.150,0.780) -- (1.100,0.780) -- (1.050,0.779) -- (1.000,0.779) -- (0.950,0.779) -- (0.900,0.779) -- (0.850,0.778) -- (0.800,0.777) -- (0.750,0.776) -- (0.700,0.775) -- (0.650,0.773) -- (0.600,0.771) -- (0.550,0.767) -- (0.500,0.763) -- (0.450,0.756) -- (0.400,0.748) -- (0.350,0.736) -- (0.300,0.720) -- (0.250,0.698) -- (0.200,0.668) -- (0.150,0.626) -- (0.100,0.570) -- cycle}
+%% ---------------------------------------------------------------- steps 1-5, once per design family
+%% \procstep{index}{x of the centre}{title}{description}{output}; the plot frame of card i is (P\i): its
+%% lower left corner is the origin of that card's plot, 2.21 cm wide and 0.86 cm high.
 \def\procstep#1#2#3#4#5{%
   \node[card] (s#1) at (#2,0) {};
-  \node[badge=procfam!85!black] (b#1) at ([xshift=0.29cm,yshift=-0.29cm]s#1.north west) {#1};
-  \node[ttl=procfam!70!black] at ([xshift=0.11cm]b#1.east) {#3};
-  \node[txt] at ([xshift=0.09cm,yshift=-0.60cm]s#1.north west) {#4};
-  \draw[procfam!35, line width=0.4pt] ([xshift=0.09cm,yshift=0.95cm]s#1.south west)
-    -- ([xshift=-0.09cm,yshift=0.95cm]s#1.south east);
-  \node[txt] at ([xshift=0.09cm,yshift=0.87cm]s#1.south west) {\textcolor{procfam!70!black}{\textit{out:}} #5};}
+  \node[badge=procfam!85!black] (b#1) at ([xshift=0.29cm,yshift=-0.27cm]s#1.north west) {#1};
+  \node[ttl=procfam!70!black] at ([xshift=0.10cm]b#1.east) {#3};
+  \draw[draw=procfam!25, fill=white, rounded corners=1.5pt, line width=0.4pt]
+    ([xshift=0.09cm,yshift=-0.50cm]s#1.north west) rectangle ([xshift=-0.09cm,yshift=-1.36cm]s#1.north east);
+  \coordinate (P#1) at ([xshift=0.09cm,yshift=-1.36cm]s#1.north west);
+  \node[txt] at ([xshift=0.09cm,yshift=-1.45cm]s#1.north west) {#4};
+  \draw[procfam!35, line width=0.4pt] ([xshift=0.09cm,yshift=0.68cm]s#1.south west)
+    -- ([xshift=-0.09cm,yshift=0.68cm]s#1.south east);
+  \node[txt] at ([xshift=0.09cm,yshift=0.61cm]s#1.south west) {\textcolor{procfam!70!black}{\textit{out:}} #5};}
 \procstep{1}{1.194}{Frame}{family, alternatives, characteristics; limit on $q_p$; costs}{decision problem}
 \procstep{2}{3.862}{Floor}{batches of consecutive parts of the produced alternatives}{$F$ per characteristic}
-\procstep{3}{6.530}{Resolve}{effect-to-scatter ratios, minimum resolvable changes}{what production can confirm}
+\procstep{3}{6.530}{Resolve}{effect-to-scatter ratios, minimum resolvable changes}{resolvable differences}
 \procstep{4}{9.198}{Calibrate}{rules on the produced alternatives, with and without the simulation}{intervals for $q_p$}
 \procstep{5}{11.866}{Qualify}{per family, held out by relation; bands validated out of sample}%
-  {$\delta_\mathrm{d}$, $\delta_\mathrm{s}$ and band $g$ per rule and relation}
+  {$\delta_\mathrm{d}$, $\delta_\mathrm{s}$, $g$ per rule and relation}
 \foreach \a/\b in {1/2, 2/3, 3/4, 4/5} \draw[flow] (s\a.east) -- (s\b.west);
-\node[anchor=south west, inner sep=0pt, text=procfam!70!black, font=\footnotesize\itshape] at (0.02,0.34)
+%% plot 1: parts of an alternative, their p-quantile and the limit
+\begin{scope}[shift={(P1)}]
+  \draw[procink!35, line width=0.4pt] (0.08,0.10) -- (2.13,0.10);
+  \foreach \a/\b/\h in \histbars \fill[procfam!50] (\a+0.006,0.10) rectangle (\b-0.006,\h);
+  \draw[procfam!85!black, line width=0.6pt, dash pattern=on 1.5pt off 1pt] (1.244,0.10) -- (1.244,0.76);
+  \node[tiny, anchor=east, text=procfam!85!black] at (1.21,0.66) {$q_p$};
+  \draw[procink, line width=0.8pt] (1.80,0.10) -- (1.80,0.76);
+  \node[tiny, anchor=west] at (1.83,0.66) {$R$};
+\end{scope}
+%% plot 2: consecutive parts, centres of their batches and the floor
+\begin{scope}[shift={(P2)}]
+  \draw[procink!35, line width=0.4pt] (0.08,0.10) -- (2.13,0.10);
+  \foreach \x/\y in \floordots \node[dot=0.038cm, fill=procfam!55] at (\x,\y) {};
+  \foreach \a/\b/\m in \floorcentres \draw[procfam!85!black, line width=1.2pt] (\a+0.02,\m) -- (\b-0.02,\m);
+  \draw[dim] (1.88,0.311) -- (1.88,0.584);
+  \node[tiny, anchor=west] at (1.92,0.447) {$F$};
+\end{scope}
+%% plot 3: two alternatives, the difference of their centres against the floor
+\begin{scope}[shift={(P3)}]
+  \draw[procink!35, line width=0.4pt] (0.08,0.10) -- (2.13,0.10);
+  \foreach \x/\y in {0.38/0.26, 0.45/0.33, 0.52/0.24, 0.59/0.31, 0.66/0.27, 0.73/0.35, 0.42/0.37, 0.70/0.21,
+                     1.18/0.60, 1.25/0.66, 1.32/0.57, 1.39/0.64, 1.46/0.70, 1.53/0.61, 1.22/0.72, 1.50/0.55}
+    \node[dot, fill=procfam!45] at (\x,\y) {};
+  \draw[procfam!85!black, line width=1.2pt] (0.34,0.293) -- (0.77,0.293);
+  \draw[procfam!85!black, line width=1.2pt] (1.14,0.631) -- (1.57,0.631);
+  \draw[procink!50, line width=0.3pt, dash pattern=on 1pt off 1pt] (0.77,0.293) -- (0.98,0.293)
+    (0.98,0.631) -- (1.14,0.631);
+  \draw[dim] (0.95,0.293) -- (0.95,0.631);
+  \node[tiny, anchor=east] at (0.93,0.46) {$\Delta$};
+  \fill[proctrial!70] (1.82,0.37) rectangle (1.90,0.55);
+  \node[tiny, anchor=west] at (1.92,0.46) {$F$};
+\end{scope}
+%% plot 4: produced alternatives, a fitted rule with its interval, and the coming design
+\begin{scope}[shift={(P4)}]
+  \draw[procink!35, line width=0.4pt] (0.08,0.10) -- (2.13,0.10);
+  \fill[procfam!14] (0.22,0.15) -- (1.98,0.595) -- (1.98,0.775) -- (0.22,0.33) -- cycle;
+  \draw[procfam!85!black, line width=0.6pt] (0.22,0.24) -- (1.98,0.685);
+  \foreach \x/\y in {0.42/0.23, 0.42/0.29, 0.42/0.35, 1.78/0.58, 1.78/0.64, 1.78/0.70}
+    \node[dot=0.06cm, fill=procfam] at (\x,\y) {};
+  \draw[procdes, line width=0.7pt] (1.10,0.37) -- (1.10,0.55) (1.07,0.37) -- (1.13,0.37) (1.07,0.55) -- (1.13,0.55);
+  \node[dot=0.075cm, draw=procdes, fill=white, line width=0.7pt] at (1.10,0.462) {};
+\end{scope}
+%% plot 5: verdict shares against the requirement distance, with the decisive distance
+\begin{scope}[shift={(P5)}]
+  \fill[procfam!60] \occorrect;
+  \fill[proctrial] \octrial;
+  \fill[procwrong!75] \ocwrong;
+  \draw[procink!35, line width=0.4pt] (0.08,0.08) -- (2.13,0.08);
+  \draw[white, line width=0.4pt, dash pattern=on 1pt off 1pt] (1.000,0.745) -- (2.10,0.745);
+  \draw[procink, line width=0.5pt, dash pattern=on 1.5pt off 1pt] (1.000,0.08) -- (1.000,0.78);
+  \node[tiny, anchor=south west, fill=white, rounded corners=1pt] at (1.030,0.12) {$\delta_\mathrm{d}$};
+\end{scope}
+\node[anchor=south west, inner sep=0pt, text=procfam!70!black, font=\footnotesize\itshape] at (0.02,0.36)
   {once per design family};
-%% evidence and inputs
-\node[chip=3.4cm] (prod) at (5.196,0.32) {produced alternatives: parts, scans};
-\node[chip=2.0cm] (sim) at (9.00,0.32) {simulations of all alternatives};
-\node[chip=2.7cm] (prior) at (11.62,0.32) {prior of requirement distances; costs};
-\draw[feed] (prod.south -| s2.north) -- (s2.north);
-\draw[feed] (prod.south -| s3.north) -- (s3.north);
-\draw[feed] (sim.south) -- (sim.south |- s4.north);
-\draw[feed] (prior.south) -- (prior.south |- s5.north);
-%% step 6, for every new design
-\def\paneltop{-3.42}
-\def\panelbot{-5.27}
+%% ---------------------------------------------------------------- evidence and inputs
+\def\chip#1#2{\draw[draw=procin, dashed, line width=0.5pt, rounded corners=3pt, fill=procin!8] (#1,0.30) rectangle (#2,1.04);}
+\chip{3.20}{6.95}\chip{7.10}{9.95}\chip{10.05}{13.06}
+%% icons: produced cups, a simulation mesh, a prior and a stack of coins
+\begin{scope}[shift={(3.30,0.44)}, procin!85!black, line width=0.6pt, line join=round]
+  \draw[procin!55] (0.06,0.24) -- (0.14,0.24) -- (0.18,0.11) -- (0.36,0.11) -- (0.40,0.24) -- (0.48,0.24);
+  \draw (0,0.13) -- (0.08,0.13) -- (0.12,0.0) -- (0.30,0.0) -- (0.34,0.13) -- (0.42,0.13);
+\end{scope}
+\begin{scope}[shift={(7.20,0.43)}, procin!85!black, line width=0.35pt]
+  \foreach \t in {0,0.25,0.5,0.75,1} \draw ($(0,0)!\t!(0.46,0)$) -- ($(0.06,0.32)!\t!(0.40,0.32)$);
+  \foreach \t in {0,0.333,0.667,1} \draw ($(0,0)!\t!(0.06,0.32)$) -- ($(0.46,0)!\t!(0.40,0.32)$);
+\end{scope}
+\begin{scope}[shift={(10.08,0.43)}, procin!85!black, line width=0.5pt]
+  \fill[procin!30] plot[smooth, domain=-2:2, samples=25] ({0.055*\x+0.11},{0.30*exp(-\x*\x/1.2)}) -- cycle;
+  \draw plot[smooth, domain=-2:2, samples=25] ({0.055*\x+0.11},{0.30*exp(-\x*\x/1.2)});
+  \draw[fill=white, line join=round] (0.24,0.05) -- (0.33,0.05) -- (0.375,0.11) -- (0.33,0.17) -- (0.24,0.17) -- cycle;
+  \draw[fill=procin!85!black] (0.325,0.11) circle (0.011);
+\end{scope}
+\node[small, anchor=west, text width=3.0cm, align=left, inner sep=0pt] at (3.88,0.67) {produced alternatives: parts, scans};
+\node[small, anchor=west, text width=2.10cm, align=left, inner sep=0pt] at (7.78,0.67) {simulations of all alternatives};
+\node[small, anchor=west, text width=2.50cm, align=left, inner sep=0pt] at (10.52,0.67) {prior of requirement distances; costs};
+\draw[feed] (3.862,0.30) -- (s2.north);
+\draw[feed] (6.530,0.30) -- (s3.north);
+\draw[feed] (9.198,0.30) -- (s4.north);
+\draw[feed] (11.866,0.30) -- (s5.north);
+%% ---------------------------------------------------------------- step 6, for every new design
+\def\paneltop{-3.96}
+\def\panelbot{-5.76}
 \draw[draw=procdes, line width=0.6pt, rounded corners=3pt, fill=procdes!5] (0,\paneltop) rectangle (13.06,\panelbot);
-\node[badge=procdes!80!black] (b6) at (0.36,-3.76) {6};
-\node[ttl=procdes!75!black] at ([xshift=0.11cm]b6.east) {Decide};
-\node[txt=1.6cm, text=procdes!75!black, font=\footnotesize\itshape] at (0.14,-4.10) {for every new design};
-\node[link=1.75cm] (l1) at (2.825,-4.345) {relation of the design to the produced evidence};
-\node[link=2.30cm] (l2) at (5.32,-4.345) {rule qualified for that relation (new family: floor of the produced family)};
-\node[link=1.95cm] (l3) at (7.915,-4.345) {interval for $q_p$ widened by the relation's guard band $g$};
+\node[badge=procdes!80!black] (b6) at (0.35,-4.28) {6};
+\node[ttl=procdes!75!black] at ([xshift=0.10cm]b6.east) {Decide};
+\node[txt=1.6cm, text=procdes!75!black, font=\footnotesize\itshape] at (0.14,-4.60) {for every new design};
+\node[link=1.75cm] (l1) at (2.825,-4.86) {relation of the design to the produced evidence};
+\node[link=2.30cm] (l2) at (5.32,-4.86) {rule qualified for that relation (new family: floor of the produced family)};
+\node[link=1.95cm] (l3) at (7.915,-4.86) {interval for $q_p$ widened by the relation's guard band $g$};
 \draw[flow=procdes] (l1.east) -- (l2.west);
 \draw[flow=procdes] (l2.east) -- (l3.west);
-\node[pill, draw=procfam, fill=procfam!10] (meet) at (9.36,-3.94)
-  {\textbf{meets} or \textbf{fails}, with the margin in floors};
-\node[pill, draw=proctrial!70!black, fill=proctrial!45] (trial) at (9.36,-4.75)
-  {\textbf{trial}: no qualified rule, or the limit in the interval};
-\draw[flow=procdes] (l3.east) -- ++(0.15,0) |- (meet.west);
-\draw[flow=procdes] (l3.east) -- ++(0.15,0) |- (trial.west);
+\draw[flow=procdes] (l3.east) -- (9.30,-4.86);
+%% the verdict: the widened interval against the limit R
+\fill[white, draw=procdes!40, line width=0.4pt, rounded corners=2pt] (9.38,-4.08) rectangle (12.96,-5.66);
+\def\verdict#1#2#3#4{% y, left end of the widened interval, label, label colour
+  \draw[procink!25, line width=0.4pt] (9.48,#1) -- (11.48,#1);
+  \draw[procfam!35, line width=2.6pt] (#2,#1) -- (#2+0.70,#1);
+  \draw[procfam, line width=2.6pt] (#2+0.15,#1) -- (#2+0.55,#1);
+  \node[small, anchor=west, inner sep=0pt, text=#4] at (11.62,#1) {\textbf{#3}};}
+\verdict{-4.33}{9.52}{meets}{procink}
+\verdict{-4.63}{10.12}{trial}{procin!90!black}
+\verdict{-4.93}{10.72}{fails}{procink}
+\draw[procink, line width=0.7pt] (10.47,-4.20) -- (10.47,-5.03);
+\node[tiny, anchor=south] at (10.47,-4.21) {$R$};
+\node[tiny, anchor=south, text=procfam!85!black] at (9.595,-4.30) {$g$};
+\draw[dim] (10.22,-4.33) -- (10.47,-4.33);
+\draw[dim] (10.47,-4.93) -- (10.72,-4.93);
+\node[tiny, anchor=north, text=procink!80] at (10.595,-4.97) {margin};
+\node[tiny, anchor=north west, align=left, text=procin!95!black, inner sep=0pt] at (9.48,-5.26) {also a trial when no rule\\ is qualified};
 \draw[flow] (s5.south) -- (s5.south |- 0,\paneltop);
 \end{tikzpicture}
