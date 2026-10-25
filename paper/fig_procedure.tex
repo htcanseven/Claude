@@ -1,37 +1,73 @@
 %% Procedure figure (TikZ, body font); \input by main.tex
-\def\stagetext#1{\parbox[t][3.05cm][t]{2.1cm}{\hyphenpenalty=10000\exhyphenpenalty=10000\raggedright #1}}
+%% Colours: the blue and orange of the other figures (steps 1-5 once per design family, step 6 for every new
+%% design), a neutral grey for the evidence and inputs, and the grey of the trial verdict in Figs. 1 and 5.
+\definecolor{procfam}{HTML}{2A78D6}
+\definecolor{procdes}{HTML}{EB6834}
+\definecolor{procin}{HTML}{8C8B82}
+\definecolor{proctrial}{HTML}{C3C2B7}
+\definecolor{procink}{HTML}{1E2329}
 \begin{tikzpicture}[
-  font=\footnotesize,
-  stage/.style={draw, rounded corners=2pt, inner sep=3pt, anchor=north},
-  decide/.style={draw, rounded corners=2pt, align=left, text width=10.1cm, inner sep=3pt,
-                 execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000\raggedright}},
-  io/.style={draw, dashed, rounded corners=2pt, align=center, text width=3.6cm, inner sep=2pt,
-             execute at begin node={\hyphenpenalty=10000}},
-  arr/.style={-{Stealth[length=1.8mm]}, semithick}
+  x=1cm, y=1cm, font=\footnotesize, text=procink,
+  small/.style={execute at begin node={\fontsize{7}{8}\selectfont\hyphenpenalty=10000\exhyphenpenalty=10000}},
+  card/.style={draw=procfam, line width=0.6pt, rounded corners=3pt, fill=procfam!5,
+               minimum width=2.388cm, minimum height=3.0cm, inner sep=0pt, anchor=north},
+  badge/.style={circle, fill=#1, text=white, font=\footnotesize\bfseries, inner sep=0pt, minimum size=0.40cm},
+  ttl/.style={anchor=west, font=\footnotesize\bfseries, text=#1, inner sep=0pt},
+  txt/.style={small, anchor=north west, text width=#1, align=left, inner sep=0pt},
+  txt/.default=2.21cm,
+  chip/.style={small, draw=procin, dashed, line width=0.5pt, rounded corners=3pt, fill=procin!8, align=center,
+               inner sep=2.6pt, anchor=south, text width=#1},
+  link/.style={small, draw=procdes, line width=0.5pt, rounded corners=2pt, fill=white, align=left, inner sep=3pt,
+               minimum height=1.36cm, text width=#1},
+  pill/.style={small, rounded corners=5pt, line width=0.5pt, align=left, inner sep=3pt, text width=3.4cm,
+               anchor=west},
+  flow/.style={-{Stealth[length=1.6mm,width=1.5mm]}, line width=0.9pt, draw=#1},
+  flow/.default=procfam,
+  feed/.style={-{Stealth[length=1.5mm,width=1.3mm]}, line width=0.6pt, draw=procin, dashed}
 ]
-\node[stage] (s1) at (0,0) {\stagetext{\textbf{1 Frame}\\ family, alternatives, characteristics; limit on
-  $q_p$; costs\\[3pt] \emph{out:} decision problem}};
-\node[stage] (s2) at (2.67,0) {\stagetext{\textbf{2 Floor}\\ batches of consecutive parts of the produced
-  alternatives\\[3pt] \emph{out:} $F$ per characteristic}};
-\node[stage] (s3) at (5.34,0) {\stagetext{\textbf{3 Resolve}\\ effect-to-scatter ratios, minimum resolvable
-  changes\\[3pt] \emph{out:} what production can confirm}};
-\node[stage] (s4) at (8.01,0) {\stagetext{\textbf{4 Calibrate}\\ rules on the produced alternatives, with and
-  without the simulation\\[3pt] \emph{out:} intervals for $q_p$}};
-\node[stage] (s5) at (10.68,0) {\stagetext{\textbf{5 Qualify}\\ per family, held out by relation\\[3pt]
-  \emph{out:} $\delta_\mathrm{d}$, $\delta_\mathrm{s}$ and band $g$ per rule and relation, validated out of
-  sample}};
-\foreach \a/\b in {s1/s2, s2/s3, s3/s4, s4/s5} \draw[arr] (\a.east) -- (\b.west);
-\node[io, anchor=south] (prod) at (4.005,0.42) {produced alternatives: parts, scans};
-\node[io, anchor=south, text width=2.8cm] (sim) at (8.01,0.42) {simulations of every alternative};
-\node[io, anchor=south, text width=2.2cm] (prior) at (10.68,0.42) {prior of requirement distances; costs};
-\draw[arr, dashed] (prod.south -| s2.north) -- (s2.north);
-\draw[arr, dashed] (prod.south -| s3.north) -- (s3.north);
-\draw[arr, dashed] (sim.south) -- (s4.north);
-\draw[arr, dashed] (prior.south) -- (s5.north);
-\node[decide, anchor=north east] (s6) at ([yshift=-0.45cm]s5.south east) {\textbf{6 Decide} (every new
-  design)\quad relation of the design to the produced evidence $\to$ rule qualified for that relation (new family:
-  floor of the produced family) $\to$ interval for $q_p$ widened by the relation's guard band $g$\\[2pt]
-  \emph{out:} meets or fails, with the margin of the requirement in floors; \emph{trial when no rule is qualified or
-  the requirement lies inside the widened interval}};
-\draw[arr] (s5.south) -- (s5.south |- s6.north);
+%% steps 1-5, once per design family
+\def\procstep#1#2#3#4#5{%
+  \node[card] (s#1) at (#2,0) {};
+  \node[badge=procfam!85!black] (b#1) at ([xshift=0.29cm,yshift=-0.29cm]s#1.north west) {#1};
+  \node[ttl=procfam!70!black] at ([xshift=0.11cm]b#1.east) {#3};
+  \node[txt] at ([xshift=0.09cm,yshift=-0.60cm]s#1.north west) {#4};
+  \draw[procfam!35, line width=0.4pt] ([xshift=0.09cm,yshift=0.95cm]s#1.south west)
+    -- ([xshift=-0.09cm,yshift=0.95cm]s#1.south east);
+  \node[txt] at ([xshift=0.09cm,yshift=0.87cm]s#1.south west) {\textcolor{procfam!70!black}{\textit{out:}} #5};}
+\procstep{1}{1.194}{Frame}{family, alternatives, characteristics; limit on $q_p$; costs}{decision problem}
+\procstep{2}{3.862}{Floor}{batches of consecutive parts of the produced alternatives}{$F$ per characteristic}
+\procstep{3}{6.530}{Resolve}{effect-to-scatter ratios, minimum resolvable changes}{what production can confirm}
+\procstep{4}{9.198}{Calibrate}{rules on the produced alternatives, with and without the simulation}{intervals for $q_p$}
+\procstep{5}{11.866}{Qualify}{per family, held out by relation; bands validated out of sample}%
+  {$\delta_\mathrm{d}$, $\delta_\mathrm{s}$ and band $g$ per rule and relation}
+\foreach \a/\b in {1/2, 2/3, 3/4, 4/5} \draw[flow] (s\a.east) -- (s\b.west);
+\node[anchor=south west, inner sep=0pt, text=procfam!70!black, font=\footnotesize\itshape] at (0.02,0.34)
+  {once per design family};
+%% evidence and inputs
+\node[chip=3.4cm] (prod) at (5.196,0.32) {produced alternatives: parts, scans};
+\node[chip=2.0cm] (sim) at (9.00,0.32) {simulations of all alternatives};
+\node[chip=2.7cm] (prior) at (11.62,0.32) {prior of requirement distances; costs};
+\draw[feed] (prod.south -| s2.north) -- (s2.north);
+\draw[feed] (prod.south -| s3.north) -- (s3.north);
+\draw[feed] (sim.south) -- (sim.south |- s4.north);
+\draw[feed] (prior.south) -- (prior.south |- s5.north);
+%% step 6, for every new design
+\def\paneltop{-3.42}
+\def\panelbot{-5.27}
+\draw[draw=procdes, line width=0.6pt, rounded corners=3pt, fill=procdes!5] (0,\paneltop) rectangle (13.06,\panelbot);
+\node[badge=procdes!80!black] (b6) at (0.36,-3.76) {6};
+\node[ttl=procdes!75!black] at ([xshift=0.11cm]b6.east) {Decide};
+\node[txt=1.6cm, text=procdes!75!black, font=\footnotesize\itshape] at (0.14,-4.10) {for every new design};
+\node[link=1.75cm] (l1) at (2.825,-4.345) {relation of the design to the produced evidence};
+\node[link=2.30cm] (l2) at (5.32,-4.345) {rule qualified for that relation (new family: floor of the produced family)};
+\node[link=1.95cm] (l3) at (7.915,-4.345) {interval for $q_p$ widened by the relation's guard band $g$};
+\draw[flow=procdes] (l1.east) -- (l2.west);
+\draw[flow=procdes] (l2.east) -- (l3.west);
+\node[pill, draw=procfam, fill=procfam!10] (meet) at (9.36,-3.94)
+  {\textbf{meets} or \textbf{fails}, with the margin in floors};
+\node[pill, draw=proctrial!70!black, fill=proctrial!45] (trial) at (9.36,-4.75)
+  {\textbf{trial}: no qualified rule, or the limit in the interval};
+\draw[flow=procdes] (l3.east) -- ++(0.15,0) |- (meet.west);
+\draw[flow=procdes] (l3.east) -- ++(0.15,0) |- (trial.west);
+\draw[flow] (s5.south) -- (s5.south |- 0,\paneltop);
 \end{tikzpicture}
