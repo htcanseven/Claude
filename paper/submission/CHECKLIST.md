@@ -49,7 +49,7 @@ template accepted; no page limit. The corresponding author must give an ORCID in
    - `paper/refs.bib`, entry `canseven2026archive`: replace `note = {\pending{DOI}}` by
      `doi = {10.5281/zenodo.NNNNNNN}`;
    - `CITATION.cff`: add `doi: 10.5281/zenodo.NNNNNNN`;
-   - `paper/submission/cover_letter.md`: replace "[DOI to be inserted after deposit]".
+   - `paper/submission/cover_letter.md`: replace "[DOI to be inserted]".
 5. **Rebuild** the paper (`latexmk -pdf main.tex` in `paper/`; 33 pages) and the upload zip
    (`bash paper/submission/make_zip.sh`, which builds it in a clean directory and warns while the DOI is still
    pending).
