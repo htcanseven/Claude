@@ -10,6 +10,7 @@
 \usetikzlibrary{arrows.meta,positioning,shapes.geometric,calc,decorations.pathreplacing,decorations.pathmorphing}
 \usepackage{array}
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 \usepackage{lineno}
 \PassOptionsToPackage{hyphens}{url}
 \usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
@@ -29,7 +30,7 @@
 \renewcommand{\topfraction}{0.9}
 \renewcommand{\bottomfraction}{0.7}
 \renewcommand{\textfraction}{0.07}
-\renewcommand{\floatpagefraction}{0.8}
+\renewcommand{\floatpagefraction}{0.6}
 \setcounter{topnumber}{3}
 \setcounter{totalnumber}{4}
 %% Table body size (the class sets captions in \footnotesize, 10 pt at this base size).
@@ -52,7 +53,7 @@
              country={Finland}}
 
 \begin{abstract}
-Detection methods for incipient stator-winding faults are developed one machine at a time, so how the generator type changes the problem is not quantified, and the detectability measures of fault-detection theory presuppose a model or a trained detector. A detector-free statistic is proposed, the signal-to-drift ratio (SDR): the relative change of a feature between a healthy reference interval and a faulted interval, divided by a quantile of its changes between adjacent healthy intervals. The SDR is the known-onset mean-shift test as a standardised effect size, calibrated on each machine's own healthy non-stationarity and comparable across features, operating points and machines. From it a minimum detectable extent, a detectable share and a signature location follow per machine type, sensor suite and fault class; a decision table selects the cheapest adequate suite with bootstrap confidence; and a transfer test fixes the referencing rule under which a detector transfers between machine types. It is demonstrated on open benchmark data from permanent-magnet, squirrel-cage induction and wound-field synchronous generators under identical inter-turn and inter-winding short-circuits. The same design-level fault is three different physical events; the signature relocates between terminal voltage, controller states and field current with the machine--drive combination, and the two machines on one bench differ through their healthy nulls; voltage transducers lower the permanent-magnet machine's detectable extent and add nothing for the induction machine; and a detector transfers only when referenced to each trial's own preceding healthy interval. Results carry bootstrap intervals; code and data are open.
+Detection methods for incipient stator-winding faults are developed one machine at a time, so how the generator type changes the problem is not quantified, and the detectability measures of fault-detection theory presuppose a model or a trained detector. A statistic that requires neither is proposed, the signal-to-drift ratio (SDR): the relative change of a feature between a healthy reference interval and a faulted interval, divided by a quantile of its changes between adjacent healthy intervals. The SDR is the known-onset mean-shift test as a standardised effect size, calibrated on each machine's own healthy non-stationarity and comparable across features, operating points and machines. From it follow a minimum detectable extent, a detectable share and a signature location per machine type, sensor suite and fault class; a decision table selects the cheapest suite that meets a requirement with a stated power and bootstrap confidence; and a transfer test fixes the feature-referencing rule under which a detector serves several machine types. It is demonstrated on open laboratory-bench data from permanent-magnet, squirrel-cage induction and wound-field synchronous generators with the same tapped inter-turn and inter-winding short-circuits. The same design-level fault is three different physical events; phasor residuals remove a faulted-phase dependence of the magnitude ratios; the signature relocates between terminal voltage, controller states and field current with the machine--drive combination; the cheapest adequate suite depends on machine type and requirement; and a learned detector transfers once its features are referenced to the target machine's healthy behaviour. Results carry bootstrap intervals; code and data are open.
 \end{abstract}
 
 \begin{keyword}
@@ -74,11 +75,11 @@ Stator-winding insulation faults are the archetypal incipient failure of an elec
 
 Answering such questions requires a measure of detectability with three properties that the existing measures do not combine. It must be computable without a model of the machine and without a trained detector, because the quantity of interest is what the measurements contain, not what one algorithm extracts from them; the detectability and isolability notions of fault detection and isolation (FDI) theory \citep{Basseville2001, Blanke2016, Krysander2008} and the sensor-placement methods built on them \citep{Frisk2009} presuppose a model, and a learned detector \citep{Lei2020} presupposes data from the very machine, with transfer across machines an open problem \citep{Pan2010}. It must be comparable across features in different physical units, across operating points and across machines whose healthy behaviour differs, which rules out signal-to-noise ratios in physical units and the per-feature suitability metrics of prognostics \citep{Coble2013, Saxena2008}. And it must connect to the quantities a monitoring specification is written in: the smallest fault that shall be detected, the false-alarm rate tolerated and the sensors it costs.
 
-This paper proposes such a measure, the signal-to-drift ratio (SDR): the relative change of an observable feature between a healthy reference interval and a faulted interval, divided by a quantile of the relative changes the same feature exhibits between adjacent healthy intervals when nothing is wrong. Statistically it is the known-onset, fixed-sample mean-shift test of change detection \citep{Basseville1993} expressed as a standardised effect size; an SDR of one marks the point at which a fault of a given extent becomes distinguishable from the ordinary non-stationarity of the healthy machine at a chosen per-trial false-alarm rate. Because the reference interval of every trial, faulted or not, contributes to the null, the SDR is calibrated on each machine's own healthy behaviour and needs no dedicated healthy recordings. From the SDR follow the quantities a specification can be written on: the \emph{minimum detectable extent} (MDE) of a fault class for a given machine type and sensor suite, the \emph{detectable share} (DS) of trials above a required extent in which the fault is detected, and the \emph{signature location}, the measurement group in which the fault appears. A decision table over the required extent and the false-alarm level turns them into the selection of the cheapest adequate sensor suite, and a transfer test establishes under which feature-referencing rule a detector built on one machine type serves another.
+This paper proposes such a measure, the signal-to-drift ratio (SDR): the relative change of an observable feature between a healthy reference interval and a faulted interval, divided by a quantile of the relative changes the same feature exhibits between adjacent healthy intervals when nothing is wrong. Statistically it is the known-onset, fixed-sample mean-shift test of change detection \citep{Basseville1993} expressed as a standardised effect size; an SDR of one marks the point at which a fault of a given extent becomes distinguishable from the ordinary non-stationarity of the healthy machine at a chosen per-trial false-alarm rate. Because the reference interval of every trial, faulted or not, contributes to the null, the SDR is calibrated on each machine's own healthy behaviour; dedicated healthy trials are needed only for its reliability screen. From the SDR follow the quantities a specification can be written on: the \emph{minimum detectable extent} (MDE) of a fault class for a given machine type and sensor suite, the \emph{detectable share} (DS) of trials above a required extent in which the fault is detected, and the \emph{signature location}, the measurement group in which the fault appears. A decision table over the required extent and the false-alarm level turns them into the selection of the cheapest adequate sensor suite, and a transfer test establishes under which feature-referencing rule a detector built on one machine type serves another.
 
 The question is made answerable empirically by a recent series of open benchmark datasets \citep{Tominaga2025pmsg, Tominaga2025scig, Tominaga2024gen} in which three types of generator---a PMSG, an SCIG and a variable-speed WFSG---were subjected to the \emph{same} inter-turn and inter-winding short-circuits, inserted at the same tapped positions of the stator winding; the PMSG and SCIG share one bench, one converter, one controller and one protocol, so that everything but the machine and the control structure it requires is held fixed. The datasets were published for algorithm benchmarking and refrain from comparing the machines; here the comparison is the object.
 
-This paper makes four contributions. The first is the SDR as a measure of fault detectability that requires no model and no trained detector, with its statistical interpretation, its null pooled from the reference intervals of every trial, a binomial reliability screen with its empirical false-alarm counts, a calibrated oracle for multi-feature detection, and the three derived quantities MDE, DS and signature location, evaluated on the physically distinct fault sizes of a test matrix rather than on its nominal extents (Section~\ref{sec:method}). The second is a six-step procedure that turns these into a selection: a decision table that classifies every sensor suite of every machine type as meeting, failing or uncertain against a requirement on the extent, the detection power and the false-alarm level, with bootstrap confidence that carries the feature selection and the null, and a transfer test over feature-referencing rules for a detector that must serve several machine types. The third is a quantitative comparison, the first known to the author, of winding-fault detectability across three wind-turbine generator types under identical faults, with four findings: the design-level extent of a fault and its physical severity are different axes and must both be carried; the measurement group in which a fault becomes visible depends on the machine--drive combination, and the detectability difference between the two machines on one bench comes from their healthy nulls rather than from their signatures; the cheapest adequate sensor suite depends on the machine type \emph{and} on the requirement; and a learned detector transfers across the machines only when its features are referenced to each trial's own immediately preceding healthy interval, not to a commissioning baseline. The fourth is a sensitivity and uncertainty analysis of the tuning choices (null quantile, window length, screen), with trial-level and tap-pair-level bootstrap intervals, and open code that reproduces every result from the public data.
+This paper makes four contributions. The first is the SDR as a measure of fault detectability that requires no model and no trained detector, with its statistical interpretation, its null pooled from the reference intervals of every trial, a binomial reliability screen with its empirical false-alarm counts, a calibrated oracle for multi-feature detection, and the three derived quantities MDE, DS and signature location, evaluated on the physically distinct fault sizes of a test matrix rather than on its nominal extents (Section~\ref{sec:method}). The second is a six-step procedure that turns these into a selection: a decision table that classifies every sensor suite of every machine type as meeting, failing or uncertain against a requirement on the extent, the detection power and the false-alarm level, with bootstrap confidence that carries the feature selection and the null, and a transfer test over feature-referencing rules for a detector that must serve several machine types. The third is a quantitative comparison, the first known to the author, of winding-fault detectability across three wind-turbine generator types under the same tapped short-circuits, with four findings: the design-level extent of a fault and its physical severity are different axes and must both be carried, and the faulted phase rides on the nominal extent axis unless sequence quantities are taken as phasor residuals; the measurement group in which a fault becomes visible depends on the machine--drive combination, and the detectability difference between the two machines on one bench comes from a quieter null in the stator current and from both signature and null in the controller quantities; the cheapest adequate sensor suite depends on the machine type \emph{and} on the requirement; and a learned detector transfers across the machines once its features are referenced to healthy behaviour of the target machine, best to each trial's own immediately preceding healthy interval. The fourth is a sensitivity and uncertainty analysis of the tuning choices (null quantile, window length, screen), with trial-level and tap-pair-level bootstrap intervals, and open code that reproduces every result from the public data.
 
 The paper is organised as follows: Section~\ref{sec:background} positions the SDR among the detectability measures of FDI and health monitoring and summarises what is known about winding-fault signatures in converter-fed machines; Section~\ref{sec:method} defines the SDR, the derived quantities and the six-step procedure; Section~\ref{sec:demo} describes the three machines, the fault protocol, the sensor suites and the computation; Section~\ref{sec:results} reports the results; Section~\ref{sec:discussion} draws out the implications for the condition monitoring of wind-turbine generators and the limits of what one machine per type supports; and Section~\ref{sec:conclusion} concludes. \ref{app:appendix} gives feature definitions, computation details and four additional tables.
 %% ----------------------------------------------------------------------
@@ -91,7 +92,7 @@ The paper is organised as follows: Section~\ref{sec:background} positions the SD
 
 Fault detection and isolation has a mature theory of diagnosability for systems described by models. Structural analysis determines which faults can be detected and isolated from which sensor sets without numerical parameter values \citep{Blanke2016, Krysander2008}, sensor placement selects the cheapest sensor set that makes a required fault set detectable \citep{Frisk2009}, and the approach has been applied to electric-vehicle drives with a diagnosability index that ranks candidate residual generators \citep{Zhang2015}; testability analysis in the test-engineering tradition records the same information as a dependency matrix of tests against faults \citep{Deb1994, Simpson1994}. \citet{Basseville2001} gives statistical definitions of detectability and isolability for parametric models as distances between the distributions of a residual under the healthy and the faulted hypothesis. All of these presuppose a model whose structure is known and trusted \citep{Isermann2005, Venkatasubramanian2003}. Data-driven diagnosis \citep{Lei2020} replaces the model by data from the very machine being monitored, and its transfer across machines is an active problem \citep{Pan2010}. The prognostics and health management (PHM) community grades candidate features by monotonicity, trendability and prognosability \citep{Coble2013}, ranks them by separability measures such as the Fisher criterion or the per-feature area under the receiver operating characteristic (ROC) curve \citep{Hanley1982}, evaluates prognostic algorithms by dedicated metrics \citep{Saxena2008} and has reviewed the sensor systems that feed them \citep{Cheng2010}. None of these yields, for a fault of known extent in a built or simulated machine, a number that states how far above the healthy non-stationarity of each candidate measurement the fault stands at a stated false-alarm rate, comparable across measurements in different units and across machines.
 
-Table~\ref{tab:positioning} places the SDR among these methods. It is a per-feature separability measure of the same family as the sensitivity index $d'$ of signal detection, the fault-to-noise ratio of model-based FDI \citep{Basseville2001} and the per-feature AUC; it requires neither a model structure nor a trained detector, only trials with a known fault extent and observable features. What distinguishes it is the null it is calibrated on, the drift of each feature between adjacent healthy intervals of every trial, faulted or not, which needs no healthy-only recordings, fixes the false-alarm rate of the simplest detector and makes the magnitude comparable across features, operating points and machines; and what is new is that calibration, the reliability screen, the limit-of-detection quantities derived from the statistic, and their use to compare machine types and sensor suites and to select among them (Section~\ref{sec:sdr} states the relation to the mean-shift test of \citet{Basseville1993}). It deliberately stops at detectability: isolation, severity estimation and prognosis presuppose it.
+Table~\ref{tab:positioning} places the SDR among these methods. It is a per-feature separability measure of the same family as the sensitivity index $d'$ of signal detection, the fault-to-noise ratio of model-based FDI \citep{Basseville2001} and the per-feature AUC; it requires neither a model structure nor a trained detector, only trials with a known fault extent and observable features. What distinguishes it is the null it is calibrated on, the drift of each feature between adjacent healthy intervals of every trial, faulted or not, which needs healthy-only recordings only for the reliability screen, fixes the false-alarm rate of the simplest detector and makes the magnitude comparable across features, operating points and machines; and what is new is that calibration, the reliability screen, the limit-of-detection quantities derived from the statistic, and their use to compare machine types and sensor suites and to select among them (Section~\ref{sec:sdr} states the relation to the mean-shift test of \citet{Basseville1993}). It deliberately stops at detectability: isolation, severity estimation and prognosis presuppose it.
 
 \begin{table}[t]
 \tabsize
@@ -156,7 +157,7 @@ where $q_\alpha$ is the $\alpha$-quantile of the pooled null; with $\alpha=0.95$
 
 Four properties make the SDR suitable as a measure for comparing alternatives and suites: it is \emph{scale-free}, so a current ratio, a voltage harmonic and a controller output are compared on one axis; \emph{calibrated} against each alternative's own non-stationarity, so a noisier alternative is not credited with detectability it does not have, at the price that numerator and denominator must be reported separately when alternatives are compared (Section~\ref{sec:res-where}), because a quieter null raises the SDR as much as a stronger signature does; \emph{per trial}, so its distribution over trials carries the dependence on operating point and extent; and \emph{detector-free}, so it can be computed before any algorithm is chosen. The relative form presumes a non-zero healthy level; for features whose healthy value is a noise floor an absolute-change variant with the same structure is used, and Section~\ref{sec:res-robust} shows that the two rank the features alike.
 
-\emph{Safeguards.} (i) \emph{Reliability screen.} On healthy trials---trials in which the ``faulted'' interval contains no fault, only the switching operation that would insert one---a feature should exceed $\mathrm{SDR}=1$ at the nominal rate $1-\alpha$. A feature whose count of such false alarms in the $n_h$ healthy trials is incompatible with that rate (one-sided binomial test at the 5\,\% level; three or more of nine at $\alpha=0.95$) is excluded from the design quantities for that alternative, as are features whose null quantile exceeds one (healthy relative change above 100\,\%). With nine healthy trials the screen has little power---a feature whose true false-alarm rate is 20\,\% passes it with probability 0.74---so the empirical false-alarm count of every fixed feature is reported beside its design quantities. (ii) \emph{Fixed, nested and oracle feature.} A suite is evaluated by one \emph{fixed} feature---the screened feature with the highest median SDR over the trials of a class, chosen once---or by the \emph{oracle} feature, the best feature of each trial. The fixed variant is what a threshold detector achieves; the oracle variant bounds what a detector that combines the suite's $k$ features can achieve, and because a maximum over $k$ features exceeds the single-feature threshold at a rate of up to $1-\alpha^k$, it is reported at a calibrated threshold, the $\alpha$-quantile of $\max_\varphi |\delta^0_\varphi|/q_\alpha(|\delta^0_\varphi|)$ over all records of the alternative, which holds its false-alarm rate at $1-\alpha$. Because the fixed feature is chosen on the trials it is evaluated on, a \emph{nested} variant chooses it on all but one tap pair and evaluates it on the held-out pair. (iii) \emph{Uncertainty.} Every design quantity carries a bootstrap interval: over tap pairs (the physical fault locations) for statements about a class and over operating points within an extent level for the minimum detectable extent, with the null quantile re-estimated from a cluster resample of all records in every resample, so that the intervals carry the sampling variability of the denominator as well as of the numerator.
+\emph{Safeguards.} (i) \emph{Reliability screen.} On healthy trials---trials in which the ``faulted'' interval contains no fault, only the switching operation that would insert one---a feature should exceed $\mathrm{SDR}=1$ at the nominal rate $1-\alpha$. A feature whose count of such false alarms in the $n_h$ healthy trials is incompatible with that rate (one-sided binomial test at the 5\,\% level; three or more of nine at $\alpha=0.95$) is excluded from the design quantities for that alternative, as are features whose null quantile exceeds one (healthy relative change above 100\,\%). With nine healthy trials the screen has little power---a feature whose true false-alarm rate is 20\,\% passes it with probability 0.74---so the empirical false-alarm count of every fixed feature is reported beside its design quantities. (ii) \emph{Fixed, nested and oracle feature.} A suite is evaluated by one \emph{fixed} feature---chosen once among the suite's screened features as the one with the smallest minimum detectable extent, ties broken by the detectable share and then by the median SDR, so that a suite is never credited with less than its subsets---or by the \emph{oracle} feature, the best feature of each trial. The fixed variant is what a threshold detector achieves; the oracle variant bounds what a detector that combines the suite's $k$ features can achieve, and because a maximum over $k$ features exceeds the single-feature threshold at a rate of up to $1-\alpha^k$, it is reported at a calibrated threshold, the $\alpha$-quantile of $\max_\varphi |\delta^0_\varphi|/q_\alpha(|\delta^0_\varphi|)$ over all records of the alternative, which holds its false-alarm rate at $1-\alpha$. Because the fixed feature is chosen on the trials it is evaluated on, a \emph{nested} variant chooses it on all but one tap pair and evaluates it on the held-out pair. (iii) \emph{Uncertainty.} Every design quantity carries a bootstrap interval: over tap pairs (the physical fault locations) for statements about a class and over operating points within an extent level for the minimum detectable extent, with the null quantile re-estimated from a cluster resample of all records in every resample, so that the intervals carry the sampling variability of the denominator as well as of the numerator.
 
 \subsection{Derived quantities}\label{sec:derived}
 
@@ -210,7 +211,7 @@ The procedure (Fig.~\ref{fig:method}) has six steps. Steps 3--4 are mechanical a
   \item \textbf{Generate trials.} For each $(a,f,e,o)$ obtain trials with a healthy reference interval of at least twice the faulted duration, immediately followed by the faulted interval; test at least the extent levels that bracket $e_{\mathrm{req}}$ and the corners of the envelope; include enough healthy trials with the same timing for the screen (nine allow the binomial rule above). At the test stage these are prototype or benchmark experiments; at the design stage the faulted numerator is simulated and the null is supplied as in Section~\ref{sec:design-stage}.
   \item \textbf{Compute.} Extract $\Phi(s)$ for all suites on sliding windows within the intervals, form the pooled null per alternative and feature, compute the SDR per trial, apply the screen.
   \item \textbf{Map.} Build $D_a(s,f,e,o)$ and summarise it into $\mathrm{MDE}_a$, $\mathrm{DS}_a$ and the signature location for the fixed, nested and oracle variants, with bootstrap intervals.
-  \item \textbf{Select.} Build the decision table: for each alternative, class and suite and for the candidate values of $e_{\mathrm{req}}$ and $\alpha$, classify the suite as \emph{meets} when the bootstrap probability of the joint event $\{\mathrm{MDE}\le e_{\mathrm{req}}$ and $\mathrm{DS}(e\ge e_{\mathrm{req}})\ge\mathrm{DS}_{\mathrm{req}}\}$ is at least 0.95, \emph{fails} when it is at most 0.05, and \emph{uncertain} otherwise; the MDE alone is a 50\,\%-power quantity (the median trial of a level), so the required share $\mathrm{DS}_{\mathrm{req}}$ states the power the requirement demands (0.9 here). In every resample the fixed feature is re-selected and the null re-estimated, so the probability carries the selection step, and because a suite may always use the features of its subsets, its verdict is at least that of its subsets; the table is printed with the probabilities, not only the verdicts. The adequate suite of an alternative is the cheapest that meets the requirement for \emph{every} class; an uncertain verdict is resolved by more trials around $e_{\mathrm{req}}$ or by specifying the next suite as a fallback. The alternatives are then compared on the cost of their adequate suites together with the other selection criteria; the choice of machine type is affected only when, for some alternative, no affordable suite meets the requirement, otherwise the method changes the monitoring specification and says so.
+  \item \textbf{Select.} Build the decision table: for each alternative, class and suite and for the candidate values of $e_{\mathrm{req}}$ and $\alpha$, classify the suite as \emph{meets} when the bootstrap probability of the joint event $\{\mathrm{MDE}\le e_{\mathrm{req}}$ and $\mathrm{DS}(e\ge e_{\mathrm{req}})\ge\mathrm{DS}_{\mathrm{req}}\}$ is at least 0.95, \emph{fails} when it is at most 0.05, and \emph{uncertain} otherwise; the MDE alone is a 50\,\%-power quantity (the median trial of a level), so the required share $\mathrm{DS}_{\mathrm{req}}$ states the power the requirement demands (0.9 here). In every resample the fixed feature is re-selected and the null re-estimated, so the probability carries the selection step, and because a suite may always use the features of its subsets, its verdict is at least that of its subsets; the table is printed with the probabilities, not only the verdicts. The candidate values of $e_{\mathrm{req}}$ are the tested extent levels, because between two levels the MDE is known only as a bracket, and a requirement outside the range of extents an alternative was tested at is reported as not testable rather than as failed. The adequate suite of an alternative is the cheapest that meets the requirement for \emph{every} class; an uncertain verdict is resolved by more trials around $e_{\mathrm{req}}$ or by specifying the next suite as a fallback. The alternatives are then compared on the cost of their adequate suites together with the other selection criteria; the choice of machine type is affected only when, for some alternative, no affordable suite meets the requirement, otherwise the method changes the monitoring specification and says so.
   \item \textbf{Assess transfer.} If the suite and its detector must serve a family of alternatives, test whether a detector built on one alternative's trials detects the others' faults under the candidate feature-referencing rules (physical units; scaled on the target's healthy trials; referenced to each trial's own preceding healthy interval). The rule that transfers becomes part of the monitoring specification.
 \end{enumerate}
 
@@ -431,9 +432,9 @@ Features are computed on sliding windows of $n_c$ electrical cycles with a hop o
 
 \subsection{Computation}\label{sec:computation}
 
-For the PMSG and SCIG the reference interval is the 0.68\,s before the contactor command, split into $R_1$ (0.32\,s) and $R_2$ (0.36\,s), and the faulted interval runs from 30\,ms after the command to 10\,ms before its release; for the WFSG the fault interval is located from the measured fault current and the reference interval (0.49\,s) is split at 0.30\,s. \ref{app:computation} lists all interval boundaries, thresholds, seeds and model settings. The main PMSG--SCIG comparison uses $n_c=5$; the three-alternative comparison uses $n_c=3$ for all three machines because the WFSG fault intervals are short. The sensitivity of every conclusion to $n_c\in\{3,5,8\}$ and to $\alpha\in\{0.90,0.95,0.99\}$ is reported, with the screen applied at each setting. The null is pooled over all 225 records of each of the PMSG and SCIG and over the 438 WFSG records, every record contributing a healthy reference interval. Uncertainty is quantified by bootstrap with 2000 resamples: the median SDR and the detectable share of a class are resampled over the twelve tap pairs, the same pairs for both machines so that the SCIG/PMSG ratio is matched; the minimum detectable extent is resampled over the operating-point trials within each extent level; shares also carry Wilson intervals; the null quantile is held at its full-sample value. The decision table uses 1000 resamples per suite, alternative, class and $\alpha$, with $e_{\mathrm{req}}\in\{3,5,8,12\}$\,\%.
+For the PMSG and SCIG the reference interval is the 0.68\,s before the contactor command, split into $R_1$ (0.32\,s) and $R_2$ (0.36\,s), and the faulted interval runs from 30\,ms after the command to 10\,ms before its release; for the WFSG the fault interval is located from the measured fault current and the reference interval (0.49\,s) is split at 0.30\,s. \ref{app:computation} lists all interval boundaries, thresholds, seeds and model settings. The main PMSG--SCIG comparison uses $n_c=5$; the three-alternative comparison uses $n_c=3$ for all three machines because the WFSG fault intervals are short. The sensitivity of every conclusion to $n_c\in\{3,5,8\}$ and to $\alpha\in\{0.90,0.95,0.99\}$ is reported, with the screen applied at each setting. The null is pooled over all 225 records of each of the PMSG and SCIG and over the 438 WFSG records, every record contributing a healthy reference interval. Uncertainty is quantified by bootstrap with 2000 resamples: the median SDR and the detectable share of a class are resampled over the twelve tap pairs, the same pairs for both machines so that the SCIG/PMSG ratio is matched; the minimum detectable extent is resampled over the operating-point trials within each extent level; and in every resample the null quantile is re-estimated from a cluster resample of the machine's records, so that the intervals carry the sampling variability of the denominator as well (\ref{app:computation}). The decision table uses 1000 resamples per suite, alternative, class and $\alpha$, with $e_{\mathrm{req}}$ at the tested levels (2.7--3.8, 7.4--7.7 and 11.6--12.1\,\% of a branch for inter-turn faults and the six inter-winding levels) and a required detectable share of 0.9 above the requirement.
 
-Step 6 of the procedure is instantiated as a window-level change detector: a gradient-boosted decision-tree (GBDT) classifier \citep{Friedman2001} and, for the PMSG--SCIG pair, a logistic regression, trained to separate faulted windows from healthy ones. Within an alternative the detector is evaluated by five-fold cross-validation grouped by tap pair (healthy trials grouped by speed), so that the tested fault locations are never seen in training; across alternatives it is trained on all trials of one machine and tested on all trials of another. Three feature-referencing rules are compared: physical units; features $z$-scored on the target machine's healthy trials (a commissioning baseline); and the absolute $z$-score of each window against the \emph{first half} of its own trial's reference interval. Negatives are the reference and recovery windows of all trials plus the fault-interval windows of the healthy trials, the only negatives that contain the contactor operation without a fault. Because the windows used to normalise a trial are trivially separable under the third rule, every metric is also reported on the out-of-reference windows, and the false-alarm rate of the threshold that gives 1\,\% false positives on all negatives is reported on the healthy trials' fault-time windows; the true-positive rate at 1\,\% false-positive rate is a point of the receiver operating characteristic, not an operating threshold.
+Step 6 of the procedure is instantiated as a window-level change detector: a gradient-boosted decision-tree (GBDT) classifier \citep{Friedman2001} and, for the PMSG--SCIG pair, a logistic regression, trained to separate faulted windows from healthy ones. Within an alternative the detector is evaluated by five-fold cross-validation grouped by tap pair (healthy trials grouped by speed), so that the tested fault locations are never seen in training; across alternatives it is trained on all trials of one machine and tested on all trials of another. Four feature-referencing rules are compared: physical units; features $z$-scored on all healthy trials of the target machine (a commissioning baseline); $z$-scored on the healthy trial recorded at the same operating point (a per-operating-point baseline); and the absolute $z$-score of each window against the \emph{first half} of its own trial's reference interval, the operational form of the SDR's referencing assumption. Negatives are the reference and recovery windows of all trials plus the fault-interval windows of the healthy trials, the only negatives that contain the contactor operation without a fault. Because the windows used to normalise a trial are trivially separable under the fourth rule, every metric is reported on the out-of-reference windows, with 95\,\% intervals from a cluster bootstrap over the tested machine's trials, and the false-alarm rate of the threshold that gives 1\,\% false positives on all negatives is reported on the healthy trials' fault-time windows; the true-positive rate at 1\,\% false-positive rate is a point of the receiver operating characteristic, not an operating threshold.
 
 All computations are implemented in Python and released with the paper; the pipeline runs from the feature caches to every table and figure in under an hour on a four-core machine.
 %% ----------------------------------------------------------------------
@@ -448,45 +449,49 @@ For the same tap pair the SCIG's fault current is about 10\,\% lower than the PM
 
 \subsection{Where the signature appears, and why the SDR differs}\label{sec:res-where}
 
-The null of the SDR differs by up to a factor of 35 between the PMSG and the SCIG (Table~\ref{tab:decomp}, columns $q_{95}$), and not only in sensed quantities: the null of the duty-cycle negative sequence, a controller output that involves no sensor, is nine times larger on the PMSG, so the healthy non-stationarity is a property of the machine--drive combination, not of the transducers alone. The table also decomposes the SCIG/PMSG ratio of median SDR: for inter-turn faults the PMSG's relative changes are the \emph{larger} ones on every feature (SCIG/PMSG ratio of median $|\delta|$ 0.37--0.71), and the SCIG's higher SDR is entirely a quieter null (ratio of null quantiles 2.6--35); for inter-winding faults the numerators are comparable (0.3--1.4) and the denominators again decide.
+The null of the SDR differs between the PMSG and the SCIG on every feature, and by how much depends on the form in which the feature is written (Table~\ref{tab:decomp}). In the relative form of Eq.~(\ref{eq:delta}) the SCIG's null is 2.4 times quieter than the PMSG's for the voltage residual, 5.2 times for the current residual and 45 times for the $d$-axis current ripple; in the units of the features themselves the factors are 1.1, 6.0 and 7.0. The two forms disagree where the healthy level of a feature differs between the machines: the SCIG's $d$-axis ripple has a healthy level five times the PMSG's (0.097 against 0.018\,A), because its stator current carries the magnetising component, so a null that is 7 times quieter in amperes becomes 45 times quieter in relative terms, and a fault-induced change that is 1.9 times the PMSG's in amperes becomes 0.37 times it in relative terms. The decomposition of the SCIG/PMSG ratio of median SDR therefore reads differently for the three measurement groups. Through the terminal-voltage residual the two machines are equivalent: the ratio is 1.01 for inter-turn and 0.74 for inter-winding faults, and in volts numerator and null agree between the machines to within 20\,\%. Through the stator-current residual the SCIG's SDR is 3.7 (inter-turn) and 3.3 (inter-winding) times the PMSG's; the PMSG's current change is the larger one in both forms (SCIG/PMSG ratio 0.71 relative, 0.78 absolute), so here the SCIG wins entirely by a null five to six times quieter. Through the $d$-axis features the SCIG's SDR is 16 and 23 times the PMSG's, and in absolute units the SCIG has both the larger signature (1.9 and 3.9 times the PMSG's ripple in amperes) and the quieter null (7 times): the reading that the SCIG wins only by silence holds for the stator current and is, for the controller quantities, an artefact of the relative normalisation. The null is not a property of the transducers alone: the duty-cycle residual, a controller output, has a null 8.5 times larger on the PMSG in relative terms and 3.1 times in absolute terms, so the healthy non-stationarity belongs to the machine--drive combination.
 
 %% BEGIN GENERATED tab_decomp -- written by scripts/make_tables.py from results/tables; do not edit by hand
 \begin{table}[t]
 \tabsize
-\setlength{\tabcolsep}{3pt}
+\setlength{\tabcolsep}{6pt}
 \centering
 \begin{threeparttable}
 \caption{SCIG/PMSG ratio of median SDR decomposed into numerator and denominator, five-cycle windows}\label{tab:decomp}
-\begin{tabular}{@{}llccccccc@{}}
+\begin{tabular}{@{}llcccccc@{}}
 \toprule
-Class & Feature & $|\delta|$ P & $|\delta|$ S & $q_{95}$ P & $q_{95}$ S & Num. & Den. & SDR ratio \\
+\multirow{2}{*}{Class} & \multirow{2}{*}{Feature} & \multicolumn{3}{c}{relative (SDR)} & \multicolumn{3}{c}{absolute units} \\
+\cmidrule(lr){3-5}\cmidrule(l){6-8}
+ & & Num. & Den. & SDR & Num. & Den. & SDR \\
 \midrule
-inter-turn & $V_2/V_1$ & 0.257 & 0.136 & 0.086 & 0.033 & 0.53 & 2.64 & 1.40 \\
-inter-turn & $I_2/I_1$ & 0.238 & 0.152 & 0.162 & 0.034 & 0.64 & 4.82 & 3.08 \\
-inter-turn & $I_d$\,2$f_e$ & 0.291 & 0.107 & 0.563 & 0.016 & 0.37 & 35.09 & 12.95 \\
-inter-turn & PI$_d$\,2$f_e$ & 0.289 & 0.107 & 0.557 & 0.016 & 0.37 & 34.71 & 12.91 \\
-inter-turn & $V_q$\,2$f_e$ & 0.222 & 0.155 & 0.165 & 0.060 & 0.70 & 2.73 & 1.91 \\
-inter-turn & $V_q^{\mathrm{cmd}}$\,2$f_e$ & 0.197 & 0.139 & 0.162 & 0.039 & 0.71 & 4.17 & 2.94 \\
-inter-turn & $D_2/D_1$ & 0.251 & 0.111 & 0.090 & 0.010 & 0.44 & 8.96 & 3.98 \\
-inter-winding & $V_2/V_1$ & 5.318 & 1.569 & 0.086 & 0.033 & 0.30 & 2.64 & 0.78 \\
-inter-winding & $I_2/I_1$ & 1.833 & 1.869 & 0.162 & 0.034 & 1.02 & 4.82 & 4.91 \\
-inter-winding & $I_d$\,2$f_e$ & 2.335 & 1.188 & 0.563 & 0.016 & 0.51 & 35.09 & 17.85 \\
-inter-winding & PI$_d$\,2$f_e$ & 2.344 & 1.188 & 0.557 & 0.016 & 0.51 & 34.71 & 17.60 \\
-inter-winding & $V_q$\,2$f_e$ & 3.688 & 1.495 & 0.165 & 0.060 & 0.41 & 2.73 & 1.11 \\
-inter-winding & $V_q^{\mathrm{cmd}}$\,2$f_e$ & 0.845 & 1.184 & 0.162 & 0.039 & 1.40 & 4.17 & 5.84 \\
-inter-winding & $D_2/D_1$ & 2.942 & 0.854 & 0.090 & 0.010 & 0.29 & 8.96 & 2.60 \\
+IT & $V_2/V_1$ & 0.53 & 2.85 & 1.51 & 1.04 & 0.99 & 1.03 \\
+IT & $|\Delta\bar V_2|/V_1$ & 0.42 & 2.40 & 1.01 & 0.84 & 1.10 & 0.93 \\
+IT & $I_2/I_1$ & 0.64 & 4.48 & 2.86 & 0.78 & 5.75 & 4.48 \\
+IT & $|\Delta\bar I_2|/I_1$ & 0.71 & 5.21 & 3.72 & 0.78 & 6.05 & 4.72 \\
+IT & $I_d$\,2$f_e$ & 0.37 & 44.54 & 16.43 & 1.93 & 7.03 & 13.54 \\
+IT & PI$_d$\,2$f_e$ & 0.37 & 44.97 & 16.73 & 1.19 & 11.22 & 13.39 \\
+IT & $V_q$\,2$f_e$ & 0.70 & 2.96 & 2.08 & 1.36 & 1.76 & 2.39 \\
+IT & $|\Delta\bar D_2|/D_1$ & 0.33 & 8.52 & 2.81 & 0.82 & 3.10 & 2.55 \\
+IW & $V_2/V_1$ & 0.30 & 2.85 & 0.84 & 0.92 & 0.99 & 0.91 \\
+IW & $|\Delta\bar V_2|/V_1$ & 0.31 & 2.40 & 0.74 & 0.88 & 1.10 & 0.97 \\
+IW & $I_2/I_1$ & 1.02 & 4.48 & 4.57 & 1.35 & 5.75 & 7.78 \\
+IW & $|\Delta\bar I_2|/I_1$ & 0.64 & 5.21 & 3.33 & 0.70 & 6.05 & 4.26 \\
+IW & $I_d$\,2$f_e$ & 0.51 & 44.54 & 22.66 & 3.88 & 7.03 & 27.29 \\
+IW & PI$_d$\,2$f_e$ & 0.51 & 44.97 & 22.80 & 2.42 & 11.22 & 27.11 \\
+IW & $V_q$\,2$f_e$ & 0.41 & 2.96 & 1.20 & 0.91 & 1.76 & 1.60 \\
+IW & $|\Delta\bar D_2|/D_1$ & 0.27 & 8.52 & 2.34 & 0.84 & 3.10 & 2.59 \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[flushleft]
-\item Num.: SCIG/PMSG ratio of the median relative change under fault $|\delta|$; Den.: ratio of null quantiles $q_{95}^{\mathrm{PMSG}}/q_{95}^{\mathrm{SCIG}}$; P: PMSG; S: SCIG.
+\item Relative form: the SDR as defined (changes divided by the healthy level); absolute form: changes and null in the feature's own units. Num.: SCIG/PMSG ratio of the median change under fault; Den.: ratio of null quantiles $q_{95}^{\mathrm{PMSG}}/q_{95}^{\mathrm{SCIG}}$ (a quieter SCIG null raises its SDR); SDR: ratio of median SDR. IT: inter-turn; IW: inter-winding.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
 %% END GENERATED tab_decomp
 
-Fig.~\ref{fig:features} shows the median SDR of every feature for the three alternatives (the WFSG pooled over its fault impedances; features to the right of the dashed line at $\mathrm{SDR}=1$ are detectable in more than half of the trials). In the PMSG the terminal-voltage group carries the strongest signature in 67\,\% of inter-turn and 88\,\% of inter-winding trials, through $V_2/V_1$ (median SDR 3.0 and 62 at five-cycle windows; 76 and 94\,\% of trials detectable), and the stator-current negative sequence $I_2/I_1$ is weak for inter-turn faults (median SDR 1.5, 56\,\%). In the SCIG the controller group is strongest in 56 and 67\,\% of trials, through the 2$f_e$ ripple of the $d$-axis current and its PI output (6.7 and 74; 79 and 100\,\%), the stator-current group in 28--33\,\% and the terminal-voltage group in 13\,\% and none. The two machines rank the 30 common features with a Spearman correlation of 0.70 (inter-turn) and 0.89 (inter-winding): the same features are informative in both, in a different order. In the WFSG the strongest inter-turn features are $V_2/V_1$, the $q$-axis current ripple and the commanded $q$-axis voltage, and for inter-winding faults the $q$-axis ripple, the commanded voltage, the duty cycles and the third current harmonic; its field-current 2$f_e$ ripple, an observable the other two machines lack, detected 86\,\% of the inter-turn trials at the matching impedance and all inter-winding trials (Table~\ref{tab:suites3}). The physical quantity behind the relocation is the incremental negative-sequence impedance $\Delta V_2/\Delta I_2$ seen at the terminals under inter-winding faults: 15 [11, 18]\,$\Omega$ in the PMSG, 7.0 [6.6, 7.5]\,$\Omega$ in the SCIG and 11 [10, 13]\,$\Omega$ in the WFSG (medians and interquartile ranges over trials, three-cycle windows), i.e.\ the PMSG drive converts a given negative-sequence current disturbance into twice the terminal voltage that the SCIG drive does; for inter-turn faults the PMSG's negative-sequence current increments are of mixed sign with a median indistinguishable from zero, which is why current-side features see little there. Both machines run the same field-oriented controller but differ in angle source (encoder against flux observer), negative-sequence impedance and feature baselines (healthy medians of $I_2/I_1$, $V_2/V_1$ and $D_2/D_1$: 0.0055, 0.0009 and 0.0014 on the PMSG against 0.0079, 0.0020 and 0.0036 on the SCIG, and 0.0148, 0.0073 and 0.0039 on the WFSG), so the relocation belongs to the machine--drive combination, not to the control structure alone.
+Fig.~\ref{fig:features} shows the median SDR of every feature for the three alternatives (the WFSG pooled over its fault impedances; features to the right of the dashed line at $\mathrm{SDR}=1$ are detectable in more than half of the trials). In the PMSG the terminal-voltage group carries the strongest signature in 94\,\% of inter-turn and 97\,\% of inter-winding trials, through the voltage residual (median SDR 6.8 and 53 at five-cycle windows; 88 and 100\,\% of trials detectable), and the stator-current residual is weak for inter-turn faults (median SDR 1.7, 70\,\%). In the SCIG the controller group is strongest in 63 and 67\,\% of trials, through the duty-cycle residual for inter-turn faults (11.2; 93\,\%) and the 2$f_e$ ripple of the $d$-axis current and its PI output for inter-winding faults (68; 100\,\%), the stator-current group in 34 and 33\,\% and the terminal-voltage group in 3\,\% and none. The two machines rank the 33 common features with a Spearman correlation of 0.74 (inter-turn) and 0.82 (inter-winding): the same features are informative in both, in a different order. In the WFSG the strongest inter-turn features are the terminal-voltage ratio and its residual, the current residual, the commanded $q$-axis voltage and the $q$-axis current ripple (median SDR 8--13 over all impedances), and for inter-winding faults the commanded $q$-axis voltage, the voltage residual and the $q$-axis ripple (35); its field-current 2$f_e$ ripple, an observable the other two machines lack, detected 80\,\% of the inter-turn trials at the matching impedance and all inter-winding trials (Table~\ref{tab:suites3}). The physical quantity behind the relocation is the incremental negative-sequence impedance seen at the terminals, computed per trial from the complex residuals as $\Delta\bar V_2/\Delta\bar I_2$: 12.7 [11.1, 14.1]\,$\Omega$ for inter-turn and 12.2 [10.2, 13.2]\,$\Omega$ for inter-winding faults in the PMSG against 7.3 [6.9, 7.7] and 7.4 [7.2, 7.6]\,$\Omega$ in the SCIG (medians and interquartile ranges over trials, five-cycle windows), at an angle near $0^\circ$ in the PMSG and near $65^\circ$ in the SCIG; the magnitude-based estimate for the WFSG under inter-winding faults is 11.9 [11.0, 14.3]\,$\Omega$ (three-cycle windows). The PMSG drive thus converts a given negative-sequence current disturbance into 1.7 times the terminal voltage that the SCIG drive does. On the 2.5\,kVA, 230\,V base (21\,$\Omega$) the two impedances are 0.60 and 0.35 per unit, of the order of the leakage reactance of a passive machine or above it, so the contribution of the current regulator, which raises the closed-loop negative-sequence impedance \citep{Tallam2003, Cheng2011}, cannot be separated from the machine's own without the undocumented drive parameters. Both machines run the same field-oriented controller but differ in angle source (encoder against flux observer), negative-sequence impedance and feature baselines (healthy medians of $I_2/I_1$, $V_2/V_1$ and $D_2/D_1$: 0.0055, 0.0009 and 0.0014 on the PMSG against 0.0079, 0.0020 and 0.0036 on the SCIG, and 0.038, 0.0067 and 0.0023 on the WFSG), so the relocation belongs to the machine--drive combination, not to the control structure alone.
 
-\begin{figure}[t]
+\begin{figure}[tp]
 \centering
 \includegraphics[width=\textwidth]{G_sdr_by_feature_3alt}
 \caption{Median SDR of every feature (dot) with interquartile range (bar) for the three alternatives, three-cycle windows; the WFSG is pooled over its fault impedances}\label{fig:features}
@@ -494,12 +499,35 @@ Fig.~\ref{fig:features} shows the median SDR of every feature for the three alte
 
 \subsection{The faulted phase and the extent axis}\label{sec:res-phase}
 
-The nominal extent axis of the inter-turn test matrix carries a second variable: the four pairs of the smallest level lie in phase A, those of the middle level in phases A and B, and those of the largest level in phases A and C (Section~\ref{sec:extent}). Table~\ref{tab:phase} and Fig.~\ref{fig:pairs} show why this matters. The magnitude ratios $V_2/V_1$ and $I_2/I_1$ depend on the faulted phase far beyond what the extents explain: within the 11.6--12.1\,\% level, the two phase-A pairs give $V_2/V_1$ median SDRs of 3.4 and 13.8 on the PMSG against 17.2 and 26.3 for the two phase-C pairs, and the spread between the pairs of one level is a factor 4 to 14 for $V_2/V_1$ and 1.3 to 7 for $I_2/I_1$. The phasor residuals remove this almost entirely: within every level the pairs agree to within a factor 1.1 to 1.7 on both machines (17.3--22.8 for $|\Delta\bar V_2|/V_1$ in the 11.6--12.1\,\% level of the PMSG), and the per-phase medians of the residuals follow the extents of the pairs each phase holds. The mechanism is the one of Section~\ref{sec:suites}: the inherent negative-sequence component of each machine (healthy $V_2/V_1$ of 0.0009 on the PMSG and 0.0020 on the SCIG) is of the same order as the fault-induced one for a small inter-turn fault, so the magnitude of their sum rises or falls with the angle between them, which rotates by $\pm120^\circ$ with the faulted phase; the complex change does not. Two consequences follow for the rest of the paper. First, the residual features replace the magnitude ratios wherever a sequence quantity represents a suite (Tables~\ref{tab:mde}--\ref{tab:decision}, Fig.~\ref{fig:severity}); the magnitude ratios remain in Fig.~\ref{fig:features} and Table~\ref{tab:decomp} because they are the established indicators. Second, on the residual features the two machines on the common bench are nearly indistinguishable through the terminal voltage---per-level medians of $|\Delta\bar V_2|/V_1$ of 1.1, 6.8 and 19.5 (PMSG) against 0.9, 6.9 and 19.5 (SCIG) at the three inter-turn levels---and differ through the stator current, where the SCIG's residual is 2 to 4 times the PMSG's (0.5, 1.7 and 5.1 against 1.1, 6.3 and 17.3): the relocation of the signature survives the change of feature, the earlier reading that the PMSG's voltage signature is stronger than the SCIG's does not.
+The nominal extent axis of the inter-turn test matrix carries a second variable: the four pairs of the smallest level lie in phase A, those of the middle level in phases A and B, and those of the largest level in phases A and C (Section~\ref{sec:extent}). Table~\ref{tab:phase} and Fig.~\ref{fig:pairs} show why this matters. The magnitude ratios $V_2/V_1$ and $I_2/I_1$ depend on the faulted phase far beyond what the extents explain: within the 11.6--12.1\,\% level, the two phase-A pairs give $V_2/V_1$ median SDRs of 3.4 and 13.8 on the PMSG against 17.2 and 26.3 for the two phase-C pairs, and the spread between the pairs of one level is a factor 2.7 to 14 for $V_2/V_1$ and 1.3 to 7 for $I_2/I_1$. The phasor residuals remove this almost entirely: within every level the pairs agree to within a factor 1.1 to 1.8 on both machines (17.3--22.8 for $|\Delta\bar V_2|/V_1$ in the 11.6--12.1\,\% level of the PMSG), and the per-phase medians of the residuals follow the extents of the pairs each phase holds. The mechanism is the one of Section~\ref{sec:suites}: the inherent negative-sequence component of each machine (healthy $V_2/V_1$ of 0.0009 on the PMSG and 0.0020 on the SCIG) is of the same order as the fault-induced one for a small inter-turn fault, so the magnitude of their sum rises or falls with the angle between them, which rotates by $\pm120^\circ$ with the faulted phase; the complex change does not. Two consequences follow for the rest of the paper. First, the residual features replace the magnitude ratios wherever a sequence quantity represents a suite (Tables~\ref{tab:mde}--\ref{tab:decision}, Fig.~\ref{fig:severity}); the magnitude ratios remain in Fig.~\ref{fig:features} and Table~\ref{tab:decomp} because they are the established indicators. Second, on the residual features the two machines on the common bench are nearly indistinguishable through the terminal voltage---per-level medians of $|\Delta\bar V_2|/V_1$ of 1.1, 6.8 and 19.5 (PMSG) against 0.9, 6.9 and 19.5 (SCIG) at the three inter-turn levels---and differ through the stator current, where the SCIG's residual is 2 to 4 times the PMSG's (0.5, 1.7 and 5.1 against 1.1, 6.3 and 17.3): the relocation of the signature survives the change of feature, the earlier reading that the PMSG's voltage signature is stronger than the SCIG's does not.
 
 %% BEGIN GENERATED tab_phase -- written by scripts/make_tables.py from results/tables; do not edit by hand
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{2.5pt}
+\centering
+\begin{threeparttable}
+\caption{Inter-turn median SDR / detectable share (\%) by faulted phase, five-cycle windows}\label{tab:phase}
+\begin{tabular}{@{}llL{2.1cm}ccccc@{}}
+\toprule
+Machine & Phase (pairs) & Extents (\%) & $V_2/V_1$ & $|\Delta\bar V_2|/V_1$ & $I_2/I_1$ & $|\Delta\bar I_2|/I_1$ & $I_d$\,2$f_e$ \\
+\midrule
+PMSG & A (8) & 2.7, 2.8, 3.8, 7.4, 11.6, 12.0 & 1.3 / 57 & 3.3 / 82 & 0.76 / 40 & 1.3 / 56 & 0.31 / 10 \\
+PMSG & B (2) & 7.4, 7.7 & 2.3 / 83 & 6.8 / 100 & 1.6 / 78 & 1.8 / 100 & 0.32 / 22 \\
+PMSG & C (2) & 11.6, 12.1 & 20 / 100 & 19 / 100 & 5.3 / 89 & 5.3 / 100 & 1.5 / 83 \\
+SCIG & A (8) & 2.7, 2.8, 3.8, 7.4, 11.6, 12.0 & 1.1 / 54 & 3.2 / 72 & 1.2 / 57 & 2.9 / 78 & 1.5 / 64 \\
+SCIG & B (2) & 7.4, 7.7 & 6.4 / 100 & 7.2 / 100 & 5.3 / 100 & 6.3 / 100 & 11 / 100 \\
+SCIG & C (2) & 11.6, 12.1 & 23 / 100 & 22 / 100 & 18 / 100 & 19 / 100 & 36 / 100 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\item Number of tap pairs in parentheses; extents: design-level extents of those pairs (\%). The magnitude ratios $V_2/V_1$ and $I_2/I_1$ depend on the angle between the inherent and the fault-induced asymmetry, which rotates with the faulted phase; the phasor residuals $|\Delta\bar V_2|/V_1$ and $|\Delta\bar I_2|/I_1$ remove that angle.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
 %% END GENERATED tab_phase
 
-\begin{figure}[t]
+\begin{figure}[tp]
 \centering
 \includegraphics[width=\textwidth]{G_pairs_by_phase}
 \caption{Inter-turn median SDR per tap pair against the nominal extent: magnitude ratios (\textbf{a}, \textbf{c}) and phasor residuals (\textbf{b}, \textbf{d}); marker, faulted phase; colour, machine}\label{fig:pairs}
@@ -515,113 +543,118 @@ Table~\ref{tab:mde} gives, for the two residual sequence features, the $d$-axis 
 \setlength{\tabcolsep}{2pt}
 \centering
 \begin{threeparttable}
-\caption{Minimum detectable extent, detectable share and median SDR with 95\,\% intervals for four features, PMSG and SCIG, five-cycle windows, $\alpha=0.95$}\label{tab:mde}
+\caption{Minimum detectable extent, detectable share and median SDR with 95\,\% intervals, four features, PMSG and SCIG, five-cycle windows}\label{tab:mde}
 \begin{tabular}{@{}lllcccc@{}}
 \toprule
-Class & Feature & M. & MDE [CI] & DS [CI] & Median SDR [CI] & S/P ratio [CI] \\
+Class & Feature & M. & MDE & DS [CI] & Median SDR [CI] & S/P ratio [CI] \\
 \midrule
-IT & $V_2/V_1$ & P & 3.8 [2.8, 3.8] & 76 [67, 83] & 2.99 [1.21, 12.5] & \\
- &  & S & 7.4 [7.4, 7.4] & 73 [64, 81] & 4.17 [0.949, 15.5] & 1.1 [0.378, 4.56] \\
-IT & $I_2/I_1$ & P & 7.4 [7.4, 12.1] & 56 [47, 65] & 1.47 [0.601, 2.36] & \\
- &  & S & 7.4 [7.4, 7.4] & 75 [66, 82] & 4.52 [1.11, 11.7] & 3.07 [1.34, 5.63] \\
-IT & PI$_d$\,2$f_e$ & P & 12.1 [11.6, 12.1] & 31 [23, 40] & 0.518 [0.389, 1.11] & \\
- &  & S & 7.4 [3.8, 7.4] & 78 [69, 85] & 6.69 [1.3, 18.3] & 11.8 [2.59, 28.8] \\
-IT & $V_q$\,2$f_e$ & P & 7.4 [7.4, 11.6] & 57 [48, 66] & 1.35 [0.791, 4.58] & \\
- &  & S & 7.4 [7.4, 7.7] & 60 [51, 69] & 2.58 [0.516, 5.33] & 1.49 [0.464, 3.21] \\
-IW & $V_2/V_1$ & P & 2.3 [2.3, 14.3] & 94 [88, 97] & 61.9 [9.24, 181] & \\
- &  & S & 2.3 [2.3, 2.3] & 100 [97, 100] & 48.2 [15.3, 188] & 0.974 [0.696, 1.68] \\
-IW & $I_2/I_1$ & P & 9.7 [9.5, 21.7] & 81 [73, 88] & 11.3 [1.98, 64.3] & \\
- &  & S & 2.3 [2.3, 2.3] & 100 [97, 100] & 55.6 [12.5, 117] & 5.49 [1.75, 13.1] \\
-IW & PI$_d$\,2$f_e$ & P & 21.7 [9.7, 21.7] & 72 [63, 80] & 4.21 [1.18, 13] & \\
- &  & S & 2.3 [2.3, 2.3] & 100 [97, 100] & 74 [22.9, 245] & 18.2 [12.3, 27.2] \\
-IW & $V_q$\,2$f_e$ & P & 9.7 [2.3, 14.3] & 90 [83, 94] & 22.4 [3.24, 62] & \\
- &  & S & 9.7 [2.3, 9.7] & 92 [85, 96] & 24.8 [7.04, 78.6] & 1.13 [0.831, 1.9] \\
+IT & $|\Delta\bar V_2|/V_1$ & P & $\le$3.0 & 88 [74, 98] & 6.84 [1.67, 15.9] & \\
+ &  & S & (3.0, 7.5] & 81 [63, 95] & 6.9 [1.16, 16.4] & 1.01 [0.683, 1.29] \\
+IT & $|\Delta\bar I_2|/I_1$ & P & (3.0, 7.5] & 70 [44, 93] & 1.7 [0.751, 4.14] & \\
+ &  & S & $\le$3.0 & 85 [70, 96] & 6.34 [1.93, 13.2] & 3.72 [2.08, 5.08] \\
+IT & PI$_d$\,2$f_e$ & P & (7.5, 11.8] & 24 [7, 44] & 0.37 [0.289, 0.797] & \\
+ &  & S & (3.0, 7.5] & 76 [57, 93] & 6.18 [1.22, 18.8] & 16.7 [3.04, 41.7] \\
+IT & $V_q$\,2$f_e$ & P & (7.5, 11.8] & 51 [31, 73] & 1.13 [0.649, 3.96] & \\
+ &  & S & (3.0, 7.5] & 60 [34, 84] & 2.34 [0.47, 5.07] & 2.08 [0.492, 3.35] \\
+IW & $|\Delta\bar V_2|/V_1$ & P & $\le$2.8 & 100 [100, 100] & 52.7 [15.3, 148] & \\
+ &  & S & $\le$2.8 & 100 [99, 100] & 39 [14.9, 136] & 0.74 [0.607, 1.1] \\
+IW & $|\Delta\bar I_2|/I_1$ & P & (2.8, 10.1] & 86 [68, 100] & 13.7 [4.1, 48.3] & \\
+ &  & S & $\le$2.8 & 99 [95, 100] & 45.8 [16.5, 104] & 3.33 [2.08, 6.64] \\
+IW & PI$_d$\,2$f_e$ & P & (10.1, 14.6] & 69 [49, 88] & 3 [0.937, 10.1] & \\
+ &  & S & $\le$2.8 & 100 [100, 100] & 68.4 [23.6, 223] & 22.8 [14.2, 36.7] \\
+IW & $V_q$\,2$f_e$ & P & (2.8, 10.1] & 89 [77, 98] & 18.7 [4.23, 55.1] & \\
+ &  & S & (2.8, 10.1] & 88 [71, 100] & 22.5 [7.26, 68.4] & 1.2 [0.76, 1.97] \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[flushleft]
-\item MDE: \% of the winding branch between the taps, limit-of-detection convention, bootstrap over operating points within each extent level; DS: \%, Wilson interval; median SDR and SCIG/PMSG ratio: bootstrap over tap pairs, the same pairs for both machines. IT: inter-turn; IW: inter-winding; P: PMSG; S: SCIG. `--': the largest tested extent is not detectable; smallest tested extents 2.7\,\% (IT) and 2.3\,\% (IW).
+\item $\alpha=0.95$. MDE on the physical extent levels (\% of a branch): $(a, b]$ means the level $a$ is not detected and every level from $b$ up is; $\le b$: every tested level is detected. DS (\%), median SDR and the SCIG/PMSG ratio of medians carry percentile intervals from a bootstrap over tap pairs (the same pairs for both machines) in which the null quantile is re-estimated in every resample. IT: inter-turn; IW: inter-winding; P: PMSG; S: SCIG.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
 %% END GENERATED tab_mde
 
-\begin{figure}[t]
+\begin{figure}[tp]
 \centering
 \includegraphics[width=\textwidth]{G_severity_combined}
-\caption{SDR of the voltage residual (\textbf{a}--\textbf{d}) and the current residual (\textbf{e}--\textbf{h}) against the nominal extent (left) and the physical severity (right), three alternatives, three-cycle windows; dashed line, $\mathrm{SDR}=1$}\label{fig:severity}
+\caption{SDR of the voltage residual (\textbf{a}--\textbf{d}) and the current residual (\textbf{e}--\textbf{h}) against the nominal extent (left) and the physical severity (right); dashed line, $\mathrm{SDR}=1$}\label{fig:severity}
 \end{figure}
 
 \subsection{Operating envelope}\label{sec:res-op}
 
-Speed dominates the operating-point dependence: in the PMSG the median SDR of the best feature rises from 5--9 at 1200\,rpm to 16--21 at 1800\,rpm and the detectable share from 79--83 to 92--96\,\%, in the SCIG from 16--18 to 44--51 and from 92--96 to 96--100\,\%; torque changes little. Two cautions apply: the dependence is consistent with a resistor-limited fault current that scales with speed, so it is a property of the emulation as much as of the machines; and the pooled null is a mixture over operating points (the share of trials whose healthy change exceeds the pooled 95th percentile is 0--16\,\% by speed for the key features), so the 5\,\% false-alarm reading holds on average over the envelope. Both make the lowest monitored speed a parameter of the requirement.
+Speed dominates the operating-point dependence. For the fixed features of the suite tables the median SDR of the inter-turn trials rises between 1200 and 1800\,rpm from 5.3 to 10.0 (voltage residual) and from 2.8 to 5.6 (duty-cycle residual) on the PMSG, and from 3.8 to 16.6 (current residual) and from 9.5 to 12.2 (duty-cycle residual) on the SCIG, with detectable shares rising from 78 to 97 and from 69 to 83\,\% on the PMSG and from 69 to 100 and from 86 to 97\,\% on the SCIG; the PMSG's current residual is the exception, flat at 1.4--2.6 with shares of 67--78\,\%. Torque matters less: at a fixed speed the median of the best key feature changes by less than a factor 1.25 between 5.2 and 8.0\,N\,m. Two cautions apply. The dependence is consistent with a resistor-limited fault current that scales with speed, so it is a property of the emulation as much as of the machines. And the pooled null is a mixture over operating points, so the 5\,\% false-alarm reading holds on average over the envelope: the share of trials whose healthy change exceeds the pooled 95th percentile is 0 to 16\,\% by speed for the key features, the extremes being the SCIG's current residual at 1800\,rpm (16\,\%; its electrical frequency of 59.6\,Hz then nearly coincides with the 60\,Hz grid, a possible source of a slow beat within the windows) and the PMSG's current residual at 1500\,rpm (15\,\%). Both make the lowest monitored speed a parameter of the requirement, and a field monitor would keep a null per speed band.
 
 \subsection{Sensor suites and the selection}\label{sec:res-suites}
 
-Table~\ref{tab:suites} gives the suite results for the PMSG and SCIG at five-cycle windows, Table~\ref{tab:suites3} (\ref{app:appendix}) for the three alternatives on the common feature set at three cycles, and Table~\ref{tab:decision} the decision table of step~5. For the PMSG, current transducers alone resolve inter-turn faults from 7.4\,\% and inter-winding faults from 9.7\,\%; three voltage transducers take these to 3.8 and 2.3\,\%, and neither controller access nor a torque transducer improves the fixed-feature result further. The drive-internal suite reaches 7.4\,\% for inter-turn faults through the duty-cycle negative sequence, a weaker version of the signature the measured terminal voltage carries. For the SCIG the cheapest suites already reach what any suite reaches---7.4\,\% for inter-turn faults through $I_2/I_1$ or, with no added sensor, the $d$-axis PI output, and 2.3\,\% for inter-winding faults---and additional hardware raises the detectable share rather than the reach. For the WFSG every suite detects all inter-winding faults from 2.3\,\% and 78--98\,\% of the inter-turn trials at the matching impedance, and the field current alone detects 86 and 100\,\%. The nested selection of the fixed feature changes no share by more than five points (Table~\ref{tab:suites3}); the oracle shares come with false-alarm rates of 44--78\,\% on the healthy trials for the large suites and are upper bounds only. A shaft torque transducer adds nothing for winding faults on the two machines on which it was available (the torque features' healthy relative change exceeds 100\,\% on the SCIG and their median SDR is below 0.3 on the PMSG).
+Table~\ref{tab:suites} gives the suite results for the PMSG and SCIG at five-cycle windows, Table~\ref{tab:suites3} (\ref{app:appendix}) for the three alternatives on the common feature set at three cycles, and Table~\ref{tab:decision} the decision table of step~5. For the PMSG, current transducers alone detect inter-turn faults from the middle level (bracket (3.0, 7.5]) and inter-winding faults from 9.7--10.6\,\%; three voltage transducers take both to the smallest level through the voltage residual (88 and 100\,\% of trials), and neither controller access nor a torque transducer improves the fixed-feature result further. The drive-internal suite reaches the same brackets as the current transducers through the duty-cycle residual, with a higher share for inter-winding faults (96\,\%). For the SCIG the cheapest suites already reach what any suite reaches: at five cycles the smallest level of both classes, through the current residual or, with no added sensor, the duty-cycle residual (93\,\% of inter-turn trials) and the $d$-axis PI output (100\,\% of inter-winding trials), so additional hardware changes the fixed feature but not the reach; at three cycles its two cheapest inter-turn suites stop at the middle level (Table~\ref{tab:suites3}). For the WFSG every suite detects all inter-winding faults from 2.3\,\% and 92\,\% of the inter-turn trials at the matching impedance, the field current alone 100 and 80\,\% (its inter-turn MDE there is bounded by the smallest tested extent, 11.6\,\%). The fixed features have at most two false alarms in nine healthy trials (the SCIG's duty-cycle residual), and the nested selection changes no share by more than six points. The calibrated oracle, the per-trial best feature at the threshold that holds the false-alarm rate of the maximum at 5\,\%, exceeds the fixed feature's share only for the PMSG's current-only suite on inter-winding faults (89 against 86\,\%) and otherwise equals it or falls below it by up to 22 points, so combining the features of a suite buys nothing over its best feature once the false-alarm rate is held; the uncalibrated per-trial maximum reaches higher shares at false-alarm rates of 56--78\,\% on the healthy trials for the drive-internal and the largest suites. A shaft torque transducer adds nothing for winding faults on the two machines on which it was available: the mechanical-torque features' healthy relative change is unbounded on the SCIG (their healthy level crosses zero) and their median SDR is below 0.3 on the PMSG.
 
 %% BEGIN GENERATED tab_suites -- written by scripts/make_tables.py from results/tables; do not edit by hand
 \begin{table}[t]
 \tabsize
-\setlength{\tabcolsep}{3pt}
+\setlength{\tabcolsep}{2.5pt}
 \centering
 \begin{threeparttable}
-\caption{Sensor suites versus what they detect, PMSG and SCIG, five-cycle windows: best fixed feature, its MDE (\%) and detectable share (\%)}\label{tab:suites}
-\begin{tabular}{@{}lllllll@{}}
+\caption{Sensor suites versus what they detect, PMSG and SCIG, five-cycle windows: fixed feature, MDE bracket, detectable share and false alarms}\label{tab:suites}
+\begin{tabular}{@{}lllllllll@{}}
 \toprule
-Suite & PMSG feature & MDE & DS [oracle] & SCIG feature & MDE & DS [oracle] \\
+\multirow{2}{*}{Suite} & \multicolumn{4}{c}{PMSG} & \multicolumn{4}{c}{SCIG} \\
+\cmidrule(lr){2-5}\cmidrule(l){6-9}
+ & feature & MDE & DS (oracle) & FA & feature & MDE & DS (oracle) & FA \\
 \midrule
-\multicolumn{6}{@{}l}{\emph{Inter-turn faults}} \\
-drive-internal & $D_2/D_1$ & 7.4 & 64 [87] & PI$_d$\,2$f_e$ & 7.4 & 78 [99] \\
-3 CT & $I_2/I_1$ & 7.4 & 56 [77] & $I_2/I_1$ & 7.4 & 75 [87] \\
-3 CT + 3 VT & $V_2/V_1$ & 3.8 & 76 [88] & $I_2/I_1$ & 7.4 & 75 [90] \\
-3 CT + 3 VT + drive & $V_2/V_1$ & 3.8 & 76 [95] & PI$_d$\,2$f_e$ & 7.4 & 78 [99] \\
-+ torque transducer & $V_2/V_1$ & 3.8 & 76 [95] & PI$_d$\,2$f_e$ & 7.4 & 78 [99] \\
-\multicolumn{6}{@{}l}{\emph{Inter-winding faults}} \\
-drive-internal & $D_2/D_1$ & 14.3 & 90 [100] & PI$_d$\,2$f_e$ & 2.3 & 100 [100] \\
-3 CT & $I_2/I_1$ & 9.7 & 81 [94] & $I_2/I_1$ & 2.3 & 100 [100] \\
-3 CT + 3 VT & $V_2/V_1$ & 2.3 & 94 [97] & $I_2/I_1$ & 2.3 & 100 [100] \\
-3 CT + 3 VT + drive & $V_2/V_1$ & 2.3 & 94 [100] & PI$_d$\,2$f_e$ & 2.3 & 100 [100] \\
-+ torque transducer & $V_2/V_1$ & 2.3 & 94 [100] & PI$_d$\,2$f_e$ & 2.3 & 100 [100] \\
+\multicolumn{9}{@{}l}{\emph{Inter-turn faults}} \\
+drive & $|\Delta\bar D_2|/D_1$ & (3.0, 7.5] & 75 (69) & 0/9 & $|\Delta\bar D_2|/D_1$ & $\le$3.0 & 93 (71) & 2/9 \\
+3CT & $|\Delta\bar I_2|/I_1$ & (3.0, 7.5] & 70 (61) & 0/9 & $|\Delta\bar I_2|/I_1$ & $\le$3.0 & 85 (78) & 1/9 \\
+3CT+3VT & $|\Delta\bar V_2|/V_1$ & $\le$3.0 & 88 (75) & 0/9 & $|\Delta\bar I_2|/I_1$ & $\le$3.0 & 85 (77) & 1/9 \\
+3CT+3VT+drv & $|\Delta\bar V_2|/V_1$ & $\le$3.0 & 88 (69) & 0/9 & $|\Delta\bar D_2|/D_1$ & $\le$3.0 & 93 (74) & 2/9 \\
++torque & $|\Delta\bar V_2|/V_1$ & $\le$3.0 & 88 (69) & 0/9 & $|\Delta\bar D_2|/D_1$ & $\le$3.0 & 93 (74) & 2/9 \\
+\multicolumn{9}{@{}l}{\emph{Inter-winding faults}} \\
+drive & $|\Delta\bar D_2|/D_1$ & $\le$2.8 & 96 (90) & 0/9 & PI$_d$\,2$f_e$ & $\le$2.8 & 100 (100) & 1/9 \\
+3CT & $|\Delta\bar I_2|/I_1$ & (2.8, 10.1] & 86 (89) & 0/9 & $I_2/I_1$ & $\le$2.8 & 99 (98) & 0/9 \\
+3CT+3VT & $|\Delta\bar V_2|/V_1$ & $\le$2.8 & 100 (98) & 0/9 & $V_2/V_1$ & $\le$2.8 & 100 (99) & 0/9 \\
+3CT+3VT+drv & $|\Delta\bar V_2|/V_1$ & $\le$2.8 & 100 (98) & 0/9 & PI$_d$\,2$f_e$ & $\le$2.8 & 100 (100) & 1/9 \\
++torque & $|\Delta\bar V_2|/V_1$ & $\le$2.8 & 100 (96) & 0/9 & PI$_d$\,2$f_e$ & $\le$2.8 & 100 (100) & 1/9 \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[flushleft]
-\item Oracle: per-trial best feature, its detectable share in brackets (false-alarm rates in Table~\ref{tab:suites3}); features failing the reliability screen are excluded for that machine.
+\item Suites are cumulative (drive: drive-internal quantities; 3CT: three current transducers; +3VT: three voltage transducers added; +drv: controller access added; +torque: shaft torque transducer added). DS (\%) of the fixed feature, in parentheses the share of the calibrated oracle (per-trial best feature at the threshold that holds the false-alarm rate of the maximum at 5\,\%); FA: false alarms of the fixed feature on the nine healthy trials. MDE as in Table~\ref{tab:mde}; features failing the reliability screen are excluded for that machine.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
 %% END GENERATED tab_suites
 
-The decision table turns this into the selection of step~5. At $\alpha=0.95$ no suite on any alternative meets an inter-turn requirement of 3 or 5\,\% with 95\,\% bootstrap confidence; the PMSG's voltage suite is the only candidate below 5\,\% and its verdict is uncertain, a consequence of the three-cycle windows and the coarse extent grid. At 8\,\% the drive-internal suite meets the requirement on the PMSG and the SCIG, i.e.\ no added sensor is needed for either; the WFSG's inter-turn verdicts are bounded by its smallest tested extent. For inter-winding faults the SCIG and the WFSG meet every requirement from 3\,\% with the drive-internal suite, whereas the PMSG needs current transducers at 12\,\% and is uncertain below (its five-cycle result, Table~\ref{tab:suites}, reaches 2.3\,\% with voltage transducers). Relaxing $\alpha$ to 0.90 admits the PMSG's voltage suite at 5\,\% for inter-turn faults; tightening it to 0.99 removes the PMSG's current-only option at 12\,\% for inter-winding faults.
+The decision table (Table~\ref{tab:decision}) turns this into the selection of step~5, with the requirement evaluated at the tested levels and a required detectable share of 0.9 above it. For inter-turn faults at the smallest level (2.7--3.8\,\% of a branch) no suite on either machine meets the requirement at $\alpha=0.95$: the PMSG's voltage suite (probability 0.27) and the SCIG's drive-internal suite (0.82) are uncertain, because their shares at that level fall short of 0.9 in most resamples, and the current-only suites fail. From the middle level (7.4--7.7\,\%) every suite on both machines meets it with probability 1.00, so no added sensor is needed for inter-turn faults of that size on either machine; on the WFSG only the largest level is testable at the matching impedance, and there every suite meets it except the field current alone (0.92; its share is 80\,\%). For inter-winding faults the SCIG and the WFSG meet the requirement at the smallest level with every suite including the drive-internal one, whereas the PMSG needs voltage transducers there (drive-internal 0.93, current-only fails) and from 9.7--10.6\,\% meets it with every suite (current-only 0.97). Relaxing $\alpha$ to 0.90 admits the SCIG's drive-internal suite at the smallest inter-turn level (0.98) and the PMSG's drive-internal suite at the smallest inter-winding level (1.00) but makes the PMSG's current-only suite uncertain for inter-winding faults at every level (0.74--0.87); tightening it to 0.99 turns the uncertain inter-turn verdicts at the smallest level into failures on both machines and makes the PMSG's current-only suite uncertain at the middle inter-turn level (0.53). On three-cycle windows the SCIG's inter-turn verdicts at the smallest level are failures for every suite, the window dependence noted in Section~\ref{sec:res-robust}. Read as a specification, the table says that an inter-turn requirement at the smallest tested level cannot be met with confidence by any suite on these benches, that a requirement at the middle level is met by the cheapest suite on all three machines, and that the inter-winding requirement at the smallest level is the one case in which the sensor decision depends on the machine type.
 
 %% BEGIN GENERATED tab_decision -- written by scripts/make_tables.py from results/tables; do not edit by hand
 \begin{table}[t]
 \tabsize
-\setlength{\tabcolsep}{3pt}
+\setlength{\tabcolsep}{2.6pt}
 \centering
 \begin{threeparttable}
-\caption{Decision table: the cheapest suite whose MDE meets $e_{\mathrm{req}}$ with probability $\ge0.95$}\label{tab:decision}
-\begin{tabular}{@{}llcccccc@{}}
+\caption{Decision table at $\alpha=0.95$: bootstrap probability that a suite meets the requirement at each tested extent level}\label{tab:decision}
+\begin{tabular}{@{}lcccccccccccc@{}}
 \toprule
-\multirow{2}{*}{$\alpha$} & \multirow{2}{*}{$e_{\mathrm{req}}$ (\%)} & \multicolumn{2}{c}{PMSG} & \multicolumn{2}{c}{SCIG} & \multicolumn{2}{c}{WFSG} \\
-\cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(l){7-8}
- & & IT & IW & IT & IW & IT & IW \\
+Suite & \multicolumn{4}{c}{PMSG} & \multicolumn{4}{c}{SCIG} & \multicolumn{4}{c}{WFSG} \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}\cmidrule(l){10-13}
+ & \multicolumn{12}{c}{probability of meeting the requirement at $e_{\mathrm{req}}$ (\%)} \\
 \midrule
-0.90 & 3 & (3CT+3VT)? & (drive)? & none & drive & none & drive \\
-0.90 & 5 & 3CT+3VT & (drive)? & none & drive & none & drive \\
-0.90 & 8 & drive & (drive)? & drive & drive & none & drive \\
-0.90 & 12 & drive & 3CT & drive & drive & drive & drive \\
-0.95 & 3 & (3CT+3VT)? & (drive)? & none & drive & none & drive \\
-0.95 & 5 & (drive)? & (drive)? & none & drive & none & drive \\
-0.95 & 8 & drive & (drive)? & drive & drive & none & drive \\
-0.95 & 12 & drive & 3CT & drive & drive & drive & drive \\
-0.99 & 3 & none & none & none & drive & none & drive \\
-0.99 & 5 & (3CT+3VT)? & none & none & drive & none & drive \\
-0.99 & 8 & drive & none & drive & drive & none & drive \\
-0.99 & 12 & drive & (drive)? & drive & drive & drive & drive \\
+\multicolumn{13}{@{}l}{\emph{Inter-turn faults}} \\
+$e_{\mathrm{req}}$ (\%) & 3.0 & 7.5 & 11.8 &  & 3.0 & 7.5 & 11.8 &  & 3.0 & 7.5 & 11.8 & \\
+drive & 0.00 & \textbf{1.00} & \textbf{1.00} &  & 0.82 & \textbf{1.00} & \textbf{1.00} &  & n.t. & n.t. & \textbf{1.00} & \\
+3CT & 0.00 & \textbf{1.00} & \textbf{1.00} &  & 0.05 & \textbf{1.00} & \textbf{1.00} &  & n.t. & n.t. & \textbf{1.00} & \\
+3CT+3VT & 0.27 & \textbf{1.00} & \textbf{1.00} &  & 0.05$^{\mathrm{b}}$ & \textbf{1.00} & \textbf{1.00} &  & n.t. & n.t. & \textbf{1.00} & \\
+3CT+3VT+drv & 0.27$^{\mathrm{b}}$ & \textbf{1.00} & \textbf{1.00} &  & 0.83 & \textbf{1.00} & \textbf{1.00} &  & n.t. & n.t. & \textbf{1.00} & \\
+exc & -- & -- & -- &  & -- & -- & -- &  & n.t. & n.t. & 0.92 & \\
+\multicolumn{13}{@{}l}{\emph{Inter-winding faults}} \\
+$e_{\mathrm{req}}$ (\%) & 2.8 & 10.1 & 14.6 & 21.9 & 2.8 & 10.1 & 14.6 & 21.9 & 2.8 & 10.1 & 14.6 & 21.9 \\
+drive & 0.93 & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & n.t. & n.t. \\
+3CT & 0.00 & \textbf{0.97} & \textbf{0.97} & \textbf{0.99} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & n.t. & n.t. \\
+3CT+3VT & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & n.t. & n.t. \\
+3CT+3VT+drv & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & n.t. & n.t. \\
+exc & -- & -- & -- & -- & -- & -- & -- & -- & \textbf{1.00} & \textbf{1.00} & n.t. & n.t. \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[flushleft]
-\item Three-cycle windows; probabilities from 1000 bootstrap resamples. Suites ordered drive $<$ 3CT $<$ 3CT+3VT $<$ 3CT+3VT+drv; exc: WFSG field current; IT: inter-turn; IW: inter-winding. `(suite)?': no suite meets with that confidence and the cheapest suite with an uncertain verdict is shown; `none': every suite fails. WFSG inter-turn verdicts are bounded by its smallest tested extent at the matching impedance (11.6\,\%).
+\item Meets: $\mathrm{MDE}\le e_{\mathrm{req}}$ and detectable share $\ge0.9$ for $e\ge e_{\mathrm{req}}$, with $e_{\mathrm{req}}$ at the physical levels of the common bench (\% of a branch; the WFSG is assessed against the same values on its own tested extents); 1000 resamples of the operating-point trials within each level, the null quantile and the fixed feature re-estimated in every resample. Bold: probability $\ge0.95$ (meets); below 0.05 the suite fails; n.t.: not testable, the machine has no tested extent on the required side of $e_{\mathrm{req}}$. PMSG and SCIG at five-cycle windows, WFSG at three cycles and at its matching fault impedance. The inter-winding levels 35.9 and 40.2\,\% are omitted: every suite meets them. Suites as in Table~\ref{tab:suites}; exc: WFSG field current.
+\item[b] Probability inherited from a cheaper subset of the suite (a suite may always use the features of its subsets).
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
@@ -629,28 +662,31 @@ The decision table turns this into the selection of step~5. At $\alpha=0.95$ no 
 
 \subsection{Transfer across alternatives}\label{sec:res-transfer}
 
-Table~\ref{tab:transfer} reports step~6 for the PMSG--SCIG pair and Table~\ref{tab:transfer3} (\ref{app:appendix}) for the three alternatives; the figures quoted below are AUCs on the out-of-reference windows, and the values on all windows agree with them to within 0.02, so the windows used for normalisation do not drive the result. In physical units a gradient-boosted detector reaches an area under the receiver operating characteristic curve (AUC) of 0.87--0.91 within a machine on unseen tap pairs but 0.78 (PMSG$\to$SCIG) and 0.55 (SCIG$\to$PMSG) across; with its features scaled on the target machine's healthy trials, a commissioning baseline, 0.82 and 0.75, and a logistic detector under that rule falls below chance in one direction (0.45); with each feature referenced to the first half of the trial's own reference interval, 0.91 and 0.84, against 0.91--0.94 within a machine, and a logistic detector transfers at 0.89 and 0.87. The threshold that gives 1\,\% false positives on all negatives fires on 0--3\,\% of the healthy trials' fault-time windows, the only negatives that contain the contactor operation. Between the three alternatives, self-referenced detectors transfer in all six directions with AUC 0.80--0.98 on the out-of-reference windows, and a detector trained on two machines detects the faults of the third with 0.83 (PMSG), 0.88 (SCIG) and 0.97 (WFSG; optimistic, as that bench has no healthy trials). Restricted to each suite's features, every suite transfers at 0.82--0.95 when self-referenced and at 0.62--0.90 under the commissioning baseline.
+Table~\ref{tab:transfer} reports step~6 for the PMSG--SCIG pair on five-cycle windows and Table~\ref{tab:transfer3} (\ref{app:appendix}) for the three alternatives on three-cycle windows. All figures are on the out-of-reference windows (those on all windows agree with them to within 0.01), the intervals are 95\,\% cluster-bootstrap intervals over the tested machine's trials, and the true-positive rate (TPR) is read at 1\,\% false-positive rate. In physical units the GBDT detector reaches an area under the receiver operating characteristic curve (AUC) of 0.93 [0.86, 0.98] and 0.91 [0.83, 0.97] within a machine on unseen tap pairs but 0.79 [0.68, 0.88] (PMSG$\to$SCIG) and 0.61 [0.50, 0.72] (SCIG$\to$PMSG) across, with a TPR of 0.25 and 0.26 across against 0.74 and 0.67 within. Referencing the features to healthy behaviour of the target machine recovers most of the AUC under all three healthy-referenced rules: 0.88 [0.81, 0.95] and 0.88 [0.81, 0.94] with the features scaled on all healthy trials of the target, 0.87 [0.79, 0.96] and 0.88 [0.80, 0.94] scaled on the healthy trial at the same operating point, and 0.93 [0.87, 0.98] and 0.89 [0.82, 0.95] referenced to the first half of each trial's own reference interval, against 0.94 and 0.96 within a machine under that rule. The rules separate on the TPR and on the linear detector. Across the machines the self-referenced rule gives a TPR of 0.81 [0.67, 0.94] (PMSG$\to$SCIG) and 0.54 [0.37, 0.69] (SCIG$\to$PMSG), the per-operating-point baseline 0.71 [0.57, 0.87] and 0.62 [0.42, 0.76] and the all-healthy baseline 0.50 [0.36, 0.67] and 0.54 [0.32, 0.71], so the self-referenced rule is the best on AUC in both directions and on TPR in one, with overlapping intervals in the other; and a logistic regression transfers at 0.93 and 0.91 when self-referenced but at 0.78 and 0.64 under the all-healthy baseline and at 0.81 and 0.50 under the per-operating-point baseline. The threshold that gives 1\,\% false positives on all negatives fires on 0 to 5\,\% of the healthy trials' fault-time windows, the only negatives that contain the contactor operation. Between the three alternatives, self-referenced GBDT detectors transfer in all six directions with an AUC of 0.85 [0.79, 0.91] (SCIG$\to$PMSG) to 0.98 [0.96, 1.00] (PMSG$\to$WFSG) and a TPR of 0.41 [0.25, 0.54] to 0.94 [0.86, 0.99], against 0.90--0.97 and 0.71--0.93 within a machine, and a detector trained on two machines detects the faults of the third with an AUC of 0.87 [0.81, 0.93] (PMSG), 0.91 [0.85, 0.96] (SCIG) and 0.99 [0.97, 1.00] (WFSG; optimistic, as that bench has no healthy trials). Restricted to each suite's features, every suite transfers between the PMSG and the SCIG at 0.87--0.95 when self-referenced, at 0.74--0.90 under the all-healthy baseline and at 0.83--0.89 under the per-operating-point baseline.
 
 %% BEGIN GENERATED tab_transfer -- written by scripts/make_tables.py from results/tables; do not edit by hand
 \begin{table}[t]
-\tabsize
+\fontsize{8}{10}\selectfont
+\setlength{\tabcolsep}{2pt}
 \centering
 \begin{threeparttable}
-\caption{Transfer of a window-level detector between PMSG and SCIG: AUC on all windows / AUC on the out-of-reference windows}\label{tab:transfer}
-\begin{tabular}{@{}llcccc@{}}
+\caption{Transfer of a GBDT detector between PMSG and SCIG under four referencing rules, out-of-reference windows, 95\,\% intervals}\label{tab:transfer}
+\begin{tabular}{@{}llC{2.05cm}C{2.05cm}C{2.05cm}C{2.05cm}@{}}
 \toprule
-Referencing & Model & P$\to$P & S$\to$S & P$\to$S & S$\to$P \\
+Direction & Metric & physical units & $z$, all healthy trials of the target & $z$, healthy trial at the operating point & $|z|$ against own reference \\
 \midrule
-physical units & logistic & 0.78/0.78 & 0.79/0.80 & 0.71/0.71 & 0.59/0.59 \\
-physical units & GBDT & 0.88/0.87 & 0.90/0.91 & 0.78/0.78 & 0.55/0.55 \\
-$z$ on target's healthy trials & logistic & 0.78/0.78 & 0.79/0.80 & 0.71/0.71 & 0.44/0.45 \\
-$z$ on target's healthy trials & GBDT & 0.88/0.87 & 0.90/0.91 & 0.82/0.82 & 0.75/0.75 \\
-$|z|$ vs own reference & logistic & 0.90/0.89 & 0.94/0.93 & 0.90/0.89 & 0.88/0.87 \\
-$|z|$ vs own reference & GBDT & 0.92/0.91 & 0.95/0.94 & 0.92/0.91 & 0.86/0.84 \\
+P$\to$P & AUC & 0.93 [0.86, 0.98] & 0.93 [0.86, 0.98] & 0.91 [0.84, 0.96] & 0.94 [0.90, 0.98] \\
+ & TPR & 0.74 [0.55, 0.89] & 0.74 [0.55, 0.89] & 0.63 [0.43, 0.83] & 0.78 [0.64, 0.91] \\
+S$\to$S & AUC & 0.91 [0.83, 0.97] & 0.91 [0.83, 0.97] & 0.91 [0.84, 0.96] & 0.96 [0.92, 0.99] \\
+ & TPR & 0.67 [0.50, 0.85] & 0.67 [0.50, 0.85] & 0.62 [0.43, 0.79] & 0.82 [0.68, 0.94] \\
+P$\to$S & AUC & 0.79 [0.68, 0.88] & 0.88 [0.81, 0.95] & 0.87 [0.79, 0.95] & 0.93 [0.87, 0.98] \\
+ & TPR & 0.25 [0.14, 0.35] & 0.50 [0.36, 0.67] & 0.71 [0.57, 0.87] & 0.81 [0.67, 0.94] \\
+S$\to$P & AUC & 0.61 [0.50, 0.72] & 0.88 [0.81, 0.94] & 0.88 [0.80, 0.94] & 0.89 [0.82, 0.95] \\
+ & TPR & 0.26 [0.10, 0.40] & 0.54 [0.32, 0.71] & 0.62 [0.42, 0.76] & 0.54 [0.37, 0.69] \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[flushleft]
-\item Out-of-reference windows: those outside the normalising set (Section~\ref{sec:computation}). P$\to$P, S$\to$S: cross-validation grouped by tap pair; P$\to$S, S$\to$P: trained on one machine, tested on the other.
+\item AUC and true-positive rate at 1\,\% false-positive rate (TPR) on the out-of-reference windows (those outside the normalising set, Section~\ref{sec:computation}); intervals from a bootstrap over the trials of the tested machine (500 resamples of its tap pairs and healthy groups). P$\to$P, S$\to$S: cross-validation grouped by tap pair; P$\to$S, S$\to$P: trained on one machine, tested on the other.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
@@ -658,9 +694,9 @@ $|z|$ vs own reference & GBDT & 0.92/0.91 & 0.95/0.94 & 0.92/0.91 & 0.86/0.84 \\
 
 \subsection{Robustness and the two nulls}\label{sec:res-robust}
 
-Table~\ref{tab:sens} (\ref{app:appendix}) shows how the tuning choices move the design quantities, with the screen applied at every setting. The inter-turn MDEs of all five key features are the same at three, five and eight cycles on both machines and the detectable shares move by at most six points; for inter-winding faults one MDE moves (the PMSG's $V_2/V_1$, 9.7\,\% at three cycles against 2.3\,\% at five and eight). Tightening the null quantile from 0.95 to 0.99 lowers the shares by 3--9 points and moves two PMSG inter-winding MDEs up one level; relaxing it to 0.90 raises the shares by up to 9 points and moves one down. No ordering of the two machines reverses, but the PMSG's inter-winding suite conclusion depends on $\alpha$ and on the window length (Table~\ref{tab:decision}). At $\alpha=0.95$ the screen removes up to three weak features per machine and window length (\ref{app:computation}); none of the five key features is removed at any setting, and the three-cycle result of $V_2/V_1$ on the PMSG (two false alarms in nine healthy trials) passes the binomial rule. An absolute-change variant of the SDR, which removes the healthy level of the feature from numerator and null, ranks the 30 features with a Spearman correlation of 0.92--0.98 against the relative variant and picks the same three top features in every machine and class. The bootstrap intervals (Table~\ref{tab:mde}) put the median SDRs within a factor of two to four and the shares within $\pm$8--10 points.
+Table~\ref{tab:sens} (\ref{app:appendix}) shows how the tuning choices move the design quantities, with the screen applied at every setting. Across window lengths of three, five and eight cycles the MDE brackets of the key features are unchanged on both machines, with three exceptions at the margin: the SCIG's current residual reaches the smallest inter-turn level at five and eight cycles but only the middle one at three, the PMSG's $q$-axis voltage ripple reaches the middle level only at eight, and the PMSG's $d$-axis features, whose null quantile exceeds one at eight cycles, are screened out there. The detectable shares move by at most 7 points, except those of the PMSG's $d$-axis features, which lie below $\mathrm{SDR}=1$ at every setting (13 points). Tightening the null quantile from 0.95 to 0.99 lowers the shares by 1 to 14 points, moves the MDE up one level for the PMSG's voltage residual and the SCIG's current residual and screens out the PMSG's $d$-axis features (null quantile above one); relaxing it to 0.90 raises the shares by up to 10 points and moves the $q$-axis voltage ripple down one level on both machines and the SCIG's voltage residual and $d$-axis ripple down one level. The orderings of the two machines on the residual and $d$-axis features are the same at every setting; on the terminal-voltage magnitude ratio the two machines are tied within three points and swap order with $\alpha$. The fixed-feature brackets of Table~\ref{tab:suites} are the same at three and five cycles on the PMSG, whereas the SCIG's two cheapest inter-turn suites reach the smallest level at five cycles and only the middle one at three (Table~\ref{tab:suites3}), which is why the SCIG's inter-turn verdict at the smallest level depends on the window length (Section~\ref{sec:res-suites}). At $\alpha=0.95$ the binomial rule of the screen removes one feature, the duty-cycle magnitude ratio on the SCIG (three false alarms in nine healthy trials at three and five cycles), and the null-quantile rule removes the torque features and, at eight cycles, the PMSG's $d$-axis features (\ref{app:computation}); with nine trials the binomial rule has a size of 0.8\,\% per feature, so 0.3 chance exclusions among the 33 features of a machine are expected, and the largest false-alarm count among the key features is two of nine (the SCIG's terminal-voltage ratio at three cycles and its $d$-axis features at $\alpha=0.90$). An absolute-change variant of the SDR, which keeps the healthy level of the feature out of numerator and null, ranks the 33 features with a Spearman correlation of 0.92--0.99 against the relative variant in the four machine--class combinations and shares two of its three top features in each. The tap-pair bootstrap puts the median SDRs within a factor of two to four and the inter-turn shares within about $\pm15$ points (Table~\ref{tab:mde}); the null quantile itself has a sampling interval spanning a factor 1.3 to 1.5 (Table~\ref{tab:nullq}), which these intervals include.
 
-Table~\ref{tab:between} (\ref{app:appendix}) replaces the reference immediately before the fault by the healthy trial recorded at the same operating point at another time, a commissioning baseline: the null of the four key features widens by a factor of 1.6 to 4.9, the median SDR of the inter-turn features falls to about one (PMSG $V_2/V_1$ from 3.0 to 1.1; SCIG $I_2/I_1$ from 4.5 to 1.1) and their detectable shares to 20--59\,\%, while inter-winding faults remain detectable in 67--94\,\% of trials. The MDEs reported here are therefore statements about a short-horizon change detector; a monitor that compares against an old baseline needs the wider null.
+Table~\ref{tab:between} (\ref{app:appendix}) replaces the reference immediately before the fault by the healthy trial recorded at the same operating point at another time, a commissioning baseline: the null of the four key features widens by a factor of 1.1 to 4.6 (1.9 to 3.2 for the voltage and current residuals), the median SDR of the inter-turn residuals falls from 6.8 to 2.4 (PMSG, voltage) and from 6.3 to 2.1 (SCIG, current) and their detectable shares from 88 and 85\,\% to 72 and 69\,\%, while inter-winding faults remain detectable in 67--93\,\% of trials. The MDEs reported here are therefore statements about a short-horizon change detector; a monitor that compares against an old baseline needs the wider null, and Section~\ref{sec:res-transfer} shows what the choice of reference costs a learned detector.
 %% ----------------------------------------------------------------------
 %% discussion
 %% ----------------------------------------------------------------------
@@ -669,19 +705,19 @@ Table~\ref{tab:between} (\ref{app:appendix}) replaces the reference immediately 
 
 \subsection{What the demonstration establishes about the method}
 
-The demonstration supports four claims about the method that do not depend on which machine came out ahead, and it corrects the naive form of two of them.
+The demonstration supports four claims about the method that do not depend on which machine came out ahead, and it corrects the naive form of three of them.
 
-\emph{The design-level description of a failure mode does not fix its physical severity.} A short-circuit of the same winding fraction produced a fault current that differed by about 10\,\% between the PMSG and the SCIG in amperes and by a factor of 2.3 relative to the stator current the sensors see; on the WFSG bench extent and fault impedance were confounded. A method that compares alternatives on a failure-mode class must therefore carry two severity axes---the design-level one, on which requirements are written, and a physical one, on which the alternatives are compared---and state which one a number refers to; for resistor-limited emulation the physical axis is predictable at the design stage from volts per turn, speed and the resistance.
+\emph{The design-level description of a failure mode does not fix its physical severity, and the test matrix can carry a hidden variable.} A short-circuit of the same winding fraction produced a fault current that differed by about 10\,\% between the PMSG and the SCIG in amperes and by a factor of 2.3 relative to the stator current the sensors see; on the WFSG bench extent and fault impedance were confounded; and on all three benches the faulted phase rode on the nominal extent axis, which the phasor residuals remove and the magnitude ratios do not (Section~\ref{sec:res-phase}). A method that compares alternatives on a failure-mode class must therefore carry two severity axes---the design-level one, on which requirements are written, and a physical one, on which the alternatives are compared---state which one a number refers to, and use features that are invariant to the nuisance variables of the matrix; for resistor-limited emulation the physical axis is predictable at the design stage from volts per turn, speed and the resistance.
 
-\emph{Where a failure becomes observable is a property of the machine--drive combination, and the SDR must be read with its decomposition.} In the PMSG the winding asymmetry appeared in the terminal voltage, in the SCIG in the magnetising-axis current and its controller action, in the WFSG additionally in the field current and the current harmonics; the incremental negative-sequence impedance under fault was twice as large in the PMSG drive as in the SCIG drive. The version of this claim in which ``the control structure decides'' is not supported: both machines run the same controller, and Table~\ref{tab:decomp} shows that the SCIG's higher SDR on current and $d$-axis features is entirely a quieter healthy null. The SDR is designed to credit a quiet alternative, but a design team must know whether an alternative wins by signature or by silence, because the two generalise differently: a signature is a property of the fault physics, a null of the sensing and control chain and of the operating regime, which a design-stage instantiation cannot simulate (Section~\ref{sec:design-stage}).
+\emph{Where a failure becomes observable is a property of the machine--drive combination, and the SDR must be read with its decomposition in both forms.} In the PMSG the winding asymmetry appeared in the terminal voltage, in the SCIG in the controller quantities and the stator current, in the WFSG additionally in the field current; the incremental negative-sequence impedance under fault was 1.7 times larger in the PMSG drive than in the SCIG drive. The version of this claim in which ``the control structure decides'' is not supported: both machines run the same controller, and on the residual features they are indistinguishable through the terminal voltage. Nor is the version in which the SCIG wins only by a quieter null: Table~\ref{tab:decomp} shows that this holds for the stator current, where the PMSG's signature is the larger one in amperes, but that for the controller quantities the SCIG has the larger signature as well once the features are read in absolute units. The SDR is designed to credit a quiet alternative, but a design team must know whether an alternative wins by signature or by silence, because the two generalise differently: a signature is a property of the fault physics, a null of the sensing and control chain and of the operating regime, which a design-stage instantiation cannot simulate (Section~\ref{sec:design-stage}), and the decomposition in the relative and the absolute form is the way to tell.
 
-\emph{The cheapest adequate sensor suite depends on the alternative and on the requirement, and here it would change the monitoring specification, not the choice of machine type.} With three current transducers the PMSG reaches 7.4\,\% (inter-turn) and 9.7\,\% (inter-winding); three voltage transducers take it to 3.8 and 2.3\,\% and buy nothing on the SCIG, whose current-only or drive-internal suites already reach 7.4 and 2.3\,\%. The decision table makes the requirement explicit: around 8\,\% of a branch all three alternatives meet it with drive-internal quantities and diagnosability does not discriminate between them; below 5\,\% only the PMSG with voltage transducers is a candidate, with an uncertain verdict at the confidence demanded. The method would change the choice of machine type only if, for one alternative, no affordable suite met the requirement; here it changes what is specified for each: a measured detectability per alternative and suite, with its uncertainty, in place of an assumed one.
+\emph{The cheapest adequate sensor suite depends on the alternative and on the requirement, and here it would change the monitoring specification, not the choice of machine type.} With three current transducers the PMSG detects inter-turn faults from the middle tested level (7.4--7.7\,\% of a branch) and inter-winding faults from 9.7--10.6\,\%; three voltage transducers take both to the smallest level and buy nothing on the SCIG, whose current-only or drive-internal suites already reach it. The decision table makes the requirement explicit: at the middle inter-turn level all three alternatives meet it with drive-internal quantities and diagnosability does not discriminate between them; at the smallest level no suite on any bench meets it with the stated power, so the question is answered ``not with these data'' rather than ``with voltage transducers''; and for inter-winding faults at the smallest level the PMSG is the one alternative that needs added sensors. The method would change the choice of machine type only if, for one alternative, no affordable suite met the requirement; here it changes what is specified for each: a measured detectability per alternative and suite, with its uncertainty, in place of an assumed one.
 
-\emph{A monitoring design transfers across alternatives only under the right referencing rule, and the rule is a short-horizon one.} A detector built on one machine and applied to another in physical units lost much of its performance; features scaled on the target machine's healthy trials---a commissioning baseline---recovered part of it and were harmful in one direction; features referenced to the first half of each trial's own reference interval transferred in all six directions between the three machines and from any two to the third. The between-trial null (Table~\ref{tab:between}) explains why: against a baseline recorded at another time, the inter-turn signatures sit at SDR $\approx1$. For a product family the specification rule is a change detector on self-referenced deviations over a short horizon; a monitor that compares against an old baseline must be calibrated on the wider null.
+\emph{A monitoring design transfers across alternatives under a healthy-referenced rule, and the rule belongs in the specification.} A detector built on one machine and applied to another in physical units lost much of its performance (AUC 0.61--0.79 across against 0.91--0.93 within); scaling its features on healthy trials of the target machine, all of them or the one at the operating point, recovered most of it (0.87--0.88); and referencing each window to its own trial's preceding healthy interval gave the highest AUC in both directions (0.89--0.93) and transferred the three machines in all six directions and from any two to the third. The healthy-referenced rules differ in the true-positive rate at low false-alarm rates and in the linear detector, which transfers in both directions only when self-referenced; the earlier form of this claim, that a detector transfers only when self-referenced, is not supported by the intervals. The between-trial null (Table~\ref{tab:between}) explains the ordering: against a baseline recorded at another time the inter-turn signatures sit at an SDR of about 2 instead of 6 to 7, so the self-referenced rule sees the cleaner signal, at the price of being an abrupt-onset detector that a slowly growing fault would evade. For a product family the specification should therefore name the referencing rule and the horizon over which the reference is renewed, and a monitor that compares against an old baseline must be calibrated on the wider null.
 
 \subsection{Implications for the condition monitoring of wind-turbine generators}\label{sec:implications}
 
-Within the scope of Section~\ref{sec:threats}, the results carry the following implications for the wind-turbine generator. A PMSG with full-power conversion should be specified with terminal voltage measurement, or with another observable of the terminal asymmetry such as the zero-sequence voltage where a neutral is accessible \citep{Urresty2012}, if inter-turn faults below about 7\,\% of a branch are to be detected by threshold monitoring; its controller's commanded quantities carry a weaker version of the signature. An SCIG reaches the same detectability with current transducers alone or with no added sensor, and additional hardware buys robustness rather than reach. A wound-field machine with a static exciter offers a further drive-internal channel, the field current, whose 2$f_e$ ripple detected every inter-winding fault and most inter-turn faults; a brushless exciter would not expose it \citep{Neti2009}. A shaft torque transducer, as filtered on these benches, is not worth specifying for winding faults. Two industrial parameters change these statements: the ratio of current-loop bandwidth to twice the electrical frequency, which for a direct-drive multi-megawatt PMSG at a fundamental near 10\,Hz is expected to push the signature further into the controller and the voltage than in these 40--60\,Hz machines, although the current-loop gains and bandwidths of the benches are not documented in the data papers and the statement is a mechanism, not a computed prediction; and the grid-connected, unregulated stator of a doubly-fed generator, in which the stator and rotor currents carry the signature that the rotor-current and search-coil methods of \citet{Shah2009} exploit, so that whether its machine--drive combination relocates the signature at all is not established by these data.
+Within the scope of Section~\ref{sec:threats}, the results carry the following implications for the wind-turbine generator. A PMSG with full-power conversion should be specified with terminal voltage measurement, or with another observable of the terminal asymmetry such as the zero-sequence voltage where a neutral is accessible \citep{Urresty2012}, if inter-winding faults of the smallest tested size (2.3--3.2\,\% of a branch) are to be detected by threshold monitoring with the stated power; for inter-turn faults the voltage measurement raises the detectable share at the smallest level from 70--75 to 88\,\% without making that level a confident requirement, and from the middle level the controller's duty-cycle residual suffices. An SCIG reaches the same detectability with current transducers alone or with no added sensor, and additional hardware buys robustness rather than reach. A wound-field machine with a static exciter offers a further drive-internal channel, the field current, whose 2$f_e$ ripple detected every inter-winding fault and 80\,\% of the inter-turn trials at the matching impedance; a brushless exciter would not expose it \citep{Neti2009}. A shaft torque transducer, as filtered on these benches, is not worth specifying for winding faults. Two industrial parameters change these statements: the ratio of current-loop bandwidth to twice the electrical frequency, which for a direct-drive multi-megawatt PMSG at a fundamental near 10\,Hz is expected to push the signature further into the controller and the voltage than in these 40--60\,Hz machines, although the current-loop gains and bandwidths of the benches are not documented in the data papers and the statement is a mechanism, not a computed prediction; and the grid-connected, unregulated stator of a doubly-fed generator, in which the stator and rotor currents carry the signature that the rotor-current and search-coil methods of \citet{Shah2009} exploit, so that whether its machine--drive combination relocates the signature at all is not established by these data.
 
 \subsection{Limitations}\label{sec:threats}
 
@@ -689,7 +725,7 @@ The most important limitation is that each alternative is represented by one phy
 
 The fault emulation is resistor-limited and the benches are laboratory scale (2--2.5\,kVA): a bolted field fault is limited by the leakage reactance of the shorted turns and reaches several times the rated current, so its signature-versus-extent law, and hence every MDE, differs in kind from the one measured here, and the smallest tested fault (2.7--3.8\,\% of a branch) is larger than the one- to three-turn fault that starts an insulation failure in a large winding. The operating points were scaled from a 15\,MW turbine by the speed ratio only (1800\,rpm at the generator for 7.55\,rpm at the rotor, the torque defined analogously); the electrical frequency, the per-unit reactances and the ratio of current-loop bandwidth to twice the electrical frequency are those of the benches, whose controller gains and bandwidths the data papers do not state, so the relocation of the signature cannot be computed for another drive and Section~\ref{sec:implications} is conditional. Only winding faults and only electrical and controller observables were studied at a fixed thermal state and without nuisance transients other than the contactor operation; the suites are those the datasets can populate (Section~\ref{sec:suites}), and the drive-internal suite that the decision table often finds cheapest is available to an OEM-integrated monitor but not to a third-party retrofit, for which three current transducers are the cheapest option. On the WFSG the fault impedance is confounded with extent; only four tap pairs per class exist at the impedance matching the other two machines, so its inter-turn MDE is bounded, not measured; it has no healthy trials, so the reliability screen cannot be applied to it and its transfer entries lack nuisance-transient negatives; and 81 of its 438 trials hold fewer than three three-cycle windows. The PMSG/SCIG faulted interval contains about 55\,ms of healthy time before the relay picks up, which dilutes those SDRs slightly relative to the WFSG's.
 
-Statistically, the pooled null is a mixture over operating points and holds its nominal false-alarm rate on average, not per speed; the null quantile is held fixed inside the bootstrap; the fixed feature is chosen on the trials it is evaluated on, which the nested variant shows to be immaterial here; the oracle variant is a maximum over features and its false-alarm rate is reported for that reason; the minimum detectable extent is a discrete quantity on a coarse extent grid, so the continuous SDR and its ratio are the better basis for comparing alternatives. Other nuisance transients (load steps, grid events) were not in the data. Finally, the SDR characterises a short-horizon change detector; the between-trial null shows that a monitor referenced to an old baseline faces a null 1.6 to 4.9 times wider on the key features, and every MDE in this paper should be read with that qualification.
+Statistically, the pooled null is a mixture over operating points and holds its nominal false-alarm rate on average, not per speed; the screen rests on nine healthy trials and has little power; the fixed feature is chosen on the trials it is evaluated on, which the nested variant shows to move no share by more than six points; the oracle variant is a maximum over features and is therefore reported at a calibrated threshold; the minimum detectable extent is the median trial of a level, a 50\,\%-power quantity, which is why the decision table demands a detectable share as well, and it is known only as a bracket on three inter-turn levels, so that a requirement between two levels cannot be assessed and the continuous SDR and its ratio remain the better basis for comparing alternatives (a regression of the SDR on the extent would give a continuous estimate at the price of a model for the signature law); the required share of 0.9 and the confidence of 0.95 are choices of the requirement, not of the method. Other nuisance transients (load steps, grid events) were not in the data. Finally, the SDR characterises a short-horizon change detector; the between-trial null shows that a monitor referenced to an old baseline faces a null 1.1 to 4.6 times wider on the key features, and every MDE in this paper should be read with that qualification.
 %% ----------------------------------------------------------------------
 %% conclusion
 %% ----------------------------------------------------------------------
@@ -698,7 +734,7 @@ Statistically, the pooled null is a mixture over operating points and holds its 
 
 A detector-free measure of fault detectability has been proposed, the signal-to-drift ratio: a scale-free statistic calibrated on each machine's own healthy non-stationarity, from which a minimum detectable extent and a detectable share above a required extent can be computed for every combination of machine type, sensor suite and failure-mode class, with a reliability screen, bootstrap intervals and a decision table over the required extent and the false-alarm level. A six-step procedure with default rules for its framing decisions turns these into the selection of the cheapest adequate sensor suite for each machine type, a comparison of the machine types on that basis, and a transferability specification for a detector that must serve several of them.
 
-Applied to three types of wind-turbine generator subjected to identical winding short-circuits on open benchmark data, the method showed that the same design-level fault is not the same physical fault across the machines; that where a fault becomes visible depends on the machine--drive combination, the detectability difference between the two machines on one bench arising from their healthy non-stationarity rather than from the signature; that the cheapest sensor suite meeting a requirement depends on the alternative and on the requirement, voltage transducers lowering the permanent-magnet machine's detectable extent and adding nothing for the induction machine, while around 8\,\% of a branch all three alternatives are equally diagnosable with drive-internal quantities; and that a learned detector transfers across the three machines only when its features are referenced to each trial's own preceding healthy behaviour. The findings are robust in their orderings to the method's tuning, carry tap-pair-level uncertainty, and are limited by one physical unit per alternative, laboratory scale, resistor-limited fault emulation and a single failure-mode class.
+Applied to three types of wind-turbine generator subjected to the same tapped winding short-circuits on open benchmark data, the method showed that the same design-level fault is not the same physical fault across the machines, and that the faulted phase rides on the nominal extent axis unless sequence quantities are taken as phasor residuals; that where a fault becomes visible depends on the machine--drive combination, the two machines on one bench being indistinguishable through the terminal voltage and differing through the stator current by a quieter null and through the controller by both signature and null; that the cheapest sensor suite meeting a requirement depends on the alternative and on the requirement, the middle tested inter-turn level being met by drive-internal quantities on all three machines and the smallest inter-winding level requiring voltage transducers on the permanent-magnet machine alone; and that a learned detector transfers across the three machines once its features are referenced to healthy behaviour of the target machine, best to each trial's own preceding healthy interval. The findings carry tap-pair-level uncertainty and the sampling variability of the null, are robust in their orderings to the method's tuning, and are limited by one physical unit per alternative, laboratory scale, resistor-limited fault emulation and a single failure-mode class.
 
 Three extensions follow: the design-stage instantiation, in which simulated faulted trials are combined with measured healthy nulls of hardware of the same class and validated on a few physical trials, so that the method applies before hardware exists and machine-level differences become population-level statements; other failure-mode classes and observables---bearing and rotor faults with vibration and flux observables, zero-sequence and Park's-vector features for the winding faults studied here---and a mechanical or electrochemical family, to test the claim to generality; and a cost model including integration, maintenance and missed detection in place of the ordinal ranking of suites, so that the co-selection can be posed as an optimisation. The released code, which reproduces every result from the public data, is the starting point for all three.
 
@@ -727,52 +763,55 @@ During the preparation of this work the author used a large language model (Clau
 \appendix
 \setcounter{table}{0}
 \setcounter{figure}{0}
+%% hyperref anchors must stay unique after the counters restart
+\renewcommand{\theHtable}{A.\arabic{table}}
+\renewcommand{\theHfigure}{A.\arabic{figure}}
 
 \section{Feature definitions, computation details and additional tables}\label{app:appendix}
 
 %% BEGIN GENERATED tab_suites3 -- written by scripts/make_tables.py from results/tables; do not edit by hand
 \begin{table}[t]
 \tabsize
-\setlength{\tabcolsep}{3pt}
+\setlength{\tabcolsep}{2.5pt}
 \centering
 \begin{threeparttable}
 \caption{Sensor suites for the three alternatives, three-cycle windows, common feature set, $\alpha=0.95$}\label{tab:suites3}
-\begin{tabular}{@{}llllcccc@{}}
+\begin{tabular}{@{}lllcccccc@{}}
 \toprule
-Suite & Machine & Feature & MDE & DS & DS nested & Oracle DS & Oracle FA \\
+Suite & Machine & Feature & MDE & DS & DS nested & FA & Oracle DS & Oracle FA \\
 \midrule
-\multicolumn{8}{@{}l}{\emph{Inter-turn faults}} \\
-drive-internal & PMSG & $D_2/D_1$ & 7.4 & 65 & 65 & 82 & 44 \\
-drive-internal & SCIG & $I_d$\,2$f_e$ & 7.4 & 78 & 78 & 93 & 78 \\
-drive-internal & WFSG & $I_q$\,2$f_e$ & 11.6$^{\mathrm{a}}$ & 91 & 87 & 96 & -- \\
-3 CT & PMSG & $I_2/I_1$ & 7.4 & 57 & 57 & 78 & 11 \\
-3 CT & SCIG & $I_2/I_1$ & 7.4 & 70 & 70 & 86 & 56 \\
-3 CT & WFSG & $I_a$\,h3 & 11.6$^{\mathrm{a}}$ & 98 & 86 & 94 & -- \\
-3 CT + 3 VT & PMSG & $V_2/V_1$ & 3.8 & 73 & 73 & 85 & 33 \\
-3 CT + 3 VT & SCIG & $I_2/I_1$ & 7.4 & 70 & 70 & 89 & 56 \\
-3 CT + 3 VT & WFSG & $V_2/V_1$ & 11.6$^{\mathrm{a}}$ & 98 & 98 & 94 & -- \\
-3 CT + 3 VT + drive & PMSG & $V_2/V_1$ & 3.8 & 73 & 68 & 94 & 67 \\
-3 CT + 3 VT + drive & SCIG & $I_d$\,2$f_e$ & 7.4 & 78 & 78 & 97 & 89 \\
-3 CT + 3 VT + drive & WFSG & $V_2/V_1$ & 11.6$^{\mathrm{a}}$ & 98 & 98 & 98 & -- \\
-excitation (field current) & WFSG & $I_f$\,2$f_e$ & 11.6$^{\mathrm{a}}$ & 86 & 86 & 74 & -- \\
-\multicolumn{8}{@{}l}{\emph{Inter-winding faults}} \\
-drive-internal & PMSG & $D_2/D_1$ & 14.3 & 91 & 91 & 98 & 44 \\
-drive-internal & SCIG & $I_d$\,2$f_e$ & 2.3 & 100 & 100 & 100 & 78 \\
-drive-internal & WFSG & $I_q$\,2$f_e$ & 2.3 & 100 & 100 & 100 & -- \\
-3 CT & PMSG & $I_2/I_1$ & 9.7 & 83 & 83 & 99 & 11 \\
-3 CT & SCIG & $I_2/I_1$ & 2.3 & 98 & 98 & 99 & 56 \\
-3 CT & WFSG & $I_2/I_1$ & 2.3 & 100 & 100 & 100 & -- \\
-3 CT + 3 VT & PMSG & $V_2/V_1$ & 9.7 & 92 & 92 & 99 & 33 \\
-3 CT + 3 VT & SCIG & $I_2/I_1$ & 2.3 & 98 & 98 & 100 & 56 \\
-3 CT + 3 VT & WFSG & $V_2/V_1$ & 2.3 & 100 & 100 & 100 & -- \\
-3 CT + 3 VT + drive & PMSG & $V_2/V_1$ & 9.7 & 92 & 92 & 100 & 67 \\
-3 CT + 3 VT + drive & SCIG & $I_d$\,2$f_e$ & 2.3 & 100 & 100 & 100 & 89 \\
-3 CT + 3 VT + drive & WFSG & $I_q$\,2$f_e$ & 2.3 & 100 & 100 & 100 & -- \\
-excitation (field current) & WFSG & $I_f$\,2$f_e$ & 2.3 & 100 & 100 & 100 & -- \\
+\multicolumn{9}{@{}l}{\emph{Inter-turn faults}} \\
+drive & PMSG & $|\Delta\bar D_2|/D_1$ & (3.0, 7.5] & 76 & 76 & 0/9 & 68 & 0 \\
+drive & SCIG & $|\Delta\bar D_2|/D_1$ & (3.0, 7.5] & 82 & 82 & 1/9 & 69 & 0 \\
+drive & WFSG & $V_q^{\mathrm{cmd}}$\,2$f_e$ & $\le$11.8$^{\mathrm{a}}$ & 100 & 100 & -- & 93 & -- \\
+3CT & PMSG & $|\Delta\bar I_2|/I_1$ & (3.0, 7.5] & 70 & 70 & 0/9 & 63 & 0 \\
+3CT & SCIG & $|\Delta\bar I_2|/I_1$ & (3.0, 7.5] & 82 & 82 & 0/9 & 78 & 11 \\
+3CT & WFSG & $|\Delta\bar I_2|/I_1$ & $\le$11.8$^{\mathrm{a}}$ & 100 & 100 & -- & 87 & -- \\
+3CT+3VT & PMSG & $|\Delta\bar V_2|/V_1$ & $\le$3.0 & 90 & 90 & 1/9 & 76 & 0 \\
+3CT+3VT & SCIG & $|\Delta\bar I_2|/I_1$ & (3.0, 7.5] & 82 & 82 & 0/9 & 77 & 11 \\
+3CT+3VT & WFSG & $|\Delta\bar V_2|/V_1$ & $\le$11.8$^{\mathrm{a}}$ & 100 & 100 & -- & 92 & -- \\
+3CT+3VT+drv & PMSG & $|\Delta\bar V_2|/V_1$ & $\le$3.0 & 90 & 90 & 1/9 & 71 & 0 \\
+3CT+3VT+drv & SCIG & $|\Delta\bar D_2|/D_1$ & (3.0, 7.5] & 82 & 81 & 1/9 & 72 & 11 \\
+3CT+3VT+drv & WFSG & $|\Delta\bar V_2|/V_1$ & $\le$11.8$^{\mathrm{a}}$ & 100 & 100 & -- & 97 & -- \\
+exc & WFSG & $I_f$\,2$f_e$ & $\le$11.8$^{\mathrm{a}}$ & 100 & 100 & -- & 87 & -- \\
+\multicolumn{9}{@{}l}{\emph{Inter-winding faults}} \\
+drive & PMSG & $|\Delta\bar D_2|/D_1$ & $\le$2.8 & 93 & 87 & 0/9 & 88 & 0 \\
+drive & SCIG & $I_d$\,2$f_e$ & $\le$2.8 & 100 & 100 & 0/9 & 100 & 0 \\
+drive & WFSG & $V_q^{\mathrm{cmd}}$\,2$f_e$ & $\le$2.3 & 100 & 100 & -- & 100 & -- \\
+3CT & PMSG & $|\Delta\bar I_2|/I_1$ & (2.8, 10.1] & 86 & 86 & 0/9 & 89 & 0 \\
+3CT & SCIG & $I_2/I_1$ & $\le$2.8 & 98 & 98 & 0/9 & 97 & 11 \\
+3CT & WFSG & $I_2/I_1$ & $\le$2.3 & 100 & 100 & -- & 100 & -- \\
+3CT+3VT & PMSG & $|\Delta\bar V_2|/V_1$ & $\le$2.8 & 100 & 100 & 1/9 & 98 & 0 \\
+3CT+3VT & SCIG & $V_2/V_1$ & $\le$2.8 & 100 & 98 & 2/9 & 98 & 11 \\
+3CT+3VT & WFSG & $V_2/V_1$ & $\le$2.3 & 100 & 100 & -- & 100 & -- \\
+3CT+3VT+drv & PMSG & $|\Delta\bar V_2|/V_1$ & $\le$2.8 & 100 & 100 & 1/9 & 96 & 0 \\
+3CT+3VT+drv & SCIG & $I_d$\,2$f_e$ & $\le$2.8 & 100 & 100 & 0/9 & 100 & 11 \\
+3CT+3VT+drv & WFSG & $V_2/V_1$ & $\le$2.3 & 100 & 100 & -- & 100 & -- \\
+exc & WFSG & $I_f$\,2$f_e$ & $\le$2.3 & 100 & 100 & -- & 100 & -- \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[flushleft]
-\item Fixed feature: highest median SDR among the suite's screened features. MDE (\%) at the fault impedance matching the PMSG/SCIG protocol (WFSG: 198 trials, four tap pairs per class). DS: detectable share (\%) of the fixed feature; nested: fixed feature chosen on the other tap pairs; oracle: per-trial best feature, with its false-alarm rate on the healthy trials (FA, \%; not available for the WFSG). `--': largest tested extent not detectable.
+\item Fixed feature: the suite's screened feature with the smallest MDE, then the highest share, then the highest median SDR. MDE bracket (\%) on the physical levels at the fault impedance matching the PMSG/SCIG protocol (WFSG: 198 trials, four tap pairs per class). DS: detectable share (\%) of the fixed feature; nested: fixed feature chosen on the other tap pairs; FA: its false alarms on the nine healthy trials; oracle: per-trial best feature at the calibrated threshold, with its false-alarm rate (\%; the WFSG has no healthy trials).
 \item[a] The smallest inter-turn extent tested on the WFSG at that impedance is 11.6\,\%, so the value is an upper bound.
 \end{tablenotes}
 \end{threeparttable}
@@ -789,30 +828,30 @@ excitation (field current) & WFSG & $I_f$\,2$f_e$ & 2.3 & 100 & 100 & 100 & -- \
 \toprule
 Class & Feature & Machine & 3\,c & 5\,c & 8\,c & $\alpha$\,0.90 & $\alpha$\,0.99 \\
 \midrule
-IT & $V_2/V_1$ & PMSG & 3.8/73 & 3.8/76 & 3.8/73 & 3.8/80 & 3.8/69 \\
-IT & $V_2/V_1$ & SCIG & 7.4/69 & 7.4/73 & 7.4/75 & 7.4/76 & 7.4/65 \\
-IT & $I_2/I_1$ & PMSG & 7.4/57 & 7.4/56 & 7.4/58 & 7.4/65 & 7.4/52 \\
-IT & $I_2/I_1$ & SCIG & 7.4/70 & 7.4/75 & 7.4/75 & 7.4/79 & 7.4/68 \\
-IT & $I_d$\,2$f_e$ & PMSG & 12.1/29 & 12.1/30 & 12.1/28 & 12.1/33 & 12.1/24 \\
-IT & $I_d$\,2$f_e$ & SCIG & 7.4/78 & 7.4/79 & 7.4/83 & 7.4/84 & 7.4/72 \\
-IT & PI$_d$\,2$f_e$ & PMSG & 12.1/30 & 12.1/31 & 12.1/28 & 12.1/33 & 12.1/24 \\
-IT & PI$_d$\,2$f_e$ & SCIG & 7.4/78 & 7.4/78 & 7.4/83 & 7.4/84 & 7.4/72 \\
-IT & $V_q$\,2$f_e$ & PMSG & 7.4/55 & 7.4/57 & 7.4/60 & 7.4/65 & 7.7/50 \\
-IT & $V_q$\,2$f_e$ & SCIG & 7.4/61 & 7.4/60 & 7.4/62 & 7.4/64 & 7.4/59 \\
-IW & $V_2/V_1$ & PMSG & 9.7/92 & 2.3/94 & 2.3/94 & 2.3/94 & 9.7/91 \\
-IW & $V_2/V_1$ & SCIG & 2.3/100 & 2.3/100 & 2.3/100 & 2.3/100 & 2.3/100 \\
-IW & $I_2/I_1$ & PMSG & 9.7/83 & 9.7/81 & 9.7/82 & 3.2/87 & 9.7/79 \\
-IW & $I_2/I_1$ & SCIG & 2.3/98 & 2.3/100 & 2.3/100 & 2.3/100 & 2.3/97 \\
-IW & $I_d$\,2$f_e$ & PMSG & 21.7/71 & 21.7/72 & 21.7/69 & 21.7/74 & 21.7/69 \\
-IW & $I_d$\,2$f_e$ & SCIG & 2.3/100 & 2.3/100 & 2.3/100 & 2.3/100 & 2.3/100 \\
-IW & PI$_d$\,2$f_e$ & PMSG & 21.7/71 & 21.7/72 & 21.7/70 & 21.7/74 & 21.7/69 \\
-IW & PI$_d$\,2$f_e$ & SCIG & 2.3/100 & 2.3/100 & 2.3/100 & 2.3/100 & 2.3/100 \\
-IW & $V_q$\,2$f_e$ & PMSG & 9.7/89 & 9.7/90 & 9.7/91 & 9.7/91 & 9.7/86 \\
-IW & $V_q$\,2$f_e$ & SCIG & 9.7/88 & 9.7/92 & 9.7/88 & 9.7/95 & 9.7/84 \\
+IT & $|\Delta\bar V_2|/V_1$ & PMSG & 3.0/90 & 3.0/88 & 3.0/85 & 3.0/92 & 7.5/78 \\
+IT & $|\Delta\bar V_2|/V_1$ & SCIG & 7.5/78 & 7.5/81 & 7.5/79 & 3.0/84 & 7.5/68 \\
+IT & $|\Delta\bar I_2|/I_1$ & PMSG & 7.5/70 & 7.5/70 & 7.5/70 & 7.5/71 & 7.5/61 \\
+IT & $|\Delta\bar I_2|/I_1$ & SCIG & 7.5/82 & 3.0/85 & 3.0/85 & 3.0/87 & 7.5/78 \\
+IT & $I_d$\,2$f_e$ & PMSG & 11.8/28 & 11.8/24 & --/15$^{\mathrm{a}}$ & 11.8/30 & --/12$^{\mathrm{a}}$ \\
+IT & $I_d$\,2$f_e$ & SCIG & 7.5/73 & 7.5/76 & 7.5/73 & 3.0/82 & 7.5/69 \\
+IT & PI$_d$\,2$f_e$ & PMSG & 11.8/28 & 11.8/24 & --/15$^{\mathrm{a}}$ & 11.8/30 & --/11$^{\mathrm{a}}$ \\
+IT & PI$_d$\,2$f_e$ & SCIG & 7.5/73 & 7.5/76 & 7.5/73 & 7.5/82 & 7.5/69 \\
+IT & $V_q$\,2$f_e$ & PMSG & 11.8/53 & 11.8/51 & 7.5/52 & 7.5/61 & 11.8/47 \\
+IT & $V_q$\,2$f_e$ & SCIG & 7.5/59 & 7.5/60 & 7.5/59 & 7.5/62 & 7.5/59 \\
+IW & $|\Delta\bar V_2|/V_1$ & PMSG & 2.8/100 & 2.8/100 & 2.8/100 & 2.8/100 & 2.8/99 \\
+IW & $|\Delta\bar V_2|/V_1$ & SCIG & 2.8/100 & 2.8/100 & 2.8/100 & 2.8/100 & 2.8/99 \\
+IW & $|\Delta\bar I_2|/I_1$ & PMSG & 10.1/86 & 10.1/86 & 10.1/86 & 10.1/88 & 10.1/85 \\
+IW & $|\Delta\bar I_2|/I_1$ & SCIG & 2.8/98 & 2.8/99 & 2.8/99 & 2.8/100 & 2.8/97 \\
+IW & $I_d$\,2$f_e$ & PMSG & 14.6/70 & 14.6/69 & 21.9/64$^{\mathrm{a}}$ & 14.6/72 & 21.9/63$^{\mathrm{a}}$ \\
+IW & $I_d$\,2$f_e$ & SCIG & 2.8/100 & 2.8/100 & 2.8/100 & 2.8/100 & 2.8/100 \\
+IW & PI$_d$\,2$f_e$ & PMSG & 14.6/70 & 14.6/69 & 21.9/64$^{\mathrm{a}}$ & 14.6/72 & 21.9/63$^{\mathrm{a}}$ \\
+IW & PI$_d$\,2$f_e$ & SCIG & 2.8/100 & 2.8/100 & 2.8/100 & 2.8/100 & 2.8/100 \\
+IW & $V_q$\,2$f_e$ & PMSG & 10.1/89 & 10.1/89 & 10.1/87 & 2.8/91 & 10.1/82 \\
+IW & $V_q$\,2$f_e$ & SCIG & 10.1/88 & 10.1/88 & 10.1/86 & 2.8/94 & 10.1/84 \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[flushleft]
-\item Cells: MDE (\%; limit-of-detection convention; `--': largest extent not detectable) / DS (\%). Window-length columns at $\alpha=0.95$; quantile columns at five cycles. IT: inter-turn; IW: inter-winding.
+\item Cells: MDE (\%; upper end of the bracket on the physical levels; `--': largest level not detectable) / DS (\%). Window-length columns at $\alpha=0.95$; quantile columns at five cycles. IT: inter-turn; IW: inter-winding.
 \item[a] The feature fails the reliability screen at that setting.
 \end{tablenotes}
 \end{threeparttable}
@@ -831,22 +870,22 @@ IW & $V_q$\,2$f_e$ & SCIG & 9.7/88 & 9.7/92 & 9.7/88 & 9.7/95 & 9.7/84 \\
 \cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(l){8-9}
  & & & within & baseline & within & baseline & within & baseline \\
 \midrule
-IT & $V_2/V_1$ & P & 0.086 & 0.315 & 2.99 & 1.05 & 76 & 50 \\
-IT & $I_2/I_1$ & P & 0.162 & 0.268 & 1.47 & 0.978 & 56 & 48 \\
-IT & PI$_d$\,2$f_e$ & P & 0.557 & 0.870 & 0.518 & 0.441 & 31 & 20 \\
-IT & $V_q$\,2$f_e$ & P & 0.165 & 0.277 & 1.35 & 0.872 & 57 & 44 \\
-IW & $V_2/V_1$ & P & 0.086 & 0.315 & 61.9 & 12.5 & 94 & 83 \\
-IW & $I_2/I_1$ & P & 0.162 & 0.268 & 11.3 & 6.34 & 81 & 75 \\
-IW & PI$_d$\,2$f_e$ & P & 0.557 & 0.870 & 4.21 & 2.4 & 72 & 67 \\
-IW & $V_q$\,2$f_e$ & P & 0.165 & 0.277 & 22.4 & 10.7 & 90 & 81 \\
-IT & $V_2/V_1$ & S & 0.033 & 0.111 & 4.17 & 1.45 & 73 & 59 \\
-IT & $I_2/I_1$ & S & 0.034 & 0.130 & 4.52 & 1.15 & 75 & 54 \\
-IT & PI$_d$\,2$f_e$ & S & 0.016 & 0.078 & 6.69 & 1.29 & 78 & 53 \\
-IT & $V_q$\,2$f_e$ & S & 0.060 & 0.131 & 2.58 & 1.54 & 60 & 58 \\
-IW & $V_2/V_1$ & S & 0.033 & 0.111 & 48.2 & 16.1 & 100 & 94 \\
-IW & $I_2/I_1$ & S & 0.034 & 0.130 & 55.6 & 12.9 & 100 & 86 \\
-IW & PI$_d$\,2$f_e$ & S & 0.016 & 0.078 & 74 & 16 & 100 & 88 \\
-IW & $V_q$\,2$f_e$ & S & 0.060 & 0.131 & 24.8 & 11.2 & 92 & 86 \\
+IT & $|\Delta\bar V_2|/V_1$ & P & 0.123 & 0.382 & 6.84 & 2.36 & 88 & 72 \\
+IW & $|\Delta\bar V_2|/V_1$ & P & 0.123 & 0.382 & 52.7 & 14.3 & 100 & 92 \\
+IT & $|\Delta\bar I_2|/I_1$ & P & 0.242 & 0.458 & 1.7 & 0.937 & 70 & 49 \\
+IW & $|\Delta\bar I_2|/I_1$ & P & 0.242 & 0.458 & 13.7 & 6.95 & 86 & 85 \\
+IT & PI$_d$\,2$f_e$ & P & 0.781 & 0.870 & 0.37 & 0.441 & 24 & 20 \\
+IW & PI$_d$\,2$f_e$ & P & 0.781 & 0.870 & 3 & 2.4 & 69 & 67 \\
+IT & $V_q$\,2$f_e$ & P & 0.197 & 0.277 & 1.13 & 0.872 & 51 & 44 \\
+IW & $V_q$\,2$f_e$ & P & 0.197 & 0.277 & 18.7 & 10.7 & 89 & 81 \\
+IT & $|\Delta\bar V_2|/V_1$ & S & 0.051 & 0.159 & 6.9 & 2.36 & 81 & 67 \\
+IW & $|\Delta\bar V_2|/V_1$ & S & 0.051 & 0.159 & 39 & 13.5 & 100 & 93 \\
+IT & $|\Delta\bar I_2|/I_1$ & S & 0.046 & 0.146 & 6.34 & 2.05 & 85 & 69 \\
+IW & $|\Delta\bar I_2|/I_1$ & S & 0.046 & 0.146 & 45.8 & 13.9 & 99 & 89 \\
+IT & PI$_d$\,2$f_e$ & S & 0.017 & 0.078 & 6.18 & 1.29 & 76 & 53 \\
+IW & PI$_d$\,2$f_e$ & S & 0.017 & 0.078 & 68.4 & 16 & 100 & 88 \\
+IT & $V_q$\,2$f_e$ & S & 0.066 & 0.131 & 2.34 & 1.54 & 60 & 58 \\
+IW & $V_q$\,2$f_e$ & S & 0.066 & 0.131 & 22.5 & 11.2 & 88 & 86 \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[flushleft]
@@ -856,33 +895,57 @@ IW & $V_q$\,2$f_e$ & S & 0.060 & 0.131 & 24.8 & 11.2 & 92 & 86 \\
 \end{table}
 %% END GENERATED tab_between
 %% BEGIN GENERATED tab_nullq -- written by scripts/make_tables.py from results/tables; do not edit by hand
+\begin{table}[t]
+\tabsize
+\setlength{\tabcolsep}{3pt}
+\centering
+\begin{threeparttable}
+\caption{Null quantile $q_{95}$ of seven features with its 95\,\% sampling interval, five-cycle windows}\label{tab:nullq}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Feature & PMSG $q_{95}$ [CI] & $q_{95}/1.96\sigma$ & SCIG $q_{95}$ [CI] & $q_{95}/1.96\sigma$ \\
+\midrule
+$V_2/V_1$ & 0.107 [0.087, 0.115] & 1.03 & 0.037 [0.034, 0.045] & 0.95 \\
+$|\Delta\bar V_2|/V_1$ & 0.123 [0.114, 0.146] & -- & 0.051 [0.045, 0.059] & -- \\
+$I_2/I_1$ & 0.172 [0.148, 0.205] & 1.00 & 0.038 [0.034, 0.045] & 1.06 \\
+$|\Delta\bar I_2|/I_1$ & 0.242 [0.211, 0.277] & -- & 0.046 [0.039, 0.053] & -- \\
+$I_d$\,2$f_e$ & 0.774 [0.629, 0.918] & 1.11 & 0.017 [0.015, 0.021] & 0.95 \\
+PI$_d$\,2$f_e$ & 0.781 [0.618, 0.858] & 1.12 & 0.017 [0.015, 0.021] & 0.95 \\
+$V_q$\,2$f_e$ & 0.197 [0.166, 0.217] & 1.06 & 0.066 [0.060, 0.086] & 1.03 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\item Interval from a cluster bootstrap over the 24 tap pairs and the healthy set of each machine (2000 resamples). $q_{95}/1.96\sigma$: the quantile relative to the Gaussian value for the same standard deviation of the signed null; not applicable to the residual features, whose null is a magnitude.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
 %% END GENERATED tab_nullq
 %% BEGIN GENERATED tab_transfer3 -- written by scripts/make_tables.py from results/tables; do not edit by hand
 \begin{table}[t]
 \tabsize
 \centering
 \begin{threeparttable}
-\caption{Transfer between the three alternatives with a self-referenced GBDT detector, three-cycle windows, common features}\label{tab:transfer3}
-\begin{tabular}{@{}llcccc@{}}
+\caption{Transfer between the three alternatives, self-referenced GBDT detector, three-cycle windows, out-of-reference windows}\label{tab:transfer3}
+\begin{tabular}{@{}llccc@{}}
 \toprule
-Trained on & Tested on & AUC all & AUC o.o.r. & TPR o.o.r. & FA healthy (\%) \\
+Trained on & Tested on & AUC [CI] & TPR [CI] & FA healthy (\%) \\
 \midrule
-PMSG & PMSG & 0.86 & 0.85 & 0.62 & 3 \\
-SCIG & SCIG & 0.92 & 0.91 & 0.76 & 1 \\
-WFSG & WFSG & 0.97 & 0.97 & 0.93 & -- \\
-PMSG & SCIG & 0.88 & 0.88 & 0.60 & 0 \\
-PMSG & WFSG & 0.97 & 0.98 & 0.89 & -- \\
-SCIG & PMSG & 0.81 & 0.80 & 0.35 & 0 \\
-SCIG & WFSG & 0.95 & 0.96 & 0.86 & -- \\
-WFSG & PMSG & 0.86 & 0.84 & 0.52 & 1 \\
-WFSG & SCIG & 0.91 & 0.89 & 0.61 & 0 \\
-SCIG+WFSG & PMSG & 0.84 & 0.83 & 0.41 & 0 \\
-PMSG+WFSG & SCIG & 0.89 & 0.88 & 0.61 & 0 \\
-PMSG+SCIG & WFSG & 0.97 & 0.97 & 0.88 & -- \\
+PMSG & PMSG & 0.90 [0.85, 0.94] & 0.71 [0.56, 0.85] & 3 \\
+SCIG & SCIG & 0.93 [0.89, 0.96] & 0.77 [0.64, 0.89] & 1 \\
+WFSG & WFSG & 0.97 [0.94, 1.00] & 0.93 [0.85, 0.99] & -- \\
+PMSG & SCIG & 0.89 [0.83, 0.95] & 0.67 [0.53, 0.82] & 0 \\
+PMSG & WFSG & 0.98 [0.96, 1.00] & 0.94 [0.86, 0.99] & -- \\
+SCIG & PMSG & 0.85 [0.79, 0.91] & 0.41 [0.25, 0.54] & 0 \\
+SCIG & WFSG & 0.98 [0.95, 0.99] & 0.84 [0.72, 0.95] & -- \\
+WFSG & PMSG & 0.86 [0.80, 0.92] & 0.63 [0.48, 0.77] & 0 \\
+WFSG & SCIG & 0.90 [0.85, 0.94] & 0.57 [0.44, 0.74] & 0 \\
+SCIG+WFSG & PMSG & 0.87 [0.81, 0.93] & 0.55 [0.39, 0.71] & 0 \\
+PMSG+WFSG & SCIG & 0.90 [0.84, 0.95] & 0.68 [0.53, 0.82] & 0 \\
+PMSG+SCIG & WFSG & 0.99 [0.97, 1.00] & 0.95 [0.86, 0.99] & -- \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[flushleft]
-\item Features $|z|$-referenced to the first half of each trial's own reference interval. AUC on all windows and on the out-of-reference (o.o.r.) windows; TPR: true-positive rate at 1\,\% false-positive rate (FPR) on the o.o.r. windows; FA: share of the healthy trials' fault-time windows above the threshold giving 1\,\% FPR on all negatives. The WFSG has no healthy trials, so its negatives are reference and recovery windows only and its rows are optimistic.
+\item Features $|z|$-referenced to the first half of each trial's own reference interval. AUC and TPR at 1\,\% FPR on the out-of-reference windows with 95\,\% intervals from a bootstrap over the tested machine's trials; FA: share of the healthy trials' fault-time windows above the threshold giving 1\,\% FPR on all negatives. The WFSG has no healthy trials, so its negatives are reference and recovery windows only and its rows are optimistic.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
@@ -898,9 +961,9 @@ Let $x_a, x_b, x_c$ be the sampled phase quantities of a window of $N$ samples a
 
 \emph{Intervals.} PMSG and SCIG: reference interval 0.30--0.98\,s after the start of each record, split at 0.62\,s into $R_1$ (0.32\,s) and $R_2$ (0.36\,s); contactor commanded at 1.000\,s; faulted interval from 30\,ms after the command to 10\,ms before its release; the relay picks up 85--90\,ms after the command, so the faulted interval holds about 55\,ms of healthy time (at most 15\,\% of its length), which dilutes the fault-interval mean and makes the PMSG/SCIG SDRs slightly conservative; recovery windows start 0.30\,s after the release. WFSG: fault interval located from the measured fault current as the first contiguous interval in which its 10\,ms RMS exceeds $\max(0.3\,\mathrm{A}, 6\sigma)$, $\sigma$ being the standard deviation of that RMS over 0.05--0.40\,s, ending at the first fall below the threshold after 50\,ms; reference interval from 0.05\,s after the start of the record to 10\,ms before the onset, split at 0.30\,s; recovery windows start 0.15\,s after the end of the fault interval. At 23.9--63.7\,Hz a WFSG faulted interval holds between zero and eleven three-cycle windows; four trials hold none and are dropped, and 81 of 438 hold fewer than three (all 50 trials at 1671\,rpm, 26 of 206 at 1800\,rpm, 4 at 716 and 1 at 955\,rpm).
 
-\emph{Null and screen.} The null is pooled over all 225 records of each of the PMSG and SCIG and over the 438 inter-turn and inter-winding records of the WFSG. The screen flags a feature when its count of false alarms on the nine healthy trials is incompatible with the nominal rate $1-\alpha$ at the 5\,\% level (one-sided binomial test: three or more at $\alpha=0.95$, two or more at $\alpha=0.99$, four or more at $\alpha=0.90$) and excludes features whose null quantile exceeds one. At $\alpha=0.95$ it removes, at three cycles, $D_2/D_1$ on the SCIG; at five cycles $I_d$\,1$f_e$ and speed std on the PMSG and $I_a$\,h7 and $D_2/D_1$ on the SCIG; at eight cycles PI$_d$\,std and speed std on the PMSG and $I_q$\,2$f_e$, $D_2/D_1$ and $V_{dc}$\,std on the SCIG.
+\emph{Null and screen.} The null is pooled over all 225 records of each of the PMSG and SCIG and over the 438 inter-turn and inter-winding records of the WFSG. The screen flags a feature when its count of false alarms on the nine healthy trials is incompatible with the nominal rate $1-\alpha$ at the 5\,\% level (one-sided binomial test: three or more at $\alpha=0.95$, two or more at $\alpha=0.99$, four or more at $\alpha=0.90$; with nine trials the actual size of the rule is 0.8, 0.4 and 0.8\,\%) and excludes features whose null quantile exceeds one or is unbounded. The mechanical-torque features of the SCIG are excluded at every setting, because their healthy level crosses zero and the relative null is unbounded. Beyond them, at $\alpha=0.95$ the screen removes $D_2/D_1$ on the SCIG at three and five cycles (three false alarms) and $T_e$\,1$f_e$ on the SCIG at five cycles (null quantile 1.01); at eight cycles $T_e$\,1$f_e$ and 2$f_e$ on the SCIG and nine features on the PMSG whose null exceeds one ($I_d$\,1$f_e$ and 2$f_e$, PI$_d$\,2$f_e$, $T_e$ and $T_m$ at 1$f_e$ and 2$f_e$, $V_d$\,2$f_e$ and $V_d^{\mathrm{cmd}}$\,2$f_e$). At $\alpha=0.99$ and five cycles the null-quantile rule removes ten PMSG features, among them the $d$-axis features, and three SCIG features; at $\alpha=0.90$ the binomial rule removes speed std, $I_q$\,std and PI$_d$\,std on the PMSG and $D_2/D_1$ and $V_{dc}$\,std on the SCIG (four false alarms each).
 
-\emph{Bootstrap.} 2000 resamples, seed 1. Median SDR and detectable share of a class: cluster bootstrap over the twelve tap pairs, the same resampled pairs for both machines; in every resample the null quantile is re-estimated from the resampled pairs of the class together with a cluster resample of the remaining thirteen clusters of the machine (the other class's pairs and the healthy set). Minimum detectable extent: operating-point trials resampled within each physical level, the null re-estimated from a cluster resample of all 25 clusters, and the limit-of-detection rule applied to each resample. The sampling interval of the null quantile itself (Table~\ref{tab:nullq}) comes from the same cluster resampling. Decision table: 1000 resamples per suite, alternative, class and $\alpha$ (seed 7); in every resample the operating-point trials are resampled within each level, the null is re-estimated, the fixed feature is re-selected by the median-SDR rule, and the joint event $\{\mathrm{MDE}\le e_{\mathrm{req}}$ and $\mathrm{DS}(e\ge e_{\mathrm{req}})\ge0.9\}$ is scored; a suite inherits the highest probability of its subsets; \emph{meets} at probability $\ge0.95$, \emph{fails} at $\le0.05$.
+\emph{Bootstrap.} 2000 resamples, seed 1. Median SDR and detectable share of a class: cluster bootstrap over the twelve tap pairs, the same resampled pairs for both machines; in every resample the null quantile is re-estimated from the resampled pairs of the class together with a cluster resample of the remaining thirteen clusters of the machine (the other class's pairs and the healthy set). Minimum detectable extent: operating-point trials resampled within each physical level, the null re-estimated from a cluster resample of all 25 clusters, and the limit-of-detection rule applied to each resample. The sampling interval of the null quantile itself (Table~\ref{tab:nullq}) comes from the same cluster resampling. Decision table: 1000 resamples per suite, alternative, class and $\alpha$ (seed 7); in every resample the operating-point trials are resampled within each level, the null is re-estimated, the fixed feature is re-selected by the rule of Section~\ref{sec:sdr} (smallest MDE, then highest share, then highest median SDR), and the joint event $\{\mathrm{MDE}\le e_{\mathrm{req}}$ and $\mathrm{DS}(e\ge e_{\mathrm{req}})\ge0.9\}$ is scored at every tested level $e_{\mathrm{req}}$ of the common bench; a suite inherits a strictly higher probability of a cheaper subset; \emph{meets} at probability $\ge0.95$, \emph{fails} at $\le0.05$; a requirement below the smallest or above the largest extent tested on a machine is not testable.
 
 \emph{Transfer.} Models: scikit-learn histogram gradient boosting (maximum depth 3, 200 iterations, learning rate 0.08, random state 0) and logistic regression with standardisation ($C=1$, 3000 iterations); five-fold GroupKFold with one group per tap pair and machine, healthy trials grouped by speed. Inputs are the window features, the phasor residuals entering through the real and imaginary parts of $\bar X_2$. Four referencing rules: physical units; $z$-scores on all healthy trials of the target machine; $z$-scores on the healthy trial recorded at the same operating point (the commissioning baseline of Table~\ref{tab:between}); and the absolute $z$-score against the windows of the trial's own reference interval that end before 0.62\,s (PMSG/SCIG) or 0.30\,s (WFSG), the normalising set. Metrics: area under the receiver operating characteristic curve (AUC) and true-positive rate at 1\,\% false-positive rate, on all windows and on the windows outside the normalising set, with 95\,\% percentile intervals from 500 cluster resamples of the tested machine's trials (tap pairs and healthy speed groups), and the false-alarm rate of the all-negatives 1\,\% threshold on the fault-time windows of the healthy trials.
 

@@ -2,181 +2,181 @@
 
 ## (a) Null quantile in the SDR denominator
 
-| machine | ftype | feature | median_sdr | share_detectable | min_detectable_pct | healthy_false_alarms | screened | null_quantile |
-|---|---|---|---|---|---|---|---|---|
-| PMSG | TURNS | V2_V1 | 3.089 | 0.759 | 7.500 | 1 | False | 0.900 |
-| PMSG | TURNS | V2r_V1 | 7.683 | 0.917 | 3.000 | 0 | False | 0.900 |
-| PMSG | TURNS | I2_I1 | 1.758 | 0.630 | 7.500 | 0 | False | 0.900 |
-| PMSG | TURNS | I2r_I1 | 2.020 | 0.713 | 7.500 | 0 | False | 0.900 |
-| PMSG | TURNS | Id_2fe | 0.517 | 0.296 | 11.800 | 1 | False | 0.900 |
-| PMSG | TURNS | PId_2fe | 0.508 | 0.296 | 11.800 | 1 | False | 0.900 |
-| PMSG | TURNS | Vq_2fe | 1.434 | 0.611 | 7.500 | 1 | False | 0.900 |
-| PMSG | WINDINGS | V2_V1 | 63.960 | 0.944 | 2.800 | 1 | False | 0.900 |
-| PMSG | WINDINGS | V2r_V1 | 59.229 | 1.000 | 2.800 | 0 | False | 0.900 |
-| PMSG | WINDINGS | I2_I1 | 13.519 | 0.843 | 10.100 | 0 | False | 0.900 |
-| PMSG | WINDINGS | I2r_I1 | 16.263 | 0.880 | 10.100 | 0 | False | 0.900 |
-| PMSG | WINDINGS | Id_2fe | 4.149 | 0.722 | 14.600 | 1 | False | 0.900 |
-| PMSG | WINDINGS | PId_2fe | 4.123 | 0.722 | 14.600 | 1 | False | 0.900 |
-| PMSG | WINDINGS | Vq_2fe | 23.861 | 0.907 | 2.800 | 1 | False | 0.900 |
-| SCIG | TURNS | V2_V1 | 4.194 | 0.731 | 7.500 | 0 | False | 0.900 |
-| SCIG | TURNS | V2r_V1 | 8.259 | 0.843 | 3.000 | 0 | False | 0.900 |
-| SCIG | TURNS | I2_I1 | 4.940 | 0.769 | 7.500 | 1 | False | 0.900 |
-| SCIG | TURNS | I2r_I1 | 7.947 | 0.870 | 3.000 | 1 | False | 0.900 |
-| SCIG | TURNS | Id_2fe | 7.368 | 0.824 | 3.000 | 2 | False | 0.900 |
-| SCIG | TURNS | PId_2fe | 7.364 | 0.824 | 7.500 | 2 | False | 0.900 |
-| SCIG | TURNS | Vq_2fe | 2.754 | 0.620 | 7.500 | 1 | False | 0.900 |
-| SCIG | WINDINGS | V2_V1 | 48.469 | 1.000 | 2.800 | 0 | False | 0.900 |
-| SCIG | WINDINGS | V2r_V1 | 46.726 | 1.000 | 2.800 | 0 | False | 0.900 |
-| SCIG | WINDINGS | I2_I1 | 60.708 | 1.000 | 2.800 | 1 | False | 0.900 |
-| SCIG | WINDINGS | I2r_I1 | 57.372 | 1.000 | 2.800 | 1 | False | 0.900 |
-| SCIG | WINDINGS | Id_2fe | 81.566 | 1.000 | 2.800 | 2 | False | 0.900 |
-| SCIG | WINDINGS | PId_2fe | 81.527 | 1.000 | 2.800 | 2 | False | 0.900 |
-| SCIG | WINDINGS | Vq_2fe | 26.503 | 0.935 | 2.800 | 1 | False | 0.900 |
-| PMSG | TURNS | V2_V1 | 2.411 | 0.685 | 7.500 | 0 | False | 0.950 |
-| PMSG | TURNS | V2r_V1 | 6.839 | 0.880 | 3.000 | 0 | False | 0.950 |
-| PMSG | TURNS | I2_I1 | 1.390 | 0.546 | 7.500 | 0 | False | 0.950 |
-| PMSG | TURNS | I2r_I1 | 1.705 | 0.704 | 7.500 | 0 | False | 0.950 |
-| PMSG | TURNS | Id_2fe | 0.376 | 0.241 | 11.800 | 0 | False | 0.950 |
-| PMSG | TURNS | PId_2fe | 0.370 | 0.241 | 11.800 | 0 | False | 0.950 |
-| PMSG | TURNS | Vq_2fe | 1.126 | 0.509 | 11.800 | 0 | False | 0.950 |
-| PMSG | WINDINGS | V2_V1 | 49.911 | 0.907 | 2.800 | 0 | False | 0.950 |
-| PMSG | WINDINGS | V2r_V1 | 52.720 | 1.000 | 2.800 | 0 | False | 0.950 |
-| PMSG | WINDINGS | I2_I1 | 10.688 | 0.815 | 10.100 | 0 | False | 0.950 |
-| PMSG | WINDINGS | I2r_I1 | 13.727 | 0.861 | 10.100 | 0 | False | 0.950 |
-| PMSG | WINDINGS | Id_2fe | 3.017 | 0.685 | 14.600 | 0 | False | 0.950 |
-| PMSG | WINDINGS | PId_2fe | 3.002 | 0.685 | 14.600 | 0 | False | 0.950 |
-| PMSG | WINDINGS | Vq_2fe | 18.744 | 0.889 | 10.100 | 0 | False | 0.950 |
-| SCIG | TURNS | V2_V1 | 3.631 | 0.694 | 7.500 | 0 | False | 0.950 |
-| SCIG | TURNS | V2r_V1 | 6.899 | 0.815 | 7.500 | 0 | False | 0.950 |
-| SCIG | TURNS | I2_I1 | 3.977 | 0.713 | 7.500 | 0 | False | 0.950 |
-| SCIG | TURNS | I2r_I1 | 6.341 | 0.852 | 3.000 | 1 | False | 0.950 |
-| SCIG | TURNS | Id_2fe | 6.177 | 0.759 | 7.500 | 1 | False | 0.950 |
-| SCIG | TURNS | PId_2fe | 6.182 | 0.759 | 7.500 | 1 | False | 0.950 |
-| SCIG | TURNS | Vq_2fe | 2.338 | 0.602 | 7.500 | 1 | False | 0.950 |
-| SCIG | WINDINGS | V2_V1 | 41.954 | 1.000 | 2.800 | 0 | False | 0.950 |
-| SCIG | WINDINGS | V2r_V1 | 39.030 | 1.000 | 2.800 | 0 | False | 0.950 |
-| SCIG | WINDINGS | I2_I1 | 48.869 | 0.991 | 2.800 | 0 | False | 0.950 |
-| SCIG | WINDINGS | I2r_I1 | 45.776 | 0.991 | 2.800 | 1 | False | 0.950 |
-| SCIG | WINDINGS | Id_2fe | 68.376 | 1.000 | 2.800 | 1 | False | 0.950 |
-| SCIG | WINDINGS | PId_2fe | 68.446 | 1.000 | 2.800 | 1 | False | 0.950 |
-| SCIG | WINDINGS | Vq_2fe | 22.502 | 0.880 | 10.100 | 1 | False | 0.950 |
-| PMSG | TURNS | V2_V1 | 1.761 | 0.583 | 7.500 | 0 | False | 0.990 |
-| PMSG | TURNS | V2r_V1 | 4.920 | 0.778 | 7.500 | 0 | False | 0.990 |
-| PMSG | TURNS | I2_I1 | 1.022 | 0.509 | 7.500 | 0 | False | 0.990 |
-| PMSG | TURNS | I2r_I1 | 1.211 | 0.611 | 7.500 | 0 | False | 0.990 |
-| PMSG | TURNS | Id_2fe | 0.236 | 0.120 |  | 0 | False | 0.990 |
-| PMSG | TURNS | PId_2fe | 0.230 | 0.111 |  | 0 | False | 0.990 |
-| PMSG | TURNS | Vq_2fe | 0.862 | 0.472 | 11.800 | 0 | False | 0.990 |
-| PMSG | WINDINGS | V2_V1 | 36.454 | 0.889 | 2.800 | 0 | False | 0.990 |
-| PMSG | WINDINGS | V2r_V1 | 37.925 | 0.991 | 2.800 | 0 | False | 0.990 |
-| PMSG | WINDINGS | I2_I1 | 7.858 | 0.778 | 10.100 | 0 | False | 0.990 |
-| PMSG | WINDINGS | I2r_I1 | 9.748 | 0.852 | 10.100 | 0 | False | 0.990 |
-| PMSG | WINDINGS | Id_2fe | 1.891 | 0.630 | 21.900 | 0 | False | 0.990 |
-| PMSG | WINDINGS | PId_2fe | 1.868 | 0.630 | 21.900 | 0 | False | 0.990 |
-| PMSG | WINDINGS | Vq_2fe | 14.348 | 0.824 | 10.100 | 0 | False | 0.990 |
-| SCIG | TURNS | V2_V1 | 2.567 | 0.620 | 7.500 | 0 | False | 0.990 |
-| SCIG | TURNS | V2r_V1 | 4.701 | 0.676 | 7.500 | 0 | False | 0.990 |
-| SCIG | TURNS | I2_I1 | 2.919 | 0.639 | 7.500 | 0 | False | 0.990 |
-| SCIG | TURNS | I2r_I1 | 5.144 | 0.778 | 7.500 | 0 | False | 0.990 |
-| SCIG | TURNS | Id_2fe | 4.808 | 0.694 | 7.500 | 1 | False | 0.990 |
-| SCIG | TURNS | PId_2fe | 4.818 | 0.694 | 7.500 | 1 | False | 0.990 |
-| SCIG | TURNS | Vq_2fe | 1.676 | 0.593 | 7.500 | 1 | False | 0.990 |
-| SCIG | WINDINGS | V2_V1 | 29.667 | 1.000 | 2.800 | 0 | False | 0.990 |
-| SCIG | WINDINGS | V2r_V1 | 26.597 | 0.991 | 2.800 | 0 | False | 0.990 |
-| SCIG | WINDINGS | I2_I1 | 35.875 | 0.963 | 2.800 | 0 | False | 0.990 |
-| SCIG | WINDINGS | I2r_I1 | 37.133 | 0.972 | 2.800 | 0 | False | 0.990 |
-| SCIG | WINDINGS | Id_2fe | 53.230 | 1.000 | 2.800 | 1 | False | 0.990 |
-| SCIG | WINDINGS | PId_2fe | 53.343 | 1.000 | 2.800 | 1 | False | 0.990 |
-| SCIG | WINDINGS | Vq_2fe | 16.132 | 0.843 | 10.100 | 1 | False | 0.990 |
+| machine | ftype | feature | median_sdr | share_detectable | min_detectable_pct | healthy_false_alarms | null_q | screened | null_quantile |
+|---|---|---|---|---|---|---|---|---|---|
+| PMSG | TURNS | V2_V1 | 3.089 | 0.759 | 7.500 | 1 | 0.083 | False | 0.900 |
+| PMSG | TURNS | V2r_V1 | 7.683 | 0.917 | 3.000 | 0 | 0.110 | False | 0.900 |
+| PMSG | TURNS | I2_I1 | 1.758 | 0.630 | 7.500 | 0 | 0.136 | False | 0.900 |
+| PMSG | TURNS | I2r_I1 | 2.020 | 0.713 | 7.500 | 0 | 0.204 | False | 0.900 |
+| PMSG | TURNS | Id_2fe | 0.517 | 0.296 | 11.800 | 1 | 0.563 | False | 0.900 |
+| PMSG | TURNS | PId_2fe | 0.508 | 0.296 | 11.800 | 1 | 0.568 | False | 0.900 |
+| PMSG | TURNS | Vq_2fe | 1.434 | 0.611 | 7.500 | 1 | 0.155 | False | 0.900 |
+| PMSG | WINDINGS | V2_V1 | 63.960 | 0.944 | 2.800 | 1 | 0.083 | False | 0.900 |
+| PMSG | WINDINGS | V2r_V1 | 59.229 | 1.000 | 2.800 | 0 | 0.110 | False | 0.900 |
+| PMSG | WINDINGS | I2_I1 | 13.519 | 0.843 | 10.100 | 0 | 0.136 | False | 0.900 |
+| PMSG | WINDINGS | I2r_I1 | 16.263 | 0.880 | 10.100 | 0 | 0.204 | False | 0.900 |
+| PMSG | WINDINGS | Id_2fe | 4.149 | 0.722 | 14.600 | 1 | 0.563 | False | 0.900 |
+| PMSG | WINDINGS | PId_2fe | 4.123 | 0.722 | 14.600 | 1 | 0.568 | False | 0.900 |
+| PMSG | WINDINGS | Vq_2fe | 23.861 | 0.907 | 2.800 | 1 | 0.155 | False | 0.900 |
+| SCIG | TURNS | V2_V1 | 4.194 | 0.731 | 7.500 | 0 | 0.032 | False | 0.900 |
+| SCIG | TURNS | V2r_V1 | 8.259 | 0.843 | 3.000 | 0 | 0.043 | False | 0.900 |
+| SCIG | TURNS | I2_I1 | 4.940 | 0.769 | 7.500 | 1 | 0.031 | False | 0.900 |
+| SCIG | TURNS | I2r_I1 | 7.947 | 0.870 | 3.000 | 1 | 0.037 | False | 0.900 |
+| SCIG | TURNS | Id_2fe | 7.368 | 0.824 | 3.000 | 2 | 0.015 | False | 0.900 |
+| SCIG | TURNS | PId_2fe | 7.364 | 0.824 | 7.500 | 2 | 0.015 | False | 0.900 |
+| SCIG | TURNS | Vq_2fe | 2.754 | 0.620 | 7.500 | 1 | 0.056 | False | 0.900 |
+| SCIG | WINDINGS | V2_V1 | 48.469 | 1.000 | 2.800 | 0 | 0.032 | False | 0.900 |
+| SCIG | WINDINGS | V2r_V1 | 46.726 | 1.000 | 2.800 | 0 | 0.043 | False | 0.900 |
+| SCIG | WINDINGS | I2_I1 | 60.708 | 1.000 | 2.800 | 1 | 0.031 | False | 0.900 |
+| SCIG | WINDINGS | I2r_I1 | 57.372 | 1.000 | 2.800 | 1 | 0.037 | False | 0.900 |
+| SCIG | WINDINGS | Id_2fe | 81.566 | 1.000 | 2.800 | 2 | 0.015 | False | 0.900 |
+| SCIG | WINDINGS | PId_2fe | 81.527 | 1.000 | 2.800 | 2 | 0.015 | False | 0.900 |
+| SCIG | WINDINGS | Vq_2fe | 26.503 | 0.935 | 2.800 | 1 | 0.056 | False | 0.900 |
+| PMSG | TURNS | V2_V1 | 2.411 | 0.685 | 7.500 | 0 | 0.107 | False | 0.950 |
+| PMSG | TURNS | V2r_V1 | 6.839 | 0.880 | 3.000 | 0 | 0.123 | False | 0.950 |
+| PMSG | TURNS | I2_I1 | 1.390 | 0.546 | 7.500 | 0 | 0.172 | False | 0.950 |
+| PMSG | TURNS | I2r_I1 | 1.705 | 0.704 | 7.500 | 0 | 0.242 | False | 0.950 |
+| PMSG | TURNS | Id_2fe | 0.376 | 0.241 | 11.800 | 0 | 0.774 | False | 0.950 |
+| PMSG | TURNS | PId_2fe | 0.370 | 0.241 | 11.800 | 0 | 0.781 | False | 0.950 |
+| PMSG | TURNS | Vq_2fe | 1.126 | 0.509 | 11.800 | 0 | 0.197 | False | 0.950 |
+| PMSG | WINDINGS | V2_V1 | 49.911 | 0.907 | 2.800 | 0 | 0.107 | False | 0.950 |
+| PMSG | WINDINGS | V2r_V1 | 52.720 | 1.000 | 2.800 | 0 | 0.123 | False | 0.950 |
+| PMSG | WINDINGS | I2_I1 | 10.688 | 0.815 | 10.100 | 0 | 0.172 | False | 0.950 |
+| PMSG | WINDINGS | I2r_I1 | 13.727 | 0.861 | 10.100 | 0 | 0.242 | False | 0.950 |
+| PMSG | WINDINGS | Id_2fe | 3.017 | 0.685 | 14.600 | 0 | 0.774 | False | 0.950 |
+| PMSG | WINDINGS | PId_2fe | 3.002 | 0.685 | 14.600 | 0 | 0.781 | False | 0.950 |
+| PMSG | WINDINGS | Vq_2fe | 18.744 | 0.889 | 10.100 | 0 | 0.197 | False | 0.950 |
+| SCIG | TURNS | V2_V1 | 3.631 | 0.694 | 7.500 | 0 | 0.037 | False | 0.950 |
+| SCIG | TURNS | V2r_V1 | 6.899 | 0.815 | 7.500 | 0 | 0.051 | False | 0.950 |
+| SCIG | TURNS | I2_I1 | 3.977 | 0.713 | 7.500 | 0 | 0.038 | False | 0.950 |
+| SCIG | TURNS | I2r_I1 | 6.341 | 0.852 | 3.000 | 1 | 0.046 | False | 0.950 |
+| SCIG | TURNS | Id_2fe | 6.177 | 0.759 | 7.500 | 1 | 0.017 | False | 0.950 |
+| SCIG | TURNS | PId_2fe | 6.182 | 0.759 | 7.500 | 1 | 0.017 | False | 0.950 |
+| SCIG | TURNS | Vq_2fe | 2.338 | 0.602 | 7.500 | 1 | 0.066 | False | 0.950 |
+| SCIG | WINDINGS | V2_V1 | 41.954 | 1.000 | 2.800 | 0 | 0.037 | False | 0.950 |
+| SCIG | WINDINGS | V2r_V1 | 39.030 | 1.000 | 2.800 | 0 | 0.051 | False | 0.950 |
+| SCIG | WINDINGS | I2_I1 | 48.869 | 0.991 | 2.800 | 0 | 0.038 | False | 0.950 |
+| SCIG | WINDINGS | I2r_I1 | 45.776 | 0.991 | 2.800 | 1 | 0.046 | False | 0.950 |
+| SCIG | WINDINGS | Id_2fe | 68.376 | 1.000 | 2.800 | 1 | 0.017 | False | 0.950 |
+| SCIG | WINDINGS | PId_2fe | 68.446 | 1.000 | 2.800 | 1 | 0.017 | False | 0.950 |
+| SCIG | WINDINGS | Vq_2fe | 22.502 | 0.880 | 10.100 | 1 | 0.066 | False | 0.950 |
+| PMSG | TURNS | V2_V1 | 1.761 | 0.583 | 7.500 | 0 | 0.146 | False | 0.990 |
+| PMSG | TURNS | V2r_V1 | 4.920 | 0.778 | 7.500 | 0 | 0.172 | False | 0.990 |
+| PMSG | TURNS | I2_I1 | 1.022 | 0.509 | 7.500 | 0 | 0.233 | False | 0.990 |
+| PMSG | TURNS | I2r_I1 | 1.211 | 0.611 | 7.500 | 0 | 0.340 | False | 0.990 |
+| PMSG | TURNS | Id_2fe | 0.236 | 0.120 |  | 0 | 1.235 | True | 0.990 |
+| PMSG | TURNS | PId_2fe | 0.230 | 0.111 |  | 0 | 1.255 | True | 0.990 |
+| PMSG | TURNS | Vq_2fe | 0.862 | 0.472 | 11.800 | 0 | 0.257 | False | 0.990 |
+| PMSG | WINDINGS | V2_V1 | 36.454 | 0.889 | 2.800 | 0 | 0.146 | False | 0.990 |
+| PMSG | WINDINGS | V2r_V1 | 37.925 | 0.991 | 2.800 | 0 | 0.172 | False | 0.990 |
+| PMSG | WINDINGS | I2_I1 | 7.858 | 0.778 | 10.100 | 0 | 0.233 | False | 0.990 |
+| PMSG | WINDINGS | I2r_I1 | 9.748 | 0.852 | 10.100 | 0 | 0.340 | False | 0.990 |
+| PMSG | WINDINGS | Id_2fe | 1.891 | 0.630 | 21.900 | 0 | 1.235 | True | 0.990 |
+| PMSG | WINDINGS | PId_2fe | 1.868 | 0.630 | 21.900 | 0 | 1.255 | True | 0.990 |
+| PMSG | WINDINGS | Vq_2fe | 14.348 | 0.824 | 10.100 | 0 | 0.257 | False | 0.990 |
+| SCIG | TURNS | V2_V1 | 2.567 | 0.620 | 7.500 | 0 | 0.053 | False | 0.990 |
+| SCIG | TURNS | V2r_V1 | 4.701 | 0.676 | 7.500 | 0 | 0.075 | False | 0.990 |
+| SCIG | TURNS | I2_I1 | 2.919 | 0.639 | 7.500 | 0 | 0.052 | False | 0.990 |
+| SCIG | TURNS | I2r_I1 | 5.144 | 0.778 | 7.500 | 0 | 0.057 | False | 0.990 |
+| SCIG | TURNS | Id_2fe | 4.808 | 0.694 | 7.500 | 1 | 0.022 | False | 0.990 |
+| SCIG | TURNS | PId_2fe | 4.818 | 0.694 | 7.500 | 1 | 0.022 | False | 0.990 |
+| SCIG | TURNS | Vq_2fe | 1.676 | 0.593 | 7.500 | 1 | 0.093 | False | 0.990 |
+| SCIG | WINDINGS | V2_V1 | 29.667 | 1.000 | 2.800 | 0 | 0.053 | False | 0.990 |
+| SCIG | WINDINGS | V2r_V1 | 26.597 | 0.991 | 2.800 | 0 | 0.075 | False | 0.990 |
+| SCIG | WINDINGS | I2_I1 | 35.875 | 0.963 | 2.800 | 0 | 0.052 | False | 0.990 |
+| SCIG | WINDINGS | I2r_I1 | 37.133 | 0.972 | 2.800 | 0 | 0.057 | False | 0.990 |
+| SCIG | WINDINGS | Id_2fe | 53.230 | 1.000 | 2.800 | 1 | 0.022 | False | 0.990 |
+| SCIG | WINDINGS | PId_2fe | 53.343 | 1.000 | 2.800 | 1 | 0.022 | False | 0.990 |
+| SCIG | WINDINGS | Vq_2fe | 16.132 | 0.843 | 10.100 | 1 | 0.093 | False | 0.990 |
 
 ## (b) Window length
 
-| machine | ftype | feature | median_sdr | share_detectable | min_detectable_pct | healthy_false_alarms | screened | window_cycles |
-|---|---|---|---|---|---|---|---|---|
-| PMSG | TURNS | V2_V1 | 2.357 | 0.704 | 7.500 | 1 | False | 3 |
-| PMSG | TURNS | V2r_V1 | 6.517 | 0.898 | 3.000 | 1 | False | 3 |
-| PMSG | TURNS | I2_I1 | 1.329 | 0.556 | 7.500 | 0 | False | 3 |
-| PMSG | TURNS | I2r_I1 | 1.649 | 0.704 | 7.500 | 0 | False | 3 |
-| PMSG | TURNS | Id_2fe | 0.533 | 0.278 | 11.800 | 0 | False | 3 |
-| PMSG | TURNS | PId_2fe | 0.535 | 0.278 | 11.800 | 0 | False | 3 |
-| PMSG | TURNS | Vq_2fe | 1.118 | 0.528 | 11.800 | 0 | False | 3 |
-| PMSG | WINDINGS | V2_V1 | 48.633 | 0.907 | 2.800 | 1 | False | 3 |
-| PMSG | WINDINGS | V2r_V1 | 48.350 | 1.000 | 2.800 | 1 | False | 3 |
-| PMSG | WINDINGS | I2_I1 | 11.080 | 0.824 | 10.100 | 0 | False | 3 |
-| PMSG | WINDINGS | I2r_I1 | 13.406 | 0.861 | 10.100 | 0 | False | 3 |
-| PMSG | WINDINGS | Id_2fe | 4.278 | 0.704 | 14.600 | 0 | False | 3 |
-| PMSG | WINDINGS | PId_2fe | 4.332 | 0.704 | 14.600 | 0 | False | 3 |
-| PMSG | WINDINGS | Vq_2fe | 18.811 | 0.889 | 10.100 | 0 | False | 3 |
-| SCIG | TURNS | V2_V1 | 2.672 | 0.667 | 7.500 | 2 | False | 3 |
-| SCIG | TURNS | V2r_V1 | 5.907 | 0.778 | 7.500 | 0 | False | 3 |
-| SCIG | TURNS | I2_I1 | 3.504 | 0.648 | 7.500 | 0 | False | 3 |
-| SCIG | TURNS | I2r_I1 | 6.039 | 0.824 | 7.500 | 0 | False | 3 |
-| SCIG | TURNS | Id_2fe | 5.986 | 0.731 | 7.500 | 0 | False | 3 |
-| SCIG | TURNS | PId_2fe | 6.000 | 0.731 | 7.500 | 1 | False | 3 |
-| SCIG | TURNS | Vq_2fe | 2.264 | 0.593 | 7.500 | 1 | False | 3 |
-| SCIG | WINDINGS | V2_V1 | 34.676 | 1.000 | 2.800 | 2 | False | 3 |
-| SCIG | WINDINGS | V2r_V1 | 32.651 | 1.000 | 2.800 | 0 | False | 3 |
-| SCIG | WINDINGS | I2_I1 | 43.479 | 0.981 | 2.800 | 0 | False | 3 |
-| SCIG | WINDINGS | I2r_I1 | 43.382 | 0.981 | 2.800 | 0 | False | 3 |
-| SCIG | WINDINGS | Id_2fe | 66.979 | 1.000 | 2.800 | 0 | False | 3 |
-| SCIG | WINDINGS | PId_2fe | 67.120 | 1.000 | 2.800 | 1 | False | 3 |
-| SCIG | WINDINGS | Vq_2fe | 21.515 | 0.880 | 10.100 | 1 | False | 3 |
-| PMSG | TURNS | V2_V1 | 2.411 | 0.685 | 7.500 | 0 | False | 5 |
-| PMSG | TURNS | V2r_V1 | 6.839 | 0.880 | 3.000 | 0 | False | 5 |
-| PMSG | TURNS | I2_I1 | 1.390 | 0.546 | 7.500 | 0 | False | 5 |
-| PMSG | TURNS | I2r_I1 | 1.705 | 0.704 | 7.500 | 0 | False | 5 |
-| PMSG | TURNS | Id_2fe | 0.376 | 0.241 | 11.800 | 0 | False | 5 |
-| PMSG | TURNS | PId_2fe | 0.370 | 0.241 | 11.800 | 0 | False | 5 |
-| PMSG | TURNS | Vq_2fe | 1.126 | 0.509 | 11.800 | 0 | False | 5 |
-| PMSG | WINDINGS | V2_V1 | 49.911 | 0.907 | 2.800 | 0 | False | 5 |
-| PMSG | WINDINGS | V2r_V1 | 52.720 | 1.000 | 2.800 | 0 | False | 5 |
-| PMSG | WINDINGS | I2_I1 | 10.688 | 0.815 | 10.100 | 0 | False | 5 |
-| PMSG | WINDINGS | I2r_I1 | 13.727 | 0.861 | 10.100 | 0 | False | 5 |
-| PMSG | WINDINGS | Id_2fe | 3.017 | 0.685 | 14.600 | 0 | False | 5 |
-| PMSG | WINDINGS | PId_2fe | 3.002 | 0.685 | 14.600 | 0 | False | 5 |
-| PMSG | WINDINGS | Vq_2fe | 18.744 | 0.889 | 10.100 | 0 | False | 5 |
-| SCIG | TURNS | V2_V1 | 3.631 | 0.694 | 7.500 | 0 | False | 5 |
-| SCIG | TURNS | V2r_V1 | 6.899 | 0.815 | 7.500 | 0 | False | 5 |
-| SCIG | TURNS | I2_I1 | 3.977 | 0.713 | 7.500 | 0 | False | 5 |
-| SCIG | TURNS | I2r_I1 | 6.341 | 0.852 | 3.000 | 1 | False | 5 |
-| SCIG | TURNS | Id_2fe | 6.177 | 0.759 | 7.500 | 1 | False | 5 |
-| SCIG | TURNS | PId_2fe | 6.182 | 0.759 | 7.500 | 1 | False | 5 |
-| SCIG | TURNS | Vq_2fe | 2.338 | 0.602 | 7.500 | 1 | False | 5 |
-| SCIG | WINDINGS | V2_V1 | 41.954 | 1.000 | 2.800 | 0 | False | 5 |
-| SCIG | WINDINGS | V2r_V1 | 39.030 | 1.000 | 2.800 | 0 | False | 5 |
-| SCIG | WINDINGS | I2_I1 | 48.869 | 0.991 | 2.800 | 0 | False | 5 |
-| SCIG | WINDINGS | I2r_I1 | 45.776 | 0.991 | 2.800 | 1 | False | 5 |
-| SCIG | WINDINGS | Id_2fe | 68.376 | 1.000 | 2.800 | 1 | False | 5 |
-| SCIG | WINDINGS | PId_2fe | 68.446 | 1.000 | 2.800 | 1 | False | 5 |
-| SCIG | WINDINGS | Vq_2fe | 22.502 | 0.880 | 10.100 | 1 | False | 5 |
-| PMSG | TURNS | V2_V1 | 2.412 | 0.694 | 7.500 | 0 | False | 8 |
-| PMSG | TURNS | V2r_V1 | 6.319 | 0.852 | 3.000 | 0 | False | 8 |
-| PMSG | TURNS | I2_I1 | 1.352 | 0.537 | 7.500 | 0 | False | 8 |
-| PMSG | TURNS | I2r_I1 | 1.668 | 0.704 | 7.500 | 0 | False | 8 |
-| PMSG | TURNS | Id_2fe | 0.255 | 0.148 |  | 0 | False | 8 |
-| PMSG | TURNS | PId_2fe | 0.255 | 0.148 |  | 0 | False | 8 |
-| PMSG | TURNS | Vq_2fe | 1.053 | 0.519 | 7.500 | 0 | False | 8 |
-| PMSG | WINDINGS | V2_V1 | 49.483 | 0.907 | 2.800 | 0 | False | 8 |
-| PMSG | WINDINGS | V2r_V1 | 50.210 | 1.000 | 2.800 | 0 | False | 8 |
-| PMSG | WINDINGS | I2_I1 | 10.411 | 0.787 | 10.100 | 0 | False | 8 |
-| PMSG | WINDINGS | I2r_I1 | 13.106 | 0.861 | 10.100 | 0 | False | 8 |
-| PMSG | WINDINGS | Id_2fe | 2.004 | 0.639 | 21.900 | 0 | False | 8 |
-| PMSG | WINDINGS | PId_2fe | 1.989 | 0.639 | 21.900 | 0 | False | 8 |
-| PMSG | WINDINGS | Vq_2fe | 18.638 | 0.870 | 10.100 | 0 | False | 8 |
-| SCIG | TURNS | V2_V1 | 3.496 | 0.657 | 7.500 | 0 | False | 8 |
-| SCIG | TURNS | V2r_V1 | 6.882 | 0.787 | 7.500 | 0 | False | 8 |
-| SCIG | TURNS | I2_I1 | 3.742 | 0.704 | 7.500 | 0 | False | 8 |
-| SCIG | TURNS | I2r_I1 | 6.424 | 0.852 | 3.000 | 1 | False | 8 |
-| SCIG | TURNS | Id_2fe | 5.925 | 0.731 | 7.500 | 1 | False | 8 |
-| SCIG | TURNS | PId_2fe | 5.942 | 0.731 | 7.500 | 1 | False | 8 |
-| SCIG | TURNS | Vq_2fe | 2.167 | 0.593 | 7.500 | 1 | False | 8 |
-| SCIG | WINDINGS | V2_V1 | 38.240 | 1.000 | 2.800 | 0 | False | 8 |
-| SCIG | WINDINGS | V2r_V1 | 38.530 | 1.000 | 2.800 | 0 | False | 8 |
-| SCIG | WINDINGS | I2_I1 | 46.145 | 0.981 | 2.800 | 0 | False | 8 |
-| SCIG | WINDINGS | I2r_I1 | 46.958 | 0.991 | 2.800 | 1 | False | 8 |
-| SCIG | WINDINGS | Id_2fe | 63.664 | 1.000 | 2.800 | 1 | False | 8 |
-| SCIG | WINDINGS | PId_2fe | 63.820 | 1.000 | 2.800 | 1 | False | 8 |
-| SCIG | WINDINGS | Vq_2fe | 20.214 | 0.861 | 10.100 | 1 | False | 8 |
+| machine | ftype | feature | median_sdr | share_detectable | min_detectable_pct | healthy_false_alarms | null_q | screened | window_cycles |
+|---|---|---|---|---|---|---|---|---|---|
+| PMSG | TURNS | V2_V1 | 2.357 | 0.704 | 7.500 | 1 | 0.100 | False | 3 |
+| PMSG | TURNS | V2r_V1 | 6.517 | 0.898 | 3.000 | 1 | 0.124 | False | 3 |
+| PMSG | TURNS | I2_I1 | 1.329 | 0.556 | 7.500 | 0 | 0.166 | False | 3 |
+| PMSG | TURNS | I2r_I1 | 1.649 | 0.704 | 7.500 | 0 | 0.235 | False | 3 |
+| PMSG | TURNS | Id_2fe | 0.533 | 0.278 | 11.800 | 0 | 0.476 | False | 3 |
+| PMSG | TURNS | PId_2fe | 0.535 | 0.278 | 11.800 | 0 | 0.470 | False | 3 |
+| PMSG | TURNS | Vq_2fe | 1.118 | 0.528 | 11.800 | 0 | 0.185 | False | 3 |
+| PMSG | WINDINGS | V2_V1 | 48.633 | 0.907 | 2.800 | 1 | 0.100 | False | 3 |
+| PMSG | WINDINGS | V2r_V1 | 48.350 | 1.000 | 2.800 | 1 | 0.124 | False | 3 |
+| PMSG | WINDINGS | I2_I1 | 11.080 | 0.824 | 10.100 | 0 | 0.166 | False | 3 |
+| PMSG | WINDINGS | I2r_I1 | 13.406 | 0.861 | 10.100 | 0 | 0.235 | False | 3 |
+| PMSG | WINDINGS | Id_2fe | 4.278 | 0.704 | 14.600 | 0 | 0.476 | False | 3 |
+| PMSG | WINDINGS | PId_2fe | 4.332 | 0.704 | 14.600 | 0 | 0.470 | False | 3 |
+| PMSG | WINDINGS | Vq_2fe | 18.811 | 0.889 | 10.100 | 0 | 0.185 | False | 3 |
+| SCIG | TURNS | V2_V1 | 2.672 | 0.667 | 7.500 | 2 | 0.043 | False | 3 |
+| SCIG | TURNS | V2r_V1 | 5.907 | 0.778 | 7.500 | 0 | 0.056 | False | 3 |
+| SCIG | TURNS | I2_I1 | 3.504 | 0.648 | 7.500 | 0 | 0.040 | False | 3 |
+| SCIG | TURNS | I2r_I1 | 6.039 | 0.824 | 7.500 | 0 | 0.046 | False | 3 |
+| SCIG | TURNS | Id_2fe | 5.986 | 0.731 | 7.500 | 0 | 0.017 | False | 3 |
+| SCIG | TURNS | PId_2fe | 6.000 | 0.731 | 7.500 | 1 | 0.017 | False | 3 |
+| SCIG | TURNS | Vq_2fe | 2.264 | 0.593 | 7.500 | 1 | 0.065 | False | 3 |
+| SCIG | WINDINGS | V2_V1 | 34.676 | 1.000 | 2.800 | 2 | 0.043 | False | 3 |
+| SCIG | WINDINGS | V2r_V1 | 32.651 | 1.000 | 2.800 | 0 | 0.056 | False | 3 |
+| SCIG | WINDINGS | I2_I1 | 43.479 | 0.981 | 2.800 | 0 | 0.040 | False | 3 |
+| SCIG | WINDINGS | I2r_I1 | 43.382 | 0.981 | 2.800 | 0 | 0.046 | False | 3 |
+| SCIG | WINDINGS | Id_2fe | 66.979 | 1.000 | 2.800 | 0 | 0.017 | False | 3 |
+| SCIG | WINDINGS | PId_2fe | 67.120 | 1.000 | 2.800 | 1 | 0.017 | False | 3 |
+| SCIG | WINDINGS | Vq_2fe | 21.515 | 0.880 | 10.100 | 1 | 0.065 | False | 3 |
+| PMSG | TURNS | V2_V1 | 2.411 | 0.685 | 7.500 | 0 | 0.107 | False | 5 |
+| PMSG | TURNS | V2r_V1 | 6.839 | 0.880 | 3.000 | 0 | 0.123 | False | 5 |
+| PMSG | TURNS | I2_I1 | 1.390 | 0.546 | 7.500 | 0 | 0.172 | False | 5 |
+| PMSG | TURNS | I2r_I1 | 1.705 | 0.704 | 7.500 | 0 | 0.242 | False | 5 |
+| PMSG | TURNS | Id_2fe | 0.376 | 0.241 | 11.800 | 0 | 0.774 | False | 5 |
+| PMSG | TURNS | PId_2fe | 0.370 | 0.241 | 11.800 | 0 | 0.781 | False | 5 |
+| PMSG | TURNS | Vq_2fe | 1.126 | 0.509 | 11.800 | 0 | 0.197 | False | 5 |
+| PMSG | WINDINGS | V2_V1 | 49.911 | 0.907 | 2.800 | 0 | 0.107 | False | 5 |
+| PMSG | WINDINGS | V2r_V1 | 52.720 | 1.000 | 2.800 | 0 | 0.123 | False | 5 |
+| PMSG | WINDINGS | I2_I1 | 10.688 | 0.815 | 10.100 | 0 | 0.172 | False | 5 |
+| PMSG | WINDINGS | I2r_I1 | 13.727 | 0.861 | 10.100 | 0 | 0.242 | False | 5 |
+| PMSG | WINDINGS | Id_2fe | 3.017 | 0.685 | 14.600 | 0 | 0.774 | False | 5 |
+| PMSG | WINDINGS | PId_2fe | 3.002 | 0.685 | 14.600 | 0 | 0.781 | False | 5 |
+| PMSG | WINDINGS | Vq_2fe | 18.744 | 0.889 | 10.100 | 0 | 0.197 | False | 5 |
+| SCIG | TURNS | V2_V1 | 3.631 | 0.694 | 7.500 | 0 | 0.037 | False | 5 |
+| SCIG | TURNS | V2r_V1 | 6.899 | 0.815 | 7.500 | 0 | 0.051 | False | 5 |
+| SCIG | TURNS | I2_I1 | 3.977 | 0.713 | 7.500 | 0 | 0.038 | False | 5 |
+| SCIG | TURNS | I2r_I1 | 6.341 | 0.852 | 3.000 | 1 | 0.046 | False | 5 |
+| SCIG | TURNS | Id_2fe | 6.177 | 0.759 | 7.500 | 1 | 0.017 | False | 5 |
+| SCIG | TURNS | PId_2fe | 6.182 | 0.759 | 7.500 | 1 | 0.017 | False | 5 |
+| SCIG | TURNS | Vq_2fe | 2.338 | 0.602 | 7.500 | 1 | 0.066 | False | 5 |
+| SCIG | WINDINGS | V2_V1 | 41.954 | 1.000 | 2.800 | 0 | 0.037 | False | 5 |
+| SCIG | WINDINGS | V2r_V1 | 39.030 | 1.000 | 2.800 | 0 | 0.051 | False | 5 |
+| SCIG | WINDINGS | I2_I1 | 48.869 | 0.991 | 2.800 | 0 | 0.038 | False | 5 |
+| SCIG | WINDINGS | I2r_I1 | 45.776 | 0.991 | 2.800 | 1 | 0.046 | False | 5 |
+| SCIG | WINDINGS | Id_2fe | 68.376 | 1.000 | 2.800 | 1 | 0.017 | False | 5 |
+| SCIG | WINDINGS | PId_2fe | 68.446 | 1.000 | 2.800 | 1 | 0.017 | False | 5 |
+| SCIG | WINDINGS | Vq_2fe | 22.502 | 0.880 | 10.100 | 1 | 0.066 | False | 5 |
+| PMSG | TURNS | V2_V1 | 2.412 | 0.694 | 7.500 | 0 | 0.115 | False | 8 |
+| PMSG | TURNS | V2r_V1 | 6.319 | 0.852 | 3.000 | 0 | 0.138 | False | 8 |
+| PMSG | TURNS | I2_I1 | 1.352 | 0.537 | 7.500 | 0 | 0.181 | False | 8 |
+| PMSG | TURNS | I2r_I1 | 1.668 | 0.704 | 7.500 | 0 | 0.255 | False | 8 |
+| PMSG | TURNS | Id_2fe | 0.255 | 0.148 |  | 0 | 1.333 | True | 8 |
+| PMSG | TURNS | PId_2fe | 0.255 | 0.148 |  | 0 | 1.343 | True | 8 |
+| PMSG | TURNS | Vq_2fe | 1.053 | 0.519 | 7.500 | 0 | 0.204 | False | 8 |
+| PMSG | WINDINGS | V2_V1 | 49.483 | 0.907 | 2.800 | 0 | 0.115 | False | 8 |
+| PMSG | WINDINGS | V2r_V1 | 50.210 | 1.000 | 2.800 | 0 | 0.138 | False | 8 |
+| PMSG | WINDINGS | I2_I1 | 10.411 | 0.787 | 10.100 | 0 | 0.181 | False | 8 |
+| PMSG | WINDINGS | I2r_I1 | 13.106 | 0.861 | 10.100 | 0 | 0.255 | False | 8 |
+| PMSG | WINDINGS | Id_2fe | 2.004 | 0.639 | 21.900 | 0 | 1.333 | True | 8 |
+| PMSG | WINDINGS | PId_2fe | 1.989 | 0.639 | 21.900 | 0 | 1.343 | True | 8 |
+| PMSG | WINDINGS | Vq_2fe | 18.638 | 0.870 | 10.100 | 0 | 0.204 | False | 8 |
+| SCIG | TURNS | V2_V1 | 3.496 | 0.657 | 7.500 | 0 | 0.043 | False | 8 |
+| SCIG | TURNS | V2r_V1 | 6.882 | 0.787 | 7.500 | 0 | 0.055 | False | 8 |
+| SCIG | TURNS | I2_I1 | 3.742 | 0.704 | 7.500 | 0 | 0.041 | False | 8 |
+| SCIG | TURNS | I2r_I1 | 6.424 | 0.852 | 3.000 | 1 | 0.047 | False | 8 |
+| SCIG | TURNS | Id_2fe | 5.925 | 0.731 | 7.500 | 1 | 0.019 | False | 8 |
+| SCIG | TURNS | PId_2fe | 5.942 | 0.731 | 7.500 | 1 | 0.019 | False | 8 |
+| SCIG | TURNS | Vq_2fe | 2.167 | 0.593 | 7.500 | 1 | 0.077 | False | 8 |
+| SCIG | WINDINGS | V2_V1 | 38.240 | 1.000 | 2.800 | 0 | 0.043 | False | 8 |
+| SCIG | WINDINGS | V2r_V1 | 38.530 | 1.000 | 2.800 | 0 | 0.055 | False | 8 |
+| SCIG | WINDINGS | I2_I1 | 46.145 | 0.981 | 2.800 | 0 | 0.041 | False | 8 |
+| SCIG | WINDINGS | I2r_I1 | 46.958 | 0.991 | 2.800 | 1 | 0.047 | False | 8 |
+| SCIG | WINDINGS | Id_2fe | 63.664 | 1.000 | 2.800 | 1 | 0.019 | False | 8 |
+| SCIG | WINDINGS | PId_2fe | 63.820 | 1.000 | 2.800 | 1 | 0.019 | False | 8 |
+| SCIG | WINDINGS | Vq_2fe | 20.214 | 0.861 | 10.100 | 1 | 0.077 | False | 8 |
 
 ## (c) Bootstrap over recordings (2000 resamples, 95 % percentile intervals, null re-estimated per resample)
 

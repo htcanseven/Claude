@@ -26,7 +26,8 @@ TEX = {"I2_I1": r"$I_2/I_1$", "V2_V1": r"$V_2/V_1$", "Id_2fe": r"$I_d$\,2$f_e$",
        "Tm_2fe": r"$T_m$\,2$f_e$", "Tm_1fe": r"$T_m$\,1$f_e$", "Tm_std": r"$T_m$\,std", "Spd_std": r"speed std",
        "Vdc_std": r"$V_{dc}$\,std", "If_2fe": r"$I_f$\,2$f_e$", "If_std": r"$I_f$\,std", "Id_1fe": r"$I_d$\,1$f_e$",
        "Iq_1fe": r"$I_q$\,1$f_e$", "Id_std": r"$I_d$\,std", "Iq_std": r"$I_q$\,std", "PId_std": r"PI$_d$\,std",
-       "PIq_std": r"PI$_q$\,std"}
+       "PIq_std": r"PI$_q$\,std", "I2r_I1": r"$|\Delta\bar I_2|/I_1$", "V2r_V1": r"$|\Delta\bar V_2|/V_1$",
+       "D2r_D1": r"$|\Delta\bar D_2|/D_1$"}
 SUITE = {"drive-internal": "drive-internal", "3 CT": "3 CT", "3 CT + 3 VT": "3 CT + 3 VT",
          "3 CT + 3 VT + drive": "3 CT + 3 VT + drive", "+ torque transducer": "+ torque transducer",
          "excitation (WFSG only)": "excitation (field current)"}

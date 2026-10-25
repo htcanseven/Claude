@@ -17,14 +17,14 @@ The manuscript is a single file, `main.tex`, in Elsevier's `elsarticle` class (`
 line numbers, numbered references in order of citation): front matter (title, author, abstract, keywords),
 Sections 1–7, the Elsevier declarations (CRediT, competing interest, funding, data availability,
 acknowledgements, generative-AI declaration), Appendix A and the bibliography call. The three schematic
-figures (procedure, generator systems, fault classes) are TikZ code inside the file; the two data figures are
+figures (procedure, generator systems, fault classes) are TikZ code inside the file; the three data figures are
 `figures/*.pdf`.
 
 | Path | Content |
 |---|---|
-| `main.tex` | the whole manuscript; the nine tables sit between `%% BEGIN GENERATED <name>` and `%% END GENERATED <name>` markers and are rewritten by `scripts/make_tables.py` from `results/tables/*.csv` (do not edit those blocks by hand) |
+| `main.tex` | the whole manuscript; the eleven generated tables (Tables 4–9 and A.1–A.5) sit between `%% BEGIN GENERATED <name>` and `%% END GENERATED <name>` markers and are rewritten by `scripts/make_tables.py` from `results/tables/*.csv` (do not edit those blocks by hand) |
 | `highlights.tex` | three to five highlights of at most 85 characters each (uploaded as a separate file at submission) |
-| `figures/*.pdf` | `G_sdr_by_feature_3alt.pdf` (Fig. 4) and `G_severity_combined.pdf` (Fig. 5), copied from `results/figures/` |
+| `figures/*.pdf` | `G_sdr_by_feature_3alt.pdf` (Fig. 4), `G_pairs_by_phase.pdf` (Fig. 5) and `G_severity_combined.pdf` (Fig. 6), copied from `results/figures/` |
 | `refs.bib` | references; `elsarticle-num-names.bst` prints them numbered, with the DOI as a link |
 | `elsarticle.cls`, `elsarticle-num-names.bst` | Elsevier class and bibliography style (CTAN `elsarticle` bundle, LPPL) |
 | `review/` | frozen pre-review PDF, simulated reviewer reports and the response to them, from the earlier submission cycle |

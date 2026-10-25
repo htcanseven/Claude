@@ -42,9 +42,9 @@ def t_mde():
                        f"{r.median_sdr:.3g} [{r.median_sdr_ci_lo:.3g}, {r.median_sdr_ci_hi:.3g}]",
                        f"{ratio.median_sdr:.3g} [{ratio.median_sdr_ci_lo:.3g}, {ratio.median_sdr_ci_hi:.3g}]" if k == 1 else ""]
                 body.append(" & ".join(row))
-    cap = ("Minimum detectable extent, detectable share and median SDR with 95\\,\\% intervals for four features, "
-           "PMSG and SCIG, five-cycle windows, $\\alpha=0.95$")
-    note = ("MDE on the physical extent levels (\\% of a branch): $(a, b]$ means the level $a$ is not detected and every level "
+    cap = ("Minimum detectable extent, detectable share and median SDR with 95\\,\\% intervals, four features, "
+           "PMSG and SCIG, five-cycle windows")
+    note = ("$\\alpha=0.95$. MDE on the physical extent levels (\\% of a branch): $(a, b]$ means the level $a$ is not detected and every level "
             "from $b$ up is; $\\le b$: every tested level is detected. DS (\\%), median SDR and the SCIG/PMSG ratio of medians "
             "carry percentile intervals from a bootstrap over tap pairs (the same pairs for both machines) in which the null "
             "quantile is re-estimated in every resample. IT: inter-turn; IW: inter-winding; P: PMSG; S: SCIG.")
@@ -90,41 +90,62 @@ def t_decision():
     d = pd.concat([d5[d5.machine.isin(["PMSG", "SCIG"])], d3[d3.machine == "WFSG"]])
     d = d[np.isclose(d.alpha, 0.95)]
     order = ["drive-internal", "3 CT", "3 CT + 3 VT", "3 CT + 3 VT + drive", "excitation (WFSG only)"]
+    machines = ["PMSG", "SCIG", "WFSG"]
+    # the requirement values are the tested physical levels of the common bench; the two largest inter-winding
+    # levels (33.7-37.5 and 40.2 %) add no information and are stated in the note
+    grid = {ft: sorted(d[d.ftype == ft].e_req_pct.unique()) for ft in ["TURNS", "WINDINGS"]}
+    omitted = [e for e in grid["WINDINGS"] if e > 30]
+    grid["WINDINGS"] = [e for e in grid["WINDINGS"] if e <= 30]
+    ncol = max(len(v) for v in grid.values())
+    big = d[(d.ftype == "WINDINGS") & d.e_req_pct.isin(omitted) & (d.verdict != "untested")]
+    assert (big.verdict == "meets").all(), big[["machine", "suite", "e_req_pct", "p_meets", "verdict"]]
     body = []
     for ft in ["TURNS", "WINDINGS"]:
-        body.append(r"\multicolumn{14}{@{}l}{\emph{" + FT[ft].capitalize() + r" faults}} \\")
+        E = grid[ft]
+        pad = [""] * (ncol - len(E))
+        body.append(r"\multicolumn{" + str(1 + 3 * ncol) + r"}{@{}l}{\emph{" + FT[ft].capitalize() + r" faults}} \\")
+        body.append(" & ".join([r"$e_{\mathrm{req}}$ (\%)"] + sum([[f"{e:.1f}" for e in E] + pad for _ in machines], [])) + r" \\")
         for s in order:
             row = [SUITE_SHORT[s]]
             any_ = False
-            for m in ["PMSG", "SCIG", "WFSG"]:
-                for e in [3, 5, 8, 12]:
+            for m in machines:
+                for e in E:
                     r = d[(d.machine == m) & (d.ftype == ft) & (d.suite == s) & (d.e_req_pct == e)]
                     if not len(r):
                         row.append("--")
                         continue
                     any_ = True
                     r = r.iloc[0]
+                    if r.verdict == "untested":
+                        row.append("n.t.")
+                        continue
                     cell = f"{r.p_meets:.2f}"
                     if r.verdict == "meets":
                         cell = r"\textbf{" + cell + "}"
-                    if r.inherited_from:
+                    if isinstance(r.inherited_from, str) and r.inherited_from:
                         cell += r"$^{\mathrm{b}}$"
                     row.append(cell)
+                row += pad
             if any_:
                 body.append(" & ".join(row) + r" \\")
     body[-1] = body[-1].rstrip(r"\\").rstrip()
-    cap = ("Decision table at $\\alpha=0.95$: bootstrap probability that a suite meets the requirement at "
-           "$e_{\\mathrm{req}}=3$, 5, 8 and 12\\,\\%")
-    note = ("Meets: $\\mathrm{MDE}\\le e_{\\mathrm{req}}$ and detectable share $\\ge0.9$ for $e\\ge e_{\\mathrm{req}}$; 1000 "
-            "resamples of the operating-point trials within each physical level, the null quantile and the fixed feature "
-            "re-estimated in every resample. Bold: probability $\\ge0.95$ (meets); below 0.05 the suite fails. PMSG and SCIG at "
-            "five-cycle windows, WFSG at three cycles and at its matching fault impedance (inter-turn levels from 11.6\\,\\% only). "
-            "Suites as in Table~\\ref{tab:suites}; exc: WFSG field current.")
-    lettered = [("b", "Verdict inherited from a cheaper subset of the suite (a suite may always use the features of its subsets).")]
-    head = (r"\multirow{2}{*}{Suite} & \multicolumn{4}{c}{PMSG, $e_{\mathrm{req}}$ (\%)} & \multicolumn{4}{c}{SCIG, $e_{\mathrm{req}}$ (\%)} & \multicolumn{4}{c}{WFSG, $e_{\mathrm{req}}$ (\%)} \\" "\n"
-            r"\cmidrule(lr){2-5}\cmidrule(lr){6-9}\cmidrule(l){10-13}" "\n"
-            r" & 3 & 5 & 8 & 12 & 3 & 5 & 8 & 12 & 3 & 5 & 8 & 12")
-    return table(body, cap, "tab:decision", "l" + "c" * 12, head, size=r"\tabsize", colsep="2.6pt", note=note, lettered=lettered)
+    cap = ("Decision table at $\\alpha=0.95$: bootstrap probability that a suite meets the requirement at each "
+           "tested extent level")
+    note = ("Meets: $\\mathrm{MDE}\\le e_{\\mathrm{req}}$ and detectable share $\\ge0.9$ for $e\\ge e_{\\mathrm{req}}$, with "
+            "$e_{\\mathrm{req}}$ at the physical levels of the common bench (\\% of a branch; the WFSG is assessed against the "
+            "same values on its own tested extents); 1000 resamples of the operating-point trials within each level, the null "
+            "quantile and the fixed feature re-estimated in every resample. Bold: probability $\\ge0.95$ (meets); below 0.05 the "
+            "suite fails; n.t.: not testable, the machine has no tested extent on the required side of $e_{\\mathrm{req}}$. PMSG "
+            "and SCIG at five-cycle windows, WFSG at three cycles and at its matching fault impedance. The inter-winding levels "
+            + " and ".join(f"{e:.1f}" for e in omitted) + "\\,\\% are omitted: every suite meets them. Suites as in "
+            "Table~\\ref{tab:suites}; exc: WFSG field current.")
+    lettered = [("b", "Probability inherited from a cheaper subset of the suite (a suite may always use the features of its subsets).")]
+    head = (r"Suite & \multicolumn{" + str(ncol) + r"}{c}{PMSG} & \multicolumn{" + str(ncol) + r"}{c}{SCIG} & \multicolumn{"
+            + str(ncol) + r"}{c}{WFSG} \\" "\n"
+            + r"\cmidrule(lr){2-" + str(1 + ncol) + r"}\cmidrule(lr){" + str(2 + ncol) + "-" + str(1 + 2 * ncol) + r"}\cmidrule(l){"
+            + str(2 + 2 * ncol) + "-" + str(1 + 3 * ncol) + "}" "\n"
+            + r" & \multicolumn{" + str(3 * ncol) + r"}{c}{probability of meeting the requirement at $e_{\mathrm{req}}$ (\%)}")
+    return table(body, cap, "tab:decision", "l" + "c" * (3 * ncol), head, size=r"\tabsize", colsep="2.6pt", note=note, lettered=lettered)
 
 
 def t_phase():
@@ -148,8 +169,8 @@ def t_phase():
     note = ("Number of tap pairs in parentheses; extents: design-level extents of those pairs (\\%). The magnitude ratios "
             "$V_2/V_1$ and $I_2/I_1$ depend on the angle between the inherent and the fault-induced asymmetry, which rotates with "
             "the faulted phase; the phasor residuals $|\\Delta\\bar V_2|/V_1$ and $|\\Delta\\bar I_2|/I_1$ remove that angle.")
-    head = r"Machine & Phase (pairs) & Extents & " + " & ".join(tex(f) for f in feats)
-    return table(body, cap, "tab:phase", "lllccccc", head, size=r"\tabsize", colsep="3pt", note=note)
+    head = r"Machine & Phase (pairs) & Extents (\%) & " + " & ".join(tex(f) for f in feats)
+    return table(body, cap, "tab:phase", "llL{2.1cm}ccccc", head, size=r"\tabsize", colsep="2.5pt", note=note)
 
 
 def t_decomp():
@@ -162,7 +183,7 @@ def t_decomp():
                                 f"{r.ratio_numerator:.2f}", f"{r.ratio_denominator:.2f}", f"{r.ratio_sdr:.2f}",
                                 f"{r.ratio_numerator_abs:.2f}", f"{r.ratio_denominator_abs:.2f}", f"{r.ratio_sdr_abs:.2f}"]) + r" \\")
     body[-1] = body[-1].rstrip(r"\\").rstrip()
-    cap = "SCIG/PMSG ratio of median SDR decomposed into numerator and denominator, relative and absolute form, five-cycle windows"
+    cap = "SCIG/PMSG ratio of median SDR decomposed into numerator and denominator, five-cycle windows"
     note = ("Relative form: the SDR as defined (changes divided by the healthy level); absolute form: changes and null in the "
             "feature's own units. Num.: SCIG/PMSG ratio of the median change under fault; Den.: ratio of null quantiles "
             "$q_{95}^{\\mathrm{PMSG}}/q_{95}^{\\mathrm{SCIG}}$ (a quieter SCIG null raises its SDR); SDR: ratio of median SDR. "
@@ -170,33 +191,35 @@ def t_decomp():
     head = (r"\multirow{2}{*}{Class} & \multirow{2}{*}{Feature} & \multicolumn{3}{c}{relative (SDR)} & \multicolumn{3}{c}{absolute units} \\" "\n"
             r"\cmidrule(lr){3-5}\cmidrule(l){6-8}" "\n"
             r" & & Num. & Den. & SDR & Num. & Den. & SDR")
-    return table(body, cap, "tab:decomp", "llcccccc", head, size=r"\tabsize", colsep="3pt", note=note)
+    return table(body, cap, "tab:decomp", "llcccccc", head, size=r"\tabsize", colsep="6pt", note=note)
 
 
 def t_transfer():
     """Table 8: PMSG/SCIG transfer, four referencing rules, AUC and TPR at 1 % FPR on the out-of-reference windows with
     cluster-bootstrap intervals (GBDT; the logistic rows go to the text)."""
     e = pd.read_csv(TAB / "R_transfer2_oor.csv")
-    names = {"raw": "physical units", "healthy-z": "$z$, target's healthy trials", "healthy-z-op": "$z$, healthy trial at the operating point",
-             "self-ref": "$|z|$ vs own reference"}
+    cals = ["raw", "healthy-z", "healthy-z-op", "self-ref"]
+    names = {"raw": "physical units", "healthy-z": "$z$, all healthy trials of the target",
+             "healthy-z-op": "$z$, healthy trial at the operating point", "self-ref": "$|z|$ against own reference"}
     body = []
-    for cal in ["raw", "healthy-z", "healthy-z-op", "self-ref"]:
-        row = [names[cal]]
-        for tr, te in [("PMSG", "PMSG"), ("SCIG", "SCIG"), ("PMSG", "SCIG"), ("SCIG", "PMSG")]:
+    for tr, te in [("PMSG", "PMSG"), ("SCIG", "SCIG"), ("PMSG", "SCIG"), ("SCIG", "PMSG")]:
+        rows = {"AUC": [], "TPR": []}
+        for cal in cals:
             r = e[(e.calibration == cal) & (e.model == "gbdt") & (e.train == tr) & (e.test == te)].iloc[0]
-            row.append(f"{r.auc_oor:.2f} [{r.auc_oor_ci_lo:.2f}, {r.auc_oor_ci_hi:.2f}]")
-            row.append(f"{r.tpr_oor:.2f} [{r.tpr_oor_ci_lo:.2f}, {r.tpr_oor_ci_hi:.2f}]")
-        body.append(" & ".join(row) + r" \\")
+            rows["AUC"].append(f"{r.auc_oor:.2f} [{r.auc_oor_ci_lo:.2f}, {r.auc_oor_ci_hi:.2f}]")
+            rows["TPR"].append(f"{r.tpr_oor:.2f} [{r.tpr_oor_ci_lo:.2f}, {r.tpr_oor_ci_hi:.2f}]")
+        body.append(" & ".join([f"{tr[0]}$\\to${te[0]}", "AUC"] + rows["AUC"]) + r" \\")
+        body.append(" & ".join(["", "TPR"] + rows["TPR"]) + r" \\")
     body[-1] = body[-1].rstrip(r"\\").rstrip()
-    cap = ("Transfer of a GBDT detector between PMSG and SCIG under four referencing rules: AUC and TPR at 1\\,\\% FPR on the "
-           "out-of-reference windows, with 95\\,\\% intervals")
-    note = ("Intervals from a bootstrap over the trials of the tested machine (500 resamples of its tap pairs and healthy groups). "
-            "P$\\to$P, S$\\to$S: cross-validation grouped by tap pair; P$\\to$S, S$\\to$P: trained on one machine, tested on the "
-            "other. Out-of-reference windows: those outside the normalising set (Section~\\ref{sec:computation}).")
-    head = (r"\multirow{2}{*}{Referencing} & \multicolumn{2}{c}{P$\to$P} & \multicolumn{2}{c}{S$\to$S} & \multicolumn{2}{c}{P$\to$S} & \multicolumn{2}{c}{S$\to$P} \\" "\n"
-            r"\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(l){8-9}" "\n"
-            r" & AUC & TPR & AUC & TPR & AUC & TPR & AUC & TPR")
-    return table(body, cap, "tab:transfer", "lcccccccc", head, size=r"\fontsize{7.5}{9}\selectfont", colsep="2pt", note=note)
+    cap = ("Transfer of a GBDT detector between PMSG and SCIG under four referencing rules, out-of-reference windows, "
+           "95\\,\\% intervals")
+    note = ("AUC and true-positive rate at 1\\,\\% false-positive rate (TPR) on the out-of-reference windows (those outside the "
+            "normalising set, Section~\\ref{sec:computation}); intervals from a bootstrap over the trials of the tested machine "
+            "(500 resamples of its tap pairs and healthy groups). P$\\to$P, S$\\to$S: cross-validation grouped by tap pair; "
+            "P$\\to$S, S$\\to$P: trained on one machine, tested on the other.")
+    head = "Direction & Metric & " + " & ".join(names[c] for c in cals)
+    return table(body, cap, "tab:transfer", "llC{2.05cm}C{2.05cm}C{2.05cm}C{2.05cm}", head, size=r"\fontsize{8}{10}\selectfont",
+                 colsep="2pt", note=note)
 
 
 def t_transfer3():
@@ -207,8 +230,8 @@ def t_transfer3():
         body.append(f"{r.train} & {r.test} & {r.auc_oor:.2f} [{r.auc_oor_ci_lo:.2f}, {r.auc_oor_ci_hi:.2f}] & "
                     f"{r.tpr_oor:.2f} [{r.tpr_oor_ci_lo:.2f}, {r.tpr_oor_ci_hi:.2f}] & {fa}" + r" \\")
     body[-1] = body[-1].rstrip(r"\\").rstrip()
-    cap = ("Transfer between the three alternatives with a self-referenced GBDT detector, three-cycle windows, common "
-           "features, out-of-reference windows")
+    cap = ("Transfer between the three alternatives, self-referenced GBDT detector, three-cycle windows, out-of-reference "
+           "windows")
     note = ("Features $|z|$-referenced to the first half of each trial's own reference interval. AUC and TPR at 1\\,\\% FPR on "
             "the out-of-reference windows with 95\\,\\% intervals from a bootstrap over the tested machine's trials; FA: share of "
             "the healthy trials' fault-time windows above the threshold giving 1\\,\\% FPR on all negatives. The WFSG has no "
@@ -237,7 +260,8 @@ def t_suites3():
                                         pct(o.oracle_share_calibrated), pct(o.oracle_fa_calibrated)]) + r" \\")
     body[-1] = body[-1].rstrip(r"\\").rstrip()
     cap = "Sensor suites for the three alternatives, three-cycle windows, common feature set, $\\alpha=0.95$"
-    note = ("Fixed feature: highest median SDR among the suite's screened features. MDE bracket (\\%) on the physical levels at "
+    note = ("Fixed feature: the suite's screened feature with the smallest MDE, then the highest share, then the highest median "
+            "SDR. MDE bracket (\\%) on the physical levels at "
             "the fault impedance matching the PMSG/SCIG protocol (WFSG: 198 trials, four tap pairs per class). DS: detectable "
             "share (\\%) of the fixed feature; nested: fixed feature chosen on the other tap pairs; FA: its false alarms on the "
             "nine healthy trials; oracle: per-trial best feature at the calibrated threshold, with its false-alarm rate (\\%; the "

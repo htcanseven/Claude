@@ -134,7 +134,8 @@ def unreliable(det, m, alpha=0.95):
     (ii) null quantile above one, i.e. the healthy relative change exceeds 100 % (uninformative feature)."""
     d = det[det.machine == m].groupby("feature").first()
     bad = {f for f, r in d.iterrows() if C.screen_flag(r.healthy_false_alarm_count, r.n_healthy, alpha)}
-    bad |= {f for f, r in d.iterrows() if np.isfinite(r.null_q) and r.null_q > 1}
+    # an unbounded null (healthy level crossing zero, e.g. the mechanical torque on the SCIG) counts as above one
+    bad |= {f for f, r in d.iterrows() if not (r.null_q <= 1)}
     return bad
 
 

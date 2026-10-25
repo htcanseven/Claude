@@ -1,12 +1,15 @@
 """Re-analyses added at revision (all on the same public data and feature caches).
 
-  R1  decision table: for e_req in {3, 5, 8, 12} % and alpha in {0.90, 0.95, 0.99}, every sensor suite per
-      alternative and failure-mode class with the bootstrap probability that it MEETS the requirement, where
-      "meets" is the joint event {MDE <= e_req and detectable share for e >= e_req at least DS_REQ}; the fixed
-      feature is chosen inside every resample (nested selection), the null quantile is re-estimated from a
-      cluster resample of all recordings, operating-point trials are resampled within each physical extent
-      level, and verdicts are monotone over nested suites (a suite inherits the best verdict of its subsets).
-      Computed on three-cycle windows for all three alternatives and on five-cycle windows for the PMSG/SCIG.
+  R1  decision table: for every tested physical extent level of the common bench as the required extent e_req
+      and alpha in {0.90, 0.95, 0.99}, every sensor suite per alternative and failure-mode class with the
+      bootstrap probability that it MEETS the requirement, where "meets" is the joint event {MDE <= e_req and
+      detectable share for e >= e_req at least DS_REQ}; the fixed feature is chosen inside every resample (nested
+      selection), the null quantile is re-estimated from a cluster resample of all recordings, operating-point
+      trials are resampled within each physical extent level, and verdicts are monotone over nested suites (a
+      suite inherits a strictly better verdict of its subsets). A requirement outside the range of extents a
+      machine was tested at is "untested" (the WFSG below 11.6 % for inter-turn and above 10.6 % for inter-winding
+      faults at its matching impedance). Computed on three-cycle windows for all three alternatives and on
+      five-cycle windows for the PMSG/SCIG.
   R2  requirement-writable quantities: MDE as a bracket on the physical levels, detectable share conditional on
       e >= e_req, nested (leave-one-tap-pair-out) selection of the fixed feature, empirical false-alarm rate
   R3  numerator / denominator decomposition of the SCIG / PMSG ratio of median SDR (5-cycle windows), in the
@@ -33,7 +36,7 @@ from compare3 import (MACH, SUBSETS, SUITES3, WFSG_ZF_MATCH, level_col, load3, m
                       sdr_from_windows, unreliable, wilson)
 
 COST_RANK = {"drive-internal": 0, "excitation (WFSG only)": 0, "3 CT": 1, "3 CT + 3 VT": 2, "3 CT + 3 VT + drive": 3}
-E_REQ = [3, 5, 8, 12]
+TOL = 0.051       # half a rounding unit of the level labels (one decimal), so that a level equals its own label
 ALPHAS = [0.90, 0.95, 0.99]
 DS_REQ = 0.9      # stated power: detectable share required for e >= e_req
 B = 1000
@@ -48,8 +51,19 @@ def mde_monotone(s, col, by=None):
 
 def ds_conditional(s, col, e_req, by=None):
     by = by or level_col(s)
-    sub = s[s[by] >= e_req]
+    sub = s[s[by] >= e_req - TOL]
     return float((sub[col] >= 1).mean()) if len(sub) else np.nan
+
+
+def requirement_grid(sdr):
+    """Required extents per class: the physical extent levels of the common bench (PMSG and SCIG), so that every
+    requirement is evaluated at a tested extent. Between two levels the MDE is known only as a bracket, so a
+    requirement there would borrow the MDE part of the lower and the share part of the upper level."""
+    by = level_col(sdr)
+    f = sdr[sdr.is_fault & sdr.machine.isin(["PMSG", "SCIG"])]
+    if not len(f):
+        f = sdr[sdr.is_fault]
+    return {ft: sorted(np.round(f[f.ftype == ft][by].dropna().unique(), 1).tolist()) for ft in ["TURNS", "WINDINGS"]}
 
 
 def fixed_feature(f, feats):
@@ -74,6 +88,7 @@ def decision_table(win, feats, B=B, seed=7, ds_req=DS_REQ, machines=MACH):
     for alpha in ALPHAS:
         sdr, qv_a = sdr_from_windows(win, feats, q=alpha)
         det = per_feature(sdr, feats, qv_a)
+        grid = requirement_grid(sdr)
         for m in machines:
             rec = sdr[sdr.machine == m]
             if not len(rec):
@@ -92,6 +107,9 @@ def decision_table(win, feats, B=B, seed=7, ds_req=DS_REQ, machines=MACH):
                 levels = np.sort(fm[by].unique())
                 lev = fm[by].to_numpy()
                 idx_by_level = [np.flatnonzero(lev == k) for k in levels]
+                E_REQ = grid[ft]
+                # a requirement can be assessed only inside the range of extents the machine was tested at
+                tested = {e: bool((levels.min() <= e + TOL) and (e <= levels.max() + TOL)) for e in E_REQ}
                 for suite, sfeats in SUITES3.items():
                     if suite.startswith("excitation") and m != "WFSG":
                         continue
@@ -126,9 +144,9 @@ def decision_table(win, feats, B=B, seed=7, ds_req=DS_REQ, machines=MACH):
                         s = S[:, j]
                         mde_b = mde_f[j]
                         for e in E_REQ:
-                            sub = s[levb >= e]
+                            sub = s[levb >= e - TOL]
                             ds = np.nanmean(sub >= 1) if len(sub) else np.nan
-                            if mde_b <= e:
+                            if mde_b <= e + TOL:
                                 hits_mde[e] += 1
                                 if ds >= ds_req:
                                     hits[e] += 1
@@ -136,31 +154,41 @@ def decision_table(win, feats, B=B, seed=7, ds_req=DS_REQ, machines=MACH):
                     for e in E_REQ:
                         rows.append(dict(alpha=alpha, e_req_pct=e, machine=m, ftype=ft, suite=suite, cost_rank=COST_RANK[suite],
                                          fixed_feature=best, feature_most_often=top, selection_stability=chosen[top] / B,
-                                         mde_monotone_pct=mde, mde_bracket_lo_pct=lo,
-                                         p_mde=hits_mde[e] / B, p_meets_own=hits[e] / B,
+                                         mde_monotone_pct=mde, mde_bracket_lo_pct=lo, tested=tested[e],
+                                         p_mde=hits_mde[e] / B if tested[e] else np.nan,
+                                         p_meets_own=hits[e] / B if tested[e] else np.nan,
                                          ds_conditional=ds_conditional(fm, col, e, by), ds_all=float((fm[col] >= 1).mean()),
-                                         smallest_extent_tested_pct=float(levels.min())))
+                                         smallest_extent_tested_pct=float(levels.min()),
+                                         largest_extent_tested_pct=float(levels.max())))
     d = pd.DataFrame(rows)
-    # monotone inheritance over nested suites: a suite may use the features of its subsets
+    # monotone inheritance over nested suites: a suite may use the features of its subsets, so it inherits a
+    # strictly better probability of a cheaper subset (ties keep the suite's own feature)
     p_mono, inherited = [], []
     for i, r in d.iterrows():
         g = d[(d.alpha == r.alpha) & (d.e_req_pct == r.e_req_pct) & (d.machine == r.machine) & (d.ftype == r.ftype)]
-        cand = g[g.suite.isin([r.suite] + SUBSETS.get(r.suite, []))]
-        k = cand.p_meets_own.idxmax()
-        p_mono.append(float(cand.loc[k, "p_meets_own"]))
-        inherited.append("" if cand.loc[k, "suite"] == r.suite else cand.loc[k, "suite"])
+        subs = g[g.suite.isin(SUBSETS.get(r.suite, []))]
+        own = r.p_meets_own
+        if len(subs) and subs.p_meets_own.notna().any() and (np.isnan(own) or subs.p_meets_own.max() > own + 1e-9):
+            k = subs.p_meets_own.idxmax()
+            p_mono.append(float(subs.loc[k, "p_meets_own"]))
+            inherited.append(subs.loc[k, "suite"])
+        else:
+            p_mono.append(float(own))
+            inherited.append("")
     d["p_meets"] = p_mono
     d["inherited_from"] = inherited
-    d["verdict"] = np.where(d.p_meets >= 0.95, "meets", np.where(d.p_meets <= 0.05, "fails", "uncertain"))
+    d["verdict"] = np.where(d.p_meets.isna(), "untested",
+                            np.where(d.p_meets >= 0.95, "meets", np.where(d.p_meets <= 0.05, "fails", "uncertain")))
     sel = []
     for key, g in d.groupby(["alpha", "e_req_pct", "machine", "ftype"]):
         g = g.sort_values("cost_rank")
         meets = g[g.verdict == "meets"]
-        notfail = g[g.verdict != "fails"]
+        notfail = g[~g.verdict.isin(["fails", "untested"])]
+        untested = bool((g.verdict == "untested").all())
         sel.append(dict(zip(["alpha", "e_req_pct", "machine", "ftype"], key),
-                        cheapest_meets=meets.suite.iloc[0] if len(meets) else "none",
+                        cheapest_meets="untested" if untested else (meets.suite.iloc[0] if len(meets) else "none"),
                         cheapest_meets_feature=meets.fixed_feature.iloc[0] if len(meets) else "",
-                        cheapest_not_failing=notfail.suite.iloc[0] if len(notfail) else "none",
+                        cheapest_not_failing="untested" if untested else (notfail.suite.iloc[0] if len(notfail) else "none"),
                         n_uncertain=int((g.verdict == "uncertain").sum())))
     return d, pd.DataFrame(sel)
 
@@ -168,6 +196,7 @@ def decision_table(win, feats, B=B, seed=7, ds_req=DS_REQ, machines=MACH):
 # ----------------------------------------------------------------------------- R2 requirement-writable quantities
 def requirement_quantities(sdr, det):
     rows = []
+    grid = requirement_grid(sdr)
     for m in MACH:
         bad = unreliable(det, m)
         h = sdr[(sdr.machine == m) & ~sdr.is_fault]
@@ -188,13 +217,14 @@ def requirement_quantities(sdr, det):
                 lo, mde = mde_bracket(fm, col, by)
                 k = int((h[col] >= 1).sum()) if len(h) else np.nan
                 wl, wh = wilson(k, len(h)) if len(h) else (np.nan, np.nan)
-                rows.append(dict(machine=m, ftype=ft, suite=suite, cost_rank=COST_RANK[suite], fixed_feature=best,
-                                 n_candidates=len(sfeats), mde_bracket_lo_pct=lo, mde_monotone_pct=mde,
-                                 ds_all=float((fm[col] >= 1).mean()),
-                                 ds_ge_5pct=ds_conditional(fm, col, 5, by), ds_ge_8pct=ds_conditional(fm, col, 8, by),
-                                 ds_nested=nested_share(fm, sfeats),
-                                 healthy_false_alarm=(k / len(h)) if len(h) else np.nan, fa_wilson_lo=wl, fa_wilson_hi=wh,
-                                 smallest_extent_tested_pct=float(fm[by].min())))
+                row = dict(machine=m, ftype=ft, suite=suite, cost_rank=COST_RANK[suite], fixed_feature=best,
+                           n_candidates=len(sfeats), mde_bracket_lo_pct=lo, mde_monotone_pct=mde,
+                           ds_all=float((fm[col] >= 1).mean()))
+                row.update({f"ds_ge_{e:g}pct": ds_conditional(fm, col, e, by) for e in grid[ft]})
+                row.update(ds_nested=nested_share(fm, sfeats),
+                           healthy_false_alarm=(k / len(h)) if len(h) else np.nan, fa_wilson_lo=wl, fa_wilson_hi=wh,
+                           smallest_extent_tested_pct=float(fm[by].min()), largest_extent_tested_pct=float(fm[by].max()))
+                rows.append(row)
     return pd.DataFrame(rows)
 
 
@@ -388,7 +418,7 @@ def ranking_similarity(det):
         p = det[(det.machine == "PMSG") & (det.ftype == ft)].set_index("feature").median_sdr
         s = det[(det.machine == "SCIG") & (det.ftype == ft)].set_index("feature").median_sdr
         common = p.index.intersection(s.index)
-        rows.append(dict(ftype=ft, n_features=len(common), spearman=spearmanr(p[common], s[common]).correlation,
+        rows.append(dict(ftype=ft, n_features=len(common), spearman=spearmanr(p[common], s[common], nan_policy="omit").correlation,
                          top5_PMSG=", ".join(p[common].sort_values(ascending=False).index[:5]),
                          top5_SCIG=", ".join(s[common].sort_values(ascending=False).index[:5])))
     return pd.DataFrame(rows)

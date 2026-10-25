@@ -1,4 +1,4 @@
-machine,n_windows,n_pos,n_oor,n_healthy_flt
-PMSG,24554,3391,20804,141
-SCIG,24176,3355,20501,140
-WFSG,17668,1362,11978,0
+machine,n_windows,n_pos,n_oor,n_healthy_flt,n_trials
+PMSG,24554,3391,21479,141,225
+SCIG,24176,3355,21176,140,225
+WFSG,20544,1272,15288,0,438

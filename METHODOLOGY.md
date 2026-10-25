@@ -67,25 +67,33 @@ scripts and are restated in Appendix A.2 of the paper.
   SDR ≥ 1 is a two-sided 5 % test on interval means with known onset; a standardised effect size.
 * **Safeguards.** Reliability screen: a feature is excluded for an alternative when its false alarms on the
   healthy trials are incompatible with the nominal rate (one-sided binomial test; three or more of nine at
-  α = 0.95), or when its null quantile exceeds one. Fixed feature (chosen once on median SDR), nested
-  (chosen on the other tap pairs), oracle (per-trial best, reported with its false-alarm rate).
-* **Design quantities.** Minimum detectable extent with the limit-of-detection convention (smallest tested
-  level such that every larger level has median SDR ≥ 1; equal extents at different locations pooled);
-  detectable share conditional on e ≥ e_req; signature location (measurement group with the highest SDR in
-  the largest share of trials).
-* **Decision table.** For each alternative, class, suite, e_req and α: *meets* if the bootstrap probability
-  of MDE ≤ e_req is ≥ 0.95, *fails* if ≤ 0.05, otherwise *uncertain*; the adequate suite is the cheapest that
-  meets for every class.
-* **Transfer step.** A window-level detector trained on one alternative and tested on another under three
-  referencing rules (physical units, z-score on the target's healthy trials, |z| against the first half of the
-  trial's own reference). Metrics on all windows and on the out-of-reference windows; false-alarm rate of the
-  1 % threshold on the healthy trials' fault-time windows.
+  α = 0.95), or when its null quantile exceeds one or is unbounded. Fixed feature (chosen once: smallest
+  MDE, then highest share, then highest median SDR, so that a suite is never credited with less than its
+  subsets), nested (chosen on the other tap pairs), oracle (per-trial best at a calibrated threshold, the
+  α-quantile of the maximum statistic over the suite's features, so that its false-alarm rate stays at 1 − α).
+* **Design quantities.** Minimum detectable extent with the limit-of-detection convention on the physical
+  extent levels (tap pairs with equal fault currents are one level), reported as the bracket between the last
+  undetected and the first detected level; detectable share conditional on e ≥ e_req; signature location
+  (measurement group with the highest SDR in the largest share of trials).
+* **Decision table.** For each alternative, class, suite and α, and for e_req at every tested level of the
+  common bench: *meets* if the bootstrap probability of the joint event {MDE ≤ e_req and DS(e ≥ e_req) ≥ 0.9}
+  is ≥ 0.95, *fails* if ≤ 0.05, otherwise *uncertain*; the fixed feature is re-selected and the null
+  re-estimated in every resample, a suite inherits a strictly higher probability of a cheaper subset, and a
+  requirement outside the extents a machine was tested at is *not testable*; the adequate suite is the cheapest
+  that meets for every class.
+* **Transfer step.** A window-level detector trained on one alternative and tested on another under four
+  referencing rules (physical units, z-score on all healthy trials of the target, z-score on the healthy trial
+  at the same operating point, |z| against the first half of the trial's own reference). AUC and TPR at 1 %
+  FPR on the out-of-reference windows with cluster-bootstrap intervals over the tested machine's trials;
+  false-alarm rate of the 1 % threshold on the healthy trials' fault-time windows.
 * **Two nulls.** The within-trial null (reference immediately before the fault) and the commissioning
-  baseline (healthy trial at the same operating point at another time); the latter is 1.6 to 4.9 times wider
-  for the key features and turns the transfer finding into a short-horizon rule.
+  baseline (healthy trial at the same operating point at another time); the latter is 1.1 to 4.6 times wider
+  for the key features (1.9 to 3.2 for the phasor residuals) and makes the self-referenced transfer rule an
+  abrupt-onset detector.
 * **Uncertainty.** Bootstrap over tap pairs for class-level statements (the same resampled pairs for both
-  machines so ratios are matched), over operating points within an extent level for the MDE, Wilson
-  intervals for shares, null quantile held fixed.
+  machines so ratios are matched), over operating points within an extent level for the MDE, with the null
+  quantile re-estimated from a cluster resample of the machine's records in every resample; the sampling
+  interval of the null quantile itself is reported.
 
 Two corrections made during review are worth repeating in any reuse: δ must be referenced to the half of
 the reference interval adjacent to the fault, and any ratio of SDRs between alternatives must be decomposed
@@ -164,6 +172,20 @@ into its numerator (signature) and denominator (null), because a quieter alterna
   citation commands) is converted in one pass, the tables are regenerated through the same generator, and
   what the new class exposes (caption widths, line-breaking tolerance, title-page overflow with line numbers,
   appendix counters) is fixed from the log and the rendered pages, then the zip is test-compiled clean.
+* Simulate the new journal's review before submitting and answer every comment with analysis, not with
+  wording. Three reviewer agents (machines and drives; change-detection statistics; condition-monitoring
+  practice) produced the comments that drove this revision: phasor-residual sequence features in place of
+  magnitude ratios (the faulted phase was confounded with the extent in the tap layout), physical extent
+  levels from the fault current with the MDE as a bracket, the decision table as the bootstrap probability of
+  a joint event with a stated power and the requirement evaluated at the tested levels (a requirement outside
+  a machine's tested range is "not testable", never "fails"), the null quantile resampled inside every
+  bootstrap, the oracle at a calibrated threshold, the decomposition repeated in absolute units, a fourth
+  referencing rule and intervals in the transfer experiment. Each claim of the abstract was then re-derived
+  from the regenerated tables; two of the original four findings changed in form ("only by silence" and
+  "transfers only when self-referenced" were not supported by the intervals) and are stated as corrected.
+* Verify that a results script's grid matches the data it is applied to: the first decision table used a
+  fixed requirement grid (3, 5, 8, 12 %) and reported "fails" at 12 % because the largest tested inter-turn
+  level was 11.6–12.1 %; evaluating requirements at the tested levels removed the artefact.
 
 ## 8. Quality gates run before every delivery
 

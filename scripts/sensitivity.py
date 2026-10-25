@@ -34,9 +34,12 @@ def metrics(sdr, feats, alpha=0.95):
                 if col not in f.columns:
                     continue
                 k = int((h[col] >= 1).sum())
+                # the screen of compare3.unreliable: binomial false-alarm rule and null quantile above one
+                nq = sdr[sdr.machine == m][f"{feat}__null"].abs().quantile(alpha)
                 rows.append(dict(machine=m, ftype=ft, feature=feat, median_sdr=f[col].median(),
                                  share_detectable=(f[col] >= 1).mean(), min_detectable_pct=min_detectable(f, col),
-                                 healthy_false_alarms=k, screened=C.screen_flag(k, len(h), alpha)))
+                                 healthy_false_alarms=k, null_q=nq,
+                                 screened=bool(C.screen_flag(k, len(h), alpha) or not (nq <= 1))))
     return pd.DataFrame(rows)
 
 
