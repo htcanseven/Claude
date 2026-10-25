@@ -19,7 +19,7 @@
 
 | Item | Status | Where (`main_reviewed.pdf`) |
 |---|---|---|
-| Round-3 Major 1 / C1: safety credited to borrowed evidence | Holds; blurred in 6.1 (must-fix 2) | p. 1, ll. 37–39; p. 21, ll. 934–938; p. 28, ll. 1276–1278 |
+| Major 1 / C1 (my round-3 table): safety credited to borrowed evidence | Holds; blurred in 6.1 (must-fix 2) | p. 1, ll. 37–39; p. 21, ll. 934–938; p. 28, ll. 1276–1278 |
 | Major 2 / C2: no guarantee; coverage detail | Holds | Table 2 note; p. 8, ll. 341–347; p. 21, ll. 939–947 |
 | Major 3 / C3: M7n's intervals and priors; M7 | Holds | p. 7, ll. 316–319; p. 21, ll. 921–927 |
 | Major 4 / C4, C9: decision-time bands; cross-fits | Holds | Table 7; p. 24, ll. 1068–1072 |
