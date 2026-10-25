@@ -23,7 +23,7 @@
 | Major 2 / C2: no guarantee; coverage detail | Holds | Table 2 note; p. 8, ll. 341–347; p. 21, ll. 939–947 |
 | Major 3 / C3: M7n's intervals and priors; M7 | Holds | p. 7, ll. 316–319; p. 21, ll. 921–927 |
 | Major 4 / C4, C9: decision-time bands; cross-fits | Holds | Table 7; p. 24, ll. 1068–1072 |
-| Minor points 1, 3–11 | Hold | p. 8, ll. 346–348; p. 21, ll. 942–950; p. 25, l. 1141 |
+| Minor points 1, 3–11; adopted options (nested validation, "not from learning") | Hold | p. 8, ll. 346–348; p. 21, ll. 934, 942–950; p. 25, l. 1141; Table 7 note |
 | D1 ranges | Holds | p. 21, ll. 941–942 |
 | D2 guarantee; reason per relation | Holds; `level` labels and dictionary aligned | Table 2 note; p. 8, ll. 341–342 |
 | D3 "closer than 30 floors" | Holds in 6.1 and 7, not in the abstract (must-fix 1) | p. 24, l. 1096; p. 28, l. 1271; p. 1, l. 40 |
@@ -34,7 +34,6 @@
 | D8 "once runs differ by a floor" | Holds | Table 8; p. 25, ll. 1143–1145; p. 28, ll. 1271–1273 |
 | D9 Fig. 1 | Holds | p. 9, caption |
 | D10 archive; Table 3; rounds | Holds; count now out of date (must-fix 4) | p. 14, l. 640; p. 29, l. 1314 |
-| Adopted options: nested validation; "not from learning" | Hold | Table 7 note; p. 21, l. 934 |
 
 ## 3. Support after the Online Resource was removed
 
@@ -75,7 +74,7 @@ Two gaps, neither an error:
    - "Suggest" does not take a to-infinitive. "These findings" now include the cross-family one, where only simulation-based rules decided, and the sentence reads as advice against developing models, at odds with Section 6.3's next candidates.
    - *Fix:* "Within a design family, these findings argue for indexing production records by their relation to the coming design rather than for a more elaborate model; such a record is the baseline that a learned manufacturability check has to beat."
 
-Both fixes are no longer than the text they replace. Items 1 and 3 came in with the fixes that followed the earlier check (commit 0fa69de). No other sentence of Sections 3.3–3.7, 5.3–5.7, 6.1–6.3 or 7 shifted against the previous version. Two of that check's repairs are right: "Under the same prior" (p. 22, l. 994) ties 0.72/0.73 to the release-like prior, and "200 draws of this component" (p. 24, l. 1064) holds at every τ (`qual_between_run`).
+Both fixes are no longer than the text they replace. Items 1 and 3 came in with the fixes that followed the earlier check (commit 0fa69de). I compared the whole text with the previous version, sentence by sentence in Sections 3.3–3.7, 5.3–5.7, 6.1–6.3 and 7, and found no other change of meaning. Two of that check's repairs are right: "Under the same prior" (p. 22, l. 994) ties 0.72/0.73 to the release-like prior, and "200 draws of this component" (p. 24, l. 1064) holds at every τ (`qual_between_run`).
 
 ### Clarity
 
