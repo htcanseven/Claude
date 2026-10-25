@@ -1,8 +1,8 @@
 # Release notes
 
-Code, feature tables and result files of the paper *When can a prediction replace a physical trial? A
-production-referenced evaluation of design-stage decision rules in deep drawing* (H. T. Canseven), first submitted
-as *Evaluating AI-based manufacturability decisions against the resolution of production*.
+Code, feature tables and result files of the paper *A production-referenced evaluation of design-stage decision rules
+in deep drawing: when can a prediction replace a physical trial?* (H. T. Canseven), first submitted as *Evaluating
+AI-based manufacturability decisions against the resolution of production*.
 
 ## Version 3 (October 2026)
 
@@ -56,6 +56,10 @@ result files of version 2 are unchanged (their checksums still hold) except thos
 - `simcheck.grid_comparisons` (`python3 simcheck.py --grid`): the comparisons independent of blank and scales over
   the whole friction-thickness grid (`sim_grid_comparisons.csv`).
 - `make_tables.py`: Table 3 rounds 17.65 to 17.7; the notes of Tables 4–7 point to the result files behind them. `data_dictionary.py`: the `transfer`, `scheme` and `level` entries.
+
+**Wording, at the author's request.** The paper's prose was rewritten in the style of the author's earlier papers,
+with American spelling, and its title reordered. `make_tables.py` writes the new table captions (and "center lines"
+in Table 3), and `figs.py` labels the lower row of `F_costs` "cost-minimizing band"; no number changes.
 
 Main result files added or changed in version 3:
 

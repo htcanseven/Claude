@@ -157,7 +157,7 @@ def t_floors() -> str:
                     f"{r['run_floor_min']:.2f}--{r['run_floor_max']:.2f} & {r['warm_up_ratio']:.2f} & {lt}")
     head = (r"Characteristic & $F$ & Interval & Concave/convex & Single runs & No warm-up & "
             r"$F/\sigma_\mathrm{LT}$")
-    return table(rows, "Within-run floor per characteristic, pooled and per geometry, with its spread over runs",
+    return table(rows, "Within-run floors of the quality characteristics, pooled and per geometry, with their spread over the runs",
                  "tab:floors", "lrrrrrr", head, colsep="3pt", full=True,
                  note=r"Batches of 50 consecutive parts, 95\,\% quantile of the difference of their 10\,\% trimmed "
                       r"means. Interval: 95\,\% over 2000 resamples of whole alternatives (the narrower interval over "
@@ -171,7 +171,7 @@ REGION = {"drawin_mid": r"flange mid-sides; $(210-W_x)/2$, $W_x$ along the laser
           "drawin_corner": "flange corners; mean of the two diagonals",
           "waviness": "flange; residual SD about a quadratic surface",
           "wall_op10": "side walls at mid-depth; mean of east and west",
-          "arm_op20": "cut arms, centre lines; mean of the four arms",
+          "arm_op20": "cut arms, center lines; mean of the four arms",
           "depth_op10": "flange above the bottom plane; median",
           "dome_op20": r"bottom sag at $r=40$\,mm; paraboloid fit"}
 
@@ -216,7 +216,7 @@ def t_qcs() -> str:
         rows.append(f"{LABEL[c]} & {x['operation']} & {REGION[c]} & "
                     f"{(f'{step:.2f}' if step >= 0.01 else '$<$0.01')} & {str(x['distinct_per_series']).replace('-', '--')} & {bias}")
     head = r"Characteristic & Op. & Region; definition & Step$/F$ & Values & Direction-dependent differences"
-    return table(rows, "The quality characteristics and their measurement by the laser scanner", "tab:qcs",
+    return table(rows, "Quality characteristics and their measurement by the laser scanner", "tab:qcs",
                  r"L{1.75cm}L{0.75cm}L{3.15cm}rrL{3.85cm}", head, colsep="2.4pt",
                  note=r"Op.: operation measured (OP10 after drawing, OP20 after cutting). Step$/F$: median step between "
                       r"adjacent values in one series over the floor; Values: distinct values per series. Differences from "
@@ -251,8 +251,8 @@ def t_distances() -> str:
             r"\multicolumn{2}{c}{New family} \\" "\n"
             r"\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}" "\n"
             f"Rule & {DD} & FA/FR & {DD} & FA/FR & {DD} & FA/FR & {DD} & FA/FR")
-    return table(rows, "Decisive and safe distances (floors) by the relation of the new design to the produced "
-                       "evidence", "tab:distances", "l" + "r" * 8, head, colsep="3.4pt",
+    return table(rows, "Decisive and safe distances of the rules (floors) for each relation of the new design to the "
+                       "produced evidence", "tab:distances", "l" + "r" * 8, head, colsep="3.4pt",
                  note=r"Over all seven characteristics; one number for rules that always decide; $<$1: below one floor. "
                       r"FA/FR: safe distances on the false-accept and the false-reject side. 126 cases with a sibling and for a new family, 42 "
                       r"interpolated, 84 extrapolated; a new family in the produced family's floor (in its own floor, and "
@@ -283,7 +283,7 @@ def t_guards() -> str:
     head = (" & " + " & ".join(rf"\multicolumn{{3}}{{c}}{{{lab}}}" for _, lab in rels) + r" \\" "\n"
             r"\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}" "\n"
             "Rule" + r" & $g$ & Correct & T" * len(rels))
-    return table(rows, "Guard bands available when deciding (floors), with their share correct and trial rate",
+    return table(rows, "Guard bands available at decision time (floors) with their share correct and trial rate",
                  "tab:guards", "l" + "r" * 9, head, colsep="2.2pt", full=True,
                  note=r"$g$: band of the family's own sibling cases with a sibling; for a new setting, which a family "
                       r"produced at two forces cannot exercise, the band of the same relation in the other family "
@@ -319,7 +319,7 @@ def t_groups() -> str:
     head = (r" & \multicolumn{3}{c}{NN} & M1sn & M1s & M5 & \\" "\n"
             r"\cmidrule(lr){2-4}" "\n"
             r"Characteristic & Sibling & Interp. & Extrap. & Extrap. & Extrap. & New family & $P_\mathrm{pk}$")
-    return table(rows, "Decisive distance per characteristic in floors and, in brackets, in its unit", "tab:groups",
+    return table(rows, "Decisive distances per characteristic in floors and, in brackets, in the unit of the characteristic", "tab:groups",
                  "lrrrrrrr", head, colsep="1pt", full=True,
                  note=r"18 cases per characteristic with a sibling and for a new family, 6 interpolated, 12 "
                       r"extrapolated; a new family in the produced family's floor. In brackets: the decisive distance "

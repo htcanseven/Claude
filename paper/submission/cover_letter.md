@@ -6,9 +6,9 @@ To the Editors-in-Chief, Journal of Intelligent Manufacturing
 
 Dear Editors,
 
-Please consider the enclosed manuscript, "When can a prediction replace a physical trial? A production-referenced
-evaluation of design-stage decision rules in deep drawing", for publication as a research article in the Journal of
-Intelligent Manufacturing. The manuscript is a single document of 31 pages, including the declarations and the
+Please consider the enclosed manuscript, "A production-referenced evaluation of design-stage decision rules in deep
+drawing: when can a prediction replace a physical trial?", for publication as a research article in the Journal of
+Intelligent Manufacturing. The manuscript is a single document of 33 pages, including the declarations and the
 references, without appendix or supplementary material; the archived results hold the detail behind every number.
 
 **The problem.** Simulation and machine learning increasingly inform manufacturability decisions: learned
@@ -18,7 +18,7 @@ relied on to decide, that is, to release a design or a process setting without a
 
 **The contribution.** The manuscript proposes a production-referenced evaluation of design-stage decision rules. Its
 unit, the within-run floor, is the difference that drift and scatter of production and measurement produce between
-two batches of one design within a run. A rule that returns *meets*, *fails* or *trial* is characterised, for each
+two batches of one design within a run. A rule that returns *meets*, *fails* or *trial* is characterized, for each
 relation of a new design to the produced evidence (a produced sibling, a new process setting, a new family), by two
 points on its operating characteristic:
 

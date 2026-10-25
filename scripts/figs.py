@@ -517,7 +517,7 @@ def fig_costs(src: Path, c_fr: float = 0.5) -> None:
             ax.tick_params(labelsize=7)
             subcaption(ax, letters[(i, j)], name, r"$c_\mathrm{T}/c_\mathrm{FA}$" if i == 1 else "")
         axs[0, 0].set_ylabel("expected cost\nper verdict", fontsize=8)
-        axs[1, 0].set_ylabel("cost-minimising\nband (floors)", fontsize=8)
+        axs[1, 0].set_ylabel("cost-minimizing\nband (floors)", fontsize=8)
     h, lab = axs[0, 1].get_legend_handles_labels()
     fig.legend(h, lab, loc="upper center", ncol=7, frameon=False, bbox_to_anchor=(0.5, 1.03), fontsize=8,
                handlelength=1.6, columnspacing=0.8)

@@ -1,4 +1,4 @@
-# When can a prediction replace a physical trial? A production-referenced evaluation of design-stage decision rules in deep drawing
+# A production-referenced evaluation of design-stage decision rules in deep drawing: when can a prediction replace a physical trial?
 
 Working repository for the paper, submitted to the *Journal of Intelligent Manufacturing*. The dataset survey
 that led here is in [`dataset-survey-DFM.md`](dataset-survey-DFM.md).
@@ -69,7 +69,7 @@ Requirements: Python 3.11 with the packages in `requirements.txt`.
 
 ## Manuscript
 
-`paper/main.tex` (Springer `sn-jnl`; build with `latexmk -pdf main.tex` in `paper/`) is the manuscript: 31 pages of
+`paper/main.tex` (Springer `sn-jnl`; build with `latexmk -pdf main.tex` in `paper/`) is the manuscript: 33 pages of
 main text, declarations and references, a single document without appendix or supplementary material; the
 archived result files, which the text names in typewriter type, hold the tables behind its statements, and
 `results/findings.md` maps every number to its script and result file. Tables between

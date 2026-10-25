@@ -1,7 +1,7 @@
 # Submission checklist
 
-*Journal of Intelligent Manufacturing* (Springer; JUFO level 2). Manuscript: *When can a prediction replace a physical
-trial? A production-referenced evaluation of design-stage decision rules in deep drawing* (first prepared as
+*Journal of Intelligent Manufacturing* (Springer; JUFO level 2). Manuscript: *A production-referenced evaluation of
+design-stage decision rules in deep drawing: when can a prediction replace a physical trial?* (first prepared as
 *Evaluating AI-based manufacturability decisions against the resolution of production*).
 
 **Status.** The manuscript was revised after a simulated first review round at JIM (three reviewers and an editor,
@@ -14,7 +14,9 @@ decision, the trial under between-run variation, consistent costs and a reworked
 supplementary material: the tables behind its statements are archived result files, `results/findings.md` maps
 every number of the paper to its script and result file, and `results/DATA_DICTIONARY.md` explains the files.
 A simulated third round (`paper/review/jim_panel/round3/`) accepted it subject to conditions, and its corrections
-D1–D10 are made (`response_round3.md`). The archive is version 3. Because the reviews were simulated, this version
+D1–D10 are made (`response_round3.md`). At the author's request, the prose was then rewritten in the style of the
+author's earlier papers, with American spelling and the title reordered (`paper/notes/style_profile.md`); no number
+changed, and the paper has 33 pages, within the two pages over 31 that the author allowed. The archive is version 3. Because the reviews were simulated, this version
 goes to the journal as a first submission; the response letters and the marked-up versions are internal documents.
 
 **Journal requirements** (submission guidelines): abstract 150–250 words; 4–6 keywords; author–year citations;
@@ -46,7 +48,7 @@ template accepted; no page limit. The corresponding author must give an ORCID in
      `doi = {10.5281/zenodo.NNNNNNN}`;
    - `CITATION.cff`: add `doi: 10.5281/zenodo.NNNNNNN`;
    - `paper/submission/cover_letter.md`: replace "[DOI to be inserted after deposit]".
-5. **Rebuild** the paper (`latexmk -pdf main.tex` in `paper/`; 31 pages) and the upload zip
+5. **Rebuild** the paper (`latexmk -pdf main.tex` in `paper/`; 33 pages) and the upload zip
    (`bash paper/submission/make_zip.sh`, which builds it in a clean directory and warns while the DOI is still
    pending).
 6. **Check** that the DOI resolves and that `sha256sum -c SHA256SUMS` passes in the unpacked deposit.
@@ -81,18 +83,18 @@ template accepted; no page limit. The corresponding author must give an ORCID in
 - [ ] **Outreach drafts.** `presubmission_enquiry.md` was written for the RED guest editors and is obsolete;
       `note_to_dataset_authors.md` can still be sent to the RDDAC/DDACS authors.
 
-## Quality gates (last run on the second-round revision)
+## Quality gates (last run on the restyled version)
 
 - [x] `paper/main.tex` compiles with zero errors, no undefined references or citations and no overfull boxes. The
-      paper has 31 pages: the main text (abstract to conclusions) ends at the top of page 27, followed by the
-      declarations, and the references fill pages 27–31, with DOIs as full links. Nine tables and six figures; no
+      paper has 33 pages: the main text (abstract to conclusion) ends on page 29, followed by the declarations,
+      and the references fill pages 29–33, with DOIs as full links. Nine tables and six figures; no
       appendix and no supplementary material.
-- [x] Abstract 249 words (247 when "95 %" counts as one word), within the journal's limit; six keywords; captions of
-      at most two lines; no first person; British spelling.
+- [x] Abstract 250 words (248 when "95 %" counts as one word), within the journal's limit; six keywords; captions of
+      at most two lines; no first person; American spelling, as in the author's earlier papers.
 - [x] Every cited key is in `refs.bib`; the references were checked against the publisher, DBLP, Crossref or the ISO
       catalogue, those added for JIM (Friedman 2001 and Barber et al. 2021 in the second round) against Crossref.
 - [x] Every number in the text checked against the result CSVs; tables are generated, not
       typed; `python3 scripts/opchar.py --selfcheck` reproduces the stored distances and the new-setting guard bands.
       The numbers that changed in the second-round revision are listed in `paper/review/jim_panel/round2/response_round2.md`.
 - [x] The upload zip (`bash paper/submission/make_zip.sh`: main.tex, fig_procedure.tex, refs.bib, class and style
-      files, figures) compiles in an empty directory to the same 31 pages.
+      files, figures) compiles in an empty directory to the same 33 pages.
