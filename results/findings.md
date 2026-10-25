@@ -4,14 +4,14 @@ Design-stage manufacturability decisions qualified with production evidence. Dee
 DP600 cups: 18 design–process alternatives (2 geometries × 3 blank-holder forces × 3 lubrication patterns),
 500 consecutive parts each (RDDAC), against the matching finite-element simulations (DDACS).
 
-This file holds the current numbers only: a map of the paper and of Online Resource 1 to the scripts and result
+This file holds the current numbers only: a map of the paper to the scripts and result
 files, the headline findings of the current version and the computation details. The findings of earlier versions,
 superseded where they differ, are in `findings_history.md`; `DATA_DICTIONARY.md` explains the columns, scopes and
 code names of every result file and the floor each one uses. Every number comes from a CSV written by
 `bash scripts/run_all.sh` (about five hours on 4 cores from the cached feature tables). Distances are in within-run
 floors of each characteristic unless stated. M3n is named M4 in the code.
 
-## Map of the paper (31 pages) and of Online Resource 1 (Tables S1–S15)
+## Map of the paper (31 pages, a single document)
 
 | Paper | Results | Script: result files |
 |---|---|---|
@@ -29,24 +29,6 @@ floors of each characteristic unless stated. M3n is named M4 in the code.
 | Section 6.2 | 100 verdicts with the band available when deciding | `qualify.py`: qual_guard_decision |
 | Section 6.4 | scoring function; PA12 attempt | `opchar.py` (self-checks against dec_resolution and qual_guard_decision); `case2_pa12.py`: case2_floor |
 | Fig. 1, Fig. 3 | schematic (M7n, extrapolated setting); scanned parts | `figs.py` from dec_intervals and learn_intervals; from the RDDAC sample scans |
-
-| Online Resource 1 | Contents | Result files |
-|---|---|---|
-| Table S1 | every rule by relation, a new family in both floors, with intervals | dec_resolution, learn_resolution, panel_source_floor, learn_source_floor, rob_decisions |
-| Table S2 | both distances per characteristic for the main rules and M7 | qual_per_characteristic |
-| Table S3 | the simulation dataset against the measurement, with the extraction noise | sim_validation, sim_mc_friction, meas_sim, sim_grid_comparisons |
-| Table S4 | redundancy of the scans per series; components of the floor | meas_scan, panel_floor_protocol, sens_drift, meas_floor |
-| Table S5 | fitted Gaussian processes by relation | learn_gp_diagnostics |
-| Table S6 | M7n with each prior median halved or doubled | learn_m7n_priors |
-| Table S7 | eight predictors crossed with the relation-matched interval; M7n on both families | learn_resolution, qual_coverage |
-| Table S8 | coverage and interval score of every interval rule | qual_coverage, qual_m6_coverage |
-| Table S9 | coverage per family, characteristic and decision-time stratum | qual_coverage |
-| Table S10 | guard bands available when deciding, both priors, shares per family, intervals and counts, force cell left out | qual_guard_decision, qual_guard_oos |
-| Table S11 | share correct per characteristic under those bands | qual_guard_decision |
-| Table S12 | band and trial rate against the width of the prior | qual_guard_prior_width |
-| Table S13 | cheapest option by relation, trial cost, prior and cost ratio, bands under step 5's rule; the trial's own error cost | qual_costs, qual_cost_cheapest, qual_trial_cost |
-| Table S14 | distances and bands with a between-run component; the trial under it | qual_between_run, qual_between_run_trial |
-| Table S15 | rules and bands selected on one geometry and evaluated on the other | qual_crossfit |
 
 ## Headline findings of the current version
 

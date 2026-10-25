@@ -24,7 +24,7 @@ The paper cites this repository on Zenodo (deposit metadata: `.zenodo.json`, `CI
 feature tables and result files of the paper as first submitted; version 2 adds those of the revision (the scripts
 `learners.py`, `qualify.py`, `simcheck.py` and `opchar.py` and their results); version 3 those of the second revision
 (decision-time guard bands, the trial under between-run variation, release as a capability decision, the prior
-sensitivity of M7n, Online Resource 1 and a data dictionary). The licence of the code and the DOI are set by the
+sensitivity of M7n and a data dictionary). The licence of the code and the DOI are set by the
 author when the deposit is published. [`RELEASE_NOTES.md`](RELEASE_NOTES.md) gives
 the checksums of the main result files; `SHA256SUMS` holds the SHA-256 checksums of every script and result file
 (`sha256sum -c SHA256SUMS` checks them; `bash scripts/write_checksums.sh` rewrites the file).
@@ -55,9 +55,9 @@ the checksums of the main result files; `SHA256SUMS` holds the SHA-256 checksums
 | `scripts/data_dictionary.py` | `results/DATA_DICTIONARY.md`: columns, scopes and rule codes of every result file in the terms of the paper, and the floor each file uses |
 | `scripts/case2_pa12.py` | exploratory, not in the paper and not run by `run_all.sh` (see its docstring) |
 | `scripts/figs.py` | `results/figures/`: the paper's figures (PDF and PNG) |
-| `scripts/make_tables.py` | writes the data tables from the CSVs into `paper/main.tex` and `paper/online_resource_1.tex` |
+| `scripts/make_tables.py` | writes the data tables from the CSVs into `paper/main.tex` |
 
-The current results, with every number of the paper and of Online Resource 1 traced to its CSV, are summarised in
+The current results, with every number of the paper traced to its CSV, are summarised in
 [`results/findings.md`](results/findings.md); the findings of earlier versions are in
 [`results/findings_history.md`](results/findings_history.md), and
 [`results/DATA_DICTIONARY.md`](results/DATA_DICTIONARY.md) explains the result files.
@@ -70,9 +70,9 @@ Requirements: Python 3.11 with the packages in `requirements.txt`.
 ## Manuscript
 
 `paper/main.tex` (Springer `sn-jnl`; build with `latexmk -pdf main.tex` in `paper/`) is the manuscript: 31 pages of
-main text, declarations and references, without an appendix. `paper/online_resource_1.tex` is its electronic
-supplementary material, Online Resource 1 (Tables S1–S15, 16 pages), which holds the tables behind statements of the
-paper. `results/findings.md` maps every number of both to its script and result file. Tables between
+main text, declarations and references, a single document without appendix or supplementary material; the
+archived result files, which the text names in typewriter type, hold the tables behind its statements, and
+`results/findings.md` maps every number to its script and result file. Tables between
 `%% BEGIN GENERATED` markers are written by `scripts/make_tables.py`; figures are copied from `results/figures/`.
 `paper/submission/` holds the cover letter, outreach drafts, the upload script and the submission checklist.
 

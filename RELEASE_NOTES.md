@@ -6,8 +6,9 @@ as *Evaluating AI-based manufacturability decisions against the resolution of pr
 
 ## Version 3 (October 2026)
 
-Version 3 holds the code, feature tables and result files that produce the numbers of the paper's second revision
-and of its electronic supplementary material, Online Resource 1 (`paper/online_resource_1.tex`, Tables S1–S15). The
+Version 3 holds the code, feature tables and result files that produce the numbers of the paper's second revision,
+a single document without supplementary material: the tables behind its statements are the result files, which the
+text names in typewriter type. The
 result files of version 2 are unchanged (their checksums still hold) except those listed under *Changed*.
 
 **Added.**
@@ -26,8 +27,8 @@ result files of version 2 are unchanged (their checksums still hold) except thos
 - `scripts/opchar.py --selfcheck` also reproduces the new-setting guard bands of `qual_guard_decision.csv`, their
   share correct and trial rate (40 of 40), with the stand-alone scoring function.
 - `results/findings_history.md`: the findings of earlier versions, moved out of `findings.md`, which now holds only
-  the current numbers and the map of the paper and of Online Resource 1.
-- `paper/online_resource_1.tex` and its PDF; `make_tables.py` writes its tables.
+  the current numbers and the map of the paper. (An Online Resource drafted for this version was withdrawn before
+  the deposit at the author's request; its tables are the result files named in the paper.)
 
 **Changed.**
 
@@ -54,8 +55,7 @@ result files of version 2 are unchanged (their checksums still hold) except thos
   (`level` in `qual_coverage.csv`; coverage values unchanged).
 - `simcheck.grid_comparisons` (`python3 simcheck.py --grid`): the comparisons independent of blank and scales over
   the whole friction-thickness grid (`sim_grid_comparisons.csv`).
-- `make_tables.py`: Table 3 rounds 17.65 to 17.7, as Table S4 does; Table S10 gives the shares per family; the notes
-  of Tables 7, S3, S8, S10 and S13 are corrected. `data_dictionary.py`: the `transfer`, `scheme` and `level` entries.
+- `make_tables.py`: Table 3 rounds 17.65 to 17.7; the notes of Tables 4–7 point to the result files behind them. `data_dictionary.py`: the `transfer`, `scheme` and `level` entries.
 
 Main result files added or changed in version 3:
 

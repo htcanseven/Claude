@@ -8,9 +8,8 @@ Dear Editors,
 
 Please consider the enclosed manuscript, "When can a prediction replace a physical trial? A production-referenced
 evaluation of design-stage decision rules in deep drawing", for publication as a research article in the Journal of
-Intelligent Manufacturing. The manuscript has 31 pages, including the declarations and the references, and no
-appendix. Online Resource 1 (16 pages) holds the tables behind statements of the paper; the archived results hold
-everything else.
+Intelligent Manufacturing. The manuscript is a single document of 31 pages, including the declarations and the
+references, without appendix or supplementary material; the archived results hold the detail behind every number.
 
 **The problem.** Simulation and machine learning increasingly inform manufacturability decisions: learned
 manufacturability checks, surrogates of process simulations, predictive-quality models and virtual metrology. Such
@@ -59,7 +58,7 @@ that reproduce every number are archived on Zenodo (version 3, doi:[DOI to be in
 dictionary of the result files. The
 manuscript has not been published and is not under consideration elsewhere. The use of a large language model,
 including simulated reviews of earlier versions that led to rules and analyses being added, is documented in
-Section 4.5, in Online Resource 1 and in the declarations.
+Section 4.5 and in the declarations.
 
 Yours sincerely,
 

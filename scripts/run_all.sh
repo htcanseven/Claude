@@ -31,6 +31,6 @@ python3 simcheck.py          # simulation against the measurement; measurement c
 python3 qualify.py           # strata, guard bands when deciding and out of sample, costs, trial, coverage, between-run, cross-fit
 python3 opchar.py --selfcheck  # the stand-alone scoring function reproduces dec_resolution.csv and qual_guard_decision.csv
 python3 figs.py              # figures in the paper's style (results/figures; copied to paper/figures for LaTeX)
-python3 make_tables.py       # tables of paper/main.tex and paper/online_resource_1.tex from the CSVs
+python3 make_tables.py       # tables of paper/main.tex from the CSVs
 python3 data_dictionary.py   # results/DATA_DICTIONARY.md from the headers of the result files
 cp ../results/figures/*.pdf ../paper/figures/
