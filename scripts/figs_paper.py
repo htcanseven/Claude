@@ -74,15 +74,48 @@ def combined(sdr, files, feats=("V2_V1", "I2_I1")):
     C3.save(fig, "G_severity_combined")
 
 
+def severity_physical(sdr, files, feats=("V2r_V1", "I2r_I1"), name="G_severity_physical"):
+    """Compact version of `combined`: the SDR of two features against the physical severity axis only, one row per
+    feature and one column per fault class (four panels)."""
+    f = sdr[sdr.is_fault].join(files.set_index(files.machine + "/" + files.file)[["Ifault_rms_flt", "I1_pre"]])
+    f["ratio"] = f.Ifault_rms_flt / (f.I1_pre / np.sqrt(2))
+    fig, axes = plt.subplots(len(feats), 2, figsize=(W, 1.55 * len(feats) + 0.55), sharey="row",
+                             gridspec_kw={"hspace": 0.62, "wspace": 0.1})
+    k = 0
+    for i, feat in enumerate(feats):
+        for j, ft in enumerate(["TURNS", "WINDINGS"]):
+            ax = axes[i, j]
+            ax.set_xscale("log"); ax.set_yscale("log"); ax.set_ylim(0.03, 400)
+            for m in C3.MACH:
+                s = f[(f.machine == m) & (f.ftype == ft)].dropna(subset=[f"{feat}__sdr", "ratio"])
+                for zf, g in s.groupby("zf_ohm"):
+                    ax.plot(g.ratio, g[f"{feat}__sdr"].clip(lower=0.02), C3.ZF_MARK.get(round(zf, 2), "o"), ms=2.8,
+                            alpha=0.5, color=C3.COL3[m], mec="none", label=m if zf in (2.6, 2.83) else None)
+            ax.set_xlim(0.08, 8); ax.set_xticks([0.1, 0.2, 0.5, 1, 2, 5]); ax.set_xticklabels(["0.1", "0.2", "0.5", "1", "2", "5"])
+            ax.axhline(1, color=C.AXIS, lw=0.8, ls="--")
+            ax.xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
+            ax.xaxis.set_minor_locator(matplotlib.ticker.NullLocator())
+            if i == len(feats) - 1:
+                ax.set_xlabel("Fault current / stator current (RMS)")
+            if j == 0:
+                ax.set_ylabel("SDR")
+            C.subcaption(ax, f"({chr(97 + k)}) {C.lab(feat)}, {C.FT_LABEL[ft].lower()} faults"); k += 1
+    h, l = axes[0, 0].get_legend_handles_labels()
+    uniq = dict(zip(l, h))
+    fig.legend(uniq.values(), uniq.keys(), loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.56, 1.0), columnspacing=1.2)
+    fig.subplots_adjust(top=0.9, bottom=0.17, left=0.12, right=0.99)
+    C3.save(fig, name)
+
+
 PHASE_MARK = {"A": "o", "B": "s", "C": "^"}
 
 
-def pairs_figure(pt, feats=(("V2_V1", "V2r_V1"), ("I2_I1", "I2r_I1"))):
+def pairs_figure(pt, feats=(("V2_V1", "V2r_V1"), ("I2_I1", "I2r_I1")), name="G_pairs_by_phase"):
     """Median SDR per tap pair for inter-turn faults against the design-level extent: magnitude feature (left
     column) against its phasor residual (right column); marker = faulted phase, colour = machine. Shows the
     dependence of the magnitude features on the faulted phase and its removal by the residual."""
     f = pt[pt.ftype == "TURNS"]
-    fig, axes = plt.subplots(len(feats), 2, figsize=(W, 1.5 * len(feats) + 1.0), sharey="row",
+    fig, axes = plt.subplots(len(feats), 2, figsize=(W, 1.5 * len(feats) + 1.0), sharey="row", squeeze=False,
                              gridspec_kw={"hspace": 0.7, "wspace": 0.1})
     k = 0
     for i, pair in enumerate(feats):
@@ -108,8 +141,8 @@ def pairs_figure(pt, feats=(("V2_V1", "V2r_V1"), ("I2_I1", "I2r_I1"))):
     uniq = dict(zip(l, h))
     fig.legend(uniq.values(), uniq.keys(), loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.56, 1.0),
                columnspacing=1.0, handletextpad=0.3)
-    fig.subplots_adjust(top=0.86, bottom=0.17, left=0.12, right=0.99)
-    C3.save(fig, "G_pairs_by_phase")
+    fig.subplots_adjust(top=0.86 if len(feats) > 1 else 0.80, bottom=0.17 if len(feats) > 1 else 0.26, left=0.12, right=0.99)
+    C3.save(fig, name)
 
 
 if __name__ == "__main__":
@@ -118,7 +151,10 @@ if __name__ == "__main__":
     sdr, qv = C3.sdr_from_windows(win, feats)
     det = C3.per_feature(sdr, feats, qv)
     C3.fig_features(det, feats, figsize=(W, 6.3))
+    C3.fig_features(det, feats, figsize=(W, 4.1), fsize=8, name="G_sdr_by_feature_3alt_compact")
     combined(sdr, files, feats=("V2r_V1", "I2r_I1"))
+    severity_physical(sdr, files, feats=("V2r_V1", "I2r_I1"))
     pt = pd.read_csv(C.TAB / "R_pair_table.csv")
     pairs_figure(pt)
+    pairs_figure(pt, feats=(("V2_V1", "V2r_V1"),), name="G_pairs_by_phase_compact")
     print("figures written")

@@ -187,6 +187,29 @@ into its numerator (signature) and denominator (null), because a quieter alterna
   fixed requirement grid (3, 5, 8, 12 %) and reported "fails" at 12 % because the largest tested inter-turn
   level was 11.6–12.1 %; evaluating requirements at the tested levels removed the artefact.
 
+### Phase 8: bringing a 55-page revision to 31 pages without a supplement
+
+* Budget before cutting: at 12 pt in the `preprint` layout a full text page holds 37 numbered lines (about
+  450 words), and the margin line numbers in `pdftotext -layout` output give the exact composition of a build
+  (text lines, float pages, reference pages), so every cut can be priced in lines before it is made. The
+  55-page revision had about 13,800 body words, seven pages of floats and five of references.
+* Order of cuts, cheapest loss first: duplicate displays (a figure and a table of the same numbers; appendix
+  tables whose numbers the text already quotes; the positioning table); compact redraws of the data figures
+  (lower height, one row instead of two, 8 pt lettering) and of the TikZ procedure figure; references in the
+  size the class uses for its journal layouts (`\bibfont`, `\bibsep`); float placement (`[htbp]`,
+  `\floatpagefraction` 0.8) so that a figure of two thirds of a page no longer takes a page of its own; then
+  prose, paragraph by paragraph against a word budget per section, keeping every number a reviewer asked for
+  and deleting restatements (Discussion and Conclusions repeated Results; Computation repeated the appendix).
+* Mechanics: the condensed body lives in a scratch file with placeholders for the pieces carried over verbatim
+  (preamble, TikZ figures, hand-written tables, declarations); an assembly script rebuilds `main.tex`,
+  `make_tables.py` refills the generated blocks and the build gates run. Paragraph replacements are applied by
+  script, keyed on a unique prefix of each paragraph, so each pass is reproducible and reversible from the
+  backup of the previous pass; five passes took 55 to 31 pages (40, 36, 33, 32, 31).
+* Result: 31 pages (about 7,950 body words, six tables, five figures, 37 references), zero warnings, every
+  caption within two lines; the last page is a third full, so the count is robust to small differences
+  between TeX installations. Hand condensation without a budget drifted back to the same length twice; the
+  numbers only moved once each section had a target.
+
 ## 8. Quality gates run before every delivery
 
 * `latexmk` build with zero errors, zero LaTeX warnings, no undefined references or citations, no overfull

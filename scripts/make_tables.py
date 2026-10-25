@@ -67,7 +67,7 @@ def table(body, caption, label, cols, head, size=r"\tabsize", colsep=None, note=
     # layout; the class has no table-note command of its own).
     items = ([f"\\item {note}\n"] if note else []) + [f"\\item[{letter}] {text}\n" for letter, text in lettered]
     notes = f"\\begin{{tablenotes}}[flushleft]\n{''.join(items)}\\end{{tablenotes}}\n" if items else ""
-    return (f"\\begin{{table}}[t]\n{size}\n{sep}\\centering\n\\begin{{threeparttable}}\n"
+    return (f"\\begin{{table}}[htbp]\n{size}\n{sep}\\centering\n\\begin{{threeparttable}}\n"
             f"\\caption{{{caption}}}\\label{{{label}}}\n"
             f"\\begin{{tabular}}{{@{{}}{cols}@{{}}}}\n\\toprule\n{head} \\\\\n\\midrule\n"
             + " \\\\\n".join(rows) + f" \\\\\n\\bottomrule\n\\end{{tabular}}\n{notes}\\end{{threeparttable}}\n\\end{{table}}\n")

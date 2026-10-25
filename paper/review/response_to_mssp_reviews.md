@@ -194,3 +194,29 @@ distinguished (null quantile alpha, bootstrap confidence); the duty-cycle senten
 comparison is reworded. 10: the duplicate AI sentence is removed; the stray label fixed; the two self-citations
 are kept only where they support the statement that learned detectors are developed per machine. 11: the licence
 is named and the tagged commit given in the data availability statement.
+
+## Addendum, 25 October 2026: the shortened manuscript (31 pages)
+
+The author then asked for the manuscript to be brought to about 30 pages without supplementary material. The
+55-page revision described above was shortened to 31 pages (elsarticle `preprint`, 12 pt, line numbers) by
+cutting text and redundant displays; nothing was moved to a supplement and no analysis changed, so the result
+tables in `results/tables/` are those of the revision. What changed relative to the revision described above:
+
+* Body text cut from about 13,800 to 7,950 words: the background is one section; method, demonstration and
+  results tightened; the operating-envelope subsection folded into the robustness subsection (now 5.7);
+  Discussion and Conclusions condensed; the appendix reduced to the feature definitions and the computation
+  details that the text refers to.
+* Tables removed, with every number the text relies on kept in the text: the positioning table (old Table 1),
+  the per-phase table (old Table 5; the per-pair spread factors and per-phase medians are in Section 5.3), the
+  decomposition table (old Table 4; the SCIG/PMSG numerator, denominator and SDR ratios of the four key
+  features are in Section 5.2 in the relative and the absolute form) and the appendix tables A.1–A.5
+  (three-alternative suites, window and quantile sensitivity, between-trial null, null-quantile intervals,
+  three-way transfer; their results are quoted in Sections 5.5–5.7 with the intervals).
+* Figures: the feature-ranking figure (Fig. 4) redrawn compact; the per-tap-pair figure (Fig. 5) reduced to the
+  voltage pair (magnitude ratio against phasor residual), the current pair's spread factors staying in the text;
+  the severity figure (old Fig. 6) removed, its physical-severity-axis comparison stated in Section 5.4.
+* References set in the size the class uses for its journal layouts; all 37 references kept.
+* New numbering: Tables 1 (alternatives), 2 (suites and features), 3 (MDE), 4 (suites versus detection),
+  5 (decision table), 6 (transfer); Figs. 1 (procedure), 2 (generator systems), 3 (faults), 4 (SDR by feature),
+  5 (per tap pair and phase). Sections: 1 Introduction, 2 Background, 3.1–3.5 Method, 4.1–4.4 Demonstration,
+  5.1–5.7 Results, 6.1–6.3 Discussion, 7 Conclusions, Appendix A.1–A.2.

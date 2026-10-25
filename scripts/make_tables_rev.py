@@ -44,10 +44,10 @@ def t_mde():
                 body.append(" & ".join(row))
     cap = ("Minimum detectable extent, detectable share and median SDR with 95\\,\\% intervals, four features, "
            "PMSG and SCIG, five-cycle windows")
-    note = ("$\\alpha=0.95$. MDE on the physical extent levels (\\% of a branch): $(a, b]$ means the level $a$ is not detected and every level "
-            "from $b$ up is; $\\le b$: every tested level is detected. DS (\\%), median SDR and the SCIG/PMSG ratio of medians "
-            "carry percentile intervals from a bootstrap over tap pairs (the same pairs for both machines) in which the null "
-            "quantile is re-estimated in every resample. IT: inter-turn; IW: inter-winding; P: PMSG; S: SCIG.")
+    note = ("$\\alpha=0.95$. MDE on the physical extent levels (\\% of a branch): $(a, b]$, level $a$ not detected and every level "
+            "from $b$ up detected; $\\le b$, every tested level detected. DS (\\%), median SDR and the SCIG/PMSG ratio of medians "
+            "carry percentile intervals from a bootstrap over tap pairs (the same pairs for both machines) with the null "
+            "quantile re-estimated in every resample. IT: inter-turn; IW: inter-winding; P: PMSG; S: SCIG.")
     head = r"Class & Feature & M. & MDE & DS [CI] & Median SDR [CI] & S/P ratio [CI]"
     return table(body, cap, "tab:mde", "lllcccc", head, size=r"\tabsize", colsep="2pt", note=note)
 
@@ -71,11 +71,10 @@ def t_suites():
     body[-1] = body[-1].rstrip(r"\\").rstrip()
     cap = ("Sensor suites versus what they detect, PMSG and SCIG, five-cycle windows: fixed feature, MDE bracket, "
            "detectable share and false alarms")
-    note = ("Suites are cumulative (drive: drive-internal quantities; 3CT: three current transducers; +3VT: three voltage "
-            "transducers added; +drv: controller access added; +torque: shaft torque transducer added). DS (\\%) of the fixed "
-            "feature, in parentheses the share of the calibrated oracle (per-trial best feature at the threshold that holds the "
-            "false-alarm rate of the maximum at 5\\,\\%); FA: false alarms of the fixed feature on the nine healthy trials. "
-            "MDE as in Table~\\ref{tab:mde}; features failing the reliability screen are excluded for that machine.")
+    note = ("Suites are cumulative (drive: drive-internal quantities; 3CT: three current transducers; +3VT, +drv, +torque: "
+            "voltage transducers, controller access and a shaft torque transducer added). DS (\\%) of the fixed feature, in "
+            "parentheses the share of the calibrated oracle (Section~\\ref{sec:sdr}); FA: false alarms of the fixed feature on "
+            "the nine healthy trials; MDE as in Table~\\ref{tab:mde}; screened-out features are excluded.")
     head = (r"\multirow{2}{*}{Suite} & \multicolumn{4}{c}{PMSG} & \multicolumn{4}{c}{SCIG} \\" "\n"
             r"\cmidrule(lr){2-5}\cmidrule(l){6-9}" "\n"
             r" & feature & MDE & DS (oracle) & FA & feature & MDE & DS (oracle) & FA")
@@ -131,13 +130,13 @@ def t_decision():
     body[-1] = body[-1].rstrip(r"\\").rstrip()
     cap = ("Decision table at $\\alpha=0.95$: bootstrap probability that a suite meets the requirement at each "
            "tested extent level")
-    note = ("Meets: $\\mathrm{MDE}\\le e_{\\mathrm{req}}$ and detectable share $\\ge0.9$ for $e\\ge e_{\\mathrm{req}}$, with "
+    note = ("Meets: $\\mathrm{MDE}\\le e_{\\mathrm{req}}$ and detectable share $\\ge0.9$ for $e\\ge e_{\\mathrm{req}}$, "
             "$e_{\\mathrm{req}}$ at the physical levels of the common bench (\\% of a branch; the WFSG is assessed against the "
-            "same values on its own tested extents); 1000 resamples of the operating-point trials within each level, the null "
-            "quantile and the fixed feature re-estimated in every resample. Bold: probability $\\ge0.95$ (meets); below 0.05 the "
-            "suite fails; n.t.: not testable, the machine has no tested extent on the required side of $e_{\\mathrm{req}}$. PMSG "
-            "and SCIG at five-cycle windows, WFSG at three cycles and at its matching fault impedance. The inter-winding levels "
-            + " and ".join(f"{e:.1f}" for e in omitted) + "\\,\\% are omitted: every suite meets them. Suites as in "
+            "same values on its own tested extents); 1000 resamples of the operating-point trials within each level, null "
+            "quantile and fixed feature re-estimated in every resample. Bold: probability $\\ge0.95$ (meets); below 0.05 the "
+            "suite fails; n.t.: no tested extent on the required side of $e_{\\mathrm{req}}$. PMSG and SCIG at five-cycle "
+            "windows, WFSG at three cycles and its matching fault impedance; the inter-winding levels "
+            + " and ".join(f"{e:.1f}" for e in omitted) + "\\,\\% are omitted (every suite meets them). Suites as in "
             "Table~\\ref{tab:suites}; exc: WFSG field current.")
     lettered = [("b", "Probability inherited from a cheaper subset of the suite (a suite may always use the features of its subsets).")]
     head = (r"Suite & \multicolumn{" + str(ncol) + r"}{c}{PMSG} & \multicolumn{" + str(ncol) + r"}{c}{SCIG} & \multicolumn{"
@@ -176,7 +175,7 @@ def t_phase():
 def t_decomp():
     """Table 4: decomposition in the relative form of the SDR and in absolute units."""
     d = pd.read_csv(TAB / "R_decomposition.csv")
-    d = d[d.feature.isin(["V2_V1", "V2r_V1", "I2_I1", "I2r_I1", "Id_2fe", "PId_2fe", "Vq_2fe", "D2r_D1"])]
+    d = d[d.feature.isin(["V2r_V1", "I2r_I1", "Id_2fe", "D2r_D1"])]
     body = []
     for r in d.itertuples():
         body.append(" & ".join([{"TURNS": "IT", "WINDINGS": "IW"}[r.ftype], tex(r.feature),
@@ -213,10 +212,9 @@ def t_transfer():
     body[-1] = body[-1].rstrip(r"\\").rstrip()
     cap = ("Transfer of a GBDT detector between PMSG and SCIG under four referencing rules, out-of-reference windows, "
            "95\\,\\% intervals")
-    note = ("AUC and true-positive rate at 1\\,\\% false-positive rate (TPR) on the out-of-reference windows (those outside the "
-            "normalising set, Section~\\ref{sec:computation}); intervals from a bootstrap over the trials of the tested machine "
-            "(500 resamples of its tap pairs and healthy groups). P$\\to$P, S$\\to$S: cross-validation grouped by tap pair; "
-            "P$\\to$S, S$\\to$P: trained on one machine, tested on the other.")
+    note = ("AUC and true-positive rate at 1\\,\\% false-positive rate (TPR) on the out-of-reference windows "
+            "(Section~\\ref{sec:computation}); intervals from 500 cluster resamples of the tested machine's trials. "
+            "P$\\to$P, S$\\to$S: cross-validation grouped by tap pair; P$\\to$S, S$\\to$P: trained on one machine, tested on the other.")
     head = "Direction & Metric & " + " & ".join(names[c] for c in cals)
     return table(body, cap, "tab:transfer", "llC{2.05cm}C{2.05cm}C{2.05cm}C{2.05cm}", head, size=r"\fontsize{8}{10}\selectfont",
                  colsep="2pt", note=note)
