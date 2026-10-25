@@ -30,7 +30,7 @@
 | D4 grid-wide comparisons | Holds | p. 16, l. 734 – p. 17, l. 774 |
 | D5 pooled shares | Holds | p. 21, ll. 958–959; Table 7 note |
 | D6 force cell left out | Holds; prior now explicit | p. 22, ll. 992–998 |
-| D7 costs under step 5 | Holds (`qual_cost_cheapest` checked) | p. 22, l. 1005 – p. 23, l. 1036 |
+| D7 costs under step 5 | Holds (`qual_cost_cheapest`) | p. 22, l. 1005 – p. 23, l. 1036 |
 | D8 "once runs differ by a floor" | Holds | Table 8; p. 25, ll. 1143–1145; p. 28, ll. 1271–1273 |
 | D9 Fig. 1 | Holds | p. 9, caption |
 | D10 archive; Table 3; rounds | Holds; count now out of date (must-fix 4) | p. 14, l. 640; p. 29, l. 1314 |
@@ -46,14 +46,13 @@ Each former citation now names a file in the same sentence or paragraph. I recom
 - **S10–S11 → `qual_guard_decision`:** NN per family 97/93 % interpolating and 92/100 % extrapolating; worst characteristics 88.8, 88.3, 85.3 %; release-like, 139 of 1,753 decided, 0.748 right.
 - **S10 → `qual_guard_oos`:** 0.718 and 0.7345 (release-like); 0.875 and 0.867.
 - **S12 → `qual_guard_prior_width`** (p. 22, l. 992): NN's in-sample sibling band 0.25 at ±20 floors, 2.0 at ±5.
-- **S14 → `qual_between_run`:** bands 2.875, 4.0, 8.875 at τ = 3.
-- **S15 → `qual_crossfit`:** 18.15, 11.45; 0.924–0.971; 0.733.
+- **S14, S15:** `qual_between_run` (2.875, 4.0, 8.875 at τ = 3); `qual_crossfit` (18.15, 11.45; 0.924–0.971; 0.733).
 - **Also:** `learn_fewshot` (5.90–10.50), `tune_decisions` (11.15, 13.05), `qual_guard_nested` (0.956/2.7 %, 0.952/52.1 %).
 
 Two gaps, neither an error:
 
 - The text names no file for the nested, few-shot and tuning results; only `findings.md` maps them.
-- Table 7 no longer reports or points to the intervals of its shares, as Table S10 did. `qual_guard_decision` has them for the sibling (NN 0.936–0.971); its empty new-setting rows lack S10's reason (one held-out cell per family interpolating, two extrapolating).
+- Table 7 no longer gives or points to the intervals of its shares, as S10 did. `qual_guard_decision` has them for the sibling (NN 0.936–0.971); its empty new-setting rows lack S10's reason (one held-out cell per family interpolating, two extrapolating).
 
 ## 4. The rewrite
 
@@ -69,9 +68,9 @@ Two gaps, neither an error:
    - The learner finding has lost its scope. "The rules" now takes in simulation-based centres, which the same interval does not make safe (p. 21, ll. 937–938).
    - *Fix:* "For this simulation dataset, the simulation contributed little … directly. GPs and boosting fitted to six to nine alternatives added no decisiveness, and what made the production record safe for new settings was …".
 3. **Conclusion, p. 28, ll. 1279–1282.**
-   - Old: "the production record carried the decision within a family, which argues for indexing such records … rather than for a more elaborate model".
+   - Old: "… within a family, which argues for indexing such records … rather than for a more elaborate model".
    - New: "Based on these findings, it is suggested to index production records … rather than to develop a more elaborate model."
-   - "Suggest" does not take a to-infinitive. "These findings" now include the cross-family one, where only simulation-based rules decided, and the sentence reads as advice against developing models, at odds with Section 6.3's next candidates.
+   - "Suggest" takes no to-infinitive. "These findings" now include the cross-family one, where only simulation-based rules decided, and the sentence reads as advice against developing models, at odds with Section 6.3's next candidates.
    - *Fix:* "Within a design family, these findings argue for indexing production records by their relation to the coming design rather than for a more elaborate model; such a record is the baseline that a learned manufacturability check has to beat."
 
 Both fixes are no longer than the text they replace. Items 1 and 3 came in with the fixes that followed the earlier check (commit 0fa69de). I compared the whole text with the previous version, sentence by sentence in Sections 3.3–3.7, 5.3–5.7, 6.1–6.3 and 7, and found no other change of meaning. Two of that check's repairs are right: "Under the same prior" (p. 22, l. 994) ties 0.72/0.73 to the release-like prior, and "200 draws of this component" (p. 24, l. 1064) holds at every τ (`qual_between_run`).
