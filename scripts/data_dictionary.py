@@ -129,7 +129,10 @@ GLOSSARY = [
         ("share_correct_<geometry>, trial_rate_<geometry>, decided_<geometry>, verdicts_<geometry>",
          "the same quantities per family (concave, convex)"),
         ("share_correct, share_correct_lo, share_correct_hi", "share correct among decided verdicts, with a cluster "
-                                                              "bootstrap interval over alternatives"),
+                                                              "bootstrap interval over alternatives with a sibling only; "
+                                                              "none for a new setting, where each family has one held-out "
+                                                              "cell interpolating and two extrapolating, whose alternatives "
+                                                              "share one fit"),
         ("trial_rate, trial_lo, trial_hi", "share of verdicts sent to trial"),
         ("decided, verdicts", "numbers of decided and of all verdicts over the prior"),
         ("false_accept_share", "false accepts per verdict"),
@@ -246,7 +249,9 @@ FILES = {
                                  "Table 3"),
     "meas_cut_walls.csv": ("simcheck.py", "walls of the cut part seen by the scanner", "U", "Table 3"),
     "meas_scan.csv": ("measurement.py", "redundancy of the scans per series", "U", "Table 3"),
-    "meas_floor.csv": ("measurement.py", "components of the floor: sigma_b, sigma_w, white-noise share", "P",
+    "meas_floor.csv": ("measurement.py", "pooled variance components (sigma_st, sigma_lt, sigma_batch), white-noise "
+                       "share and between-series spread; the sigma_b and sigma_w that reproduce the floors are in "
+                       "panel_floor_protocol", "P",
                        "Section 5.1"),
     "meas_run_floors.csv": ("simcheck.py", "floors of single runs", "V", "Table 4"),
     "meas_sim.csv": ("measurement.py", "extraction noise of the simulated characteristics", "G",
@@ -261,12 +266,15 @@ FILES = {
     "sim_oil_mapping.csv": ("simcheck.py", "draw-in per g/m2 of oil, simulated and measured", "U", "Section 5.2"),
     "sim_depth_offset.csv": ("simcheck.py", "depth and wall offsets of the simulation", "U", "Section 5.2"),
     "sim_envelope_variant.csv": ("simcheck.py", "envelope over the measured incoming variation", "G*", "Section 5.2"),
-    "sens_drift.csv": ("sensitivity.py", "floors with and without the time order", "V", "Section 5.1"),
+    "sens_drift.csv": ("sensitivity.py", "floors with and without the time order; drift ratio (drift_inflation)", "V",
+                       "Section 5.1; Table 4"),
     "inline_drift.csv": ("inline.py", "batch centres predicted from process signals", "-", "Section 5.1"),
     "ds_surrogate_rule.csv": ("design_space.py", "a GP surrogate of the simulations scored as a rule", "G",
                               "Section 5.2"),
     "panel_source_floor.csv": ("panel.py", "a new family in its own floor", "G/O", "Table 5 (a new family)"),
-    "panel_floor_protocol.csv": ("panel.py", "other floor protocols", "V", "Section 5.7"),
+    "panel_floor_protocol.csv": ("panel.py", "sigma_b (sigma_between_batch) and sigma_w (sigma_within_batch) per "
+                                 "characteristic and geometry, which reproduce the floor through the normal model "
+                                 "(normal_model_floor), and other floor protocols", "V", "Sections 3.2, 5.1, 5.7; Table 4"),
     "panel_variogram.csv": ("panel.py", "batch differences against their lag", "G", "Section 5.1"),
     "panel_force_effect.csv": ("panel.py", "simulated against measured force effects", "U", "Section 5.2"),
     "panel_arm_sign.csv": ("panel.py", "sign of the arm angle, simulated and measured", "U", "Section 5.2"),

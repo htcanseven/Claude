@@ -85,4 +85,6 @@ shortened 31-page version (`paper/review/jim_panel/round2/`: the frozen manuscri
 decision, all minor revision, the response `response_round2.md` and `main_diff.pdf` against the reviewed version),
 and a simulated third round that verified the second revision (`paper/review/jim_panel/round3/`: three reports, the
 editor's decision, accept subject to conditions, the response `response_round3.md` to its corrections D1–D10 and
-`main_diff.pdf`). None of them is a review by a journal.
+`main_diff.pdf`), and a simulated fourth round that verified the restyled single-document version
+(`paper/review/jim_panel/round4/`: three reports, the editor's decision, accept subject to corrections E1–E11, the
+response `response_round4.md` and `main_diff.pdf`). None of them is a review by a journal.

@@ -163,8 +163,8 @@ def t_floors() -> str:
                       r"means. Interval: 95\,\% over 2000 resamples of whole alternatives (the narrower interval over "
                       r"resampled batches is in the archive). Single runs: floor of one run over that of its geometry, range over the 18 runs. "
                       r"No warm-up: floor without the first 150 parts over the reference. $\sigma_\mathrm{LT}$: "
-                      r"standard deviation of the parts of a series (concave/convex); $\sigma_\mathrm{b}$, "
-                      r"$\sigma_\mathrm{w}$ and the drift ratio in \res{meas\_floor}.")
+                      r"standard deviation of the parts of a series (concave/convex); $\sigma_\mathrm{b}$ and "
+                      r"$\sigma_\mathrm{w}$ in \res{panel\_floor\_protocol}, the drift ratio in \res{sens\_drift}.")
 
 
 REGION = {"drawin_mid": r"flange mid-sides; $(210-W_x)/2$, $W_x$ along the laser line",
@@ -220,7 +220,7 @@ def t_qcs() -> str:
                  r"L{1.75cm}L{0.75cm}L{3.15cm}rrL{3.85cm}", head, colsep="2.4pt",
                  note=r"Op.: operation measured (OP10 after drawing, OP20 after cutting). Step$/F$: median step between "
                       r"adjacent values in one series over the floor; Values: distinct values per series. Differences from "
-                      r"the redundancy of the four sides, ranges of the series medians; the directions "
+                      r"the redundancy of the four sides, ranges of the series medians (per series in \res{meas\_scan}); the directions "
                       r"used avoid them, their residual bias is unknown. Absolute values are not calibrated against a "
                       r"reference at the size of the part.")
 
@@ -293,9 +293,9 @@ def t_guards() -> str:
                       + f"{pct(nest.loc['reference (+-20)', 'share_correct'])} and "
                       + f"{pct(nest.loc['release-like (+-5)', 'share_correct'])}" + r"\,\% correct and sends "
                       + f"{pct(nest.loc['reference (+-20)', 'trial_rate'])} and "
-                      + f"{pct(nest.loc['release-like (+-5)', 'trial_rate'])}" + r"\,\% to trial), for a new setting "
+                      + f"{pct(nest.loc['release-like (+-5)', 'trial_rate'])}" + r"\,\% to trial; \res{qual\_guard\_nested}), for a new setting "
                       r"the other family's band applied to this family. T: share of verdicts sent to trial (\%). No rule "
-                      r"qualifies for a new family. Shares per family, verdict counts and the characteristics in "
+                      r"qualifies for a new family. Shares per family, intervals, verdict counts and the characteristics in "
                       r"\res{qual\_guard\_decision}.")
 
 

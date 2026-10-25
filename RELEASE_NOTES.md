@@ -61,6 +61,16 @@ result files of version 2 are unchanged (their checksums still hold) except thos
 with American spelling, and its title reordered. `make_tables.py` writes the new table captions (and "center lines"
 in Table 3), and `figs.py` labels the lower row of `F_costs` "cost-minimizing band"; no number changes.
 
+**Corrected after a fourth simulated review round** (`paper/review/jim_panel/round4/`), without a change of number.
+
+- `make_tables.py`: the Table 4 note points to `panel_floor_protocol` for sigma_b and sigma_w (they reproduce each
+  floor to within 12 %) and to `sens_drift` for the drift ratio, not to `meas_floor`; the Table 7 note names the
+  intervals and `qual_guard_nested`; the Table 3 note names `meas_scan`.
+- `data_dictionary.py` and `results/DATA_DICTIONARY.md`: the `meas_floor`, `panel_floor_protocol` and `sens_drift`
+  rows say which file holds the floor components and the drift ratio; the `share_correct` row of
+  `qual_guard_decision` says that its interval exists with a sibling only, and why there is none for a new setting.
+- `results/findings.md`: the paper has 33 pages.
+
 Main result files added or changed in version 3:
 
 | File | SHA-256 |

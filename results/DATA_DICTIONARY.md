@@ -129,7 +129,7 @@ M7n, M7 and Mcd are fitted in pooled floors; their distances, like those of ever
 | `band, band_concave, band_convex, median_band, band_95, band_opt, in_sample_band` | guard band g (floors) on its 0.25-floor grid; inf: no band up to the search limit reaches 95 % |
 | `scheme` | validation of the band: own family with one alternative left out; the other family's band; 'leave force cell out', the band from both families' cases except the held-out geometry-force cell (interpolating, only the other family's cell remains); 'strictly nested', predictions behind the band refitted without the held-out alternative |
 | `share_correct_<geometry>, trial_rate_<geometry>, decided_<geometry>, verdicts_<geometry>` | the same quantities per family (concave, convex) |
-| `share_correct, share_correct_lo, share_correct_hi` | share correct among decided verdicts, with a cluster bootstrap interval over alternatives |
+| `share_correct, share_correct_lo, share_correct_hi` | share correct among decided verdicts, with a cluster bootstrap interval over alternatives with a sibling only; none for a new setting, where each family has one held-out cell interpolating and two extrapolating, whose alternatives share one fit |
 | `trial_rate, trial_lo, trial_hi` | share of verdicts sent to trial |
 | `decided, verdicts` | numbers of decided and of all verdicts over the prior |
 | `false_accept_share` | false accepts per verdict |
@@ -212,7 +212,7 @@ Where: the place in the paper; `archive` marks files of earlier versions that th
 | `learn_source_floor.csv` | `learners.py` | a new family in its own floor | G/O | Table 5 (a new family) |
 | `meas_characteristics.csv` | `simcheck.py` | measurement of the characteristics and their redundancy | U | Table 3 |
 | `meas_cut_walls.csv` | `simcheck.py` | walls of the cut part seen by the scanner | U | Table 3 |
-| `meas_floor.csv` | `measurement.py` | components of the floor: sigma_b, sigma_w, white-noise share | P | Section 5.1 |
+| `meas_floor.csv` | `measurement.py` | pooled variance components (sigma_st, sigma_lt, sigma_batch), white-noise share and between-series spread; the sigma_b and sigma_w that reproduce the floors are in panel_floor_protocol | P | Section 5.1 |
 | `meas_run_floors.csv` | `simcheck.py` | floors of single runs | V | Table 4 |
 | `meas_scan.csv` | `measurement.py` | redundancy of the scans per series | U | Table 3 |
 | `meas_sim.csv` | `measurement.py` | extraction noise of the simulated characteristics | G | Section 4.2 |
@@ -221,7 +221,7 @@ Where: the place in the paper; `archive` marks files of earlier versions that th
 | `panel_capability.csv` | `panel.py` | limits at performance indices 1.0-2.0 above the 95th percentile | G | Section 5.6 |
 | `panel_decomposition.csv` | `panel.py` | supporting or earlier analysis | see script | archive |
 | `panel_failing_weight.csv` | `panel.py` | weight of the failing side against the distance | G | Section 3.4 |
-| `panel_floor_protocol.csv` | `panel.py` | other floor protocols | V | Section 5.7 |
+| `panel_floor_protocol.csv` | `panel.py` | sigma_b (sigma_between_batch) and sigma_w (sigma_within_batch) per characteristic and geometry, which reproduce the floor through the normal model (normal_model_floor), and other floor protocols | V | Sections 3.2, 5.1, 5.7; Table 4 |
 | `panel_force_effect.csv` | `panel.py` | simulated against measured force effects | U | Section 5.2 |
 | `panel_force_levels.csv` | `panel.py` | supporting or earlier analysis | see script | archive |
 | `panel_guard_priors.csv` | `panel.py` | supporting or earlier analysis | see script | archive |
@@ -275,7 +275,7 @@ Where: the place in the paper; `archive` marks files of earlier versions that th
 | `scen_scores_by_class.csv` | `scenarios.py` | supporting or earlier analysis | see script | archive |
 | `scen_strata.csv` | `scenarios.py` | supporting or earlier analysis | see script | archive |
 | `scen_truth.csv` | `scenarios.py` | supporting or earlier analysis | see script | archive |
-| `sens_drift.csv` | `sensitivity.py` | floors with and without the time order | V | Section 5.1 |
+| `sens_drift.csv` | `sensitivity.py` | floors with and without the time order; drift ratio (drift_inflation) | V | Section 5.1; Table 4 |
 | `sens_esr.csv` | `sensitivity.py` | supporting or earlier analysis | see script | archive |
 | `sens_floor.csv` | `sensitivity.py` | supporting or earlier analysis | see script | archive |
 | `sim_depth_offset.csv` | `simcheck.py` | depth and wall offsets of the simulation | U | Section 5.2 |

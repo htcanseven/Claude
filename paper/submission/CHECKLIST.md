@@ -16,7 +16,9 @@ every number of the paper to its script and result file, and `results/DATA_DICTI
 A simulated third round (`paper/review/jim_panel/round3/`) accepted it subject to conditions, and its corrections
 D1–D10 are made (`response_round3.md`). At the author's request, the prose was then rewritten in the style of the
 author's earlier papers, with American spelling and the title reordered (`paper/notes/style_profile.md`); no number
-changed, and the paper has 33 pages, within the two pages over 31 that the author allowed. The archive is version 3. Because the reviews were simulated, this version
+changed, and the paper has 33 pages, within the two pages over 31 that the author allowed. A simulated fourth round
+(`paper/review/jim_panel/round4/`) verified this version and accepted it subject to corrections E1–E11, which are
+made (`response_round4.md`); none changes a number. The archive is version 3. Because the reviews were simulated, this version
 goes to the journal as a first submission; the response letters and the marked-up versions are internal documents.
 
 **Journal requirements** (submission guidelines): abstract 150–250 words; 4–6 keywords; author–year citations;
@@ -83,13 +85,13 @@ template accepted; no page limit. The corresponding author must give an ORCID in
 - [ ] **Outreach drafts.** `presubmission_enquiry.md` was written for the RED guest editors and is obsolete;
       `note_to_dataset_authors.md` can still be sent to the RDDAC/DDACS authors.
 
-## Quality gates (last run on the restyled version)
+## Quality gates (last run after the fourth-round corrections)
 
 - [x] `paper/main.tex` compiles with zero errors, no undefined references or citations and no overfull boxes. The
-      paper has 33 pages: the main text (abstract to conclusion) ends on page 29, followed by the declarations,
-      and the references fill pages 29–33, with DOIs as full links. Nine tables and six figures; no
+      paper has 33 pages: the main text (abstract to conclusion) ends on page 28, the declarations follow on
+      page 29, and the references fill pages 29–33, with DOIs as full links. Nine tables and six figures; no
       appendix and no supplementary material.
-- [x] Abstract 250 words (248 when "95 %" counts as one word), within the journal's limit; six keywords; captions of
+- [x] Abstract 249 words (247 when "95 %" counts as one word), within the journal's limit; six keywords; captions of
       at most two lines; no first person; American spelling, as in the author's earlier papers.
 - [x] Every cited key is in `refs.bib`; the references were checked against the publisher, DBLP, Crossref or the ISO
       catalogue, those added for JIM (Friedman 2001 and Barber et al. 2021 in the second round) against Crossref.

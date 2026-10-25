@@ -11,7 +11,7 @@ code names of every result file and the floor each one uses. Every number comes 
 `bash scripts/run_all.sh` (about five hours on 4 cores from the cached feature tables). Distances are in within-run
 floors of each characteristic unless stated. M3n is named M4 in the code.
 
-## Map of the paper (31 pages, a single document)
+## Map of the paper (33 pages, a single document)
 
 | Paper | Results | Script: result files |
 |---|---|---|
