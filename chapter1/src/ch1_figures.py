@@ -11,7 +11,7 @@ src/trace_fig_1_04.py until the model's own output replaces them.
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.patches import Polygon, Rectangle, FancyBboxPatch, Ellipse, FancyArrowPatch
+from matplotlib.patches import Polygon, Rectangle, FancyBboxPatch, Ellipse, FancyArrowPatch, Circle
 
 sys.path.insert(0, 'src')
 import hsbook_style as hs
@@ -269,77 +269,79 @@ def critical_speed_divergence():
 # ───────────────────────────────────────────────────────────────── Fig. 1.9
 @fig('1.9')
 def trilemma():
-    """The text of §1.6.1 drawn literally. The three domains sit at the corners, each
-    marked by a small drawing of what it governs: the sleeved rotor, the electrical
-    frequency, the heat sink. The sides of the triangle are the directed cycle of
-    remedies, each creating the next problem. Inside lies the feasible window, which the
-    power-electronic interface splits into the two paradigms; their colours are those of
-    Figure 1.6, rust for silicon and green for SiC and GaN, and the gatekeeper is drawn
-    in the blue of the pulse-ratio lines there. Drawn in centimetres of the page."""
-    H = 11.25
+    """The text of §1.6.1 drawn literally, on an equilateral triangle. The three domains
+    sit at the corners in discs tinted with their material from the illustration
+    palette, steel, copper and coolant, each marked by a small drawing of what it
+    governs: the sleeved rotor, a waveform whose frequency rises, a thermometer. The
+    sides are the directed cycle of remedies, each creating the next problem. The
+    feasible window is the circle at the centre, which the power-electronic interface
+    splits into the two paradigms; their colours are those of Figure 1.6, rust for
+    silicon and green for SiC and GaN, and the gatekeeper is in the blue of the
+    pulse-ratio lines there. Drawn in centimetres of the page."""
+    H = 11.85
     f, ax = hs.canvas(H)
-    A, B, C = np.array([7.96, 10.30]), np.array([1.60, 2.10]), np.array([14.32, 2.10])
-    RN = 0.78                                    # radius of the corner discs
+    A, B, C = np.array([7.96, 10.76]), np.array([2.96, 2.10]), np.array([12.96, 2.10])
+    G, RN = (A + B + C) / 3, 0.90               # centre of the triangle; radius of the corner discs
     tri = Polygon([A, B, C], closed=True, fc='#f7f7f5', ec='none', zorder=1)
     ax.add_patch(tri)
-
-    # the feasible window, split by the gatekeeper into the two paradigms
-    wx, wy, wa, wb = 7.96, 4.80, 3.25, 2.20      # centre and semi-axes of the window
-    gy, gh = 4.80, 0.25                          # the gatekeeper band: centre, half-height
-    win = Ellipse((wx, wy), 2 * wa, 2 * wb, fc='white', ec='none', zorder=2)
-    ax.add_patch(win)
-    for y0, y1, tint in ((gy, wy + wb, '#f3e5e0'), (wy - wb, gy, '#e8eee2')):
-        zone = Rectangle((wx - wa, y0), 2 * wa, y1 - y0, fc=tint, ec='none', zorder=2.1)
-        ax.add_patch(zone)
-        zone.set_clip_path(win)
-    ax.add_patch(Ellipse((wx, wy), 2 * wa, 2 * wb, fc='none', ec=INK, lw=hs.LW_OUTLINE,
-                         zorder=2.5))
-    band = Rectangle((0, gy - gh), hs.W_CM, 2 * gh, fc='#e2e8ee', ec='none', zorder=3)
-    ax.add_patch(band)
-    band.set_clip_path(tri)
-    for y in (gy - gh, gy + gh):
-        ln, = ax.plot([0, hs.W_CM], [y, y], color=BLUE, lw=hs.LW_OUTLINE, zorder=3.1)
-        ln.set_clip_path(tri)
-    ax.text(wx, gy, 'power electronics: the gatekeeper', color=BLUE, ha='center',
-            va='center', zorder=6)
-    ax.text(wx, 5.54, 'low-pole industrial topology\nreachable with silicon IGBT', color=RUST,
-            ha='center', va='center', linespacing=1.1, zorder=6)
-    ax.text(wx, 4.06, 'high-pole mobile topology\nfeasible only with SiC or GaN', color=GREEN,
-            ha='center', va='center', linespacing=1.1, zorder=6)
-    ax.text(wx, wy + wb + 0.34, 'feasible design window', ha='center', va='center', zorder=6)
 
     # the sides: each remedy creates the next problem
     for p, q in ((A, B), (B, C), (C, A)):
         u = (q - p) / np.linalg.norm(q - p)
         ax.add_patch(FancyArrowPatch(p + (RN + 0.10) * u, q - (RN + 0.10) * u, arrowstyle='-|>',
-                                     mutation_scale=13, lw=1.3, color=INK, shrinkA=0,
-                                     shrinkB=0, zorder=4))
-    ax.text(4.38, 6.50, 'thicker sleeve\n→ larger air gap', ha='right', va='center',
-            linespacing=1.15)
-    ax.text(11.54, 6.50, 'cooling channels\n→ lower stiffness', ha='left', va='center',
-            linespacing=1.15)
-    ax.text(7.96, 1.47, 'more poles, higher frequency\n→ more loss in less volume',
+                                     mutation_scale=13, lw=1.3, color=INK, shrinkA=0, shrinkB=0,
+                                     zorder=4))
+    ax.text(*((A + B) / 2 + 0.55 * np.array([-0.866, 0.5])), 'thicker sleeve\n→ larger air gap',
+            ha='right', va='center', linespacing=1.15)
+    ax.text(*((A + C) / 2 + 0.55 * np.array([0.866, 0.5])), 'cooling channels\n→ lower stiffness',
+            ha='left', va='center', linespacing=1.15)
+    ax.text(G[0], B[1] - 0.62, 'more poles, higher frequency\n→ more loss in less volume',
             ha='center', va='center', linespacing=1.15)
 
-    # the corners, each with a drawing of what it governs
-    for c in (A, B, C):
-        ax.add_patch(plt.Circle(c, RN, fc='white', ec=INK, lw=hs.LW_OUTLINE * 1.2, zorder=6))
-    ax.add_patch(plt.Circle(A, 0.47, fc=GREY, ec=INK, lw=hs.LW_THIN, zorder=7))      # sleeve
-    ax.add_patch(plt.Circle(A, 0.38, fc=FILL['rotor'], ec=INK, lw=hs.LW_THIN, zorder=7.1))
+    # the feasible window, split by the gatekeeper into the two paradigms
+    rw, gh = 2.48, 0.25                          # window radius; half-height of the gatekeeper band
+    win = Circle(G, rw, fc='white', ec='none', zorder=2)
+    ax.add_patch(win)
+    for y0, y1, tint in ((G[1], G[1] + rw, '#f3e5e0'), (G[1] - rw, G[1], '#e8eee2')):
+        zone = Rectangle((G[0] - rw, y0), 2 * rw, y1 - y0, fc=tint, ec='none', zorder=2.1)
+        ax.add_patch(zone)
+        zone.set_clip_path(win)
+    ax.add_patch(Circle(G, rw, fc='none', ec=INK, lw=hs.LW_OUTLINE, zorder=2.5))
+    band = Rectangle((0, G[1] - gh), hs.W_CM, 2 * gh, fc='#e2e8ee', ec='none', zorder=3)
+    ax.add_patch(band)
+    band.set_clip_path(tri)
+    for y in (G[1] - gh, G[1] + gh):
+        ln, = ax.plot([0, hs.W_CM], [y, y], color=BLUE, lw=hs.LW_OUTLINE, zorder=3.1)
+        ln.set_clip_path(tri)
+    ax.text(*G, 'power electronics: the gatekeeper', color=BLUE, ha='center', va='center', zorder=6)
+    ax.text(G[0], G[1] + 1.02, 'low-pole industrial\ntopology, reachable\nwith silicon IGBTs',
+            color=RUST, ha='center', va='center', linespacing=1.1, zorder=6)
+    ax.text(G[0], G[1] - 1.02, 'high-pole mobile\ntopology, feasible only\nwith SiC or GaN',
+            color=GREEN, ha='center', va='center', linespacing=1.1, zorder=6)
+    ax.text(G[0], G[1] + rw + 0.12, 'feasible\ndesign window', ha='center', va='bottom',
+            linespacing=1.1, zorder=6)
+
+    # the corners, tinted with their material, each with a drawing of what it governs
+    for c, tint in ((A, '#ececec'), (B, '#f3e9c9'), (C, '#e2ebf4')):
+        ax.add_patch(Circle(c, RN, fc=tint, ec=INK, lw=hs.LW_OUTLINE, zorder=6))
+    ax.add_patch(Circle(A, 0.57, fc=GREY, ec=INK, lw=hs.LW_THIN, zorder=7))         # sleeve
+    ax.add_patch(Circle(A, 0.47, fc=FILL['rotor'], ec=INK, lw=hs.LW_THIN, zorder=7.1))
     for k in range(6):                                                              # magnets
         t = np.pi / 6 + k * np.pi / 3
-        ax.plot(A[0] + np.array([0.15, 0.38]) * np.cos(t), A[1] + np.array([0.15, 0.38]) * np.sin(t),
+        ax.plot(A[0] + np.array([0.18, 0.47]) * np.cos(t), A[1] + np.array([0.18, 0.47]) * np.sin(t),
                 color=INK, lw=hs.LW_THIN, zorder=7.2)
-    ax.add_patch(plt.Circle(A, 0.15, fc=FILL['steel'], ec=INK, lw=hs.LW_THIN, zorder=7.3))
-    xs = np.linspace(-0.50, 0.50, 200)                                              # frequency
-    ax.plot(B[0] + xs[[0, -1]], [B[1]] * 2, color=GREY, lw=hs.LW_THIN, zorder=7)
-    ax.plot(B[0] + xs, B[1] + 0.30 * np.sin(2 * np.pi * 2.5 * (xs + 0.50)), color=INK,
+    ax.add_patch(Circle(A, 0.18, fc=FILL['steel'], ec=INK, lw=hs.LW_THIN, zorder=7.3))
+    x = np.linspace(-0.60, 0.60, 400)                                               # rising frequency
+    u = (x + 0.60) / 1.20
+    ax.plot(B[0] + x[[0, -1]], [B[1]] * 2, color=GREY, lw=hs.LW_THIN, zorder=7)
+    ax.plot(B[0] + x, B[1] + 0.31 * np.sin(2 * np.pi * (1.0 * u + 2.4 * u ** 2)), color=INK,
             lw=1.3, zorder=7.1)
-    ax.add_patch(Rectangle((C[0] - 0.45, C[1] - 0.34), 0.90, 0.15, fc=FILL['steel'], ec=INK,
-                           lw=hs.LW_THIN, zorder=7))                                # heat sink
-    for k in range(5):
-        ax.add_patch(Rectangle((C[0] - 0.41 + k * 0.19, C[1] - 0.19), 0.08, 0.50,
-                               fc=FILL['steel'], ec=INK, lw=hs.LW_THIN, zorder=7))
+    ax.add_patch(FancyBboxPatch((C[0] - 0.10, C[1] - 0.32), 0.20, 0.90, fc='white', ec=INK,
+                                lw=hs.LW_THIN, zorder=7, boxstyle='round,pad=0,rounding_size=0.10'))
+    ax.add_patch(Rectangle((C[0] - 0.045, C[1] - 0.36), 0.09, 0.64, fc=GREY, ec='none', zorder=7.2))
+    ax.add_patch(Circle((C[0], C[1] - 0.41), 0.20, fc=GREY, ec=INK, lw=hs.LW_THIN, zorder=7.3))
+    for y in (0.04, 0.21, 0.38):                                                    # thermometer scale
+        ax.plot([C[0] + 0.10, C[0] + 0.21], [C[1] + y] * 2, color=INK, lw=hs.LW_THIN, zorder=7.1)
     ax.text(A[0] + RN + 0.22, A[1], 'Mechanical integrity', ha='left', va='center')
     ax.text(B[0], B[1] - RN - 0.14, 'Electromagnetic\nefficiency', ha='center', va='top',
             linespacing=1.1)

@@ -90,7 +90,8 @@ A diagram shows a relationship rather than an object or a set of data. Figure 1.
   | rust #a6350f | #f3e5e0 | silicon IGBTs, and the low-pole industrial topology they reach |
   | green #4a7c1f | #e8eee2 | SiC and GaN, and the high-pole mobile topology that needs them |
 
-- **Pictograms** may mark the elements of a diagram, provided they are drawn like the illustrations, from the palette and without shading: the sleeved rotor, the sine wave and the heat sink of Figure 1.9. No clip art and no icon sets.
+- **Elements** may carry a light tint of their material from the illustration palette: steel #ececec, copper #f3e9c9, coolant #e2ebf4, for the mechanical, electromagnetic and thermal corners of Figure 1.9.
+- **Pictograms** may mark the elements of a diagram, provided they are drawn like the illustrations, from the palette and without shading: the sleeved rotor, the waveform of rising frequency and the thermometer of Figure 1.9. No clip art and no icon sets.
 - **Text**: 11 pt, horizontal, sentence case. The names of the elements are set in ink, outside their shapes where there is room.
 - **Greyscale**: tints are told apart by their labels, so every tinted region carries one.
 
