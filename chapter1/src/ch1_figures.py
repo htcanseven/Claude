@@ -277,12 +277,13 @@ def trilemma():
     (mechanical integrity), a six-pole machine in cross-section with copper in its slots
     (electromagnetic efficiency), a liquid-cooled stator (thermal management). Broad
     arrows, each in the colour of the domain it leaves, carry the cycle of §1.6.1: every
-    remedy creates the next problem. At the centre is the feasible window, which the
-    power-electronic interface splits into the two paradigms, each shown by its rotor: two
-    poles for the industrial machine that silicon IGBTs can supply, six for the mobile
-    machine that needs SiC or GaN. Their colours are those of Figure 1.6, rust for silicon
-    and green for SiC and GaN, and the gatekeeper is in the blue of the pulse-ratio lines
-    there. Drawn in centimetres of the page."""
+    remedy creates the next problem. At the centre is the feasible window, and across it
+    the power electronics stands as a gate, a post and a striped arm carrying its sign.
+    Above the gate is the two-pole industrial machine, at 500 Hz at 30 000 r/min, which
+    silicon IGBTs can supply; below it the six-pole mobile machine, at 1500 Hz, which needs
+    SiC or GaN. Their colours are those of Figure 1.6, rust for silicon and green for SiC
+    and GaN, and the gate is in the blue of the pulse-ratio lines there. Drawn in
+    centimetres of the page."""
     s, yb = 10.0, 2.32                          # side of the triangle of corners; height of its base
     H = yb + 0.866 * s + 1.40
     f, ax = hs.canvas(H)
@@ -328,26 +329,39 @@ def trilemma():
     ax.text(G[0], yb - 1.70, 'more poles, higher frequency\n→ more loss in less volume', ha='center',
             va='center', linespacing=1.15)
 
-    # the feasible window, split by the gatekeeper into the two paradigms
-    rw, gh = 2.55, 0.42                         # window radius; half-height of the gatekeeper band
+    # the feasible window: the power electronics stands across it as a gate. Above the gate
+    # the two-pole industrial machine at 500 Hz, which silicon IGBTs can supply; below it the
+    # six-pole mobile machine at 1500 Hz, which needs SiC or GaN.
+    rw = 3.10                                   # window radius
     ax.add_patch(Wedge(G, rw + 0.22, 0, 360, width=0.22, fc='#ececec', ec='none', zorder=1.9))
     win = Circle(G, rw, fc='white', ec='none', zorder=2)
     ax.add_patch(win)
-    for y0, y1, tint in ((G[1], G[1] + rw, '#f3e5e0'), (G[1] - rw, G[1], '#e8eee2'),
-                         (G[1] - gh, G[1] + gh, '#e2e8ee')):
+    for y0, y1, tint in ((G[1], G[1] + rw, '#f3e5e0'), (G[1] - rw, G[1], '#e8eee2')):
         zone = Rectangle((G[0] - rw, y0), 2 * rw, y1 - y0, fc=tint, ec='none', zorder=2.1)
         ax.add_patch(zone)
         zone.set_clip_path(win)
-    for y in (G[1] - gh, G[1] + gh):
-        ln, = ax.plot([G[0] - rw, G[0] + rw], [y, y], color=BLUE, lw=hs.LW_OUTLINE, zorder=2.2)
+    # the gate: a post, a striped arm across the window, and its sign
+    px0, px1, ah = G[0] - 2.80, G[0] - 2.45, 0.16
+    for k, x0 in enumerate(np.arange(px1, G[0] + rw, 0.40)):
+        seg = Rectangle((x0, G[1] - ah), 0.40, 2 * ah, fc=BLUE if k % 2 == 0 else 'white', ec='none',
+                        zorder=2.3)
+        ax.add_patch(seg)
+        seg.set_clip_path(win)
+    for y in (G[1] - ah, G[1] + ah):
+        ln, = ax.plot([px1, G[0] + rw], [y, y], color=INK, lw=hs.LW_THIN, zorder=2.35)
         ln.set_clip_path(win)
-    ax.add_patch(Circle(G, rw, fc='none', ec=INK, lw=hs.LW_OUTLINE * 1.3, zorder=2.5))
-    ax.text(*G, 'power electronics:\nthe gatekeeper', color=BLUE, ha='center', va='center',
-            linespacing=1.0, zorder=6)
-    for dy, n, label, colour in ((1.15, 2, 'industrial,\nsilicon IGBT', RUST),
-                                 (-1.15, 6, 'mobile,\nSiC or GaN', GREEN)):
-        rotor(np.array([G[0] - 1.12, G[1] + dy]), 0.52, n)
-        ax.text(G[0] - 0.40, G[1] + dy, label, color=colour, ha='left', va='center',
+    ax.add_patch(FancyBboxPatch((px0, G[1] - 0.80), px1 - px0, 1.20, fc=FILL['housing'], ec=INK,
+                                lw=hs.LW_OUTLINE, zorder=2.4, boxstyle='round,pad=0,rounding_size=0.06'))
+    ax.add_patch(Circle((G[0] - 2.625, G[1]), 0.08, fc=INK, ec='none', zorder=2.45))
+    ax.add_patch(FancyBboxPatch((G[0] + 0.30 - 1.625, G[1] - 0.46), 3.25, 0.92, fc='white', ec=BLUE,
+                                lw=hs.LW_OUTLINE, zorder=2.5, boxstyle='round,pad=0,rounding_size=0.12'))
+    ax.text(G[0] + 0.30, G[1], 'power electronics:\nthe gatekeeper', color=BLUE, ha='center',
+            va='center', linespacing=1.0, zorder=6)
+    ax.add_patch(Circle(G, rw, fc='none', ec=INK, lw=hs.LW_OUTLINE * 1.3, zorder=2.6))
+    for dy, n, label, colour in ((1.40, 2, 'two-pole industrial,\n500 Hz: silicon IGBT', RUST),
+                                 (-1.40, 6, 'six-pole mobile,\n1500 Hz: SiC or GaN', GREEN)):
+        rotor(np.array([G[0] - 1.75, G[1] + dy]), 0.55, n)
+        ax.text(G[0] - 1.00, G[1] + dy, label, color=colour, ha='left', va='center',
                 linespacing=1.1, zorder=6)
     ax.text(G[0], G[1] + rw + 0.34, 'feasible\ndesign window', ha='center', va='bottom',
             linespacing=1.1, zorder=6)

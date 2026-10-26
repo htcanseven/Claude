@@ -91,7 +91,7 @@ A diagram shows a relationship rather than an object or a set of data. Figure 1.
   | green #4a7c1f | #e8eee2 | SiC and GaN, and the high-pole mobile topology that needs them |
 
 - **Elements** may sit on a disc tinted with their material from the illustration palette: steel #ececec, copper #f3e9c9, coolant #e2ebf4, for the mechanical, electromagnetic and thermal corners of Figure 1.9.
-- **Draw rather than write.** Mark the elements with small drawings made like the illustrations, from the palette and without shading, so that the reader sees what each element is: in Figure 1.9 the sleeved rotor with its centrifugal load, a machine in cross-section, a liquid-cooled stator, and the two-pole and six-pole rotors of the two paradigms. No clip art and no icon sets.
+- **Draw rather than write.** Mark the elements with small drawings made like the illustrations, from the palette and without shading, so that the reader sees what each element is: in Figure 1.9 the sleeved rotor with its centrifugal load, a machine in cross-section, a liquid-cooled stator, the two-pole and six-pole rotors of the two paradigms, and the power electronics as a gate, a post and a striped arm carrying its sign. A metaphor the text uses, such as the gatekeeper, is worth drawing literally. No clip art and no icon sets.
 - **The focal element** may stand on a light grey ring, #ececec, 0.22 cm wide, as the feasible window does in Figure 1.9.
 - **Text**: 11 pt, horizontal, sentence case. The names of the elements are set in ink, outside their shapes where there is room.
 - **Greyscale**: tints are told apart by their labels, so every tinted region carries one.

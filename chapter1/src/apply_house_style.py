@@ -697,7 +697,7 @@ def main():
             LOG.append('Figure 1.2 caption: "Left:" and "Right:" made "(a)" and "(b)", '
                        'since the panels are stacked')
             replace_text(cap, 'active magnetic bearings,', 'active magnetic bearings (AMBs),')
-            append_sentence(cap, ' The units are drawn to scale for a compressor of about 300 kW: '
+            append_sentence(cap, ' The units are drawn to scale for a compressor of about 300\u00a0kW: '
                                  '(a) and (b) at one scale, so that their sizes compare directly, '
                                  'and (c), the motor of (b) with its upper half in section, at '
                                  'twice that scale. The dimensions are representative of '
@@ -720,11 +720,13 @@ def main():
             replace_across(cap, 'along every edge of the triangle',
                            'around the cycle, each remedy creating the next problem')
             replace_across(cap, 'window at its centre', 'window at the centre')
-            append_sentence(cap, ' The rotors in the window show the pole numbers of the two '
-                                 'paradigms: two poles for the industrial machine that silicon IGBTs '
-                                 'can supply, six for the mobile machine that needs SiC or GaN.')
+            append_sentence(cap, ' Within the window the power electronics stands as a gate between '
+                                 'the two paradigms, shown at 30\u00a0000\u00a0r/min: above it the two-pole '
+                                 'industrial machine at 500\u00a0Hz, which silicon IGBTs can supply, and '
+                                 'below it the six-pole mobile machine at 1500\u00a0Hz, which needs SiC or '
+                                 'GaN.')
             LOG.append('Figure 1.9 caption: the triangle\'s edges become the cycle the figure now '
-                       'draws, and one sentence explains the rotors in the window')
+                       'draws, and one sentence explains the gate and the two machines in the window')
         style_figure(els[i], num, text(cap), zin, rels, new_media)
         style_caption(cap, 'Figure', num)
 
