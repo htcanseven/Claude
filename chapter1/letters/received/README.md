@@ -30,10 +30,10 @@ from us.
 
 | Writer | Chapter | Draft sent |
 |---|---|---|
-| Jussi Sopanen | 4–6 | with the invitation, 3 Sep; on 9 Sep he said he would edit it and send it "later"; reminder drafted 26 Oct, asking for it by 6 Nov |
-| Ahti Jaatinen-Värri | 13 | with the Chapter 13 invitation |
-| Jonna Tiainen | 13 | invited to write a second, manufacturer's letter |
-| Jenni Pippuri-Mäkeläinen | 14 | with the invitation; no reply; reminder drafted 26 Oct, asking for it by 6 Nov |
-| Marko Hinkkanen | 12 | accepted on 25 Oct and offered a letter; updated draft for Chapter 12 sent with our reply, asked for by 6 Nov |
+| Jussi Sopanen | 4–6 | with the invitation, 3 Sep; on 9 Sep he said he would edit it and send it "later"; reminder sent 26 Oct, asking for it by 6 Nov |
+| Ahti Jaatinen-Värri | 13 | with the Chapter 13 invitation; to be asked for, together with Jonna's, once he has finished §1.1.2 of Chapter 1 |
+| Jonna Tiainen | 13 | invited to write a second, manufacturer's letter; to be asked for together with Ahti's |
+| Jenni Pippuri-Mäkeläinen | 14 | with the invitation; no reply; reminder sent 26 Oct, asking for it by 6 Nov |
+| Marko Hinkkanen | 12 | accepted on 25 Oct and offered a letter; updated draft for Chapter 12 sent with our reply of 26 Oct, asked for by 6 Nov |
 
 Paavo Rasilo's draft is void; he declined Chapter 9 on 20 September.

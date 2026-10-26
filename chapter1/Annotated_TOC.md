@@ -205,15 +205,15 @@ short biography, and in the preface.
 
 | Chapters | Owner | Affiliation | Status |
 |---|---|---|---|
-| 1, §1.1.2 — specific speed and the turbomachinery optimum | Ahti Jaatinen-Värri | LUT, Laboratory of Fluid Dynamics | drafted |
+| 1, §1.1.2 — specific speed and the turbomachinery optimum | Ahti Jaatinen-Värri | LUT, Laboratory of Fluid Dynamics | drafted; Ahti is completing it (26 Oct) |
 | 2 — Applications and system architectures | Juha Saari | Upheat Solutions, high-temperature heat pumps | accepted; letter received |
-| 4, 5, 6 — the whole of Part II | Jussi Sopanen | LUT, machine dynamics | interested (9 Sep); scope questions open; letter promised |
+| 4, 5, 6 — the whole of Part II | Jussi Sopanen | LUT, machine dynamics | interested (9 Sep); scope suggestion sent 26 Oct; letter promised, asked for by 6 Nov |
 | 8 — AC winding losses and conductor design | Anouar Belahcen | Aalto University | letter signed 3 Sep; it names both loss chapters |
 | 10 — Thermal management and cooling | Rafal Wrobel | independent researcher and engineering consultant | accepted; letter received, to be signed |
 | 11 — The drive: the converter interface | Pasi Peltoniemi | LUT, power electronics | accepted; letter received |
-| 12 — Control at high fundamental frequency | Marko Hinkkanen | Aalto University, electric drives | accepted (25 Oct), with a postdoc from his group; letter promised |
-| 13 — Industrial case studies | Jonna Tiainen and Ahti Jaatinen-Värri | The Switch; LUT, turbomachinery | invited; no answer recorded |
-| 14 — Mobile case studies | Jenni Pippuri-Mäkeläinen | VTT, manager of the Voltcar project | invited; no answer recorded |
+| 12 — Control at high fundamental frequency | Marko Hinkkanen | Aalto University, electric drives | accepted (25 Oct), with a postdoc from his group; letter promised, asked for by 6 Nov |
+| 13 — Industrial case studies | Jonna Tiainen and Ahti Jaatinen-Värri | The Switch; LUT, turbomachinery | invited; letters to be asked for once §1.1.2 is finished |
+| 14 — Mobile case studies | Jenni Pippuri-Mäkeläinen | VTT, manager of the Voltcar project | invited; no answer; reminded 26 Oct, letter asked for by 6 Nov |
 | 1, 3, 7, 9 | the authors | LUT University | — |
 
 **Co-authors, recruited by the owner of the chapter**

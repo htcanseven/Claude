@@ -139,7 +139,7 @@ BR, Hüseyin
 *Answer the questions once the editors have settled them, and ask for the letter in the
 same email.*
 
-### Reminder — draft, 26 October
+### Reminder — sent 26 October
 
 *Reply on his 9 September thread, to all, so that Ilya, Juha and Charles stay in copy.
 Nothing to attach: he has the draft letter, Chapter 1 and the table of contents. The scope
@@ -523,7 +523,7 @@ Juha first; he reads it as "nine or eleven".*
 > Best regards,
 > Marko
 
-### Our reply — draft
+### Our reply — sent 26 October
 
 *Reply to all, so that Ilya and Juha stay in copy. Attach the updated
 `letters/Support_Letter_Hinkkanen.docx`. The draft he already has predates the split: it
@@ -642,6 +642,20 @@ Looking forward to hearing from you.
 
 BR, Hüseyin
 
+### Next — 26 October
+
+*Hüseyin is waiting for Ahti to finish his part of Chapter 1, the specific-speed section
+§1.1.2, and will then ask Ahti and Jonna for their letters together. The email above dates
+from September, so that request must bring the division of the chapter up to date:*
+
+- *§13.3, manufacture and tolerance control, is offered to Jonna above, but Jouni Ikäheimo's
+  signed letter of 5 October takes it, and the table of contents now gives it to him. Settle
+  it before Jonna writes a letter that names it.*
+- *§13.5, qualification, is given to Lassi above. His letter takes §13.4 only, and
+  Ikäheimo's takes §13.5.*
+- *Ahti's draft letter dates from 7 September and covers Chapter 13 only. Add a sentence on
+  §1.1.2, which he has written for Chapter 1 and for which he is named at its head.*
+
 ---
 
 ## Ion Boldea — sent by Ilya Petrov
@@ -755,7 +769,7 @@ Looking forward to hearing from you.
 
 BR, Hüseyin
 
-### Reminder — draft, 26 October
+### Reminder — sent 26 October
 
 *No reply is on file. Reply on the September email, so that the thread and the draft stay
 together, and attach `letters/Support_Letter_Pippuri-Makelainen.docx` again. The
