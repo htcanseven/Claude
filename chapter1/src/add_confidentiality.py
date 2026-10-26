@@ -51,8 +51,23 @@ def bottom_rule(p):
     pPr.insert(list(pPr).index(style) + 1 if style is not None else 0, bdr)
 
 
+def strip_comments(doc):
+    """Remove the authors' comments: they are working notes, not for the recipient."""
+    body = doc.element.body
+    for tag in ('w:commentRangeStart', 'w:commentRangeEnd'):
+        for el in list(body.iter(qn(tag))):
+            el.getparent().remove(el)
+    for ref in list(body.iter(qn('w:commentReference'))):
+        run = ref.getparent()
+        run.getparent().remove(run)
+    for rel in list(doc.part.rels.values()):         # the comment parts and their authors
+        if any(k in rel.reltype.lower() for k in ('comments', 'people')):
+            doc.part.drop_rel(rel.rId)
+
+
 def stamp(src, dst, what, after):
     doc = Document(src)
+    strip_comments(doc)
     note = doc.add_paragraph()                      # appended, then moved into place
     anchor = doc.paragraphs[after]
     anchor._p.addprevious(note._p)

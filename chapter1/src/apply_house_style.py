@@ -17,7 +17,11 @@ presentation only:
 Text is touched in a few places only, each listed in the change log printed at
 the end: missing full stops after three table numbers, sentence case in two
 tables, "4x" written as "4×", and the captions of Figures 1.2, 1.4 and 1.5,
-which are brought into line with the redrawn figures.
+which are brought into line with the redrawn figures. After those, the wording
+agreed with the authors (fix_text): headings in sentence case as in the table of
+contents, a heading for §1.2, "rpm" made r/min, the in-text citations in one
+form, and the reference list that the open comments asked for, after which the
+comments are marked resolved.
 
 usage:  python3 src/apply_house_style.py      (run from chapter1/)
 """
@@ -436,6 +440,232 @@ def split_figure_paragraph(p):
     return cap
 
 
+# ───────────────────────────────────────────── text
+# Headings in sentence case, as in the table of contents, and without the stray full
+# stops after "1.4" and "1.5". Each entry: the start of the heading, then the changes.
+HEADINGS = [
+    ('1.1 Introduction', [('The High-Speed Landscape', 'the high-speed landscape')]),
+    ('Defining "High Speed"', [('"High Speed"', '"high speed"')]),
+    ('1.1.2 Historical Context', [('Historical Context and the Direct-Drive Revolution',
+                                   'Historical context and the direct-drive revolution')]),
+    ('1.2.1 Industrial', [('Industrial High-Speed Machines: The Stationary Approach',
+                           'Industrial high-speed machines: the stationary approach')]),
+    ('1.2.2 High-Specific-Power', [('High-Specific-Power HS Machines: The Mobile Approach',
+                                    'High-specific-power HS machines: the mobile approach')]),
+    ('1.3 Fundamental', [('Fundamental Physical Constraints', 'Fundamental physical constraints')]),
+    ('1.3.1 Mechanical Limits', [('Mechanical Limits: The ', 'Mechanical limits: the '),
+                                 (' Wall', ' wall')]),
+    ('1.3.2 Rotordynamics', [('Rotordynamics and Critical Speeds',
+                              'Rotordynamics and critical speeds')]),
+    ('1.4. The role', [('1.4. ', '1.4 ')]),
+    ('1.5. Scaling', [('1.5. ', '1.5 ')]),
+    ('1.5.2 Mechanical stress', [('scaling: The ', 'scaling: the ')]),
+    ('1.5.3 Loss scaling', [('The efficiency', 'the efficiency')]),
+    ('1.5.4 Thermal scaling', [('The square-cube', 'the square-cube')]),
+    ('1.6 Summary', [('Framing the Design Challenges Ahead', 'framing the design challenges ahead')]),
+    ('1.6.2 Roadmap', [('Roadmap of the Following Book Chapters',
+                        'Roadmap of the following book chapters')]),
+]
+# The unnumbered headings below the numbered ones: bold paragraphs of their own.
+RUN_IN = {
+    'The Limitations of the Geared Legacy': 'The limitations of the geared legacy',
+    'The Integrated High-Speed Unit: A Leap in Performance':
+        'The integrated high-speed unit: a leap in performance',
+    'Challenges and Trade-offs': 'Challenges and trade-offs',
+    'The Divergent Evolution: Direct-Drive Industrial vs. Geared Traction':
+        'The divergent evolution: direct-drive industrial vs. geared traction',
+    'The Industrial Paradigm: The "Gearless" Hermetic Unit':
+        'The industrial paradigm: the "gearless" hermetic unit',
+    'The Traction Paradigm: The Geared High-Speed Optimum':
+        'The traction paradigm: the geared high-speed optimum',
+    'The Economic Paradox: Why "More Parts" Can Be Cheaper':
+        'The economic paradox: why "more parts" can be cheaper',
+    'Applications: The Drivers of Direct-Drive': 'Applications: the drivers of direct drive',
+    'Topology: The Logic of Low Pole Counts': 'Topology: the logic of low pole counts',
+    'Two-Pole Induction Machines (IM)': 'Two-pole induction machines (IM)',
+    '2/4-Pole Rotor-Surface-Magnet PMSMs': '2/4-pole rotor-surface-magnet PMSMs',
+    'Strategy: Mechanical Robustness and Sleeve Technology':
+        'Strategy: mechanical robustness and sleeve technology',
+    'Power Electronics: The IGBT Compatibility': 'Power electronics: the IGBT compatibility',
+    'Conclusion: The Stationary Philosophy': 'Conclusion: the stationary philosophy',
+    'Applications: The Pursuit of Power Density': 'Applications: the pursuit of power density',
+    'Topology: Multi-pole IPM and Reluctance Torque':
+        'Topology: multi-pole IPM and reluctance torque',
+    'Strategy: Mass Minimization through Frequency':
+        'Strategy: mass minimization through frequency',
+    'Power Electronics: The Necessity of Wide Bandgap (SiC/GaN)':
+        'Power electronics: the necessity of wide bandgap (SiC/GaN)',
+    'Conclusion: The High-Frequency High-Density Frontier':
+        'Conclusion: the high-frequency high-density frontier',
+    'Centrifugal Stress Distribution: Solid vs. Laminated Rotors':
+        'Centrifugal stress distribution: solid vs. laminated rotors',
+    'Material Fatigue and the Retention System': 'Material fatigue and the retention system',
+    ' Ratio Challenge: Why HS Machines are Long and Thin?':
+        ' ratio challenge: why HS machines are long and thin?',
+    'Bearing Technologies: From Ball Bearings to AMBs':
+        'Bearing technologies: from ball bearings to AMBs',
+    'Framing the Comparison': 'Framing the comparison',
+}
+# Two headings of §1.1.1 were set as Heading 3 beside the numbered ones; they become
+# bold paragraphs like the other headings at that depth.
+DEMOTE = {'The r/min fallacy: Why speed is a relative term.':
+              'The r/min fallacy: why speed is a relative term',
+          'Different definitions of high speed': 'Different definitions of high speed'}
+SECTION_1_2 = '1.2 The two paradigms: industrial and mobile'
+# In-text citations brought to one form, "(Author et al., year)".
+CITATIONS = [('Armengaud et al, 2025', 'Armengaud et al., 2025'),
+             ('Canseven et. al., 2024', 'Canseven et al., 2024'),
+             ('Lipo, T.A., 2017', 'Lipo, 2017'),
+             ('Pyrhönen et. al., 2013', 'Pyrhönen et al., 2013')]
+# The reference list. The authors' comments gave the six references in full; the
+# author lists and identifiers of El Hajji et al. and Armengaud et al. are completed
+# from the publishers' records. Each entry is a list of (text, italic) pieces.
+REFERENCES = [
+    [('Armengaud, E., Ratz, F., Muñiz, Á., Poza, J., Garramiola, F., Almandoz, G., … '
+      'Montonen, J. (2025). European initiatives addressing high efficiency and low-cost '
+      'electric motors for circularity and low use of rare resources. ', False),
+     ('SAE International Journal of Advances and Current Practices in Mobility, 7', True),
+     ('(6), 2781–2794. https://doi.org/10.4271/2025-01-8806', False)],
+    [('Canseven, H. T., Petrov, I., Martikainen, I., & Pyrhönen, J. (2024). Eddy-current '
+      'losses in slitted rotor cores of PMSMs—Development of a novel method. ', False),
+     ('IEEE Transactions on Energy Conversion, 40', True), ('(2), 1339–1349.', False)],
+    [('El Hajji, T., Hemeida, A., Lehikoinen, A., Martin, F., & Belahcen, A. (2024). Optimal '
+      'design of high specific power electric machines for fully electric regional aircraft: '
+      'A case study of 1 MW S-PMSM. ', False),
+     ('Aerospace, 11', True), ('(10), 820. https://doi.org/10.3390/aerospace11100820', False)],
+    [('Lipo, T. A. (2017). ', False), ('Analysis of synchronous machines', True),
+     ('. CRC Press.', False)],
+    [('Pyrhönen, J., Jokinen, T., & Hrabovcová, V. (2013). ', False),
+     ('Design of rotating electrical machines', True), (' (2nd ed.). John Wiley & Sons.', False)],
+    [('Scherman, E., Parviainen, M., Nutakor, C., Petrov, I., Pyrhönen, J., & Sopanen, J. '
+      '(2026). Impact of rotor topology on dynamic behavior and manufacturing in a high-speed '
+      'electric machine. In J. Sopanen, E. Kurvinen, R. Viitala, T. Holopainen, & '
+      'T. Choudhury (Eds.), ', False),
+     ('Proceedings of the 12th IFToMM International Conference on Rotordynamics', True),
+     (' (Mechanisms and Machine Science, Vol. 211). Springer, Cham.', False)],
+]
+
+
+def replace_across(p, old, new):
+    """Replace the first `old` in the paragraph text, even where it runs across several
+    runs; the new text takes the formatting of the run in which `old` begins."""
+    ts = list(p.iter(q('t')))
+    s = ''.join(t.text or '' for t in ts)
+    at = s.find(old)
+    if at < 0:
+        raise ValueError(f'{old!r} not found in {s[:60]!r}')
+    end, done, placed = at + len(old), 0, False
+    for t in ts:
+        a = done
+        done += len(t.text or '')
+        if done <= at or a >= end:
+            continue
+        lo, hi = max(at, a) - a, min(end, done) - a
+        t.text = t.text[:lo] + ('' if placed else new) + t.text[hi:]
+        t.set(f'{{{XML}}}space', 'preserve')
+        placed = True
+
+
+def body_run(s, italic=False, bold=False):
+    """A run in the body font, Times New Roman, British English, as the chapter's own."""
+    r = ET.Element(q('r'))
+    rp = ET.SubElement(r, q('rPr'))
+    times(rp)
+    if bold:
+        child(rp, 'b'); child(rp, 'bCs')
+    if italic:
+        child(rp, 'i'); child(rp, 'iCs')
+    child(rp, 'lang', {'val': 'en-GB'})
+    t = ET.SubElement(r, q('t'))
+    t.text = s
+    t.set(f'{{{XML}}}space', 'preserve')
+    return r
+
+
+def heading(level, s):
+    p = ET.Element(q('p'))
+    pp = ppr(p)
+    child(pp, 'pStyle', {'val': f'Heading{level}'})
+    child(pp, 'jc', {'val': 'both'})
+    p.append(body_run(s))
+    return p
+
+
+def fix_text(body):
+    """The wording changes agreed for the circulated chapter, each one logged."""
+    paras = [el for el in body if el.tag == q('p')]
+    style = lambda p: (p.find(q('pPr') + '/' + q('pStyle')).get(q('val'))
+                       if p.find(q('pPr') + '/' + q('pStyle')) is not None else '')
+    for start, changes in HEADINGS:
+        p = next(p for p in paras if style(p).startswith('Heading') and text(p).startswith(start))
+        for old, new in changes:
+            replace_across(p, old, new)
+    LOG.append(f'Headings: {len(HEADINGS)} set in sentence case as in the table of contents, '
+               'and the full stops after "1.4" and "1.5" removed')
+    n = 0
+    for p in paras:
+        for old, new in RUN_IN.items():
+            if old in text(p) and not style(p):
+                replace_across(p, old, new)
+                child(ppr(p), 'keepNext')           # never last on a page
+                n += 1
+    assert n == len(RUN_IN), (n, len(RUN_IN))
+    LOG.append(f'Unnumbered headings: {n} bold headings within the sections set in sentence case '
+               'and kept with the paragraph that follows')
+    for p in paras:
+        if text(p) in DEMOTE and style(p) == 'Heading3':
+            new = DEMOTE[text(p)]
+            pp = ppr(p)
+            for tag in ('pStyle', 'numPr'):
+                for el in pp.findall(q(tag)):
+                    pp.remove(el)
+            child(pp, 'keepNext')
+            replace_across(p, text(p), new)
+            for rp in [rpr(r) for r in runs(p)] + [child(pp, 'rPr', replace=False)]:
+                child(rp, 'b'); child(rp, 'bCs')
+            LOG.append(f'"{new}": was a Heading 3 without a number beside the numbered ones; '
+                       'now a bold heading within §1.1.1, like the other headings at that depth')
+    first = next(p for p in paras if style(p) == 'Heading3' and text(p).startswith('1.2.1'))
+    first.addprevious(heading(2, SECTION_1_2))
+    LOG.append(f'§1.2 heading added: "{SECTION_1_2}" (the chapter ran from §1.1.2 into §1.2.1)')
+    p = next(p for p in paras if 'mechanical rpm value' in text(p))
+    replace_across(p, 'not merely a mechanical rpm value', 'not merely a mechanical value in r/min')
+    LOG.append('§1.1.1: "a mechanical rpm value" made "a mechanical value in r/min"')
+    for old, new in CITATIONS:
+        p = next(p for p in paras if old in text(p))
+        replace_across(p, old, new)
+    LOG.append('Citations: four brought to the form "(Author et al., year)"')
+
+    # the reference list, after the last paragraph of the chapter
+    last = [p for p in paras if text(p).strip()][-1]
+    at = last
+    for el in [heading(2, 'References')] + [ET.Element(q('p')) for _ in REFERENCES]:
+        at.addnext(el)
+        at = el
+    refs = list(body)[list(body).index(last) + 2:][:len(REFERENCES)]
+    for p, pieces in zip(refs, REFERENCES):
+        pp = ppr(p)
+        child(pp, 'spacing', {'after': '80', 'line': '259', 'lineRule': 'auto'})
+        child(pp, 'ind', {'left': '360', 'hanging': '360'})
+        child(pp, 'jc', {'val': 'left'})
+        for s, it in pieces:
+            p.append(body_run(s, italic=it))
+    LOG.append(f'References: a list of the {len(REFERENCES)} works cited, from the authors\' '
+               'comments, added at the end of the chapter')
+
+
+def resolve_comments(ext):
+    """Mark every comment resolved: the six still open each held a reference, and every
+    reference is now in the list at the end of the chapter."""
+    W15 = 'http://schemas.microsoft.com/office/word/2012/wordml'
+    n = 0
+    for e in ext.findall(q('commentEx', W15)):
+        if e.get(q('done', W15)) != '1':
+            e.set(q('done', W15), '1')
+            n += 1
+    LOG.append(f'Comments: the {n} still open, each holding a full reference, marked resolved')
+
+
 # ───────────────────────────────────────────── main
 def main():
     zin = zipfile.ZipFile(SRC)
@@ -467,9 +697,13 @@ def main():
             LOG.append('Figure 1.2 caption: "Left:" and "Right:" made "(a)" and "(b)", '
                        'since the panels are stacked')
             replace_text(cap, 'active magnetic bearings,', 'active magnetic bearings (AMBs),')
-            append_sentence(cap, ' In (b) the upper half of the unit is drawn in section.')
+            append_sentence(cap, ' The units are drawn to scale for a compressor of about 300 kW: '
+                                 '(a) and (b) at one scale, so that their sizes compare directly, '
+                                 'and (c), the motor of (b) with its upper half in section, at '
+                                 'twice that scale. The dimensions are representative of '
+                                 'catalogue equipment, not those of a particular machine.')
             LOG.append('Figure 1.2 caption: "(AMBs)" added, the abbreviation the drawing uses, '
-                       'and one sentence saying that the upper half of (b) is drawn in section')
+                       'and two sentences on the common scale of (a) and (b) and on (c)')
         if num == 4:
             append_sentence(cap, ' The rotor is drawn to scale above the mode shapes, on the '
                                  'same axial scale; the vertical lines mark its radial AMBs.')
@@ -495,11 +729,18 @@ def main():
         style_caption(cap, 'Table', num)
         style_table(els[i], num)
 
+    # the wording agreed after the house-style pass, and the open comments
+    fix_text(body)
+    ext = ET.fromstring(zin.read('word/commentsExtended.xml'))
+    resolve_comments(ext)
+
     # write
     out = {'word/document.xml': ET.tostring(doc, xml_declaration=True, encoding='UTF-8',
                                              standalone=True),
            'word/styles.xml': ET.tostring(styles, xml_declaration=True, encoding='UTF-8',
-                                          standalone=True)}
+                                          standalone=True),
+           'word/commentsExtended.xml': ET.tostring(ext, xml_declaration=True, encoding='UTF-8',
+                                                    standalone=True)}
     out.update(new_media)
     with zipfile.ZipFile(DST, 'w', zipfile.ZIP_DEFLATED) as zout:
         for item in zin.infolist():

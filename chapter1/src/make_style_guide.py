@@ -2,8 +2,8 @@
 
 The document doubles as the Word template for contributors: it defines the
 Caption paragraph style and the HS Book Table table style, its own tables are
-set in that table style, and it ends with two examples from Chapter 1, a graph
-and an illustration, each with its caption as it stands in the chapter.
+set in that table style, and it ends with three examples from Chapter 1, a graph,
+an illustration and a diagram, each with its caption as it stands in the chapter.
 
 usage:  python3 src/make_style_guide.py      (run from chapter1/)
 """
@@ -21,7 +21,7 @@ SRC, DST = 'House_Style.md', 'House_Style.docx'
 TNR = 'Times New Roman'
 INK = RGBColor(0x1a, 0x1a, 0x1a)
 CHAPTER = 'Chapter_1_house_style.docx'
-EXAMPLES = [('a graph', '1.5'), ('an illustration', '1.2')]
+EXAMPLES = [('a graph', '1.5'), ('an illustration', '1.2'), ('a diagram', '1.9')]
 
 
 def chapter_caption(num):

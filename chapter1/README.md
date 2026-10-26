@@ -50,7 +50,7 @@ They differ in structure and depth only.
 - `src/ch1_figures.py` — all nine Chapter 1 figures, written to `figures/ch1/`
 - `src/trace_fig_1_04.py` — the mode shapes of Figure 1.4, traced from the original picture into `data/fig_1_04_modes.csv`; replace that file with the model's own export
 - `src/apply_house_style.py` — `incoming/Chapter_1_final.docx` to `Chapter_1_house_style.docx`; what it changed is in `Chapter_1_house_style_CHANGES.md`
-- `src/add_confidentiality.py` — the stamped copies in `to_send/`
+- `src/add_confidentiality.py` — the stamped copies in `to_send/`, without the authors' Word comments
 - `src/make_style_guide.py` — `House_Style.docx`
 - `src/mpl_to_pptx.py`, `src/preview_pptx.py` — Figure 1.2 as editable PowerPoint, SVG and PDF in `figures/editable/`
 
@@ -74,5 +74,6 @@ python3 src/make_redline.py && python3 src/verify_redline.py
 
 ## Outstanding
 
-Citations to be filled in; every location is listed in `CHANGES.md` §E.
-All figures are complete.
+Every in-text citation has its entry in the reference list at the end of the chapter
+(26 October). All figures are complete; Figure 1.4 still plots mode shapes traced from
+the old picture until the MATLAB model's own export replaces them.

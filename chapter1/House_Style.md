@@ -46,16 +46,21 @@ The publisher will rescale the book to its own trim size. Because every figure i
 
 ## 4. Illustrations
 
-Figure 1.2 is the reference. Both of its panels are drawn the same way, and every illustration in the book should look as if the same hand drew it.
+Figure 1.2 is the reference. All three of its panels are drawn the same way, and every illustration in the book should look as if the same hand drew it.
 
-- **Two-dimensional engineering drawings only**: an elevation, a half section or a section, drawn as a drafter would draw it. No perspective, no 3-D rendering, no shading gradients, no photorealism. No AI-generated imagery (see §8).
+- **Two-dimensional engineering drawings only**: an elevation, a half section or a section, drawn as a drafter would draw it. No perspective, no 3-D rendering, no shading gradients, no photorealism. No AI-generated imagery (see §10).
 - **Flat fills, no hatching.** Every part is drawn as a flat, light fill from the palette below, with an ink outline. Nothing is hatched.
 - **Showing the inside**: draw a *half section*. The upper half is cut and the lower half is seen from outside, with the centre line between them. Cut housing walls take the darker *section* tone. Shafts, rotors and other solid parts on the axis are never cut. A laminated stack is shown by thin grey lines across it, perpendicular to the shaft.
 - **Machines in their setting** stand on a floor: a heavy floor line with a light band below it and a baseplate above it, as in Figure 1.2. Anything below floor level, such as an oil skid, is drawn in that band.
+- **To scale, from real dimensions.** Draw every part from its real dimensions, in metres, so that its proportions are true; never stretch a part to fit a label or the page. A high-speed machine is small for its power, and the drawing must show it: in Figure 1.2 the high-speed motor is seen at its true size beside the 1500 r/min motor it replaces, about a seventh of its volume.
+- **One scale for what is compared.** Arrangements set side by side for comparison share one scale, so that the reader compares sizes directly, and the caption says so.
+- **Scale bar.** Every illustration drawn to scale carries one, in empty space: a bar 0.13 cm high in two halves, ink and white, a round length (1 m, 0.2 m), and below it the labels 0 and the length with its unit.
+- **Detail views.** Where a part is too small at the common scale to show its inside, repeat it in a panel of its own at a larger scale, with its own scale bar, and give the ratio in the caption: Figure 1.2(c) shows the motor of (b) at twice the scale.
+- **Representative dimensions.** When a drawing stands for a class of machine rather than a particular one, take its sizes from catalogue equipment of one stated rating, and say in the caption that they are representative.
+- **Scale shared with a graph**: a rotor drawn above its mode shapes shares their axial scale (Figure 1.4).
 - **Line weights**: part outlines 1.0 pt. Leader lines, centre lines, dimension lines, lamination lines and small details 0.5 pt.
 - **Centre lines**: thin, grey, dash-dot.
 - **Labels**: horizontal, sentence case, 11 pt. Main units are named above them, with the speed under the name where it matters ("compressor / 30 000 r/min"). Every other label is joined to its part by a thin grey leader line *without* an arrowhead. A leader that ends inside a part ends in a small dot. Arrows are kept for flow, motion and dimensions.
-- **Scale**: where the scale carries meaning, keep it. A rotor drawn above its mode shapes shares their axial scale (Figure 1.4).
 - **Fills** come from one material palette, light enough for labels to stay legible:
 
   | Material | Fill |
@@ -71,11 +76,29 @@ Figure 1.2 is the reference. Both of its panels are drawn the same way, and ever
   | Oil, lubrication | #f4e6d8 |
   | Floor, foundation | #f5f5f5 |
 
-## 5. Colour and greyscale
+## 5. Diagrams
 
-Wiley has not yet said whether the book prints in colour. Until it does, **every figure must read correctly when printed in greyscale**. That is why each colour carries its own line style or hatching. Check by printing the figure in black and white.
+A diagram shows a relationship rather than an object or a set of data. Figure 1.9, the high-speed trilemma, is the reference.
 
-## 6. Tables
+- **Shapes**: flat fills with ink outlines of 1.0 pt; circles, ellipses and boxes, nothing more. No shadows, no gradients, no 3-D.
+- **Arrows** show influence, sequence or flow: ink, 1.3 pt, with a filled head. An arrow that is also the edge of a shape replaces that edge rather than running beside it, as the sides of the triangle do in Figure 1.9.
+- **Colour carries meaning, and keeps it through the chapter.** A region is a light tint of a series colour, the colour at 13 % on white, and the text inside it is set in the colour itself:
+
+  | Colour | Tint | In Chapter 1 it means |
+  |---|---|---|
+  | blue #1f4e79 | #e2e8ee | the converter: the pulse-ratio lines of Figure 1.6, the gatekeeper of Figure 1.9 |
+  | rust #a6350f | #f3e5e0 | silicon IGBTs, and the low-pole industrial topology they reach |
+  | green #4a7c1f | #e8eee2 | SiC and GaN, and the high-pole mobile topology that needs them |
+
+- **Pictograms** may mark the elements of a diagram, provided they are drawn like the illustrations, from the palette and without shading: the sleeved rotor, the sine wave and the heat sink of Figure 1.9. No clip art and no icon sets.
+- **Text**: 11 pt, horizontal, sentence case. The names of the elements are set in ink, outside their shapes where there is room.
+- **Greyscale**: tints are told apart by their labels, so every tinted region carries one.
+
+## 6. Colour and greyscale
+
+Wiley has not yet said whether the book prints in colour. Until it does, **every figure must read correctly when printed in greyscale**. That is why each colour carries its own line style or hatching, and why every tinted region is labelled. Check by printing the figure in black and white.
+
+## 7. Tables
 
 - **Caption above** the table.
 - **Times New Roman 11 pt** throughout, single line spacing, no space before or after paragraphs in cells.
@@ -86,21 +109,28 @@ Wiley has not yet said whether the book prints in colour. Until it does, **every
 
 The Word table style *HS Book Table* in this document does all of this. Insert a table, choose the style, and mark the first row as a header row.
 
-## 7. Captions
+## 8. Captions
 
 - **Label**: "Figure 4.7." or "Table 4.2.", in bold, followed by the caption in regular type. The full stop after the number is always there.
 - **Placement**: figure captions **below** the figure; table captions **above** the table.
-- **Content**: the first sentence names what is shown; the following sentences say what to look for. Panels are referred to by letter. Values that are illustrative rather than measured are said to be so.
+- **Content**: the first sentence names what is shown; the following sentences say what to look for. Panels are referred to by letter. Values that are illustrative rather than measured are said to be so, and so are dimensions that are representative rather than those of a particular machine.
 - **Style**: the Word paragraph style *Caption* in this document: Times New Roman 11 pt, justified like the text.
 
-## 8. Sources and rights
+## 9. Headings, citations and references
+
+- **Headings** are in sentence case, as in the table of contents: "1.3.2 Rotordynamics and critical speeds", "1.2.1 Industrial high-speed machines: the stationary approach". There is no full stop after the section number or at the end of the heading. Sections take the Word style Heading 2 and subsections Heading 3; a heading below a subsection is a bold paragraph of its own, in sentence case, kept with the paragraph that follows it.
+- **Citations** in the text take the form (Author, year) for one author, (Author and Author, year) for two, and (Author et al., year) for three or more: "(Lipo, 2017)", "(Pyrhönen et al., 2013)".
+- **References** are listed at the end of each chapter under the heading "References", in alphabetical order of the first author, in the form of Chapter 1: the authors with their initials, the year, the title in sentence case, the journal or book in italics, the volume, issue and pages, and the DOI where there is one. Each entry has a hanging indent.
+- **Until Wiley says otherwise.** IEEE Press books often use numbered references instead. If the publisher asks for them, author–year lists convert mechanically, so write author–year now.
+
+## 10. Sources and rights
 
 - **No AI-generated images.** The copyright in them is unsettled, so the authors may not be able to grant Wiley the licence the contract asks for. Several large publishers do not accept them at all.
 - **Figures taken from another source** are redrawn in this style and cited in the caption: "Redrawn from [12]." When the redrawing follows the original closely, permission is still needed; ask the chapter owner.
 - **Data from another source** is plotted in this style, and the source of the data is cited in the caption.
 - **Photographs** are used only of real hardware, at no less than 300 dpi at printed size, and only with the owner's written permission.
 
-## 9. What to deliver with a chapter
+## 11. What to deliver with a chapter
 
 | File | Purpose |
 |---|---|
@@ -110,7 +140,7 @@ The Word table style *HS Book Table* in this document does all of this. Insert a
 
 Name figures `fig_<chapter>_<number>`, with two-digit numbers: `fig_4_07`.
 
-## 10. The tools
+## 12. The tools
 
 **Python.** `hsbook_style.py` sets matplotlib to this style. `save()` checks every piece of text in the figure and refuses to write a figure whose font, size or weight is off.
 
@@ -128,6 +158,8 @@ hs.laminated(ax, 2.0, 5.0, 3.1, 4.2)          # a laminated stack
 hs.leader(ax, 'stator', (3.5, 3.6), (3.5, 6.0), dot=True)
 ```
 
+For a drawing to scale, keep the dimensions in metres and convert them once, as `geared_vs_directdrive()` in `src/ch1_figures.py` does: a view maps metres to centimetres of the page at a chosen scale, and every part is placed through it.
+
 **MATLAB.** `hsbook_style.m` takes a finished figure and puts it into this style: width, font, size, line weights, ticks, grid, series colours and styles, no title, no legend box. It then exports it at exactly that size.
 
 ```matlab
@@ -140,15 +172,18 @@ The MATLAB function was written without access to MATLAB. Check the first figure
 
 **Word.** The *Caption* paragraph style and the *HS Book Table* table style are defined in this document. Copy them into a chapter with Home → Styles → Manage Styles → Import/Export, or simply paste a table from this document.
 
-## 11. Checklist before sending a chapter
+## 13. Checklist before sending a chapter
 
 1. Every figure is 15.92 cm wide and inserted at 100 %, with no Word cropping.
 2. All text in figures and tables is Times New Roman 11 pt, with symbols in italic.
 3. No titles inside figures; panels lettered (a), (b) below the panels.
-4. Every graph reads in greyscale.
+4. Every graph reads in greyscale, and every tinted region is labelled.
 5. Illustrations are 2-D drawings in flat fills from the palette, with no hatching, no AI imagery and no photorealism.
-6. Tables use *HS Book Table*, with the caption above.
-7. Captions use *Caption*, labels "Figure c.n." and "Table c.n." in bold.
-8. Units in SI, r/min not rpm, × not x, thin space in 30 000.
-9. Every borrowed figure is redrawn and cited; every borrowed dataset is cited.
-10. The source file of every figure is delivered with it.
+6. Illustrations are drawn to scale from real dimensions; arrangements that are compared share one scale and carry a scale bar.
+7. In diagrams, each colour means one thing, and the same thing throughout the chapter.
+8. Tables use *HS Book Table*, with the caption above.
+9. Captions use *Caption*, labels "Figure c.n." and "Table c.n." in bold.
+10. Headings in sentence case; citations as (Author et al., year); a reference list at the end of the chapter.
+11. Units in SI, r/min not rpm, × not x, thin space in 30 000.
+12. Every borrowed figure is redrawn and cited; every borrowed dataset is cited.
+13. The source file of every figure is delivered with it.

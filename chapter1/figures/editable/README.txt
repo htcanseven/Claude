@@ -5,12 +5,15 @@ These files are the house-style Figure 1.2 exactly as it stands in the
 manuscript: 15.92 cm wide, every label Times New Roman 11 pt.
 
 Figure_1_2.pptx     PowerPoint, and the easiest one to work in. No picture is
-                    embedded: the drawing is about 230 native PowerPoint
+                    embedded: the drawing is about 240 native PowerPoint
                     shapes, one per part, so you can click a housing and
                     recolour it, drag a leader line, or retype a label
                     straight away. Each panel is its own group, "Figure 1.2
-                    (a)" and "Figure 1.2 (b)", so a panel moves or scales as
+                    (a)", "(b)" and "(c)", so a panel moves or scales as
                     one piece; double-click into a group to reach the parts.
+                    The parts are drawn to scale: (a) and (b) share one
+                    scale and (c) is twice it. Moving a part by hand keeps
+                    it to scale; resizing one does not.
                     Shapes are named for the selection pane
                     (Home > Select > Selection Pane).
                     The slide is the printed size of the figure, so the labels
@@ -27,8 +30,9 @@ Figure_1_2.png      The picture that goes into the manuscript, 600 dpi.
 
 The master is not here. It is the function geared_vs_directdrive() in
 chapter1/src/ch1_figures.py, drawn with the house-style module
-chapter1/src/hsbook_style.py. Every coordinate there is a number in
-centimetres of the printed page. Run from the chapter1 directory:
+chapter1/src/hsbook_style.py. Every part there is dimensioned in metres
+and placed through a view that converts metres to centimetres of the
+printed page at the panel's scale. Run from the chapter1 directory:
 
     python3 src/ch1_figures.py 1.2      the manuscript figure, figures/ch1/fig_1_02.*
     python3 src/mpl_to_pptx.py          this folder: .pptx, .svg, .pdf, .png

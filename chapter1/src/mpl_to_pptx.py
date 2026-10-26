@@ -30,8 +30,9 @@ from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 from pptx.oxml.ns import qn
 
 OUT = 'figures/editable/Figure_1_2.pptx'
-PANELS = ('(a)', '(b)')
-PANEL_SPLIT = 8.3                 # cm up the canvas: panel (a) above, (b) below
+PANELS = ('(a)', '(b)', '(c)')
+PANEL_SPLIT = 6.9                 # cm up the canvas: panel (a) above, (b) and (c) below
+PANEL_SPLIT_X = 8.7               # cm across the lower row: (c) to the left, (b) to the right
 SLIDE_W_IN = 15.92 / 2.54         # the printed size: the labels stay 11 pt
 FONT = 'Times New Roman'
 HATCH = {'///': MSO_PATTERN.LIGHT_UPWARD_DIAGONAL,
@@ -72,15 +73,21 @@ def load_figure():
     return fig, fig.axes[0], fig.canvas.get_renderer()
 
 
-def height_of(a):
-    """Where an artist sits on the canvas (cm up from the bottom), to sort it into a panel."""
+def place_of(a):
+    """Where an artist sits on the canvas (cm from the lower left), to sort it into a panel."""
     if isinstance(a, FancyArrowPatch):
-        return float(np.mean([p[1] for p in a._posA_posB]))
+        return np.mean(a._posA_posB, axis=0)
     if isinstance(a, Text):
-        return a.get_position()[1]
+        return np.asarray(a.get_position(), float)
     if hasattr(a, 'get_ydata'):
-        return float(np.mean(a.get_ydata()))
-    return float(np.mean(a.get_path().transformed(a.get_patch_transform()).vertices[:, 1]))
+        return np.array([np.mean(a.get_xdata()), np.mean(a.get_ydata())])
+    return a.get_path().transformed(a.get_patch_transform()).vertices.mean(axis=0)
+
+
+def panel_of(a):
+    """(a) fills the upper row; below it, the enlarged motor (c) is left of (b)."""
+    x, y = place_of(a)
+    return '(a)' if y > PANEL_SPLIT else '(c)' if x < PANEL_SPLIT_X else '(b)'
 
 
 def clip_polygon(pts, box):
@@ -406,7 +413,7 @@ def convert():
         sheet.shapes = group.shapes
         n = 0
         for _, _, kind, a in items:
-            if (height_of(a) > PANEL_SPLIT) != (panel == '(a)'):
+            if panel_of(a) != panel:
                 continue
             if kind == 'patch':
                 shape = emit_patch(sheet, ax, a)
