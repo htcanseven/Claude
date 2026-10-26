@@ -139,6 +139,32 @@ BR, Hüseyin
 *Answer the questions once the editors have settled them, and ask for the letter in the
 same email.*
 
+### Reminder — draft, 26 October
+
+*Reply on his 9 September thread, to all, so that Ilya, Juha and Charles stay in copy.
+Nothing to attach: he has the draft letter, Chapter 1 and the table of contents. The scope
+answer is the one suggested under decision 7 of the 7 October brief; if the meeting settled
+it differently, change the two points. If he accepts it, the abstracts of Chapters 4 and 6
+each need a sentence before the table of contents goes to Wiley: Chapter 4's covers only
+the PM rotors, and Chapter 6's gives every bearing type the same depth.*
+
+Hello Jussi,
+
+We are finalising the proposal and plan to submit it to Wiley in November, so I would like to come back to your two questions from September.
+
+Our suggestion is to let the two running machines set the depth. The industrial one is a two-pole solid-rotor induction machine on active magnetic bearings, and the mobile one, Voltcar, runs on angular-contact ball bearings. So:
+
+- Chapter 4, on rotor stress and magnet retention, would keep the PM rotors, sleeved and interior-magnet, as the table of contents has them, and add solid and laminated induction rotors in full. Synchronous reluctance rotors would be covered only briefly.
+- Chapter 6, on bearings, lubrication and seals, would treat rolling-element and magnetic bearings in full, and fluid-film, gas and air-foil bearings at the level a designer needs to choose between them.
+
+That is only our suggestion. The chapters are yours, so if you would draw the lines differently, tell us and we will change the table of contents to match before it goes to Wiley.
+
+Charles would be very welcome for lubrication and seals, and we would be glad to name him in the proposal.
+
+Could you send us your support letter by Friday 6 November? The draft you have still fits the three chapters. If you name Charles in it and fill in the details about your group, it will be all the stronger.
+
+BR, Hüseyin
+
 ---
 
 ## Juha Saari — windage, industrial applications, the compressor case
@@ -726,6 +752,29 @@ We would like you in the book. Each chapter has one author responsible for it, a
 If you would like to join, could you write us a short letter of support? We would send it to the publisher together with the proposal, and we think such letters will make the application considerably stronger. A sample is attached, which you are free to change as you wish.
 
 Looking forward to hearing from you.
+
+BR, Hüseyin
+
+### Reminder — draft, 26 October
+
+*No reply is on file. Reply on the September email, so that the thread and the draft stay
+together, and attach `letters/Support_Letter_Pippuri-Makelainen.docx` again. The
+consortium's permission was kept out of the first email. It is raised now because the letter
+commits her to obtaining it, and a refusal after submission would cost the mobile half of
+the book. Her silence may also mean that she cannot sign that paragraph, and the reminder
+gives her a way to say so. If she asks for Chapter 1 and the table of contents, the stamped
+table of contents in `to_send/` still names Paavo Rasilo for Chapter 9 and must be brought up
+to date before it goes out.*
+
+Hello Jenni,
+
+I hope you are well. I am writing again about the book on high-speed electrical machines and drives that Ilya, Juha and I are proposing to Wiley-IEEE Press, and the mobile case studies chapter we offered you in September.
+
+We are finalising the proposal and plan to submit it in November, and we would still very much like you to take the chapter. If you would like to join, could you send us your letter of support by Friday 6 November? I attach the draft again. Please change it as you wish; the details in brackets are yours to fill in.
+
+The draft also says that you would obtain the Voltcar consortium's agreement before any of the project's design or test data goes into the book. If that part is a difficulty, please tell us. Since the Voltcar machine is carried through most of the design chapters, we would rather know now, while the proposal can still be adjusted, than after we have submitted it.
+
+If it would help to see where the chapter sits, I can send you the introductory chapter and the annotated table of contents, or we could talk it over in a short call.
 
 BR, Hüseyin
 
