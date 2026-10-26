@@ -716,6 +716,15 @@ def main():
                                  'total loss.')
             LOG.append('Figure 1.5 caption: one sentence added stating that its loss values '
                        'are illustrative and how the efficiency maximum is found')
+        if num == 9:
+            replace_across(cap, 'along every edge of the triangle',
+                           'around the cycle, each remedy creating the next problem')
+            replace_across(cap, 'window at its centre', 'window at the centre')
+            append_sentence(cap, ' The rotors in the window show the pole numbers of the two '
+                                 'paradigms: two poles for the industrial machine that silicon IGBTs '
+                                 'can supply, six for the mobile machine that needs SiC or GaN.')
+            LOG.append('Figure 1.9 caption: the triangle\'s edges become the cycle the figure now '
+                       'draws, and one sentence explains the rotors in the window')
         style_figure(els[i], num, text(cap), zin, rels, new_media)
         style_caption(cap, 'Figure', num)
 

@@ -81,7 +81,7 @@ Figure 1.2 is the reference. All three of its panels are drawn the same way, and
 A diagram shows a relationship rather than an object or a set of data. Figure 1.9, the high-speed trilemma, is the reference.
 
 - **Shapes**: flat fills with ink outlines of 1.0 pt; circles, ellipses and boxes, nothing more. No shadows, no gradients, no 3-D.
-- **Arrows** show influence, sequence or flow: ink, 1.3 pt, with a filled head. An arrow that is also the edge of a shape replaces that edge rather than running beside it, as the sides of the triangle do in Figure 1.9.
+- **Arrows** show influence, sequence or flow: ink, 1.3 pt, with a filled head. A cycle that carries the argument may be drawn with broad arrows instead, curved and filled in the colour of the element each one leaves, with a thin ink edge, as in Figure 1.9: steel #a9a9a9, copper #c9a227, coolant #8fb1d1.
 - **Colour carries meaning, and keeps it through the chapter.** A region is a light tint of a series colour, the colour at 13 % on white, and the text inside it is set in the colour itself:
 
   | Colour | Tint | In Chapter 1 it means |
@@ -90,8 +90,9 @@ A diagram shows a relationship rather than an object or a set of data. Figure 1.
   | rust #a6350f | #f3e5e0 | silicon IGBTs, and the low-pole industrial topology they reach |
   | green #4a7c1f | #e8eee2 | SiC and GaN, and the high-pole mobile topology that needs them |
 
-- **Elements** may carry a light tint of their material from the illustration palette: steel #ececec, copper #f3e9c9, coolant #e2ebf4, for the mechanical, electromagnetic and thermal corners of Figure 1.9.
-- **Pictograms** may mark the elements of a diagram, provided they are drawn like the illustrations, from the palette and without shading: the sleeved rotor, the waveform of rising frequency and the thermometer of Figure 1.9. No clip art and no icon sets.
+- **Elements** may sit on a disc tinted with their material from the illustration palette: steel #ececec, copper #f3e9c9, coolant #e2ebf4, for the mechanical, electromagnetic and thermal corners of Figure 1.9.
+- **Draw rather than write.** Mark the elements with small drawings made like the illustrations, from the palette and without shading, so that the reader sees what each element is: in Figure 1.9 the sleeved rotor with its centrifugal load, a machine in cross-section, a liquid-cooled stator, and the two-pole and six-pole rotors of the two paradigms. No clip art and no icon sets.
+- **The focal element** may stand on a light grey ring, #ececec, 0.22 cm wide, as the feasible window does in Figure 1.9.
 - **Text**: 11 pt, horizontal, sentence case. The names of the elements are set in ink, outside their shapes where there is room.
 - **Greyscale**: tints are told apart by their labels, so every tinted region carries one.
 
