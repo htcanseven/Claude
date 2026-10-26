@@ -34,6 +34,6 @@ from us.
 | Ahti Jaatinen-Värri | 13 | with the Chapter 13 invitation |
 | Jonna Tiainen | 13 | invited to write a second, manufacturer's letter |
 | Jenni Pippuri-Mäkeläinen | 14 | with the invitation |
-| Marko Hinkkanen | 12 | 8 Sep, with Chapter 1 and the table of contents, after he said he was interested |
+| Marko Hinkkanen | 12 | accepted on 25 Oct and offered a letter; updated draft for Chapter 12 sent with our reply, asked for by 6 Nov |
 
 Paavo Rasilo's draft is void; he declined Chapter 9 on 20 September.

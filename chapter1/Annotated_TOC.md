@@ -211,7 +211,7 @@ short biography, and in the preface.
 | 8 — AC winding losses and conductor design | Anouar Belahcen | Aalto University | letter signed 3 Sep; it names both loss chapters |
 | 10 — Thermal management and cooling | Rafal Wrobel | independent researcher and engineering consultant | accepted; letter received, to be signed |
 | 11 — The drive: the converter interface | Pasi Peltoniemi | LUT, power electronics | accepted; letter received |
-| 12 — Control at high fundamental frequency | Marko Hinkkanen | Aalto University, electric drives | interested but not committed (8 Sep); has the draft letter |
+| 12 — Control at high fundamental frequency | Marko Hinkkanen | Aalto University, electric drives | accepted (25 Oct), with a postdoc from his group; letter promised |
 | 13 — Industrial case studies | Jonna Tiainen and Ahti Jaatinen-Värri | The Switch; LUT, turbomachinery | invited; no answer recorded |
 | 14 — Mobile case studies | Jenni Pippuri-Mäkeläinen | VTT, manager of the Voltcar project | invited; no answer recorded |
 | 1, 3, 7, 9 | the authors | LUT University | — |

@@ -484,9 +484,36 @@ say so when chasing, so that his letter names Chapter 12. The postdoc he mention
 as co-author, and naming them would help the proposal. Settle the pulse-ratio wording with
 Juha first; he reads it as "nine or eleven".*
 
-### Not yet done
+### His acceptance — 25 October
 
-*Offer to put him in touch with Peltoniemi, so that Chapters 11 and 12 are planned together.*
+> Dear Hüseyin,
+>
+> My apologies for the very late reply.
+>
+> Thank you for sending the drafts and the additional information. We have reviewed the material, and we would be happy to participate in the project, if this is still possible at this stage. The topic is very interesting and fits well with our expertise.
+>
+> I can also prepare a short letter of support for the Wiley proposal, if it would still be useful. Please let me know if there is still time for this and whether you have any preferred deadline.
+>
+> Best regards,
+> Marko
+
+### Our reply — draft
+
+*Reply to all, so that Ilya and Juha stay in copy. Attach the updated
+`letters/Support_Letter_Hinkkanen.docx`. The draft he already has predates the split: it
+offered "the control sections of the chapter on the drive" and put the pulse ratio at "eight
+or ten". The new one gives him Chapter 12, names his postdoc as a bracket for him to fill, and
+uses Juha's "nine or eleven".*
+
+Hello Marko,
+
+Thank you, and no apology needed: this is very good news, and it is certainly not too late.
+
+As the table of contents shows, the control side is a chapter of its own, Chapter 12, Control at high fundamental frequency, about eighteen pages, and we would be glad for it to be yours, written together with your postdoc. Could you tell us their name? Everyone who contributes is named at the head of the chapter, and naming them in the proposal makes it stronger. The chapter follows Chapter 11 on the converter, which Pasi Peltoniemi is writing at LUT; once the publisher has approved the proposal, we will put you in touch so that the two chapters are planned together.
+
+Yes, a short letter of support would be very useful. We plan to submit the proposal in November, so could you send it by Friday 6 November? I attach an updated draft, since the one you have was written before control became a chapter of its own. As before, please rewrite it as you see fit; the details in brackets are yours to fill in.
+
+BR, Hüseyin
 
 ---
 
