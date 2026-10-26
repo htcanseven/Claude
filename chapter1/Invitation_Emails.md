@@ -621,7 +621,26 @@ Nothing is binding at this stage: the publisher has not yet seen the proposal, a
 Best regards,
 Ilya
 
-### Before the second email
+### His reply — declined
+
+*He declined: his own experimental work stops at 12 000 r/min and has touched very-high-speed
+machines only sparsely. He suggested two people instead, and asked that Juha write to them
+directly, mentioning his suggestion if that would help.*
+
+> Dear Ilya,
+>
+> First, thanks for your Group kind invitation. However, since we did not do here experiments above 12,000rpm and did concentrate only sparsely on superhigh speed electric motors, I think a better candidate , still young, would be Prof. Francesco Cupertino, from University of Bari in Italy who published more on the subject or Dr. Chris Gerada of Nottingham who has a big group with strong multi-physics computation/design and experimental facilities for the scope and thus they could produce significant case study results too.
+>
+> Best wishes, I. Boldea
+>
+> P.S. In asking the above people to participate and knowing that they are very busy, you may mention I suggested them, if you think this info would be useful to get one of them as coauthor. Also I humbly suggest Prof. Pyrhonen to write them directly.
+
+### Outcome
+
+*The editors write Chapter 9 themselves (26 October), so the second email is not needed. The
+notes below were written for it and are kept for the record.*
+
+### Before the second email (not sent)
 
 *Settle the boundaries of each option.*
 

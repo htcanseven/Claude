@@ -423,3 +423,32 @@ decline, who replaces him. That is for the editors to decide on 7 October, among
 The letter stands as written under A, or under B or C if Anouar still writes part of Chapter 9.
 Otherwise its chapter sentence must change. Whichever is chosen, he should hear it from us
 before the table of contents is fixed.
+
+## Chapter 9 goes to the editors (26 October 2026)
+
+Ilya invited Ion Boldea, who was the opponent at his doctoral defence, to contribute a
+chapter. He declined: his own experiments stop at 12 000 r/min, and he has worked on
+very-high-speed machines only sparsely. He suggested Prof. Francesco Cupertino (University of
+Bari) and Dr. Chris Gerada (University of Nottingham), and asked that Juha write to them
+directly.
+
+The editors will write Chapter 9 themselves, with Ilya leading the rotor losses of §9.5–9.7.
+The table of contents names the authors for Chapter 9 in all three places, and Paavo
+Rasilo's name is gone from it. Floran Martin is not approached.
+
+Three things follow:
+
+- **Anouar.** His signed letter of 3 September names both loss chapters, and Chapter 9 is
+  now ours. He must hear it from us before the table of contents goes out. Then either the
+  letter's chapter sentence changes to the AC winding losses chapter alone, or his group
+  writes the materials and manufacturing sections (§9.2–9.3) under us, which keeps the
+  letter accurate as it stands.
+- **Saari.** On 22 September we promised to tell him who owns Chapter 9, so that his
+  introduction for the windage section would go to the person carrying it. That is now us,
+  so §9.8 can be offered to him directly.
+- **Boldea's two names.** They are not needed for Chapter 9. Gerada's group, with its
+  aerospace machines and test facilities, fits the aerospace section of Chapter 14, which
+  is Jenni Pippuri-Mäkeläinen's to recruit. Both men are also strong names for the
+  suggested reviewers that Wiley's proposal form asks for, provided neither is a
+  contributor.
+

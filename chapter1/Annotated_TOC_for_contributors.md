@@ -34,7 +34,7 @@ Budgets use the publisher's formula of 600 words per page and two illustrations 
 | | 6 | Bearings, lubrication and seals for high-speed rotors | 30 | 12 000 | 20 | J. Sopanen |
 | III  Electromagnetic and thermal design within the constraints | 7 | Sizing under the speed constraint: the inverted procedure | 36 | 14 400 | 20 | authors |
 | | 8 | AC winding losses and conductor design | 28 | 11 100 | 18 | A. Belahcen |
-| | 9 | Core, rotor and aerodynamic losses at high speed | 30 | 12 000 | 20 | P. Rasilo |
+| | 9 | Core, rotor and aerodynamic losses at high speed | 30 | 12 000 | 20 | authors |
 | | 10 | Thermal management and cooling architectures | 28 | 11 400 | 18 | R. Wrobel |
 | IV  Delivery: the drive and the applications | 11 | The drive: the converter interface | 24 | 9 600 | 16 | P. Peltoniemi |
 | | 12 | Control at high fundamental frequency | 18 | 7 200 | 12 | M. Hinkkanen |
@@ -136,7 +136,7 @@ Loss models fitted below 400 Hz do not extrapolate to 2 kHz, and the air in the 
 
 Sections: 9.1 Loss separation above 1 kHz · 9.2 Soft magnetic materials as design choices · 9.3 Manufacturing effects: cutting, stacking, joining and fitting · 9.4 Measurement and model fitting at high frequency · 9.5 Rotor surface and harmonic losses · 9.6 Eddy currents in sleeves, rings and magnets; magnet segmentation · 9.7 Solid-rotor loss modelling · 9.8 Aerodynamic and windage losses: Taylor–Couette flow, correlations, roughness, low-density gas · 9.9 The loss balance of the two running machines.
 
-Budget: 30 pages, 20 figures, 3 tables. Owner: A. Belahcen (loss modelling, materials, manufacturing effects), with I. Petrov on the rotor losses and a co-author of his choosing for the windage of §9.8; J. Saari, whose correlations the section rests on, is the natural name for it. DREM boundary: the earlier book's loss chapters cover the conventional frequency range; only the high-speed departures are treated.
+Budget: 30 pages, 20 figures, 3 tables. Owner: the authors, with I. Petrov leading the rotor losses of §9.5 to §9.7; the windage of §9.8 is offered to J. Saari, whose correlations the section rests on. DREM boundary: the earlier book's loss chapters cover the conventional frequency range; only the high-speed departures are treated.
 
 #### Chapter 10. Thermal management and cooling architectures
 
@@ -207,13 +207,12 @@ short biography, and in the preface.
 | 2 — Applications and system architectures | Juha Saari | Upheat Solutions, high-temperature heat pumps |
 | 4, 5, 6 — the whole of Part II | Jussi Sopanen | LUT, machine dynamics |
 | 8 — AC winding losses and conductor design | Anouar Belahcen | Aalto University |
-| 9 — Core, rotor and aerodynamic losses | Paavo Rasilo | Tampere University |
 | 10 — Thermal management and cooling | Rafal Wrobel | independent researcher and engineering consultant |
 | 11 — The drive: the converter interface | Pasi Peltoniemi | LUT, power electronics |
 | 12 — Control at high fundamental frequency | Marko Hinkkanen | Aalto University, electric drives |
 | 13 — Industrial case studies | Jonna Tiainen and Ahti Jaatinen-Värri | The Switch; LUT, turbomachinery |
 | 14 — Mobile case studies | Jenni Pippuri-Mäkeläinen | VTT, manager of the Voltcar project |
-| 1, 3, 7 | the authors | LUT University |
+| 1, 3, 7, 9 | the authors | LUT University |
 
 **Co-authors, recruited by the owner of the chapter**
 
@@ -223,7 +222,7 @@ short biography, and in the preface.
 | Lassi Aarniovuori | LUT University, loss and efficiency measurement | 11, harmonic losses; 13, the test rig and loss segregation | P. Peltoniemi and the Chapter 13 owners |
 | Ilya Petrov | LUT University, author | 13, the electrical machine of §13.1 | the Chapter 13 owners |
 | Charles Nutakor | LUT University, lubrication and seals | 6 | J. Sopanen, proposed 9 Sep |
-| a windage co-author | to be settled | 9, §9.8 | P. Rasilo; J. Saari is the natural name |
+| Juha Saari | Upheat Solutions | 9, §9.8, aerodynamic and windage losses | the authors; to be offered |
 | an aerospace contributor | to be identified | 14, §14.2 | J. Pippuri-Mäkeläinen |
 | an e-turbocharger contributor | to be identified | 14, §14.3 | J. Pippuri-Mäkeläinen |
 
