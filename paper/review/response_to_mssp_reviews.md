@@ -220,3 +220,25 @@ tables in `results/tables/` are those of the revision. What changed relative to 
   5 (decision table), 6 (transfer); Figs. 1 (procedure), 2 (generator systems), 3 (faults), 4 (SDR by feature),
   5 (per tap pair and phase). Sections: 1 Introduction, 2 Background, 3.1–3.5 Method, 4.1–4.4 Demonstration,
   5.1–5.7 Results, 6.1–6.3 Discussion, 7 Conclusions, Appendix A.1–A.2.
+
+### Corrections made after the round-2 reports (28 October 2026)
+
+The three round-2 reports (`mssp_review_round2_1.md`, `_2.md`, `_3.md`) each recommend minor revision. The
+factual discrepancies they found between the shortened text and the released tables were verified and corrected
+in the text; the substantive requests are listed in `mssp_editor_synthesis_round2.md` for the next revision.
+Corrected: the WFSG fault-to-stator current ratios at the matching impedance (4.7 and 3.1, not 1.20 and 1.03);
+the per-level spread of V2/V1 (3.8 to 14); the operating-envelope sentence (fixed features named, torque factor
+up to 1.6 on the PMSG, the PMSG current residual falling with speed, the 59.6 Hz candidate cause of the largest
+exceedance); the severity-axis comparison (the SCIG's residuals an order of magnitude above the PMSG's at equal
+fault-to-stator current ratio, the voltage residuals coinciding at equal fault current in amperes); the WFSG
+verdict in Sections 6.1 and 7 (its middle inter-turn level is not testable, it meets at its largest level); the
+drive-internal bracket for inter-winding faults; "every suite" at three cycles; the pooled share made explicit
+in Section 3.3 with the share at the level itself for the uncertain cells (64, 78 and 78 %) and in Section 6.2
+(11-25 to 64 % at the smallest level); the point-estimate reading of "the roles reverse"; the alpha 0.99 verdict
+of the PMSG's current-only suite at the middle level (0.53); the q-axis voltage ripple at eight cycles; 4.5 for
+4.6, 0.49 for 0.50, 0.90 for 0.91, 0 to 14 points, Wilson interval of the two-of-nine false alarms, hard-negative
+counts; the terminal ratio read as the regulator's closed-loop output impedance and the rotating-frame remark
+restored; the window-assignment rule and the shortfall against the twice-the-fault-duration rule restored in
+Appendix A.2; a retrofit reading of the decision table added to Section 6.2; Table 1 "fault resistance"; Table 3
+column "SCIG/PMSG"; Table 4 note (3CT and its supersets cumulative, drive-internal separate); Table 5 note (the
+WFSG unscreened, trials resampled within a level); highlights 1 and 3 reworded. The manuscript stays at 31 pages.

@@ -1,0 +1,69 @@
+# Reviewer 1, round 2 (electrical machines and drives)
+
+## What changed, as I read it
+
+The author accepted the substance of my round-1 report and re-ran the analysis rather than rewording it. Sequence quantities now enter as phasor residuals |ΔV̄2|/V1, |ΔĪ2|/I1, |ΔD̄2|/D1 (lines 118–121, 292–298, 707–711), the magnitude ratios surviving only as the established indicators; inter-turn results are given per faulted phase and tap pair (5.3, Fig. 5); the extent levels are the physically distinct fault sizes defined from the resistor-limited fault current (249–260), and the MDE is a bracket on them with tap-pair bootstrap intervals (Table 3); the SCIG/PMSG decomposition is given in the relative and the absolute form (355–374) and the duty-cycle "no sensor" argument is withdrawn; the incremental impedance is formed from the complex residuals, in ohms and per unit, with the drive parameters declared unknown (388–396, Table 1 note); the WFSG is a third case at matched extents with its bench differences listed (231–241); the transfer test gained a commissioning baseline, TPR at 1 % FPR and intervals, and "transfers only" is withdrawn. The conclusions moved where the round-1 numbers said they would: through the terminal voltage the two machines are equivalent, no suite meets the smallest inter-turn level on either machine, and the voltage-transducer claim is confined to the smallest inter-winding level of the PMSG. The 31-page version drops the per-phase, decomposition, operating-envelope and appendix tables and quotes their results in the text.
+
+## Status of my round-1 major comments
+
+| Comment | What the author did | Status | Still missing |
+|---|---|---|---|
+| M1 magnitude sequence features follow the faulted phase | Residuals defined (118–121, 707–711); per-phase and per-pair results (402–423, Fig. 5); Tables 3–5 on residuals | resolved | The promised sentence that the 2fe dq ripple is the negative-sequence current in the rotating frame (groups differ by normalisation and angle source) was cut |
+| M2 extent levels and headline MDE | Physical levels (249–260), bracket MDE (160–164), tap-pair bootstrap (313–320, Table 3); abstract no longer quotes 3.8 % | partly resolved | Table 3 omits the MDE bootstrap interval, which H_bootstrap.csv gives as [3.0, 7.5] for both machines on both residuals; "the roles reverse" (431–432) is therefore a point-estimate claim (Major 2 below) |
+| M3 decomposition an artefact of relative normalisation | Both forms side by side (355–374); factor 35 and no-sensor argument withdrawn; SCIG D2/D1 screened (535–536) | resolved | – |
+| M4 "impedance" from magnitudes; drive parameters | Complex ratio per trial with IQR and pu (388–396); gains, bandwidth, observer stated unknown (239–241, 384–385); 10 Hz claim marked a mechanism (601–606) | partly resolved | The ratio is still read as machine plus regulator (Major 1 below) |
+| M5 WFSG and "identical faults" | "Same tapped short-circuits"; differences listed (231–241, 264–270); matched-extent shares (446–448, 462–465); n.t. cells; no healthy records stated (236–237) | resolved | – |
+| M6 known-onset detection, transfer claim | Abrupt-onset detector named (131–137); four rules (326–330); TPR at 1 % FPR with CIs (Table 6); commissioning null (540–549); "only" withdrawn (575–585) | resolved | – |
+| M7 suites, severity axis, literature | EPVA [26] (294); zero-sequence [30, 31] and stray flux (85–87, 298, 588–590); Tallam, Zafarani, Shah added, DFIG rewritten (606–610); MMF ∝ If·e (349–353); "scaled by the speed ratio" (272–274) | partly resolved | Yang et al. 2010, said to be added, is not in the list; the torque scaling rule and the ≤ 50–60 % load of the benches remain unstated |
+| Minors 1–4, 7, 9, 10 | Fixed as described | resolved | – |
+| Minors 5, 6, 8 | 5: window assignment rule not in A.2 (722–723); 6: rule R ≥ 2\|F\| kept (182, Fig. 1) but 0.68 s < 0.72 s (304–305) and 0.49 s < 0.56 s (Table 1) pass without comment, the reconciling sentence was cut; 8: 59.6 Hz stated (275) but no longer linked to the 16 % exceedance at 1800 rpm (521) | partly resolved | One sentence each |
+
+## Claims checked against the released tables
+
+| Text (line) | Table | Verdict |
+|---|---|---|
+| Z2 = 12.7 [11.1, 14.1], 12.2 [10.2, 13.2] Ω PMSG; 7.3 [6.9, 7.7], 7.4 [7.2, 7.6] Ω SCIG; 0.60, 0.35 pu (390–392) | R_z2_complex.csv: 12.73 (11.11–14.12), 12.20 (10.18–13.23), 7.30 (6.89–7.66), 7.39 (7.19–7.57); Zb = 230²/2500 = 21.2 Ω | confirmed |
+| Null ratios 2.4/5.2/45 relative, 1.1/6.0/7.0 absolute; SDR ratios 3.7, 3.3 (current), 16, 23 (d-axis); D2r null 8.5/3.1 (357–373) | R_decomposition.csv rows V2r_V1, I2r_I1, Id_2fe, D2r_D1: 2.405/5.212/44.5; 1.101/6.050/7.03; 3.72, 3.33; 16.4, 22.7; 8.52/3.10 | confirmed |
+| Table 3, all 16 rows (756–771) | H_bootstrap.csv, e.g. TURNS V2r_V1 PMSG 6.839 [1.670, 15.90], share 0.880 [0.741, 0.981], ratio 1.009 [0.683, 1.295] | confirmed |
+| Table 4 incl. oracle shares and false alarms (829–839); oracle +3 / −22 points (467–469) | F_sensor_suites.csv: fixed and oracle_share_calibrated columns; PMSG 3 CT IW 0.889 vs 0.861; SCIG drive IT 0.713 vs 0.926 (−21.3) | confirmed |
+| Table 5 at α = 0.95; α = 0.90 admits SCIG drive (IT) and PMSG drive (IW); α = 0.99 fails the uncertain cells; three cycles fail all SCIG IT suites (868–896, 485–489) | R_decision_table_5c.csv: 0.98 and 1.00 at α = 0.90; 0.00/0.04/0.04 at 0.99; R_decision_table.csv: 0.00–0.01 | confirmed |
+| Table 6, 32 entries (921–928); logistic 0.93/0.91 vs 0.50–0.81 (503–504) | R_transfer2_oor.csv gbdt rows; logistic baselines 0.495–0.814 | confirmed (0.4947 rounds to 0.49) |
+| Three-way AUC 0.85 [0.79, 0.91]–0.98 [0.96, 1.00], TPR 0.41–0.94, two-to-one 0.87/0.91/0.99 (506–511) | R_transfer3_oor.csv: 0.852 [0.788, 0.909], 0.983 [0.956, 0.998]; 0.405, 0.941; 0.872, 0.905, 0.988 | confirmed |
+| Per-level medians 1.1/6.8/19.5 and 0.9/6.9/19.5 (419–420) | sdr_per_recording.csv: 1.13/6.84/19.53; 0.91/6.90/19.54 | confirmed |
+| Commissioning null widens 1.1 to 4.6; medians 6.8→2.4, 6.3→2.1; shares 88/85→72/69; IW 67–93 % (542–546, 641) | R_between_trial_null.csv: q95 ratios 1.11–4.52 (SCIG Id/PId 0.0784/0.0174); 6.84→2.36, 6.34→2.05; 0.880→0.722, 0.852→0.685; 0.667–0.926 | 4.6 should read 4.5; rest confirmed |
+| Fault currents 3.7/3.3 A, 8.5/7.7 A; If/I1 1.45/0.63, 3.3/1.5; WFSG 1.20 and 1.03 (339–347) | G_fault_current_3alt.csv medians over pairs: 3.68/3.32, 8.46/7.70, 1.448/0.633, 3.33/1.47; WFSG at 2.83 Ω: 4.73 (inter-turn, 4 pairs) and 3.10 (inter-winding); R_baselines_z2.csv I1 = 1.07/1.10 A | PMSG/SCIG confirmed (three-cycle table, not A_fault_current_by_case.csv's 3.76/3.41/1.49/0.64); WFSG 1.20/1.03 discrepancy |
+| Spread within a level 2.7–14 (V2/V1), 1.3–7 (I2/I1), 1.1–1.8 residuals (406–409) | R_pair_table.csv max/min of pair medians: V2/V1 3.84–14.3, I2/I1 1.28–6.91, residuals 1.13–1.75 | 2.7 not reproducible (3.8); rest confirmed |
+| Speed factor 1.3–4.4, shares 69–78→83–100 %, torque < 1.25 at fixed speed (513–516) | sdr_per_recording.csv: PMSG V2r 1.91, D2r 2.03, SCIG I2r 4.38, D2r 1.28, but PMSG I2r 0.78 (1.80→1.40); torque max/min at fixed speed PMSG 1.36 (V2r), 1.59 (I2r), 1.64 (D2r), SCIG ≤ 1.21 | discrepancy for the PMSG |
+| At three cycles the SCIG's "two cheapest" inter-turn suites stop at the middle level (461–462) | G_sensor_suites_3alt.csv: all four SCIG inter-turn suites have MDE 7.5 | discrepancy (every suite) |
+
+## Remaining comments
+
+**Major**
+
+1. *The terminal ratio ΔV̄2/ΔĪ2 is the drive's output impedance, not a blend of machine and regulator (388–400).* With a two-level VSI connected directly to the terminals, the negative-sequence terminal voltage is the converter voltage, so ΔV2/ΔI2 equals the closed-loop output impedance of the current controller at the negative-sequence frequency: the PI gain at 2fe, the cross-coupling or decoupling terms (which, tuned to the machine inductance, act as an impedance ≈ ωe·L̂), and the modulation delay. The machine's own Z2 enters only the loop that sets ΔI2 for a given fault EMF, not the ratio. The sentence "cannot be separated from the machine's own" (394–396), and the comparison with a passive leakage reactance in the response letter, should go; the reading "the PMSG drive converts a current disturbance into 1.7 times the voltage" (393–394) is the right one, and with the standard tuning Kp = α·L̂ the 1.7 is the ratio of the inductances the two controllers were tuned to for a common bandwidth, which is how the drive quantity ties back to the machine. Unless an output filter sits between converter and terminals, which the data papers would have to state. The bench also offers the test of the bandwidth argument of 6.2 that the author says is impossible: the PMSG's voltage residual rises with speed (|δ| 0.65→1.24 from 1200 to 1800 rpm) while its current residual falls (0.43→0.34), so ΔV̄2/ΔĪ2 grows with 2fe on the PMSG. One table of Z2 per speed (2fe = 80, 100, 120 Hz) per machine would turn the "mechanism, not prediction" of 601–606 into an observation. Required rewording plus one small table; blocks acceptance as written.
+
+2. *"The roles reverse" at the smallest inter-turn level is not supported at the stated confidence (428–435, Table 3).* H_bootstrap.csv puts the MDE interval at [3.0, 7.5] for the PMSG voltage residual and the SCIG current residual alike, the per-level medians are 1.13 and 1.08, and Table 5 says no suite meets that level. Add the MDE interval column to Table 3 and write "the point estimates reverse, the intervals coincide". Required; minor edit.
+
+3. *WFSG fault-to-stator-current ratios (346–347).* The text's 1.20 and 1.03 are in no released table; G_fault_current_3alt.csv gives 4.7 and 3.1 at 2.83 Ω because the WFSG ran at 1.1 A stator current. If the table is right, the WFSG is the most severe event relative to its sensors, which strengthens 5.1 but changes its sentence. Correct the text or release the table it came from. Required.
+
+4. *Operating-envelope paragraph (513–518).* "Rises by a factor 1.3 to 4.4" and "torque changes the medians by less than a factor 1.25" hold for the SCIG but not for the PMSG (see the check above). The PMSG current residual not following the resistor-limited law (fault current ∝ speed) is itself a drive effect worth one sentence, and it belongs with Major 1. Required correction; not blocking otherwise.
+
+**Minor**
+
+5. A.1 (707–711): the ratio of two phase-referenced quantities carries the fundamental displacement angle θV+ − θI+; the magnitude is unaffected but any reported angle of Z2 must be corrected (the response letter's 65° on the SCIG is close to its displacement angle with 5.3 A total and ≈ 2.6 A active current).
+6. 360–362: a DC magnetising component produces no 2fe ripple. The SCIG's inherent negative-sequence current is 2.9 times the PMSG's in amperes (R_baselines_z2.csv: 0.043 vs 0.015 A), which explains part of the 5.5× healthy d-axis level; the flux-observer angle, modulated at 2fe, is the plausible remainder. Say so, since it is the one place the observer enters the results.
+7. 407: lower bound 2.7 → 3.8 (or state the statistic used).
+8. 456–457: the drive-internal suite matches the current transducers only for inter-turn faults; for inter-winding faults it reaches ≤ 2.8 against (2.8, 10.1]. 461–462: "two cheapest" → every suite.
+9. Rounding: 4.6 → 4.5 (542, 641); "about ±15 points" (538) → the Table 3 share intervals span ±10 to ±26; 0.50 → 0.49 (504).
+10. 523–534: also the PMSG Vq 2fe inter-turn MDE moves 11.8 → 7.5 at eight cycles, and at α = 0.99 the PMSG current-only suite at the middle level drops to 0.53 (uncertain), which qualifies "every suite meets from the middle level".
+11. Fig. 4 is drawn at three cycles while 5.2 quotes five-cycle numbers (378, 381); state it in the text or redraw the PMSG/SCIG panels at five.
+12. Restore the sentences lost in the shortening: window assignment to R1/R2 (A.2), the R ≥ 2|F| rule missed by 6 % on the common bench and by 14 % for the longest WFSG faults, the 59.6/60 Hz near-coincidence as a candidate cause of the 16 % exceedance, the rotating-frame remark, Yang et al. 2010, and the torque scaling rule with the ≤ 60 % load.
+13. Table 1 calls 2.6 Ω a "fault impedance"; it is a resistance, as Fig. 3 says.
+
+## Length and presentation
+
+The 31 pages are readable and, with the exceptions below, complete without a supplement: every number the text uses I could trace to a released table, and the prose summaries of the removed appendix tables (sensitivity, between-trial null, three-way transfer) are accurate. Two removals cost evidence: the operating-envelope table, whose prose replacement (513–518) is where the inaccurate generalisations of Major 4 arose, should return as a six-row table of median SDR and share by speed for the fixed features; and Table 3 should carry the MDE interval that the removed appendix would have shown. Fig. 1 is now a proper flow chart; Fig. 2 is three identical block diagrams whose only difference is already in Table 1 and can go; Fig. 3 and Fig. 5 earn their place; Fig. 4's caption should name the window length used in the text. Tables 4–6 are clear; Table 5's note is long but necessary. The appendix is now the right size.
+
+## Recommendation
+
+**Minor revision.** Confidence: high. The round-1 physical objections were accepted and the re-analysis on phasor residuals, physical levels and both normalisations changed the conclusions in the direction the released numbers demanded, and the text now states them with the right caveats on resistor-limited emulation, bench frequency and undocumented loop gains. What remains is one mechanistic misreading (the terminal ratio as machine plus regulator), one overstatement at the smallest level, and a handful of statements that do not match the tables, chief among them the WFSG fault-current ratios; all are fixable from the existing data, and the per-speed impedance I ask for is a single table.

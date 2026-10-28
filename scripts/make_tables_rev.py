@@ -48,7 +48,7 @@ def t_mde():
             "from $b$ up detected; $\\le b$, every tested level detected. DS (\\%), median SDR and the SCIG/PMSG ratio of medians "
             "carry percentile intervals from a bootstrap over tap pairs (the same pairs for both machines) with the null "
             "quantile re-estimated in every resample. IT: inter-turn; IW: inter-winding; P: PMSG; S: SCIG.")
-    head = r"Class & Feature & M. & MDE & DS [CI] & Median SDR [CI] & S/P ratio [CI]"
+    head = r"Class & Feature & M. & MDE & DS [CI] & Median SDR [CI] & SCIG/PMSG [CI]"
     return table(body, cap, "tab:mde", "lllcccc", head, size=r"\tabsize", colsep="2pt", note=note)
 
 
@@ -71,8 +71,8 @@ def t_suites():
     body[-1] = body[-1].rstrip(r"\\").rstrip()
     cap = ("Sensor suites versus what they detect, PMSG and SCIG, five-cycle windows: fixed feature, MDE bracket, "
            "detectable share and false alarms")
-    note = ("Suites are cumulative (drive: drive-internal quantities; 3CT: three current transducers; +3VT, +drv, +torque: "
-            "voltage transducers, controller access and a shaft torque transducer added). DS (\\%) of the fixed feature, in "
+    note = ("drive: drive-internal quantities alone; 3CT: three current transducers; +3VT, +drv, +torque: voltage "
+            "transducers, controller access and a shaft torque transducer added cumulatively to 3CT. DS (\\%) of the fixed feature, in "
             "parentheses the share of the calibrated oracle (Section~\\ref{sec:sdr}); FA: false alarms of the fixed feature on "
             "the nine healthy trials; MDE as in Table~\\ref{tab:mde}; screened-out features are excluded.")
     head = (r"\multirow{2}{*}{Suite} & \multicolumn{4}{c}{PMSG} & \multicolumn{4}{c}{SCIG} \\" "\n"
@@ -131,9 +131,10 @@ def t_decision():
     cap = ("Decision table at $\\alpha=0.95$: bootstrap probability that a suite meets the requirement at each "
            "tested extent level")
     note = ("Meets: $\\mathrm{MDE}\\le e_{\\mathrm{req}}$ and detectable share $\\ge0.9$ for $e\\ge e_{\\mathrm{req}}$, "
-            "$e_{\\mathrm{req}}$ at the physical levels of the common bench (\\% of a branch; the WFSG is assessed against the "
-            "same values on its own tested extents); 1000 resamples of the operating-point trials within each level, null "
-            "quantile and fixed feature re-estimated in every resample. Bold: probability $\\ge0.95$ (meets); below 0.05 the "
+            "$e_{\\mathrm{req}}$ at the physical levels of the common bench (\\% of a branch; the WFSG, unscreened for lack of healthy "
+            "trials, is assessed against the same values on its own tested extents); 1000 resamples of the operating-point "
+            "trials within each level (the tap pairs of a level treated as exchangeable), null quantile and fixed feature "
+            "re-estimated in every resample. Bold: probability $\\ge0.95$ (meets); below 0.05 the "
             "suite fails; n.t.: no tested extent on the required side of $e_{\\mathrm{req}}$. PMSG and SCIG at five-cycle "
             "windows, WFSG at three cycles and its matching fault impedance; the inter-winding levels "
             + " and ".join(f"{e:.1f}" for e in omitted) + "\\,\\% are omitted (every suite meets them). Suites as in "
