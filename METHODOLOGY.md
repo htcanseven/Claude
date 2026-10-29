@@ -210,6 +210,19 @@ into its numerator (signature) and denominator (null), because a quieter alterna
   between TeX installations. Hand condensation without a budget drifted back to the same length twice; the
   numbers only moved once each section had a target.
 
+### Phase 9: the second review round
+
+* The three reviewer personas re-read the shortened manuscript with their round-1 reports and the response
+  document; every discrepancy they raised was re-checked against the result tables before any text changed, and
+  the editor synthesis records each check. The factual errors sat almost entirely in sentences that had replaced
+  removed displays: a number quoted from memory of a figure is the first thing to re-derive after a cut.
+* The substantive requests were answered by analysis within one extra page: the decision table's power
+  evaluated at the required level itself and with tap pairs as the resampling unit (a small table of the cells
+  whose verdict depends on the choice), the terminal impedance and the fixed features by speed (one table), and
+  the MDE interval in the main table. Each new display was paid for by removing restatements of equal length.
+* A reviewer's own recomputation can differ from the pipeline for a stated reason (here: the null and the feature
+  were held fixed in the reviewer's bootstrap, re-estimated in the paper's); the synthesis says which is which.
+
 ## 8. Quality gates run before every delivery
 
 * `latexmk` build with zero errors, zero LaTeX warnings, no undefined references or citations, no overfull

@@ -54,9 +54,9 @@ To keep the manuscript at 31 pages, restatements of equal length were removed (i
 conclusions sentences that repeated results; the WFSG bench sentence of Appendix A.1). The build is clean (no
 warnings, no overfull boxes, captions within two lines) and the Overleaf zip test-compiles to 31 pages.
 
-## What remains for the next revision (not done here)
+## What remained after the synthesis, and was then done (29 October 2026)
 
-These are substantive requests that change analyses or add displays, and should be decided by the author:
+These substantive requests were answered after the synthesis was written; the manuscript grew to 32 pages (see the response document's third addendum). Items 1 to 5 are done as described there; of item 6 the licence name and the title remain with the author.
 
 1. **Resampling unit of the decision table** (R2 major 1): report the tap-pair-resampled probability beside the
    trial-resampled one for the four uncertain cells, or switch the within-level bootstrap to tap pairs; one run

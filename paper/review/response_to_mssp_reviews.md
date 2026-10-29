@@ -242,3 +242,30 @@ restored; the window-assignment rule and the shortfall against the twice-the-fau
 Appendix A.2; a retrofit reading of the decision table added to Section 6.2; Table 1 "fault resistance"; Table 3
 column "SCIG/PMSG"; Table 4 note (3CT and its supersets cumulative, drive-internal separate); Table 5 note (the
 WFSG unscreened, trials resampled within a level); highlights 1 and 3 reworded. The manuscript stays at 31 pages.
+
+### Remaining round-2 requests answered (29 October 2026; manuscript 32 pages)
+
+* **Power at the required level and resampling unit (R2 majors 1 and 2, R3 major 1).** The decision table keeps
+  the pooled definition, now stated as such in Section 3.3 and step 5, and a new Table 6 lists the seven cells
+  whose verdict depends on the definition of the power (pooled share above e_req against the share at the level
+  e_req maps to) or on the resampling unit within a level (operating-point trials against tap pairs); every other
+  cell keeps its verdict. At the level itself the four uncertain cells fail and two cells that meet under the
+  pooled power become uncertain (SCIG current transducers at the smallest inter-winding level, 0.77; PMSG
+  drive-internal suite at 9.7-10.6 %, 0.88). Tap-pair resampling moves the SCIG drive-internal inter-turn cell
+  from 0.82 to 0.89 (not to 0.97 as in R2's recomputation, which held the null and the feature fixed) and changes
+  no verdict. Sections 5.5, 6.2 and 7 say which statements hold under the pooled power only.
+* **Per-speed terminal impedance and operating envelope (R1 majors 1 and 4, R2 major 4, R3 major 2).** New
+  Table 8 gives the median SDR and detectable share of the fixed inter-turn features by speed with the torque
+  factor at fixed speed, and the incremental negative-sequence impedance per machine, class and speed. The
+  impedance is flat within 5 % over 2f_e = 80-120 Hz on both machines (13.0-12.5 ohm PMSG, 7.5-7.2 ohm SCIG), so
+  it is not proportional to frequency and the bandwidth mechanism of Section 6.2 is not visible inside this band;
+  Section 5.7 says so.
+* **MDE interval (R1 major 2, R2 minor 5).** Table 3 now carries the operating-point interval of the MDE beside
+  the bracket.
+* **Smaller items.** Yang et al. 2010 cited in the introduction; the torque levels given as 39-60 % of rated
+  torque; the SCIG's healthy d-axis level explained by its inherent negative-sequence current (2.9 times the
+  PMSG's in amperes) with the flux-observer angle as the plausible remainder; "the data papers give no turn
+  counts" added to the limitations; Fig. 5 caption names its window length; probabilities that round onto the
+  0.05 threshold printed with three decimals; highlight 5 carries the AUC range. The pipeline licence is not named
+  because the repository carries no licence file yet; the tag is given at acceptance as before. The title is left
+  for the editor.

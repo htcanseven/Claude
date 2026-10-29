@@ -248,16 +248,15 @@ def t_decision_cells():
     m = m.sort_values(["machine", "ftype", "e_req_pct", "o"])
     body = []
     for r in m.itertuples():
-        cells = [f"{getattr(r, c):.2f}" for c in cols]
+        cells = [(f"{getattr(r, c):.3f}" if 0.045 <= getattr(r, c) < 0.05 else f"{getattr(r, c):.2f}") for c in cols]
         body.append(" & ".join([r.machine, FT[r.ftype], SUITE_SHORT[r.suite], f"{r.e_req_pct:.1f}", f"{100 * r.ds_at_level:.0f}"] + cells) + r" \\")
     body[-1] = body[-1].rstrip(r"\\").rstrip()
     cap = ("Decision-table cells whose verdict depends on the definition of the power or on the resampling unit "
            "within a level")
     note = ("$\\alpha=0.95$; every other cell of Table~\\ref{tab:decision} keeps its verdict under all four variants. "
-            "DS at level: detectable share of the fixed feature at $e_{\\mathrm{req}}$ itself (\\%). Pooled: share over "
-            "all tested levels $\\ge e_{\\mathrm{req}}$ (the definition of Table~\\ref{tab:decision}); at level: share at "
-            "$e_{\\mathrm{req}}$ itself; trials: operating-point trials resampled within a level; pairs: tap pairs "
-            "resampled within a level. Meets at $\\ge0.95$, fails at $\\le0.05$.")
+            "DS at level: share of the fixed feature at $e_{\\mathrm{req}}$ itself (\\%). Pooled: share over all tested levels "
+            "$\\ge e_{\\mathrm{req}}$ (Table~\\ref{tab:decision}); at level: share at $e_{\\mathrm{req}}$; trials, pairs: "
+            "resampling unit within a level. Meets at $\\ge0.95$, fails at $\\le0.05$.")
     head = (r"\multirow{2}{*}{Machine} & \multirow{2}{*}{Class} & \multirow{2}{*}{Suite} & \multirow{2}{*}{$e_{\mathrm{req}}$ (\%)} & "
             r"\multirow{2}{*}{DS at level} & \multicolumn{2}{c}{pooled} & \multicolumn{2}{c}{at level} \\" "\n"
             r"\cmidrule(lr){6-7}\cmidrule(l){8-9}" "\n"

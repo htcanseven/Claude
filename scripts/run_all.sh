@@ -5,7 +5,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 export PYTHONPATH=scripts
 export PAPER_FIGS=1          # figures without in-figure titles (the captions carry them)
-for s in compare sensor_suites compare3 sensitivity revision figs_paper; do
+for s in compare sensor_suites compare3 sensitivity revision revision_round2 figs_paper; do
   echo "== $s $(date -u +%H:%M:%S)"
   python3 "scripts/$s.py" > "results/run_$s.log" 2>&1
 done
