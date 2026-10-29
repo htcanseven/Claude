@@ -16,6 +16,7 @@ paper/*.bbl
 paper/*.blg
 paper/*.out
 paper/*.toc
+paper/*.abs
 paper/*.fls
 paper/*.fdb_latexmk
 paper/*.synctex.gz

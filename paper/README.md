@@ -1,4 +1,4 @@
-# Manuscript: A signal-to-drift ratio for quantifying winding-fault detectability and selecting condition monitoring across three wind-turbine generator types (Mechanical Systems and Signal Processing)
+# Manuscript: A signal-to-drift ratio for winding-fault detectability and sensor selection in three wind-turbine generator–drive systems (Mechanical Systems and Signal Processing)
 
 ## Build
 
@@ -6,6 +6,7 @@
 cd paper
 latexmk -pdf main.tex        # pdflatex + bibtex, the passes latexmk needs (the class writes main.spl on the first run)
 pdflatex highlights.tex      # the separate highlights file the editorial system asks for
+cd .. && python3 scripts/make_dc.py && cd paper && latexmk -pdf main_dc.tex   # the double-column variant (see below)
 ```
 
 Requires TeX Live with `elsarticle.cls` (the CTAN version is included here), natbib, booktabs, multirow,
@@ -26,6 +27,8 @@ seven generated tables, seven figures, 46 references) and has no supplementary m
 | Path | Content |
 |---|---|
 | `main.tex` | the whole manuscript; the seven generated tables (Tables 4–10: MDE, sensor suites, decision table, decision cells, transfer, operating envelope, conventions) sit between `%% BEGIN GENERATED <name>` and `%% END GENERATED <name>` markers and are rewritten by `scripts/make_tables.py` from `results/tables/*.csv` (do not edit those blocks by hand) |
+| `main_dc.tex` | the same manuscript in Elsevier's CAS double-column class `cas-dc` (21 pages: a highlights page and 20 body pages), derived from `main.tex` by `scripts/make_dc.py`, which rewrites the preamble and front matter, prints the CRediT statement through the class and sets the floats wider than a column across both columns; edit `main.tex` and regenerate, never this file |
+| `cas-dc.cls`, `cas-common.sty` | Elsevier CAS double-column class (CTAN `els-cas-templates`, LPPL), used by `main_dc.tex` only |
 | `highlights.tex` | three to five highlights of at most 85 characters each (uploaded as a separate file at submission) |
 | `figures/*.pdf` | `G_sdr_illustration.pdf` (Fig. 1), `G_sdr_by_feature_3alt_compact.pdf` (Fig. 5), `G_pairs_by_phase.pdf` (Fig. 6) and `G_pod.pdf` (Fig. 7), copied from `results/figures/`; the other PDFs there are pipeline outputs not used in the manuscript |
 | `refs.bib` | references; `elsarticle-num-names.bst` prints them numbered, with the DOI as a link |
