@@ -269,3 +269,12 @@ WFSG unscreened, trials resampled within a level); highlights 1 and 3 reworded. 
   0.05 threshold printed with three decimals; highlight 5 carries the AUC range. The pipeline licence is not named
   because the repository carries no licence file yet; the tag is given at acceptance as before. The title is left
   for the editor.
+
+### Author's removals (29 October 2026)
+
+At the author's request the appendix was folded into the main text (the phasor-residual definition and the
+window conventions into Section 4.3, the interval boundaries, bootstrap and detector settings into Section 4.4),
+the generative-AI declaration was removed, and the code-availability sentence was removed from the data
+availability paragraph together with the "open code reproduces every result" sentence of the introduction. The
+data availability paragraph now names the three public datasets only. The manuscript stays at the same length
+class (see the build log in the repository).

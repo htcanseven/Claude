@@ -16,7 +16,8 @@ threeparttable, array, tikz, lineno, hyperref and xurl.
 The manuscript is a single file, `main.tex`, in Elsevier's `elsarticle` class (`preprint,12pt`, single column,
 line numbers, numbered references in order of citation): front matter (title, author, abstract, keywords),
 Sections 1–7, the Elsevier declarations (CRediT, competing interest, funding, data availability,
-acknowledgements, generative-AI declaration), Appendix A and the bibliography call. The three schematic
+acknowledgements) and the bibliography call; there is no appendix, the feature definitions and computation
+details being in Sections 4.3 and 4.4. The three schematic
 figures (procedure, generator systems, fault classes) are TikZ code inside the file; the two data figures are
 `figures/*.pdf`. The manuscript is 32 pages in this layout (about 8,000 words of body text, two hand-written and
 six generated tables, five figures, 38 references) and has no supplementary material.
@@ -52,6 +53,6 @@ are the three Zenodo release archives of the InnovaPower MitDev-Eletrica reposit
 
 * Peer review at the target journal is single-anonymised, so the author block stays in the manuscript.
 * The editorial system asks for the highlights, the cover letter, the declaration-of-interests form and the
-  subject area ("Signal processing in machine/system health monitoring") separately; the generative-AI
-  declaration is in the manuscript, as the publisher requires.
-* The final code DOI (Zenodo release) is entered in the `Data availability` paragraph at acceptance.
+  subject area ("Signal processing in machine/system health monitoring") separately. The manuscript carries no
+  generative-AI declaration and no code-availability statement (removed at the author's request); the data
+  availability paragraph names the three public datasets only.
