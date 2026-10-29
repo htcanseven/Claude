@@ -37,7 +37,8 @@ def t_mde():
                 r = b[(b.ftype == ft) & (b.feature == f) & (b.machine == mach)].iloc[0]
                 s = sdr[(sdr.machine == mach) & (sdr.ftype == ft)]
                 lo, hi = C3.mde_bracket(s, f"{f}__sdr")
-                row = [{"TURNS": "IT", "WINDINGS": "IW"}[ft] if k == 0 else "", tex(f) if k == 0 else "", mach[0], mde_cell(lo, hi),
+                mde_iv = (f"{r.mde_ci_lo:.1f}--{r.mde_ci_hi:.1f}" if r.mde_ci_lo != r.mde_ci_hi else f"{r.mde_ci_lo:.1f}")
+                row = [{"TURNS": "IT", "WINDINGS": "IW"}[ft] if k == 0 else "", tex(f) if k == 0 else "", mach[0], mde_cell(lo, hi) + f" [{mde_iv}]",
                        f"{pct(r.share)} [{pct(r.share_ci_lo)}, {pct(r.share_ci_hi)}]",
                        f"{r.median_sdr:.3g} [{r.median_sdr_ci_lo:.3g}, {r.median_sdr_ci_hi:.3g}]",
                        f"{ratio.median_sdr:.3g} [{ratio.median_sdr_ci_lo:.3g}, {ratio.median_sdr_ci_hi:.3g}]" if k == 1 else ""]
@@ -45,10 +46,11 @@ def t_mde():
     cap = ("Minimum detectable extent, detectable share and median SDR with 95\\,\\% intervals, four features, "
            "PMSG and SCIG, five-cycle windows")
     note = ("$\\alpha=0.95$. MDE on the physical extent levels (\\% of a branch): $(a, b]$, level $a$ not detected and every level "
-            "from $b$ up detected; $\\le b$, every tested level detected. DS (\\%), median SDR and the SCIG/PMSG ratio of medians "
+            "from $b$ up detected; $\\le b$, every tested level detected; in brackets its 95\\,\\% interval over the operating-point "
+            "trials of each level. DS (\\%), median SDR and the SCIG/PMSG ratio of medians "
             "carry percentile intervals from a bootstrap over tap pairs (the same pairs for both machines) with the null "
             "quantile re-estimated in every resample. IT: inter-turn; IW: inter-winding; P: PMSG; S: SCIG.")
-    head = r"Class & Feature & M. & MDE & DS [CI] & Median SDR [CI] & SCIG/PMSG [CI]"
+    head = r"Class & Feature & M. & MDE [CI] & DS [CI] & Median SDR [CI] & SCIG/PMSG [CI]"
     return table(body, cap, "tab:mde", "lllcccc", head, size=r"\tabsize", colsep="2pt", note=note)
 
 
@@ -192,6 +194,77 @@ def t_decomp():
             r"\cmidrule(lr){3-5}\cmidrule(l){6-8}" "\n"
             r" & & Num. & Den. & SDR & Num. & Den. & SDR")
     return table(body, cap, "tab:decomp", "llcccccc", head, size=r"\tabsize", colsep="6pt", note=note)
+
+
+def t_envelope():
+    """Operating envelope: median SDR (detectable share) of the fixed inter-turn features by speed, the torque
+    factor at fixed speed, and the incremental negative-sequence impedance by speed; PMSG and SCIG, five cycles."""
+    e = pd.read_csv(TAB / "R_envelope_fixed.csv")
+    z = pd.read_csv(TAB / "R_z2_by_speed.csv")
+    speeds = [1200, 1500, 1800]
+    body = [r"\multicolumn{6}{@{}l}{\emph{Median SDR (detectable share, \%) of the fixed inter-turn features}} \\"]
+    want = [("PMSG", "V2r_V1"), ("PMSG", "D2r_D1"), ("PMSG", "I2r_I1"), ("SCIG", "I2r_I1"), ("SCIG", "D2r_D1"), ("SCIG", "V2r_V1")]
+    for m, f in want:
+        r = e[(e.machine == m) & (e.ftype == "TURNS") & (e.feature == f)].iloc[0]
+        cells = [f"{r[f'median_{s}']:.1f} ({100 * r[f'share_{s}']:.0f})" for s in speeds]
+        body.append(" & ".join([m, tex(f)] + cells + [f"{r.torque_factor_max:.2f}"]) + r" \\")
+    body.append(r"\multicolumn{6}{@{}l}{\emph{Incremental negative-sequence impedance $|\Delta\bar V_2/\Delta\bar I_2|$ ($\Omega$), median [IQR]}} \\")
+    for m in ["PMSG", "SCIG"]:
+        for ft, lab in [("TURNS", "inter-turn"), ("WINDINGS", "inter-winding")]:
+            cells = []
+            for s in speeds:
+                r = z[(z.machine == m) & (z.ftype == ft) & (z.speed_rpm == s)].iloc[0]
+                cells.append(f"{r.Z2_ohm:.1f} [{r.Z2_q25:.1f}, {r.Z2_q75:.1f}]")
+            body.append(" & ".join([m, lab] + cells + [""]) + r" \\")
+    body[-1] = body[-1].rstrip(r"\\").rstrip()
+    cap = ("Operating envelope: fixed inter-turn features and terminal impedance by speed, PMSG and SCIG, "
+           "five-cycle windows")
+    note = ("Speeds 1200, 1500 and 1800\\,rpm ($2f_e$ = 80, 100 and 120\\,Hz; 79, 99 and 119\\,Hz on the SCIG, which "
+            "generates with slip); each cell pools the three torques (36 inter-turn trials per machine and speed). "
+            "Torque factor: largest ratio of per-torque medians at a fixed speed. The impedance is the per-trial "
+            "complex ratio of the phasor residuals (Section~\\ref{sec:res-where}), 36 trials per cell.")
+    head = (r"Machine & Feature / class & 1200\,rpm & 1500\,rpm & 1800\,rpm & Torque factor")
+    return table(body, cap, "tab:envelope", "llcccc", head, size=r"\tabsize", colsep="3pt", note=note)
+
+
+def t_decision_cells():
+    """Cells of the decision table whose verdict depends on the definition of the power (pooled share above e_req
+    against the share at e_req itself) or on the resampling unit within a level (trials against tap pairs)."""
+    def load(suffix):
+        d5 = pd.read_csv(TAB / f"R_decision_table_5c{suffix}.csv")
+        d3 = pd.read_csv(TAB / f"R_decision_table{suffix}.csv")
+        d = pd.concat([d5[d5.machine.isin(["PMSG", "SCIG"])], d3[d3.machine == "WFSG"]])
+        return d[np.isclose(d.alpha, 0.95) & (d.verdict != "untested")]
+    tr, pa = load(""), load("_pairs")
+    key = ["machine", "ftype", "suite", "e_req_pct"]
+    m = tr.merge(pa[key + ["p_meets", "p_meets_level"]], on=key, suffixes=("", "_pairs"))
+    def verdict(p):
+        return np.where(p >= 0.95, "meets", np.where(p <= 0.05, "fails", "uncertain"))
+    cols = ["p_meets", "p_meets_level", "p_meets_pairs", "p_meets_level_pairs"]
+    V = np.column_stack([verdict(m[c].to_numpy()) for c in cols])
+    m = m[(V != V[:, [0]]).any(axis=1)].copy()
+    order = {s: i for i, s in enumerate(["drive-internal", "3 CT", "3 CT + 3 VT", "3 CT + 3 VT + drive", "excitation (WFSG only)"])}
+    m["o"] = m.suite.map(order)
+    m = m.sort_values(["machine", "ftype", "e_req_pct", "o"])
+    body = []
+    for r in m.itertuples():
+        cells = [f"{getattr(r, c):.2f}" for c in cols]
+        body.append(" & ".join([r.machine, FT[r.ftype], SUITE_SHORT[r.suite], f"{r.e_req_pct:.1f}", f"{100 * r.ds_at_level:.0f}"] + cells) + r" \\")
+    body[-1] = body[-1].rstrip(r"\\").rstrip()
+    cap = ("Decision-table cells whose verdict depends on the definition of the power or on the resampling unit "
+           "within a level")
+    note = ("$\\alpha=0.95$; every other cell of Table~\\ref{tab:decision} keeps its verdict under all four variants. "
+            "DS at level: detectable share of the fixed feature at $e_{\\mathrm{req}}$ itself (\\%). Pooled: share over "
+            "all tested levels $\\ge e_{\\mathrm{req}}$ (the definition of Table~\\ref{tab:decision}); at level: share at "
+            "$e_{\\mathrm{req}}$ itself; trials: operating-point trials resampled within a level; pairs: tap pairs "
+            "resampled within a level. Meets at $\\ge0.95$, fails at $\\le0.05$.")
+    head = (r"\multirow{2}{*}{Machine} & \multirow{2}{*}{Class} & \multirow{2}{*}{Suite} & \multirow{2}{*}{$e_{\mathrm{req}}$ (\%)} & "
+            r"\multirow{2}{*}{DS at level} & \multicolumn{2}{c}{pooled} & \multicolumn{2}{c}{at level} \\" "\n"
+            r"\cmidrule(lr){6-7}\cmidrule(l){8-9}" "\n"
+            r" & & & & & trials & pairs & trials & pairs")
+    # reorder the probability columns to match the header: pooled (trials, pairs), at level (trials, pairs)
+    body = [b for b in body]
+    return table(body, cap, "tab:cells", "lllccCCCC".replace("C", "c"), head, size=r"\tabsize", colsep="4pt", note=note)
 
 
 def t_transfer():
@@ -346,7 +419,7 @@ def t_nullq():
     return table(body, cap, "tab:nullq", "lcccc", head, size=r"\tabsize", colsep="3pt", note=note)
 
 
-BUILDERS = [("tab_decomp", t_decomp), ("tab_phase", t_phase), ("tab_mde", t_mde), ("tab_suites", t_suites),
+BUILDERS = [("tab_decomp", t_decomp), ("tab_phase", t_phase), ("tab_mde", t_mde), ("tab_suites", t_suites), ("tab_envelope", t_envelope), ("tab_cells", t_decision_cells),
             ("tab_decision", t_decision), ("tab_transfer", t_transfer), ("tab_suites3", t_suites3),
             ("tab_sens", t_sens), ("tab_between", t_between), ("tab_transfer3", t_transfer3), ("tab_nullq", t_nullq)]
 

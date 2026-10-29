@@ -82,7 +82,10 @@ def nested_share(f, feats):
 
 
 # ----------------------------------------------------------------------------- R1 decision table
-def decision_table(win, feats, B=B, seed=7, ds_req=DS_REQ, machines=MACH):
+def decision_table(win, feats, B=B, seed=7, ds_req=DS_REQ, machines=MACH, unit="trials"):
+    """unit: resampling unit within an extent level, "trials" (operating-point trials, the tap pairs of a level
+    treated as exchangeable) or "pairs" (tap pairs of the level, cluster bootstrap). Besides the pooled share
+    DS(e >= e_req) the share at the level e_req itself is evaluated (columns *_level)."""
     rng = np.random.RandomState(seed)
     rows = []
     for alpha in ALPHAS:
@@ -107,6 +110,8 @@ def decision_table(win, feats, B=B, seed=7, ds_req=DS_REQ, machines=MACH):
                 levels = np.sort(fm[by].unique())
                 lev = fm[by].to_numpy()
                 idx_by_level = [np.flatnonzero(lev == k) for k in levels]
+                cases = fm.case.astype(str).to_numpy()
+                pairs_by_level = [[np.flatnonzero((lev == k) & (cases == c)) for c in np.unique(cases[lev == k])] for k in levels]
                 E_REQ = grid[ft]
                 # a requirement can be assessed only inside the range of extents the machine was tested at
                 tested = {e: bool((levels.min() <= e + TOL) and (e <= levels.max() + TOL)) for e in E_REQ}
@@ -122,10 +127,15 @@ def decision_table(win, feats, B=B, seed=7, ds_req=DS_REQ, machines=MACH):
                     col = f"{best}__sdr"
                     lo, mde = mde_bracket(fm, col, by)
                     hits = {e: 0 for e in E_REQ}
+                    hits_level = {e: 0 for e in E_REQ}
                     hits_mde = {e: 0 for e in E_REQ}
                     chosen = {}
                     for b in range(B):
-                        idx = np.concatenate([rng.choice(ix, size=len(ix), replace=True) for ix in idx_by_level])
+                        if unit == "pairs":
+                            idx = np.concatenate([np.concatenate([pl[j] for j in rng.choice(len(pl), size=len(pl), replace=True)])
+                                                  for pl in pairs_by_level])
+                        else:
+                            idx = np.concatenate([rng.choice(ix, size=len(ix), replace=True) for ix in idx_by_level])
                         pick = rng.choice(cl_names, size=len(cl_names), replace=True)
                         nidx = np.concatenate([cl_rows[c] for c in pick])
                         qb = np.nanquantile(N[nidx], alpha, axis=0)
@@ -146,10 +156,14 @@ def decision_table(win, feats, B=B, seed=7, ds_req=DS_REQ, machines=MACH):
                         for e in E_REQ:
                             sub = s[levb >= e - TOL]
                             ds = np.nanmean(sub >= 1) if len(sub) else np.nan
+                            at = s[np.abs(levb - e) <= TOL]
+                            ds_lev = np.nanmean(at >= 1) if len(at) else np.nan
                             if mde_b <= e + TOL:
                                 hits_mde[e] += 1
                                 if ds >= ds_req:
                                     hits[e] += 1
+                                if ds_lev >= ds_req:
+                                    hits_level[e] += 1
                     top = max(chosen, key=chosen.get)
                     for e in E_REQ:
                         rows.append(dict(alpha=alpha, e_req_pct=e, machine=m, ftype=ft, suite=suite, cost_rank=COST_RANK[suite],
@@ -157,26 +171,30 @@ def decision_table(win, feats, B=B, seed=7, ds_req=DS_REQ, machines=MACH):
                                          mde_monotone_pct=mde, mde_bracket_lo_pct=lo, tested=tested[e],
                                          p_mde=hits_mde[e] / B if tested[e] else np.nan,
                                          p_meets_own=hits[e] / B if tested[e] else np.nan,
+                                         p_meets_level_own=hits_level[e] / B if tested[e] else np.nan,
                                          ds_conditional=ds_conditional(fm, col, e, by), ds_all=float((fm[col] >= 1).mean()),
+                                         ds_at_level=float((fm.loc[np.abs(fm[by] - e) <= TOL, col] >= 1).mean()) if tested[e] else np.nan,
                                          smallest_extent_tested_pct=float(levels.min()),
                                          largest_extent_tested_pct=float(levels.max())))
     d = pd.DataFrame(rows)
     # monotone inheritance over nested suites: a suite may use the features of its subsets, so it inherits a
     # strictly better probability of a cheaper subset (ties keep the suite's own feature)
-    p_mono, inherited = [], []
-    for i, r in d.iterrows():
-        g = d[(d.alpha == r.alpha) & (d.e_req_pct == r.e_req_pct) & (d.machine == r.machine) & (d.ftype == r.ftype)]
-        subs = g[g.suite.isin(SUBSETS.get(r.suite, []))]
-        own = r.p_meets_own
-        if len(subs) and subs.p_meets_own.notna().any() and (np.isnan(own) or subs.p_meets_own.max() > own + 1e-9):
-            k = subs.p_meets_own.idxmax()
-            p_mono.append(float(subs.loc[k, "p_meets_own"]))
-            inherited.append(subs.loc[k, "suite"])
-        else:
-            p_mono.append(float(own))
-            inherited.append("")
-    d["p_meets"] = p_mono
-    d["inherited_from"] = inherited
+    def inherit(colname):
+        p_mono, inherited = [], []
+        for i, r in d.iterrows():
+            g = d[(d.alpha == r.alpha) & (d.e_req_pct == r.e_req_pct) & (d.machine == r.machine) & (d.ftype == r.ftype)]
+            subs = g[g.suite.isin(SUBSETS.get(r.suite, []))]
+            own = r[colname]
+            if len(subs) and subs[colname].notna().any() and (np.isnan(own) or subs[colname].max() > own + 1e-9):
+                k = subs[colname].idxmax()
+                p_mono.append(float(subs.loc[k, colname]))
+                inherited.append(subs.loc[k, "suite"])
+            else:
+                p_mono.append(float(own))
+                inherited.append("")
+        return p_mono, inherited
+    d["p_meets"], d["inherited_from"] = inherit("p_meets_own")
+    d["p_meets_level"], d["inherited_from_level"] = inherit("p_meets_level_own")
     d["verdict"] = np.where(d.p_meets.isna(), "untested",
                             np.where(d.p_meets >= 0.95, "meets", np.where(d.p_meets <= 0.05, "fails", "uncertain")))
     sel = []

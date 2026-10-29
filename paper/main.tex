@@ -74,7 +74,7 @@ condition monitoring \sep fault detectability \sep stator winding fault \sep win
 
 \section{Introduction}\label{sec:intro}
 
-Stator-winding insulation faults are the archetypal incipient failure of an electrical machine: a short-circuit across a few turns whose subtle signature evolves into a machine-destroying fault if it is not detected \citep{RieraGuasp2015}. Electrical-subsystem failures contribute substantially to wind-turbine downtime \citep{Tavner2007}, and a rich literature detects winding faults in a given machine \citep{Thomson2001, Kliman1996, Lee2003, Nandi2005, Tallam2007, Tallam2003, Cruz2004}, almost all of it validated on one machine. Yet the generator type of a large turbine---permanent-magnet synchronous (PMSG), squirrel-cage induction (SCIG), wound-field synchronous (WFSG) or doubly-fed induction---is chosen on cost, mass, efficiency and grid-compliance grounds \citep{Polinder2013}, and its condition monitoring is added afterwards from commercial systems \citep{Yang2014}. Whether the same fault is equally visible in different generator types, in which measured quantity it appears, and which sensors are therefore worth specifying for each has not been quantified.
+Stator-winding insulation faults are the archetypal incipient failure of an electrical machine: a short-circuit across a few turns whose subtle signature evolves into a machine-destroying fault if it is not detected \citep{RieraGuasp2015}. Electrical-subsystem failures contribute substantially to wind-turbine downtime \citep{Tavner2007}, and a rich literature detects winding faults in a given machine \citep{Thomson2001, Kliman1996, Lee2003, Nandi2005, Tallam2007, Tallam2003, Cruz2004}, almost all of it validated on one machine. Yet the generator type of a large turbine---permanent-magnet synchronous (PMSG), squirrel-cage induction (SCIG), wound-field synchronous (WFSG) or doubly-fed induction---is chosen on cost, mass, efficiency and grid-compliance grounds \citep{Polinder2013}, and its condition monitoring is added afterwards from commercial systems \citep{Yang2010, Yang2014}. Whether the same fault is equally visible in different generator types, in which measured quantity it appears, and which sensors are therefore worth specifying for each has not been quantified.
 
 Such questions need a measure of detectability that requires neither a model of the machine nor a trained detector, is comparable across features, operating points and machines, and connects to the quantities a monitoring specification is written in: the smallest fault to be detected, the false-alarm rate tolerated and the sensors it costs. The detectability notions of fault detection and isolation (FDI) theory \citep{Basseville2001, Blanke2016, Krysander2008} and the sensor-placement methods built on them \citep{Frisk2009} presuppose a model; a learned detector \citep{Lei2020} presupposes data from the very machine, and its transfer across machines is an open problem \citep{Pan2010}.
 
@@ -334,7 +334,7 @@ All three machines have 24 tapped derivation points at the same relative positio
 \caption{Inter-turn (\textbf{a}) and inter-winding (\textbf{b}) short-circuits through $R_{\mathrm{f}}$ between taps of one phase of the double-star stator; $e$ is the fraction of a branch between the taps}\label{fig:faults}
 \end{figure}
 
-The PMSG and SCIG matrix is complete: 24 fault cases $\times$ 3 speeds (1200, 1500, 1800\,rpm) $\times$ 3 torques (5.2, 6.4, 8.0\,N\,m), scaled from the operating region of the International Energy Agency 15\,MW reference turbine \citep{Gaertner2020} by the speed ratio, plus the healthy condition at each operating point; the SCIG generates with slip, at 59.6\,Hz at 1800\,rpm. The WFSG matrix covers the same 24 tap pairs at six speeds (716--1910\,rpm) and four torque levels, sparsely. The analyses use the WFSG's 438 inter-turn and inter-winding trials at all impedances for the null and the feature ranking, with the impedance as a covariate, and the 198 trials at 2.83\,$\Omega$, the impedance closest to the PMSG/SCIG value, covering four inter-turn pairs of 11.6--12.1\,\% and four inter-winding pairs of 2.3--10.6\,\%, for the MDE and the decision table.
+The PMSG and SCIG matrix is complete: 24 fault cases $\times$ 3 speeds (1200, 1500, 1800\,rpm) $\times$ 3 torques (5.2, 6.4, 8.0\,N\,m, 39--60\,\% of rated torque), scaled from the operating region of the International Energy Agency 15\,MW reference turbine \citep{Gaertner2020} by the speed ratio, plus the healthy condition at each operating point; the SCIG generates with slip, at 59.6\,Hz at 1800\,rpm. The WFSG matrix covers the same 24 tap pairs at six speeds (716--1910\,rpm) and four torque levels, sparsely. The analyses use the WFSG's 438 inter-turn and inter-winding trials at all impedances for the null and the feature ranking, with the impedance as a covariate, and the 198 trials at 2.83\,$\Omega$, the impedance closest to the PMSG/SCIG value, covering four inter-turn pairs of 11.6--12.1\,\% and four inter-winding pairs of 2.3--10.6\,\%, for the MDE and the decision table.
 
 \subsection{Sensor suites and features}\label{sec:suites}
 
@@ -381,7 +381,7 @@ For the same tap pair the SCIG's fault current is about 10\,\% lower than the PM
 
 \subsection{Where the signature appears, and why the SDR differs}\label{sec:res-where}
 
-The null of the SDR differs between the PMSG and the SCIG on every feature, and by how much depends on the form in which the feature is written: in the relative form of Eq.~(\ref{eq:delta}) the SCIG's null is 2.4 times quieter than the PMSG's for the voltage residual, 5.2 times for the current residual and 45 times for the $d$-axis current ripple; in the units of the features themselves the factors are 1.1, 6.0 and 7.0, because the SCIG's $d$-axis ripple has a healthy level five times the PMSG's, its stator current carrying the magnetising component. The decomposition therefore reads differently for the three measurement groups: through the terminal-voltage residual the machines are equivalent, numerator and null agreeing in volts to within 20\,\%; through the stator-current residual the SCIG's SDR is 3.7 and 3.3 times the PMSG's while the PMSG's current change is the larger in both forms, so there the SCIG wins entirely by a quieter null; through the $d$-axis features the SCIG's SDR is 16 and 23 times the PMSG's and in absolute units the SCIG has both the larger signature and the quieter null. The reading that the SCIG wins only by silence thus holds for the stator current and is, for the controller quantities, an artefact of the relative normalisation; nor is the null a property of the transducers alone, since the duty-cycle residual, a controller output, has a null 8.5 (relative) and 3.1 (absolute) times larger on the PMSG.
+The null of the SDR differs between the PMSG and the SCIG on every feature, and by how much depends on the form in which the feature is written: in the relative form of Eq.~(\ref{eq:delta}) the SCIG's null is 2.4 times quieter than the PMSG's for the voltage residual, 5.2 times for the current residual and 45 times for the $d$-axis current ripple; in the units of the features themselves the factors are 1.1, 6.0 and 7.0, because the SCIG's healthy $d$-axis ripple is five times the PMSG's: its inherent negative-sequence current is 2.9 times the PMSG's in amperes (0.043 against 0.015\,A), and the flux-observer angle, modulated at 2$f_e$, is the plausible remainder. The decomposition therefore reads differently for the three measurement groups: through the terminal-voltage residual the machines are equivalent, numerator and null agreeing in volts to within 20\,\%; through the stator-current residual the SCIG's SDR is 3.7 and 3.3 times the PMSG's while the PMSG's current change is the larger in both forms, so there the SCIG wins entirely by a quieter null; through the $d$-axis features the SCIG's SDR is 16 and 23 times the PMSG's and in absolute units the SCIG has both the larger signature and the quieter null. The reading that the SCIG wins only by silence thus holds for the stator current and is, for the controller quantities, an artefact of the relative normalisation; nor is the null a property of the transducers alone, since the duty-cycle residual, a controller output, has a null 8.5 (relative) and 3.1 (absolute) times larger on the PMSG.
 
 Fig.~\ref{fig:features} shows the median SDR of every feature for the three alternatives on three-cycle windows. In the PMSG the terminal-voltage group carries the strongest signature in 94\,\% of inter-turn and 97\,\% of inter-winding trials, through the voltage residual (median SDR 6.8 and 53 at five-cycle windows; 88 and 100\,\% of trials detectable), and the stator-current residual is weak for inter-turn faults (1.7; 70\,\%). In the SCIG the controller group is strongest in 63 and 67\,\% of trials, through the duty-cycle residual for inter-turn faults (11.2; 93\,\%) and the $d$-axis ripple and its PI output for inter-winding faults (68; 100\,\%), the stator-current group in 34 and 33\,\%; In the WFSG the terminal-voltage and current residuals, the commanded $q$-axis voltage and the field-current 2$f_e$ ripple, an observable the other two lack, are strongest; the field current detected 80\,\% of the inter-turn trials at the matching impedance and all inter-winding trials. The physical quantity behind the relocation is the incremental negative-sequence impedance at the terminals, $\Delta\bar V_2/\Delta\bar I_2$ per trial: 12.7 [11.1, 14.1]\,$\Omega$ (inter-turn) and 12.2 [10.2, 13.2]\,$\Omega$ (inter-winding) in the PMSG against 7.3 [6.9, 7.7] and 7.4 [7.2, 7.6]\,$\Omega$ in the SCIG (medians and interquartile ranges), 0.60 and 0.35 per unit on the 2.5\,kVA, 230\,V base, so the PMSG drive converts a negative-sequence current disturbance into 1.7 times the terminal voltage that the SCIG drive does. With the converter connected directly to the stator, this ratio is the closed-loop output impedance of the current regulator at the negative-sequence frequency \citep{Tallam2003, Cheng2011}, tied to the machine through the inductance the regulator is tuned to; how much of the difference is tuning cannot be checked without the undocumented gains. The 2$f_e$ ripple of the synchronous-frame currents is the same negative-sequence current seen in the rotating frame, so the current and controller groups differ by normalisation and angle source rather than by physics; both machines run the same field-oriented controller but differ in angle source, output impedance and healthy baselines, so the relocation belongs to the machine--drive combination, not to the control structure alone.
 
@@ -398,7 +398,7 @@ The inter-turn test matrix carries a second variable on its nominal extent axis:
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{G_pairs_by_phase_compact}
-\caption{Inter-turn median SDR per tap pair against the nominal extent: magnitude ratio $V_2/V_1$ (\textbf{a}) and phasor residual $|\Delta\bar V_2|/V_1$ (\textbf{b}); marker, faulted phase; colour, machine}\label{fig:pairs}
+\caption{Inter-turn median SDR per tap pair against the nominal extent: magnitude ratio $V_2/V_1$ (\textbf{a}) and phasor residual $|\Delta\bar V_2|/V_1$ (\textbf{b}), five-cycle windows; marker, faulted phase; colour, machine}\label{fig:pairs}
 \end{figure}
 
 \subsection{Minimum detectable extent}\label{sec:res-mde}
@@ -414,28 +414,28 @@ Table~\ref{tab:mde} gives, for the two residual features, the $d$-axis PI ripple
 \caption{Minimum detectable extent, detectable share and median SDR with 95\,\% intervals, four features, PMSG and SCIG, five-cycle windows}\label{tab:mde}
 \begin{tabular}{@{}lllcccc@{}}
 \toprule
-Class & Feature & M. & MDE & DS [CI] & Median SDR [CI] & SCIG/PMSG [CI] \\
+Class & Feature & M. & MDE [CI] & DS [CI] & Median SDR [CI] & SCIG/PMSG [CI] \\
 \midrule
-IT & $|\Delta\bar V_2|/V_1$ & P & $\le$3.0 & 88 [74, 98] & 6.84 [1.67, 15.9] & \\
- &  & S & (3.0, 7.5] & 81 [63, 95] & 6.9 [1.16, 16.4] & 1.01 [0.683, 1.29] \\
-IT & $|\Delta\bar I_2|/I_1$ & P & (3.0, 7.5] & 70 [44, 93] & 1.7 [0.751, 4.14] & \\
- &  & S & $\le$3.0 & 85 [70, 96] & 6.34 [1.93, 13.2] & 3.72 [2.08, 5.08] \\
-IT & PI$_d$\,2$f_e$ & P & (7.5, 11.8] & 24 [7, 44] & 0.37 [0.289, 0.797] & \\
- &  & S & (3.0, 7.5] & 76 [57, 93] & 6.18 [1.22, 18.8] & 16.7 [3.04, 41.7] \\
-IT & $V_q$\,2$f_e$ & P & (7.5, 11.8] & 51 [31, 73] & 1.13 [0.649, 3.96] & \\
- &  & S & (3.0, 7.5] & 60 [34, 84] & 2.34 [0.47, 5.07] & 2.08 [0.492, 3.35] \\
-IW & $|\Delta\bar V_2|/V_1$ & P & $\le$2.8 & 100 [100, 100] & 52.7 [15.3, 148] & \\
- &  & S & $\le$2.8 & 100 [99, 100] & 39 [14.9, 136] & 0.74 [0.607, 1.1] \\
-IW & $|\Delta\bar I_2|/I_1$ & P & (2.8, 10.1] & 86 [68, 100] & 13.7 [4.1, 48.3] & \\
- &  & S & $\le$2.8 & 99 [95, 100] & 45.8 [16.5, 104] & 3.33 [2.08, 6.64] \\
-IW & PI$_d$\,2$f_e$ & P & (10.1, 14.6] & 69 [49, 88] & 3 [0.937, 10.1] & \\
- &  & S & $\le$2.8 & 100 [100, 100] & 68.4 [23.6, 223] & 22.8 [14.2, 36.7] \\
-IW & $V_q$\,2$f_e$ & P & (2.8, 10.1] & 89 [77, 98] & 18.7 [4.23, 55.1] & \\
- &  & S & (2.8, 10.1] & 88 [71, 100] & 22.5 [7.26, 68.4] & 1.2 [0.76, 1.97] \\
+IT & $|\Delta\bar V_2|/V_1$ & P & $\le$3.0 [3.0--7.5] & 88 [74, 98] & 6.84 [1.67, 15.9] & \\
+ &  & S & (3.0, 7.5] [3.0--7.5] & 81 [63, 95] & 6.9 [1.16, 16.4] & 1.01 [0.683, 1.29] \\
+IT & $|\Delta\bar I_2|/I_1$ & P & (3.0, 7.5] [7.5] & 70 [44, 93] & 1.7 [0.751, 4.14] & \\
+ &  & S & $\le$3.0 [3.0--7.5] & 85 [70, 96] & 6.34 [1.93, 13.2] & 3.72 [2.08, 5.08] \\
+IT & PI$_d$\,2$f_e$ & P & (7.5, 11.8] [11.8] & 24 [7, 44] & 0.37 [0.289, 0.797] & \\
+ &  & S & (3.0, 7.5] [3.0--7.5] & 76 [57, 93] & 6.18 [1.22, 18.8] & 16.7 [3.04, 41.7] \\
+IT & $V_q$\,2$f_e$ & P & (7.5, 11.8] [7.5--11.8] & 51 [31, 73] & 1.13 [0.649, 3.96] & \\
+ &  & S & (3.0, 7.5] [7.5] & 60 [34, 84] & 2.34 [0.47, 5.07] & 2.08 [0.492, 3.35] \\
+IW & $|\Delta\bar V_2|/V_1$ & P & $\le$2.8 [2.8] & 100 [100, 100] & 52.7 [15.3, 148] & \\
+ &  & S & $\le$2.8 [2.8] & 100 [99, 100] & 39 [14.9, 136] & 0.74 [0.607, 1.1] \\
+IW & $|\Delta\bar I_2|/I_1$ & P & (2.8, 10.1] [10.1] & 86 [68, 100] & 13.7 [4.1, 48.3] & \\
+ &  & S & $\le$2.8 [2.8] & 99 [95, 100] & 45.8 [16.5, 104] & 3.33 [2.08, 6.64] \\
+IW & PI$_d$\,2$f_e$ & P & (10.1, 14.6] [10.1--21.9] & 69 [49, 88] & 3 [0.937, 10.1] & \\
+ &  & S & $\le$2.8 [2.8] & 100 [100, 100] & 68.4 [23.6, 223] & 22.8 [14.2, 36.7] \\
+IW & $V_q$\,2$f_e$ & P & (2.8, 10.1] [2.8--10.1] & 89 [77, 98] & 18.7 [4.23, 55.1] & \\
+ &  & S & (2.8, 10.1] [2.8--10.1] & 88 [71, 100] & 22.5 [7.26, 68.4] & 1.2 [0.76, 1.97] \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[flushleft]
-\item $\alpha=0.95$. MDE on the physical extent levels (\% of a branch): $(a, b]$, level $a$ not detected and every level from $b$ up detected; $\le b$, every tested level detected. DS (\%), median SDR and the SCIG/PMSG ratio of medians carry percentile intervals from a bootstrap over tap pairs (the same pairs for both machines) with the null quantile re-estimated in every resample. IT: inter-turn; IW: inter-winding; P: PMSG; S: SCIG.
+\item $\alpha=0.95$. MDE on the physical extent levels (\% of a branch): $(a, b]$, level $a$ not detected and every level from $b$ up detected; $\le b$, every tested level detected; in brackets its 95\,\% interval over the operating-point trials of each level. DS (\%), median SDR and the SCIG/PMSG ratio of medians carry percentile intervals from a bootstrap over tap pairs (the same pairs for both machines) with the null quantile re-estimated in every resample. IT: inter-turn; IW: inter-winding; P: PMSG; S: SCIG.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
@@ -552,7 +552,39 @@ S$\to$P & AUC & 0.61 [0.50, 0.72] & 0.88 [0.81, 0.94] & 0.88 [0.80, 0.94] & 0.89
 
 \subsection{Operating envelope, robustness and the two nulls}\label{sec:res-robust}\label{sec:res-op}
 
-Speed dominates the operating-point dependence: between 1200 and 1800\,rpm the median inter-turn SDR of the fixed features of Table~\ref{tab:suites} (voltage and duty-cycle residuals on the PMSG, current and duty-cycle residuals on the SCIG, five-cycle windows) rises by a factor of 1.3 to 4.4 and the detectable shares from 69--86 to 83--100\,\%, consistent with a resistor-limited fault current that scales with speed; torque changes the medians at a fixed speed by less than a factor 1.25 on the SCIG and up to 1.6 on the PMSG; and the PMSG's current residual, the feature of its retrofit suite, is the exception, falling from 1.8 to 1.4 with speed with its share fixed at 67\,\%, a drive effect that the fault current does not explain. Because the pooled null is a mixture over operating points, the 5\,\% false-alarm reading holds on average over the envelope: the share of healthy changes above the pooled 95th percentile is 0 to 16\,\% by speed for the key features, the largest being the SCIG's current residual at 1800\,rpm, where its 59.6\,Hz electrical frequency lies next to the 60\,Hz grid frequency, a candidate cause. Both make the lowest monitored speed a parameter of the requirement.
+Table~\ref{tab:envelope} gives the operating envelope. Speed dominates: between 1200 and 1800\,rpm the median inter-turn SDR of the fixed features of Table~\ref{tab:suites} rises by a factor of 1.3 to 4.4 and the detectable shares from 69--86 to 83--100\,\%, consistent with a resistor-limited fault current that scales with speed; torque changes the medians at a fixed speed by less than a factor 1.25 on the SCIG and up to 1.6 on the PMSG; and the PMSG's current residual, the feature of its retrofit suite, is the exception, falling from 1.8 to 1.4 with speed with its share fixed at 67\,\%. The terminal impedance $|\Delta\bar V_2/\Delta\bar I_2|$ does not explain that exception: it is flat within 5\,\% over $2f_e$ = 80 to 120\,Hz on both machines (13.0 to 12.5\,$\Omega$ on the PMSG, 7.5 to 7.2\,$\Omega$ on the SCIG), so it is not proportional to frequency as a leakage reactance would be, and the bandwidth mechanism of Section~\ref{sec:implications} is not visible inside this band; the speed dependence of the SDRs comes from the fault current and the null, and the PMSG's falling current residual is a drive effect that these data do not resolve. Because the pooled null is a mixture over operating points, the 5\,\% false-alarm reading holds on average over the envelope: the share of healthy changes above the pooled 95th percentile is 0 to 16\,\% by speed for the key features, the largest being the SCIG's current residual at 1800\,rpm, where its 59.6\,Hz electrical frequency lies next to the 60\,Hz grid frequency, a candidate cause. Both make the lowest monitored speed a parameter of the requirement.
+
+%% BEGIN GENERATED tab_envelope -- written by scripts/make_tables.py from results/tables; do not edit by hand
+\begin{table}[htbp]
+\tabsize
+\setlength{\tabcolsep}{3pt}
+\centering
+\begin{threeparttable}
+\caption{Operating envelope: fixed inter-turn features and terminal impedance by speed, PMSG and SCIG, five-cycle windows}\label{tab:envelope}
+\begin{tabular}{@{}llcccc@{}}
+\toprule
+Machine & Feature / class & 1200\,rpm & 1500\,rpm & 1800\,rpm & Torque factor \\
+\midrule
+\multicolumn{6}{@{}l}{\emph{Median SDR (detectable share, \%) of the fixed inter-turn features}} \\
+PMSG & $|\Delta\bar V_2|/V_1$ & 5.3 (78) & 7.0 (89) & 10.0 (97) & 1.36 \\
+PMSG & $|\Delta\bar D_2|/D_1$ & 2.7 (69) & 4.0 (72) & 5.6 (83) & 1.64 \\
+PMSG & $|\Delta\bar I_2|/I_1$ & 1.8 (67) & 2.6 (78) & 1.4 (67) & 1.59 \\
+SCIG & $|\Delta\bar I_2|/I_1$ & 3.8 (69) & 6.3 (86) & 16.6 (100) & 1.21 \\
+SCIG & $|\Delta\bar D_2|/D_1$ & 9.5 (86) & 11.6 (94) & 12.2 (97) & 1.18 \\
+SCIG & $|\Delta\bar V_2|/V_1$ & 5.8 (78) & 7.3 (83) & 8.2 (83) & 1.15 \\
+\multicolumn{6}{@{}l}{\emph{Incremental negative-sequence impedance $|\Delta\bar V_2/\Delta\bar I_2|$ ($\Omega$), median [IQR]}} \\
+PMSG & inter-turn & 13.0 [11.5, 14.4] & 12.6 [11.3, 14.1] & 12.5 [10.0, 13.8] & \\
+PMSG & inter-winding & 12.6 [11.1, 13.3] & 12.1 [9.2, 13.7] & 11.9 [9.8, 12.8] & \\
+SCIG & inter-turn & 7.5 [7.0, 8.0] & 7.2 [6.7, 7.4] & 7.2 [6.9, 7.4] & \\
+SCIG & inter-winding & 7.5 [7.4, 7.8] & 7.4 [7.3, 7.6] & 7.3 [7.1, 7.4] & \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\item Speeds 1200, 1500 and 1800\,rpm ($2f_e$ = 80, 100 and 120\,Hz; 79, 99 and 119\,Hz on the SCIG, which generates with slip); each cell pools the three torques (36 inter-turn trials per machine and speed). Torque factor: largest ratio of per-torque medians at a fixed speed. The impedance is the per-trial complex ratio of the phasor residuals (Section~\ref{sec:res-where}), 36 trials per cell.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+%% END GENERATED tab_envelope
 
 With the screen applied at every setting, the MDE brackets of the key features are unchanged across window lengths of three, five and eight cycles on both machines except at the margin (the SCIG's current residual reaches the smallest inter-turn level at five and eight cycles but not at three; the PMSG's $q$-axis voltage ripple reaches the middle level only at eight cycles; the PMSG's $d$-axis features, whose null quantile exceeds one at eight cycles, are screened out there), and the detectable shares move by at most 7 points except for the PMSG's $d$-axis features, which lie below $\mathrm{SDR}=1$ at every setting. Tightening $\alpha$ from 0.95 to 0.99 lowers the shares by 0 to 14 points, moves the MDE up one level for the PMSG's voltage residual and the SCIG's current residual and screens out the PMSG's $d$-axis features; relaxing it to 0.90 raises the shares by up to 10 points and moves four MDEs down one level; the orderings of the two machines are the same at every setting. At $\alpha=0.95$ the screen removes only the SCIG's duty-cycle magnitude ratio (three false alarms in nine healthy trials) and the torque features.
 
@@ -573,7 +605,7 @@ Within the scope of Section~\ref{sec:threats}, a PMSG with full-power conversion
 
 \subsection{Limitations}\label{sec:threats}
 
-Each alternative is represented by one physical machine, so the differences reported are differences between three machines; attributing them to topology requires replicated machines or simulated populations validated against the measured units, so the demonstration establishes the method and the mechanisms, not the population-level ranking of the topologies. The fault emulation is resistor-limited and the benches are laboratory scale: a bolted field fault is limited by the leakage reactance of the shorted turns and reaches several times the rated current, so its signature-versus-extent law, and hence every MDE, differs in kind from the one measured here, and the smallest tested fault (2.7--3.8\,\% of a branch) is larger than the one- to three-turn fault that starts an insulation failure in a large winding. The relocation cannot be computed for another drive, whose loop gains, reactances and electrical frequency differ, so Section~\ref{sec:implications} is conditional. Only winding faults and only electrical and controller observables were studied, at a fixed thermal state and without nuisance transients other than the contactor operation. On the WFSG the fault impedance is confounded with extent, only four tap pairs per class exist at the matching impedance, and there are no healthy trials, so the screen cannot be applied and its transfer entries lack nuisance-transient negatives. Statistically, the pooled null holds its nominal false-alarm rate on average over the envelope, not per speed; the screen rests on nine healthy trials; the fixed feature is chosen on the trials it is evaluated on; the MDE is the median trial of a level and is known only as a bracket on three inter-turn levels; and the required share of 0.9 and the confidence of 0.95 are choices of the requirement. Finally, every MDE describes a short-horizon change detector; a monitor referenced to an old baseline faces a null 1.1 to 4.5 times wider on the key features (Section~\ref{sec:res-robust}).
+Each alternative is represented by one physical machine, so the differences reported are differences between three machines; attributing them to topology requires replicated machines or simulated populations validated against the measured units, so the demonstration establishes the method and the mechanisms, not the population-level ranking of the topologies. The fault emulation is resistor-limited and the benches are laboratory scale: a bolted field fault is limited by the leakage reactance of the shorted turns and reaches several times the rated current, so its signature-versus-extent law, and hence every MDE, differs in kind from the one measured here, and the smallest tested fault (2.7--3.8\,\% of a branch; the data papers give no turn counts) is larger than the one- to three-turn fault that starts an insulation failure in a large winding. The relocation cannot be computed for another drive, whose loop gains, reactances and electrical frequency differ, so Section~\ref{sec:implications} is conditional. Only winding faults and only electrical and controller observables were studied, at a fixed thermal state and without nuisance transients other than the contactor operation. On the WFSG the fault impedance is confounded with extent, only four tap pairs per class exist at the matching impedance, and there are no healthy trials, so the screen cannot be applied and its transfer entries lack nuisance-transient negatives. Statistically, the pooled null holds its nominal false-alarm rate on average over the envelope, not per speed; the screen rests on nine healthy trials; the fixed feature is chosen on the trials it is evaluated on; the MDE is the median trial of a level and is known only as a bracket on three inter-turn levels; and the required share of 0.9 and the confidence of 0.95 are choices of the requirement. Finally, every MDE describes a short-horizon change detector; a monitor referenced to an old baseline faces a null 1.1 to 4.5 times wider on the key features (Section~\ref{sec:res-robust}).
 %% ----------------------------------------------------------------------
 %% conclusion
 %% ----------------------------------------------------------------------
