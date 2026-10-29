@@ -1,0 +1,2 @@
+machine,ftype,suite,e_req_pct,p_1000,p_10000,borderline_1000,borderline_10000,class_1000,class_10000
+SCIG,TURNS,3 CT + 3 VT + drive,3.0,0.049,0.0402,True,False,fails,fails

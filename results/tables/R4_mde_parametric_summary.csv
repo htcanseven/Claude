@@ -1,0 +1,5 @@
+machine,ftype,n_features,n_mde_equal,n_resid_equal,n_resid
+PMSG,TURNS,33,32,3,3
+PMSG,WINDINGS,33,30,3,3
+SCIG,TURNS,30,29,3,3
+SCIG,WINDINGS,30,30,3,3

@@ -194,6 +194,7 @@ def null_hist_figure(name="G_null_hist"):
     sdr, _ = C3.sdr_from_windows(win5, ["V2r_V1", "I2r_I1", "PId_2fe"], q=0.95)
     feats = ["V2r_V1", "I2r_I1", "PId_2fe"]
     fig, axes = plt.subplots(2, 3, figsize=(W, 3.4), gridspec_kw={"wspace": 0.28, "hspace": 0.5})
+    fig.patch.set_facecolor("white")
     for i, m in enumerate(["PMSG", "SCIG"]):
         rec = sdr[sdr.machine == m]
         for j, f in enumerate(feats):
@@ -217,6 +218,7 @@ def null_hist_figure(name="G_null_hist"):
                 ax.axvline(-qp, color=C.AXIS, lw=0.9, ls="--")
             ax.axvline(q, color=C.AXIS, lw=0.9)
             ax.axvline(qp, color=C.AXIS, lw=0.9, ls="--")
+            ax.set_facecolor("white")
             ax.set_yticks([])
             ax.tick_params(axis="x", labelsize=7)
             ax.set_xlabel(r"$\delta^0$ of " + C.lab(f), fontsize=8)

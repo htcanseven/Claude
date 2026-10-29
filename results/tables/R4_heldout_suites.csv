@@ -1,0 +1,17 @@
+machine,ftype,suite,feature_in,features_heldout,e90_in,e90_heldout,fa_heldout,n_healthy,e90_differs
+PMSG,TURNS,3 CT,I2r_I1,I2r_I1,7.5,7.5,0,9,False
+PMSG,TURNS,3 CT + 3 VT,V2r_V1,V2r_V1,7.5,7.5,0,9,False
+PMSG,TURNS,3 CT + 3 VT + drive,V2r_V1,V2r_V1,7.5,7.5,0,9,False
+PMSG,TURNS,drive-internal,D2r_D1,D2r_D1,7.5,7.5,0,9,False
+PMSG,WINDINGS,3 CT,I2r_I1,I2r_I1,10.1,10.1,0,9,False
+PMSG,WINDINGS,3 CT + 3 VT,V2r_V1,V2r_V1,2.8,2.8,0,9,False
+PMSG,WINDINGS,3 CT + 3 VT + drive,V2r_V1,V2r_V1,2.8,2.8,0,9,False
+PMSG,WINDINGS,drive-internal,D2r_D1,D2r_D1,10.1,10.1,0,9,False
+SCIG,TURNS,3 CT,I2r_I1,I2r_I1,7.5,7.5,1,9,False
+SCIG,TURNS,3 CT + 3 VT,I2r_I1,I2r_I1,7.5,7.5,1,9,False
+SCIG,TURNS,3 CT + 3 VT + drive,D2r_D1,D2r_D1,7.5,7.5,2,9,False
+SCIG,TURNS,drive-internal,D2r_D1,D2r_D1,7.5,7.5,2,9,False
+SCIG,WINDINGS,3 CT,I2_I1,I2_I1/I2r_I1,2.8,2.8,0,9,False
+SCIG,WINDINGS,3 CT + 3 VT,V2_V1,I2_I1/I2r_I1/V2_V1,2.8,2.8,0,9,False
+SCIG,WINDINGS,3 CT + 3 VT + drive,Id_2fe,D2r_D1/Id_2fe,2.8,2.8,3,9,False
+SCIG,WINDINGS,drive-internal,Id_2fe,D2r_D1/Id_2fe,2.8,2.8,3,9,False

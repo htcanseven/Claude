@@ -19,15 +19,15 @@ line numbers, numbered references in order of citation): front matter (title, au
 Sections 1–7, the Elsevier declarations (CRediT, competing interest, funding, data availability,
 acknowledgements) and the bibliography call; there is no appendix, the feature definitions and computation
 details being in Sections 4.3 and 4.4. The three schematic
-figures (procedure, generator systems, fault classes) are TikZ code inside the file; the positioning table (Table 1) and
-the two description tables (Tables 2 and 3) are hand-written in the file; the four data figures are
-`figures/*.pdf`. The manuscript is 38 pages in this layout (about 9,500 words of body text, three hand-written and
-seven generated tables, seven figures, 46 references) and has no supplementary material.
+figures (procedure, generator systems, fault classes) are TikZ code inside the file; the positioning table (Table 1), the quantities table (Table 2) and
+the two description tables (Tables 3 and 4) are hand-written in the file; the four data figures are
+`figures/*.pdf`. The manuscript is 42 pages in this layout (about 10,000 words of body text, four hand-written and
+eight generated tables, eight figures, 46 references) and has no supplementary material.
 
 | Path | Content |
 |---|---|
-| `main.tex` | the whole manuscript; the seven generated tables (Tables 4–10: MDE, sensor suites, decision table, decision cells, transfer, operating envelope, conventions) sit between `%% BEGIN GENERATED <name>` and `%% END GENERATED <name>` markers and are rewritten by `scripts/make_tables.py` from `results/tables/*.csv` (do not edit those blocks by hand) |
-| `main_dc.tex` | the same manuscript in Elsevier's CAS double-column class `cas-dc` (21 pages: a highlights page and 20 body pages), derived from `main.tex` by `scripts/make_dc.py`, which rewrites the preamble and front matter, prints the CRediT statement through the class and sets the floats wider than a column across both columns; edit `main.tex` and regenerate, never this file |
+| `main.tex` | the whole manuscript; the eight generated tables (Tables 5–12: MDE, sensor suites, decision table, held-out procedure, decision cells, transfer, operating envelope, conventions) sit between `%% BEGIN GENERATED <name>` and `%% END GENERATED <name>` markers and are rewritten by `scripts/make_tables.py` from `results/tables/*.csv` (do not edit those blocks by hand) |
+| `main_dc.tex` | the same manuscript in Elsevier's CAS double-column class `cas-dc` (24 pages: a highlights page and 23 body pages), derived from `main.tex` by `scripts/make_dc.py`, which rewrites the preamble and front matter, prints the CRediT statement through the class and sets the floats wider than a column across both columns; edit `main.tex` and regenerate, never this file |
 | `cas-dc.cls`, `cas-common.sty` | Elsevier CAS double-column class (CTAN `els-cas-templates`, LPPL), used by `main_dc.tex` only |
 | `highlights.tex` | three to five highlights of at most 85 characters each (uploaded as a separate file at submission) |
 | `figures/*.pdf` | `G_sdr_illustration.pdf` (Fig. 1), `G_sdr_by_feature_3alt_compact.pdf` (Fig. 5), `G_pairs_by_phase.pdf` (Fig. 6), `G_pod.pdf` (Fig. 7) and `G_null_hist.pdf` (Fig. 8), copied from `results/figures/`; the other PDFs there are pipeline outputs not used in the manuscript |

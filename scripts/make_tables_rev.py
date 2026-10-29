@@ -171,7 +171,7 @@ def t_decision():
                       "support is at least theirs (e.g. 3CT+3VT+drv inherits the voltage residual of 3CT+3VT)."),
                 ("c", "Borderline: within two Monte-Carlo standard errors of a verdict boundary (0.05 or 0.95).")]
     head = (r"Suite & \multicolumn{" + str(ncol) + r"}{c}{PMSG} & \multicolumn{" + str(ncol) + r"}{c}{SCIG} & \multicolumn{"
-            + str(ncol) + r"}{c}{WFSG (exploratory, unscreened)} \\" "\n"
+            + str(ncol) + r"}{c}{\shortstack{WFSG\\(exploratory, unscreened)}} \\" "\n"
             + r"\cmidrule(lr){2-" + str(1 + ncol) + r"}\cmidrule(lr){" + str(2 + ncol) + "-" + str(1 + 2 * ncol) + r"}\cmidrule(l){"
             + str(2 + 2 * ncol) + "-" + str(1 + 3 * ncol) + "}" "\n"
             + r" & \multicolumn{" + str(3 * ncol) + r"}{c}{bootstrap support for meeting the empirical requirement at $e_{\mathrm{req}}$ (\%)}")
@@ -306,16 +306,20 @@ def t_heldout():
     lab = {"I2r_I1": r"$\Delta\bar I_2$", "V2r_V1": r"$\Delta\bar V_2$", "D2r_D1": r"$\Delta\bar D_2$"}
     f = lambda e: "--" if not np.isfinite(e) else f"{e:.1f}"
     body = []
+    lettered = []
     for ft in ["TURNS", "WINDINGS"]:
-        body.append(r"\multicolumn{11}{@{}l}{\emph{" + FT[ft].capitalize() + r" faults}} \\")
+        body.append(r"\multicolumn{9}{@{}l}{\emph{" + FT[ft].capitalize() + r" faults}} \\")
         for s in order:
             row = [SUITE_SHORT[s]]
             for m in ["PMSG", "SCIG"]:
                 r = su[(su.machine == m) & (su.ftype == ft) & (su.suite == s)].iloc[0]
                 g = lv[(lv.machine == m) & (lv.ftype == ft) & (lv.suite == s)].sort_values("level_pct").iloc[0]
-                held = "/".join(lab.get(x, tex(x)) for x in str(r.features_heldout).split("/"))
-                fi = lab.get(r.feature_in, tex(r.feature_in))
-                feat = fi if held == fi else f"{fi} ({held})"
+                others = [x for x in str(r.features_heldout).split("/") if x != r.feature_in]
+                feat = lab.get(r.feature_in, tex(r.feature_in))
+                if others:
+                    letter = "abcdefgh"[len(lettered)]
+                    lettered.append((letter, "Some folds chose " + " or ".join(lab.get(x, tex(x)) for x in others) + " instead."))
+                    feat += r"$^{\mathrm{" + letter + "}}$"
                 row += [feat, f"{f(r.e90_in)} / {f(r.e90_heldout)}", f"{100 * g.share_in:.0f} / {100 * g.share_heldout:.0f}",
                         f"{int(r.fa_heldout)}/{int(r.n_healthy)}"]
             body.append(" & ".join(row) + r" \\")
@@ -325,14 +329,14 @@ def t_heldout():
     note = ("Held out: for each tap pair in turn, the pooled null quantile, the screen and the suite's fixed feature are "
             "fitted on the records of the other tap pairs and the healthy trials, frozen, and applied to the held-out pair's "
             "nine trials, which keep their own pre-fault reference; shares aggregate the held-out trials by physical level. "
-            "Feature: in-sample fixed feature, in parentheses the features chosen across the folds where they differ. "
+            "Feature: in-sample fixed feature; a letter marks a suite whose folds chose another feature as well. "
             "$e_{90}$ (\\%): smallest tested level from which the share at the level is $\\ge0.9$ at every level up; -- when none. "
             "Share (\\%) at the smallest tested level of the class. FA: false alarms of the frozen procedure on the nine healthy "
             "trials, each held out of the null and the selection in turn.")
     head = (r"\multirow{2}{*}{Suite} & \multicolumn{4}{c}{PMSG} & \multicolumn{4}{c}{SCIG} \\" "\n"
             r"\cmidrule(lr){2-5}\cmidrule(l){6-9}" "\n"
             r" & feature & $e_{90}$ in/out & share in/out & FA & feature & $e_{90}$ in/out & share in/out & FA")
-    return table(body, cap, "tab:heldout", "l" * 9, head, size=r"\tabsize", colsep="3pt", note=note)
+    return table(body, cap, "tab:heldout", "l" * 9, head, size=r"\tabsize", colsep="3pt", note=note, lettered=lettered)
 
 
 def t_conventions():
@@ -364,8 +368,8 @@ def t_conventions():
         cells.append(cell(r.ds_between, r.mde_between))
     rows.append(" & ".join(["Reference: healthy trial at the same operating point"] + cells) + r" \\")
     rows[-1] = rows[-1].rstrip(r"\\").rstrip()
-    cap = ("Detectable share (\\%) and MDE of the fixed inter-turn features under alternative interval, null and "
-           "reference conventions, PMSG and SCIG, five-cycle windows")
+    cap = ("Detectable share (\\%) and MDE of the fixed inter-turn features under other interval, null and "
+           "reference conventions, five-cycle windows")
     note = ("Cells: detectable share over the 108 inter-turn trials (MDE, \\% of a branch; --: largest level not "
             "detected). The stricter start excludes the relay pick-up; the WFSG geometry shortens the faulted interval "
             "and the reference halves to those of the WFSG bench; the per-speed null replaces the pooled 95th percentile "
@@ -396,8 +400,7 @@ def t_transfer():
         body.append(" & ".join([f"{tr[0]}$\\to${te[0]}", "AUC"] + rows["AUC"]) + r" \\")
         body.append(" & ".join(["", "TPR"] + rows["TPR"]) + r" \\")
     body[-1] = body[-1].rstrip(r"\\").rstrip()
-    cap = ("Transfer of a GBDT detector between PMSG and SCIG under four referencing rules, out-of-reference windows, "
-           "95\\,\\% intervals")
+    cap = ("GBDT detector transferred between PMSG and SCIG under four referencing rules, out-of-reference windows")
     note = ("AUC and true-positive rate at 1\\,\\% false-positive rate (TPR) on the out-of-reference windows "
             "(Section~\\ref{sec:computation}); intervals from 500 cluster resamples of the tested machine's trials. "
             "P$\\to$P, S$\\to$S: cross-validation grouped by tap pair; P$\\to$S, S$\\to$P: trained on one machine, tested on the other.")
