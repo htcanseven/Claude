@@ -240,6 +240,29 @@ into its numerator (signature) and denominator (null), because a quieter alterna
 * The manuscript grew by six pages; every addition was a reviewer's request for evidence, and the response
   document says which requests were not met and why (held-out healthy records, a reference-age sweep, code).
 
+### Phase 11: second round of the external reviews, and the double-column layout
+
+* The second round narrowed to the statistical meaning of the decision table. The bootstrap-supported extent
+  was renamed (`e90^B`) and separated from the POD confidence bound `a90/95` in the definitions, the table
+  headers and the quantities table, with the binomial argument the reviewer gave (18 of 18 detections leave a
+  one-sided 95 % lower bound of 0.85) stated in the text; the fraction is called resampling support throughout.
+* The complete procedure (null quantile, screen, fixed feature) was run held out by tap pair and the frozen
+  procedure scored on the held-out trials (`scripts/revision_round4.py`), with a compact table of e90 and the
+  share at the smallest level in sample and held out; the requirement-specific selection rule was run as a
+  variant of the decision table; the primary table was re-run at 10 000 resamples and borderline cells marked.
+* A reviewer corrected the Gaussian comparator: the magnitude of a complex difference is Rayleigh under a
+  circular Gaussian null, so the residuals' quantile had been compared with the wrong reference. The comparison
+  was redone with a Rayleigh reference for the residuals and a folded normal for the scalars, with a histogram
+  figure of the null; the text now says the quantile is close to the parametric one and is kept for not needing
+  a per-feature shape choice.
+* Cheap closures of open ends: the absolute-change variant's MDE and e90 per suite, a log-logistic POD model
+  on the six inter-winding levels, the fault current in per unit of the nameplate current, and a joint
+  least-squares fit of the healthy stator current for a grid-frequency component beside the SCIG's 59.6 Hz
+  fundamental (the raw records were still on disk).
+* The double-column variant is derived from the single-column source by a script (`scripts/make_dc.py`), so
+  that one source stays authoritative; the CAS class reports a spurious overfull box for every caption inside a
+  `threeparttable`, fixed by moving the caption above it.
+
 ## 8. Quality gates run before every delivery
 
 * `latexmk` build with zero errors, zero LaTeX warnings, no undefined references or citations, no overfull

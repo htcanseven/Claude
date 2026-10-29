@@ -30,7 +30,7 @@ seven generated tables, seven figures, 46 references) and has no supplementary m
 | `main_dc.tex` | the same manuscript in Elsevier's CAS double-column class `cas-dc` (21 pages: a highlights page and 20 body pages), derived from `main.tex` by `scripts/make_dc.py`, which rewrites the preamble and front matter, prints the CRediT statement through the class and sets the floats wider than a column across both columns; edit `main.tex` and regenerate, never this file |
 | `cas-dc.cls`, `cas-common.sty` | Elsevier CAS double-column class (CTAN `els-cas-templates`, LPPL), used by `main_dc.tex` only |
 | `highlights.tex` | three to five highlights of at most 85 characters each (uploaded as a separate file at submission) |
-| `figures/*.pdf` | `G_sdr_illustration.pdf` (Fig. 1), `G_sdr_by_feature_3alt_compact.pdf` (Fig. 5), `G_pairs_by_phase.pdf` (Fig. 6) and `G_pod.pdf` (Fig. 7), copied from `results/figures/`; the other PDFs there are pipeline outputs not used in the manuscript |
+| `figures/*.pdf` | `G_sdr_illustration.pdf` (Fig. 1), `G_sdr_by_feature_3alt_compact.pdf` (Fig. 5), `G_pairs_by_phase.pdf` (Fig. 6), `G_pod.pdf` (Fig. 7) and `G_null_hist.pdf` (Fig. 8), copied from `results/figures/`; the other PDFs there are pipeline outputs not used in the manuscript |
 | `refs.bib` | references; `elsarticle-num-names.bst` prints them numbered, with the DOI as a link |
 | `elsarticle.cls`, `elsarticle-num-names.bst` | Elsevier class and bibliography style (CTAN `elsarticle` bundle, LPPL) |
 | `review/` | frozen pre-review PDF, the simulated MSSP reviewer reports (round 1 and round 2), the editor syntheses and the response document; the `review_*`/`response_to_reviewers.md` files are from the earlier submission cycle |
@@ -38,7 +38,7 @@ seven generated tables, seven figures, 46 references) and has no supplementary m
 ## Regenerating tables and figures
 
 ```bash
-bash scripts/run_all.sh     # compare, sensor_suites, compare3, sensitivity, revision, revision_round2, revision_round3, figs_paper, make_tables; copies figures
+bash scripts/run_all.sh     # compare, sensor_suites, compare3, sensitivity, revision, revision_round2, revision_round3, revision_round4, figs_paper, make_tables; copies figures
 ```
 
 The individual steps are `compare.py` (PMSG/SCIG, five-cycle windows; defines the SDR, the phasor-residual

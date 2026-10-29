@@ -171,12 +171,12 @@ For each candidate $a$, suite $s$ and class $f$, the \emph{diagnosability map} $
   arr/.style={-{Latex[length=2mm]}, thick},
   node distance=4mm and 4mm
 ]
-\node[box] (s1) {\textbf{1 Frame}\\ alternatives $\mathcal{A}$; classes $\mathcal{F}$ with extent scale and severity axis; suites $\mathcal{S}$ ordered by cost; envelope $\mathcal{O}$; $e_{\mathrm{req}}$, $\alpha$};
+\node[box] (s1) {\textbf{1 Frame}\\ candidates $\mathcal{A}$; classes $\mathcal{F}$ with extent scale and severity axis; suites $\mathcal{S}$ ordered by cost; envelope $\mathcal{O}$; $e_{\mathrm{req}}$, $\alpha$};
 \node[box, right=of s1] (s2) {\textbf{2 Generate trials}\\ per $(a,f,e,o)$: healthy reference $R$ ($\ge 2|F|$), then faulted interval $F$; bench, or simulation with a measured null; healthy trials};
 \node[box, right=of s2] (s3) {\textbf{3 Compute}\\ features $\Phi(s)$ on windows, phasor residuals for sequence quantities; pooled null $q_\alpha(|\delta^0|)$; $\mathrm{SDR}=|\delta|/q_\alpha$; screen};
-\node[box, below=of s2] (s5) {\textbf{5 Select}\\ decision table over $(e_{\mathrm{req}},\alpha)$ at a stated power: meets / uncertain / fails; cheapest adequate $s$ per $a$; compare on cost};
-\node[box, right=of s5] (s4) {\textbf{4 Map}\\ $D_a(s,f,e,o)$ on physical levels; $\mathrm{MDE}_a$ bracket, $\mathrm{DS}_a(e\ge e_{\mathrm{req}})$, signature location; oracle variant; intervals};
-\node[box, left=of s5] (s6) {\textbf{6 Assess transfer}\\ detector built on one alternative, tested on the others under candidate referencing rules; fix the rule in the specification};
+\node[box, below=of s2] (s5) {\textbf{5 Select}\\ decision table over $(e_{\mathrm{req}},\alpha)$: bootstrap support for power $\ge0.9$ at $e_{\mathrm{req}}$; meets / uncertain / fails; cheapest adequate $s$ per $a$};
+\node[box, right=of s5] (s4) {\textbf{4 Map}\\ $D_a(s,f,e,o)$ on physical levels; $\mathrm{MDE}_a$ bracket, share at each level, $e_{90}$, $e_{90}^{\mathrm{B}}$, signature location; oracle variant};
+\node[box, left=of s5] (s6) {\textbf{6 Assess transfer}\\ detector built on one candidate, tested on the others under candidate referencing rules; fix the rule in the specification};
 \draw[arr] (s1) -- (s2);
 \draw[arr] (s2) -- (s3);
 \draw[arr] (s3) -- (s4);
@@ -184,7 +184,7 @@ For each candidate $a$, suite $s$ and class $f$, the \emph{diagnosability map} $
 \draw[arr] (s5) -- (s6);
 \node[data, below=4mm of s6] (out) {selected machine type, sensor suite and referencing rule};
 \draw[arr] (s6) -- (out);
-\node[data, below=4mm of s5] (req) {detectability requirement: $\mathrm{MDE}\le e_{\mathrm{req}}$ at false-alarm rate $\le 1-\alpha$};
+\node[data, below=4mm of s5] (req) {requirement: power $\ge0.9$ at $e_{\mathrm{req}}$ with support $\ge0.95$, false-alarm rate $\le 1-\alpha$};
 \draw[arr] (req) -- (s5);
 \end{tikzpicture}
 \caption{The six-step procedure; steps 3--4 are fixed by Eqs.~(\ref{eq:delta})--(\ref{eq:sdr}), steps 1, 2, 5 and 6 follow the default rules of Section~\ref{sec:procedure}}\label{fig:method}
@@ -218,7 +218,7 @@ The three candidates are laboratory-scale generators on instrumented test benche
 \setlength{\tabcolsep}{4pt}
 \centering
 \begin{threeparttable}
-\caption{The three alternatives; the PMSG and SCIG share one bench and one protocol, the WFSG bench differs where indicated}\label{tab:alternatives}
+\caption{The three candidate systems; the PMSG and SCIG share one bench and one protocol, the WFSG bench differs where indicated}\label{tab:alternatives}
 \begin{tabular}{@{}L{2.4cm}L{2.8cm}L{3.3cm}L{3.4cm}@{}}
 \toprule
  & PMSG & SCIG & WFSG (variable speed) \\
@@ -302,7 +302,7 @@ Fault trials & 216 & 216 & 438 (198 at 2.83\,$\Omega$) \\
 \draw[wfsgc, line width=1.1pt, decorate, decoration={coil, aspect=0.6, segment length=1.9mm, amplitude=1.9mm}] (3.9,-4.2) -- (4.7,-4.2);
 \node[sub] at (6.2,-5.0) {(c) WFSG};
 \end{tikzpicture}
-\caption{The three alternatives as generator systems: turbine rotor, generator with its rotor excitation (cage, field winding or magnets), converter and grid}\label{fig:alternatives}
+\caption{The three candidates as generator systems: turbine rotor, generator with its rotor excitation (cage, field winding or magnets), converter and grid}\label{fig:alternatives}
 \end{figure}
 
 \subsection{Failure-mode class and extent scale}\label{sec:extent}

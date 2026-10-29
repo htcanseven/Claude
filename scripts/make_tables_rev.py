@@ -83,19 +83,19 @@ def t_suites():
             body.append(" & ".join(row) + r" \\")
     body[-1] = body[-1].rstrip(r"\\").rstrip()
     cap = ("Sensor suites versus what they detect, PMSG and SCIG, five-cycle windows: fixed feature, MDE bracket, "
-           "$e_{90/95}$, detectable share and false alarms")
+           "$e_{90}^{\\mathrm{B}}$, detectable share and false alarms")
     note = ("drive: drive-internal quantities alone; 3CT: three current transducers; +3VT, +drv, +torque: voltage "
             "transducers, controller access and a shaft torque transducer added cumulatively to 3CT (each row includes the "
             "rows above it from 3CT on). $\\Delta\\bar X_2$ stands for the residual $|\\Delta\\bar X_2|/X_1$. MDE: median-crossing "
-            "extent (Table~\\ref{tab:mde}); $e_{90/95}$: smallest tested level (\\%) from which the detectable share at the "
-            "level itself is at least 0.9 with bootstrap support of at least 0.95 (Section~\\ref{sec:derived}). DS (\\%) of the "
+            "extent (Table~\\ref{tab:mde}); $e_{90}^{\\mathrm{B}}$: smallest tested level (\\%) from which the detectable share at the "
+            "level itself is at least 0.9, at that level and above, with bootstrap support of at least 0.95 (Section~\\ref{sec:derived}; not a confidence bound). DS (\\%) of the "
             "fixed feature pooled over all tested extents, in parentheses the share of the calibrated oracle (Section~\\ref{sec:sdr}); "
-            "the nested selection of the fixed feature on the other tap pairs changes these shares by at most one point. FA: false "
+            "the nested selection of the fixed feature on the other tap pairs changes these shares by at most one point at this window length (Table~\\ref{tab:heldout} gives the held-out run of the whole procedure). FA: false "
             "alarms of the fixed feature on the nine healthy trials; screened-out features are excluded.")
     lettered = [("a", "Same fixed feature as +drv; the torque features add nothing.")]
     head = (r"\multirow{2}{*}{Suite} & \multicolumn{5}{c}{PMSG} & \multicolumn{5}{c}{SCIG} \\" "\n"
             r"\cmidrule(lr){2-6}\cmidrule(l){7-11}" "\n"
-            r" & feature & MDE & $e_{90/95}$ & DS (or.) & FA & feature & MDE & $e_{90/95}$ & DS (or.) & FA")
+            r" & feature & MDE & $e_{90}^{\mathrm{B}}$ & DS (or.) & FA & feature & MDE & $e_{90}^{\mathrm{B}}$ & DS (or.) & FA")
     return table(body, cap, "tab:suites", "l" * 11, head, size=r"\fontsize{8}{10}\selectfont", colsep="1.3pt", note=note, lettered=lettered)
 
 
@@ -140,18 +140,25 @@ def t_decision():
                     cell = f"{pv:.3f}" if 0.045 <= pv < 0.05 else f"{pv:.2f}"
                     if pv >= 0.95:
                         cell = r"\textbf{" + cell + "}"
+                    marks = ""
                     if isinstance(r.inherited_from_level, str) and r.inherited_from_level:
-                        cell += r"$^{\mathrm{b}}$"
+                        marks += "b"
+                    nres = 10000 if m in ("PMSG", "SCIG") else 1000
+                    se = max(np.sqrt(pv * (1 - pv) / nres), np.sqrt(0.05 * 0.95 / nres))
+                    if abs(pv - 0.05) <= 2 * se or abs(pv - 0.95) <= 2 * se:
+                        marks += "c"
+                    if marks:
+                        cell += r"$^{\mathrm{" + ",".join(marks) + "}}$"
                     row.append(cell)
                 row += pad
             if any_:
                 body.append(" & ".join(row) + r" \\")
     body[-1] = body[-1].rstrip(r"\\").rstrip()
-    cap = ("Decision table at $\\alpha=0.95$: bootstrap support for a suite meeting the requirement at each "
+    cap = ("Decision table at $\\alpha=0.95$: bootstrap support for a suite meeting the empirical requirement at each "
            "tested extent level")
-    note = ("Cell: fraction of 1000 resamples in which $\\mathrm{MDE}\\le e_{\\mathrm{req}}$ and the detectable share at the "
-            "tested level that $e_{\\mathrm{req}}$ maps to is $\\ge0.9$; resampling support, not a posterior probability, and a cell "
-            "of 1.00 means no resample failed. $e_{\\mathrm{req}}$ at the physical levels of the common bench (\\% of a branch; the "
+    note = ("Cell: fraction of resamples (10\\,000 for the PMSG and SCIG, 1000 for the WFSG) in which $\\mathrm{MDE}\\le e_{\\mathrm{req}}$ and the detectable share at the "
+            "tested level that $e_{\\mathrm{req}}$ maps to is $\\ge0.9$; resampling support, an empirical stability measure of the decision, not a posterior probability "
+            "and not a confidence level; a cell of 1.00 means no resample failed. $e_{\\mathrm{req}}$ at the physical levels of the common bench (\\% of a branch; the "
             "WFSG, unscreened for lack of healthy trials, is assessed against the same values on its own tested extents); the "
             "operating-point trials of a level are resampled with its tap pairs treated as exchangeable, null quantile and fixed "
             "feature re-estimated in every resample. Bold: support $\\ge0.95$ (meets); $\\le0.05$: fails; between: uncertain; "
@@ -161,12 +168,13 @@ def t_decision():
             "Table~\\ref{tab:suites}; exc: WFSG field current. Table~\\ref{tab:cells} gives the cells that change under the "
             "pooled share or the tap-pair resampling unit.")
     lettered = [("b", "Support inherited from a cheaper subset of the suite: a suite may use the features of its subsets, so its "
-                      "support is at least theirs (e.g. 3CT+3VT+drv inherits the voltage residual of 3CT+3VT).")]
+                      "support is at least theirs (e.g. 3CT+3VT+drv inherits the voltage residual of 3CT+3VT)."),
+                ("c", "Borderline: within two Monte-Carlo standard errors of a verdict boundary (0.05 or 0.95).")]
     head = (r"Suite & \multicolumn{" + str(ncol) + r"}{c}{PMSG} & \multicolumn{" + str(ncol) + r"}{c}{SCIG} & \multicolumn{"
-            + str(ncol) + r"}{c}{WFSG} \\" "\n"
+            + str(ncol) + r"}{c}{WFSG (exploratory, unscreened)} \\" "\n"
             + r"\cmidrule(lr){2-" + str(1 + ncol) + r"}\cmidrule(lr){" + str(2 + ncol) + "-" + str(1 + 2 * ncol) + r"}\cmidrule(l){"
             + str(2 + 2 * ncol) + "-" + str(1 + 3 * ncol) + "}" "\n"
-            + r" & \multicolumn{" + str(3 * ncol) + r"}{c}{probability of meeting the requirement at $e_{\mathrm{req}}$ (\%)}")
+            + r" & \multicolumn{" + str(3 * ncol) + r"}{c}{bootstrap support for meeting the empirical requirement at $e_{\mathrm{req}}$ (\%)}")
     return table(body, cap, "tab:decision", "l" + "c" * (3 * ncol), head, size=r"\tabsize", colsep="2.6pt", note=note, lettered=lettered)
 
 
@@ -274,6 +282,7 @@ def t_decision_cells():
     cap = ("Decision-table cells whose verdict depends on the definition of the power or on the resampling unit "
            "within a level")
     note = ("$\\alpha=0.95$; every other cell of Table~\\ref{tab:decision} keeps its verdict under all four variants. "
+            "At level, trials: 10\\,000 resamples (Table~\\ref{tab:decision}); the other three variants 1000. "
             "DS at level: share of the fixed feature at the level $e_{\\mathrm{req}}$ maps to (\\%). At level: share at that "
             "level (Table~\\ref{tab:decision}); pooled: share over all tested levels $\\ge e_{\\mathrm{req}}$; trials, pairs: "
             "resampling unit within a level. Meets at $\\ge0.95$, fails at $\\le0.05$.")
@@ -284,6 +293,46 @@ def t_decision_cells():
     # reorder the probability columns to match the header: pooled (trials, pairs), at level (trials, pairs)
     body = [b for b in body]
     return table(body, cap, "tab:cells", "lllccCCCC".replace("C", "c"), head, size=r"\tabsize", colsep="4pt", note=note)
+
+
+def t_heldout():
+    """Held-out run of the complete procedure (null quantile, screen and fixed feature fitted on the development tap
+    pairs, frozen, scored on the held-out pair): per suite and class the fixed feature in sample and the features
+    chosen in the folds, e90 in sample and held out, the share at the smallest tested level in sample and held out,
+    and the false alarms of the frozen procedure on the healthy trials, each held out in turn."""
+    su = pd.read_csv(TAB / "R4_heldout_suites.csv")
+    lv = pd.read_csv(TAB / "R4_heldout_levels.csv")
+    order = ["drive-internal", "3 CT", "3 CT + 3 VT", "3 CT + 3 VT + drive"]
+    lab = {"I2r_I1": r"$\Delta\bar I_2$", "V2r_V1": r"$\Delta\bar V_2$", "D2r_D1": r"$\Delta\bar D_2$"}
+    f = lambda e: "--" if not np.isfinite(e) else f"{e:.1f}"
+    body = []
+    for ft in ["TURNS", "WINDINGS"]:
+        body.append(r"\multicolumn{11}{@{}l}{\emph{" + FT[ft].capitalize() + r" faults}} \\")
+        for s in order:
+            row = [SUITE_SHORT[s]]
+            for m in ["PMSG", "SCIG"]:
+                r = su[(su.machine == m) & (su.ftype == ft) & (su.suite == s)].iloc[0]
+                g = lv[(lv.machine == m) & (lv.ftype == ft) & (lv.suite == s)].sort_values("level_pct").iloc[0]
+                held = "/".join(lab.get(x, tex(x)) for x in str(r.features_heldout).split("/"))
+                fi = lab.get(r.feature_in, tex(r.feature_in))
+                feat = fi if held == fi else f"{fi} ({held})"
+                row += [feat, f"{f(r.e90_in)} / {f(r.e90_heldout)}", f"{100 * g.share_in:.0f} / {100 * g.share_heldout:.0f}",
+                        f"{int(r.fa_heldout)}/{int(r.n_healthy)}"]
+            body.append(" & ".join(row) + r" \\")
+    body[-1] = body[-1].rstrip(r"\\").rstrip()
+    cap = ("Held-out run of the complete procedure, PMSG and SCIG, five-cycle windows: fixed feature, $e_{90}$ and "
+           "share at the smallest level, in sample / held out, and false alarms of the frozen procedure")
+    note = ("Held out: for each tap pair in turn, the pooled null quantile, the screen and the suite's fixed feature are "
+            "fitted on the records of the other tap pairs and the healthy trials, frozen, and applied to the held-out pair's "
+            "nine trials, which keep their own pre-fault reference; shares aggregate the held-out trials by physical level. "
+            "Feature: in-sample fixed feature, in parentheses the features chosen across the folds where they differ. "
+            "$e_{90}$ (\\%): smallest tested level from which the share at the level is $\\ge0.9$ at every level up; -- when none. "
+            "Share (\\%) at the smallest tested level of the class. FA: false alarms of the frozen procedure on the nine healthy "
+            "trials, each held out of the null and the selection in turn.")
+    head = (r"\multirow{2}{*}{Suite} & \multicolumn{4}{c}{PMSG} & \multicolumn{4}{c}{SCIG} \\" "\n"
+            r"\cmidrule(lr){2-5}\cmidrule(l){6-9}" "\n"
+            r" & feature & $e_{90}$ in/out & share in/out & FA & feature & $e_{90}$ in/out & share in/out & FA")
+    return table(body, cap, "tab:heldout", "l" * 9, head, size=r"\tabsize", colsep="3pt", note=note)
 
 
 def t_conventions():
@@ -482,7 +531,7 @@ def t_nullq():
     return table(body, cap, "tab:nullq", "lcccc", head, size=r"\tabsize", colsep="3pt", note=note)
 
 
-BUILDERS = [("tab_decomp", t_decomp), ("tab_phase", t_phase), ("tab_mde", t_mde), ("tab_suites", t_suites), ("tab_envelope", t_envelope), ("tab_cells", t_decision_cells), ("tab_conventions", t_conventions),
+BUILDERS = [("tab_decomp", t_decomp), ("tab_phase", t_phase), ("tab_mde", t_mde), ("tab_suites", t_suites), ("tab_envelope", t_envelope), ("tab_cells", t_decision_cells), ("tab_heldout", t_heldout), ("tab_conventions", t_conventions),
             ("tab_decision", t_decision), ("tab_transfer", t_transfer), ("tab_suites3", t_suites3),
             ("tab_sens", t_sens), ("tab_between", t_between), ("tab_transfer3", t_transfer3), ("tab_nullq", t_nullq)]
 

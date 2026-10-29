@@ -184,6 +184,47 @@ def trace_figure(path=None, name="G_sdr_illustration"):
     C3.save(fig, name)
 
 
+def null_hist_figure(name="G_null_hist"):
+    """The drift null of the fixed features with the parametric reference of the right shape: for the phasor
+    residuals the histogram of |delta0| with the Rayleigh density fitted by its RMS, for the d-axis controller
+    ripple the signed delta0 with the normal density; vertical lines, the empirical q95 (solid) and the
+    parametric q95 (dashed). PMSG and SCIG, five-cycle windows, all records of the machine."""
+    from scipy.stats import rayleigh, norm
+    files5, win5 = C.load()
+    sdr, _ = C3.sdr_from_windows(win5, ["V2r_V1", "I2r_I1", "PId_2fe"], q=0.95)
+    feats = ["V2r_V1", "I2r_I1", "PId_2fe"]
+    fig, axes = plt.subplots(2, 3, figsize=(W, 3.4), gridspec_kw={"wspace": 0.28, "hspace": 0.5})
+    for i, m in enumerate(["PMSG", "SCIG"]):
+        rec = sdr[sdr.machine == m]
+        for j, f in enumerate(feats):
+            ax = axes[i, j]
+            n = rec[f"{f}__null"].dropna().to_numpy(float)
+            n = n[np.isfinite(n)]
+            rms = np.sqrt(np.mean(n ** 2))
+            q = np.quantile(np.abs(n), 0.95)
+            if f in C.RESID:
+                x = np.linspace(0, max(n.max(), 1.2 * q), 300)
+                ax.hist(n, bins=30, density=True, color=C3.COL3[m], alpha=0.45, lw=0)
+                ax.plot(x, rayleigh.pdf(x, scale=rms / np.sqrt(2)), color=C.AXIS, lw=1.0)
+                qp = rms / np.sqrt(2) * np.sqrt(-2 * np.log(0.05))
+                ax.set_xlim(0, x.max())
+            else:
+                x = np.linspace(-max(abs(n).max(), 1.2 * q), max(abs(n).max(), 1.2 * q), 300)
+                ax.hist(n, bins=30, density=True, color=C3.COL3[m], alpha=0.45, lw=0)
+                ax.plot(x, norm.pdf(x, scale=rms), color=C.AXIS, lw=1.0)
+                qp = 1.96 * rms
+                ax.axvline(-q, color=C.AXIS, lw=0.9)
+                ax.axvline(-qp, color=C.AXIS, lw=0.9, ls="--")
+            ax.axvline(q, color=C.AXIS, lw=0.9)
+            ax.axvline(qp, color=C.AXIS, lw=0.9, ls="--")
+            ax.set_yticks([])
+            ax.tick_params(axis="x", labelsize=7)
+            ax.set_xlabel(r"$\delta^0$ of " + C.lab(f), fontsize=8)
+            ax.text(0.97, 0.92, f"{m}\n$q_{{0.95}}$ {q:.3f}\nref. {qp:.3f}", transform=ax.transAxes, ha="right", va="top", fontsize=7)
+    fig.subplots_adjust(top=0.97, bottom=0.17, left=0.03, right=0.98)
+    C3.save(fig, name)
+
+
 def pod_figure(path=None, name="G_pod"):
     """Detectable share of the fixed features at each physical extent level with 95 % bootstrap intervals
     (probability-of-detection curves on the tested grid), PMSG and SCIG, five-cycle windows."""
@@ -233,4 +274,5 @@ if __name__ == "__main__":
     pairs_figure(pt, feats=(("V2_V1", "V2r_V1"),), name="G_pairs_by_phase_compact")
     trace_figure()
     pod_figure()
+    null_hist_figure()
     print("figures written")

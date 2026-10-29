@@ -82,13 +82,16 @@ def nested_share(f, feats):
 
 
 # ----------------------------------------------------------------------------- R1 decision table
-def decision_table(win, feats, B=B, seed=7, ds_req=DS_REQ, machines=MACH, unit="trials"):
+def decision_table(win, feats, B=B, seed=7, ds_req=DS_REQ, machines=MACH, unit="trials", alphas=None, select="mde"):
     """unit: resampling unit within an extent level, "trials" (operating-point trials, the tap pairs of a level
     treated as exchangeable) or "pairs" (tap pairs of the level, cluster bootstrap). Besides the pooled share
-    DS(e >= e_req) the share at the level e_req itself is evaluated (columns *_level)."""
+    DS(e >= e_req) the share at the level e_req itself is evaluated (columns *_level).
+    select: rule choosing the suite's feature inside every resample, "mde" (smallest median-crossing MDE, then
+    pooled share, then median SDR; the fixed-feature rule of the paper) or "level" (requirement-specific: the
+    largest detectable share at the level e_req maps to, then pooled share, then median SDR)."""
     rng = np.random.RandomState(seed)
     rows = []
-    for alpha in ALPHAS:
+    for alpha in (alphas or ALPHAS):
         sdr, qv_a = sdr_from_windows(win, feats, q=alpha)
         det = per_feature(sdr, feats, qv_a)
         grid = requirement_grid(sdr)
@@ -151,14 +154,18 @@ def decision_table(win, feats, B=B, seed=7, ds_req=DS_REQ, machines=MACH, unit="
                         med_f = np.nan_to_num(np.nanmedian(S, axis=0), nan=-1)
                         j = int(np.lexsort((-med_f, -ds_f, mde_f))[0])
                         chosen[sfeats[j]] = chosen.get(sfeats[j], 0) + 1
-                        s = S[:, j]
-                        mde_b = mde_f[j]
                         for e in E_REQ:
-                            sub = s[levb >= e - TOL]
-                            ds = np.nanmean(sub >= 1) if len(sub) else np.nan
                             # the level the requirement maps to: the lowest tested level at or above e_req
                             above = levels[levels >= e - TOL]
-                            at = s[np.abs(levb - above[0]) <= TOL] if len(above) else s[:0]
+                            at_mask = (np.abs(levb - above[0]) <= TOL) if len(above) else np.zeros(len(levb), bool)
+                            if select == "level" and at_mask.any():
+                                dsl_f = np.nanmean(S[at_mask] >= 1, axis=0)
+                                j = int(np.lexsort((-med_f, -ds_f, -dsl_f))[0])
+                            s = S[:, j]
+                            mde_b = mde_f[j]
+                            sub = s[levb >= e - TOL]
+                            ds = np.nanmean(sub >= 1) if len(sub) else np.nan
+                            at = s[at_mask]
                             ds_lev = np.nanmean(at >= 1) if len(at) else np.nan
                             if mde_b <= e + TOL:
                                 hits_mde[e] += 1

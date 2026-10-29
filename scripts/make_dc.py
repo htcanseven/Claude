@@ -16,7 +16,7 @@ HIGHLIGHTS = Path("paper/highlights.tex")
 # Floats set across both columns (label -> True). Everything else stays within one column.
 WIDE = {"tab:positioning", "fig:method", "tab:alternatives", "fig:alternatives", "tab:suitedef", "fig:features",
         "fig:pairs", "tab:suites", "tab:decision", "tab:cells", "tab:envelope", "tab:conventions", "fig:pod",
-        "fig:faults", "tab:mde", "tab:transfer"}
+        "fig:faults", "tab:mde", "tab:transfer", "tab:quantities", "tab:heldout", "fig:nullhist"}
 # Overrides from the command line: --narrow fig:faults,tab:mde  --wide ...
 args = sys.argv[1:]
 for flag, action in (("--narrow", WIDE.discard), ("--wide", WIDE.add)):
