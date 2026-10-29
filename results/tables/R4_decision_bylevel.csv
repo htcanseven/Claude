@@ -1,7 +1,7 @@
 alpha,e_req_pct,machine,ftype,suite,cost_rank,fixed_feature,feature_most_often,selection_stability,mde_monotone_pct,mde_bracket_lo_pct,tested,p_mde,p_meets_own,p_meets_level_own,ds_conditional,ds_all,ds_at_level,smallest_extent_tested_pct,largest_extent_tested_pct,p_meets,inherited_from,p_meets_level,inherited_from_level,verdict
-0.95,3.0,PMSG,TURNS,drive-internal,0,D2r_D1,D2r_D1,0.999,7.5,3.0,True,0.0,0.0,0.0,0.75,0.75,0.25,3.0,11.8,0.0,,0.0,,fails
-0.95,7.5,PMSG,TURNS,drive-internal,0,D2r_D1,D2r_D1,0.999,7.5,3.0,True,1.0,1.0,1.0,1.0,0.75,1.0,3.0,11.8,1.0,,1.0,,meets
-0.95,11.8,PMSG,TURNS,drive-internal,0,D2r_D1,D2r_D1,0.999,7.5,3.0,True,1.0,1.0,1.0,1.0,0.75,1.0,3.0,11.8,1.0,,1.0,,meets
+0.95,3.0,PMSG,TURNS,drive-internal,0,D2r_D1,D2r_D1,0.994,7.5,3.0,True,0.0,0.0,0.0,0.75,0.75,0.25,3.0,11.8,0.0,,0.0,,fails
+0.95,7.5,PMSG,TURNS,drive-internal,0,D2r_D1,D2r_D1,0.994,7.5,3.0,True,1.0,1.0,1.0,1.0,0.75,1.0,3.0,11.8,1.0,,1.0,,meets
+0.95,11.8,PMSG,TURNS,drive-internal,0,D2r_D1,D2r_D1,0.994,7.5,3.0,True,1.0,1.0,1.0,1.0,0.75,1.0,3.0,11.8,1.0,,1.0,,meets
 0.95,3.0,PMSG,TURNS,3 CT,1,I2r_I1,I2r_I1,1.0,7.5,3.0,True,0.0,0.0,0.0,0.7037037037037037,0.7037037037037037,0.1111111111111111,3.0,11.8,0.0,,0.0,,fails
 0.95,7.5,PMSG,TURNS,3 CT,1,I2r_I1,I2r_I1,1.0,7.5,3.0,True,1.0,1.0,0.991,1.0,0.7037037037037037,1.0,3.0,11.8,1.0,,0.991,,meets
 0.95,11.8,PMSG,TURNS,3 CT,1,I2r_I1,I2r_I1,1.0,7.5,3.0,True,1.0,1.0,1.0,1.0,0.7037037037037037,1.0,3.0,11.8,1.0,,1.0,,meets
@@ -47,12 +47,12 @@ alpha,e_req_pct,machine,ftype,suite,cost_rank,fixed_feature,feature_most_often,s
 0.95,3.0,SCIG,TURNS,3 CT + 3 VT + drive,3,D2r_D1,D2r_D1,0.983,3.0,,True,0.998,0.817,0.045,0.9259259259259259,0.9259259259259259,0.7777777777777778,3.0,11.8,0.826,drive-internal,0.045,,uncertain
 0.95,7.5,SCIG,TURNS,3 CT + 3 VT + drive,3,D2r_D1,D2r_D1,0.983,3.0,,True,1.0,1.0,1.0,1.0,0.9259259259259259,1.0,3.0,11.8,1.0,,1.0,,meets
 0.95,11.8,SCIG,TURNS,3 CT + 3 VT + drive,3,D2r_D1,D2r_D1,0.983,3.0,,True,1.0,1.0,1.0,1.0,0.9259259259259259,1.0,3.0,11.8,1.0,,1.0,,meets
-0.95,2.8,SCIG,WINDINGS,drive-internal,0,Id_2fe,Id_2fe,0.684,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
-0.95,10.1,SCIG,WINDINGS,drive-internal,0,Id_2fe,Id_2fe,0.684,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
-0.95,14.6,SCIG,WINDINGS,drive-internal,0,Id_2fe,Id_2fe,0.684,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
-0.95,21.9,SCIG,WINDINGS,drive-internal,0,Id_2fe,Id_2fe,0.684,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
-0.95,35.9,SCIG,WINDINGS,drive-internal,0,Id_2fe,Id_2fe,0.684,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
-0.95,40.2,SCIG,WINDINGS,drive-internal,0,Id_2fe,Id_2fe,0.684,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
+0.95,2.8,SCIG,WINDINGS,drive-internal,0,PId_2fe,PId_2fe,0.37,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
+0.95,10.1,SCIG,WINDINGS,drive-internal,0,PId_2fe,PId_2fe,0.37,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
+0.95,14.6,SCIG,WINDINGS,drive-internal,0,PId_2fe,PId_2fe,0.37,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
+0.95,21.9,SCIG,WINDINGS,drive-internal,0,PId_2fe,PId_2fe,0.37,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
+0.95,35.9,SCIG,WINDINGS,drive-internal,0,PId_2fe,PId_2fe,0.37,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
+0.95,40.2,SCIG,WINDINGS,drive-internal,0,PId_2fe,PId_2fe,0.37,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
 0.95,2.8,SCIG,WINDINGS,3 CT,1,I2_I1,I2_I1,0.505,2.8,,True,1.0,1.0,0.742,0.9907407407407407,0.9907407407407407,0.9444444444444444,2.8,40.2,1.0,,0.742,,meets
 0.95,10.1,SCIG,WINDINGS,3 CT,1,I2_I1,I2_I1,0.505,2.8,,True,1.0,1.0,1.0,1.0,0.9907407407407407,1.0,2.8,40.2,1.0,,1.0,,meets
 0.95,14.6,SCIG,WINDINGS,3 CT,1,I2_I1,I2_I1,0.505,2.8,,True,1.0,1.0,1.0,1.0,0.9907407407407407,1.0,2.8,40.2,1.0,,1.0,,meets
@@ -65,9 +65,9 @@ alpha,e_req_pct,machine,ftype,suite,cost_rank,fixed_feature,feature_most_often,s
 0.95,21.9,SCIG,WINDINGS,3 CT + 3 VT,2,V2_V1,I2r_I1,0.296,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
 0.95,35.9,SCIG,WINDINGS,3 CT + 3 VT,2,V2_V1,I2r_I1,0.296,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
 0.95,40.2,SCIG,WINDINGS,3 CT + 3 VT,2,V2_V1,I2r_I1,0.296,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
-0.95,2.8,SCIG,WINDINGS,3 CT + 3 VT + drive,3,Id_2fe,Id_2fe,0.653,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
-0.95,10.1,SCIG,WINDINGS,3 CT + 3 VT + drive,3,Id_2fe,Id_2fe,0.653,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
-0.95,14.6,SCIG,WINDINGS,3 CT + 3 VT + drive,3,Id_2fe,Id_2fe,0.653,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
-0.95,21.9,SCIG,WINDINGS,3 CT + 3 VT + drive,3,Id_2fe,Id_2fe,0.653,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
-0.95,35.9,SCIG,WINDINGS,3 CT + 3 VT + drive,3,Id_2fe,Id_2fe,0.653,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
-0.95,40.2,SCIG,WINDINGS,3 CT + 3 VT + drive,3,Id_2fe,Id_2fe,0.653,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
+0.95,2.8,SCIG,WINDINGS,3 CT + 3 VT + drive,3,PId_2fe,PId_2fe,0.358,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
+0.95,10.1,SCIG,WINDINGS,3 CT + 3 VT + drive,3,PId_2fe,PId_2fe,0.358,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
+0.95,14.6,SCIG,WINDINGS,3 CT + 3 VT + drive,3,PId_2fe,PId_2fe,0.358,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
+0.95,21.9,SCIG,WINDINGS,3 CT + 3 VT + drive,3,PId_2fe,PId_2fe,0.358,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
+0.95,35.9,SCIG,WINDINGS,3 CT + 3 VT + drive,3,PId_2fe,PId_2fe,0.358,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets
+0.95,40.2,SCIG,WINDINGS,3 CT + 3 VT + drive,3,PId_2fe,PId_2fe,0.358,2.8,,True,1.0,1.0,1.0,1.0,1.0,1.0,2.8,40.2,1.0,,1.0,,meets

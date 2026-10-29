@@ -13,5 +13,5 @@ SCIG,TURNS,3 CT + 3 VT + drive,D2r_D1,D2r_D1,7.5,7.5,2,9,False
 SCIG,TURNS,drive-internal,D2r_D1,D2r_D1,7.5,7.5,2,9,False
 SCIG,WINDINGS,3 CT,I2_I1,I2_I1/I2r_I1,2.8,2.8,0,9,False
 SCIG,WINDINGS,3 CT + 3 VT,V2_V1,I2_I1/I2r_I1/V2_V1,2.8,2.8,0,9,False
-SCIG,WINDINGS,3 CT + 3 VT + drive,Id_2fe,D2r_D1/Id_2fe,2.8,2.8,3,9,False
-SCIG,WINDINGS,drive-internal,Id_2fe,D2r_D1/Id_2fe,2.8,2.8,3,9,False
+SCIG,WINDINGS,3 CT + 3 VT + drive,PId_2fe,D2r_D1/Id_2fe/PId_2fe,2.8,2.8,3,9,False
+SCIG,WINDINGS,drive-internal,PId_2fe,D2r_D1/Id_2fe/PId_2fe,2.8,2.8,3,9,False

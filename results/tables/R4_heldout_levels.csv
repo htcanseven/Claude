@@ -47,12 +47,12 @@ SCIG,TURNS,3 CT + 3 VT,11.8,I2r_I1,1.0,36,1.0,36,I2r_I1,False
 SCIG,TURNS,3 CT + 3 VT + drive,3.0,D2r_D1,0.7777777777777778,36,0.7777777777777778,36,D2r_D1,False
 SCIG,TURNS,3 CT + 3 VT + drive,7.5,D2r_D1,1.0,36,1.0,36,D2r_D1,False
 SCIG,TURNS,3 CT + 3 VT + drive,11.8,D2r_D1,1.0,36,1.0,36,D2r_D1,False
-SCIG,WINDINGS,drive-internal,2.8,Id_2fe,1.0,18,1.0,18,D2r_D1,False
-SCIG,WINDINGS,drive-internal,10.1,Id_2fe,1.0,18,1.0,18,D2r_D1,False
-SCIG,WINDINGS,drive-internal,14.6,Id_2fe,1.0,18,1.0,18,D2r_D1,False
-SCIG,WINDINGS,drive-internal,21.9,Id_2fe,1.0,18,1.0,18,Id_2fe,False
-SCIG,WINDINGS,drive-internal,35.9,Id_2fe,1.0,27,1.0,27,Id_2fe,False
-SCIG,WINDINGS,drive-internal,40.2,Id_2fe,1.0,9,1.0,9,Id_2fe,False
+SCIG,WINDINGS,drive-internal,2.8,PId_2fe,1.0,18,1.0,18,D2r_D1,False
+SCIG,WINDINGS,drive-internal,10.1,PId_2fe,1.0,18,1.0,18,D2r_D1,False
+SCIG,WINDINGS,drive-internal,14.6,PId_2fe,1.0,18,1.0,18,D2r_D1,False
+SCIG,WINDINGS,drive-internal,21.9,PId_2fe,1.0,18,1.0,18,PId_2fe,False
+SCIG,WINDINGS,drive-internal,35.9,PId_2fe,1.0,27,1.0,27,Id_2fe/PId_2fe,False
+SCIG,WINDINGS,drive-internal,40.2,PId_2fe,1.0,9,1.0,9,PId_2fe,False
 SCIG,WINDINGS,3 CT,2.8,I2_I1,0.9444444444444444,18,0.9444444444444444,18,I2_I1,False
 SCIG,WINDINGS,3 CT,10.1,I2_I1,1.0,18,1.0,18,I2_I1/I2r_I1,False
 SCIG,WINDINGS,3 CT,14.6,I2_I1,1.0,18,1.0,18,I2r_I1,False
@@ -65,9 +65,9 @@ SCIG,WINDINGS,3 CT + 3 VT,14.6,V2_V1,1.0,18,1.0,18,V2_V1,False
 SCIG,WINDINGS,3 CT + 3 VT,21.9,V2_V1,1.0,18,1.0,18,I2_I1/I2r_I1,False
 SCIG,WINDINGS,3 CT + 3 VT,35.9,V2_V1,1.0,27,1.0,27,I2_I1/V2_V1,False
 SCIG,WINDINGS,3 CT + 3 VT,40.2,V2_V1,1.0,9,1.0,9,I2_I1,False
-SCIG,WINDINGS,3 CT + 3 VT + drive,2.8,Id_2fe,1.0,18,1.0,18,D2r_D1,False
-SCIG,WINDINGS,3 CT + 3 VT + drive,10.1,Id_2fe,1.0,18,1.0,18,D2r_D1,False
-SCIG,WINDINGS,3 CT + 3 VT + drive,14.6,Id_2fe,1.0,18,1.0,18,D2r_D1,False
-SCIG,WINDINGS,3 CT + 3 VT + drive,21.9,Id_2fe,1.0,18,1.0,18,Id_2fe,False
-SCIG,WINDINGS,3 CT + 3 VT + drive,35.9,Id_2fe,1.0,27,1.0,27,Id_2fe,False
-SCIG,WINDINGS,3 CT + 3 VT + drive,40.2,Id_2fe,1.0,9,1.0,9,Id_2fe,False
+SCIG,WINDINGS,3 CT + 3 VT + drive,2.8,PId_2fe,1.0,18,1.0,18,D2r_D1,False
+SCIG,WINDINGS,3 CT + 3 VT + drive,10.1,PId_2fe,1.0,18,1.0,18,D2r_D1,False
+SCIG,WINDINGS,3 CT + 3 VT + drive,14.6,PId_2fe,1.0,18,1.0,18,D2r_D1,False
+SCIG,WINDINGS,3 CT + 3 VT + drive,21.9,PId_2fe,1.0,18,1.0,18,PId_2fe,False
+SCIG,WINDINGS,3 CT + 3 VT + drive,35.9,PId_2fe,1.0,27,1.0,27,Id_2fe/PId_2fe,False
+SCIG,WINDINGS,3 CT + 3 VT + drive,40.2,PId_2fe,1.0,9,1.0,9,PId_2fe,False

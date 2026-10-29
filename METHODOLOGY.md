@@ -259,6 +259,10 @@ into its numerator (signature) and denominator (null), because a quieter alterna
   on the six inter-winding levels, the fault current in per unit of the nameplate current, and a joint
   least-squares fit of the healthy stator current for a grid-frequency component beside the SCIG's 59.6 Hz
   fundamental (the raw records were still on disk).
+* The final consistency pass found that two tables named different fixed features for one suite because two
+  suite definitions coexisted (the three-machine one without the PI outputs, the common-bench one with them);
+  the fix was one definition for every common-bench table and a rerun, not a patch to a table. A first-citation
+  order check of figures and tables (from the layout text) is now part of the gates.
 * The double-column variant is derived from the single-column source by a script (`scripts/make_dc.py`), so
   that one source stays authoritative; the CAS class reports a spurious overfull box for every caption inside a
   `threeparttable`, fixed by moving the caption above it.
