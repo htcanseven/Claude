@@ -29,9 +29,10 @@ import compare as C
 import compare3 as C3
 import revision as R
 import revision_round3 as R3
-from compare3 import SUITES3, level_col, mde_bracket, sdr_from_windows, per_feature, unreliable, min_detectable
+from compare3 import level_col, mde_bracket, sdr_from_windows, per_feature, unreliable, min_detectable
 
 TAB = C.TAB
+SUITES3 = R.SUITES5      # common-bench suites, PI outputs included (as in the suite table)
 KEY = R3.KEY
 FIXED = R3.FIXED
 RAW = C.ROOT / "data" / "extracted" / "InnovaPower-MitDev-Eletrica-22fdf0b" if hasattr(C, "ROOT") else None
@@ -365,15 +366,14 @@ def main(run_10k=True):
     except Exception as ex:   # raw data absent
         print("spectrum skipped:", ex)
     print("== decision table, selection by level", flush=True)
-    dl, _ = R.decision_table(win5, C.ALL_FEATS, machines=["PMSG", "SCIG"], alphas=[0.95], select="level")
+    dl, _ = R.decision_table(win5, C.ALL_FEATS, machines=["PMSG", "SCIG"], alphas=[0.95], select="level", suites=R.SUITES5)
     out["decision_bylevel"] = dl
     if run_10k:
         print("== decision table at 10 000 resamples", flush=True)
-        d10, s10 = R.decision_table(win5, C.ALL_FEATS, machines=["PMSG", "SCIG"], alphas=[0.95], B=10000)
+        d10, s10 = R.decision_table(win5, C.ALL_FEATS, machines=["PMSG", "SCIG"], alphas=[0.95], B=10000, suites=R.SUITES5)
         d10.to_csv(TAB / "R_decision_table_5c_B10k.csv", index=False)
         base = pd.read_csv(TAB / "R_decision_table_5c.csv")
-        if not (TAB / "R_decision_table_5c_B1000.csv").exists():
-            base.to_csv(TAB / "R_decision_table_5c_B1000.csv", index=False)
+        base.to_csv(TAB / "R_decision_table_5c_B1000.csv", index=False)   # the 1000-resample table written by revision_round2
         b1000 = pd.read_csv(TAB / "R_decision_table_5c_B1000.csv")
         merged = pd.concat([b1000[~np.isclose(b1000.alpha, 0.95)], d10], ignore_index=True).sort_values(["alpha", "machine", "ftype", "suite", "e_req_pct"])
         merged.to_csv(TAB / "R_decision_table_5c.csv", index=False)

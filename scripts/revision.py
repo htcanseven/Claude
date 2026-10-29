@@ -42,6 +42,11 @@ DS_REQ = 0.9      # stated power: detectable share required for e >= e_req
 B = 1000
 B_TRANSFER = 500
 SCALAR = [f for f in C.ALL_FEATS if f not in C.RESID]
+# Suites of the common bench (PMSG, SCIG): the three-machine suites plus the PI-output features the WFSG lacks, so that
+# the decision and held-out tables use the same drive-internal suite as the suite table (compare.py).
+PI_FEATS = ["PId_2fe", "PIq_2fe", "PId_std", "PIq_std"]
+SUITES5 = {"drive-internal": SUITES3["drive-internal"] + PI_FEATS, "3 CT": SUITES3["3 CT"], "3 CT + 3 VT": SUITES3["3 CT + 3 VT"],
+           "3 CT + 3 VT + drive": SUITES3["3 CT + 3 VT + drive"] + PI_FEATS}
 
 
 # ----------------------------------------------------------------------------- R2 definitions
@@ -82,13 +87,14 @@ def nested_share(f, feats):
 
 
 # ----------------------------------------------------------------------------- R1 decision table
-def decision_table(win, feats, B=B, seed=7, ds_req=DS_REQ, machines=MACH, unit="trials", alphas=None, select="mde"):
+def decision_table(win, feats, B=B, seed=7, ds_req=DS_REQ, machines=MACH, unit="trials", alphas=None, select="mde", suites=None):
     """unit: resampling unit within an extent level, "trials" (operating-point trials, the tap pairs of a level
     treated as exchangeable) or "pairs" (tap pairs of the level, cluster bootstrap). Besides the pooled share
     DS(e >= e_req) the share at the level e_req itself is evaluated (columns *_level).
     select: rule choosing the suite's feature inside every resample, "mde" (smallest median-crossing MDE, then
     pooled share, then median SDR; the fixed-feature rule of the paper) or "level" (requirement-specific: the
     largest detectable share at the level e_req maps to, then pooled share, then median SDR)."""
+    suites = suites or SUITES3
     rng = np.random.RandomState(seed)
     rows = []
     for alpha in (alphas or ALPHAS):
@@ -118,7 +124,7 @@ def decision_table(win, feats, B=B, seed=7, ds_req=DS_REQ, machines=MACH, unit="
                 E_REQ = grid[ft]
                 # a requirement can be assessed only inside the range of extents the machine was tested at
                 tested = {e: bool((levels.min() <= e + TOL) and (e <= levels.max() + TOL)) for e in E_REQ}
-                for suite, sfeats in SUITES3.items():
+                for suite, sfeats in suites.items():
                     if suite.startswith("excitation") and m != "WFSG":
                         continue
                     sfeats = [x for x in sfeats if x not in bad and f"{x}__sdr" in fm.columns and fm[f"{x}__sdr"].notna().any()]

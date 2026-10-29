@@ -117,6 +117,7 @@ def t_decision():
     big = d[(d.ftype == "WINDINGS") & d.e_req_pct.isin(omitted) & (d.verdict != "untested")]
     assert (big.verdict == "meets").all(), big[["machine", "suite", "e_req_pct", "p_meets", "verdict"]]
     body = []
+    used = set()
     for ft in ["TURNS", "WINDINGS"]:
         E = grid[ft]
         pad = [""] * (ncol - len(E))
@@ -141,7 +142,7 @@ def t_decision():
                     if pv >= 0.95:
                         cell = r"\textbf{" + cell + "}"
                     marks = ""
-                    if isinstance(r.inherited_from_level, str) and r.inherited_from_level:
+                    if isinstance(r.inherited_from_level, str) and r.inherited_from_level and f"{r.p_meets_level_own:.2f}" != f"{pv:.2f}":
                         marks += "b"
                     nres = 10000 if m in ("PMSG", "SCIG") else 1000
                     se = max(np.sqrt(pv * (1 - pv) / nres), np.sqrt(0.05 * 0.95 / nres))
@@ -149,6 +150,7 @@ def t_decision():
                         marks += "c"
                     if marks:
                         cell += r"$^{\mathrm{" + ",".join(marks) + "}}$"
+                        used.update(marks)
                     row.append(cell)
                 row += pad
             if any_:
@@ -170,11 +172,12 @@ def t_decision():
     lettered = [("b", "Support inherited from a cheaper subset of the suite: a suite may use the features of its subsets, so its "
                       "support is at least theirs (e.g. 3CT+3VT+drv inherits the voltage residual of 3CT+3VT)."),
                 ("c", "Borderline: within two Monte-Carlo standard errors of a verdict boundary (0.05 or 0.95).")]
+    lettered = [(k, v) for k, v in lettered if k in used]
     head = (r"Suite & \multicolumn{" + str(ncol) + r"}{c}{PMSG} & \multicolumn{" + str(ncol) + r"}{c}{SCIG} & \multicolumn{"
             + str(ncol) + r"}{c}{\shortstack{WFSG\\(exploratory, unscreened)}} \\" "\n"
             + r"\cmidrule(lr){2-" + str(1 + ncol) + r"}\cmidrule(lr){" + str(2 + ncol) + "-" + str(1 + 2 * ncol) + r"}\cmidrule(l){"
             + str(2 + 2 * ncol) + "-" + str(1 + 3 * ncol) + "}" "\n"
-            + r" & \multicolumn{" + str(3 * ncol) + r"}{c}{bootstrap support for meeting the empirical requirement at $e_{\mathrm{req}}$ (\%)}")
+            + r" & \multicolumn{" + str(3 * ncol) + r"}{c}{bootstrap support for meeting the empirical requirement at $e_{\mathrm{req}}$}")
     return table(body, cap, "tab:decision", "l" + "c" * (3 * ncol), head, size=r"\tabsize", colsep="2.6pt", note=note, lettered=lettered)
 
 
@@ -276,16 +279,16 @@ def t_decision_cells():
     m = m.sort_values(["machine", "ftype", "e_req_pct", "o"])
     body = []
     for r in m.itertuples():
-        cells = [(f"{getattr(r, c):.3f}" if 0.045 <= getattr(r, c) < 0.05 else f"{getattr(r, c):.2f}") for c in cols]
+        cells = [(f"{getattr(r, c):.3f}" if 0.045 <= getattr(r, c) < 0.055 or 0.945 <= getattr(r, c) < 0.955 else f"{getattr(r, c):.2f}") for c in cols]
         body.append(" & ".join([r.machine, FT[r.ftype], SUITE_SHORT[r.suite], f"{r.e_req_pct:.1f}", f"{100 * r.ds_at_level:.0f}"] + cells) + r" \\")
     body[-1] = body[-1].rstrip(r"\\").rstrip()
     cap = ("Decision-table cells whose verdict depends on the definition of the power or on the resampling unit "
-           "within a level")
+           "within a level, or lies at a boundary")
     note = ("$\\alpha=0.95$; every other cell of Table~\\ref{tab:decision} keeps its verdict under all four variants. "
             "At level, trials: 10\\,000 resamples (Table~\\ref{tab:decision}); the other three variants 1000. "
             "DS at level: share of the fixed feature at the level $e_{\\mathrm{req}}$ maps to (\\%). At level: share at that "
             "level (Table~\\ref{tab:decision}); pooled: share over all tested levels $\\ge e_{\\mathrm{req}}$; trials, pairs: "
-            "resampling unit within a level. Meets at $\\ge0.95$, fails at $\\le0.05$.")
+            "resampling unit within a level. Meets at $\\ge0.95$, fails at $\\le0.05$, classified on the unrounded fraction.")
     head = (r"\multirow{2}{*}{Machine} & \multirow{2}{*}{Class} & \multirow{2}{*}{Suite} & \multirow{2}{*}{$e_{\mathrm{req}}$ (\%)} & "
             r"\multirow{2}{*}{DS at level} & \multicolumn{2}{c}{at level} & \multicolumn{2}{c}{pooled} \\" "\n"
             r"\cmidrule(lr){6-7}\cmidrule(l){8-9}" "\n"

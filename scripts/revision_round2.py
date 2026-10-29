@@ -63,7 +63,7 @@ def main():
     print(zs.round(2).to_string(index=False))
 
     for unit, suffix in [("trials", ""), ("pairs", "_pairs")]:
-        dec5, sel5 = R.decision_table(win5, C.ALL_FEATS, machines=["PMSG", "SCIG"], unit=unit)
+        dec5, sel5 = R.decision_table(win5, C.ALL_FEATS, machines=["PMSG", "SCIG"], unit=unit, suites=R.SUITES5)
         dec5.to_csv(TAB / f"R_decision_table_5c{suffix}.csv", index=False)
         sel5.to_csv(TAB / f"R_decision_cheapest_5c{suffix}.csv", index=False)
         print(unit, "5c done")
