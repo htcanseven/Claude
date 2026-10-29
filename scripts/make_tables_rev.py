@@ -120,7 +120,7 @@ def t_decision():
                     if r.verdict == "untested":
                         row.append("n.t.")
                         continue
-                    cell = f"{r.p_meets:.2f}"
+                    cell = f"{r.p_meets:.3f}" if 0.045 <= r.p_meets < 0.05 else f"{r.p_meets:.2f}"
                     if r.verdict == "meets":
                         cell = r"\textbf{" + cell + "}"
                     if isinstance(r.inherited_from, str) and r.inherited_from:
@@ -240,7 +240,7 @@ def t_decision_cells():
     m = tr.merge(pa[key + ["p_meets", "p_meets_level"]], on=key, suffixes=("", "_pairs"))
     def verdict(p):
         return np.where(p >= 0.95, "meets", np.where(p <= 0.05, "fails", "uncertain"))
-    cols = ["p_meets", "p_meets_level", "p_meets_pairs", "p_meets_level_pairs"]
+    cols = ["p_meets", "p_meets_pairs", "p_meets_level", "p_meets_level_pairs"]
     V = np.column_stack([verdict(m[c].to_numpy()) for c in cols])
     m = m[(V != V[:, [0]]).any(axis=1)].copy()
     order = {s: i for i, s in enumerate(["drive-internal", "3 CT", "3 CT + 3 VT", "3 CT + 3 VT + drive", "excitation (WFSG only)"])}

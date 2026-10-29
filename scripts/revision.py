@@ -156,7 +156,9 @@ def decision_table(win, feats, B=B, seed=7, ds_req=DS_REQ, machines=MACH, unit="
                         for e in E_REQ:
                             sub = s[levb >= e - TOL]
                             ds = np.nanmean(sub >= 1) if len(sub) else np.nan
-                            at = s[np.abs(levb - e) <= TOL]
+                            # the level the requirement maps to: the lowest tested level at or above e_req
+                            above = levels[levels >= e - TOL]
+                            at = s[np.abs(levb - above[0]) <= TOL] if len(above) else s[:0]
                             ds_lev = np.nanmean(at >= 1) if len(at) else np.nan
                             if mde_b <= e + TOL:
                                 hits_mde[e] += 1
@@ -173,7 +175,7 @@ def decision_table(win, feats, B=B, seed=7, ds_req=DS_REQ, machines=MACH, unit="
                                          p_meets_own=hits[e] / B if tested[e] else np.nan,
                                          p_meets_level_own=hits_level[e] / B if tested[e] else np.nan,
                                          ds_conditional=ds_conditional(fm, col, e, by), ds_all=float((fm[col] >= 1).mean()),
-                                         ds_at_level=float((fm.loc[np.abs(fm[by] - e) <= TOL, col] >= 1).mean()) if tested[e] else np.nan,
+                                         ds_at_level=float((fm.loc[np.abs(fm[by] - levels[levels >= e - TOL][0]) <= TOL, col] >= 1).mean()) if tested[e] else np.nan,
                                          smallest_extent_tested_pct=float(levels.min()),
                                          largest_extent_tested_pct=float(levels.max())))
     d = pd.DataFrame(rows)
