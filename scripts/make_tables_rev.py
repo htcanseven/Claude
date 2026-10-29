@@ -58,29 +58,45 @@ def t_suites():
     """Table 6: PMSG/SCIG suites at five cycles with the fixed feature, its MDE bracket, DS, false-alarm count and the
     calibrated oracle share."""
     f = pd.read_csv(TAB / "F_sensor_suites.csv")
+    e9 = pd.read_csv(TAB / "R3_e90.csv")
     order = ["drive-internal", "3 CT", "3 CT + 3 VT", "3 CT + 3 VT + drive", "+ torque transducer"]
     body = []
     for ft in ["TURNS", "WINDINGS"]:
-        body.append(r"\multicolumn{9}{@{}l}{\emph{" + FT[ft].capitalize() + r" faults}} \\")
+        body.append(r"\multicolumn{11}{@{}l}{\emph{" + FT[ft].capitalize() + r" faults}} \\")
+        short = {"drive-internal": "drive", "3 CT": "3CT", "3 CT + 3 VT": "+3VT", "3 CT + 3 VT + drive": "+drv", "+ torque transducer": "+torque"}
         for s in order:
-            row = [SUITE_SHORT[s]]
+            row = [short[s]]
             for m in ["PMSG", "SCIG"]:
                 r = f[(f.suite == s) & (f.ftype == ft) & (f.machine == m)].iloc[0]
                 fa = f"{int(round(r.fixed_healthy_false_alarm * 9))}/9" if np.isfinite(r.fixed_healthy_false_alarm) else "--"
-                row += [tex(r.best_feature), mde_cell(r.fixed_mde_bracket_lo_pct, r.fixed_min_detectable_pct),
+                q = e9[(e9.suite == s) & (e9.ftype == ft) & (e9.machine == m)]
+                if len(q):
+                    e = q.iloc[0].e90_95
+                    e95 = f"{e:.1f}" if np.isfinite(e) else "--"
+                else:   # the torque suite is not in the decision table; its fixed feature is the +drv suite's
+                    q = e9[(e9.suite == "3 CT + 3 VT + drive") & (e9.ftype == ft) & (e9.machine == m)]
+                    e = q.iloc[0].e90_95
+                    e95 = (f"{e:.1f}" if np.isfinite(e) else "--") + r"$^{\mathrm{a}}$"
+                lab = {"I2r_I1": r"$\Delta\bar I_2$", "V2r_V1": r"$\Delta\bar V_2$", "D2r_D1": r"$\Delta\bar D_2$"}.get(r.best_feature, tex(r.best_feature))
+                row += [lab, mde_cell(r.fixed_mde_bracket_lo_pct, r.fixed_min_detectable_pct).replace(", ", ","), e95,
                         f"{pct(r.fixed_share_detectable)} ({pct(r.oracle_share_calibrated)})", fa]
             body.append(" & ".join(row) + r" \\")
     body[-1] = body[-1].rstrip(r"\\").rstrip()
     cap = ("Sensor suites versus what they detect, PMSG and SCIG, five-cycle windows: fixed feature, MDE bracket, "
-           "detectable share and false alarms")
+           "$e_{90/95}$, detectable share and false alarms")
     note = ("drive: drive-internal quantities alone; 3CT: three current transducers; +3VT, +drv, +torque: voltage "
-            "transducers, controller access and a shaft torque transducer added cumulatively to 3CT. DS (\\%) of the fixed feature, in "
-            "parentheses the share of the calibrated oracle (Section~\\ref{sec:sdr}); FA: false alarms of the fixed feature on "
-            "the nine healthy trials; MDE as in Table~\\ref{tab:mde}; screened-out features are excluded.")
-    head = (r"\multirow{2}{*}{Suite} & \multicolumn{4}{c}{PMSG} & \multicolumn{4}{c}{SCIG} \\" "\n"
-            r"\cmidrule(lr){2-5}\cmidrule(l){6-9}" "\n"
-            r" & feature & MDE & DS (oracle) & FA & feature & MDE & DS (oracle) & FA")
-    return table(body, cap, "tab:suites", "l" * 9, head, size=r"\tabsize", colsep="2.5pt", note=note)
+            "transducers, controller access and a shaft torque transducer added cumulatively to 3CT (each row includes the "
+            "rows above it from 3CT on). $\\Delta\\bar X_2$ stands for the residual $|\\Delta\\bar X_2|/X_1$. MDE: median-crossing "
+            "extent (Table~\\ref{tab:mde}); $e_{90/95}$: smallest tested level (\\%) from which the detectable share at the "
+            "level itself is at least 0.9 with bootstrap support of at least 0.95 (Section~\\ref{sec:derived}). DS (\\%) of the "
+            "fixed feature pooled over all tested extents, in parentheses the share of the calibrated oracle (Section~\\ref{sec:sdr}); "
+            "the nested selection of the fixed feature on the other tap pairs changes these shares by at most one point. FA: false "
+            "alarms of the fixed feature on the nine healthy trials; screened-out features are excluded.")
+    lettered = [("a", "Same fixed feature as +drv; the torque features add nothing.")]
+    head = (r"\multirow{2}{*}{Suite} & \multicolumn{5}{c}{PMSG} & \multicolumn{5}{c}{SCIG} \\" "\n"
+            r"\cmidrule(lr){2-6}\cmidrule(l){7-11}" "\n"
+            r" & feature & MDE & $e_{90/95}$ & DS (or.) & FA & feature & MDE & $e_{90/95}$ & DS (or.) & FA")
+    return table(body, cap, "tab:suites", "l" * 11, head, size=r"\fontsize{8}{10}\selectfont", colsep="1.3pt", note=note, lettered=lettered)
 
 
 def t_decision():
@@ -120,28 +136,32 @@ def t_decision():
                     if r.verdict == "untested":
                         row.append("n.t.")
                         continue
-                    cell = f"{r.p_meets:.3f}" if 0.045 <= r.p_meets < 0.05 else f"{r.p_meets:.2f}"
-                    if r.verdict == "meets":
+                    pv = r.p_meets_level
+                    cell = f"{pv:.3f}" if 0.045 <= pv < 0.05 else f"{pv:.2f}"
+                    if pv >= 0.95:
                         cell = r"\textbf{" + cell + "}"
-                    if isinstance(r.inherited_from, str) and r.inherited_from:
+                    if isinstance(r.inherited_from_level, str) and r.inherited_from_level:
                         cell += r"$^{\mathrm{b}}$"
                     row.append(cell)
                 row += pad
             if any_:
                 body.append(" & ".join(row) + r" \\")
     body[-1] = body[-1].rstrip(r"\\").rstrip()
-    cap = ("Decision table at $\\alpha=0.95$: bootstrap probability that a suite meets the requirement at each "
+    cap = ("Decision table at $\\alpha=0.95$: bootstrap support for a suite meeting the requirement at each "
            "tested extent level")
-    note = ("Meets: $\\mathrm{MDE}\\le e_{\\mathrm{req}}$ and detectable share $\\ge0.9$ for $e\\ge e_{\\mathrm{req}}$, "
-            "$e_{\\mathrm{req}}$ at the physical levels of the common bench (\\% of a branch; the WFSG, unscreened for lack of healthy "
-            "trials, is assessed against the same values on its own tested extents); 1000 resamples of the operating-point "
-            "trials within each level (the tap pairs of a level treated as exchangeable), null quantile and fixed feature "
-            "re-estimated in every resample. Bold: probability $\\ge0.95$ (meets); below 0.05 the "
-            "suite fails; n.t.: no tested extent on the required side of $e_{\\mathrm{req}}$. PMSG and SCIG at five-cycle "
-            "windows, WFSG at three cycles and its matching fault impedance; the inter-winding levels "
+    note = ("Cell: fraction of 1000 resamples in which $\\mathrm{MDE}\\le e_{\\mathrm{req}}$ and the detectable share at the "
+            "tested level that $e_{\\mathrm{req}}$ maps to is $\\ge0.9$; resampling support, not a posterior probability, and a cell "
+            "of 1.00 means no resample failed. $e_{\\mathrm{req}}$ at the physical levels of the common bench (\\% of a branch; the "
+            "WFSG, unscreened for lack of healthy trials, is assessed against the same values on its own tested extents); the "
+            "operating-point trials of a level are resampled with its tap pairs treated as exchangeable, null quantile and fixed "
+            "feature re-estimated in every resample. Bold: support $\\ge0.95$ (meets); $\\le0.05$: fails; between: uncertain; "
+            "n.t.: no tested extent on the required side of $e_{\\mathrm{req}}$. PMSG and SCIG at five-cycle windows, WFSG at "
+            "three cycles and its matching fault impedance; the inter-winding levels "
             + " and ".join(f"{e:.1f}" for e in omitted) + "\\,\\% are omitted (every suite meets them). Suites as in "
-            "Table~\\ref{tab:suites}; exc: WFSG field current.")
-    lettered = [("b", "Probability inherited from a cheaper subset of the suite (a suite may always use the features of its subsets).")]
+            "Table~\\ref{tab:suites}; exc: WFSG field current. Table~\\ref{tab:cells} gives the cells that change under the "
+            "pooled share or the tap-pair resampling unit.")
+    lettered = [("b", "Support inherited from a cheaper subset of the suite: a suite may use the features of its subsets, so its "
+                      "support is at least theirs (e.g. 3CT+3VT+drv inherits the voltage residual of 3CT+3VT).")]
     head = (r"Suite & \multicolumn{" + str(ncol) + r"}{c}{PMSG} & \multicolumn{" + str(ncol) + r"}{c}{SCIG} & \multicolumn{"
             + str(ncol) + r"}{c}{WFSG} \\" "\n"
             + r"\cmidrule(lr){2-" + str(1 + ncol) + r"}\cmidrule(lr){" + str(2 + ncol) + "-" + str(1 + 2 * ncol) + r"}\cmidrule(l){"
@@ -240,7 +260,7 @@ def t_decision_cells():
     m = tr.merge(pa[key + ["p_meets", "p_meets_level"]], on=key, suffixes=("", "_pairs"))
     def verdict(p):
         return np.where(p >= 0.95, "meets", np.where(p <= 0.05, "fails", "uncertain"))
-    cols = ["p_meets", "p_meets_pairs", "p_meets_level", "p_meets_level_pairs"]
+    cols = ["p_meets_level", "p_meets_level_pairs", "p_meets", "p_meets_pairs"]
     V = np.column_stack([verdict(m[c].to_numpy()) for c in cols])
     m = m[(V != V[:, [0]]).any(axis=1)].copy()
     order = {s: i for i, s in enumerate(["drive-internal", "3 CT", "3 CT + 3 VT", "3 CT + 3 VT + drive", "excitation (WFSG only)"])}
@@ -254,16 +274,60 @@ def t_decision_cells():
     cap = ("Decision-table cells whose verdict depends on the definition of the power or on the resampling unit "
            "within a level")
     note = ("$\\alpha=0.95$; every other cell of Table~\\ref{tab:decision} keeps its verdict under all four variants. "
-            "DS at level: share of the fixed feature at $e_{\\mathrm{req}}$ itself (\\%). Pooled: share over all tested levels "
-            "$\\ge e_{\\mathrm{req}}$ (Table~\\ref{tab:decision}); at level: share at $e_{\\mathrm{req}}$; trials, pairs: "
+            "DS at level: share of the fixed feature at the level $e_{\\mathrm{req}}$ maps to (\\%). At level: share at that "
+            "level (Table~\\ref{tab:decision}); pooled: share over all tested levels $\\ge e_{\\mathrm{req}}$; trials, pairs: "
             "resampling unit within a level. Meets at $\\ge0.95$, fails at $\\le0.05$.")
     head = (r"\multirow{2}{*}{Machine} & \multirow{2}{*}{Class} & \multirow{2}{*}{Suite} & \multirow{2}{*}{$e_{\mathrm{req}}$ (\%)} & "
-            r"\multirow{2}{*}{DS at level} & \multicolumn{2}{c}{pooled} & \multicolumn{2}{c}{at level} \\" "\n"
+            r"\multirow{2}{*}{DS at level} & \multicolumn{2}{c}{at level} & \multicolumn{2}{c}{pooled} \\" "\n"
             r"\cmidrule(lr){6-7}\cmidrule(l){8-9}" "\n"
             r" & & & & & trials & pairs & trials & pairs")
     # reorder the probability columns to match the header: pooled (trials, pairs), at level (trials, pairs)
     body = [b for b in body]
     return table(body, cap, "tab:cells", "lllccCCCC".replace("C", "c"), head, size=r"\tabsize", colsep="4pt", note=note)
+
+
+def t_conventions():
+    """Detectable share and MDE of the fixed inter-turn features on the common bench under the baseline convention,
+    a stricter fault start, the WFSG interval geometry, a per-speed null and a between-trial (commissioning) reference."""
+    ab = pd.read_csv(TAB / "R3_interval_ablation.csv")
+    ps = pd.read_csv(TAB / "R3_per_speed_null.csv")
+    rh = pd.read_csv(TAB / "R3_reference_horizon.csv")
+    want = [("PMSG", "V2r_V1"), ("PMSG", "D2r_D1"), ("PMSG", "I2r_I1"), ("SCIG", "I2r_I1"), ("SCIG", "D2r_D1"), ("SCIG", "V2r_V1")]
+    def cell(ds, mde):
+        return f"{100 * ds:.0f} ({mde:.1f})" if np.isfinite(mde) else f"{100 * ds:.0f} (--)"
+    rows = []
+    for name, label in [("baseline", "Baseline (Section~\\ref{sec:computation})"),
+                        ("strict start (+120 ms)", "Fault interval from 120\\,ms after the command"),
+                        ("WFSG geometry (150 ms fault, 190 ms halves)", "WFSG geometry: 150\\,ms fault, 190\\,ms reference halves")]:
+        cells = []
+        for m, f in want:
+            r = ab[(ab.geometry == name) & (ab.machine == m) & (ab.ftype == "TURNS") & (ab.feature == f)].iloc[0]
+            cells.append(cell(r.ds, r.mde))
+        rows.append(" & ".join([label] + cells) + r" \\")
+    cells = []
+    for m, f in want:
+        r = ps[(ps.machine == m) & (ps.ftype == "TURNS") & (ps.feature == f)].iloc[0]
+        cells.append(cell(r.ds_per_speed, r.mde_per_speed))
+    rows.append(" & ".join(["Null quantile per speed (75 records each)"] + cells) + r" \\")
+    cells = []
+    for m, f in want:
+        r = rh[(rh.machine == m) & (rh.ftype == "TURNS") & (rh.feature == f)].iloc[0]
+        cells.append(cell(r.ds_between, r.mde_between))
+    rows.append(" & ".join(["Reference: healthy trial at the same operating point"] + cells) + r" \\")
+    rows[-1] = rows[-1].rstrip(r"\\").rstrip()
+    cap = ("Detectable share (\\%) and MDE of the fixed inter-turn features under alternative interval, null and "
+           "reference conventions, PMSG and SCIG, five-cycle windows")
+    note = ("Cells: detectable share over the 108 inter-turn trials (MDE, \\% of a branch; --: largest level not "
+            "detected). The stricter start excludes the relay pick-up; the WFSG geometry shortens the faulted interval "
+            "and the reference halves to those of the WFSG bench; the per-speed null replaces the pooled 95th percentile "
+            "by one per speed; the last row replaces the trial's own reference by the healthy trial recorded at the "
+            "same operating point at another time (Section~\\ref{sec:res-robust}).")
+    short = {"I2r_I1": r"$\Delta\bar I_2$", "V2r_V1": r"$\Delta\bar V_2$", "D2r_D1": r"$\Delta\bar D_2$"}
+    head = (r"\multirow{2}{*}{Convention} & \multicolumn{3}{c}{PMSG} & \multicolumn{3}{c}{SCIG} \\" "\n"
+            r"\cmidrule(lr){2-4}\cmidrule(l){5-7}" "\n"
+            r" & " + " & ".join(short[f] for _, f in want))
+    note = note.replace("Cells: detectable share", "$\\Delta\\bar X_2$ stands for the residual $|\\Delta\\bar X_2|/X_1$. Cells: detectable share")
+    return table(rows, cap, "tab:conventions", "L{4.8cm}cccccc", head, size=r"\tabsize", colsep="3pt", note=note)
 
 
 def t_transfer():
@@ -418,7 +482,7 @@ def t_nullq():
     return table(body, cap, "tab:nullq", "lcccc", head, size=r"\tabsize", colsep="3pt", note=note)
 
 
-BUILDERS = [("tab_decomp", t_decomp), ("tab_phase", t_phase), ("tab_mde", t_mde), ("tab_suites", t_suites), ("tab_envelope", t_envelope), ("tab_cells", t_decision_cells),
+BUILDERS = [("tab_decomp", t_decomp), ("tab_phase", t_phase), ("tab_mde", t_mde), ("tab_suites", t_suites), ("tab_envelope", t_envelope), ("tab_cells", t_decision_cells), ("tab_conventions", t_conventions),
             ("tab_decision", t_decision), ("tab_transfer", t_transfer), ("tab_suites3", t_suites3),
             ("tab_sens", t_sens), ("tab_between", t_between), ("tab_transfer3", t_transfer3), ("tab_nullq", t_nullq)]
 

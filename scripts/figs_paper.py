@@ -145,6 +145,80 @@ def pairs_figure(pt, feats=(("V2_V1", "V2r_V1"), ("I2_I1", "I2r_I1")), name="G_p
     C3.save(fig, name)
 
 
+def trace_figure(path=None, name="G_sdr_illustration"):
+    """Illustration of the SDR on one trial: per window, the relative deviation of the phase-referenced
+    negative-sequence ratio from its mean over R2, for the terminal voltage and the stator current; the bars give
+    the healthy change (R1 against R2) and the change under fault (F against R2), the dashed line the machine's
+    null quantile, so that SDR is the ratio of the second bar to the dashed line."""
+    t = pd.read_csv(path or (C.TAB / "R3_trace_example.csv"))
+    t = t[t.segment.isin(["PRE", "FLT"])].copy()
+    r1 = (t.segment == "PRE") & (t.t_end <= 0.62)
+    r2 = (t.segment == "PRE") & (t.t_start >= 0.62)
+    fl = t.segment == "FLT"
+    q = {"V": 0.123, "I": 0.242}   # PMSG null quantiles of the two residual features, five-cycle windows
+    fig, axes = plt.subplots(2, 1, figsize=(W, 3.2), sharex=True, gridspec_kw={"hspace": 0.3})
+    for ax, key, lab in zip(axes, ["V", "I"], [r"$|\bar V_2 - \bar V_{2,R_2}|/|\bar V_{2,R_2}|$", r"$|\bar I_2 - \bar I_{2,R_2}|/|\bar I_{2,R_2}|$"]):
+        z = t[f"{key}2c_re"].to_numpy() + 1j * t[f"{key}2c_im"].to_numpy()
+        m1, m2, mf = z[r1].mean(), z[r2].mean(), z[fl].mean()
+        dev = np.abs(z - m2) / abs(m2)
+        tm = 0.5 * (t.t_start + t.t_end)
+        ax.axvspan(t.t_start[r1].min(), t.t_end[r1].max(), color=C3.COL3["PMSG"], alpha=0.08, lw=0)
+        ax.axvspan(t.t_start[r2].min(), t.t_end[r2].max(), color=C3.COL3["PMSG"], alpha=0.16, lw=0)
+        ax.axvspan(t.t_start[fl].min(), t.t_end[fl].max(), color=C3.COL3["SCIG"], alpha=0.12, lw=0)
+        ax.plot(tm, dev, ".-", ms=3, lw=0.8, color=C.AXIS)
+        d0, d = abs(m1 - m2) / abs(m2), abs(mf - m2) / abs(m2)
+        ax.hlines(d0, t.t_start[r1].min(), t.t_end[r1].max(), color=C3.COL3["PMSG"], lw=1.8)
+        ax.hlines(d, t.t_start[fl].min(), t.t_end[fl].max(), color=C3.COL3["SCIG"], lw=1.8)
+        ax.axhline(q[key], color=C.AXIS, lw=0.8, ls="--")
+        ax.text(1.395, d, f"$\\delta$ = {d:.2f}", ha="right", va="bottom", fontsize=8, color=C3.COL3["SCIG"])
+        ax.text(0.305, d0, f"$\\delta^0$ = {d0:.2f}", ha="left", va="top", fontsize=8, color=C3.COL3["PMSG"])
+        ax.text(0.97, q[key], f"$q_{{0.95}}$ = {q[key]:.2f}", ha="right", va="bottom", fontsize=8, color=C.AXIS)
+        ax.set_ylabel(lab, fontsize=8)
+        ax.set_xlim(0.25, 1.42)
+        ax.set_ylim(0, max(dev.max(), q[key]) * 1.25)
+    y0 = axes[0].get_ylim()[1]
+    for x, s in [(0.46, "$R_1$"), (0.80, "$R_2$"), (1.21, "$F$")]:
+        axes[0].text(x, y0 * 0.98, s, ha="center", va="top", fontsize=9)
+    axes[1].set_xlabel("Time (s)")
+    fig.subplots_adjust(top=0.97, bottom=0.16, left=0.15, right=0.98)
+    C3.save(fig, name)
+
+
+def pod_figure(path=None, name="G_pod"):
+    """Detectable share of the fixed features at each physical extent level with 95 % bootstrap intervals
+    (probability-of-detection curves on the tested grid), PMSG and SCIG, five-cycle windows."""
+    p = pd.read_csv(path or (C.TAB / "R3_pod.csv"))
+    fig, axes = plt.subplots(1, 2, figsize=(W, 2.6), gridspec_kw={"wspace": 0.12}, sharey=True)
+    marks = {"V2r_V1": "o", "I2r_I1": "s", "D2r_D1": "^"}
+    for ax, ft in zip(axes, ["TURNS", "WINDINGS"]):
+        for m in ["PMSG", "SCIG"]:
+            for f, mk in marks.items():
+                s = p[(p.machine == m) & (p.ftype == ft) & (p.feature == f)].sort_values("level_pct")
+                if not len(s):
+                    continue
+                off = 1.0 + (0.025 if m == "SCIG" else -0.025) + {"V2r_V1": -0.01, "I2r_I1": 0.0, "D2r_D1": 0.01}[f]
+                x = s.level_pct * off
+                ax.errorbar(x, s.share, yerr=[s.share - s.ci_lo, s.ci_hi - s.share], fmt=mk, ms=4, color=C3.COL3[m],
+                            mec=C.SURF, mew=0.5, lw=0.8, capsize=0, label=f"{m}, {C.lab(f)}")
+                ax.plot(x, s.share, "-", lw=0.7, color=C3.COL3[m], alpha=0.6)
+        ax.axhline(0.9, color=C.AXIS, lw=0.8, ls="--")
+        ax.set_xscale("log")
+        ax.set_ylim(-0.03, 1.05)
+        if ft == "TURNS":
+            ax.set_xticks([3, 7.5, 11.8]); ax.set_xticklabels(["3.0", "7.5", "11.8"]); ax.set_xlim(2.4, 14.5)
+        else:
+            ax.set_xticks([2.8, 10.1, 14.6, 21.9, 35.9]); ax.set_xticklabels(["2.8", "10.1", "14.6", "21.9", "35.9"]); ax.set_xlim(2.2, 50)
+        ax.xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
+        ax.xaxis.set_minor_locator(matplotlib.ticker.NullLocator())
+        ax.set_xlabel("Physical extent level (% of a branch)")
+        C.subcaption(ax, f"({'a' if ft == 'TURNS' else 'b'}) {C.FT_LABEL[ft]} faults")
+    axes[0].set_ylabel("Detectable share")
+    h, l = axes[0].get_legend_handles_labels()
+    fig.legend(h, l, loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.56, 1.0), columnspacing=1.0, handletextpad=0.3, fontsize=8)
+    fig.subplots_adjust(top=0.80, bottom=0.26, left=0.11, right=0.99)
+    C3.save(fig, name)
+
+
 if __name__ == "__main__":
     files, win = C3.load3()
     feats = [f for f in C3.FEATS3 if f in win.columns or f in C.RESID]
@@ -157,4 +231,6 @@ if __name__ == "__main__":
     pt = pd.read_csv(C.TAB / "R_pair_table.csv")
     pairs_figure(pt)
     pairs_figure(pt, feats=(("V2_V1", "V2r_V1"),), name="G_pairs_by_phase_compact")
+    trace_figure()
+    pod_figure()
     print("figures written")

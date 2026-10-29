@@ -223,6 +223,23 @@ into its numerator (signature) and denominator (null), because a quieter alterna
 * A reviewer's own recomputation can differ from the pipeline for a stated reason (here: the null and the feature
   were held fixed in the reviewer's bootstrap, re-estimated in the paper's); the synthesis says which is which.
 
+### Phase 10: four external reviews
+
+* Four independent reports converged on positioning (the statistic belongs to the POD, limit-of-detection and
+  EOV-novelty-detection family and is a calibrated threshold in disguise), on scope (seeded faults, abrupt onset,
+  one machine per type) and on the power definition (detection probability at the required extent, not pooled).
+  Each was answered by an analysis on the existing caches (`scripts/revision_round3.py`): comparator effect sizes
+  on the same trials, a per-speed null, an interval-geometry ablation, the between-trial reference as a second
+  reference age, e90 and e90/95 per suite, the null shape, a synthetic leakage check, POD-curve data.
+* The cheapest way to answer "is this new?" is a positioning table (needs a model / a trained detector / a
+  separate healthy campaign / seeded faults; controls the false-alarm rate; yields an MDE) and a comparator
+  paragraph that states where the rankings agree and where the threshold differs.
+* Readability was treated as a reviewer requirement: the abstract, introduction, background, method and
+  discussion were rewritten in short sentences, and the generic noun "alternative" was replaced by "candidate"
+  in the method and "machine" in the demonstration.
+* The manuscript grew by six pages; every addition was a reviewer's request for evidence, and the response
+  document says which requests were not met and why (held-out healthy records, a reference-age sweep, code).
+
 ## 8. Quality gates run before every delivery
 
 * `latexmk` build with zero errors, zero LaTeX warnings, no undefined references or citations, no overfull

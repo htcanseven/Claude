@@ -18,15 +18,16 @@ line numbers, numbered references in order of citation): front matter (title, au
 Sections 1–7, the Elsevier declarations (CRediT, competing interest, funding, data availability,
 acknowledgements) and the bibliography call; there is no appendix, the feature definitions and computation
 details being in Sections 4.3 and 4.4. The three schematic
-figures (procedure, generator systems, fault classes) are TikZ code inside the file; the two data figures are
-`figures/*.pdf`. The manuscript is 32 pages in this layout (about 8,000 words of body text, two hand-written and
-six generated tables, five figures, 38 references) and has no supplementary material.
+figures (procedure, generator systems, fault classes) are TikZ code inside the file; the positioning table (Table 1) and
+the two description tables (Tables 2 and 3) are hand-written in the file; the four data figures are
+`figures/*.pdf`. The manuscript is 38 pages in this layout (about 9,500 words of body text, three hand-written and
+seven generated tables, seven figures, 46 references) and has no supplementary material.
 
 | Path | Content |
 |---|---|
-| `main.tex` | the whole manuscript; the six generated tables (Tables 3–8: MDE, sensor suites, decision table, decision cells, transfer, operating envelope) sit between `%% BEGIN GENERATED <name>` and `%% END GENERATED <name>` markers and are rewritten by `scripts/make_tables.py` from `results/tables/*.csv` (do not edit those blocks by hand) |
+| `main.tex` | the whole manuscript; the seven generated tables (Tables 4–10: MDE, sensor suites, decision table, decision cells, transfer, operating envelope, conventions) sit between `%% BEGIN GENERATED <name>` and `%% END GENERATED <name>` markers and are rewritten by `scripts/make_tables.py` from `results/tables/*.csv` (do not edit those blocks by hand) |
 | `highlights.tex` | three to five highlights of at most 85 characters each (uploaded as a separate file at submission) |
-| `figures/*.pdf` | `G_sdr_by_feature_3alt_compact.pdf` (Fig. 4) and `G_pairs_by_phase_compact.pdf` (Fig. 5), copied from `results/figures/`; the other PDFs there are pipeline outputs not used in the manuscript |
+| `figures/*.pdf` | `G_sdr_illustration.pdf` (Fig. 1), `G_sdr_by_feature_3alt_compact.pdf` (Fig. 5), `G_pairs_by_phase.pdf` (Fig. 6) and `G_pod.pdf` (Fig. 7), copied from `results/figures/`; the other PDFs there are pipeline outputs not used in the manuscript |
 | `refs.bib` | references; `elsarticle-num-names.bst` prints them numbered, with the DOI as a link |
 | `elsarticle.cls`, `elsarticle-num-names.bst` | Elsevier class and bibliography style (CTAN `elsarticle` bundle, LPPL) |
 | `review/` | frozen pre-review PDF, the simulated MSSP reviewer reports (round 1 and round 2), the editor syntheses and the response document; the `review_*`/`response_to_reviewers.md` files are from the earlier submission cycle |
@@ -34,7 +35,7 @@ six generated tables, five figures, 38 references) and has no supplementary mate
 ## Regenerating tables and figures
 
 ```bash
-bash scripts/run_all.sh     # compare, sensor_suites, compare3, sensitivity, revision, revision_round2, figs_paper, make_tables; copies figures
+bash scripts/run_all.sh     # compare, sensor_suites, compare3, sensitivity, revision, revision_round2, revision_round3, figs_paper, make_tables; copies figures
 ```
 
 The individual steps are `compare.py` (PMSG/SCIG, five-cycle windows; defines the SDR, the phasor-residual

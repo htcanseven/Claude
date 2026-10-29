@@ -5,10 +5,10 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 export PYTHONPATH=scripts
 export PAPER_FIGS=1          # figures without in-figure titles (the captions carry them)
-for s in compare sensor_suites compare3 sensitivity revision revision_round2 figs_paper; do
+for s in compare sensor_suites compare3 sensitivity revision revision_round2 revision_round3 figs_paper; do
   echo "== $s $(date -u +%H:%M:%S)"
   python3 "scripts/$s.py" > "results/run_$s.log" 2>&1
 done
 python3 scripts/make_tables.py > results/run_make_tables.log 2>&1 || echo "make_tables failed (see results/run_make_tables.log)"
-cp results/figures/G_sdr_by_feature_3alt_compact.pdf results/figures/G_pairs_by_phase_compact.pdf paper/figures/
+cp results/figures/G_sdr_illustration.pdf results/figures/G_sdr_by_feature_3alt_compact.pdf results/figures/G_pairs_by_phase.pdf results/figures/G_pod.pdf paper/figures/
 echo "== done $(date -u +%H:%M:%S)   (then: cd paper && latexmk -pdf main.tex)"
